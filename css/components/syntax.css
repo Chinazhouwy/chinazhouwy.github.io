@@ -1,0 +1,354 @@
+figure.highlight {
+  position: relative;
+  margin: 1.5em 0;
+  padding: 2em 0 0;
+  border-radius: 8px;
+  background: var(--code-bg, #f6f6f6);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  font-family: 'Fira Code', 'Source Code Pro', Consolas, Monaco, 'Andale Mono', monospace;
+  line-height: 1.5;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+figure.highlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2em;
+  background: inherit;
+  border-bottom: 1px solid #ebedef;
+  border-radius: 8px 8px 0 0;
+}
+figure.highlight .mac-buttons {
+  position: absolute;
+  top: 0.7em;
+  left: 1em;
+  display: flex;
+  gap: 0.5em;
+}
+figure.highlight .mac-buttons span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+figure.highlight .mac-buttons span.red {
+  background: #ff5f56;
+  border: 1px solid #e0443e;
+}
+figure.highlight .mac-buttons span.yellow {
+  background: #ffbd2e;
+  border: 1px solid #dea123;
+}
+figure.highlight .mac-buttons span.green {
+  background: #27c93f;
+  border: 1px solid #1aab29;
+}
+figure.highlight .lang-label {
+  position: absolute;
+  top: 0.4em;
+  right: 3.2em;
+  font-size: 0.95em;
+  color: #666;
+  font-family: inherit;
+  opacity: 0.8;
+  padding: 0.3em 0.8em;
+  background: transparent;
+  border-radius: 0 0 6px 6px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+figure.highlight .copy-button {
+  position: absolute;
+  top: 0.45em;
+  right: 0.8em;
+  padding: 0.3em;
+  color: #666;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9em;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+  line-height: 1.2;
+}
+figure.highlight .copy-button:hover {
+  opacity: 1;
+  color: #f03838;
+}
+figure.highlight .copy-button i {
+  font-size: 1.1em;
+}
+figure.highlight .copy-tooltip {
+  position: absolute;
+  top: 0.5em;
+  right: 4.5em;
+  padding: 0.2em 0.6em;
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  border-radius: 3px;
+  font-size: 0.85em;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: all 0.2s ease;
+}
+figure.highlight .copy-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+figure.highlight table {
+  width: 100%;
+  border-spacing: 0;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--code-bg, #f6f6f6);
+}
+figure.highlight .gutter {
+  padding: 0.5em 0.8em;
+  border-right: 1px solid #ebedef;
+  background-color: transparent;
+}
+figure.highlight .gutter pre {
+  margin: 0;
+  color: #9e9e9e;
+  font-size: 0.95em;
+  text-align: right;
+  user-select: none;
+  line-height: 0.8em;
+}
+figure.highlight .gutter .line {
+  height: 0.8em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+figure.highlight .code {
+  padding: 0.5em 1em;
+  width: 100%;
+  background-color: transparent;
+}
+figure.highlight .code pre {
+  margin: 0;
+  color: #383a42;
+  font-size: 0.95em;
+  white-space: pre;
+  overflow: visible;
+  line-height: 0.8em;
+}
+figure.highlight .code .line {
+  height: 0.8em;
+  min-height: 0.8em;
+  display: flex;
+  align-items: center;
+}
+figure.highlight .marked {
+  background: rgba(0,0,0,0.05);
+}
+figure.highlight pre .comment,
+figure.highlight pre .quote {
+  color: #a0a1a7;
+  font-style: italic;
+}
+figure.highlight pre .doctag,
+figure.highlight pre .keyword,
+figure.highlight pre .formula {
+  color: #a626a4;
+}
+figure.highlight pre .section,
+figure.highlight pre .name,
+figure.highlight pre .selector-tag,
+figure.highlight pre .deletion,
+figure.highlight pre .subst {
+  color: #e45649;
+}
+figure.highlight pre .literal {
+  color: #0184bb;
+}
+figure.highlight pre .string,
+figure.highlight pre .regexp,
+figure.highlight pre .addition,
+figure.highlight pre .attribute,
+figure.highlight pre .meta .string {
+  color: #50a14f;
+}
+figure.highlight pre .attr,
+figure.highlight pre .variable,
+figure.highlight pre .template-variable,
+figure.highlight pre .type,
+figure.highlight pre .selector-class,
+figure.highlight pre .selector-attr,
+figure.highlight pre .selector-pseudo,
+figure.highlight pre .number {
+  color: #986801;
+}
+figure.highlight pre .symbol,
+figure.highlight pre .bullet,
+figure.highlight pre .link,
+figure.highlight pre .meta,
+figure.highlight pre .selector-id,
+figure.highlight pre .title {
+  color: #4078f2;
+}
+figure.highlight pre .built_in,
+figure.highlight pre .title.class_,
+figure.highlight pre .class .title {
+  color: #c18401;
+}
+figure.highlight pre .emphasis {
+  font-style: italic;
+}
+figure.highlight pre .strong {
+  font-weight: bold;
+}
+code {
+  margin: 0 0.2em;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Fira Code', 'Source Code Pro', monospace;
+  background: rgba(0,0,0,0.05);
+  color: #e45649;
+}
+@media (prefers-color-scheme: dark) {
+  figure.highlight {
+    background: var(--code-bg, #2d2d2d);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  figure.highlight::before {
+    border-bottom-color: #3e4451;
+  }
+  figure.highlight .mac-buttons span {
+    opacity: 0.8;
+  }
+  figure.highlight .mac-buttons span:hover {
+    opacity: 1;
+  }
+  figure.highlight .lang-label {
+    color: #888;
+    background: transparent;
+  }
+  figure.highlight .copy-button {
+    color: #888;
+  }
+  figure.highlight .copy-button:hover {
+    color: #f03838;
+  }
+  figure.highlight table {
+    background: var(--code-bg, #2d2d2d);
+  }
+  figure.highlight .gutter {
+    border-right-color: #3e4451;
+    background-color: transparent;
+  }
+  figure.highlight .gutter pre {
+    color: #636d83;
+  }
+  figure.highlight .code {
+    background-color: transparent;
+  }
+  figure.highlight .code pre {
+    color: #abb2bf;
+  }
+  figure.highlight .marked {
+    background: rgba(255,255,255,0.05);
+  }
+  figure.highlight pre .comment,
+  figure.highlight pre .quote {
+    color: #5c6370;
+  }
+  figure.highlight pre .doctag,
+  figure.highlight pre .keyword,
+  figure.highlight pre .formula {
+    color: #c678dd;
+  }
+  figure.highlight pre .section,
+  figure.highlight pre .name,
+  figure.highlight pre .selector-tag,
+  figure.highlight pre .deletion,
+  figure.highlight pre .subst {
+    color: #e06c75;
+  }
+  figure.highlight pre .literal {
+    color: #56b6c2;
+  }
+  figure.highlight pre .string,
+  figure.highlight pre .regexp,
+  figure.highlight pre .addition,
+  figure.highlight pre .attribute,
+  figure.highlight pre .meta .string {
+    color: #98c379;
+  }
+  figure.highlight pre .attr,
+  figure.highlight pre .variable,
+  figure.highlight pre .template-variable,
+  figure.highlight pre .type,
+  figure.highlight pre .selector-class,
+  figure.highlight pre .selector-attr,
+  figure.highlight pre .selector-pseudo,
+  figure.highlight pre .number {
+    color: #d19a66;
+  }
+  figure.highlight pre .symbol,
+  figure.highlight pre .bullet,
+  figure.highlight pre .link,
+  figure.highlight pre .meta,
+  figure.highlight pre .selector-id,
+  figure.highlight pre .title {
+    color: #61aeee;
+  }
+  figure.highlight pre .built_in,
+  figure.highlight pre .title.class_,
+  figure.highlight pre .class .title {
+    color: #e6c07b;
+  }
+  code {
+    background: rgba(255,255,255,0.1);
+    color: #e06c75;
+  }
+}
+[data-theme="dark"] figure.highlight {
+  background: var(--code-bg, #2d2d2d);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+[data-theme="dark"] figure.highlight::before {
+  border-bottom-color: #3e4451;
+}
+[data-theme="dark"] figure.highlight .mac-buttons span {
+  opacity: 0.8;
+}
+[data-theme="dark"] figure.highlight .mac-buttons span:hover {
+  opacity: 1;
+}
+[data-theme="dark"] figure.highlight .lang-label {
+  color: #888;
+  background: transparent;
+}
+[data-theme="dark"] figure.highlight .copy-button {
+  color: #888;
+}
+[data-theme="dark"] figure.highlight .copy-button:hover {
+  color: #f03838;
+}
+[data-theme="dark"] figure.highlight table {
+  background: var(--code-bg, #2d2d2d);
+}
+[data-theme="dark"] figure.highlight .gutter {
+  border-right-color: #3e4451;
+  background-color: transparent;
+}
+[data-theme="dark"] figure.highlight .gutter pre {
+  color: #636d83;
+}
+[data-theme="dark"] figure.highlight .code {
+  background-color: transparent;
+}
+[data-theme="dark"] figure.highlight .code pre {
+  color: #abb2bf;
+}
+[data-theme="dark"] figure.highlight .marked {
+  background: rgba(255,255,255,0.05);
+}

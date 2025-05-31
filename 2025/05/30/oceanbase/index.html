@@ -1,0 +1,868 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>oceanbase 数据库学习笔记 | 隔壁家滴怪蜀黍</title>
+
+  
+    <link rel="icon" href="/favicon_io/favicon.ico">
+    <link rel="apple-touch-icon" href="/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon_io/android-chrome-192x192.png">
+    <link rel="manifest" href="/favicon_io/site.webmanifest">
+  
+
+  
+  <meta name="author" content="chinazhouwy">
+  
+
+  
+  <meta name="description" content="OceanBase 的集群架构有点复杂，包括 集群， Zone，Observer，租户，分区，Tablet，日志流，副本，需要对比理解下">
+  
+
+  
+  
+  <meta name="keywords" content="数据库,oceanbase">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="oceanbase 数据库学习笔记"/>
+
+  <meta property="og:site_name" content="隔壁家滴怪蜀黍"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="隔壁家滴怪蜀黍" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap">
+  <script>
+    // 主题切换功能
+    function initTheme() {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const savedTheme = localStorage.getItem('darkMode');
+      const darkModeEnabled = savedTheme !== null ? savedTheme === 'true' : prefersDark;
+      document.documentElement.setAttribute('data-theme', darkModeEnabled ? 'dark' : 'light');
+      const themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle) {
+        themeToggle.innerHTML = darkModeEnabled ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+      }
+    }
+
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('darkMode', newTheme === 'dark');
+      const themeToggle = document.getElementById('theme-toggle');
+      themeToggle.innerHTML = newTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    }
+    
+    // 回到顶部功能
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+    
+    // 控制回到顶部按钮的显示和隐藏
+    function toggleScrollTopButton() {
+      const scrollTopBtn = document.getElementById('scroll-top');
+      if (window.scrollY > 300) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    }
+
+    // 在页面加载时初始化主题
+    document.addEventListener('DOMContentLoaded', function() {
+      initTheme();
+      // 监听滚动事件
+      window.addEventListener('scroll', toggleScrollTopButton);
+    });
+
+    // 监听系统主题变化
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (localStorage.getItem('darkMode') === null) {
+        document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+          themeToggle.innerHTML = e.matches ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        }
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('figure.highlight').forEach(function(block) {
+        // 添加 MAC 风格按钮
+        const macButtons = document.createElement('div');
+        macButtons.className = 'mac-buttons';
+        macButtons.innerHTML = `
+          <span class="red"></span>
+          <span class="yellow"></span>
+          <span class="green"></span>
+        `;
+        block.appendChild(macButtons);
+        
+        // 获取代码语言
+        let language = '';
+        // 尝试从 class 获取语言
+        const classes = Array.from(block.classList);
+        const languageClass = classes.find(cls => cls !== 'highlight');
+        if (languageClass) {
+          language = languageClass;
+        }
+        // 尝试从 figcaption 获取语言
+        const figcaption = block.querySelector('figcaption');
+        if (!language && figcaption) {
+          language = figcaption.textContent.trim();
+        }
+        // 尝试从代码块的第一个元素获取语言
+        if (!language) {
+          const firstLine = block.querySelector('.code .line:first-child');
+          if (firstLine) {
+            const text = firstLine.textContent.trim();
+            if (text.startsWith('```')) {
+              language = text.replace('```', '').trim();
+            }
+          }
+        }
+        
+        // 添加语言标签
+        if (language) {
+          const langLabel = document.createElement('span');
+          langLabel.className = 'lang-label';
+          // 首字母大写
+          language = language.charAt(0).toUpperCase() + language.slice(1);
+          langLabel.textContent = language;
+          block.appendChild(langLabel);
+        }
+        
+        // 添加复制按钮
+        const copyButton = document.createElement('button');
+        copyButton.className = 'copy-button';
+        copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+        block.appendChild(copyButton);
+
+        // 复制功能
+        copyButton.addEventListener('click', async function() {
+          try {
+            // 获取代码内容
+            let codeLines = [];
+            
+            // 获取所有代码行
+            if (block.querySelector('table')) {
+              // 如果是带行号的代码块，直接从 .line 元素获取内容
+              const rows = block.querySelectorAll('.code .line');
+              rows.forEach(row => {
+                // 移除每行开头的所有空白字符
+                const lineContent = row.textContent.replace(/^\s+/, '');
+                if (lineContent) {
+                  codeLines.push(lineContent);
+                }
+              });
+            } else {
+              // 如果是普通代码块
+              const codeBlock = block.querySelector('code');
+              const lines = codeBlock.textContent.split('\n');
+              lines.forEach(line => {
+                // 移除每行开头的所有空白字符
+                const lineContent = line.replace(/^\s+/, '');
+                if (lineContent) {
+                  codeLines.push(lineContent);
+                }
+              });
+            }
+            
+            // 组合处理后的代码
+            const processedCode = codeLines.join('\n').trim();
+            
+            // 使用 Clipboard API
+            await navigator.clipboard.writeText(processedCode);
+            
+            // 显示成功状态
+            copyButton.innerHTML = '<i class="fas fa-check"></i>';
+            
+            // 2秒后恢复
+            setTimeout(function() {
+              copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+            }, 2000);
+          } catch (err) {
+            // 如果 Clipboard API 失败，使用传统方法
+            const textarea = document.createElement('textarea');
+            textarea.value = processedCode;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+              document.execCommand('copy');
+              copyButton.innerHTML = '<i class="fas fa-check"></i>';
+              setTimeout(function() {
+                copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+              }, 2000);
+            } catch (err) {
+              console.error('复制失败:', err);
+            }
+            document.body.removeChild(textarea);
+          }
+        });
+      });
+    });
+  </script>
+  <style>
+    .floating-btn {
+      position: fixed;
+      bottom: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--theme-color, #f03838);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .floating-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    #theme-toggle {
+      right: 20px;
+    }
+    
+    #scroll-top {
+      right: 70px; /* 位于夜间模式按钮旁边 */
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+    }
+    
+    #scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+<button id="theme-toggle" class="floating-btn" onclick="toggleTheme()" aria-label="切换主题">
+  <i class="fas fa-moon"></i>
+</button>
+<button id="scroll-top" class="floating-btn" onclick="scrollToTop()" aria-label="回到顶部">
+  <i class="fas fa-arrow-up"></i>
+</button>
+<div class="blog">
+  <div class="content">
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">隔壁家滴怪蜀黍</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+    </ul>
+  </nav>
+</header>
+    
+    <main class="site-main posts-loop">
+      <article>
+
+  
+    
+    <h3 class="article-title"><span>oceanbase 数据库学习笔记</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2025/05/30/oceanbase/" rel="bookmark">
+        <time class="entry-date published" datetime="2025-05-30T01:24:55.000Z">
+          2025-05-30
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <ul>
+<li><a href="#oceanbase-%E7%9A%84%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84">oceanbase 的集群架构</a><ul>
+<li><a href="#%E4%B8%80%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E7%9A%84%E5%BD%A2%E8%B1%A1%E6%AF%94%E5%96%BB">一、核心组件的形象比喻</a></li>
+<li><a href="#%E4%BA%8C%E7%BB%84%E4%BB%B6%E5%85%B3%E7%B3%BB%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90">二、组件关系的深度解析</a><ul>
+<li><a href="#1-%E9%9B%86%E7%BE%A4%E4%B8%8E-zone%E5%85%A8%E7%90%83%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%BD%91%E7%BB%9C">1. 集群与 Zone：全球图书馆网络</a></li>
+<li><a href="#2-observer-%E4%B8%8E%E7%A7%9F%E6%88%B7%E4%B9%A6%E6%9E%B6%E4%B8%8E%E5%80%9F%E9%98%85%E8%80%85">2. Observer 与租户：书架与借阅者</a></li>
+<li><a href="#3-%E5%88%86%E5%8C%BA%E4%B8%8E-tablet%E4%B9%A6%E7%B1%8D%E5%88%86%E7%B1%BB%E4%B8%8E%E4%B9%A6%E6%9E%B6%E6%8E%92">3. 分区与 Tablet：书籍分类与书架排</a></li>
+<li><a href="#4-%E6%97%A5%E5%BF%97%E6%B5%81%E4%B8%8E%E5%89%AF%E6%9C%AC%E5%8F%B0%E8%B4%A6%E4%B8%8E%E5%A4%8D%E6%9C%AC">4. 日志流与副本：台账与复本</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89%E5%8A%A8%E6%80%81%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6">三、动态管理机制</a><ul>
+<li><a href="#1-%E6%95%B0%E6%8D%AE%E5%9D%87%E8%A1%A1%E4%B9%A6%E6%9E%B6%E6%95%B4%E7%90%86">1. 数据均衡：书架整理</a></li>
+<li><a href="#2-%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D%E4%B9%A6%E7%B1%8D%E8%A1%A5%E5%BD%95">2. 故障恢复：书籍补录</a></li>
+<li><a href="#3-%E9%AB%98%E5%8F%AF%E7%94%A8%E4%BF%9D%E9%9A%9C%E5%A4%8D%E6%9C%AC%E5%86%97%E4%BD%99">3. 高可用保障：复本冗余</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%9B%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AF%B9%E6%AF%94">四、与文件系统的对比</a></li>
+<li><a href="#%E4%BA%94%E5%85%B8%E5%9E%8B%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">五、典型应用场景</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="oceanbase-的集群架构"><a href="#oceanbase-的集群架构" class="headerlink" title="oceanbase 的集群架构"></a>oceanbase 的集群架构</h2><p>我们可以将 OceanBase 的架构类比为一个 <strong>大型图书馆系统</strong>，通过以下场景帮助您理解各组件的关系：</p>
+<h3 id="一、核心组件的形象比喻"><a href="#一、核心组件的形象比喻" class="headerlink" title="一、核心组件的形象比喻"></a>一、核心组件的形象比喻</h3><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>图书馆类比</th>
+<th>核心功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>集群</strong></td>
+<td>整个图书馆系统（含所有分馆、书籍、管理员）</td>
+<td>管理所有资源，对外提供统一服务</td>
+</tr>
+<tr>
+<td><strong>Zone</strong></td>
+<td>不同城市的分馆（如北京馆、上海馆、深圳馆）</td>
+<td>物理隔离的独立区域，用于容灾和资源分配</td>
+</tr>
+<tr>
+<td><strong>Observer</strong></td>
+<td>分馆内的书架（每个书架含多排书籍）</td>
+<td>物理服务器，存储和处理数据</td>
+</tr>
+<tr>
+<td><strong>租户</strong></td>
+<td>不同类型的借阅者（如学生、教师、员工）</td>
+<td>逻辑隔离的用户组，拥有独立的资源配额和权限</td>
+</tr>
+<tr>
+<td><strong>分区</strong></td>
+<td>书籍按类别划分的区域（如小说区、科技区、历史区）</td>
+<td>将大表数据分散到多个 Observer，提升读写性能和扩展性</td>
+</tr>
+<tr>
+<td><strong>Tablet</strong></td>
+<td>每个类别中的具体书架排（如小说区第 1-10 排）</td>
+<td>数据的最小存储单元，每个 Tablet 包含连续的数据块</td>
+</tr>
+<tr>
+<td><strong>日志流</strong></td>
+<td>书籍借阅 / 归还的记录台账（每排书架一本台账）</td>
+<td>记录 Tablet 的所有变更操作，确保数据一致性和故障恢复</td>
+</tr>
+<tr>
+<td><strong>副本</strong></td>
+<td>同一本书的多个复本（存放在不同分馆的书架上）</td>
+<td>数据冗余备份，保证高可用性和容灾能力</td>
+</tr>
+</tbody></table>
+<h3 id="二、组件关系的深度解析"><a href="#二、组件关系的深度解析" class="headerlink" title="二、组件关系的深度解析"></a>二、组件关系的深度解析</h3><h4 id="1-集群与-Zone：全球图书馆网络"><a href="#1-集群与-Zone：全球图书馆网络" class="headerlink" title="1. 集群与 Zone：全球图书馆网络"></a>1. 集群与 Zone：全球图书馆网络</h4><ul>
+<li><strong>集群</strong>是整个图书馆系统，包含所有分馆（Zone）、书籍（数据）和管理员（控制节点）。</li>
+<li><strong>Zone</strong>是物理隔离的分馆，例如北京、上海、深圳三个分馆。每个 Zone 独立供电、网络，可应对城市级灾难。</li>
+<li><strong>示例</strong>：当北京馆因火灾关闭时，深圳馆的副本数据仍可提供服务，实现城市级容灾。</li>
+</ul>
+<h4 id="2-Observer-与租户：书架与借阅者"><a href="#2-Observer-与租户：书架与借阅者" class="headerlink" title="2. Observer 与租户：书架与借阅者"></a>2. Observer 与租户：书架与借阅者</h4><ul>
+<li><strong>Observer</strong>是分馆内的书架，每个书架存储特定类型的书籍（数据）。</li>
+<li><strong>租户</strong>是不同的借阅者群体，例如学生租户只能借阅小说区，教师租户可借阅科技区。</li>
+<li><strong>示例</strong>：学生租户的订单数据存放在北京馆的 Observer1 书架，教师租户的支付数据存放在上海馆的 Observer2 书架。</li>
+</ul>
+<h4 id="3-分区与-Tablet：书籍分类与书架排"><a href="#3-分区与-Tablet：书籍分类与书架排" class="headerlink" title="3. 分区与 Tablet：书籍分类与书架排"></a>3. 分区与 Tablet：书籍分类与书架排</h4><ul>
+<li><strong>分区</strong>将大表数据按规则（如用户 ID 哈希）分散到多个 Observer。例如用户表按 ID 分为 10 个分区，每个分区存储 100 万用户数据。</li>
+<li><strong>Tablet</strong>是分区的物理切片，每个分区被划分为多个 Tablet（如 100 个），每个 Tablet 存储 1 万条数据。</li>
+<li><strong>示例</strong>：用户 ID 为 1-10000 的数据存放在 Observer1 的 Tablet1，ID 为 10001-20000 的数据存放在 Observer2 的 Tablet2。</li>
+</ul>
+<h4 id="4-日志流与副本：台账与复本"><a href="#4-日志流与副本：台账与复本" class="headerlink" title="4. 日志流与副本：台账与复本"></a>4. 日志流与副本：台账与复本</h4><ul>
+<li><strong>日志流</strong>是每个 Tablet 的变更记录台账，记录所有写入操作（如新增用户、修改订单）。</li>
+<li><strong>副本</strong>是 Tablet 的冗余备份，通常每个 Tablet 有 3 个副本，分布在不同 Zone 的 Observer 上。</li>
+<li><strong>示例</strong>：Tablet1 在深圳馆的 Observer3 有一个副本，当北京馆的 Observer1 故障时，系统自动切换到深圳馆的副本继续服务。</li>
+</ul>
+<h3 id="三、动态管理机制"><a href="#三、动态管理机制" class="headerlink" title="三、动态管理机制"></a>三、动态管理机制</h3><h4 id="1-数据均衡：书架整理"><a href="#1-数据均衡：书架整理" class="headerlink" title="1. 数据均衡：书架整理"></a>1. 数据均衡：书架整理</h4><ul>
+<li><strong>场景</strong>：随着借阅者增多，深圳馆的书架负载过高。</li>
+<li><strong>机制</strong>：系统自动将部分 Tablet 迁移到上海馆的空闲书架，并调整日志流归属，确保负载均衡。</li>
+</ul>
+<h4 id="2-故障恢复：书籍补录"><a href="#2-故障恢复：书籍补录" class="headerlink" title="2. 故障恢复：书籍补录"></a>2. 故障恢复：书籍补录</h4><ul>
+<li><strong>场景</strong>：北京馆的 Observer1 硬盘损坏，导致 Tablet1 数据丢失。</li>
+<li><strong>机制</strong>：系统通过深圳馆的副本和日志流，自动恢复数据并重建 Observer1 的 Tablet1。</li>
+</ul>
+<h4 id="3-高可用保障：复本冗余"><a href="#3-高可用保障：复本冗余" class="headerlink" title="3. 高可用保障：复本冗余"></a>3. 高可用保障：复本冗余</h4><ul>
+<li><strong>机制</strong>：每个 Tablet 的 3 个副本分布在不同 Zone，通过仲裁机制（如多数派投票）确保数据一致性。</li>
+<li><strong>示例</strong>：当北京馆和上海馆同时故障时，深圳馆的副本仍可提供服务，因为它拥有多数派（2/3）的副本。</li>
+</ul>
+<h3 id="四、与文件系统的对比"><a href="#四、与文件系统的对比" class="headerlink" title="四、与文件系统的对比"></a>四、与文件系统的对比</h3><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>OceanBase 组件</th>
+<th>文件系统类比（如 ext4/XFS）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>存储单元</strong></td>
+<td>Tablet</td>
+<td>Block（数据块）</td>
+</tr>
+<tr>
+<td><strong>日志机制</strong></td>
+<td>日志流（记录元数据和数据变更）</td>
+<td>Journal（仅记录元数据变更）</td>
+</tr>
+<tr>
+<td><strong>高可用性</strong></td>
+<td>多副本 + 跨 Zone 容灾</td>
+<td>RAID（依赖硬件冗余）</td>
+</tr>
+<tr>
+<td><strong>扩展性</strong></td>
+<td>动态水平扩展（增加 Observer）</td>
+<td>静态分区（需手动调整）</td>
+</tr>
+</tbody></table>
+<h3 id="五、典型应用场景"><a href="#五、典型应用场景" class="headerlink" title="五、典型应用场景"></a>五、典型应用场景</h3><ul>
+<li><strong>金融核心系统</strong>：如工商银行的对公理财系统，通过三地五中心集群（3 个 Zone）和五副本机制，实现秒级故障切换。</li>
+<li><strong>电商订单系统</strong>：如小米的订单数据库，按用户 ID 分区，每个分区包含多个 Tablet，支持每秒数万笔交易。</li>
+<li><strong>基金清算系统</strong>：如平安基金的 TA 系统，通过分布式架构将清算耗时从 2 小时缩短至 30 分钟。</li>
+</ul>
+<p>通过这个类比，您可以更直观地理解 OceanBase 各组件的协同工作原理。如果需要深入了解某一机制（如日志流的动态调整、副本仲裁策略），欢迎进一步探讨！</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a href="/tags/oceanbase/">oceanbase</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+
+
+
+
+
+
+<div class="like-button-container">
+  <button class="like-button" data-path="2025/05/30/oceanbase/">
+    <i class="fas fa-heart"></i>
+    <span class="like-count">0</span>
+  </button>
+  <div class="like-message">
+    <img src="/images/luoziwuhui.svg" alt="落子无悔" class="luoziwuhui-svg">
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
+<script>
+// 初始化 LeanCloud
+try {
+  
+  console.warn('LeanCloud 配置未启用');
+  
+} catch (error) {
+  console.error('LeanCloud 初始化失败:', error);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const likeButton = document.querySelector('.like-button');
+  const likeCount = document.querySelector('.like-count');
+  const path = likeButton.dataset.path;
+  
+  // 检查是否已经点赞过
+  function hasLiked() {
+    const likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '[]');
+    return likedPosts.includes(path);
+  }
+  
+  // 标记文章已点赞
+  function markAsLiked() {
+    const likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '[]');
+    likedPosts.push(path);
+    localStorage.setItem('likedPosts', JSON.stringify(likedPosts));
+    updateLikeButtonState(true);
+  }
+  
+  // 取消文章点赞标记
+  function unmarkAsLiked() {
+    const likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '[]');
+    const index = likedPosts.indexOf(path);
+    if (index > -1) {
+      likedPosts.splice(index, 1);
+      localStorage.setItem('likedPosts', JSON.stringify(likedPosts));
+    }
+    updateLikeButtonState(false);
+  }
+  
+  // 更新按钮状态
+  function updateLikeButtonState(isLiked) {
+    requestAnimationFrame(() => {
+      if (isLiked) {
+        likeButton.classList.add('liked');
+        likeButton.title = '点击取消点赞';
+      } else {
+        likeButton.classList.remove('liked');
+        likeButton.title = '点赞';
+      }
+    });
+  }
+  
+  // 查询当前文章的点赞数
+  async function getLikes() {
+    try {
+      const query = new AV.Query('Likes');
+      query.equalTo('path', path);
+      const result = await query.first();
+      console.log('查询结果:', result);
+      if (!result) {
+        const Like = AV.Object.extend('Likes');
+        const newLike = new Like();
+        newLike.set('path', path);
+        newLike.set('count', 0);
+        return newLike;
+      }
+      return result;
+    } catch (error) {
+      console.error('获取点赞数失败:', error);
+      return null;
+    }
+  }
+  
+  // 更新点赞显示
+  async function updateLikeCount() {
+    try {
+      const like = await getLikes();
+      if (like) {
+        const count = like.get('count') || 0;
+        console.log('当前点赞数:', count);
+        requestAnimationFrame(() => {
+          likeCount.textContent = count;
+        });
+      }
+    } catch (error) {
+      console.error('更新点赞显示失败:', error);
+    }
+  }
+  
+  // 处理点赞事件
+  async function handleLike(event) {
+    // 阻止默认行为和冒泡
+    event.preventDefault();
+    event.stopPropagation();
+    
+    const isLiked = hasLiked();
+    console.log('当前点赞状态:', isLiked);
+    
+    try {
+      let like = await getLikes();
+      if (!like) {
+        console.error('无法获取点赞对象');
+        return;
+      }
+      
+      if (isLiked) {
+        // 取消点赞前检查当前点赞数
+        const currentCount = like.get('count');
+        if (currentCount > 0) {
+          like.increment('count', -1);
+          await like.save();
+          unmarkAsLiked();
+        } else {
+          console.warn('点赞数已经为0，无法继续减少');
+          unmarkAsLiked();
+          return;
+        }
+      } else {
+        // 添加点赞
+        like.increment('count');
+        await like.save();
+        markAsLiked();
+      }
+      
+      const newCount = like.get('count');
+      console.log('操作成功，新的点赞数:', newCount);
+      requestAnimationFrame(() => {
+        likeCount.textContent = newCount;
+      });
+      
+    } catch (error) {
+      console.error('操作失败:', error);
+    }
+  }
+  
+  // 绑定点击和触摸事件
+  likeButton.addEventListener('click', handleLike);
+  likeButton.addEventListener('touchend', handleLike);
+  console.log('点赞按钮事件绑定成功');
+  
+  // 防止触摸滚动
+  likeButton.addEventListener('touchstart', (e) => e.preventDefault());
+  likeButton.addEventListener('touchmove', (e) => e.preventDefault());
+  
+  // 初始化
+  updateLikeCount();
+  updateLikeButtonState(hasLiked());
+});
+</script> 
+
+<div class="post-toc">
+  <div class="toc-toggle">
+    <i class="fas fa-chevron-left"></i>
+  </div>
+  <div class="post-toc-content">
+    <h2>文章目录</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#oceanbase-%E7%9A%84%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84"><span class="toc-text">oceanbase 的集群架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E7%9A%84%E5%BD%A2%E8%B1%A1%E6%AF%94%E5%96%BB"><span class="toc-text">一、核心组件的形象比喻</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%BB%84%E4%BB%B6%E5%85%B3%E7%B3%BB%E7%9A%84%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90"><span class="toc-text">二、组件关系的深度解析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E9%9B%86%E7%BE%A4%E4%B8%8E-Zone%EF%BC%9A%E5%85%A8%E7%90%83%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%BD%91%E7%BB%9C"><span class="toc-text">1. 集群与 Zone：全球图书馆网络</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Observer-%E4%B8%8E%E7%A7%9F%E6%88%B7%EF%BC%9A%E4%B9%A6%E6%9E%B6%E4%B8%8E%E5%80%9F%E9%98%85%E8%80%85"><span class="toc-text">2. Observer 与租户：书架与借阅者</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%88%86%E5%8C%BA%E4%B8%8E-Tablet%EF%BC%9A%E4%B9%A6%E7%B1%8D%E5%88%86%E7%B1%BB%E4%B8%8E%E4%B9%A6%E6%9E%B6%E6%8E%92"><span class="toc-text">3. 分区与 Tablet：书籍分类与书架排</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%97%A5%E5%BF%97%E6%B5%81%E4%B8%8E%E5%89%AF%E6%9C%AC%EF%BC%9A%E5%8F%B0%E8%B4%A6%E4%B8%8E%E5%A4%8D%E6%9C%AC"><span class="toc-text">4. 日志流与副本：台账与复本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%8A%A8%E6%80%81%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6"><span class="toc-text">三、动态管理机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%95%B0%E6%8D%AE%E5%9D%87%E8%A1%A1%EF%BC%9A%E4%B9%A6%E6%9E%B6%E6%95%B4%E7%90%86"><span class="toc-text">1. 数据均衡：书架整理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D%EF%BC%9A%E4%B9%A6%E7%B1%8D%E8%A1%A5%E5%BD%95"><span class="toc-text">2. 故障恢复：书籍补录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E9%AB%98%E5%8F%AF%E7%94%A8%E4%BF%9D%E9%9A%9C%EF%BC%9A%E5%A4%8D%E6%9C%AC%E5%86%97%E4%BD%99"><span class="toc-text">3. 高可用保障：复本冗余</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-text">四、与文件系统的对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%85%B8%E5%9E%8B%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">五、典型应用场景</span></a></li></ol></li></ol>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tocToggle = document.querySelector('.toc-toggle');
+  const postToc = document.querySelector('.post-toc');
+  const tocLinks = document.querySelectorAll('.toc-link');
+  const headers = document.querySelectorAll('article h1[id], article h2[id], article h3[id], article h4[id], article h5[id], article h6[id]');
+  let activeLink = null;
+  let isScrolling = false;
+  
+  // 检测是否是移动设备
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  
+  // 切换目录显示/隐藏
+  tocToggle.addEventListener('click', function() {
+    postToc.classList.toggle('toc-hidden');
+    tocToggle.classList.toggle('toc-toggle-hidden');
+    
+    // 在移动端，点击后立即应用样式
+    if (isMobile) {
+      requestAnimationFrame(() => {
+        tocToggle.querySelector('i').style.color = postToc.classList.contains('toc-hidden') ? '#F03838' : '';
+      });
+    }
+  });
+
+  // 点击目录项平滑滚动
+  tocLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = decodeURIComponent(link.getAttribute('href')).slice(1);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        isScrolling = true;
+        const offset = 80; // 头部固定导航的高度
+        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+
+        // 更新激活状态
+        if (activeLink) {
+          activeLink.classList.remove('active');
+        }
+        link.classList.add('active');
+        activeLink = link;
+
+        // 滚动结束后重置标志
+        setTimeout(() => {
+          isScrolling = false;
+        }, 1000);
+      }
+    });
+  });
+
+  // 滚动时高亮当前目录项
+  function updateActiveLink() {
+    if (isScrolling) return; // 如果是点击导航引起的滚动，不更新高亮
+
+    let currentSection = '';
+    let minDistance = Infinity;
+    const scrollPosition = window.scrollY + 100; // 考虑顶部偏移
+
+    headers.forEach(header => {
+      const distance = Math.abs(header.getBoundingClientRect().top);
+      if (distance < minDistance) {
+        minDistance = distance;
+        currentSection = '#' + header.id;
+      }
+    });
+
+    if (activeLink) {
+      activeLink.classList.remove('active');
+    }
+    
+    tocLinks.forEach(link => {
+      if (decodeURIComponent(link.getAttribute('href')) === currentSection) {
+        link.classList.add('active');
+        activeLink = link;
+        
+        // 确保当前项在视图中
+        const tocContainer = document.querySelector('.post-toc');
+        const linkRect = link.getBoundingClientRect();
+        const containerRect = tocContainer.getBoundingClientRect();
+        
+        if (linkRect.bottom > containerRect.bottom || linkRect.top < containerRect.top) {
+          link.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'nearest'
+          });
+        }
+      }
+    });
+  }
+
+  // 使用 requestAnimationFrame 优化滚动事件
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateActiveLink();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // 初始化高亮
+  updateActiveLink();
+});
+</script>
+
+
+    
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2025 chinazhouwy
+    
+  </p>
+</footer>
+    
+    
+    
+    
+    
+    <script src="/js/lang-detector.js"></script>
+    
+    
+    <script src="/js/footnote-popup.js"></script>
+    
+
+    <!-- Mermaid.js CDN 引入 -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+      // 初始化 mermaid
+      mermaid.initialize({ startOnLoad: true });
+      document.addEventListener('DOMContentLoaded', function() {
+        // 查找所有 mermaid 代码块
+        document.querySelectorAll('pre code.language-mermaid, pre code.mermaid').forEach(function(block) {
+          var div = document.createElement('div');
+          div.className = 'mermaid';
+          div.textContent = block.textContent;
+          block.parentNode.parentNode.replaceWith(div);
+        });
+        // 重新初始化 mermaid
+        if (window.mermaid) {
+          mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+        }
+      });
+    </script>
+  </div>
+</div>
+</body>
+</html>

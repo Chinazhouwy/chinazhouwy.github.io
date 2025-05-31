@@ -1,0 +1,95 @@
+@font-face {
+  font-family: 'XingKai';
+  font-display: swap;
+  src: url("../fonts/XingKai.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'MaShanZheng';
+  font-display: swap;
+  src: url("https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap");
+  src: local('Ma Shan Zheng'), url("../fonts/MaShanZheng-Regular.ttf") format('truetype');
+}
+.like-button-container {
+  text-align: center;
+  margin: 2em 0;
+  position: relative;
+}
+.like-button {
+  background: none;
+  border: 2px solid #f03838;
+  color: #f03838;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  margin-bottom: 10px;
+}
+.like-button:hover:not(:disabled) {
+  background: #f03838;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(240,56,56,0.3);
+}
+.like-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+.like-button.liked {
+  background: #f03838;
+  color: #fff;
+}
+.like-button.liked:hover {
+  background: none;
+  color: #f03838;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(240,56,56,0.3);
+}
+.like-button.liked + .like-message {
+  opacity: 1;
+  transform: translateY(0);
+}
+.like-button i {
+  margin-right: 8px;
+  transition: transform 0.3s ease;
+}
+.liked .like-button i {
+  transform: scale(1.1);
+}
+.like-button .like-count {
+  display: inline-block;
+  min-width: 20px;
+}
+.like-message {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: -35px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+.like-message .luoziwuhui-svg {
+  height: 30px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+@media (prefers-color-scheme: dark) {
+  .like-button {
+    background: rgba(240,56,56,0.1);
+  }
+  .like-button:hover:not(:disabled) {
+    background: #f03838;
+  }
+  .like-button.liked {
+    background: #f03838;
+  }
+  .like-button.liked:hover {
+    background: rgba(240,56,56,0.1);
+  }
+  .like-message {
+    color: #f03838;
+  }
+}
