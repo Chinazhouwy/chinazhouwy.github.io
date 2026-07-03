@@ -1,18 +1,18 @@
-# 后续抽题计划（23-200）
+# 后续题目计划（23-216）
 
-> 基线提交点：`00cf77fa4354eca3fac184b49d2a7ccf1d707455`
-> 基线说明：截至该提交，`practice/01` 到 `practice/22` 已完成，后续抽题从第 23 题开始。
-> 后续规则：每次继续抽题前，先执行 `git fetch origin`，对比 `00cf77fa4354eca3fac184b49d2a7ccf1d707455..origin/master` 之后是否有 Hermes 新增题目或新资料；如果有，先把新增内容纳入来源，再继续从未完成题号抽。
+> 进度必须以当前 `practice/` 文件和最近会话为准，不使用历史提交号推断。
+> 状态约定：`✅ 已完成` 表示已有练习文件；`🟡 已练习，待补档` 表示已有对话记录但文件缺失，不重新抽题；无标记表示尚未练习。
 
 ---
 
-## 已完成
+## 题池结构
 
 | 范围 | 状态 |
 |------|------|
 | 1-22 | 已完成，暂不重复抽 |
-| 23-122 | 核心 100 道母题 |
+| 23-122 | 核心 100 道母题，当前推进至第 49 题 |
 | 123-200 | 补充题池，覆盖边角题、低频题、手撕题和项目拷打题 |
+| 201-216 | 网易 Agent 面经补充题池 |
 
 ---
 
@@ -27,26 +27,26 @@
 | 27 | Spring | Spring AOP 代理原理是什么？JDK 动态代理和 CGLIB 怎么选？事务为什么会失效？ | `middleware/vipshop-java-interview.md`; `java/baidu-java-backend-round1.md`; `java/baidu-java-backend-round2.md` |
 | 28 | MQ | RabbitMQ 如何保证可靠投递、可靠消费、死信队列和幂等？ | `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `java/eleme-java-backend-round1.md` |
 | 29 | MySQL | InnoDB 行锁、间隙锁、next-key lock 和死锁排查怎么讲？ | `java/cainiao-java-backend-round2-mysql.md`; `tencent/2026-05-27-tencent-cloud-final-round.md`; `practice/06-mvcc.md` |
-| 30 | Redis | Redis 热点 Key、大 Key、缓存击穿的生产处理方案？ | `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `java/megvii-java-round1-12-questions.md`; `middleware/vipshop-java-interview.md` |
+| 30 | Redis | Redis 热点 Key、大 Key、缓存击穿的生产处理方案？（🟡 已练习，待补档） | `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `java/megvii-java-round1-12-questions.md`; `middleware/vipshop-java-interview.md` |
 | 31 | JVM | JVM 类加载机制、双亲委派和打破双亲委派怎么回答？ | `middleware/2026-06-01-jvm-core-principles-troubleshooting.md`; `java/eleme-java-backend-round1.md`; `java/baidu-java-backend-round2-concurrency.md` |
-|| 32 | AI Agent | Agent Memory 怎么设计？短期、长期、摘要、向量记忆如何取舍？（✅ 已完成） | `tencent/2026-06-07-wxg-wechat-pay-cool-jing.md`; `ai-agent/bytedance-agent-interview-round2.md`; `ai-agent/backend-to-agent-transition.md` |
-|| 33 | 系统设计 | 秒杀系统怎么设计？限流、削峰、库存一致性、订单异步化怎么做？（✅ 已完成） | `java/eleme-java-backend-round1.md`; `java/megvii-java-round1-12-questions.md`; `tiktok/2026-05-27-tiktok-ecommerce-backend-round1.md` |
-|| 34 | Java 集合 | ArrayList、LinkedList、HashMap、ConcurrentHashMap 如何选？（✅ 已完成） | `middleware/vipshop-java-interview.md`; `java/meitu-backend-server-round1.md`; `java/megvii-java-round1-12-questions.md` |
-| 35 | Java 并发 | AQS 原理：`state`、CLH 队列、独占/共享模式怎么讲？ | `practice/07-lock-vs-trylock-aqs.md`; `java/pdd-java-backend-round1-concurrency.md`; `java/jd-java-backend-round2-jvm-concurrency.md` |
+| 32 | AI Agent | Agent Memory 怎么设计？短期、长期、摘要、向量记忆如何取舍？（✅ 已完成） | `tencent/2026-06-07-wxg-wechat-pay-cool-jing.md`; `ai-agent/bytedance-agent-interview-round2.md`; `ai-agent/backend-to-agent-transition.md` |
+| 33 | 系统设计 | 秒杀系统怎么设计？限流、削峰、库存一致性、订单异步化怎么做？（✅ 已完成） | `java/eleme-java-backend-round1.md`; `java/megvii-java-round1-12-questions.md`; `tiktok/2026-05-27-tiktok-ecommerce-backend-round1.md` |
+| 34 | Java 集合 | ArrayList、LinkedList、HashMap、ConcurrentHashMap 如何选？（✅ 已完成） | `middleware/vipshop-java-interview.md`; `java/meitu-backend-server-round1.md`; `java/megvii-java-round1-12-questions.md` |
+| 35 | Java 并发 | AQS 原理：`state`、CLH 队列、独占/共享模式怎么讲？（🟡 已练习，待补档） | `practice/07-lock-vs-trylock-aqs.md`; `java/pdd-java-backend-round1-concurrency.md`; `java/jd-java-backend-round2-jvm-concurrency.md` |
 | 36 | Spring | Spring Boot 自动装配原理是什么？Boot 2 和 Boot 3 有什么变化？ | `middleware/vipshop-java-interview.md`; `java/baidu-java-backend-round1.md`; `java/spring-boot-async-4-patterns.md` |
 | 37 | MySQL | redo log、undo log、binlog 分别干什么？两阶段提交是什么？ | `ai-agent/amap-agent-backend-intern-interview.md`; `java/cainiao-java-backend-round2-mysql.md`; `middleware/rocketmq-kafka-transaction-ordering.md` |
-| 38 || Redis | Redis Cluster 和 Sentinel 的区别？主从切换有什么一致性风险？（✅ 已完成） | `java/hupu-java-backend-round2-redis-distributed.md`; `practice/10-distributed-lock.md`; `practice/14-redis-distributed-lock-deep.md` |
-| 39 || MQ | RocketMQ 事务消息、延时消息和顺序消息怎么实现？（✅ 已完成） | `middleware/rocketmq-kafka-transaction-ordering.md`; `java/eleme-java-backend-round1.md`; `practice/22-kafka-consumer-group-rebalance.md` |
-| 40 || AI Agent | Harness 到底是什么？和 Eval、Agent Framework、MCP 的边界是什么？（✅ 已完成） | `codex gpt 修复点.md`; `ai-agent/alibaba-fliggy-backend-interview.md`; `industry/2026-05-25-deepseek-agent-harness-hiring.md` |
-| 41 || AI Agent | LangGraph 的状态图执行模型是什么？和普通 ReAct Loop 有什么区别？（✅ 已完成） | `ai-agent/langgraph-state-machine-engine.md`; `ai-agent/bytedance-agent-interview-round2.md`; `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md` |
-| 42 || RAG | RAG 如何评测和优化？召回率、精排、幻觉率怎么设计指标？（✅ 已完成） | `practice/19-rag-system-design.md`; `ai-agent/taotian-ai-agent-interview.md`; `ai-agent/bytedance-agent-interview-round2.md` |
-| 43 || JVM | 对象分配流程：TLAB、Eden、Minor GC、老年代晋升怎么讲？（✅ 已完成） | `middleware/2026-06-01-jvm-core-principles-troubleshooting.md`; `java/jd-java-backend-round2-jvm-concurrency.md`; `java/megvii-java-round1-12-questions.md` |
-||| 44 || 分布式 | CAP、BASE、Raft 怎么回答？和业务最终一致性有什么关系？（✅ 已完成） | `java/eleme-java-backend-round1.md`; `middleware/rocketmq-kafka-transaction-ordering.md`; `java/baidu-java-backend-round1-shezhao.md` |
-||| 45 || 算法 | LRU 缓存 O(1) 怎么手写？线程安全版本怎么设计？（✅ 已完成） | `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `ai-agent/amap-agent-backend-intern-interview.md`; `middleware/vipshop-java-interview.md` |
-||| 46 || Java 并发 | ThreadLocal 原理、内存泄漏和线程池复用问题怎么回答？（✅ 已完成） | `java/pdd-java-backend-round1-concurrency.md`; `middleware/vipshop-java-interview.md`; `java/baidu-java-backend-round2.md` |
-||| 47 || Java 并发 | CompletableFuture 怎么用？异常处理、超时和线程池隔离怎么做？（✅ 已完成） | `java/eleme-java-backend-round1.md`; `ai-agent/completable-future-production-pitfalls.md`; `java/jd-java-backend-round2-jvm-concurrency.md` |
-||| 48 || MySQL | 深分页怎么优化？覆盖索引、延迟关联、游标翻页怎么选？（✅ 已完成） | `middleware/后端慢SQL优化面经.md`; `java/cainiao-java-backend-round2-mysql.md`; `middleware/大厂SQL高频题第2期.md` |
-||| 49 || Redis | Redis 常用数据结构底层和场景：ZSet、Bitmap、HyperLogLog 怎么用？（✅ 已完成） | `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `java/megvii-java-round1-12-questions.md`; `java/hupu-java-backend-round2-redis-distributed.md` |
+| 38 | Redis | Redis Cluster 和 Sentinel 的区别？主从切换有什么一致性风险？（✅ 已完成） | `java/hupu-java-backend-round2-redis-distributed.md`; `practice/10-distributed-lock.md`; `practice/14-redis-distributed-lock-deep.md` |
+| 39 | MQ | RocketMQ 事务消息、延时消息和顺序消息怎么实现？（✅ 已完成） | `middleware/rocketmq-kafka-transaction-ordering.md`; `java/eleme-java-backend-round1.md`; `practice/22-kafka-consumer-group-rebalance.md` |
+| 40 | AI Agent | Harness 到底是什么？和 Eval、Agent Framework、MCP 的边界是什么？（✅ 已完成） | `codex gpt 修复点.md`; `ai-agent/alibaba-fliggy-backend-interview.md`; `industry/2026-05-25-deepseek-agent-harness-hiring.md` |
+| 41 | AI Agent | LangGraph 的状态图执行模型是什么？和普通 ReAct Loop 有什么区别？（✅ 已完成） | `ai-agent/langgraph-state-machine-engine.md`; `ai-agent/bytedance-agent-interview-round2.md`; `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md` |
+| 42 | RAG | RAG 如何评测和优化？召回率、精排、幻觉率怎么设计指标？（✅ 已完成） | `practice/19-rag-system-design.md`; `ai-agent/taotian-ai-agent-interview.md`; `ai-agent/bytedance-agent-interview-round2.md` |
+| 43 | JVM | 对象分配流程：TLAB、Eden、Minor GC、老年代晋升怎么讲？（✅ 已完成） | `middleware/2026-06-01-jvm-core-principles-troubleshooting.md`; `java/jd-java-backend-round2-jvm-concurrency.md`; `java/megvii-java-round1-12-questions.md` |
+| 44 | 分布式 | CAP、BASE、Raft 怎么回答？和业务最终一致性有什么关系？（✅ 已完成） | `java/eleme-java-backend-round1.md`; `middleware/rocketmq-kafka-transaction-ordering.md`; `java/baidu-java-backend-round1-shezhao.md` |
+| 45 | 算法 | LRU 缓存 O(1) 怎么手写？线程安全版本怎么设计？（✅ 已完成） | `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `ai-agent/amap-agent-backend-intern-interview.md`; `middleware/vipshop-java-interview.md` |
+| 46 | Java 并发 | ThreadLocal 原理、内存泄漏和线程池复用问题怎么回答？（✅ 已完成） | `java/pdd-java-backend-round1-concurrency.md`; `middleware/vipshop-java-interview.md`; `java/baidu-java-backend-round2.md` |
+| 47 | Java 并发 | CompletableFuture 怎么用？异常处理、超时和线程池隔离怎么做？（✅ 已完成） | `java/eleme-java-backend-round1.md`; `ai-agent/completable-future-production-pitfalls.md`; `java/jd-java-backend-round2-jvm-concurrency.md` |
+| 48 | MySQL | 深分页怎么优化？覆盖索引、延迟关联、游标翻页怎么选？（✅ 已完成） | `middleware/后端慢SQL优化面经.md`; `java/cainiao-java-backend-round2-mysql.md`; `middleware/大厂SQL高频题第2期.md` |
+| 49 | Redis | Redis 常用数据结构底层和场景：ZSet、Bitmap、HyperLogLog 怎么用？（✅ 已完成） | `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `java/megvii-java-round1-12-questions.md`; `java/hupu-java-backend-round2-redis-distributed.md` |
 | 50 | Spring | Spring Boot 限流拦截器怎么设计？令牌桶、漏桶、滑动窗口怎么落地？ | `java/spring-concurrency-throttle-interceptor.md`; `java/megvii-java-round1-12-questions.md`; `java/eleme-java-backend-round1.md` |
 | 51 | JVM | G1、ZGC、CMS 的区别和适用场景是什么？ | `middleware/2026-06-01-jvm-core-principles-troubleshooting.md`; `java/jd-java-backend-round2-jvm-concurrency.md`; `tencent/2026-05-27-tencent-cloud-final-round.md` |
 | 52 | 分布式 | 分布式 ID 方案：雪花算法、号段、Redis、自增 ID 怎么选？ | `java/baidu-java-backend-round1-shezhao.md`; `chayanyuese/2026-05-25-chayanyuese-java-round2-system-design.md`; `java/baidu-java-backend-final-round.md` |
@@ -210,13 +210,11 @@
 
 ## 抽题规则
 
-1. 每次抽题前，先看基线提交点之后是否有新提交：
-   - `git fetch origin`
-   - `git log --oneline 00cf77fa4354eca3fac184b49d2a7ccf1d707455..origin/master`
-2. 如果 Hermes 已经新增了某个题号，就跳过该题号，继续抽下一个未完成题。
-3. 每次只抽 1-3 道，不要解释抽题方法，直接给题目、来源、必答点和追问路线。
-4. 已完成题不重复，除非用户明确要求复盘或重练。
-5. Hermes 生成的标准答案如果有疑点，后续进入 `codex gpt 修复点.md` 做审计。
+1. 每次抽题前执行 `git fetch origin`，检查当前分支、远端提交、实际 practice 文件和最近会话。
+2. `✅ 已完成` 的题不重复；`🟡 已练习，待补档` 的题先补文件，不重新面试。
+3. 每次提供 1～3 道候选题，只给题目和来源，不提前给答案。
+4. 用户回答后由实时面试会话负责评分、完整答案和追问记录。
+5. Hermes 的最终修正版存在疑点时，进入 `codex gpt 修复点.md` 审计。
 
 ---
 

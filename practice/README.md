@@ -1,7 +1,7 @@
 # 面试刷题练习记录
 
 > 开始时间：2026-05-28
-> 题库总量：~370 题
+> 题池范围：以 `active-batch-plan.md` 当前内容为准，不使用固定总数
 > 用法：每次练习 2-3 题，一道一个文件，记录问答过程 + 打分 + 薄弱点
 
 ---
@@ -35,17 +35,32 @@
 | 23 | MySQL EXPLAIN执行计划 | [23-mysql-explain-execution-plan.md](23-mysql-explain-execution-plan.md) | — |
 | 24 | Redis Cache Aside Pattern | [24-cache-aside-pattern.md](24-cache-aside-pattern.md) | — |
 | 25 | 高并发库存扣减防超卖 | [25-inventory-oversell-prevention.md](25-inventory-oversell-prevention.md) | — |
-|| 26 | volatile/synchronized/CAS/JMM | [26-volatile-synchronized-cas-jmm.md](26-volatile-synchronized-cas-jmm.md) | 3.5/10 |
-|| 27 | Spring AOP代理+事务失效 | [27-spring-aop-proxy-transaction.md](27-spring-aop-proxy-transaction.md) | 7/10 |
-|| 28 | RabbitMQ可靠投递+死信队列 | [28-rabbitmq-reliable-delivery-dead-letter.md](28-rabbitmq-reliable-delivery-dead-letter.md) | 5/10 |
-|| 29 | InnoDB间隙锁+Next-Key Lock | [29-innodb-gap-lock-next-key-lock.md](29-innodb-gap-lock-next-key-lock.md) | 6/10 |
-|| 31 | JVM类加载+双亲委派 | [31-jvm-classloading-parent-delegation.md](31-jvm-classloading-parent-delegation.md) | 4.5/10 |
-|| 32 | Agent Memory设计 | [32-agent-memory-design.md](32-agent-memory-design.md) | 5.5/10 |
-|| 33 | 秒杀系统设计 | [33-seckill-system-design.md](33-seckill-system-design.md) | 5/10 |
-|| 34 | ArrayList/LinkedList/HashMap/ConcurrentHashMap | [34-arraylist-linkedlist-hashmap-concurrent-hashmap.md](34-arraylist-linkedlist-hashmap-concurrent-hashmap.md) | 5/10 |
+| 26 | volatile/synchronized/CAS/JMM | [26-volatile-synchronized-cas-jmm.md](26-volatile-synchronized-cas-jmm.md) | 3.5/10 |
+| 27 | Spring AOP代理+事务失效 | [27-spring-aop-proxy-transaction.md](27-spring-aop-proxy-transaction.md) | 7/10 |
+| 28 | RabbitMQ可靠投递+死信队列 | [28-rabbitmq-reliable-delivery-dead-letter.md](28-rabbitmq-reliable-delivery-dead-letter.md) | 5/10 |
+| 29 | InnoDB间隙锁+Next-Key Lock | [29-innodb-gap-lock-next-key-lock.md](29-innodb-gap-lock-next-key-lock.md) | 6/10 |
+| 31 | JVM类加载+双亲委派 | [31-jvm-classloading-parent-delegation.md](31-jvm-classloading-parent-delegation.md) | 4.5/10 |
+| 32 | Agent Memory设计 | [32-agent-memory-design.md](32-agent-memory-design.md) | 5.5/10 |
+| 33 | 秒杀系统设计 | [33-seckill-system-design.md](33-seckill-system-design.md) | 5/10 |
+| 34 | ArrayList/LinkedList/HashMap/ConcurrentHashMap | [34-arraylist-linkedlist-hashmap-concurrent-hashmap.md](34-arraylist-linkedlist-hashmap-concurrent-hashmap.md) | 5/10 |
 | 36 | Spring Boot 自动装配原理 | [36-spring-boot-auto-configuration.md](36-spring-boot-auto-configuration.md) | 4/10 |
+| 37 | MySQL redo/undo/binlog + 两阶段提交 | [37-redo-undo-binlog-two-phase-commit.md](37-redo-undo-binlog-two-phase-commit.md) | 3/10 |
+| 38 | Redis Cluster/Sentinel + 主从切换一致性 | [38-redis-cluster-sentinel-consistency.md](38-redis-cluster-sentinel-consistency.md) | 4/10 |
+| 39 | RocketMQ 事务/延时/顺序消息 | [39-rocketmq-transaction-delay-ordered.md](39-rocketmq-transaction-delay-ordered.md) | 4/10 |
+| 40 | Harness/Eval/Framework/MCP 边界 | [40-harness-eval-framework-mcp-boundary.md](40-harness-eval-framework-mcp-boundary.md) | 4/10 |
+| 41 | LangGraph 状态图 vs ReAct | [41-langgraph-state-machine-vs-react.md](41-langgraph-state-machine-vs-react.md) | 0/10 |
+| 42 | RAG 评测与优化 | [42-rag-evaluation-optimization.md](42-rag-evaluation-optimization.md) | 1/10 |
+| 43 | JVM 对象分配流程 | [43-jvm-object-allocation-tlab-eden-gc.md](43-jvm-object-allocation-tlab-eden-gc.md) | 5/10 |
+| 44 | CAP/BASE/Raft | [44-cap-base-raft.md](44-cap-base-raft.md) | 3/10 |
+| 45 | LRU/LFU 缓存实现 | [45-lru-lfu-cache-implementation.md](45-lru-lfu-cache-implementation.md) | 1/10 |
+| 46 | ThreadLocal 原理与泄漏 | [46-threadlocal-memory-leak-threadpool.md](46-threadlocal-memory-leak-threadpool.md) | 3/10 |
+| 47 | CompletableFuture 异步编程 | [47-completable-future-async-programming.md](47-completable-future-async-programming.md) | 3/10 |
+| 48 | MySQL 深分页优化 | [48-deep-pagination-optimization.md](48-deep-pagination-optimization.md) | 5/10 |
+| 49 | Redis ZSet/Bitmap/HyperLogLog | [49-redis-data-structures-zset-bitmap-hyperloglog.md](49-redis-data-structures-zset-bitmap-hyperloglog.md) | 3/10 |
 
-**平均分：4.5/10**（有评分的题目）
+> 平均分由看板根据当前有评分文件实时计算，README 不保存易过期汇总值。
+
+> 编号说明：第 30、35 题已有会话记录但缺少独立文件，暂列为“待补档”；历史上存在两个第 25 题文件，后续整理时保留来源并重新编号，当前不覆盖原记录。
 
 ---
 

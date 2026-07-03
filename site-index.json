@@ -104,15 +104,6 @@
     ]
   },
   {
-    "path": "hobbies/math/inequality-collection-book.md",
-    "category": "hobbies",
-    "title": "《从初等到高等 不等式大全》",
-    "date": "2026-05-29",
-    "tags": [
-      "[数学, 不等式, 书籍推荐]"
-    ]
-  },
-  {
     "path": "practice/05-jvm-full-gc-troubleshooting.md",
     "category": "practice",
     "title": "第 5 题 · （待补充）",
@@ -175,13 +166,6 @@
     "category": "tencent",
     "title": "WXG微信支付后台开发二面",
     "date": "2026-05-25",
-    "tags": []
-  },
-  {
-    "path": "xiaohongshu-interview-collection-2026-06-25.md",
-    "category": "notes",
-    "title": "小红书面试题收集报告",
-    "date": "",
     "tags": []
   },
   {
@@ -353,23 +337,16 @@
     "tags": []
   },
   {
-    "path": "rag-interview-design.md",
-    "category": "notes",
-    "title": "面试知识库 RAG 系统设计方案",
-    "date": "",
-    "tags": []
-  },
-  {
     "path": "practice/review-schedule.md",
     "category": "practice",
-    "title": "📅 面试题艾宾浩斯回顾计划",
+    "title": "面试题复习计划",
     "date": "",
     "tags": []
   },
   {
     "path": "practice/active-batch-plan.md",
     "category": "practice",
-    "title": "后续抽题计划（23-200）",
+    "title": "后续题目计划（23-216）",
     "date": "",
     "tags": []
   },
@@ -1081,23 +1058,9 @@
     "tags": []
   },
   {
-    "path": "hobbies/career/career-programmer-going-global.md",
-    "category": "hobbies",
-    "title": "程序员出海/远程工作资料",
-    "date": "",
-    "tags": []
-  },
-  {
     "path": "frontend/ai-agent-frontend-interview.md",
     "category": "frontend",
     "title": "AI Agent 前端开发工程师 面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "codex gpt 修复点.md",
-    "category": "notes",
-    "title": "codex gpt 修复点",
     "date": "",
     "tags": []
   },
@@ -1875,13 +1838,6 @@
     "path": "ai-agent/17-agent-architectures.md",
     "category": "ai-agent",
     "title": "17 种 Agent 架构模式深度解析",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": ".fetched_index.md",
-    "category": "notes",
-    "title": "已抓取面经索引",
     "date": "",
     "tags": []
   }
