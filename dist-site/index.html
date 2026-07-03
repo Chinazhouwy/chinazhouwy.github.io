@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WY Markdown 阅读站</title>
+    <meta
+      name="description"
+      content="基于 interviewProblems 仓库的 Markdown 阅读站，按目录浏览 Java、AI Agent、中间件、实践题与面经。"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script defer src="./app.js"></script>
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-kicker">Markdown Viewer</div>
+          <h1>WY 阅读站</h1>
+          <p>直接读取仓库里的 Markdown，不额外套博客框架。</p>
+        </div>
+
+        <label class="search">
+          <span>搜索</span>
+          <input id="search-input" type="search" placeholder="标题、目录、标签" />
+        </label>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">最近更新</div>
+          <div id="recent-list" class="recent-list"></div>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">目录</div>
+          <nav id="category-nav" class="category-nav"></nav>
+        </div>
+      </aside>
+
+      <main class="content">
+        <header class="content-header">
+          <div>
+            <div id="article-category" class="article-category"></div>
+            <h2 id="article-title">加载中...</h2>
+            <div id="article-meta" class="article-meta"></div>
+          </div>
+          <button id="toggle-nav" class="toggle-nav" type="button">目录</button>
+        </header>
+
+        <article id="article-body" class="article-body">
+          <p>正在加载内容...</p>
+        </article>
+      </main>
+    </div>
+  </body>
+</html>
