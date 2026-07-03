@@ -45,7 +45,7 @@
 ||| 45 || 算法 | LRU 缓存 O(1) 怎么手写？线程安全版本怎么设计？（✅ 已完成） | `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `ai-agent/amap-agent-backend-intern-interview.md`; `middleware/vipshop-java-interview.md` |
 ||| 46 || Java 并发 | ThreadLocal 原理、内存泄漏和线程池复用问题怎么回答？（✅ 已完成） | `java/pdd-java-backend-round1-concurrency.md`; `middleware/vipshop-java-interview.md`; `java/baidu-java-backend-round2.md` |
 ||| 47 || Java 并发 | CompletableFuture 怎么用？异常处理、超时和线程池隔离怎么做？（✅ 已完成） | `java/eleme-java-backend-round1.md`; `ai-agent/completable-future-production-pitfalls.md`; `java/jd-java-backend-round2-jvm-concurrency.md` |
-| 48 | MySQL | 深分页怎么优化？覆盖索引、延迟关联、游标翻页怎么选？ | `middleware/后端慢SQL优化面经.md`; `java/cainiao-java-backend-round2-mysql.md`; `middleware/大厂SQL高频题第2期.md` |
+||| 48 || MySQL | 深分页怎么优化？覆盖索引、延迟关联、游标翻页怎么选？（✅ 已完成） | `middleware/后端慢SQL优化面经.md`; `java/cainiao-java-backend-round2-mysql.md`; `middleware/大厂SQL高频题第2期.md` |
 | 49 | Redis | Redis 常用数据结构底层和场景：ZSet、Bitmap、HyperLogLog 怎么用？ | `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `java/megvii-java-round1-12-questions.md`; `java/hupu-java-backend-round2-redis-distributed.md` |
 | 50 | Spring | Spring Boot 限流拦截器怎么设计？令牌桶、漏桶、滑动窗口怎么落地？ | `java/spring-concurrency-throttle-interceptor.md`; `java/megvii-java-round1-12-questions.md`; `java/eleme-java-backend-round1.md` |
 | 51 | JVM | G1、ZGC、CMS 的区别和适用场景是什么？ | `middleware/2026-06-01-jvm-core-principles-troubleshooting.md`; `java/jd-java-backend-round2-jvm-concurrency.md`; `tencent/2026-05-27-tencent-cloud-final-round.md` |

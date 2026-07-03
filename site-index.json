@@ -1,5 +1,12 @@
 [
   {
+    "path": "practice/48-deep-pagination-optimization.md",
+    "category": "practice",
+    "title": "第48题 · MySQL · 深分页优化",
+    "date": "2026-07-03",
+    "tags": []
+  },
+  {
     "path": "practice/47-completable-future-async-programming.md",
     "category": "practice",
     "title": "第47题 · Java 并发 · CompletableFuture 异步编程",
