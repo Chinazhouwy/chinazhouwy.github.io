@@ -1,8 +1,16 @@
 ---
-question: 第 5 题 · （待补充）
+schema_version: 1
+question_id: 5
+question: "线上 Java 应用频繁 Full GC + CPU 飙升，完整的排查思路和调优步骤是什么？用哪些工具？找到问题后怎么验证？"
 date: 2026-05-28
+sources:
+  - unknown
+score: "4/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
 ---
-
 ## 第 5 题 · （待补充）
 
 **题目**：线上 Java 应用频繁 Full GC + CPU 飙升，完整的排查思路和调优步骤是什么？用哪些工具？找到问题后怎么验证？

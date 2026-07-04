@@ -1,3 +1,18 @@
+---
+schema_version: 1
+question_id: 42
+question: "RAG — 评测和优化：召回率、精排、幻觉率"
+date: 2026-07-01
+sources:
+  - practice/19-rag-system-design.md
+  - ai-agent/taotian-ai-agent-interview.md
+  - ai-agent/bytedance-agent-interview-round2.md
+score: "1/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
+---
 # 第42题：RAG — 评测和优化：召回率、精排、幻觉率
 
 > 日期：2026-07-01

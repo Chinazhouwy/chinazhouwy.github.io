@@ -1,3 +1,18 @@
+---
+schema_version: 1
+question_id: 32
+question: "Agent Memory 怎么设计"
+date: 2026-06-14
+sources:
+  - tencent/2026-06-07-wxg-wechat-pay-cool-jing.md
+  - ai-agent/bytedance-agent-interview-round2.md
+  - ai-agent/backend-to-agent-transition.md
+score: "5.5/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
+---
 # 第 32 题：Agent Memory 怎么设计
 
 > **得分：5.5 / 10**

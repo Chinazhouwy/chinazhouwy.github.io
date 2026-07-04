@@ -1,9 +1,16 @@
 ---
-question: 第46题 · Java并发 · ThreadLocal 原理/内存泄漏/线程池复用
+schema_version: 1
+question_id: 46
+question: "Java并发 · ThreadLocal 原理/内存泄漏/线程池复用"
 date: 2026-07-02
-score: 3/10
+sources:
+  - unknown
+score: "3/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
 ---
-
 ## 第46题 · Java并发 · ThreadLocal 原理/内存泄漏/线程池复用
 
 **题目**：ThreadLocal 原理、内存泄漏和线程池复用问题怎么回答？

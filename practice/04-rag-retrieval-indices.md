@@ -1,8 +1,16 @@
 ---
-question: 第 4 题 · （待补充）
+schema_version: 1
+question_id: 4
+question: "RAG 系统中的检索索引有哪些类型？稠密向量索引和稀疏向量索引分别适合什么场景？生产环境中通常会怎么做检索？为什么单独用一种索引不够？"
 date: 2026-05-28
+sources:
+  - unknown
+score: "1/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
 ---
-
 ## 第 4 题 · （待补充）
 
 **题目**：RAG 系统中的检索索引有哪些类型？稠密向量索引和稀疏向量索引分别适合什么场景？生产环境中通常会怎么做检索？为什么单独用一种索引不够？

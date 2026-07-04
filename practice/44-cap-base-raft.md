@@ -1,9 +1,16 @@
 ---
-question: 第44题 · 分布式 · CAP/BASE/Raft
+schema_version: 1
+question_id: 44
+question: "分布式 · CAP/BASE/Raft"
 date: 2026-07-02
-score: 3/10
+sources:
+  - unknown
+score: "3/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
 ---
-
 ## 第44题 · 分布式 · CAP/BASE/Raft
 
 **题目**：CAP、BASE、Raft 怎么回答？和业务最终一致性有什么关系？

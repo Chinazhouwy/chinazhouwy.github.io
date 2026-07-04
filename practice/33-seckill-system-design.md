@@ -1,3 +1,18 @@
+---
+schema_version: 1
+question_id: 33
+question: "秒杀系统怎么设计"
+date: 2026-06-14
+sources:
+  - java/eleme-java-backend-round1.md
+  - java/megvii-java-round1-12-questions.md
+  - tiktok/2026-05-27-tiktok-ecommerce-backend-round1.md
+score: "5/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
+---
 # 第 33 题：秒杀系统怎么设计
 
 > **得分：5 / 10**

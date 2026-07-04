@@ -1,8 +1,16 @@
 ---
-question: 第 1 题 · Java 并发 · 线程池核心参数与执行流程
+schema_version: 1
+question_id: 1
+question: "Java 并发 · 线程池核心参数与执行流程"
 date: 2026-05-28
+sources:
+  - unknown
+score: "4/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
 ---
-
 ## 第 1 题 · Java 并发 · 线程池核心参数与执行流程
 
 **题目**：线程池的 7 个核心参数分别是什么？`corePoolSize`、`maximumPoolSize`、`keepAliveTime` 这三个参数之间是什么关系？当一个新任务提交到线程池时，内部的执行流程是怎样的？

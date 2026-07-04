@@ -1,3 +1,16 @@
+---
+schema_version: 1
+question_id: 17
+question: "HashMap 在 JDK 1.7 和 1.8 中的底层实现有什么区别？为什么 JDK 1.8 要引入红黑树？红黑树的转换条件是什么？扩容机制是怎样的？"
+date: 2026-06-05
+sources:
+  - unknown
+score: "5/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
+---
 # 第17题 — HashMap 底层 (JDK7/8 + 红黑树)
 
 > **题目**：HashMap 在 JDK 1.7 和 1.8 中的底层实现有什么区别？为什么 JDK 1.8 要引入红黑树？红黑树的转换条件是什么？扩容机制是怎样的？

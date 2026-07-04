@@ -1,8 +1,16 @@
 ---
-question: 第 11 题 · MySQL · 联合索引设计
+schema_version: 1
+question_id: 11
+question: "MySQL · 联合索引设计"
 date: 2026-06-01
+sources:
+  - unknown
+score: "2/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
 ---
-
 ## 第 11 题 · MySQL · 联合索引设计
 
 **题目**：联合索引 (a, b, c)，以下哪些查询能用到索引？为什么？

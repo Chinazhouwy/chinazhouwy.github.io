@@ -1,3 +1,18 @@
+---
+schema_version: 1
+question_id: 38
+question: "Redis — Cluster 和 Sentinel 区别 + 主从切换一致性风险"
+date: 2026-07-01
+sources:
+  - java/hupu-java-backend-round2-redis-distributed.md
+  - practice/10-distributed-lock.md
+  - practice/14-redis-distributed-lock-deep.md
+score: "4/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
+---
 # 第38题：Redis — Cluster 和 Sentinel 区别 + 主从切换一致性风险
 
 > 日期：2026-07-01

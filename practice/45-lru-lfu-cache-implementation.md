@@ -1,9 +1,16 @@
 ---
-question: 第45题 · 算法 · LRU/LFU 缓存手写
+schema_version: 1
+question_id: 45
+question: "算法 · LRU/LFU 缓存手写"
 date: 2026-07-02
-score: 1/10
+sources:
+  - unknown
+score: "1/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
 ---
-
 ## 第45题 · 算法 · LRU/LFU 缓存手写
 
 **题目**：LRU 缓存 O(1) 怎么手写？线程安全版本怎么设计？

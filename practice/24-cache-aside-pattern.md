@@ -1,3 +1,18 @@
+---
+schema_version: 1
+question_id: 24
+question: "更新数据库后删缓存（Cache Aside Pattern）为什么比\"先删缓存再更新DB\"推荐？极端情况下（如并发读写）仍然会不一致，怎么兜底？"
+date: 2026-06-08
+sources:
+  - tencent/2026-06-07-tencent-ai-backend-round1-xhs.md
+  - middleware/vipshop-java-interview.md
+  - ai-agent/amap-agent-backend-intern-interview.md
+score: "5/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
+---
 # 第24题 — 缓存更新策略（Cache Aside Pattern）
 
 > **题目**：更新数据库后删缓存（Cache Aside Pattern）为什么比"先删缓存再更新DB"推荐？极端情况下（如并发读写）仍然会不一致，怎么兜底？
