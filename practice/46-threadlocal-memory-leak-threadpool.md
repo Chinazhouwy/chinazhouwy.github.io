@@ -47,3 +47,10 @@ ThreadLocal 是线程级变量隔离，每个 Thread 有独立的 ThreadLocalMap
 - ThreadLocal 是空的，没有 Thread 变量也没有 Map
 - 通过 Thread.currentThread() 动态获取当前线程
 - TTL 本质是包装 Runnable，自动捕获/注入/清理 ThreadLocal 值
+
+## GPT 纠错
+
+- GPT 纠错：ThreadLocal 不是“空的”。它至少持有用于 ThreadLocalMap 定位的 hash 等状态，只是不直接保存每个线程对应的业务 value。
+- GPT 纠错：泄漏发生的关键条件是线程长期存活且 stale Entry 未被清理；ThreadLocalMap 会在部分 `get/set/remove` 路径中顺带清理，但不能依赖这种机会式清理。
+- GPT 纠错：`remove()` 仍是普通 ThreadLocal 在线程池中的首选做法，应放在 `finally` 中。
+- GPT 纠错：TransmittableThreadLocal 主要解决线程池中的上下文传递与恢复，不是所有 ThreadLocal 内存泄漏的通用修复方案。

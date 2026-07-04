@@ -132,3 +132,11 @@ LangGraph = 把决策权写在代码里，LLM只管执行
 - 意图识别是所有生产级Agent的第一步
 - 简单任务ReAct够用，复杂业务必须LangGraph
 - AgentScope的RoutingGraphService和LangGraph本质一样
+
+## GPT 纠错
+
+- GPT 纠错：LangGraph 与 ReAct 不是同一层的互斥方案。LangGraph 是图运行时，可以在图中直接实现 ReAct Loop，也可以实现固定工作流或两者混合。
+- GPT 纠错：LangGraph 的流程并非全部“代码写死”；条件边既可以由确定性代码决定，也可以由模型动态路由。
+- GPT 纠错：ReAct 是否支持并行、Checkpoint 和断点恢复取决于承载它的运行时，不能把这些能力写成 ReAct 天生不支持。
+- GPT 纠错：意图识别不是所有生产 Agent 的必备第一步。单工具、开放式研究、Coding Agent 等场景可能直接规划或进入 ReAct。
+- GPT 纠错：“复杂业务必须 LangGraph”和“RoutingGraphService 与 LangGraph 本质一样”都过于绝对，应根据状态持久化、分支、人工介入和可观测需求选型。

@@ -214,3 +214,10 @@ PFMERGE page:uv:week page:uv:day1 page:uv:day2  // 合并统计
 | ZSet     | skiplist+hashtable| 排行榜、延迟队列、限流           |
 | Stream   | radix tree      | 消息队列（替代 List/PubSub）     |
 ```
+
+## GPT 纠错
+
+- GPT 纠错：ZSet 不能统一写成“跳表 + 哈希表”。Redis 会根据版本、元素数量和元素大小选择紧凑编码；较大集合才通常使用 skiplist + dict。
+- GPT 纠错：HyperLogLog 的 16384 个寄存器和约 12KB 是 dense 表示的典型情况，小基数时可以使用更节省空间的 sparse 表示。
+- GPT 纠错：HyperLogLog 给出的是基数估算，不能返回具体成员，也不适合需要精确计数的财务或强一致场景。
+- GPT 纠错：Redis Stream 不是对 List/PubSub 的全面替代；它提供消费组、确认和历史读取，但不同结构的实时性、持久化与投递语义不同。

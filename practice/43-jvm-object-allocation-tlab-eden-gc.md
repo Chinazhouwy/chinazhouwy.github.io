@@ -106,3 +106,11 @@ Eden : S0 : S1 = 8 : 1 : 1（默认，-XX:SurvivorRatio=8）
 - Survivor 放不下不会借空间，直接进老年代（JVM 设计哲学：简单粗暴）
 - TLAB 是核心考点，完全没提到会扣分
 - 8:1:1 是默认比例，生产中根据 GC 日志调整
+
+## GPT 纠错
+
+- GPT 纠错：TLAB、Eden、两个 Survivor、Minor GC 的描述主要适用于分代堆和特定收集器，不能当成所有 JDK、所有 GC 的统一流程。
+- GPT 纠错：对象年龄 15 是常见上限而不是固定晋升年龄；HotSpot 会根据 Survivor 占用动态调整晋升阈值。
+- GPT 纠错：`8:1:1` 是传统参数语义下的常见初始比例，实际布局会受收集器和 JVM Ergonomics 调整，不能笼统称为生产环境固定默认值。
+- GPT 纠错：Survivor 空间不足时可能发生晋升或晋升失败等处理，但“放不下就全部直接进老年代”过度简化。
+- GPT 纠错：`PretenureSizeThreshold=3M` 不是通用默认值，而且该参数并非对所有收集器都按相同方式生效。

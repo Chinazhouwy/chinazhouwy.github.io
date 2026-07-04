@@ -434,3 +434,11 @@ class FIFOCache {
 | 分段锁 | N 个段独立锁 | 好（锁粒度 1/N） | 高并发 |
 | ConcurrentHashMap + 链表 | 分段 + 链表 | 最好 | 生产首选 |
 ```
+
+## GPT 纠错
+
+- GPT 纠错：文中的 MRU 实现是错误的。`get()` 后没有把节点移动到“最近使用”位置，更新已有 key 时也没有更新顺序，因此淘汰的并不一定是 MRU。
+- GPT 纠错：LRU 和 FIFO 示例没有处理 `capacity == 0`，会删除哨兵节点或对 `null` 解包，代码不能直接视为完整实现。
+- GPT 纠错：分段 LRU 只能保证“段内 LRU”，不再是全局 LRU；`totalCapacity / segmentCount` 还会丢失余数容量。
+- GPT 纠错：`Math.abs(key.hashCode()) % segmentCount` 遇到 `Integer.MIN_VALUE` 仍可能得到负数，应使用 `Math.floorMod`。
+- GPT 纠错：`ConcurrentHashMap + 链表` 不会天然成为“性能最好、生产首选”，链表顺序维护仍需要同步。生产中优先评估 Caffeine 等成熟缓存库。

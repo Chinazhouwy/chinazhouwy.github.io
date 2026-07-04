@@ -160,3 +160,10 @@ consumer.registerMessageListener((MessageListenerOrderly) (msgs, ctx) -> {
 - 顺序消息需要 Producer 选 Queue + Consumer 单线程消费，两端配合
 - 同一 ConsumerGroup 内一个 Queue 只给一个消费者，不会出现多消费者抢 Queue 导致乱序
 - RocketMQ 4.x 延时只有 18 个固定级别，5.0 支持任意秒级精度
+
+## GPT 纠错
+
+- GPT 纠错：事务回查的首次时间、最大次数和超时处理受 RocketMQ 版本与 Broker 配置影响，不能把“默认 6 秒、15 次后回滚”当成所有版本的固定协议。
+- GPT 纠错：顺序消费不是整个 Consumer 永远只有一个线程。顺序保证作用于同一 MessageQueue 或 RocketMQ 5.x 的同一 MessageGroup，不同队列或消息组仍可并行。
+- GPT 纠错：仅让消息落到同一队列还不够；生产端同一顺序键需要串行发送，消费端也不能把业务处理异步化后提前确认。
+- GPT 纠错：Rebalance 本身不应直接表述为“一定导致乱序”；真正风险来自队列锁切换、重试、超时和业务异步处理，需要结合客户端版本说明。

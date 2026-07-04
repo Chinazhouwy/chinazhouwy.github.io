@@ -240,3 +240,11 @@ CompletableFuture.allOf(dbFuture, httpFuture, cacheFuture)
     .orTimeout(3, TimeUnit.SECONDS)
     .exceptionally(ex -> defaultDTO());
 ```
+
+## GPT 纠错
+
+- GPT 纠错：`orTimeout`/`completeOnTimeout` 使用内部定时机制触发完成，不是“超时回调一定在创建 Future 的自定义线程池执行”。非 async 的后续阶段可能由完成该 Future 的线程执行。
+- GPT 纠错：`orTimeout` 只让 CompletableFuture 超时完成，通常不会自动中断或取消底层正在执行的 HTTP、数据库或计算任务，资源取消需要单独设计。
+- GPT 纠错：不带 Executor 的 async 方法默认使用 `ForkJoinPool.commonPool()`，但 commonPool 并非绝对错误；隔离阻塞 IO、控制容量和上下文传播时才应明确使用业务线程池。
+- GPT 纠错：“IO 线程池=CPU×2”“CPU 线程池=CPU+1”不是通用生产公式，应根据阻塞比例、下游容量、延迟目标和压测结果配置。
+- GPT 纠错：`thenApply` 是非 async 阶段，它可能由完成上一步的线程或调用完成方法的线程执行，不能简单称为“串行假异步”。

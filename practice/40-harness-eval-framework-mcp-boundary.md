@@ -94,3 +94,11 @@ Harness（最大的圈）
 - Eval 是 Agent 评测，评估任务成功率、工具准确率、幻觉率
 - MCP 是工具连接协议，Skills 是更高级形态（流程+坑点+最佳实践）
 - 四者关系：Harness 是最大的圈，Framework/MCP/Eval 都是它的组成部分
+
+## GPT 纠错
+
+- GPT 纠错：Harness 没有统一行业标准，不能固定画成包含 Framework、MCP、Eval 的“最大圈”。它通常指让 Agent 可运行、可控制、可观测的工程运行层，具体边界由产品实现决定。
+- GPT 纠错：Agent Framework 不只是 Harness 的一种实现，二者可以重叠也可以独立；Framework 偏开发抽象和编排，Harness 偏运行控制与工程保障。
+- GPT 纠错：Eval 可以独立于 Harness 存在，也可以接入 Harness 的反馈闭环，不能说它必然是 Harness 内部模块。
+- GPT 纠错：MCP 不只是“工具说明书”，协议还定义 Tools、Resources、Prompts 等能力以及客户端与服务端的互操作方式。
+- GPT 纠错：Skills 与 MCP 是正交关系，不是“MCP → Skills”的升级替代。MCP 解决连接和协议，Skill 主要沉淀触发条件、流程和领域经验，两者可以组合使用。
