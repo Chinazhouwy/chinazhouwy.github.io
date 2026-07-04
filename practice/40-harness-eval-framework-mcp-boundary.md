@@ -1,18 +1,3 @@
----
-schema_version: 1
-question_id: 40
-question: "AI Agent — Harness 是什么？和 Eval、Agent Framework、MCP 的边界"
-date: 2026-07-01
-sources:
-  - ai-agent/alibaba-fliggy-backend-interview.md
-  - industry/2026-05-25-deepseek-agent-harness-hiring.md
-  - codex gpt 修复点.md
-score: "4/10"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
----
 # 第40题：AI Agent — Harness 是什么？和 Eval、Agent Framework、MCP 的边界
 
 > 日期：2026-07-01

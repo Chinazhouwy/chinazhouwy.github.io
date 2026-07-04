@@ -1,16 +1,3 @@
----
-schema_version: 1
-question_id: 23
-question: "MySQL EXPLAIN 执行计划 + Oracle 执行计划"
-date: 2026-06-08
-sources:
-  - unknown
-score: "5/10"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
----
 # 第23题：MySQL EXPLAIN 执行计划 + Oracle 执行计划
 
 **来源**：《高德Agent面经》Q2d + 《唯品会Java面经》Q5追问 + 《菜鸟二面》+ 用户追问

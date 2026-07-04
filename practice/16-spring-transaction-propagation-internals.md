@@ -1,16 +1,3 @@
----
-schema_version: 1
-question_id: 16
-question: "Spring 事务传播机制是什么？挂起事务的底层实现？为什么 checked exception 默认不回滚？NESTED 事务的 savepoint 机制？JTA 是什么？"
-date: 2026-06-05
-sources:
-  - unknown
-score: "6/10"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
----
 # 第16题 — Spring 事务传播机制 + 底层实现原理
 
 > **题目**：Spring 事务传播机制是什么？挂起事务的底层实现？为什么 checked exception 默认不回滚？NESTED 事务的 savepoint 机制？JTA 是什么？

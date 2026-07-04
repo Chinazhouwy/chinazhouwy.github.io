@@ -1,18 +1,9 @@
 ---
-schema_version: 1
-question_id: 47
-question: "Java 并发 · CompletableFuture 异步编程"
+question: 第47题 · Java 并发 · CompletableFuture 异步编程
 date: 2026-07-03
-sources:
-  - java/eleme-java-backend-round1.md
-  - ai-agent/completable-future-production-pitfalls.md
-  - java/jd-java-backend-round2-jvm-concurrency.md
-score: "3/10"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
+source: java/eleme-java-backend-round1.md; ai-agent/completable-future-production-pitfalls.md; java/jd-java-backend-round2-jvm-concurrency.md
 ---
+
 ## 第47题 · Java 并发 · CompletableFuture 异步编程
 
 **题目**：CompletableFuture 怎么用？异常处理、超时和线程池隔离怎么做？

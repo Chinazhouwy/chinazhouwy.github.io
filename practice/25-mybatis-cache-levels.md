@@ -1,16 +1,3 @@
----
-schema_version: 1
-question_id: 25b
-question: "MyBatis 一级/二级缓存机制"
-date: 2026-06-09
-sources:
-  - unknown
-score: "unknown"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
----
 # 第25题：MyBatis 一级/二级缓存机制
 
 **来源**：用户追问（从第24题Redis缓存延伸）

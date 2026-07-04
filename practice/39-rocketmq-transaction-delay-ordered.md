@@ -1,18 +1,3 @@
----
-schema_version: 1
-question_id: 39
-question: "MQ — RocketMQ 事务消息、延时消息、顺序消息"
-date: 2026-07-01
-sources:
-  - middleware/rocketmq-kafka-transaction-ordering.md
-  - java/eleme-java-backend-round1.md
-  - practice/22-kafka-consumer-group-rebalance.md
-score: "4/10"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
----
 # 第39题：MQ — RocketMQ 事务消息、延时消息、顺序消息
 
 > 日期：2026-07-01

@@ -1,16 +1,8 @@
 ---
-schema_version: 1
-question_id: 2
-question: "synchronized` 和 `ReentrantLock` 的区别是什么？各自适用什么场景？ReentrantLock 的公平锁和非公平锁在源码层面有什么区别？为什么默认用非公平锁？"
+question: 第 2 题 · （待补充）
 date: 2026-05-28
-sources:
-  - unknown
-score: "5/10"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
 ---
+
 ## 第 2 题 · （待补充）
 
 **题目**：`synchronized` 和 `ReentrantLock` 的区别是什么？各自适用什么场景？ReentrantLock 的公平锁和非公平锁在源码层面有什么区别？为什么默认用非公平锁？

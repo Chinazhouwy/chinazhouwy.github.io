@@ -1,16 +1,3 @@
----
-schema_version: 1
-question_id: 20
-question: "请设计一个 AI Agent 系统。"
-date: 2026-06-06
-sources:
-  - unknown
-score: "7/10"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
----
 # 第20题 — Agent 架构设计 + ReAct 工程化
 
 > **题目**：请设计一个 AI Agent 系统。

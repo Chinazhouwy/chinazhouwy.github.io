@@ -1,17 +1,3 @@
----
-schema_version: 1
-question_id: 28
-question: "RabbitMQ 如何保证可靠投递、可靠消费、死信队列和幂等？"
-date: 2026-06-10
-sources:
-  - tencent/2026-06-07-tencent-ai-backend-round1-xhs.md
-  - java/eleme-java-backend-round1.md
-score: "5/10"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
----
 # 第28题 — RabbitMQ 可靠投递、可靠消费、死信队列与幂等
 
 ## 📊 得分：5/10

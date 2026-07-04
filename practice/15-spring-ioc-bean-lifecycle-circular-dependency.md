@@ -1,16 +1,3 @@
----
-schema_version: 1
-question_id: 15
-question: "Spring Bean 的完整生命周期是怎样的？三级缓存如何解决循环依赖问题？"
-date: 2026-06-03
-sources:
-  - unknown
-score: "4/10"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
----
 # 第15题 — Spring Bean 生命周期 + 三级缓存循环依赖
 
 > **题目**：Spring Bean 的完整生命周期是怎样的？三级缓存如何解决循环依赖问题？

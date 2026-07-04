@@ -1,16 +1,9 @@
 ---
-schema_version: 1
-question_id: 8
-question: "AI Agent · ReAct 模式 vs CoT"
+question: 第8题 · AI Agent · ReAct 模式 vs CoT
 date: 2026-05-29
-sources:
-  - unknown
-score: "7/10"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
+score: 7/10
 ---
+
 ## 第8题 · AI Agent · ReAct 模式 vs CoT
 
 **题目**：Agent 的 ReAct 模式是什么？和单纯的 Chain of Thought（CoT）有什么区别？追问：Agent 调用外部工具时 ReAct 的循环是怎么运转的？

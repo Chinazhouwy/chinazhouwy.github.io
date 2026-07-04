@@ -1,16 +1,3 @@
----
-schema_version: 1
-question_id: 6
-question: "MVCC（多版本并发控制）是怎么实现的？"
-date: 2026-06-03
-sources:
-  - unknown
-score: "2/10"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
----
 # 第6题 — MVCC + 锁机制完整讨论
 
 > **题目**：MVCC（多版本并发控制）是怎么实现的？

@@ -1,16 +1,3 @@
----
-schema_version: 1
-question_id: 9
-question: "分布式事务有哪些解决方案？Seata 的 AT 模式底层是怎么实现的？"
-date: 2026-05-30
-sources:
-  - unknown
-score: "2/10"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
----
 # 第9题 — 分布式事务
 
 > **题目**：分布式事务有哪些解决方案？Seata 的 AT 模式底层是怎么实现的？

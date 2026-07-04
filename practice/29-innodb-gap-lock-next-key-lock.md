@@ -1,16 +1,3 @@
----
-schema_version: 1
-question_id: 29
-question: "InnoDB 行锁、间隙锁、Next-Key Lock 和死锁排查"
-date: 2026-06-10
-sources:
-  - unknown
-score: "unknown"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
----
 # 第29题：InnoDB 行锁、间隙锁、Next-Key Lock 和死锁排查
 
 ## 题目来源

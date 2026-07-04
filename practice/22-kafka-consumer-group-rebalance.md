@@ -1,16 +1,3 @@
----
-schema_version: 1
-question_id: 22
-question: "Kafka 消费者组 + Rebalance（重平衡）机制 + 消息丢失/重复消费排查"
-date: 2026-06-07
-sources:
-  - unknown
-score: "unknown"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
----
 # 第22题 — Kafka 消费者组 + Rebalance + 消息丢失/重复消费
 
 > **题目**：Kafka 消费者组 + Rebalance（重平衡）机制 + 消息丢失/重复消费排查

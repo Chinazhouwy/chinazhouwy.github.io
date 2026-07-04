@@ -1,18 +1,12 @@
 ---
-schema_version: 1
-question_id: 48
-question: "MySQL · 深分页优化"
+question: 第48题 · MySQL · 深分页优化
 date: 2026-07-03
-sources:
-  - middleware/后端慢SQL优化面经.md
-  - java/cainiao-java-backend-round2-mysql.md
-  - middleware/大厂SQL高频题第2期.md
-score: "5/10"
-round: R0
-next_review: 2026-07-04
-session_id: unknown
-status: completed
+score: 5/10
+round: R0（初次完成）
+next_review: 2026-07-04 (R1)
+source: middleware/后端慢SQL优化面经.md; java/cainiao-java-backend-round2-mysql.md; middleware/大厂SQL高频题第2期.md
 ---
+
 ## 第48题 · MySQL · 深分页优化
 
 **题目**：深分页怎么优化？覆盖索引、延迟关联、游标分页怎么选？

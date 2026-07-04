@@ -1,16 +1,3 @@
----
-schema_version: 1
-question_id: 25
-question: "高并发库存扣减如何防超卖？乐观锁、悲观锁、Redis、MQ 怎么取舍？"
-date: 2026-06-09
-sources:
-  - unknown
-score: "5/10"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
----
 # 第25题 — 高并发库存扣减防超卖
 
 > **题目**：高并发库存扣减如何防超卖？乐观锁、悲观锁、Redis、MQ 怎么取舍？

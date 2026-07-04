@@ -1,18 +1,3 @@
----
-schema_version: 1
-question_id: 36
-question: "Spring Boot 自动装配原理是什么？Boot 2 和 Boot 3 有什么变化？"
-date: 2026-06-24
-sources:
-  - middleware/vipshop-java-interview.md
-  - java/baidu-java-backend-round1.md
-  - java/spring-boot-async-4-patterns.md
-score: "4/10"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
----
 # 第36题 — Spring Boot 自动装配原理
 
 > **题目**：Spring Boot 自动装配原理是什么？Boot 2 和 Boot 3 有什么变化？

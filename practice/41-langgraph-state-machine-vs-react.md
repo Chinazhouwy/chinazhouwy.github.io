@@ -1,17 +1,3 @@
----
-schema_version: 1
-question_id: 41
-question: "AI Agent — LangGraph 状态图执行模型 + 与 ReAct Loop 的区别"
-date: 2026-07-01
-sources:
-  - ai-agent/langgraph-state-machine-engine.md
-  - ai-agent/bytedance-agent-interview-round2.md
-score: "0/10"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
----
 # 第41题：AI Agent — LangGraph 状态图执行模型 + 与 ReAct Loop 的区别
 
 > 日期：2026-07-01

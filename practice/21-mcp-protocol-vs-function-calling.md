@@ -1,16 +1,3 @@
----
-schema_version: 1
-question_id: 21
-question: "MCP、Function Calling、Tool 三者的关系和区别是什么？"
-date: 2026-06-07
-sources:
-  - unknown
-score: "8.5/10"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
----
 # 第21题 — MCP 协议 vs Function Calling vs Tool
 
 > **题目**：MCP、Function Calling、Tool 三者的关系和区别是什么？

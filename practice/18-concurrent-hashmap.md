@@ -1,16 +1,3 @@
----
-schema_version: 1
-question_id: 18
-question: "ConcurrentHashMap 底层实现（JDK1.7/1.8）"
-date: 2026-06-06
-sources:
-  - unknown
-score: "unknown"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
----
 # 第18题：ConcurrentHashMap 底层实现（JDK1.7/1.8）
 
 > **方向**：后端·并发集合

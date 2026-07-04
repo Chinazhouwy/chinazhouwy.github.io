@@ -1,16 +1,8 @@
 ---
-schema_version: 1
-question_id: 12
-question: "MySQL · 慢SQL排查"
+question: 第 12 题 · MySQL · 慢SQL排查
 date: 2026-06-01
-sources:
-  - unknown
-score: "4/10"
-round: R0
-next_review: unknown
-session_id: unknown
-status: completed
 ---
+
 ## 第 12 题 · MySQL · 慢SQL排查
 
 **题目**：线上突然报警，一个查询从50ms飙到5秒，你怎么排查？从发现问题到解决，完整说一下流程。
