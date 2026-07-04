@@ -1,4 +1,5 @@
 const CATEGORY_ORDER = [
+  "notes",
   "ai-agent",
   "java",
   "middleware",
@@ -36,6 +37,9 @@ marked.setOptions({
 });
 
 function humanizeCategory(name) {
+  if (name === "notes") {
+    return "Notes";
+  }
   return name
     .replace(/[-_]/g, " ")
     .replace(/\b\w/g, (char) => char.toUpperCase());

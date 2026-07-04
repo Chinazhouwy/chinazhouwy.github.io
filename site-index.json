@@ -104,6 +104,15 @@
     ]
   },
   {
+    "path": "hobbies/math/inequality-collection-book.md",
+    "category": "hobbies",
+    "title": "《从初等到高等 不等式大全》",
+    "date": "2026-05-29",
+    "tags": [
+      "[数学, 不等式, 书籍推荐]"
+    ]
+  },
+  {
     "path": "practice/05-jvm-full-gc-troubleshooting.md",
     "category": "practice",
     "title": "第 5 题 · （待补充）",
@@ -166,6 +175,13 @@
     "category": "tencent",
     "title": "WXG微信支付后台开发二面",
     "date": "2026-05-25",
+    "tags": []
+  },
+  {
+    "path": "xiaohongshu-interview-collection-2026-06-25.md",
+    "category": "notes",
+    "title": "小红书面试题收集报告",
+    "date": "",
     "tags": []
   },
   {
@@ -333,6 +349,13 @@
     "path": "references/ai-memory-tag-system-design.md",
     "category": "references",
     "title": "AI 记忆标签体系设计 — 双维度标签解决 consolidation 混乱",
+    "date": "",
+    "tags": []
+  },
+  {
+    "path": "rag-interview-design.md",
+    "category": "notes",
+    "title": "面试知识库 RAG 系统设计方案",
     "date": "",
     "tags": []
   },
@@ -1058,9 +1081,37 @@
     "tags": []
   },
   {
+    "path": "hobbies/career/career-programmer-going-global.md",
+    "category": "hobbies",
+    "title": "程序员出海/远程工作资料",
+    "date": "",
+    "tags": []
+  },
+  {
     "path": "frontend/ai-agent-frontend-interview.md",
     "category": "frontend",
     "title": "AI Agent 前端开发工程师 面经",
+    "date": "",
+    "tags": []
+  },
+  {
+    "path": "docs/superpowers/specs/2026-07-04-100-day-interview-plan-design.md",
+    "category": "docs",
+    "title": "100 天面试题扩展与执行计划设计",
+    "date": "",
+    "tags": []
+  },
+  {
+    "path": "docs/superpowers/plans/2026-07-04-100-day-interview-plan.md",
+    "category": "docs",
+    "title": "100 天面试题扩展 Implementation Plan",
+    "date": "",
+    "tags": []
+  },
+  {
+    "path": "codex gpt 修复点.md",
+    "category": "notes",
+    "title": "codex gpt 修复点",
     "date": "",
     "tags": []
   },
@@ -1838,6 +1889,13 @@
     "path": "ai-agent/17-agent-architectures.md",
     "category": "ai-agent",
     "title": "17 种 Agent 架构模式深度解析",
+    "date": "",
+    "tags": []
+  },
+  {
+    "path": ".fetched_index.md",
+    "category": "notes",
+    "title": "已抓取面经索引",
     "date": "",
     "tags": []
   }
