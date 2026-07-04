@@ -1,3 +1,18 @@
+---
+schema_version: 1
+question_id: 31
+question: "JVM 类加载机制、双亲委派和打破双亲委派"
+date: 2026-06-14
+sources:
+  - middleware/2026-06-01-jvm-core-principles-troubleshooting.md
+  - java/eleme-java-backend-round1.md
+  - java/baidu-java-backend-round2-concurrency.md
+score: "4.5/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
+---
 # 第 31 题：JVM 类加载机制、双亲委派和打破双亲委派
 
 > **得分：4.5 / 10**

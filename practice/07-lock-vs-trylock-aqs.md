@@ -1,9 +1,16 @@
 ---
-question: 第7题 · 并发编程 · lock() vs tryLock()
+schema_version: 1
+question_id: 7
+question: "并发编程 · lock() vs tryLock()"
 date: 2026-05-29
-score: 3/10
+sources:
+  - unknown
+score: "3/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
 ---
-
 ## 第7题 · 并发编程 · lock() vs tryLock() 在 AQS 层面的区别
 
 **题目**：ReentrantLock 的 `lock()` 和 `tryLock()` 有什么区别？在 AQS 层面，两者的执行流程有什么不同？追问：tryLock() 失败会进 CLH 队列吗？

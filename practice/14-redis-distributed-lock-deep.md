@@ -1,3 +1,16 @@
+---
+schema_version: 1
+question_id: 14
+question: "Redis 分布式锁怎么实现？Redisson 的看门狗（Watchdog）机制是什么？Redis 单节点和 Redis Cluster 下的分布式锁有什么区别？"
+date: 2026-06-03
+sources:
+  - unknown
+score: "7/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
+---
 # 第14题 — Redis 分布式锁深入
 
 > **题目**：Redis 分布式锁怎么实现？Redisson 的看门狗（Watchdog）机制是什么？Redis 单节点和 Redis Cluster 下的分布式锁有什么区别？

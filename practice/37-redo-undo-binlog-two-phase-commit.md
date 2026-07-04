@@ -1,3 +1,18 @@
+---
+schema_version: 1
+question_id: 37
+question: "MySQL — redo log、undo log、binlog + 两阶段提交"
+date: 2026-06-28
+sources:
+  - ai-agent/amap-agent-backend-intern-interview.md
+  - java/cainiao-java-backend-round2-mysql.md
+  - middleware/rocketmq-kafka-transaction-ordering.md
+score: "3/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
+---
 # 第37题：MySQL — redo log、undo log、binlog + 两阶段提交
 
 > 日期：2026-06-28

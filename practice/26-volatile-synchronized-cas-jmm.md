@@ -1,3 +1,16 @@
+---
+schema_version: 1
+question_id: 26
+question: "volatile、synchronized、CAS 和 JMM 的关系"
+date: 2026-06-09
+sources:
+  - unknown
+score: "3.5/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
+---
 # 第26题：volatile、synchronized、CAS 和 JMM 的关系
 
 > 日期：2026-06-09

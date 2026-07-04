@@ -1,3 +1,18 @@
+---
+schema_version: 1
+question_id: 43
+question: "JVM — 对象分配流程：TLAB、Eden、Minor GC、老年代晋升"
+date: 2026-07-01
+sources:
+  - middleware/2026-06-01-jvm-core-principles-troubleshooting.md
+  - java/jd-java-backend-round2-jvm-concurrency.md
+  - java/megvii-java-round1-12-questions.md
+score: "5/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
+---
 # 第43题：JVM — 对象分配流程：TLAB、Eden、Minor GC、老年代晋升
 
 > 日期：2026-07-01

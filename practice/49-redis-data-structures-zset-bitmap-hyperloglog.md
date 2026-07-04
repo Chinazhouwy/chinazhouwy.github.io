@@ -1,12 +1,18 @@
 ---
-question: 第49题 · Redis · ZSet/Bitmap/HyperLogLog 数据结构底层和场景
+schema_version: 1
+question_id: 49
+question: "Redis · ZSet/Bitmap/HyperLogLog 数据结构底层和场景"
 date: 2026-07-03
-score: 3/10
-round: R0（初次完成）
-next_review: 2026-07-04 (R1)
-source: tencent/2026-06-07-tencent-ai-backend-round1-xhs.md; java/megvii-java-round1-12-questions.md; java/hupu-java-backend-round2-redis-distributed.md
+sources:
+  - tencent/2026-06-07-tencent-ai-backend-round1-xhs.md
+  - java/megvii-java-round1-12-questions.md
+  - java/hupu-java-backend-round2-redis-distributed.md
+score: "3/10"
+round: R0
+next_review: 2026-07-04
+session_id: unknown
+status: completed
 ---
-
 ## 第49题 · Redis · ZSet/Bitmap/HyperLogLog 数据结构底层和场景
 
 **题目**：Redis 常用数据结构底层和场景：ZSet、Bitmap、HyperLogLog 怎么用？

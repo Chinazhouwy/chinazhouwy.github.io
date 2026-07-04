@@ -1,3 +1,16 @@
+---
+schema_version: 1
+question_id: 13
+question: "缓存穿透、缓存击穿、缓存雪崩分别是什么？它们的成因和解决方案有哪些？"
+date: 2026-06-02
+sources:
+  - unknown
+score: "4/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
+---
 # 第13题 — 缓存穿透/击穿/雪崩
 
 > **题目**：缓存穿透、缓存击穿、缓存雪崩分别是什么？它们的成因和解决方案有哪些？

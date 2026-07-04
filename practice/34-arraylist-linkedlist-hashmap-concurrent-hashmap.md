@@ -1,3 +1,18 @@
+---
+schema_version: 1
+question_id: 34
+question: "ArrayList、LinkedList、HashMap、ConcurrentHashMap 如何选"
+date: 2026-06-14
+sources:
+  - middleware/vipshop-java-interview.md
+  - java/meitu-backend-server-round1.md
+  - java/megvii-java-round1-12-questions.md
+score: "5/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
+---
 # 第 34 题：ArrayList、LinkedList、HashMap、ConcurrentHashMap 如何选
 
 > **得分：5 / 10**

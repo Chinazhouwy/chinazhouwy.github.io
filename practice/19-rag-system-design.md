@@ -1,3 +1,16 @@
+---
+schema_version: 1
+question_id: 19
+question: "请设计一个完整的 RAG（Retrieval-Augmented Generation，检索增强生成）系统。"
+date: 2026-06-06
+sources:
+  - unknown
+score: "5/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
+---
 # 第19题 — RAG 系统设计（检索增强生成全流程）
 
 > **题目**：请设计一个完整的 RAG（Retrieval-Augmented Generation，检索增强生成）系统。

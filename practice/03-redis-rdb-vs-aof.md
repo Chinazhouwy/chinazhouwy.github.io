@@ -1,8 +1,16 @@
 ---
-question: 第 3 题 · （待补充）
+schema_version: 1
+question_id: 3
+question: "Redis 的持久化方式有哪些？RDB 和 AOF 的区别是什么？10GB 内存用 RDB/AOF 分别有什么问题？生产环境怎么选？"
 date: 2026-05-28
+sources:
+  - unknown
+score: "5/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
 ---
-
 ## 第 3 题 · （待补充）
 
 **题目**：Redis 的持久化方式有哪些？RDB 和 AOF 的区别是什么？10GB 内存用 RDB/AOF 分别有什么问题？生产环境怎么选？

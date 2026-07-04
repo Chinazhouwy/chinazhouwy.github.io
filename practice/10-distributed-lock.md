@@ -1,8 +1,16 @@
 ---
-question: 第 10 题 · 分布式 · 分布式锁
+schema_version: 1
+question_id: 10
+question: "分布式 · 分布式锁"
 date: 2026-06-01
+sources:
+  - unknown
+score: "4/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
 ---
-
 ## 第 10 题 · 分布式 · 分布式锁
 
 **题目**：分布式锁有几种实现方式？Redis实现分布式锁的时候，SETNX + 过期时间有什么问题？Redisson的看门狗机制是怎么解决的？

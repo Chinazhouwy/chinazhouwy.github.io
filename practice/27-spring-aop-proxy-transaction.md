@@ -1,3 +1,18 @@
+---
+schema_version: 1
+question_id: 27
+question: "Spring AOP 代理原理是什么？JDK 动态代理（Dynamic Proxy）和 CGLIB 怎么选？事务为什么会失效？"
+date: 2026-06-10
+sources:
+  - middleware/vipshop-java-interview.md
+  - java/baidu-java-backend-round1.md
+  - java/baidu-java-backend-round2.md
+score: "7/10"
+round: R0
+next_review: unknown
+session_id: unknown
+status: completed
+---
 # 第27题 — Spring AOP 代理原理
 
 ## 📊 得分：7/10
