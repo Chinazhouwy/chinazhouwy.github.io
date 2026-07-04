@@ -8,9 +8,12 @@
 ```markdown
 ## YYYY-MM-DD
 
-- 新题：#N、#N
-- 回顾：#N（R1）、#N（R2）
-- 未完成：#N；没有则写“无”
+- 计划新题：#N、#N
+- 实际完成：#N、#N
+- 顺延新题：#N；没有则写“无”
+- 回顾完成：#N（R1）、#N（R2）
+- 回顾顺延：#N（R1，P0）；没有则写“无”
+- 次日新题：#N、#N
 - 新增或修改文件：`practice/文件名.md`
 - 提交：`commit_hash`；尚未提交则写“pending”
 - 推送：Gitee 成功/失败/pending；GitHub 成功/失败/pending
@@ -20,9 +23,12 @@
 
 ## 2026-07-03
 
-- 新题：#47、#48、#49
-- 回顾：未记录
-- 未完成：#38～#46 的到期回顾
+- 计划新题：#47、#48、#49
+- 实际完成：#47、#48、#49
+- 顺延新题：无
+- 回顾完成：未记录
+- 回顾顺延：#38～#46，优先级按 `review-schedule.md` 处理
+- 次日新题：当时未记录
 - 新增或修改文件：`practice/47-completable-future-async-programming.md`、`practice/48-deep-pagination-optimization.md`、`practice/49-redis-data-structures-zset-bitmap-hyperloglog.md`
 - 提交：`d7697cd`、`78be944`、`1754451`、`1ed7e41`
 - 推送：Gitee 成功；GitHub 成功
