@@ -1,1902 +1,3613 @@
-[
-  {
-    "path": "practice/49-redis-data-structures-zset-bitmap-hyperloglog.md",
-    "category": "practice",
-    "title": "第49题 · Redis · ZSet/Bitmap/HyperLogLog 数据结构底层和场景",
-    "date": "2026-07-03",
-    "tags": []
-  },
-  {
-    "path": "practice/48-deep-pagination-optimization.md",
-    "category": "practice",
-    "title": "第48题 · MySQL · 深分页优化",
-    "date": "2026-07-03",
-    "tags": []
-  },
-  {
-    "path": "practice/47-completable-future-async-programming.md",
-    "category": "practice",
-    "title": "第47题 · Java 并发 · CompletableFuture 异步编程",
-    "date": "2026-07-03",
-    "tags": []
-  },
-  {
-    "path": "practice/46-threadlocal-memory-leak-threadpool.md",
-    "category": "practice",
-    "title": "第46题 · Java并发 · ThreadLocal 原理/内存泄漏/线程池复用",
-    "date": "2026-07-02",
-    "tags": []
-  },
-  {
-    "path": "practice/45-lru-lfu-cache-implementation.md",
-    "category": "practice",
-    "title": "第45题 · 算法 · LRU/LFU 缓存手写",
-    "date": "2026-07-02",
-    "tags": []
-  },
-  {
-    "path": "practice/44-cap-base-raft.md",
-    "category": "practice",
-    "title": "第44题 · 分布式 · CAP/BASE/Raft",
-    "date": "2026-07-02",
-    "tags": []
-  },
-  {
-    "path": "practice/12-mysql-slow-sql.md",
-    "category": "practice",
-    "title": "第 12 题 · MySQL · 慢SQL排查",
-    "date": "2026-06-01",
-    "tags": []
-  },
-  {
-    "path": "practice/11-mysql-composite-index.md",
-    "category": "practice",
-    "title": "第 11 题 · MySQL · 联合索引设计",
-    "date": "2026-06-01",
-    "tags": []
-  },
-  {
-    "path": "practice/10-distributed-lock.md",
-    "category": "practice",
-    "title": "第 10 题 · 分布式 · 分布式锁",
-    "date": "2026-06-01",
-    "tags": []
-  },
-  {
-    "path": "practice/08-react-pattern-vs-cot.md",
-    "category": "practice",
-    "title": "第8题 · AI Agent · ReAct 模式 vs CoT",
-    "date": "2026-05-29",
-    "tags": []
-  },
-  {
-    "path": "practice/07-lock-vs-trylock-aqs.md",
-    "category": "practice",
-    "title": "第7题 · 并发编程 · lock() vs tryLock()",
-    "date": "2026-05-29",
-    "tags": []
-  },
-  {
-    "path": "java/mvcc-java17-implementation.md",
-    "category": "java",
-    "title": "用Java 17手写一个MVCC，彻底搞懂多版本并发控制",
-    "date": "2026-05-29",
-    "tags": [
-      "[MVCC, 并发控制, 事务, 数据库, Java17]"
+{
+  "generatedAt": "2026-07-04T09:20:09+08:00",
+  "articles": [
+    {
+      "path": "practice/49-redis-data-structures-zset-bitmap-hyperloglog.md",
+      "category": "practice",
+      "title": "第49题 · Redis · ZSet/Bitmap/HyperLogLog 数据结构底层和场景",
+      "date": "2026-07-03",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Redis",
+      "company": "",
+      "round": "",
+      "score": 3.0,
+      "questionNumber": 49
+    },
+    {
+      "path": "practice/48-deep-pagination-optimization.md",
+      "category": "practice",
+      "title": "第48题 · MySQL · 深分页优化",
+      "date": "2026-07-03",
+      "tags": [],
+      "section": "interviews",
+      "topic": "MySQL",
+      "company": "",
+      "round": "",
+      "score": 5.0,
+      "questionNumber": 48
+    },
+    {
+      "path": "practice/47-completable-future-async-programming.md",
+      "category": "practice",
+      "title": "第47题 · Java 并发 · CompletableFuture 异步编程",
+      "date": "2026-07-03",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Java 并发",
+      "company": "",
+      "round": "",
+      "score": 3.0,
+      "questionNumber": 47
+    },
+    {
+      "path": "practice/46-threadlocal-memory-leak-threadpool.md",
+      "category": "practice",
+      "title": "第46题 · Java并发 · ThreadLocal 原理/内存泄漏/线程池复用",
+      "date": "2026-07-02",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Java 并发",
+      "company": "",
+      "round": "",
+      "score": 3.0,
+      "questionNumber": 46
+    },
+    {
+      "path": "practice/45-lru-lfu-cache-implementation.md",
+      "category": "practice",
+      "title": "第45题 · 算法 · LRU/LFU 缓存手写",
+      "date": "2026-07-02",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Redis",
+      "company": "",
+      "round": "",
+      "score": 1.0,
+      "questionNumber": 45
+    },
+    {
+      "path": "practice/44-cap-base-raft.md",
+      "category": "practice",
+      "title": "第44题 · 分布式 · CAP/BASE/Raft",
+      "date": "2026-07-02",
+      "tags": [],
+      "section": "interviews",
+      "topic": "分布式",
+      "company": "",
+      "round": "",
+      "score": 3.0,
+      "questionNumber": 44
+    },
+    {
+      "path": "tech-notes/2026-06-29-douyin-cognee-ai-agent-memory-platform.md",
+      "category": "tech-notes",
+      "title": "🎬 赛博吴同学：开源AI Agent记忆平台cognee",
+      "date": "2026-06-29",
+      "tags": [],
+      "section": "notes",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "tiktok/2026-06-28-bytedance-international-payment-backend-round3.md",
+      "category": "tiktok",
+      "title": "字节跳动国际支付-后端开发-三面面经",
+      "date": "2026-06-28",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "字节跳动",
+      "round": "三面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-06-28-agentscope-java-memory-system.md",
+      "category": "ai-agent",
+      "title": "AgentScope(Java)2.0 的记忆系统",
+      "date": "2026-06-28",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-06-28-agentscope-2-stateless-engine.md",
+      "category": "ai-agent",
+      "title": "AgentScope(Java)2.0 无状态引擎 + AgentState：多租户会话管理",
+      "date": "2026-06-28",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-06-28-agentscope-2-complete-guide.md",
+      "category": "ai-agent",
+      "title": "AgentScope 2.0 从入门到精通：全功能实战指南",
+      "date": "2026-06-28",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "xiaohongshu-interview-collection-2026-06-25.md",
+      "category": "notes",
+      "title": "小红书面试题收集报告",
+      "date": "2026-06-25",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "小红书",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/2026-06-25-deepseek-agent-interview-sharing.md",
+      "category": "ai-agent",
+      "title": "📋 DeepSeek Agent 面试分享（第15集）",
+      "date": "2026-06-25",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-06-25-agentscope-java-customer-service-12-pitfalls.md",
+      "category": "ai-agent",
+      "title": "我的AgentScope Java 客服项目，挖出12个生产级深坑",
+      "date": "2026-06-25",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "industry/2026-06-24-fed-china-geopolitical-economics.md",
+      "category": "industry",
+      "title": "美联储\"收割中国\"计划分析",
+      "date": "2026-06-24",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-06-24-jd-agent-round1.md",
+      "category": "ai-agent",
+      "title": "京东 AI Agent开发一面面经",
+      "date": "2026-06-24",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "京东",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-06-19-meituan-agent-round1.md",
+      "category": "ai-agent",
+      "title": "美团 AI Agent开发 一面面经",
+      "date": "2026-06-19",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "美团",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-06-11-agent-interview-review.md",
+      "category": "ai-agent",
+      "title": "【2026年6月面试复盘】面 Agent 岗的这段日子",
+      "date": "2026-06-11",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md",
+      "category": "tiktok",
+      "title": "字节 AI Agent 后端一面面经（多人汇总）",
+      "date": "2026-06-07",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "字节跳动",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "tencent/2026-06-07-wxg-wechat-pay-cool-jing.md",
+      "category": "tencent",
+      "title": "腾讯 WXG 微信支付后台开发凉经",
+      "date": "2026-06-07",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "腾讯",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "tencent/2026-06-07-tencent-ai-backend-round1-xhs.md",
+      "category": "tencent",
+      "title": "腾讯 AI 后端一面面经",
+      "date": "2026-06-07",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "腾讯",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "tencent/2026-06-05-tencent-agent-round2.md",
+      "category": "tencent",
+      "title": "腾讯 Agent二面凉经带答案（较难）",
+      "date": "2026-06-05",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "腾讯",
+      "round": "二面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "industry/2026-06-04-tech-fund-analysis-huige.md",
+      "category": "industry",
+      "title": "🎬 晖哥说投资：科技基金得涨到啥时候啊",
+      "date": "2026-06-04",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-06-04-bytedance-agent-backend-round1.md",
+      "category": "ai-agent",
+      "title": "字节AI Agent后端面经",
+      "date": "2026-06-04",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "字节跳动",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "tencent/2026-06-01-tencent-wxg-wechat-shop-round2.md",
+      "category": "tencent",
+      "title": "腾讯 WXG 微信小店后台开发二面｜面试问题汇",
+      "date": "2026-06-01",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "腾讯",
+      "round": "二面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "practice/12-mysql-slow-sql.md",
+      "category": "practice",
+      "title": "第 12 题 · MySQL · 慢SQL排查",
+      "date": "2026-06-01",
+      "tags": [],
+      "section": "interviews",
+      "topic": "MySQL",
+      "company": "",
+      "round": "",
+      "score": 4.0,
+      "questionNumber": 12
+    },
+    {
+      "path": "practice/11-mysql-composite-index.md",
+      "category": "practice",
+      "title": "第 11 题 · MySQL · 联合索引设计",
+      "date": "2026-06-01",
+      "tags": [],
+      "section": "interviews",
+      "topic": "MySQL",
+      "company": "",
+      "round": "",
+      "score": 2.0,
+      "questionNumber": 11
+    },
+    {
+      "path": "practice/10-distributed-lock.md",
+      "category": "practice",
+      "title": "第 10 题 · 分布式 · 分布式锁",
+      "date": "2026-06-01",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Java 并发",
+      "company": "",
+      "round": "",
+      "score": 4.0,
+      "questionNumber": 10
+    },
+    {
+      "path": "middleware/2026-06-01-jvm-core-principles-troubleshooting.md",
+      "category": "middleware",
+      "title": "JVM 核心原理与线上排查",
+      "date": "2026-06-01",
+      "tags": [],
+      "section": "questions",
+      "topic": "JVM",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-06-01-spring-ai-multi-agent-practice.md",
+      "category": "ai-agent",
+      "title": "Spring AI 2.0 Multi-Agent 实战：构建智能协作系统",
+      "date": "2026-06-01",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-05-30-bytedance-agent-round2.md",
+      "category": "ai-agent",
+      "title": "字节跳动 Agent 开发岗 二面（贼难）",
+      "date": "2026-05-30",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "字节跳动",
+      "round": "二面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "practice/08-react-pattern-vs-cot.md",
+      "category": "practice",
+      "title": "第8题 · AI Agent · ReAct 模式 vs CoT",
+      "date": "2026-05-29",
+      "tags": [],
+      "section": "interviews",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": 7.0,
+      "questionNumber": 8
+    },
+    {
+      "path": "practice/07-lock-vs-trylock-aqs.md",
+      "category": "practice",
+      "title": "第7题 · 并发编程 · lock() vs tryLock()",
+      "date": "2026-05-29",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Java 并发",
+      "company": "",
+      "round": "",
+      "score": 3.0,
+      "questionNumber": 7
+    },
+    {
+      "path": "java/mvcc-java17-implementation.md",
+      "category": "java",
+      "title": "用Java 17手写一个MVCC，彻底搞懂多版本并发控制",
+      "date": "2026-05-29",
+      "tags": [
+        "[MVCC",
+        "并发控制",
+        "事务",
+        "数据库",
+        "Java17]"
+      ],
+      "section": "questions",
+      "topic": "Java 并发",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/feizhu-java-backend-round1.md",
+      "category": "java",
+      "title": "飞猪 Java后端一面面经（实习+项目）",
+      "date": "2026-05-29",
+      "tags": [
+        "[实习",
+        "项目",
+        "JDK",
+        "GC",
+        "分库分表",
+        "线程池",
+        "Agent",
+        "RAG]"
+      ],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/baidu-java-backend-round1-shezhao.md",
+      "category": "java",
+      "title": "百度 Java后端一面面经（社招进阶版）",
+      "date": "2026-05-29",
+      "tags": [
+        "[社招",
+        "项目深挖",
+        "分布式",
+        "高并发",
+        "手撕]"
+      ],
+      "section": "companies",
+      "topic": "Java 并发",
+      "company": "百度",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "hobbies/math/inequality-collection-book.md",
+      "category": "hobbies",
+      "title": "《从初等到高等 不等式大全》",
+      "date": "2026-05-29",
+      "tags": [
+        "[数学",
+        "不等式",
+        "书籍推荐]"
+      ],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "practice/05-jvm-full-gc-troubleshooting.md",
+      "category": "practice",
+      "title": "第 5 题 · （待补充）",
+      "date": "2026-05-28",
+      "tags": [],
+      "section": "interviews",
+      "topic": "JVM",
+      "company": "",
+      "round": "",
+      "score": 4.0,
+      "questionNumber": 5
+    },
+    {
+      "path": "practice/04-rag-retrieval-indices.md",
+      "category": "practice",
+      "title": "第 4 题 · （待补充）",
+      "date": "2026-05-28",
+      "tags": [],
+      "section": "interviews",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": 1.0,
+      "questionNumber": 4
+    },
+    {
+      "path": "practice/03-redis-rdb-vs-aof.md",
+      "category": "practice",
+      "title": "第 3 题 · （待补充）",
+      "date": "2026-05-28",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Redis",
+      "company": "",
+      "round": "",
+      "score": 5.0,
+      "questionNumber": 3
+    },
+    {
+      "path": "practice/02-synchronized-vs-reentrantlock.md",
+      "category": "practice",
+      "title": "第 2 题 · （待补充）",
+      "date": "2026-05-28",
+      "tags": [],
+      "section": "interviews",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": 5.0,
+      "questionNumber": 2
+    },
+    {
+      "path": "practice/01-thread-pool-core-params.md",
+      "category": "practice",
+      "title": "第 1 题 · Java 并发 · 线程池核心参数与执行流程",
+      "date": "2026-05-28",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Java 并发",
+      "company": "",
+      "round": "",
+      "score": 4.0,
+      "questionNumber": 1
+    },
+    {
+      "path": "java/jd-java-backend-round2-jvm-concurrency.md",
+      "category": "java",
+      "title": "京东Java后端二面面经 — JVM调优 & 并发编程（底层原理版）",
+      "date": "2026-05-28",
+      "tags": [
+        "[JVM",
+        "并发编程",
+        "GC",
+        "调优",
+        "synchronized",
+        "Lock]"
+      ],
+      "section": "companies",
+      "topic": "Java 并发",
+      "company": "京东",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "tiktok/2026-05-27-tiktok-ecommerce-backend-round1.md",
+      "category": "tiktok",
+      "title": "TikTok国际电商后端一面",
+      "date": "2026-05-27",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "字节跳动",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "tencent/2026-05-27-tencent-cloud-final-round.md",
+      "category": "tencent",
+      "title": "腾讯云智后端Java终面面经 - 技术原理深挖型终面",
+      "date": "2026-05-27",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "腾讯",
+      "round": "终面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "chayanyuese/2026-05-26-chayanyuese-java-round2-scenario-35k.md",
+      "category": "chayanyuese",
+      "title": "茶颜悦色Java开发二面 — 场景题实战（35k offer）",
+      "date": "2026-05-26",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "茶颜悦色",
+      "round": "二面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-05-26-bytedance-agent-interview-answers.md",
+      "category": "ai-agent",
+      "title": "字节Agent面经记录带答案",
+      "date": "2026-05-26",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "字节跳动",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "tencent/2026-05-25-wxg-wechat-pay-backend-round2.md",
+      "category": "tencent",
+      "title": "WXG微信支付后台开发二面",
+      "date": "2026-05-25",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "腾讯",
+      "round": "二面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "sf/2026-05-25-sf-java-backend-round1-round2.md",
+      "category": "sf",
+      "title": "顺丰 Java后端技术面 一面+二面",
+      "date": "2026-05-25",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "顺丰",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "oppo/2026-05-25-oppo-backend-java-round2-concurrency.md",
+      "category": "oppo",
+      "title": "OPPO 后端 Java 二面面经（高并发+线程池专场）",
+      "date": "2026-05-25",
+      "tags": [],
+      "section": "companies",
+      "topic": "Java 并发",
+      "company": "OPPO",
+      "round": "二面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "kuaishou/2026-05-25-kuaishou-backend-java-round1-mysql.md",
+      "category": "kuaishou",
+      "title": "快手后端Java一面面经 — MySQL数据库+索引优化",
+      "date": "2026-05-25",
+      "tags": [],
+      "section": "companies",
+      "topic": "MySQL",
+      "company": "快手",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "java/2026-05-25-oppo-backend-java-final-round-redis-cache.md",
+      "category": "java",
+      "title": "OPPO 后端Java终面面经 — Redis+缓存架构专项",
+      "date": "2026-05-25",
+      "tags": [],
+      "section": "companies",
+      "topic": "Redis",
+      "company": "OPPO",
+      "round": "终面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "industry/2026-05-25-deepseek-agent-harness-hiring.md",
+      "category": "industry",
+      "title": "DeepSeek 招聘 — Agent Harness 岗位解读",
+      "date": "2026-05-25",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "chayanyuese/2026-05-25-chayanyuese-java-round2-system-design.md",
+      "category": "chayanyuese",
+      "title": "茶颜悦色 Java 开发二面面经（业务场景题）",
+      "date": "2026-05-25",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "茶颜悦色",
+      "round": "二面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-05-25-kimi-frontend-agent-interview-detailed.md",
+      "category": "ai-agent",
+      "title": "Kimi AI 前端 Agent 岗面经（详细版）",
+      "date": "2026-05-25",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-05-25-28day-agent-learning-roadmap.md",
+      "category": "ai-agent",
+      "title": "28天 Agent 开发学习路线",
+      "date": "2026-05-25",
+      "tags": [],
+      "section": "plans",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "three-squirrels/2026-05-24-three-squirrels-backend-round1.md",
+      "category": "three-squirrels",
+      "title": "🐿️ 三只松鼠 — 线上业务 Java 后端 一面面经",
+      "date": "2026-05-24",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "三只松鼠",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "kuaishou/2026-05-24-kuaishou-backend-final-round.md",
+      "category": "kuaishou",
+      "title": "快手后端 Java 终面面经",
+      "date": "2026-05-24",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "快手",
+      "round": "终面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "tencent/2026-05-18-tencent-ruichi-java-round2.md",
+      "category": "tencent",
+      "title": "腾讯瑞驰 后端 Java 二面面经（偏 JVM + 性能调优）",
+      "date": "2026-05-18",
+      "tags": [],
+      "section": "companies",
+      "topic": "JVM",
+      "company": "腾讯",
+      "round": "二面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "tencent/2026-05-18-tencent-cloud-interview.md",
+      "category": "tencent",
+      "title": "腾讯云智后台开发（社招）面试凉经",
+      "date": "2026-05-18",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "腾讯",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "java/2026-05-18-youzan-java-ai-interview.md",
+      "category": "java",
+      "title": "有赞 Java & AI 开发岗（社招）面经",
+      "date": "2026-05-18",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-05-18-bytedance-agent-1-3round.md",
+      "category": "ai-agent",
+      "title": "字节 agent开发 1-3面面经 5月",
+      "date": "2026-05-18",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "字节跳动",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "java/2026-05-10-meituan-backend-offer.md",
+      "category": "java",
+      "title": "美团后端开发面经（已offer）",
+      "date": "2026-05-10",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "美团",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-05-07-ai-agent-common-interview-questions.md",
+      "category": "ai-agent",
+      "title": "AI Agent 常见面试题",
+      "date": "2026-05-07",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-05-06-bytedance-agent-round3.md",
+      "category": "ai-agent",
+      "title": "字节Agent开发三面面经",
+      "date": "2026-05-06",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "字节跳动",
+      "round": "三面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-04-18-tencent-agent-round1-summer.md",
+      "category": "ai-agent",
+      "title": "腾讯 AI Agent 开发一面（暑期）",
+      "date": "2026-04-18",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "腾讯",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-04-17-baidu-agent-round1.md",
+      "category": "ai-agent",
+      "title": "百度 AI Agent开发一面",
+      "date": "2026-04-17",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "百度",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "java/2026-04-16-bytedance-backend-round1-3.md",
+      "category": "java",
+      "title": "字节后端开发 一二三面面经（已oc）",
+      "date": "2026-04-16",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "字节跳动",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-04-08-xiaohongshu-ai-app-dev-round1.md",
+      "category": "ai-agent",
+      "title": "小红书 AI应用开发 一面",
+      "date": "2026-04-08",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "小红书",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-03-30-jd-agent-intern-round2.md",
+      "category": "ai-agent",
+      "title": "京东Agent实习二面问题总结",
+      "date": "2026-03-30",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "京东",
+      "round": "二面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "tencent/2026-03-29-tencent-ai-application-dev-round1.md",
+      "category": "tencent",
+      "title": "腾讯 大模型应用开发 一面",
+      "date": "2026-03-29",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "腾讯",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-03-28-bytedance-agent-round1.md",
+      "category": "ai-agent",
+      "title": "字节跳动 Agent 开发 一面",
+      "date": "2026-03-28",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "字节跳动",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-03-19-kuaishou-agent-round1.md",
+      "category": "ai-agent",
+      "title": "快手 AI Agent 开发 一面",
+      "date": "2026-03-19",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "快手",
+      "round": "一面",
+      "score": 7.0,
+      "questionNumber": 2026
+    },
+    {
+      "path": "java/2026-03-09-bytedance-backend-big-delivery.md",
+      "category": "java",
+      "title": "字节后端面经大放送",
+      "date": "2026-03-09",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "字节跳动",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "middleware/2026-03-05-redis-bagu-summary.md",
+      "category": "middleware",
+      "title": "后端八股总结——Redis篇",
+      "date": "2026-03-05",
+      "tags": [],
+      "section": "questions",
+      "topic": "Redis",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/2026-03-01-alibaba-taotian-agent-round1.md",
+      "category": "ai-agent",
+      "title": "26春招｜阿里淘天 Agent 一面面经分享",
+      "date": "2026-03-01",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "阿里巴巴",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "java/2025-11-18-xpeng-java-round1-2.md",
+      "category": "java",
+      "title": "小鹏汽车两轮Java技术面",
+      "date": "2025-11-18",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2025
+    },
+    {
+      "path": "java/2025-07-16-gaode-java-shezhao.md",
+      "category": "java",
+      "title": "高德Java后端社招面经",
+      "date": "2025-07-16",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2025
+    },
+    {
+      "path": "java/2025-05-11-vipshop-java-round1-4.md",
+      "category": "java",
+      "title": "唯品会Java开发面经复盘｜5年Java",
+      "date": "2025-05-11",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2025
+    },
+    {
+      "path": "java/2025-02-23-meituan-java-round1.md",
+      "category": "java",
+      "title": "美团 JAVA岗 一面面经",
+      "date": "2025-02-23",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "美团",
+      "round": "一面",
+      "score": null,
+      "questionNumber": 2025
+    },
+    {
+      "path": "middleware/2024-09-26-mysql-common-interview-questions.md",
+      "category": "middleware",
+      "title": "MySQL常见⾯试题",
+      "date": "2024-09-26",
+      "tags": [],
+      "section": "questions",
+      "topic": "MySQL",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2024
+    },
+    {
+      "path": "java/2024-01-09-java-interview-review.md",
+      "category": "java",
+      "title": "一次Java面试复盘",
+      "date": "2024-01-09",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2024
+    },
+    {
+      "path": "tencent/wxg-wechat-work-backend-round1.md",
+      "category": "tencent",
+      "title": "WXG 企业微信 — 一面 · 后台开发",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "腾讯",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "tencent/tencent-music-agent-backend-round1.md",
+      "category": "tencent",
+      "title": "腾讯音乐后端（Agent）开发一面面经",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "腾讯",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "tech-notes/sse-redis-async-data-loading.md",
+      "category": "tech-notes",
+      "title": "SSE + Redis 渐进式异步数据加载方案",
+      "date": "",
+      "tags": [],
+      "section": "notes",
+      "topic": "Redis",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "tech-notes/java-mcp-tool-exposure-spring-cloud-gateway.md",
+      "category": "tech-notes",
+      "title": "Java单体项目存量HTTP接口暴露为MCP Tool架构方案",
+      "date": "",
+      "tags": [],
+      "section": "notes",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "tech-notes/java-ai-agent-framework-selection.md",
+      "category": "tech-notes",
+      "title": "放弃 Spring AI？这 3 个开源框架，才是让 SpringBoot 玩转 AI Agent 的正解",
+      "date": "",
+      "tags": [],
+      "section": "notes",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "tech-notes/agentscope-java-2-springboot-dynamic-routing.md",
+      "category": "tech-notes",
+      "title": "Spring Boot接入AgentScope Java 2.0后，如何实现动态路由？",
+      "date": "",
+      "tags": [],
+      "section": "notes",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "tech-notes/agentscope-2-planning-mode.md",
+      "category": "tech-notes",
+      "title": "AgentScope 2.0.3 计划模式深度解析：显式任务清单",
+      "date": "",
+      "tags": [],
+      "section": "notes",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "tech-notes/agent-harness-engineering-practice.md",
+      "category": "tech-notes",
+      "title": "Agent Harness 工程实战指南",
+      "date": "",
+      "tags": [],
+      "section": "notes",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "references/sse-redis-stream-pattern.md",
+      "category": "references",
+      "title": "SSE + Redis Stream 渐进式异步数据加载方案（改进版）",
+      "date": "",
+      "tags": [],
+      "section": "notes",
+      "topic": "Redis",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "references/java-ffm-api/01-FFM-Memory-API.md",
+      "category": "references",
+      "title": "未知标题",
+      "date": "",
+      "tags": [],
+      "section": "notes",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 1
+    },
+    {
+      "path": "references/how-llms-actually-work.md",
+      "category": "references",
+      "title": "How LLMs Actually Work — LLM 内部机制长文",
+      "date": "",
+      "tags": [],
+      "section": "notes",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "references/ai-memory-tag-system-design.md",
+      "category": "references",
+      "title": "AI 记忆标签体系设计 — 双维度标签解决 consolidation 混乱",
+      "date": "",
+      "tags": [],
+      "section": "notes",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "rag-interview-design.md",
+      "category": "notes",
+      "title": "面试知识库 RAG 系统设计方案",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "practice/review-schedule.md",
+      "category": "practice",
+      "title": "面试题复习计划",
+      "date": "",
+      "tags": [],
+      "section": "plans",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "practice/active-batch-plan.md",
+      "category": "practice",
+      "title": "后续题目计划（23-216）",
+      "date": "",
+      "tags": [],
+      "section": "plans",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "practice/README.md",
+      "category": "practice",
+      "title": "面试刷题练习记录",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": 4.0,
+      "questionNumber": null
+    },
+    {
+      "path": "practice/43-jvm-object-allocation-tlab-eden-gc.md",
+      "category": "practice",
+      "title": "第43题：JVM — 对象分配流程：TLAB、Eden、Minor GC、老年代晋升",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "JVM",
+      "company": "",
+      "round": "",
+      "score": 5.0,
+      "questionNumber": 43
+    },
+    {
+      "path": "practice/42-rag-evaluation-optimization.md",
+      "category": "practice",
+      "title": "第42题：RAG — 评测和优化：召回率、精排、幻觉率",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": 1.0,
+      "questionNumber": 42
+    },
+    {
+      "path": "practice/41-langgraph-state-machine-vs-react.md",
+      "category": "practice",
+      "title": "第41题：AI Agent — LangGraph 状态图执行模型 + 与 ReAct Loop 的区别",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": 0.0,
+      "questionNumber": 41
+    },
+    {
+      "path": "practice/40-harness-eval-framework-mcp-boundary.md",
+      "category": "practice",
+      "title": "第40题：AI Agent — Harness 是什么？和 Eval、Agent Framework、MCP 的边界",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": 4.0,
+      "questionNumber": 40
+    },
+    {
+      "path": "practice/39-rocketmq-transaction-delay-ordered.md",
+      "category": "practice",
+      "title": "第39题：MQ — RocketMQ 事务消息、延时消息、顺序消息",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "MySQL",
+      "company": "",
+      "round": "",
+      "score": 4.0,
+      "questionNumber": 39
+    },
+    {
+      "path": "practice/38-redis-cluster-sentinel-consistency.md",
+      "category": "practice",
+      "title": "第38题：Redis — Cluster 和 Sentinel 区别 + 主从切换一致性风险",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Redis",
+      "company": "",
+      "round": "",
+      "score": 4.0,
+      "questionNumber": 38
+    },
+    {
+      "path": "practice/37-redo-undo-binlog-two-phase-commit.md",
+      "category": "practice",
+      "title": "第37题：MySQL — redo log、undo log、binlog + 两阶段提交",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "MySQL",
+      "company": "",
+      "round": "",
+      "score": 3.0,
+      "questionNumber": 37
+    },
+    {
+      "path": "practice/36-spring-boot-auto-configuration.md",
+      "category": "practice",
+      "title": "第36题 — Spring Boot 自动装配原理",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Spring",
+      "company": "",
+      "round": "",
+      "score": 4.0,
+      "questionNumber": 36
+    },
+    {
+      "path": "practice/34-arraylist-linkedlist-hashmap-concurrent-hashmap.md",
+      "category": "practice",
+      "title": "第 34 题：ArrayList、LinkedList、HashMap、ConcurrentHashMap 如何选",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": 5.0,
+      "questionNumber": 34
+    },
+    {
+      "path": "practice/33-seckill-system-design.md",
+      "category": "practice",
+      "title": "第 33 题：秒杀系统怎么设计",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "系统设计",
+      "company": "",
+      "round": "",
+      "score": 5.0,
+      "questionNumber": 33
+    },
+    {
+      "path": "practice/32-agent-memory-design.md",
+      "category": "practice",
+      "title": "第 32 题：Agent Memory 怎么设计",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": 5.5,
+      "questionNumber": 32
+    },
+    {
+      "path": "practice/31-jvm-classloading-parent-delegation.md",
+      "category": "practice",
+      "title": "第 31 题：JVM 类加载机制、双亲委派和打破双亲委派",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "JVM",
+      "company": "",
+      "round": "",
+      "score": 4.5,
+      "questionNumber": 31
+    },
+    {
+      "path": "practice/29-innodb-gap-lock-next-key-lock.md",
+      "category": "practice",
+      "title": "第29题：InnoDB 行锁、间隙锁、Next-Key Lock 和死锁排查",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Java 并发",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 29
+    },
+    {
+      "path": "practice/28-rabbitmq-reliable-delivery-dead-letter.md",
+      "category": "practice",
+      "title": "第28题 — RabbitMQ 可靠投递、可靠消费、死信队列与幂等",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "消息队列",
+      "company": "",
+      "round": "",
+      "score": 5.0,
+      "questionNumber": 28
+    },
+    {
+      "path": "practice/27-spring-aop-proxy-transaction.md",
+      "category": "practice",
+      "title": "第27题 — Spring AOP 代理原理",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Spring",
+      "company": "",
+      "round": "",
+      "score": 7.0,
+      "questionNumber": 27
+    },
+    {
+      "path": "practice/26-volatile-synchronized-cas-jmm.md",
+      "category": "practice",
+      "title": "第26题：volatile、synchronized、CAS 和 JMM 的关系",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": 3.5,
+      "questionNumber": 26
+    },
+    {
+      "path": "practice/25-mybatis-cache-levels.md",
+      "category": "practice",
+      "title": "第25题：MyBatis 一级/二级缓存机制",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Redis",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 25
+    },
+    {
+      "path": "practice/25-inventory-oversell-prevention.md",
+      "category": "practice",
+      "title": "第25题 — 高并发库存扣减防超卖",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Java 并发",
+      "company": "",
+      "round": "",
+      "score": 5.0,
+      "questionNumber": 25
+    },
+    {
+      "path": "practice/24-cache-aside-pattern.md",
+      "category": "practice",
+      "title": "第24题 — 缓存更新策略（Cache Aside Pattern）",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Redis",
+      "company": "",
+      "round": "",
+      "score": 5.0,
+      "questionNumber": 24
+    },
+    {
+      "path": "practice/23-mysql-explain-execution-plan.md",
+      "category": "practice",
+      "title": "第23题：MySQL EXPLAIN 执行计划 + Oracle 执行计划",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "MySQL",
+      "company": "",
+      "round": "",
+      "score": 5.0,
+      "questionNumber": 23
+    },
+    {
+      "path": "practice/22-kafka-consumer-group-rebalance.md",
+      "category": "practice",
+      "title": "第22题 — Kafka 消费者组 + Rebalance + 消息丢失/重复消费",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "消息队列",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 22
+    },
+    {
+      "path": "practice/21-mcp-protocol-vs-function-calling.md",
+      "category": "practice",
+      "title": "第21题 — MCP 协议 vs Function Calling vs Tool",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": 8.5,
+      "questionNumber": 21
+    },
+    {
+      "path": "practice/20-agent-architecture-react.md",
+      "category": "practice",
+      "title": "第20题 — Agent 架构设计 + ReAct 工程化",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": 7.0,
+      "questionNumber": 20
+    },
+    {
+      "path": "practice/19-rag-system-design.md",
+      "category": "practice",
+      "title": "第19题 — RAG 系统设计（检索增强生成全流程）",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": 5.0,
+      "questionNumber": 19
+    },
+    {
+      "path": "practice/18-concurrent-hashmap.md",
+      "category": "practice",
+      "title": "第18题：ConcurrentHashMap 底层实现（JDK1.7/1.8）",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "综合",
+      "company": "京东",
+      "round": "",
+      "score": null,
+      "questionNumber": 18
+    },
+    {
+      "path": "practice/17-hashmap底层-jdk7-8-红黑树.md",
+      "category": "practice",
+      "title": "第17题 — HashMap 底层 (JDK7/8 + 红黑树)",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "综合",
+      "company": "京东",
+      "round": "",
+      "score": 5.0,
+      "questionNumber": 17
+    },
+    {
+      "path": "practice/16-spring-transaction-propagation-internals.md",
+      "category": "practice",
+      "title": "第16题 — Spring 事务传播机制 + 底层实现原理",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "MySQL",
+      "company": "",
+      "round": "",
+      "score": 6.0,
+      "questionNumber": 16
+    },
+    {
+      "path": "practice/15-spring-ioc-bean-lifecycle-circular-dependency.md",
+      "category": "practice",
+      "title": "第15题 — Spring Bean 生命周期 + 三级缓存循环依赖",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Redis",
+      "company": "",
+      "round": "",
+      "score": 4.0,
+      "questionNumber": 15
+    },
+    {
+      "path": "practice/14-redis-distributed-lock-deep.md",
+      "category": "practice",
+      "title": "第14题 — Redis 分布式锁深入",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Java 并发",
+      "company": "",
+      "round": "",
+      "score": 7.0,
+      "questionNumber": 14
+    },
+    {
+      "path": "practice/13-redis-cache-penetration-breakdown-avalanche.md",
+      "category": "practice",
+      "title": "第13题 — 缓存穿透/击穿/雪崩",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Redis",
+      "company": "",
+      "round": "",
+      "score": 4.0,
+      "questionNumber": 13
+    },
+    {
+      "path": "practice/09-distributed-transaction.md",
+      "category": "practice",
+      "title": "第9题 — 分布式事务",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "MySQL",
+      "company": "",
+      "round": "",
+      "score": 2.0,
+      "questionNumber": 9
+    },
+    {
+      "path": "practice/06-mvcc.md",
+      "category": "practice",
+      "title": "第6题 — MVCC + 锁机制完整讨论",
+      "date": "",
+      "tags": [],
+      "section": "interviews",
+      "topic": "Java 并发",
+      "company": "",
+      "round": "",
+      "score": 2.0,
+      "questionNumber": 6
+    },
+    {
+      "path": "middleware/蚂蚁后端Java终面面经.md",
+      "category": "middleware",
+      "title": "蚂蚁集团 后端Java终面面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "终面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/蚂蚁AI前端研发工程师面经.md",
+      "category": "middleware",
+      "title": "蚂蚁 AI 前端研发工程师面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "前端",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/腾讯瑞驰后端Java二面面经.md",
+      "category": "middleware",
+      "title": "腾讯瑞驰 后端Java二面面经",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "腾讯",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/腾讯后端开发社招强度.md",
+      "category": "middleware",
+      "title": "腾讯后端开发社招强度（2-5年经验）",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "腾讯",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/联想后端Java二面面经.md",
+      "category": "middleware",
+      "title": "联想 后端Java二面面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/美团后端面经三面合并.md",
+      "category": "middleware",
+      "title": "美团后端面经（三面合并）",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "美团",
+      "round": "三面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/滴滴出行后端Java二面面经.md",
+      "category": "middleware",
+      "title": "滴滴出行后端 Java 二面面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/极兔速递后端Java二面面经.md",
+      "category": "middleware",
+      "title": "极兔速递后端Java二面面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/弦冰Java一面66道高频考点.md",
+      "category": "middleware",
+      "title": "弦冰Java一面66道高频考点",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/小米后端Java二面面经.md",
+      "category": "middleware",
+      "title": "小米 后端Java二面面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/大厂SQL高频题第2期.md",
+      "category": "middleware",
+      "title": "大厂面试SQL高频题 第2期",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "MySQL",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/后端慢SQL优化面经.md",
+      "category": "middleware",
+      "title": "后端Java一面凉经 - 慢SQL优化",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "MySQL",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/京东后端Java终面面经.md",
+      "category": "middleware",
+      "title": "京东后端Java终面面经",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "京东",
+      "round": "终面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/京东上岸Java岗面经48题.md",
+      "category": "middleware",
+      "title": "京东集团 Java 岗面经（48题精选）",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "京东",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/zhihu-mysql-add-column-online-ddl.md",
+      "category": "middleware",
+      "title": "知乎：MySQL千万级订单表新增字段怎么弄？",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "MySQL",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/vipshop-java-interview.md",
+      "category": "middleware",
+      "title": "唯品会 Java 开发面经复盘",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/springboot-practice-case-index.md",
+      "category": "middleware",
+      "title": "Spring Boot 实战案例合集（部分目录）",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "Spring",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/senior-java-3-soul-questions.md",
+      "category": "middleware",
+      "title": "高级Java工程师3道灵魂面试题",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/rocketmq-kafka-transaction-ordering.md",
+      "category": "middleware",
+      "title": "RocketMQ vs Kafka：事务、原子写入、有序性",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "MySQL",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/lock-free-queue-deep-dive.md",
+      "category": "middleware",
+      "title": "无锁队列深度解析 — 高并发编程核心",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "Java 并发",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/Redis事务与原子性原理深度解析.md",
+      "category": "middleware",
+      "title": "Redis事务与原子性原理深度解析",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "MySQL",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/README.md",
+      "category": "middleware",
+      "title": "中间件/Java后端 面试资料索引",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "MySQL",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "middleware/Minimax-Go面试复盘.md",
+      "category": "middleware",
+      "title": "Minimax Go面试复盘",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/spring-three-level-cache-source-code.md",
+      "category": "java",
+      "title": "Spring 三级缓存源码逐行注释",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "Redis",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/spring-three-level-cache-circular-dependency.md",
+      "category": "java",
+      "title": "Spring 三级缓存解决循环依赖 —— 完整讨论记录",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "Redis",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/spring-concurrency-throttle-interceptor.md",
+      "category": "java",
+      "title": "Spring Boot 并发限流拦截器 ConcurrencyThrottleInterceptor 实战",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "Java 并发",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/spring-boot-async-4-patterns.md",
+      "category": "java",
+      "title": "Spring Boot @Async 实战4种模式",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "Spring",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/spring-boot-aggregate-api-concurrency-comparison.md",
+      "category": "java",
+      "title": "Spring Boot 聚合API查询，3种方式性能对比（虚拟线程+结构化并发，CompletableFuture）",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "Java 并发",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/sf-express-java-backend-round2.md",
+      "category": "java",
+      "title": "顺丰后端Java二面面经",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "顺丰",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/sf-express-java-backend-final-round.md",
+      "category": "java",
+      "title": "顺丰后端 Java 终面面经",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "顺丰",
+      "round": "终面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/pdd-java-backend-round1-concurrency.md",
+      "category": "java",
+      "title": "拼多多后端Java一面面经 — 并发核心",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "Java 并发",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/meitu-backend-server-round1.md",
+      "category": "java",
+      "title": "美图后端服务器开发一面面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/megvii-java-round1-12-questions.md",
+      "category": "java",
+      "title": "旷视Java开发岗面经 — 12道高频题",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/java-concurrency-5-optimization-tips.md",
+      "category": "java",
+      "title": "Java 并发优化 5 个实战技巧",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "Java 并发",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/hupu-java-backend-round2-redis-distributed.md",
+      "category": "java",
+      "title": "虎扑后端Java二面面经 — Redis+分布式",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "Redis",
+      "company": "",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/hupu-java-backend-round1.md",
+      "category": "java",
+      "title": "虎扑后端Java一面面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/exchange-web3-backend-round1.md",
+      "category": "java",
+      "title": "某交易所 Web3 后端一面面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/eleme-java-backend-round2.md",
+      "category": "java",
+      "title": "饿了么 Java 后端二面面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/eleme-java-backend-round2-mysql.md",
+      "category": "java",
+      "title": "饿了么 Java 后端二面面经（MySQL 存储 + 索引优化场）",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "MySQL",
+      "company": "",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/eleme-java-backend-round1.md",
+      "category": "java",
+      "title": "饿了么 Java 后端一面面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/cmb-java-backend-round1.md",
+      "category": "java",
+      "title": "招商银行Java后端技术面",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/cainiao-java-backend-round2-mysql.md",
+      "category": "java",
+      "title": "菜鸟Java后端二面面经 — MySQL专项",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "MySQL",
+      "company": "",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/boe-backend-all-rounds.md",
+      "category": "java",
+      "title": "京东方后端面试全攻略（1面+2面+HR面，2026最新深度版）",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "京东",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/baidu-java-backend-round2.md",
+      "category": "java",
+      "title": "百度后端 Java 二面面经",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "百度",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/baidu-java-backend-round2-concurrency.md",
+      "category": "java",
+      "title": "百度后端Java二面面经 — 并发+数据库底层",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "Java 并发",
+      "company": "百度",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/baidu-java-backend-round1.md",
+      "category": "java",
+      "title": "百度 Java 后端一面面经",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "百度",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/baidu-java-backend-final-round.md",
+      "category": "java",
+      "title": "百度后端 Java 终面面经",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "百度",
+      "round": "终面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/arthas-diagnostic-guide.md",
+      "category": "java",
+      "title": "Arthas Java 诊断工具完全指南",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "java/alibaba-backend-java-final-round-framework.md",
+      "category": "java",
+      "title": "阿里后端Java终面面经 — 框架源码+问题排查",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "综合",
+      "company": "阿里巴巴",
+      "round": "终面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "hobbies/career/career-programmer-going-global.md",
+      "category": "hobbies",
+      "title": "程序员出海/远程工作资料",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "frontend/ai-agent-frontend-interview.md",
+      "category": "frontend",
+      "title": "AI Agent 前端开发工程师 面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "codex gpt 修复点.md",
+      "category": "notes",
+      "title": "codex gpt 修复点",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/高德AIAgent一面50题.md",
+      "category": "ai-agent",
+      "title": "高德 AI Agent 一面（问得难啊）",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/月之暗面Kimi前端AI岗面经.md",
+      "category": "ai-agent",
+      "title": "月之暗面（Kimi）前端AI岗面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/拼多多Java三轮技术面+AI Agent实战题全记录.md",
+      "category": "ai-agent",
+      "title": "拼多多 Java 后端 三轮技术面 + AI Agent 实战题全记录",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/字节后端开发一面已拿offer.md",
+      "category": "ai-agent",
+      "title": "字节后端开发一面（已拿offer）",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "字节跳动",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/后端转Agent开发学习路线.md",
+      "category": "ai-agent",
+      "title": "后端开发转Agent开发学习路线",
+      "date": "",
+      "tags": [],
+      "section": "plans",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/yushu-ai-agent-3rounds-oc.md",
+      "category": "ai-agent",
+      "title": "宇树科技 AI Agent 开发三轮技术面（已 OC）",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/xiaohongshu-icde2026-ccd-vector-ann.md",
+      "category": "ai-agent",
+      "title": "CCD级负载感知线程编排：小红书ICDE 2026论文解析",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "小红书",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/write-agent-series/11-生产级Agent系统.md",
+      "category": "ai-agent",
+      "title": "从零开始写 Agent 终篇：如何设计一个生产级 Agent 系统",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 11
+    },
+    {
+      "path": "ai-agent/write-agent-series/10-Skills系统.md",
+      "category": "ai-agent",
+      "title": "从零开始写 Agent ：给 Agent 加上 Skills 系统",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 10
+    },
+    {
+      "path": "ai-agent/write-agent-series/09-浏览器自动化.md",
+      "category": "ai-agent",
+      "title": "从零开始写 Agent 之九 - 浏览器自动化",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 9
+    },
+    {
+      "path": "ai-agent/write-agent-series/08-外接知识库.md",
+      "category": "ai-agent",
+      "title": "从零开始写 Agent 之八：外接知识库",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 8
+    },
+    {
+      "path": "ai-agent/write-agent-series/07-上下文工程.md",
+      "category": "ai-agent",
+      "title": "从零开始写 Agent（七）：上下文工程",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 7
+    },
+    {
+      "path": "ai-agent/write-agent-series/06-记忆系统.md",
+      "category": "ai-agent",
+      "title": "从零开始写 Agent（六）：记忆系统",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 6
+    },
+    {
+      "path": "ai-agent/write-agent-series/05-Agent设计范式.md",
+      "category": "ai-agent",
+      "title": "从零开始写 Agent（五）：聊聊 Agent 的设计范式",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 5
+    },
+    {
+      "path": "ai-agent/write-agent-series/04-财报研报Agent.md",
+      "category": "ai-agent",
+      "title": "从零开始写 Agent（四）：用两步做一个财报研报 Agent",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 4
+    },
+    {
+      "path": "ai-agent/write-agent-series/03-Agent-Loop.md",
+      "category": "ai-agent",
+      "title": "从零开始写 Agent(三) - Agent Loop",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 3
+    },
+    {
+      "path": "ai-agent/write-agent-series/02-让模型调用工具.md",
+      "category": "ai-agent",
+      "title": "从零开始写Agent(二) - 让模型调用工具",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2
+    },
+    {
+      "path": "ai-agent/write-agent-series/01-从司机变乘客-Agent编程的范式革命.md",
+      "category": "ai-agent",
+      "title": "从司机变乘客：这就是 Agent 编程的范式革命",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 1
+    },
+    {
+      "path": "ai-agent/write-agent-series-index.md",
+      "category": "ai-agent",
+      "title": "从零开始写 Agent 系列（11篇）",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/tencent-ai-agent-interview.md",
+      "category": "ai-agent",
+      "title": "腾讯AI Agent二面面经",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "腾讯",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/taotian-round3-interview.md",
+      "category": "ai-agent",
+      "title": "阿里淘天三面面经（深度版）",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "阿里巴巴",
+      "round": "三面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/taotian-ai-agent-interview.md",
+      "category": "ai-agent",
+      "title": "淘天AI应用开发二面面经",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "阿里巴巴",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/taobao-flashsale-ai-dev-round1.md",
+      "category": "ai-agent",
+      "title": "淘宝闪购 · AI应用开发一面凉经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/rag-hybrid-search-meilisearch.md",
+      "category": "ai-agent",
+      "title": "RAG混合检索：MeiliSearch vs Milvus（技术文章整理）",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/pinduoduo-ai-backend-java-round2.md",
+      "category": "ai-agent",
+      "title": "拼多多 AI Java后端开发二面面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/netease-ai-agent-round1.md",
+      "category": "ai-agent",
+      "title": "网易一面（技术+Leader）AI Agent 面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/lenovo-frontend-ai-dev-2026.md",
+      "category": "ai-agent",
+      "title": "联想 2026 · 前端开发（AI应用方向）社招面试真题",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/langgraph-state-machine-engine.md",
+      "category": "ai-agent",
+      "title": "LangGraph 底层执行引擎深度拆解",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/heytea-ai-app-interview.md",
+      "category": "ai-agent",
+      "title": "喜茶AI应用开发面经（深度版）",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/gaode-agent-social-recruit-round1.md",
+      "category": "ai-agent",
+      "title": "高德 Agent 社招一面面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/gaode-agent-backend-round1.md",
+      "category": "ai-agent",
+      "title": "高德业务Agent开发一面 - 凉经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/embabel-java-agent-framework.md",
+      "category": "ai-agent",
+      "title": "Embabel：Spring 之父打造的 Java AI Agent 框架",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/dongfang-caifu-ai-interview.md",
+      "category": "ai-agent",
+      "title": "东方财富 AI应用开发岗（暑期实习）一面凉经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/ctrip-ai-app-interview-round1.md",
+      "category": "ai-agent",
+      "title": "携程AI应用开发一面面经（深度版）",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/ctrip-ai-agent-interview.md",
+      "category": "ai-agent",
+      "title": "携程AI应用开发一面面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/ctrip-agent-interview-round2.md",
+      "category": "ai-agent",
+      "title": "携程 Agent开发岗 二面面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/completable-future-production-pitfalls.md",
+      "category": "ai-agent",
+      "title": "CompletableFuture 生产级避坑指南",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/claude-code-grep-vs-rag-code-retrieval.md",
+      "category": "ai-agent",
+      "title": "为什么 Claude Code 用 grep 不用 RAG 检索代码？",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/claude-code-dynamic-workflows.md",
+      "category": "ai-agent",
+      "title": "Claude Code 动态工作流（Dynamic Workflows）深度解析",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/bytedance-ai-coding-agent-interview.md",
+      "category": "ai-agent",
+      "title": "字节跳动 AI Coding Agent 社招面经",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "字节跳动",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/bytedance-ai-agent-backend-round1.md",
+      "category": "ai-agent",
+      "title": "字节跳动 AI Agent 后端一面面经",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "字节跳动",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/bytedance-ai-agent-2-2-interview.md",
+      "category": "ai-agent",
+      "title": "字节跳动 AI Agent 三轮技术面拿下2-2",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "字节跳动",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/bytedance-agent-interview-round2.md",
+      "category": "ai-agent",
+      "title": "字节跳动 Agent开发二面面经（深度版）",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "字节跳动",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/bytedance-agent-interview-round1.md",
+      "category": "ai-agent",
+      "title": "字节跳动 Agent开发一面面经（深度版）",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "字节跳动",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/backend-to-agent-transition.md",
+      "category": "ai-agent",
+      "title": "后端转 Agent 全栈：转型经验（完整版）",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/ant-international-agent-llm-round1.md",
+      "category": "ai-agent",
+      "title": "蚂蚁国际 · 智能体与大模型应用工程 一面面经",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/ant-ai-app-interview-round1.md",
+      "category": "ai-agent",
+      "title": "蚂蚁集团 AI应用开发一面",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/amap-agent-backend-intern-interview.md",
+      "category": "ai-agent",
+      "title": "高德 Agent后端开发日常实习一面",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/alibaba-intl-ai-agent-interview.md",
+      "category": "ai-agent",
+      "title": "阿里国际 AI Agent 面经（深度版）",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "阿里巴巴",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/alibaba-fliggy-backend-interview.md",
+      "category": "ai-agent",
+      "title": "阿里飞猪后端面经（深度版）",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "阿里巴巴",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/alibaba-dp-string-fill-count.md",
+      "category": "ai-agent",
+      "title": "阿里笔试 · 字符串填充组合计数（动态规划）",
+      "date": "",
+      "tags": [],
+      "section": "companies",
+      "topic": "AI Agent",
+      "company": "阿里巴巴",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/ai-agent-learning-roadmap.md",
+      "category": "ai-agent",
+      "title": "Java开发者转型AI Agent开发路线图",
+      "date": "",
+      "tags": [],
+      "section": "plans",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agentscope-java-harness-framework.md",
+      "category": "ai-agent",
+      "title": "AgentScope Java 1.1.0：Harness Framework 深度解析",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agentium-mcp-execution-mechanism.md",
+      "category": "ai-agent",
+      "title": "Agentium MCP 工具执行机制解析",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-index.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载系列索引",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-23-从零实现-Agent-系统连载-23｜Skill-体系与-Skill-Creat.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 23｜Skill 体系与 Skill Creator：能力打包与迭代",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-22-从零实现-Agent-系统连载-22｜Tool-Search-与按需加载工具多了.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 22｜Tool Search 与按需加载：工具多了以后怎么办",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-21-从零实现-Agent-系统连载-21｜工具契约-ACI写好-Agent-能用的工.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 21｜工具契约 ACI：写好 Agent 能用的工具",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-20-从零实现-Agent-系统连载-20｜MCP-与-Code-Execution协.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 20｜MCP 与 Code Execution：协议、档位与 Sidecar",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-19-从零实现-Agent-系统连载-19｜Workflow-vs-Agent编排选型.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 19｜Workflow vs Agent：编排选型与 Harness 三元",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-18-从零实现-Agent-系统连载-18｜DeepSeek-V4-网关适配Model.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 18｜DeepSeek V4 网关适配：Model Gate、Thinking 与 DSML",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-17-从零实现-Agent-系统连载-17｜记忆再往下挖压缩分档、九档归属与-Skil.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 17｜记忆再往下挖：压缩分档、九档归属与 Skill 策略",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-16-从零实现-Agent-系统连载-16｜可观测性与可靠性日志、指标、追踪与演练.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 16｜可观测性与可靠性：日志、指标、追踪与演练",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-15-从零实现-Agent-系统连载-15｜控制面-API运维与运行时操纵.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 15｜控制面 API：运维与运行时操纵",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-14-从零实现-Agent-系统连载-14｜后台平面（Background）主动任务与.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 14｜后台平面（Background）：主动任务与桥接通知",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-13-从零实现-Agent-系统连载-13｜安全防线注入、社工、DLP、密钥与宪法式约.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 13｜安全防线：注入、社工、DLP、密钥与宪法式约束",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-12-从零实现-Agent-系统连载-12｜治理平面策略引擎、审批与审计血缘.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 12｜治理平面：策略引擎、审批与审计血缘",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-11-从零实现-Agent-系统连载-11｜插件与-MCP扩展性与加载边界.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 11｜插件与 MCP：扩展性与加载边界",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-10-从零实现-Agent-系统连载-10｜多通道（Channels）同一核心，多种入.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 10｜多通道（Channels）：同一核心，多种入口",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-09-从零实现-Agent-系统连载-09｜沙箱与资源执行隔离的工程含义.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 09｜沙箱与资源：执行隔离的工程含义",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-08-从零实现-Agent-系统连载-08｜编排与工作流从-Chat-到任务图.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 08｜编排与工作流：从 Chat 到任务图",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-07-从零实现-Agent-系统连载-07｜记忆系统短期上下文-vs-长期外部记忆.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 07｜记忆系统：短期上下文 vs 长期外部记忆",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-06-从零实现-Agent-系统连载-06｜AI-网关路由、限流、内容与成本.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 06｜AI 网关：路由、限流、内容与成本",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-05-从零实现-Agent-系统连载-05｜工具系统契约、注册与安全默认.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 05｜工具系统：契约、注册与安全默认",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-04-从零实现-Agent-系统连载-04｜调度、租赁与并发把「跑起来」变成「可治理地.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 04｜调度、租赁与并发：把「跑起来」变成「可治理地跑」",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-03-从零实现-Agent-系统连载-03｜控制循环感知—决策—行动—反思.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 03｜控制循环：感知—决策—行动—反思",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-02-从零实现-Agent-系统连载-02｜领域模型与状态先把「名词」对齐.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 02｜领域模型与状态：先把「名词」对齐",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-series-01-从零实现-Agent-系统连载-01｜Agent-系统是什么问题空间与架构切片.md",
+      "category": "ai-agent",
+      "title": "《从零实现 Agent 系统》连载 01｜Agent 系统是什么：问题空间与架构切片",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/agent-interview-questions-summary.md",
+      "category": "ai-agent",
+      "title": "Agent面试题总结（深度版）",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/README.md",
+      "category": "ai-agent",
+      "title": "AI Agent 方向面试资料索引",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/DeepSeek超越Opus4.7的优化之道.md",
+      "category": "ai-agent",
+      "title": "我们是如何让 DeepSeek 超越 Opus 4.7 的？",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": 6.0,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/AgentScope-Java-1.1.0-Harness-Framework.md",
+      "category": "ai-agent",
+      "title": "AgentScope Java 1.1.0 Harness Framework 深度解析",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/AI-Coding-Agent-技术参考文档.md",
+      "category": "ai-agent",
+      "title": "AI Coding Agent 技术参考文档",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    },
+    {
+      "path": "ai-agent/2026-agent-interview-guide-part1.md",
+      "category": "ai-agent",
+      "title": "2026大模型Agent面试全攻略（上）",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 2026
+    },
+    {
+      "path": "ai-agent/17-agent-architectures.md",
+      "category": "ai-agent",
+      "title": "17 种 Agent 架构模式深度解析",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": 17
+    },
+    {
+      "path": ".fetched_index.md",
+      "category": "notes",
+      "title": "已抓取面经索引",
+      "date": "",
+      "tags": [],
+      "section": "questions",
+      "topic": "MySQL",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null
+    }
+  ],
+  "dashboard": {
+    "today": {
+      "date": "2026-07-04",
+      "count": 0,
+      "averageScore": null
+    },
+    "totalQuestions": 49,
+    "scoredQuestions": 45,
+    "averageScore": 4.2,
+    "streakDays": 2,
+    "daily": [
+      {
+        "date": "2026-05-28",
+        "count": 5,
+        "averageScore": 3.8
+      },
+      {
+        "date": "2026-05-29",
+        "count": 2,
+        "averageScore": 5.0
+      },
+      {
+        "date": "2026-06-01",
+        "count": 3,
+        "averageScore": 3.3
+      },
+      {
+        "date": "2026-07-02",
+        "count": 3,
+        "averageScore": 2.3
+      },
+      {
+        "date": "2026-07-03",
+        "count": 3,
+        "averageScore": 3.7
+      }
+    ],
+    "weakTopics": [
+      {
+        "topic": "分布式",
+        "averageScore": 3.0,
+        "count": 1
+      },
+      {
+        "topic": "Redis",
+        "averageScore": 3.7,
+        "count": 7
+      },
+      {
+        "topic": "Java 并发",
+        "averageScore": 3.9,
+        "count": 8
+      },
+      {
+        "topic": "MySQL",
+        "averageScore": 3.9,
+        "count": 8
+      },
+      {
+        "topic": "AI Agent",
+        "averageScore": 4.3,
+        "count": 9
+      },
+      {
+        "topic": "综合",
+        "averageScore": 4.5,
+        "count": 5
+      }
+    ],
+    "plans": [
+      {
+        "title": "28天 Agent 开发学习路线",
+        "path": "ai-agent/2026-05-25-28day-agent-learning-roadmap.md"
+      },
+      {
+        "title": "面试题复习计划",
+        "path": "practice/review-schedule.md"
+      },
+      {
+        "title": "后续题目计划（23-216）",
+        "path": "practice/active-batch-plan.md"
+      },
+      {
+        "title": "后端开发转Agent开发学习路线",
+        "path": "ai-agent/后端转Agent开发学习路线.md"
+      },
+      {
+        "title": "Java开发者转型AI Agent开发路线图",
+        "path": "ai-agent/ai-agent-learning-roadmap.md"
+      }
     ]
-  },
-  {
-    "path": "java/feizhu-java-backend-round1.md",
-    "category": "java",
-    "title": "飞猪 Java后端一面面经（实习+项目）",
-    "date": "2026-05-29",
-    "tags": [
-      "[实习, 项目, JDK, GC, 分库分表, 线程池, Agent, RAG]"
-    ]
-  },
-  {
-    "path": "java/baidu-java-backend-round1-shezhao.md",
-    "category": "java",
-    "title": "百度 Java后端一面面经（社招进阶版）",
-    "date": "2026-05-29",
-    "tags": [
-      "[社招, 项目深挖, 分布式, 高并发, 手撕]"
-    ]
-  },
-  {
-    "path": "hobbies/math/inequality-collection-book.md",
-    "category": "hobbies",
-    "title": "《从初等到高等 不等式大全》",
-    "date": "2026-05-29",
-    "tags": [
-      "[数学, 不等式, 书籍推荐]"
-    ]
-  },
-  {
-    "path": "practice/05-jvm-full-gc-troubleshooting.md",
-    "category": "practice",
-    "title": "第 5 题 · （待补充）",
-    "date": "2026-05-28",
-    "tags": []
-  },
-  {
-    "path": "practice/04-rag-retrieval-indices.md",
-    "category": "practice",
-    "title": "第 4 题 · （待补充）",
-    "date": "2026-05-28",
-    "tags": []
-  },
-  {
-    "path": "practice/03-redis-rdb-vs-aof.md",
-    "category": "practice",
-    "title": "第 3 题 · （待补充）",
-    "date": "2026-05-28",
-    "tags": []
-  },
-  {
-    "path": "practice/02-synchronized-vs-reentrantlock.md",
-    "category": "practice",
-    "title": "第 2 题 · （待补充）",
-    "date": "2026-05-28",
-    "tags": []
-  },
-  {
-    "path": "practice/01-thread-pool-core-params.md",
-    "category": "practice",
-    "title": "第 1 题 · Java 并发 · 线程池核心参数与执行流程",
-    "date": "2026-05-28",
-    "tags": []
-  },
-  {
-    "path": "java/jd-java-backend-round2-jvm-concurrency.md",
-    "category": "java",
-    "title": "京东Java后端二面面经 — JVM调优 & 并发编程（底层原理版）",
-    "date": "2026-05-28",
-    "tags": [
-      "[JVM, 并发编程, GC, 调优, synchronized, Lock]"
-    ]
-  },
-  {
-    "path": "tiktok/2026-05-27-tiktok-ecommerce-backend-round1.md",
-    "category": "tiktok",
-    "title": "TikTok国际电商后端一面",
-    "date": "2026-05-27",
-    "tags": []
-  },
-  {
-    "path": "tencent/2026-05-27-tencent-cloud-final-round.md",
-    "category": "tencent",
-    "title": "腾讯云智后端Java终面面经 - 技术原理深挖型终面",
-    "date": "2026-05-27",
-    "tags": []
-  },
-  {
-    "path": "tencent/2026-05-25-wxg-wechat-pay-backend-round2.md",
-    "category": "tencent",
-    "title": "WXG微信支付后台开发二面",
-    "date": "2026-05-25",
-    "tags": []
-  },
-  {
-    "path": "xiaohongshu-interview-collection-2026-06-25.md",
-    "category": "notes",
-    "title": "小红书面试题收集报告",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tiktok/2026-06-28-bytedance-international-payment-backend-round3.md",
-    "category": "tiktok",
-    "title": "字节跳动国际支付-后端开发-三面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md",
-    "category": "tiktok",
-    "title": "字节 AI Agent 后端一面面经（多人汇总）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "three-squirrels/2026-05-24-three-squirrels-backend-round1.md",
-    "category": "three-squirrels",
-    "title": "🐿️ 三只松鼠 — 线上业务 Java 后端 一面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tencent/wxg-wechat-work-backend-round1.md",
-    "category": "tencent",
-    "title": "WXG 企业微信 — 一面 · 后台开发",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tencent/tencent-music-agent-backend-round1.md",
-    "category": "tencent",
-    "title": "腾讯音乐后端（Agent）开发一面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tencent/2026-06-07-wxg-wechat-pay-cool-jing.md",
-    "category": "tencent",
-    "title": "腾讯 WXG 微信支付后台开发凉经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tencent/2026-06-07-tencent-ai-backend-round1-xhs.md",
-    "category": "tencent",
-    "title": "腾讯 AI 后端一面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tencent/2026-06-05-tencent-agent-round2.md",
-    "category": "tencent",
-    "title": "腾讯 Agent二面凉经带答案（较难）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tencent/2026-06-01-tencent-wxg-wechat-shop-round2.md",
-    "category": "tencent",
-    "title": "腾讯 WXG 微信小店后台开发二面｜面试问题汇",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tencent/2026-05-18-tencent-ruichi-java-round2.md",
-    "category": "tencent",
-    "title": "腾讯瑞驰 后端 Java 二面面经（偏 JVM + 性能调优）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tencent/2026-05-18-tencent-cloud-interview.md",
-    "category": "tencent",
-    "title": "腾讯云智后台开发（社招）面试凉经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tencent/2026-03-29-tencent-ai-application-dev-round1.md",
-    "category": "tencent",
-    "title": "腾讯 大模型应用开发 一面",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tech-notes/sse-redis-async-data-loading.md",
-    "category": "tech-notes",
-    "title": "SSE + Redis 渐进式异步数据加载方案",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tech-notes/java-mcp-tool-exposure-spring-cloud-gateway.md",
-    "category": "tech-notes",
-    "title": "Java单体项目存量HTTP接口暴露为MCP Tool架构方案",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tech-notes/java-ai-agent-framework-selection.md",
-    "category": "tech-notes",
-    "title": "放弃 Spring AI？这 3 个开源框架，才是让 SpringBoot 玩转 AI Agent 的正解",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tech-notes/agentscope-java-2-springboot-dynamic-routing.md",
-    "category": "tech-notes",
-    "title": "Spring Boot接入AgentScope Java 2.0后，如何实现动态路由？",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tech-notes/agentscope-2-planning-mode.md",
-    "category": "tech-notes",
-    "title": "AgentScope 2.0.3 计划模式深度解析：显式任务清单",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tech-notes/agent-harness-engineering-practice.md",
-    "category": "tech-notes",
-    "title": "Agent Harness 工程实战指南",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "tech-notes/2026-06-29-douyin-cognee-ai-agent-memory-platform.md",
-    "category": "tech-notes",
-    "title": "🎬 赛博吴同学：开源AI Agent记忆平台cognee",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "sf/2026-05-25-sf-java-backend-round1-round2.md",
-    "category": "sf",
-    "title": "顺丰 Java后端技术面 一面+二面",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "references/sse-redis-stream-pattern.md",
-    "category": "references",
-    "title": "SSE + Redis Stream 渐进式异步数据加载方案（改进版）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "references/java-ffm-api/01-FFM-Memory-API.md",
-    "category": "references",
-    "title": "未知标题",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "references/how-llms-actually-work.md",
-    "category": "references",
-    "title": "How LLMs Actually Work — LLM 内部机制长文",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "references/ai-memory-tag-system-design.md",
-    "category": "references",
-    "title": "AI 记忆标签体系设计 — 双维度标签解决 consolidation 混乱",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "rag-interview-design.md",
-    "category": "notes",
-    "title": "面试知识库 RAG 系统设计方案",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/review-schedule.md",
-    "category": "practice",
-    "title": "面试题复习计划",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/active-batch-plan.md",
-    "category": "practice",
-    "title": "后续题目计划（23-216）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/README.md",
-    "category": "practice",
-    "title": "面试刷题练习记录",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/43-jvm-object-allocation-tlab-eden-gc.md",
-    "category": "practice",
-    "title": "第43题：JVM — 对象分配流程：TLAB、Eden、Minor GC、老年代晋升",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/42-rag-evaluation-optimization.md",
-    "category": "practice",
-    "title": "第42题：RAG — 评测和优化：召回率、精排、幻觉率",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/41-langgraph-state-machine-vs-react.md",
-    "category": "practice",
-    "title": "第41题：AI Agent — LangGraph 状态图执行模型 + 与 ReAct Loop 的区别",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/40-harness-eval-framework-mcp-boundary.md",
-    "category": "practice",
-    "title": "第40题：AI Agent — Harness 是什么？和 Eval、Agent Framework、MCP 的边界",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/39-rocketmq-transaction-delay-ordered.md",
-    "category": "practice",
-    "title": "第39题：MQ — RocketMQ 事务消息、延时消息、顺序消息",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/38-redis-cluster-sentinel-consistency.md",
-    "category": "practice",
-    "title": "第38题：Redis — Cluster 和 Sentinel 区别 + 主从切换一致性风险",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/37-redo-undo-binlog-two-phase-commit.md",
-    "category": "practice",
-    "title": "第37题：MySQL — redo log、undo log、binlog + 两阶段提交",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/36-spring-boot-auto-configuration.md",
-    "category": "practice",
-    "title": "第36题 — Spring Boot 自动装配原理",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/34-arraylist-linkedlist-hashmap-concurrent-hashmap.md",
-    "category": "practice",
-    "title": "第 34 题：ArrayList、LinkedList、HashMap、ConcurrentHashMap 如何选",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/33-seckill-system-design.md",
-    "category": "practice",
-    "title": "第 33 题：秒杀系统怎么设计",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/32-agent-memory-design.md",
-    "category": "practice",
-    "title": "第 32 题：Agent Memory 怎么设计",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/31-jvm-classloading-parent-delegation.md",
-    "category": "practice",
-    "title": "第 31 题：JVM 类加载机制、双亲委派和打破双亲委派",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/29-innodb-gap-lock-next-key-lock.md",
-    "category": "practice",
-    "title": "第29题：InnoDB 行锁、间隙锁、Next-Key Lock 和死锁排查",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/28-rabbitmq-reliable-delivery-dead-letter.md",
-    "category": "practice",
-    "title": "第28题 — RabbitMQ 可靠投递、可靠消费、死信队列与幂等",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/27-spring-aop-proxy-transaction.md",
-    "category": "practice",
-    "title": "第27题 — Spring AOP 代理原理",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/26-volatile-synchronized-cas-jmm.md",
-    "category": "practice",
-    "title": "第26题：volatile、synchronized、CAS 和 JMM 的关系",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/25-mybatis-cache-levels.md",
-    "category": "practice",
-    "title": "第25题：MyBatis 一级/二级缓存机制",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/25-inventory-oversell-prevention.md",
-    "category": "practice",
-    "title": "第25题 — 高并发库存扣减防超卖",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/24-cache-aside-pattern.md",
-    "category": "practice",
-    "title": "第24题 — 缓存更新策略（Cache Aside Pattern）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/23-mysql-explain-execution-plan.md",
-    "category": "practice",
-    "title": "第23题：MySQL EXPLAIN 执行计划 + Oracle 执行计划",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/22-kafka-consumer-group-rebalance.md",
-    "category": "practice",
-    "title": "第22题 — Kafka 消费者组 + Rebalance + 消息丢失/重复消费",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/21-mcp-protocol-vs-function-calling.md",
-    "category": "practice",
-    "title": "第21题 — MCP 协议 vs Function Calling vs Tool",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/20-agent-architecture-react.md",
-    "category": "practice",
-    "title": "第20题 — Agent 架构设计 + ReAct 工程化",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/19-rag-system-design.md",
-    "category": "practice",
-    "title": "第19题 — RAG 系统设计（检索增强生成全流程）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/18-concurrent-hashmap.md",
-    "category": "practice",
-    "title": "第18题：ConcurrentHashMap 底层实现（JDK1.7/1.8）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/17-hashmap底层-jdk7-8-红黑树.md",
-    "category": "practice",
-    "title": "第17题 — HashMap 底层 (JDK7/8 + 红黑树)",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/16-spring-transaction-propagation-internals.md",
-    "category": "practice",
-    "title": "第16题 — Spring 事务传播机制 + 底层实现原理",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/15-spring-ioc-bean-lifecycle-circular-dependency.md",
-    "category": "practice",
-    "title": "第15题 — Spring Bean 生命周期 + 三级缓存循环依赖",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/14-redis-distributed-lock-deep.md",
-    "category": "practice",
-    "title": "第14题 — Redis 分布式锁深入",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/13-redis-cache-penetration-breakdown-avalanche.md",
-    "category": "practice",
-    "title": "第13题 — 缓存穿透/击穿/雪崩",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/09-distributed-transaction.md",
-    "category": "practice",
-    "title": "第9题 — 分布式事务",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "practice/06-mvcc.md",
-    "category": "practice",
-    "title": "第6题 — MVCC + 锁机制完整讨论",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "oppo/2026-05-25-oppo-backend-java-round2-concurrency.md",
-    "category": "oppo",
-    "title": "OPPO 后端 Java 二面面经（高并发+线程池专场）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/蚂蚁后端Java终面面经.md",
-    "category": "middleware",
-    "title": "蚂蚁集团 后端Java终面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/蚂蚁AI前端研发工程师面经.md",
-    "category": "middleware",
-    "title": "蚂蚁 AI 前端研发工程师面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/腾讯瑞驰后端Java二面面经.md",
-    "category": "middleware",
-    "title": "腾讯瑞驰 后端Java二面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/腾讯后端开发社招强度.md",
-    "category": "middleware",
-    "title": "腾讯后端开发社招强度（2-5年经验）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/联想后端Java二面面经.md",
-    "category": "middleware",
-    "title": "联想 后端Java二面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/美团后端面经三面合并.md",
-    "category": "middleware",
-    "title": "美团后端面经（三面合并）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/滴滴出行后端Java二面面经.md",
-    "category": "middleware",
-    "title": "滴滴出行后端 Java 二面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/极兔速递后端Java二面面经.md",
-    "category": "middleware",
-    "title": "极兔速递后端Java二面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/弦冰Java一面66道高频考点.md",
-    "category": "middleware",
-    "title": "弦冰Java一面66道高频考点",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/小米后端Java二面面经.md",
-    "category": "middleware",
-    "title": "小米 后端Java二面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/大厂SQL高频题第2期.md",
-    "category": "middleware",
-    "title": "大厂面试SQL高频题 第2期",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/后端慢SQL优化面经.md",
-    "category": "middleware",
-    "title": "后端Java一面凉经 - 慢SQL优化",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/京东后端Java终面面经.md",
-    "category": "middleware",
-    "title": "京东后端Java终面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/京东上岸Java岗面经48题.md",
-    "category": "middleware",
-    "title": "京东集团 Java 岗面经（48题精选）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/zhihu-mysql-add-column-online-ddl.md",
-    "category": "middleware",
-    "title": "知乎：MySQL千万级订单表新增字段怎么弄？",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/vipshop-java-interview.md",
-    "category": "middleware",
-    "title": "唯品会 Java 开发面经复盘",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/springboot-practice-case-index.md",
-    "category": "middleware",
-    "title": "Spring Boot 实战案例合集（部分目录）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/senior-java-3-soul-questions.md",
-    "category": "middleware",
-    "title": "高级Java工程师3道灵魂面试题",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/rocketmq-kafka-transaction-ordering.md",
-    "category": "middleware",
-    "title": "RocketMQ vs Kafka：事务、原子写入、有序性",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/lock-free-queue-deep-dive.md",
-    "category": "middleware",
-    "title": "无锁队列深度解析 — 高并发编程核心",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/Redis事务与原子性原理深度解析.md",
-    "category": "middleware",
-    "title": "Redis事务与原子性原理深度解析",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/README.md",
-    "category": "middleware",
-    "title": "中间件/Java后端 面试资料索引",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/Minimax-Go面试复盘.md",
-    "category": "middleware",
-    "title": "Minimax Go面试复盘",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/2026-06-01-jvm-core-principles-troubleshooting.md",
-    "category": "middleware",
-    "title": "JVM 核心原理与线上排查",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/2026-03-05-redis-bagu-summary.md",
-    "category": "middleware",
-    "title": "后端八股总结——Redis篇",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "middleware/2024-09-26-mysql-common-interview-questions.md",
-    "category": "middleware",
-    "title": "MySQL常见⾯试题",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "kuaishou/2026-05-25-kuaishou-backend-java-round1-mysql.md",
-    "category": "kuaishou",
-    "title": "快手后端Java一面面经 — MySQL数据库+索引优化",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "kuaishou/2026-05-24-kuaishou-backend-final-round.md",
-    "category": "kuaishou",
-    "title": "快手后端 Java 终面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/spring-three-level-cache-source-code.md",
-    "category": "java",
-    "title": "Spring 三级缓存源码逐行注释",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/spring-three-level-cache-circular-dependency.md",
-    "category": "java",
-    "title": "Spring 三级缓存解决循环依赖 —— 完整讨论记录",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/spring-concurrency-throttle-interceptor.md",
-    "category": "java",
-    "title": "Spring Boot 并发限流拦截器 ConcurrencyThrottleInterceptor 实战",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/spring-boot-async-4-patterns.md",
-    "category": "java",
-    "title": "Spring Boot @Async 实战4种模式",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/spring-boot-aggregate-api-concurrency-comparison.md",
-    "category": "java",
-    "title": "Spring Boot 聚合API查询，3种方式性能对比（虚拟线程+结构化并发，CompletableFuture）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/sf-express-java-backend-round2.md",
-    "category": "java",
-    "title": "顺丰后端Java二面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/sf-express-java-backend-final-round.md",
-    "category": "java",
-    "title": "顺丰后端 Java 终面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/pdd-java-backend-round1-concurrency.md",
-    "category": "java",
-    "title": "拼多多后端Java一面面经 — 并发核心",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/meitu-backend-server-round1.md",
-    "category": "java",
-    "title": "美图后端服务器开发一面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/megvii-java-round1-12-questions.md",
-    "category": "java",
-    "title": "旷视Java开发岗面经 — 12道高频题",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/java-concurrency-5-optimization-tips.md",
-    "category": "java",
-    "title": "Java 并发优化 5 个实战技巧",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/hupu-java-backend-round2-redis-distributed.md",
-    "category": "java",
-    "title": "虎扑后端Java二面面经 — Redis+分布式",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/hupu-java-backend-round1.md",
-    "category": "java",
-    "title": "虎扑后端Java一面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/exchange-web3-backend-round1.md",
-    "category": "java",
-    "title": "某交易所 Web3 后端一面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/eleme-java-backend-round2.md",
-    "category": "java",
-    "title": "饿了么 Java 后端二面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/eleme-java-backend-round2-mysql.md",
-    "category": "java",
-    "title": "饿了么 Java 后端二面面经（MySQL 存储 + 索引优化场）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/eleme-java-backend-round1.md",
-    "category": "java",
-    "title": "饿了么 Java 后端一面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/cmb-java-backend-round1.md",
-    "category": "java",
-    "title": "招商银行Java后端技术面",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/cainiao-java-backend-round2-mysql.md",
-    "category": "java",
-    "title": "菜鸟Java后端二面面经 — MySQL专项",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/boe-backend-all-rounds.md",
-    "category": "java",
-    "title": "京东方后端面试全攻略（1面+2面+HR面，2026最新深度版）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/baidu-java-backend-round2.md",
-    "category": "java",
-    "title": "百度后端 Java 二面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/baidu-java-backend-round2-concurrency.md",
-    "category": "java",
-    "title": "百度后端Java二面面经 — 并发+数据库底层",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/baidu-java-backend-round1.md",
-    "category": "java",
-    "title": "百度 Java 后端一面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/baidu-java-backend-final-round.md",
-    "category": "java",
-    "title": "百度后端 Java 终面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/arthas-diagnostic-guide.md",
-    "category": "java",
-    "title": "Arthas Java 诊断工具完全指南",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/alibaba-backend-java-final-round-framework.md",
-    "category": "java",
-    "title": "阿里后端Java终面面经 — 框架源码+问题排查",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/2026-05-25-oppo-backend-java-final-round-redis-cache.md",
-    "category": "java",
-    "title": "OPPO 后端Java终面面经 — Redis+缓存架构专项",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/2026-05-18-youzan-java-ai-interview.md",
-    "category": "java",
-    "title": "有赞 Java & AI 开发岗（社招）面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/2026-05-10-meituan-backend-offer.md",
-    "category": "java",
-    "title": "美团后端开发面经（已offer）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/2026-04-16-bytedance-backend-round1-3.md",
-    "category": "java",
-    "title": "字节后端开发 一二三面面经（已oc）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/2026-03-09-bytedance-backend-big-delivery.md",
-    "category": "java",
-    "title": "字节后端面经大放送",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/2025-11-18-xpeng-java-round1-2.md",
-    "category": "java",
-    "title": "小鹏汽车两轮Java技术面",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/2025-07-16-gaode-java-shezhao.md",
-    "category": "java",
-    "title": "高德Java后端社招面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/2025-05-11-vipshop-java-round1-4.md",
-    "category": "java",
-    "title": "唯品会Java开发面经复盘｜5年Java",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/2025-02-23-meituan-java-round1.md",
-    "category": "java",
-    "title": "美团 JAVA岗 一面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "java/2024-01-09-java-interview-review.md",
-    "category": "java",
-    "title": "一次Java面试复盘",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "industry/2026-06-24-fed-china-geopolitical-economics.md",
-    "category": "industry",
-    "title": "美联储\"收割中国\"计划分析",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "industry/2026-06-04-tech-fund-analysis-huige.md",
-    "category": "industry",
-    "title": "🎬 晖哥说投资：科技基金得涨到啥时候啊",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "industry/2026-05-25-deepseek-agent-harness-hiring.md",
-    "category": "industry",
-    "title": "DeepSeek 招聘 — Agent Harness 岗位解读",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "hobbies/career/career-programmer-going-global.md",
-    "category": "hobbies",
-    "title": "程序员出海/远程工作资料",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "frontend/ai-agent-frontend-interview.md",
-    "category": "frontend",
-    "title": "AI Agent 前端开发工程师 面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "docs/superpowers/specs/2026-07-04-100-day-interview-plan-design.md",
-    "category": "docs",
-    "title": "100 天面试题扩展与执行计划设计",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "docs/superpowers/plans/2026-07-04-100-day-interview-plan.md",
-    "category": "docs",
-    "title": "100 天面试题扩展 Implementation Plan",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "codex gpt 修复点.md",
-    "category": "notes",
-    "title": "codex gpt 修复点",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "chayanyuese/2026-05-26-chayanyuese-java-round2-scenario-35k.md",
-    "category": "chayanyuese",
-    "title": "茶颜悦色Java开发二面 — 场景题实战（35k offer）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "chayanyuese/2026-05-25-chayanyuese-java-round2-system-design.md",
-    "category": "chayanyuese",
-    "title": "茶颜悦色 Java 开发二面面经（业务场景题）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/高德AIAgent一面50题.md",
-    "category": "ai-agent",
-    "title": "高德 AI Agent 一面（问得难啊）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/月之暗面Kimi前端AI岗面经.md",
-    "category": "ai-agent",
-    "title": "月之暗面（Kimi）前端AI岗面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/拼多多Java三轮技术面+AI Agent实战题全记录.md",
-    "category": "ai-agent",
-    "title": "拼多多 Java 后端 三轮技术面 + AI Agent 实战题全记录",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/字节后端开发一面已拿offer.md",
-    "category": "ai-agent",
-    "title": "字节后端开发一面（已拿offer）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/后端转Agent开发学习路线.md",
-    "category": "ai-agent",
-    "title": "后端开发转Agent开发学习路线",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/yushu-ai-agent-3rounds-oc.md",
-    "category": "ai-agent",
-    "title": "宇树科技 AI Agent 开发三轮技术面（已 OC）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/xiaohongshu-icde2026-ccd-vector-ann.md",
-    "category": "ai-agent",
-    "title": "CCD级负载感知线程编排：小红书ICDE 2026论文解析",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/write-agent-series/11-生产级Agent系统.md",
-    "category": "ai-agent",
-    "title": "从零开始写 Agent 终篇：如何设计一个生产级 Agent 系统",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/write-agent-series/10-Skills系统.md",
-    "category": "ai-agent",
-    "title": "从零开始写 Agent ：给 Agent 加上 Skills 系统",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/write-agent-series/09-浏览器自动化.md",
-    "category": "ai-agent",
-    "title": "从零开始写 Agent 之九 - 浏览器自动化",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/write-agent-series/08-外接知识库.md",
-    "category": "ai-agent",
-    "title": "从零开始写 Agent 之八：外接知识库",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/write-agent-series/07-上下文工程.md",
-    "category": "ai-agent",
-    "title": "从零开始写 Agent（七）：上下文工程",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/write-agent-series/06-记忆系统.md",
-    "category": "ai-agent",
-    "title": "从零开始写 Agent（六）：记忆系统",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/write-agent-series/05-Agent设计范式.md",
-    "category": "ai-agent",
-    "title": "从零开始写 Agent（五）：聊聊 Agent 的设计范式",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/write-agent-series/04-财报研报Agent.md",
-    "category": "ai-agent",
-    "title": "从零开始写 Agent（四）：用两步做一个财报研报 Agent",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/write-agent-series/03-Agent-Loop.md",
-    "category": "ai-agent",
-    "title": "从零开始写 Agent(三) - Agent Loop",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/write-agent-series/02-让模型调用工具.md",
-    "category": "ai-agent",
-    "title": "从零开始写Agent(二) - 让模型调用工具",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/write-agent-series/01-从司机变乘客-Agent编程的范式革命.md",
-    "category": "ai-agent",
-    "title": "从司机变乘客：这就是 Agent 编程的范式革命",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/write-agent-series-index.md",
-    "category": "ai-agent",
-    "title": "从零开始写 Agent 系列（11篇）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/tencent-ai-agent-interview.md",
-    "category": "ai-agent",
-    "title": "腾讯AI Agent二面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/taotian-round3-interview.md",
-    "category": "ai-agent",
-    "title": "阿里淘天三面面经（深度版）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/taotian-ai-agent-interview.md",
-    "category": "ai-agent",
-    "title": "淘天AI应用开发二面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/taobao-flashsale-ai-dev-round1.md",
-    "category": "ai-agent",
-    "title": "淘宝闪购 · AI应用开发一面凉经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/rag-hybrid-search-meilisearch.md",
-    "category": "ai-agent",
-    "title": "RAG混合检索：MeiliSearch vs Milvus（技术文章整理）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/pinduoduo-ai-backend-java-round2.md",
-    "category": "ai-agent",
-    "title": "拼多多 AI Java后端开发二面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/netease-ai-agent-round1.md",
-    "category": "ai-agent",
-    "title": "网易一面（技术+Leader）AI Agent 面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/lenovo-frontend-ai-dev-2026.md",
-    "category": "ai-agent",
-    "title": "联想 2026 · 前端开发（AI应用方向）社招面试真题",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/langgraph-state-machine-engine.md",
-    "category": "ai-agent",
-    "title": "LangGraph 底层执行引擎深度拆解",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/heytea-ai-app-interview.md",
-    "category": "ai-agent",
-    "title": "喜茶AI应用开发面经（深度版）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/gaode-agent-social-recruit-round1.md",
-    "category": "ai-agent",
-    "title": "高德 Agent 社招一面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/gaode-agent-backend-round1.md",
-    "category": "ai-agent",
-    "title": "高德业务Agent开发一面 - 凉经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/embabel-java-agent-framework.md",
-    "category": "ai-agent",
-    "title": "Embabel：Spring 之父打造的 Java AI Agent 框架",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/dongfang-caifu-ai-interview.md",
-    "category": "ai-agent",
-    "title": "东方财富 AI应用开发岗（暑期实习）一面凉经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/ctrip-ai-app-interview-round1.md",
-    "category": "ai-agent",
-    "title": "携程AI应用开发一面面经（深度版）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/ctrip-ai-agent-interview.md",
-    "category": "ai-agent",
-    "title": "携程AI应用开发一面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/ctrip-agent-interview-round2.md",
-    "category": "ai-agent",
-    "title": "携程 Agent开发岗 二面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/completable-future-production-pitfalls.md",
-    "category": "ai-agent",
-    "title": "CompletableFuture 生产级避坑指南",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/claude-code-grep-vs-rag-code-retrieval.md",
-    "category": "ai-agent",
-    "title": "为什么 Claude Code 用 grep 不用 RAG 检索代码？",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/claude-code-dynamic-workflows.md",
-    "category": "ai-agent",
-    "title": "Claude Code 动态工作流（Dynamic Workflows）深度解析",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/bytedance-ai-coding-agent-interview.md",
-    "category": "ai-agent",
-    "title": "字节跳动 AI Coding Agent 社招面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/bytedance-ai-agent-backend-round1.md",
-    "category": "ai-agent",
-    "title": "字节跳动 AI Agent 后端一面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/bytedance-ai-agent-2-2-interview.md",
-    "category": "ai-agent",
-    "title": "字节跳动 AI Agent 三轮技术面拿下2-2",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/bytedance-agent-interview-round2.md",
-    "category": "ai-agent",
-    "title": "字节跳动 Agent开发二面面经（深度版）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/bytedance-agent-interview-round1.md",
-    "category": "ai-agent",
-    "title": "字节跳动 Agent开发一面面经（深度版）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/backend-to-agent-transition.md",
-    "category": "ai-agent",
-    "title": "后端转 Agent 全栈：转型经验（完整版）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/ant-international-agent-llm-round1.md",
-    "category": "ai-agent",
-    "title": "蚂蚁国际 · 智能体与大模型应用工程 一面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/ant-ai-app-interview-round1.md",
-    "category": "ai-agent",
-    "title": "蚂蚁集团 AI应用开发一面",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/amap-agent-backend-intern-interview.md",
-    "category": "ai-agent",
-    "title": "高德 Agent后端开发日常实习一面",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/alibaba-intl-ai-agent-interview.md",
-    "category": "ai-agent",
-    "title": "阿里国际 AI Agent 面经（深度版）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/alibaba-fliggy-backend-interview.md",
-    "category": "ai-agent",
-    "title": "阿里飞猪后端面经（深度版）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/alibaba-dp-string-fill-count.md",
-    "category": "ai-agent",
-    "title": "阿里笔试 · 字符串填充组合计数（动态规划）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/ai-agent-learning-roadmap.md",
-    "category": "ai-agent",
-    "title": "Java开发者转型AI Agent开发路线图",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agentscope-java-harness-framework.md",
-    "category": "ai-agent",
-    "title": "AgentScope Java 1.1.0：Harness Framework 深度解析",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agentium-mcp-execution-mechanism.md",
-    "category": "ai-agent",
-    "title": "Agentium MCP 工具执行机制解析",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-index.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载系列索引",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-23-从零实现-Agent-系统连载-23｜Skill-体系与-Skill-Creat.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 23｜Skill 体系与 Skill Creator：能力打包与迭代",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-22-从零实现-Agent-系统连载-22｜Tool-Search-与按需加载工具多了.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 22｜Tool Search 与按需加载：工具多了以后怎么办",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-21-从零实现-Agent-系统连载-21｜工具契约-ACI写好-Agent-能用的工.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 21｜工具契约 ACI：写好 Agent 能用的工具",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-20-从零实现-Agent-系统连载-20｜MCP-与-Code-Execution协.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 20｜MCP 与 Code Execution：协议、档位与 Sidecar",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-19-从零实现-Agent-系统连载-19｜Workflow-vs-Agent编排选型.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 19｜Workflow vs Agent：编排选型与 Harness 三元",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-18-从零实现-Agent-系统连载-18｜DeepSeek-V4-网关适配Model.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 18｜DeepSeek V4 网关适配：Model Gate、Thinking 与 DSML",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-17-从零实现-Agent-系统连载-17｜记忆再往下挖压缩分档、九档归属与-Skil.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 17｜记忆再往下挖：压缩分档、九档归属与 Skill 策略",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-16-从零实现-Agent-系统连载-16｜可观测性与可靠性日志、指标、追踪与演练.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 16｜可观测性与可靠性：日志、指标、追踪与演练",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-15-从零实现-Agent-系统连载-15｜控制面-API运维与运行时操纵.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 15｜控制面 API：运维与运行时操纵",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-14-从零实现-Agent-系统连载-14｜后台平面（Background）主动任务与.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 14｜后台平面（Background）：主动任务与桥接通知",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-13-从零实现-Agent-系统连载-13｜安全防线注入、社工、DLP、密钥与宪法式约.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 13｜安全防线：注入、社工、DLP、密钥与宪法式约束",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-12-从零实现-Agent-系统连载-12｜治理平面策略引擎、审批与审计血缘.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 12｜治理平面：策略引擎、审批与审计血缘",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-11-从零实现-Agent-系统连载-11｜插件与-MCP扩展性与加载边界.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 11｜插件与 MCP：扩展性与加载边界",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-10-从零实现-Agent-系统连载-10｜多通道（Channels）同一核心，多种入.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 10｜多通道（Channels）：同一核心，多种入口",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-09-从零实现-Agent-系统连载-09｜沙箱与资源执行隔离的工程含义.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 09｜沙箱与资源：执行隔离的工程含义",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-08-从零实现-Agent-系统连载-08｜编排与工作流从-Chat-到任务图.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 08｜编排与工作流：从 Chat 到任务图",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-07-从零实现-Agent-系统连载-07｜记忆系统短期上下文-vs-长期外部记忆.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 07｜记忆系统：短期上下文 vs 长期外部记忆",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-06-从零实现-Agent-系统连载-06｜AI-网关路由、限流、内容与成本.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 06｜AI 网关：路由、限流、内容与成本",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-05-从零实现-Agent-系统连载-05｜工具系统契约、注册与安全默认.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 05｜工具系统：契约、注册与安全默认",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-04-从零实现-Agent-系统连载-04｜调度、租赁与并发把「跑起来」变成「可治理地.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 04｜调度、租赁与并发：把「跑起来」变成「可治理地跑」",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-03-从零实现-Agent-系统连载-03｜控制循环感知—决策—行动—反思.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 03｜控制循环：感知—决策—行动—反思",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-02-从零实现-Agent-系统连载-02｜领域模型与状态先把「名词」对齐.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 02｜领域模型与状态：先把「名词」对齐",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-series-01-从零实现-Agent-系统连载-01｜Agent-系统是什么问题空间与架构切片.md",
-    "category": "ai-agent",
-    "title": "《从零实现 Agent 系统》连载 01｜Agent 系统是什么：问题空间与架构切片",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/agent-interview-questions-summary.md",
-    "category": "ai-agent",
-    "title": "Agent面试题总结（深度版）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/README.md",
-    "category": "ai-agent",
-    "title": "AI Agent 方向面试资料索引",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/DeepSeek超越Opus4.7的优化之道.md",
-    "category": "ai-agent",
-    "title": "我们是如何让 DeepSeek 超越 Opus 4.7 的？",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/AgentScope-Java-1.1.0-Harness-Framework.md",
-    "category": "ai-agent",
-    "title": "AgentScope Java 1.1.0 Harness Framework 深度解析",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/AI-Coding-Agent-技术参考文档.md",
-    "category": "ai-agent",
-    "title": "AI Coding Agent 技术参考文档",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-agent-interview-guide-part1.md",
-    "category": "ai-agent",
-    "title": "2026大模型Agent面试全攻略（上）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-06-28-agentscope-java-memory-system.md",
-    "category": "ai-agent",
-    "title": "AgentScope(Java)2.0 的记忆系统",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-06-28-agentscope-2-stateless-engine.md",
-    "category": "ai-agent",
-    "title": "AgentScope(Java)2.0 无状态引擎 + AgentState：多租户会话管理",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-06-28-agentscope-2-complete-guide.md",
-    "category": "ai-agent",
-    "title": "AgentScope 2.0 从入门到精通：全功能实战指南",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-06-25-deepseek-agent-interview-sharing.md",
-    "category": "ai-agent",
-    "title": "📋 DeepSeek Agent 面试分享（第15集）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-06-25-agentscope-java-customer-service-12-pitfalls.md",
-    "category": "ai-agent",
-    "title": "我的AgentScope Java 客服项目，挖出12个生产级深坑",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-06-24-jd-agent-round1.md",
-    "category": "ai-agent",
-    "title": "京东 AI Agent开发一面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-06-19-meituan-agent-round1.md",
-    "category": "ai-agent",
-    "title": "美团 AI Agent开发 一面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-06-11-agent-interview-review.md",
-    "category": "ai-agent",
-    "title": "【2026年6月面试复盘】面 Agent 岗的这段日子",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-06-04-bytedance-agent-backend-round1.md",
-    "category": "ai-agent",
-    "title": "字节AI Agent后端面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-06-01-spring-ai-multi-agent-practice.md",
-    "category": "ai-agent",
-    "title": "Spring AI 2.0 Multi-Agent 实战：构建智能协作系统",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-05-30-bytedance-agent-round2.md",
-    "category": "ai-agent",
-    "title": "字节跳动 Agent 开发岗 二面（贼难）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-05-26-bytedance-agent-interview-answers.md",
-    "category": "ai-agent",
-    "title": "字节Agent面经记录带答案",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-05-25-kimi-frontend-agent-interview-detailed.md",
-    "category": "ai-agent",
-    "title": "Kimi AI 前端 Agent 岗面经（详细版）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-05-25-28day-agent-learning-roadmap.md",
-    "category": "ai-agent",
-    "title": "28天 Agent 开发学习路线",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-05-18-bytedance-agent-1-3round.md",
-    "category": "ai-agent",
-    "title": "字节 agent开发 1-3面面经 5月",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-05-07-ai-agent-common-interview-questions.md",
-    "category": "ai-agent",
-    "title": "AI Agent 常见面试题",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-05-06-bytedance-agent-round3.md",
-    "category": "ai-agent",
-    "title": "字节Agent开发三面面经",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-04-18-tencent-agent-round1-summer.md",
-    "category": "ai-agent",
-    "title": "腾讯 AI Agent 开发一面（暑期）",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-04-17-baidu-agent-round1.md",
-    "category": "ai-agent",
-    "title": "百度 AI Agent开发一面",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-04-08-xiaohongshu-ai-app-dev-round1.md",
-    "category": "ai-agent",
-    "title": "小红书 AI应用开发 一面",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-03-30-jd-agent-intern-round2.md",
-    "category": "ai-agent",
-    "title": "京东Agent实习二面问题总结",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-03-28-bytedance-agent-round1.md",
-    "category": "ai-agent",
-    "title": "字节跳动 Agent 开发 一面",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-03-19-kuaishou-agent-round1.md",
-    "category": "ai-agent",
-    "title": "快手 AI Agent 开发 一面",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/2026-03-01-alibaba-taotian-agent-round1.md",
-    "category": "ai-agent",
-    "title": "26春招｜阿里淘天 Agent 一面面经分享",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": "ai-agent/17-agent-architectures.md",
-    "category": "ai-agent",
-    "title": "17 种 Agent 架构模式深度解析",
-    "date": "",
-    "tags": []
-  },
-  {
-    "path": ".fetched_index.md",
-    "category": "notes",
-    "title": "已抓取面经索引",
-    "date": "",
-    "tags": []
   }
-]
+}
