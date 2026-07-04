@@ -10,7 +10,7 @@
 | 范围 | 状态 |
 |------|------|
 | 1-22 | 已完成，暂不重复抽 |
-| 23-122 | 核心 100 道母题，当前推进至第 49 题 |
+| 23-122 | 核心 100 道母题，当前推进至第 51 题 |
 | 123-200 | 补充题池，覆盖边角题、低频题、手撕题和项目拷打题 |
 | 201-216 | 网易 Agent 面经补充题池 |
 
@@ -47,8 +47,8 @@
 | 47 | Java 并发 | CompletableFuture 怎么用？异常处理、超时和线程池隔离怎么做？（✅ 已完成） | `java/eleme-java-backend-round1.md`; `ai-agent/completable-future-production-pitfalls.md`; `java/jd-java-backend-round2-jvm-concurrency.md` |
 | 48 | MySQL | 深分页怎么优化？覆盖索引、延迟关联、游标翻页怎么选？（✅ 已完成） | `middleware/后端慢SQL优化面经.md`; `java/cainiao-java-backend-round2-mysql.md`; `middleware/大厂SQL高频题第2期.md` |
 | 49 | Redis | Redis 常用数据结构底层和场景：ZSet、Bitmap、HyperLogLog 怎么用？（✅ 已完成） | `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `java/megvii-java-round1-12-questions.md`; `java/hupu-java-backend-round2-redis-distributed.md` |
-| 50 | Spring | Spring Boot 限流拦截器怎么设计？令牌桶、漏桶、滑动窗口怎么落地？ | `java/spring-concurrency-throttle-interceptor.md`; `java/megvii-java-round1-12-questions.md`; `java/eleme-java-backend-round1.md` |
-| 51 | JVM | G1、ZGC、CMS 的区别和适用场景是什么？ | `middleware/2026-06-01-jvm-core-principles-troubleshooting.md`; `java/jd-java-backend-round2-jvm-concurrency.md`; `tencent/2026-05-27-tencent-cloud-final-round.md` |
+|| 50 | Spring | Spring Boot 限流拦截器怎么设计？令牌桶、漏桶、滑动窗口怎么落地？（✅ 已完成） | `java/spring-concurrency-throttle-interceptor.md`; `java/megvii-java-round1-12-questions.md`; `java/eleme-java-backend-round1.md` |
+|| 51 | JVM | G1、ZGC、CMS 的区别和适用场景是什么？（✅ 已完成） | `middleware/2026-06-01-jvm-core-principles-troubleshooting.md`; `java/jd-java-backend-round2-jvm-concurrency.md`; `tencent/2026-05-27-tencent-cloud-final-round.md` |
 | 52 | 分布式 | 分布式 ID 方案：雪花算法、号段、Redis、自增 ID 怎么选？ | `java/baidu-java-backend-round1-shezhao.md`; `chayanyuese/2026-05-25-chayanyuese-java-round2-system-design.md`; `java/baidu-java-backend-final-round.md` |
 | 53 | 系统设计 | 购物车系统怎么设计？未登录用户跨设备怎么同步？ | `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md`; `tiktok/2026-05-27-tiktok-ecommerce-backend-round1.md` |
 | 54 | 系统设计 | 优惠券/满减活动规则和库存怎么设计？ | `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md`; `chayanyuese/2026-05-26-chayanyuese-java-round2-scenario-35k.md`; `java/baidu-java-backend-round1-shezhao.md` |

@@ -4,9 +4,11 @@ question_id: 44
 question: "分布式 · CAP/BASE/Raft"
 date: 2026-07-02
 sources:
-  - unknown
-score: "3/10"
-round: R0
+  - java/eleme-java-backend-round1.md
+  - middleware/rocketmq-kafka-transaction-ordering.md
+  - java/baidu-java-backend-round1-shezhao.md
+score: "5/10"
+round: R1
 next_review: unknown
 session_id: unknown
 status: completed
@@ -15,49 +17,42 @@ status: completed
 
 **题目**：CAP、BASE、Raft 怎么回答？和业务最终一致性有什么关系？
 
-### 用户回答
+### R0 用户回答（2026-07-02）
 
 > CP, 我刚刚在前面已经回答过了，是吧？P是分区容错，C是一致性，A是可用性。贝斯我不知道，Raft忘了，好像是某个协议吧。最终一致性是指说在流程运转过程中，可能有少量不一致或中间状态，但最终的状态是要保持一致的。
 
-### 评分：3/10
-
-### 扣分点
-1. BASE 没答（-3）
-2. Raft 没答（-3）
-3. 最终一致性理解太浅（-1）
-
----
-
-## 回顾记录（2026-07-02）
-
 **得分：3/10**
 
-### 用户回答
-- CAP：C 一致性、A 可用性、P 分区容错
-- BASE：不知道
-- Raft：忘了，好像是某个协议
-- 最终一致性：流程中可能有少量不一致，最终状态一致
+扣分点：BASE 没答（-3）、Raft 没答（-3）、最终一致性理解太浅（-1）
 
-### 追问+纠正记录
-1. **BASE = Basically Available + Soft State + Eventually Consistent**：基本可用+软状态+最终一致，是 AP 系统的设计哲学
-2. **Raft 核心三机制**：Leader 选举、日志复制、安全性保证（只有最新日志节点能当选 Leader）
-3. **一致性本质**：所有节点在同一时刻看到同一份数据，不是"调用协议得到答案"
-4. **Leader vs Follower 读策略**：读走 Leader = 强一致（CP），读走 Follower = 最终一致（AP），Java 里通过框架配置选择
-5. **ZK 不是单点**：写走 Leader，读可以用 sync() 先同步再读任意节点；本质是"高可用的单点"，性能≈单点但可用性远超单点
-6. **底层本质**：所有分布式技术都是在同步/异步复制、一致/可用之间做取舍，底层原理相通
+### R1 用户回答（2026-07-04）
 
-### 最终结论
-CP 用同步复制+多数派确认保证强一致，AP 用异步复制允许短暂不一致。Raft/ZAB/Paxos 都是多数派协议，只是实现不同。ZK 定位是协调服务不是高并发存储，Redis 定位是高并发存储允许短暂不一致。
+> CAP 是分布式的三个点，可用性，一致性，分区容错，不能同时实现；Raft 其实主挂了，从怎么选举，推选新的主出来的一个分布式协同协议。
 
-### 这次讨论的收获
-- BASE 是 AP 系统的设计哲学，不是独立概念
-- ZK 读可以用 sync() 解决一致性问题，不是只能读 Leader
-- 很多分布式技术底层是同一个问题的不同取舍
+**得分：5/10**
 
-## GPT 纠错
+扣分点：BASE 仍然没答（-2）；Raft 只说了选举，缺日志复制和成员变更（-2）
 
-- GPT 纠错：CAP 中的 C 通常指线性一致性或单副本语义，不是要求物理意义上“所有节点同一时刻存着完全相同的数据”。
-- GPT 纠错：读 Leader 不自动等于强一致。Raft Leader 仍需通过 ReadIndex、合法租约或等价机制确认自己仍是当前 Leader，才能提供线性一致读。
-- GPT 纠错：读 Follower 也不能直接等同于“系统选择 AP”；它只是某条读取路径可能返回陈旧数据。
-- GPT 纠错：CP/AP 不能简单归结为同步复制/异步复制，它描述的是网络分区发生时请求语义和可用性选择。
-- GPT 纠错：Raft、ZAB、Paxos 都涉及多数派，但抽象、角色、日志模型和安全性证明不同，不能总结为“只是实现不同”。
+### 最终修正版
+
+**CAP**
+- C（一致性）、A（可用性）、P（分区容错）
+- 网络分区必然存在，只能在 CP 和 AP 间选
+- CP：Zookeeper、Etcd、HBase
+- AP：Eureka、Cassandra
+
+**BASE**
+- Basically Available（基本可用）
+- Soft State（软状态，允许中间状态）
+- Eventually Consistent（最终一致）
+- 是 CAP 中 AP 的延伸，牺牲强一致性换可用性
+
+**Raft**
+三个核心机制：
+1. Leader 选举：Term 编号 + 随机超时 + 多数投票
+2. 日志复制：Leader 收到写请求 → 追加本地日志 → 发给 Follower → 多数确认后 commit
+3. 安全性：只有包含最新日志的节点能当选 Leader；已 commit 的日志不会被覆盖
+
+### 复习骨架
+
+CAP 三选二（P 必选，CP 或 AP）→ BASE 是 AP 的实践方案 → Raft 用选举+日志复制实现 CP
