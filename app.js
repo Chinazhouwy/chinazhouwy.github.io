@@ -492,7 +492,7 @@ async function renderRoute() {
 }
 
 async function loadSite() {
-  const response = await fetch("./site-index.json");
+  const response = await fetch("./site-index.json?v=20260704-2");
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const payload = await response.json();
   state.articles = Array.isArray(payload) ? payload : payload.articles || [];
