@@ -8,7 +8,7 @@ sources:
   - tiktok/2026-05-27-tiktok-ecommerce-backend-round1.md
 score: "5/10"
 round: R0
-next_review: unknown
+next_review: 2026-07-06
 session_id: unknown
 status: completed
 ---
