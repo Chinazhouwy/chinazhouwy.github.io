@@ -50,8 +50,8 @@
 || 50 | Spring | Spring Boot 限流拦截器怎么设计？令牌桶、漏桶、滑动窗口怎么落地？（✅ 已完成） | `java/spring-concurrency-throttle-interceptor.md`; `java/megvii-java-round1-12-questions.md`; `java/eleme-java-backend-round1.md` |
 || 51 | JVM | G1、ZGC、CMS 的区别和适用场景是什么？（✅ 已完成） | `middleware/2026-06-01-jvm-core-principles-troubleshooting.md`; `java/jd-java-backend-round2-jvm-concurrency.md`; `tencent/2026-05-27-tencent-cloud-final-round.md` |
 || 52 | 分布式 | 分布式 ID 方案：雪花算法、号段、Redis、自增 ID 怎么选？（✅ 已完成） | `java/baidu-java-backend-round1-shezhao.md`; `chayanyuese/2026-05-25-chayanyuese-java-round2-system-design.md`; `java/baidu-java-backend-final-round.md` |
-| 53 | 系统设计 | 购物车系统怎么设计？未登录用户跨设备怎么同步？ | `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md`; `tiktok/2026-05-27-tiktok-ecommerce-backend-round1.md` |
-| 54 | 系统设计 | 优惠券/满减活动规则和库存怎么设计？ | `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md`; `chayanyuese/2026-05-26-chayanyuese-java-round2-scenario-35k.md`; `java/baidu-java-backend-round1-shezhao.md` |
+|| 53 | 系统设计 | 购物车系统怎么设计？未登录用户跨设备怎么同步？（✅ 已完成） | `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md`; `tiktok/2026-05-27-tiktok-ecommerce-backend-round1.md` |
+|| 54 | 系统设计 | 优惠券/满减活动规则和库存怎么设计？（✅ 已完成） | `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md`; `chayanyuese/2026-05-26-chayanyuese-java-round2-scenario-35k.md`; `java/baidu-java-backend-round1-shezhao.md` |
 | 55 | AI Agent | 超长上下文冗余怎么优化？摘要、裁剪、子 Agent 怎么取舍？ | `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md`; `ai-agent/backend-to-agent-transition.md`; `ai-agent/claude-code-dynamic-workflows.md` |
 | 56 | AI Agent | MCP、RAG、Skill 三者区别和组合方式是什么？ | `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md`; `practice/21-mcp-protocol-vs-function-calling.md`; `ai-agent/agentium-mcp-execution-mechanism.md` |
 | 57 | AI Agent | Agent 评测体系怎么设计？任务成功率、工具调用准确率、幻觉率怎么测？ | `ai-agent/bytedance-agent-interview-round2.md`; `codex gpt 修复点.md`; `ai-agent/agent-interview-questions-summary.md` |

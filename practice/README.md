@@ -57,6 +57,11 @@
 | 47 | CompletableFuture 异步编程 | [47-completable-future-async-programming.md](47-completable-future-async-programming.md) | 3/10 |
 | 48 | MySQL 深分页优化 | [48-deep-pagination-optimization.md](48-deep-pagination-optimization.md) | 5/10 |
 | 49 | Redis ZSet/Bitmap/HyperLogLog | [49-redis-data-structures-zset-bitmap-hyperloglog.md](49-redis-data-structures-zset-bitmap-hyperloglog.md) | 3/10 |
+| 50 | Spring Boot 限流拦截器 | [50-spring-boot-rate-limiting-interceptor.md](50-spring-boot-rate-limiting-interceptor.md) | — |
+| 51 | G1/ZGC/CMS 垃圾收集器 | [51-g1-zgc-cms-garbage-collectors.md](51-g1-zgc-cms-garbage-collectors.md) | — |
+| 52 | 分布式ID方案 | [52-distributed-id-snowflake-segment-redis-autoincrement.md](52-distributed-id-snowflake-segment-redis-autoincrement.md) | — |
+| 53 | 购物车系统设计 | [53-shopping-cart-design-sync.md](53-shopping-cart-design-sync.md) | 5/10 |
+| 54 | 优惠券/满减活动规则和库存设计 | [54-coupon-discount-rules-inventory-design.md](54-coupon-discount-rules-inventory-design.md) | 4/10 |
 
 > 平均分由看板根据当前有评分文件实时计算，README 不保存易过期汇总值。
 
