@@ -4,6 +4,7 @@ const SECTION_LABELS = {
   interviews: "模拟面试",
   plans: "计划",
   notes: "技术随记",
+  columns: "专栏",
 };
 
 const ui = {
@@ -15,6 +16,7 @@ const ui = {
 const state = {
   articles: [],
   dashboard: {},
+  columns: [],
   query: "",
 };
 
@@ -60,6 +62,7 @@ function matchesSearch(article) {
     article.company,
     article.round,
     article.category,
+    article.column,
     ...(article.tags || []),
   ]
     .join(" ")
@@ -397,6 +400,51 @@ function renderPlans() {
   `;
 }
 
+function renderColumns() {
+  const readable = state.articles.filter(
+    (article) =>
+      ["questions", "notes"].includes(article.section) && matchesSearch(article),
+  );
+  const definitions = state.columns.length
+    ? state.columns
+    : [
+        ["technology", "技术", "Java、中间件、AI Agent、源码研读、系统设计与工程实践。"],
+        ["business-finance", "商业与金融", "金融基础、宏观经济、公司研究、行业观察与投资复盘。"],
+        ["mathematical-sciences", "数理科学", "数学、概率统计、物理、算法与计算理论。"],
+        ["society-humanities", "社会与人文", "历史、政治制度、法律、哲学与社会观察。"],
+        ["career-life", "职业与生活", "职业规划、表达写作、健康管理与个人兴趣。"],
+      ].map(([id, name, description]) => ({ id, name, description, count: 0 }));
+
+  ui.app.innerHTML = `
+    <section class="directory-page column-page">
+      ${sectionIntro("KNOWLEDGE COLUMNS", "专栏", "先建立长期知识地图，再让文章慢慢把空白填满。", readable.length)}
+      <div class="column-directory">
+        ${definitions
+          .map((column, index) => {
+            const articles = readable.filter((article) => article.column === column.id);
+            return `
+              <section class="column-group reveal" style="--delay:${index * 45}ms">
+                <header>
+                  <span>${String(index + 1).padStart(2, "0")}</span>
+                  <div>
+                    <h2>${escapeHtml(column.name)}</h2>
+                    <p>${escapeHtml(column.description)}</p>
+                  </div>
+                  <strong>${articles.length} 篇</strong>
+                </header>
+                ${
+                  articles.length
+                    ? `<div class="article-list">${articles.map((article) => articleRow(article)).join("")}</div>`
+                    : '<p class="column-empty">栏目已经建立，等待第一篇文章。</p>'
+                }
+              </section>`;
+          })
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
 function createToc(container) {
   const headings = [...container.querySelectorAll("h2, h3")];
   return headings
@@ -485,6 +533,7 @@ async function renderRoute() {
     questions: renderQuestions,
     companies: renderCompanies,
     interviews: renderInterviews,
+    columns: renderColumns,
     plans: renderPlans,
   };
   (renderers[route.view] || renderOverview)();
@@ -492,11 +541,12 @@ async function renderRoute() {
 }
 
 async function loadSite() {
-  const response = await fetch("./site-index.json?v=20260704-2");
+  const response = await fetch("./site-index.json?v=20260705-1");
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const payload = await response.json();
   state.articles = Array.isArray(payload) ? payload : payload.articles || [];
   state.dashboard = payload.dashboard || {};
+  state.columns = payload.columns || [];
   await renderRoute();
 }
 
