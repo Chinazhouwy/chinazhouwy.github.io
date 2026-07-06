@@ -3410,6 +3410,30 @@
       "question": ""
     },
     {
+      "title": "AI Agent · 超长上下文冗余优化",
+      "path": "content/opportunity/practice/55-long-context-optimization.md",
+      "url": "content/opportunity/practice/55-long-context-optimization.md",
+      "date": "2026-07-06",
+      "domain": "机会",
+      "area": "机会雷达",
+      "module": "",
+      "project": "机会雷达",
+      "type": "题目",
+      "status": "completed",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "AI Agent · 超长上下文冗余优化",
+      "tags": [],
+      "section": "questions",
+      "topic": "机会雷达",
+      "company": "",
+      "round": "R0",
+      "score": 5,
+      "questionNumber": "55",
+      "question": "AI Agent · 超长上下文冗余优化"
+    },
+    {
       "title": "后续题目计划（23-216）",
       "path": "content/opportunity/practice/active-batch-plan.md",
       "url": "content/opportunity/practice/active-batch-plan.md",
@@ -3797,8 +3821,8 @@
       "section": "questions",
       "topic": "机会雷达",
       "company": "",
-      "round": "R0",
-      "score": 1,
+      "round": "R1",
+      "score": 5,
       "questionNumber": "51",
       "question": "JVM · G1/ZGC/CMS 区别与适用场景"
     },
@@ -3941,8 +3965,8 @@
       "section": "questions",
       "topic": "机会雷达",
       "company": "",
-      "round": "R0",
-      "score": 3,
+      "round": "R1",
+      "score": 4,
       "questionNumber": "46",
       "question": "Java并发 · ThreadLocal 原理/内存泄漏/线程池复用"
     },
@@ -6855,17 +6879,17 @@
     "任务": 0,
     "项目": 2,
     "学习": 187,
-    "机会": 79,
+    "机会": 80,
     "阅读": 4,
     "专栏": 0
   },
   "sectionCounts": {
     "learning": 187,
     "companies": 21,
+    "questions": 54,
     "plans": 3,
     "projects": 2,
     "reading": 4,
-    "questions": 53,
     "opportunity": 2
   },
   "projects": [
@@ -6909,12 +6933,12 @@
   "dashboard": {
     "today": {
       "date": "2026-07-06",
-      "count": 3,
-      "averageScore": null
+      "count": 4,
+      "averageScore": 5
     },
-    "totalQuestions": 56,
-    "scoredQuestions": 49,
-    "averageScore": 4.2,
+    "totalQuestions": 57,
+    "scoredQuestions": 50,
+    "averageScore": 4.3,
     "streakDays": 6,
     "daily": [
       {
@@ -7000,7 +7024,7 @@
       {
         "date": "2026-07-02",
         "count": 3,
-        "averageScore": 4.3
+        "averageScore": 4.7
       },
       {
         "date": "2026-07-03",
@@ -7010,7 +7034,7 @@
       {
         "date": "2026-07-04",
         "count": 2,
-        "averageScore": 2
+        "averageScore": 4
       },
       {
         "date": "2026-07-05",
@@ -7019,8 +7043,8 @@
       },
       {
         "date": "2026-07-06",
-        "count": 3,
-        "averageScore": null
+        "count": 4,
+        "averageScore": 5
       }
     ],
     "weakTopics": [],

@@ -17,9 +17,9 @@ question_id: "46"
 question: "Java并发 · ThreadLocal 原理/内存泄漏/线程池复用"
 sources:
   - "unknown"
-score: "3/10"
-round: "R0"
-next_review: "unknown"
+score: "4/10"
+round: "R1"
+next_review: "2026-07-09"
 session_id: "unknown"
 ---
 
@@ -73,3 +73,27 @@ ThreadLocal 是线程级变量隔离，每个 Thread 有独立的 ThreadLocalMap
 - GPT 纠错：泄漏发生的关键条件是线程长期存活且 stale Entry 未被清理；ThreadLocalMap 会在部分 `get/set/remove` 路径中顺带清理，但不能依赖这种机会式清理。
 - GPT 纠错：`remove()` 仍是普通 ThreadLocal 在线程池中的首选做法，应放在 `finally` 中。
 - GPT 纠错：TransmittableThreadLocal 主要解决线程池中的上下文传递与恢复，不是所有 ThreadLocal 内存泄漏的通用修复方案。
+
+---
+
+## 回顾记录（2026-07-06 R1）
+
+**得分：4/10**
+
+### 用户回答
+- ThreadLocal 是当前线程的变量存储概念，一个 ThreadLocal 存一个变量
+- set 时唤起 ThreadLocalMap，以 this 为 key，值为 value
+- map 存属于某一个线程
+- 是软引用（soft reference），内存不够时自动清理
+
+### 扣分点
+1. 引用类型错误：key 是 WeakReference 不是 SoftReference（-3）
+2. 内存泄漏原理没讲清楚（-2）
+3. ThreadLocalMap 在 Thread 里不是在 ThreadLocal 里（-1，但后面理解了）
+
+### 回顾收获
+- ThreadLocalMap 在 Thread 类里，不在 ThreadLocal 里（ThreadLocal 是"钥匙"，Thread 是"保险箱"）
+- key 是 WeakReference，value 是 StrongReference，GC 后 key=null 但 value 还在
+- 泄漏原因：Entry 强引用 value，而 Entry 被 Thread 持有，Thread 活着就无法回收
+- 线程池危险：线程复用导致 ThreadLocalMap 持久存在，value 累积
+- 必须在 finally 中调 remove()，不能依赖机会式清理

@@ -19,9 +19,9 @@ sources:
   - "middleware/2026-06-01-jvm-core-principles-troubleshooting.md"
   - "java/jd-java-backend-round2-jvm-concurrency.md"
   - "tencent/2026-05-27-tencent-cloud-final-round.md"
-score: "1/10"
-round: "R0"
-next_review: "2026-07-06"
+score: "5/10"
+round: "R1"
+next_review: "2026-07-09"
 session_id: "unknown"
 ---
 
@@ -56,3 +56,25 @@ session_id: "unknown"
 ### 复习骨架
 
 CMS 标记清除有碎片 → G1 Region化可预测停顿 → ZGC 染色指针+读屏障实现<1ms
+
+---
+
+## 回顾记录（2026-07-06 R1）
+
+**得分：5/10**
+
+### 用户回答
+- CMS：先标记→remark→并发清理，适合老年代
+- G1：分 Region，逻辑划分（新/老/survivor），标记复制，优先清理垃圾多的 Region
+- ZGC：在 G1 基础上优化，用染色标记加速
+
+### 扣分点
+1. CMS 流程说对但缺少两次 STW 细节（-1）
+2. G1 回答较完整（+1）
+3. ZGC 关键错误：不是基于 G1 的优化，是独立实现（-2）
+4. ZGC 染色指针+读屏障原理模糊（-2）
+
+### 回顾收获
+- ZGC 使用染色指针（Colored Pointers）+ 读屏障（Load Barrier），不是 G1 的升级
+- CMS 有内存碎片和浮动垃圾问题，JDK 14 废弃
+- G1 可预测停顿时间，Mixed GC 选择性回收 Old Region
