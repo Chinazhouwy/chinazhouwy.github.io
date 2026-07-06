@@ -1,15 +1,15 @@
 ---
 title: "DeepSeek 招聘 — Agent Harness 岗位解读"
 date: "2026-05-25"
-domain: "阅读"
-area: "finance"
+domain: "机会"
+area: "机会来源"
 module: ""
-project: ""
-type: "札记"
-status: "随手记"
+project: "机会雷达"
+type: "source_digest"
+status: "待拆解"
 priority: "P1"
 energy: "medium"
-visibility: "public"
+visibility: "private"
 summary: "DeepSeek 招聘 — Agent Harness 岗位解读"
 tags:
 ---

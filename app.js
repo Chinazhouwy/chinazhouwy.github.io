@@ -208,6 +208,39 @@ function renderOverview() {
         <div><span>公开项目</span><strong>${state.projects.length}</strong><small>项</small></div>
       </div>
 
+      <div class="overview-grid">
+        <section class="trend-section reveal">
+          <div class="section-heading">
+            <div><p class="mono-label">PROGRESS / 近 14 天</p><h2>阶段趋势</h2></div>
+            <div class="chart-legend"><span class="legend-bar">题量</span><span class="legend-line">均分</span></div>
+          </div>
+          ${lineChart(dashboard.daily || [])}
+        </section>
+
+        <section class="focus-section reveal delay-1">
+          <div class="section-heading">
+            <div><p class="mono-label">FOCUS / 当前方向</p><h2>正在推进</h2></div>
+          </div>
+          <div class="weak-list">
+            ${
+              weakTopics.length
+                ? weakTopics
+                    .map(
+                      (item, index) => `
+                        <a href="#/questions?topic=${encodeURIComponent(item.topic)}">
+                          <span>${String(index + 1).padStart(2, "0")}</span>
+                          <strong>${escapeHtml(item.topic)}</strong>
+                          <i style="--level:${Math.max(8, item.averageScore * 10)}%"></i>
+                          <em>${item.averageScore}</em>
+                        </a>`,
+                    )
+                    .join("")
+                : state.projects.map((item, index) => `<a href="#/projects"><span>${String(index + 1).padStart(2, "0")}</span><strong>${escapeHtml(item.name)}</strong><i style="--level:${Math.max(18, 90-index*15)}%"></i><em>${escapeHtml(item.status)}</em></a>`).join("")
+            }
+          </div>
+        </section>
+      </div>
+
       <section class="project-strip reveal">
         <div class="section-heading">
           <div><p class="mono-label">PROJECTS / 当前项目</p><h2>长期建设</h2></div>
@@ -223,37 +256,6 @@ function renderOverview() {
                 </a>`,
             )
             .join("") || '<p class="empty-copy">项目清单等待补充。</p>'}
-        </div>
-      </section>
-
-      <section class="trend-section reveal">
-        <div class="section-heading">
-          <div><p class="mono-label">PROGRESS / 近 14 天</p><h2>练习趋势</h2></div>
-          <div class="chart-legend"><span class="legend-bar">题量</span><span class="legend-line">均分</span></div>
-        </div>
-        ${lineChart(dashboard.daily || [])}
-      </section>
-
-      <section class="focus-section reveal delay-1">
-        <div class="section-heading">
-          <div><p class="mono-label">FOCUS / 当前方向</p><h2>正在推进</h2></div>
-        </div>
-        <div class="weak-list">
-          ${
-            weakTopics.length
-              ? weakTopics
-                  .map(
-                    (item, index) => `
-                      <a href="#/questions?topic=${encodeURIComponent(item.topic)}">
-                        <span>${String(index + 1).padStart(2, "0")}</span>
-                        <strong>${escapeHtml(item.topic)}</strong>
-                        <i style="--level:${Math.max(8, item.averageScore * 10)}%"></i>
-                        <em>${item.averageScore}</em>
-                      </a>`,
-                  )
-                  .join("")
-              : state.projects.map((item, index) => `<a href="#/projects"><span>${String(index + 1).padStart(2, "0")}</span><strong>${escapeHtml(item.name)}</strong><i style="--level:${Math.max(18, 90-index*15)}%"></i><em>${escapeHtml(item.status)}</em></a>`).join("")
-          }
         </div>
       </section>
 
@@ -275,7 +277,7 @@ function renderOverview() {
                       </a>`,
                   )
                   .join("")
-              : '<p class="empty-copy">暂未找到计划文档。</p>'
+              : '<p class="empty-copy">阅读人生栏目已建立，等待第一篇沉淀。</p>'
           }
         </div>
       </section>
@@ -296,7 +298,7 @@ function renderOverview() {
 
       <section class="recent-section reveal delay-1">
         <div class="section-heading">
-          <div><p class="mono-label">LATEST / 最近更新</p><h2>继续阅读</h2></div>
+          <div><p class="mono-label">LATEST / 最近沉淀</p><h2>继续阅读</h2></div>
         </div>
         <div class="article-list">${recent.map((item, index) => articleRow(item, { index: String(index + 1).padStart(2, "0") })).join("")}</div>
       </section>

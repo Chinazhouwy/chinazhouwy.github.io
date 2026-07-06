@@ -390,6 +390,13 @@ a {
   font-size: 31px;
 }
 
+.overview-grid {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  gap: 32px;
+}
+
 .trend-section,
 .focus-section,
 .plan-section,
@@ -546,6 +553,13 @@ a {
   margin-bottom: 12px;
 }
 
+.project-strip,
+.plan-section,
+.private-summary,
+.recent-section {
+  grid-column: 1 / -1;
+}
+
 .focus-section {
   min-width: 0;
 }
@@ -580,14 +594,6 @@ a {
 .weak-list i {
   height: 5px;
   background: linear-gradient(90deg, var(--orange) var(--level), var(--paper-deep) var(--level));
-}
-
-.plan-section {
-  grid-column: 1;
-}
-
-.recent-section {
-  grid-column: 2;
 }
 
 .plan-list {
@@ -1330,6 +1336,10 @@ a {
 
   .dashboard {
     grid-template-columns: 1.35fr 0.85fr;
+  }
+
+  .overview-grid {
+    grid-template-columns: 1fr;
   }
 
   .dashboard-lead h1 {

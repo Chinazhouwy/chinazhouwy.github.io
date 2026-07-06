@@ -1,15 +1,15 @@
 ---
 title: "茶颜悦色Java开发二面 — 场景题实战（35k offer）"
 date: "2026-05-26"
-domain: "阅读"
-area: "clips"
+domain: "机会"
+area: "公司记录"
 module: ""
-project: ""
-type: "札记"
-status: "随手记"
+project: "机会雷达"
+type: "面试记录"
+status: "可复习"
 priority: "P1"
 energy: "medium"
-visibility: "public"
+visibility: "private"
 summary: "茶颜悦色Java开发二面 — 场景题实战（35k offer）"
 tags:
 ---
