@@ -3434,6 +3434,30 @@
       "question": "AI Agent · 超长上下文冗余优化"
     },
     {
+      "title": "AI Agent · MCP、RAG、Skill 三者区别和组合方式",
+      "path": "content/opportunity/practice/56-mcp-rag-skill-differences.md",
+      "url": "content/opportunity/practice/56-mcp-rag-skill-differences.md",
+      "date": "2026-07-06",
+      "domain": "机会",
+      "area": "机会雷达",
+      "module": "",
+      "project": "机会雷达",
+      "type": "题目",
+      "status": "completed",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "AI Agent · MCP、RAG、Skill 三者区别和组合方式",
+      "tags": [],
+      "section": "questions",
+      "topic": "机会雷达",
+      "company": "",
+      "round": "R0",
+      "score": 6,
+      "questionNumber": "56",
+      "question": "AI Agent · MCP、RAG、Skill 三者区别和组合方式"
+    },
+    {
       "title": "后续题目计划（23-216）",
       "path": "content/opportunity/practice/active-batch-plan.md",
       "url": "content/opportunity/practice/active-batch-plan.md",
@@ -6879,14 +6903,14 @@
     "任务": 0,
     "项目": 2,
     "学习": 187,
-    "机会": 80,
+    "机会": 81,
     "阅读": 4,
     "专栏": 0
   },
   "sectionCounts": {
     "learning": 187,
     "companies": 21,
-    "questions": 54,
+    "questions": 55,
     "plans": 3,
     "projects": 2,
     "reading": 4,
@@ -6933,12 +6957,12 @@
   "dashboard": {
     "today": {
       "date": "2026-07-06",
-      "count": 4,
-      "averageScore": 5
+      "count": 5,
+      "averageScore": 5.5
     },
-    "totalQuestions": 57,
-    "scoredQuestions": 50,
-    "averageScore": 4.3,
+    "totalQuestions": 58,
+    "scoredQuestions": 51,
+    "averageScore": 4.4,
     "streakDays": 6,
     "daily": [
       {
@@ -7043,8 +7067,8 @@
       },
       {
         "date": "2026-07-06",
-        "count": 4,
-        "averageScore": 5
+        "count": 5,
+        "averageScore": 5.5
       }
     ],
     "weakTopics": [],
