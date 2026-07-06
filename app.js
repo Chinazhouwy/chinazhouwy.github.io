@@ -1,5 +1,5 @@
 const SECTION_LABELS = {
-  tasks: "任务",
+  tasks: "行动摘要",
   projects: "项目",
   learning: "学习",
   opportunity: "机会",
@@ -7,8 +7,8 @@ const SECTION_LABELS = {
   columns: "知识地图",
   questions: "能力复盘",
   companies: "机会记录",
-  interviews: "模拟面试",
-  plans: "阶段计划",
+  interviews: "表达演练",
+  plans: "阶段路线",
 };
 
 const ui = {
@@ -646,7 +646,7 @@ function renderInterviews() {
   const days = Object.entries(dated).sort((a, b) => b[0].localeCompare(a[0]));
   ui.app.innerHTML = `
     <section class="directory-page">
-      ${sectionIntro("MOCK INTERVIEW", "模拟面试", "每次模拟面试的题目、回答、评分和复盘记录。", items.length)}
+      ${sectionIntro("EXPRESSION DRILL", "表达演练", "问答表达、回答质量、评分和改进记录。", items.length)}
       <div class="interview-summary reveal delay-1">
         <div><strong>${state.dashboard.averageScore ?? "—"}</strong><span>整体评分</span></div>
         <div><strong>${state.dashboard.scoredQuestions || 0}</strong><span>已复盘题目</span></div>
@@ -676,7 +676,7 @@ function renderPlans() {
   const items = getPlanArticles();
   ui.app.innerHTML = `
     <section class="directory-page plan-page">
-      ${sectionIntro("STAGE PLAN", "阶段计划", "复习计划、阶段路线和下一步行动沉淀。", items.length)}
+      ${sectionIntro("STAGE ROUTE", "阶段路线", "阶段路线、复盘节奏和下一步行动沉淀。", items.length)}
       <div class="roadmap-line">
         ${items
           .map(
@@ -742,9 +742,9 @@ function renderOpportunity() {
     <section class="directory-page">
       <header class="page-intro reveal">
         <div>
-          <p class="mono-label">OPPORTUNITY / 机会雷达</p>
-          <h1>面试资产入口</h1>
-          <p>这里收纳能力复盘、机会记录、模拟面试和阶段计划。</p>
+          <p class="mono-label">OPPORTUNITY / 机会工作台</p>
+          <h1>机会工作台</h1>
+          <p>这里收纳能力复盘、机会记录、表达演练和阶段路线。</p>
         </div>
       </header>
 
@@ -759,21 +759,21 @@ function renderOpportunity() {
         <article>
           <p class="mono-label">FILES</p>
           <h3>机会记录</h3>
-          <p>公司、轮次、日期和题目摘要。</p>
+          <p>按来源、轮次和反馈归档外部机会样本。</p>
           <a href="#/companies">进入 <small>${companiesCount} 项</small> ${iconArrow()}</a>
         </article>
 
         <article>
-          <p class="mono-label">MOCK</p>
-          <h3>模拟面试</h3>
-          <p>每次模拟面试的回答、评分和复盘。</p>
+          <p class="mono-label">DRILL</p>
+          <h3>表达演练</h3>
+          <p>问答表达、回答质量、评分和改进记录。</p>
           <a href="#/interviews">进入 <small>${interviewsCount} 项</small> ${iconArrow()}</a>
         </article>
 
         <article>
-          <p class="mono-label">PLAN</p>
-          <h3>阶段计划</h3>
-          <p>复习路线、阶段计划和下一步行动。</p>
+          <p class="mono-label">ROUTE</p>
+          <h3>阶段路线</h3>
+          <p>阶段路线、复盘节奏和下一步安排。</p>
           <a href="#/plans">进入 <small>${plansCount} 项</small> ${iconArrow()}</a>
         </article>
       </div>
@@ -967,7 +967,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260706-7";
+const BUILD_VERSION = "20260706-8";
 
 async function loadSite() {
   const response = await fetch(`./site-index.json?v=${BUILD_VERSION}`);
