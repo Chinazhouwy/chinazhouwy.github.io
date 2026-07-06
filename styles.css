@@ -554,10 +554,58 @@ a {
 }
 
 .project-strip,
+.opportunity-grid,
 .plan-section,
 .private-summary,
 .recent-section {
   grid-column: 1 / -1;
+}
+
+.opportunity-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.opportunity-grid article {
+  padding: 28px;
+  border: 1px solid var(--line);
+  background: rgba(248, 250, 246, 0.45);
+}
+
+.opportunity-grid article h3 {
+  margin: 12px 0 8px;
+  font-family: var(--serif);
+  font-size: 24px;
+}
+
+.opportunity-grid article p {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.opportunity-grid article a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--green);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.opportunity-grid article a small {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+@media (max-width: 680px) {
+  .opportunity-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .focus-section {
