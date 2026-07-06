@@ -4061,7 +4061,7 @@
       "section": "questions",
       "topic": "机会雷达",
       "company": "",
-      "round": "R0",
+      "round": "R1",
       "score": 4,
       "questionNumber": "40",
       "question": "AI Agent — Harness 是什么？和 Eval、Agent Framework、MCP 的边界"
@@ -4085,8 +4085,8 @@
       "section": "questions",
       "topic": "机会雷达",
       "company": "",
-      "round": "R0",
-      "score": 0,
+      "round": "R1",
+      "score": 7,
       "questionNumber": "41",
       "question": "AI Agent — LangGraph 状态图执行模型 + 与 ReAct Loop 的区别"
     },
@@ -6962,7 +6962,7 @@
     },
     "totalQuestions": 58,
     "scoredQuestions": 51,
-    "averageScore": 4.4,
+    "averageScore": 4.5,
     "streakDays": 6,
     "daily": [
       {
@@ -7043,7 +7043,7 @@
       {
         "date": "2026-07-01",
         "count": 6,
-        "averageScore": 3
+        "averageScore": 4.2
       },
       {
         "date": "2026-07-02",

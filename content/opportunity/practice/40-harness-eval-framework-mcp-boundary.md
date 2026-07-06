@@ -20,8 +20,8 @@ sources:
   - "industry/2026-05-25-deepseek-agent-harness-hiring.md"
   - "codex gpt 修复点.md"
 score: "4/10"
-round: "R0"
-next_review: "unknown"
+round: "R1"
+next_review: "2026-07-09"
 session_id: "unknown"
 ---
 
@@ -169,3 +169,26 @@ Harness（工程运行层）
 | Eval | 评测体系 | 可独立可接入 |
 | MCP | 工具连接协议 | 被 Harness 使用 |
 | Skills | 结构化工作流 | 与 MCP 正交组合 |
+
+---
+
+## 回顾记录（2026-07-06 R1）
+
+**得分：4/10**
+
+### 用户回答
+- Harness = 模型约束工程（记忆、工具、提示词）
+- Eval = 不知道
+- Agent Framework = AgentScope、Spring AI、LangChain
+- MCP = Model Context Protocol
+
+### 扣分点
+1. Harness 定义太窄，只是"约束工程"（-2）
+2. Eval 完全不知道（-3）
+3. 缺少四者关系的描述（-1）
+
+### 回顾收获
+- Harness = 让 Agent 可运行、可控制、可观测的工程运行层
+- Harness 五大能力：可运行、可扩展、可控制、可观测、可迭代
+- Eval = Agent 评测体系，可独立存在也可接入 Harness
+- MCP 和 Skills 是正交关系，可以组合使用
