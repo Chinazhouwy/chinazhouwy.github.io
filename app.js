@@ -5,6 +5,10 @@ const SECTION_LABELS = {
   opportunity: "机会",
   reading: "阅读",
   columns: "专栏",
+  questions: "能力复盘",
+  companies: "机会记录",
+  interviews: "模拟面试",
+  plans: "阶段计划",
 };
 
 const ui = {
@@ -56,26 +60,181 @@ function average(values) {
   return valid.length ? valid.reduce((sum, value) => sum + value, 0) / valid.length : null;
 }
 
+// ---- visibility helpers ----
+function isHidden(article) {
+  return article.visibility === "hidden";
+}
+
+function canShowOnHome(article) {
+  return !isHidden(article) && article.visibility !== "private";
+}
+
+function canShowInSection(article) {
+  return !isHidden(article);
+}
+
+// ---- section normalization ----
+function normalizeSection(value) {
+  const raw = String(value || "").trim().toLowerCase();
+
+  const map = {
+    questions: "questions",
+    question: "questions",
+    practice: "questions",
+    "ability-review": "questions",
+    "能力复盘": "questions",
+
+    companies: "companies",
+    company: "companies",
+    "company-records": "companies",
+    "company_records": "companies",
+    "机会记录": "companies",
+    "公司记录": "companies",
+
+    interviews: "interviews",
+    interview: "interviews",
+    "mock-interviews": "interviews",
+    "mock_interviews": "interviews",
+    mock: "interviews",
+    "模拟面试": "interviews",
+
+    plans: "plans",
+    plan: "plans",
+    tasks: "tasks",
+    "阶段计划": "plans",
+
+    notes: "learning",
+    learning: "learning",
+    study: "learning",
+    "学习": "learning",
+
+    opportunity: "opportunity",
+    career: "opportunity",
+    "机会": "opportunity",
+
+    projects: "projects",
+    project: "projects",
+    "项目": "projects",
+
+    reading: "reading",
+    read: "reading",
+    "阅读": "reading",
+
+    columns: "columns",
+    column: "columns",
+    "专栏": "columns",
+  };
+
+  return map[raw] || raw;
+}
+
+function getArticleSection(article) {
+  return normalizeSection(
+    article.section ||
+    article.domain ||
+    inferSectionByPath(article.path || article.url || "") ||
+    article.category ||
+    article.type
+  );
+}
+
+// ---- path-based section inference ----
+function inferSectionByPath(path = "") {
+  const normalizedPath = String(path).toLowerCase();
+
+  if (normalizedPath.includes("content/opportunity/practice/")) return "questions";
+  if (normalizedPath.includes("content/opportunity/companies/")) return "companies";
+  if (normalizedPath.includes("content/opportunity/mock-interviews/")) return "interviews";
+  if (normalizedPath.includes("content/opportunity/interviews/")) return "interviews";
+  if (normalizedPath.includes("content/opportunity/plans/")) return "plans";
+
+  if (normalizedPath.includes("/practice/")) return "questions";
+  if (normalizedPath.includes("/companies/")) return "companies";
+  if (normalizedPath.includes("/interviews/")) return "interviews";
+  if (normalizedPath.includes("/plans/")) return "plans";
+
+  if (normalizedPath.includes("content/learning/")) return "learning";
+  if (normalizedPath.includes("content/reading/")) return "reading";
+  if (normalizedPath.includes("content/projects/")) return "projects";
+  if (normalizedPath.includes("content/columns/")) return "columns";
+
+  return "";
+}
+
+// ---- section-specific article getters ----
+function getQuestionArticles() {
+  return state.articles
+    .filter(canShowInSection)
+    .filter((article) => getArticleSection(article) === "questions")
+    .filter(matchesSearch);
+}
+
+function getCompanyArticles() {
+  return state.articles
+    .filter(canShowInSection)
+    .filter((article) => getArticleSection(article) === "companies")
+    .filter(matchesSearch);
+}
+
+function getInterviewArticles() {
+  return state.articles
+    .filter(canShowInSection)
+    .filter((article) => {
+      const sec = getArticleSection(article);
+      // Include both standalone interview articles and practice articles with scores
+      return sec === "interviews" || (sec === "questions" && (article.score !== null || article.questionNumber !== null));
+    })
+    .filter(matchesSearch);
+}
+
+function getPlanArticles() {
+  return state.articles
+    .filter(canShowInSection)
+    .filter((article) => getArticleSection(article) === "plans")
+    .filter(matchesSearch);
+}
+
+// ---- search ----
 function matchesSearch(article) {
   if (!state.query) return true;
+
   const haystack = [
     article.title,
+    article.summary,
     article.topic,
     article.company,
     article.round,
     article.category,
     article.column,
+    article.domain,
+    article.section,
+    article.area,
+    article.module,
+    article.project,
+    article.type,
+    article.question,
     ...(article.tags || []),
   ]
+    .filter(Boolean)
     .join(" ")
     .toLowerCase();
+
   return haystack.includes(state.query);
 }
 
-function filteredArticles(section) {
-  return state.articles.filter(
-    (article) => (!section || article.section === section) && matchesSearch(article),
-  );
+// ---- filtered articles ----
+function filteredArticles(section, { includePrivate = true } = {}) {
+  const target = normalizeSection(section);
+
+  return state.articles
+    .filter((article) => {
+      if (isHidden(article)) return false;
+      if (!includePrivate && article.visibility === "private") return false;
+
+      const articleSection = getArticleSection(article);
+      return articleSection === target;
+    })
+    .filter(matchesSearch);
 }
 
 function groupBy(items, key, fallback = "其他") {
@@ -96,21 +255,33 @@ function iconArrow() {
 }
 
 function articleRow(article, options = {}) {
+  const refPath = article.path || article.url;
+  if (!refPath) {
+    return `
+      <div class="article-row">
+        <span class="article-row-index">${options.index || article.questionNumber || "·"}</span>
+        <span class="article-row-main">
+          <strong>${escapeHtml(article.title)}</strong>
+          <small>路径缺失</small>
+        </span>
+      </div>
+    `;
+  }
   return `
-    <a class="article-row" href="${articleHref(article.path)}">
+    <a class="article-row" href="${articleHref(refPath)}">
       <span class="article-row-index">${options.index || article.questionNumber || "·"}</span>
       <span class="article-row-main">
         <strong>${escapeHtml(article.title)}</strong>
         <small>
-          ${[article.company, article.round, article.topic, article.date]
+          ${[article.company, article.round, article.topic || article.module || article.area, article.date]
             .filter(Boolean)
             .map(escapeHtml)
             .join(" · ") || "未分类"}
         </small>
       </span>
       ${
-        article.section === "interviews"
-          ? `<span class="score ${article.score !== null && article.score < 4 ? "score-low" : ""}">${scoreText(article.score)}</span>`
+        article.score !== null && article.score !== undefined
+          ? `<span class="score ${article.score < 4 ? "score-low" : ""}">${scoreText(article.score)}</span>`
           : iconArrow()
       }
     </a>
@@ -132,7 +303,7 @@ function sectionIntro(kicker, title, description, count) {
 
 function lineChart(daily) {
   const points = daily.slice(-14);
-  if (!points.length) return '<div class="chart-empty">完成带日期的练习后，这里会出现趋势。</div>';
+  if (!points.length) return '<div class="chart-empty">持续记录后，这里会出现阶段趋势。</div>';
   const width = 720;
   const height = 210;
   const padding = 28;
@@ -173,8 +344,28 @@ function lineChart(daily) {
 function renderOverview() {
   const dashboard = state.dashboard;
   const today = dashboard.today || {};
-  const recent = filteredArticles().slice(0, 6);
+  const recent = state.articles
+    .filter(canShowOnHome)
+    .filter(matchesSearch)
+    .slice(0, 6);
   const weakTopics = dashboard.weakTopics || [];
+
+  // Focus items: prefer projects over weakTopics
+  const focusItems = state.projects.length
+    ? state.projects.map((item) => ({
+        name: item.name,
+        status: item.status || item.priority || "进行中",
+      }))
+    : weakTopics.map((item) => ({
+        name: item.topic,
+        status: item.averageScore ? `${item.averageScore}` : "待复盘",
+      }));
+
+  // Reading section uses canShowOnHome
+  const readingItems = state.articles
+    .filter((a) => canShowOnHome(a) && normalizeSection(getArticleSection(a)) === "reading")
+    .filter(matchesSearch)
+    .slice(0, 3);
 
   ui.app.innerHTML = `
     <section class="dashboard">
@@ -195,24 +386,24 @@ function renderOverview() {
           <span>项记录</span>
         </div>
         <dl>
-          <div><dt>今日均分</dt><dd>${today.averageScore ?? "—"}</dd></div>
-          <div><dt>连续练习</dt><dd>${dashboard.streakDays || 0} 天</dd></div>
-          <div><dt>累计练习</dt><dd>${dashboard.totalQuestions || 0} 项</dd></div>
+          <div><dt>今日状态</dt><dd>${today.averageScore ?? "—"}</dd></div>
+          <div><dt>连续记录</dt><dd>${dashboard.streakDays || 0} 天</dd></div>
+          <div><dt>累计沉淀</dt><dd>${dashboard.totalQuestions || 0} 项</dd></div>
         </dl>
       </aside>
 
       <div class="metric-strip reveal delay-1">
-        <div><span>整体均分</span><strong>${dashboard.averageScore ?? "—"}</strong><small>/ 10</small></div>
-        <div><span>已评分</span><strong>${dashboard.scoredQuestions || 0}</strong><small>道</small></div>
-        <div><span>知识文章</span><strong>${state.articles.length}</strong><small>篇</small></div>
-        <div><span>公开项目</span><strong>${state.projects.length}</strong><small>项</small></div>
+        <div><span>整体评分</span><strong>${dashboard.averageScore ?? "—"}</strong><small>/ 10</small></div>
+        <div><span>已复盘</span><strong>${dashboard.scoredQuestions || 0}</strong><small>道</small></div>
+        <div><span>内容沉淀</span><strong>${state.articles.length}</strong><small>篇</small></div>
+        <div><span>当前项目</span><strong>${state.projects.length}</strong><small>项</small></div>
       </div>
 
       <div class="overview-grid">
         <section class="trend-section reveal">
           <div class="section-heading">
             <div><p class="mono-label">PROGRESS / 近 14 天</p><h2>阶段趋势</h2></div>
-            <div class="chart-legend"><span class="legend-bar">题量</span><span class="legend-line">均分</span></div>
+            <div class="chart-legend"><span class="legend-bar">记录</span><span class="legend-line">状态</span></div>
           </div>
           ${lineChart(dashboard.daily || [])}
         </section>
@@ -223,19 +414,19 @@ function renderOverview() {
           </div>
           <div class="weak-list">
             ${
-              weakTopics.length
-                ? weakTopics
+              focusItems.length
+                ? focusItems
                     .map(
                       (item, index) => `
-                        <a href="#/questions?topic=${encodeURIComponent(item.topic)}">
+                        <a href="#/projects">
                           <span>${String(index + 1).padStart(2, "0")}</span>
-                          <strong>${escapeHtml(item.topic)}</strong>
-                          <i style="--level:${Math.max(8, item.averageScore * 10)}%"></i>
-                          <em>${item.averageScore}</em>
+                          <strong>${escapeHtml(item.name)}</strong>
+                          <i style="--level:${Math.max(18, 90-index*15)}%"></i>
+                          <em>${escapeHtml(item.status)}</em>
                         </a>`,
                     )
                     .join("")
-                : state.projects.map((item, index) => `<a href="#/projects"><span>${String(index + 1).padStart(2, "0")}</span><strong>${escapeHtml(item.name)}</strong><i style="--level:${Math.max(18, 90-index*15)}%"></i><em>${escapeHtml(item.status)}</em></a>`).join("")
+                : '<p class="empty-copy">持续记录后，这里会出现当前方向。</p>'
             }
           </div>
         </section>
@@ -266,8 +457,8 @@ function renderOverview() {
         </div>
         <div class="plan-list">
           ${
-            filteredArticles("reading").slice(0,3).length
-              ? filteredArticles("reading").slice(0,3)
+            readingItems.length
+              ? readingItems
                   .map(
                     (plan, index) => `
                       <a href="${articleHref(plan.path)}">
@@ -353,15 +544,13 @@ function renderDomain(section, title, description) {
 }
 
 function renderQuestions() {
-  const items = state.query
-    ? state.articles.filter(matchesSearch)
-    : filteredArticles("questions").concat(filteredArticles("notes"));
+  const items = getQuestionArticles();
   const groups = groupBy(items, "topic");
   const requestedTopic = new URLSearchParams(location.hash.split("?")[1] || "").get("topic");
   const entries = Object.entries(groups).sort((a, b) => b[1].length - a[1].length);
   ui.app.innerHTML = `
     <section class="directory-page">
-      ${sectionIntro("QUESTION BANK", "题库", "按技术方向重新组织所有知识文章，找到题目，也找到它的上下文。", items.length)}
+      ${sectionIntro("ABILITY REVIEW", "能力复盘", "按技术方向整理具体题目、场景题、系统设计题和待复盘项。点击每一道题可以查看完整详情。", items.length)}
       <div class="topic-index reveal delay-1">
         ${entries
           .map(
@@ -388,13 +577,13 @@ function renderQuestions() {
 }
 
 function renderCompanies() {
-  const items = filteredArticles("companies");
+  const items = getCompanyArticles();
   const groups = Object.entries(groupBy(items, "company", "其他公司")).sort(
     (a, b) => b[1].length - a[1].length,
   );
   ui.app.innerHTML = `
     <section class="directory-page">
-      ${sectionIntro("COMPANY FILES", "公司面经", "按公司归档真实面试记录，再按轮次与日期观察不同团队的关注重点。", items.length)}
+      ${sectionIntro("OPPORTUNITY FILES", "机会记录", "按来源、公司、轮次归档具体记录，用于复盘不同团队的关注点。", items.length)}
       <div class="company-grid">
         ${groups
           .map(([company, articles], index) => {
@@ -428,17 +617,17 @@ function renderCompanies() {
 }
 
 function renderInterviews() {
-  const items = filteredArticles("interviews");
+  const items = getInterviewArticles();
   const dated = groupBy(items, "date", "日期未记录");
   const days = Object.entries(dated).sort((a, b) => b[0].localeCompare(a[0]));
   ui.app.innerHTML = `
     <section class="directory-page">
-      ${sectionIntro("DAILY PRACTICE", "模拟面试", "每次回答、评分和复盘都留下来。这里看见题量，也看见能力曲线。", items.length)}
+      ${sectionIntro("MOCK INTERVIEW", "模拟面试", "每次模拟面试的题目、回答、评分和复盘记录。", items.length)}
       <div class="interview-summary reveal delay-1">
-        <div><strong>${state.dashboard.averageScore ?? "—"}</strong><span>整体均分</span></div>
-        <div><strong>${state.dashboard.scoredQuestions || 0}</strong><span>已评分题目</span></div>
-        <div><strong>${days.filter(([day]) => day !== "日期未记录").length}</strong><span>练习日期</span></div>
-        <div><strong>${state.dashboard.streakDays || 0}</strong><span>连续天数</span></div>
+        <div><strong>${state.dashboard.averageScore ?? "—"}</strong><span>整体评分</span></div>
+        <div><strong>${state.dashboard.scoredQuestions || 0}</strong><span>已复盘题目</span></div>
+        <div><strong>${days.filter(([day]) => day !== "日期未记录").length}</strong><span>复盘日期</span></div>
+        <div><strong>${state.dashboard.streakDays || 0}</strong><span>连续记录</span></div>
       </div>
       <div class="interview-days">
         ${days
@@ -448,7 +637,7 @@ function renderInterviews() {
               <section class="interview-day reveal">
                 <header>
                   <time>${day === "日期未记录" ? day : formatDate(day, { year: "numeric", weekday: "short" })}</time>
-                  <div><strong>${articles.length}</strong><span>题</span><strong>${dayAverage === null ? "—" : dayAverage.toFixed(1)}</strong><span>均分</span></div>
+                  <div><strong>${articles.length}</strong><span>记录</span><strong>${dayAverage === null ? "—" : dayAverage.toFixed(1)}</strong><span>状态</span></div>
                 </header>
                 <div class="article-list">${articles.map((article) => articleRow(article)).join("")}</div>
               </section>`;
@@ -460,10 +649,10 @@ function renderInterviews() {
 }
 
 function renderPlans() {
-  const items = filteredArticles("plans");
+  const items = getPlanArticles();
   ui.app.innerHTML = `
     <section class="directory-page plan-page">
-      ${sectionIntro("ROADMAP", "计划", "把下一道题、下一次复习和下一篇文章放在同一条长期路径上。", items.length)}
+      ${sectionIntro("STAGE PLAN", "阶段计划", "复习计划、阶段路线和下一步行动沉淀。", items.length)}
       <div class="roadmap-line">
         ${items
           .map(
@@ -476,6 +665,107 @@ function renderPlans() {
           )
           .join("")}
       </div>
+    </section>
+  `;
+}
+
+function renderSearch() {
+  const results = state.articles
+    .filter(canShowInSection)
+    .filter(matchesSearch);
+
+  const sectionOrder = ["questions", "companies", "interviews", "plans", "learning", "reading", "columns", "opportunity", "projects", "tasks"];
+  const grouped = {};
+  results.forEach((article) => {
+    const sec = getArticleSection(article);
+    grouped[sec] ||= [];
+    grouped[sec].push(article);
+  });
+
+  // Sort groups by predefined order, remaining sections at end
+  const sortedGroups = Object.entries(grouped).sort((a, b) => {
+    const ia = sectionOrder.indexOf(a[0]);
+    const ib = sectionOrder.indexOf(b[0]);
+    if (ia === -1 && ib === -1) return a[0].localeCompare(b[0]);
+    if (ia === -1) return 1;
+    if (ib === -1) return -1;
+    return ia - ib;
+  });
+
+  ui.app.innerHTML = `
+    <section class="directory-page">
+      ${sectionIntro("SEARCH", "搜索结果", state.query ? `"${escapeHtml(state.query)}" 的匹配结果` : "输入关键词搜索全站内容。", results.length)}
+      <div class="directory-groups">
+        ${sortedGroups.length
+          ? sortedGroups.map(([section, articles]) => `
+            <section class="directory-group reveal">
+              <header><h2>${escapeHtml(SECTION_LABELS[section] || section)}</h2><span>${articles.length} 篇</span></header>
+              <div class="article-list">${articles.map((article) => articleRow(article)).join("")}</div>
+            </section>`).join("")
+          : '<p class="empty-copy">没有找到匹配的内容。</p>'}
+      </div>
+    </section>
+  `;
+}
+
+function renderOpportunity() {
+  const questionsCount = state.articles.filter((a) => canShowInSection(a) && getArticleSection(a) === "questions").length;
+  const companiesCount = state.articles.filter((a) => canShowInSection(a) && getArticleSection(a) === "companies").length;
+  const interviewsCount = state.articles.filter((a) => canShowInSection(a) && (getArticleSection(a) === "interviews" || (getArticleSection(a) === "questions" && a.score !== null))).length;
+  const plansCount = state.articles.filter((a) => canShowInSection(a) && getArticleSection(a) === "plans").length;
+
+  ui.app.innerHTML = `
+    <section class="directory-page">
+      <header class="page-intro reveal">
+        <div>
+          <p class="mono-label">OPPORTUNITY / 机会雷达</p>
+          <h1>面试资产入口</h1>
+          <p>这里收纳能力复盘、机会记录、模拟面试和阶段计划。</p>
+        </div>
+      </header>
+
+      <div class="opportunity-grid reveal delay-1">
+        <article>
+          <p class="mono-label">REVIEW</p>
+          <h3>能力复盘</h3>
+          <p>具体题目、场景题、系统设计题和待复盘项。</p>
+          <a href="#/questions">进入 <small>${questionsCount} 项</small> ${iconArrow()}</a>
+        </article>
+
+        <article>
+          <p class="mono-label">FILES</p>
+          <h3>机会记录</h3>
+          <p>公司、轮次、日期和题目摘要。</p>
+          <a href="#/companies">进入 <small>${companiesCount} 项</small> ${iconArrow()}</a>
+        </article>
+
+        <article>
+          <p class="mono-label">MOCK</p>
+          <h3>模拟面试</h3>
+          <p>每次模拟面试的回答、评分和复盘。</p>
+          <a href="#/interviews">进入 <small>${interviewsCount} 项</small> ${iconArrow()}</a>
+        </article>
+
+        <article>
+          <p class="mono-label">PLAN</p>
+          <h3>阶段计划</h3>
+          <p>复习路线、阶段计划和下一步行动。</p>
+          <a href="#/plans">进入 <small>${plansCount} 项</small> ${iconArrow()}</a>
+        </article>
+      </div>
+
+      <section class="recent-section reveal delay-2" style="margin-top:66px">
+        <div class="section-heading">
+          <div><p class="mono-label">LATEST / 最近机会</p><h2>最新记录</h2></div>
+        </div>
+        <div class="article-list">
+          ${state.articles
+            .filter((a) => canShowInSection(a) && ["questions", "companies", "interviews", "plans"].includes(getArticleSection(a)))
+            .slice(0, 10)
+            .map((item, index) => articleRow(item, { index: String(index + 1).padStart(2, "0") }))
+            .join("") || '<p class="empty-copy">等待第一次记录。</p>'}
+        </div>
+      </section>
     </section>
   `;
 }
@@ -536,36 +826,52 @@ function createToc(container) {
     .join("");
 }
 
-async function renderArticle(path) {
-  const resolvedPath = state.aliases[path] || path;
-  const article = state.articles.find((item) => item.path === resolvedPath);
-  if (!article) {
-    renderError("没有找到这篇文章", "它可能已被移动，返回总览重新选择。");
+async function renderArticle(rawPath) {
+  // Resolve aliases
+  const resolvedPath = state.aliases[rawPath] || rawPath;
+
+  // Find article in index - try multiple matching strategies
+  const article =
+    state.articles.find((item) => item.path === resolvedPath || item.url === resolvedPath) ||
+    state.articles.find((item) => item.path === rawPath || item.url === rawPath);
+
+  // Determine the actual file path to fetch
+  const fetchPath = article?.path || article?.url || resolvedPath;
+
+  if (!fetchPath) {
+    renderError("没有找到这篇文章", "路径缺失，无法打开详情。");
     return;
   }
+
   ui.app.innerHTML = '<div class="loading-state"><span></span><p>正在展开文章…</p></div>';
+
   try {
-    const response = await fetch(`./${article.path}`);
+    const response = await fetch(`./${fetchPath}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const raw = await response.text();
     const content = raw.startsWith("---") ? raw.replace(/^---\n[\s\S]*?\n---\n?/, "") : raw;
     const rendered = DOMPurify.sanitize(marked.parse(content));
+
+    const backSection = article ? getArticleSection(article) : "learning";
+    const backLabel = SECTION_LABELS[backSection] || "学习";
+    const displayTitle = article?.title || fetchPath.split("/").pop() || "文章详情";
+
     ui.app.innerHTML = `
       <section class="reader">
         <aside class="reader-rail">
-          <a class="back-link" href="#/${article.section || "learning"}">← 返回${SECTION_LABELS[article.section] || "学习"}</a>
+          <a class="back-link" href="#/${backSection}">← 返回${backLabel}</a>
           <p class="mono-label">CONTENTS</p>
           <nav id="article-toc"></nav>
         </aside>
         <main class="reader-main">
           <header class="reader-header">
-            <p class="mono-label">${escapeHtml([SECTION_LABELS[article.section], article.topic].filter(Boolean).join(" / "))}</p>
-            <h1>${escapeHtml(article.title)}</h1>
+            <p class="mono-label">${escapeHtml([backLabel, article?.topic, article?.module, article?.area].filter(Boolean).join(" / ") || "文章")}</p>
+            <h1>${escapeHtml(displayTitle)}</h1>
             <div>
-              ${article.date ? `<time>${escapeHtml(article.date)}</time>` : ""}
-              ${article.company ? `<span>${escapeHtml(article.company)}</span>` : ""}
-              ${article.round ? `<span>${escapeHtml(article.round)}</span>` : ""}
-              ${article.score !== null ? `<span class="score">${scoreText(article.score)}</span>` : ""}
+              ${article?.date ? `<time>${escapeHtml(article.date)}</time>` : ""}
+              ${article?.company ? `<span>${escapeHtml(article.company)}</span>` : ""}
+              ${article?.round ? `<span>${escapeHtml(article.round)}</span>` : ""}
+              ${article?.score !== null && article?.score !== undefined ? `<span class="score">${scoreText(article.score)}</span>` : ""}
             </div>
           </header>
           <article id="article-body" class="article-body">${rendered}</article>
@@ -573,7 +879,7 @@ async function renderArticle(path) {
       </section>
     `;
     document.getElementById("article-toc").innerHTML = createToc(document.getElementById("article-body"));
-    document.title = `${article.title} · WY 工作台`;
+    document.title = `${displayTitle} · WY 工作台`;
     window.scrollTo({ top: 0, behavior: "instant" });
   } catch (error) {
     renderError("文章加载失败", `${error.message}。请检查文件权限或稍后重试。`, true);
@@ -614,16 +920,32 @@ async function renderRoute() {
     tasks: () => renderDomain("tasks", "任务", "今日行动摘要与待复盘项。"),
     projects: renderProjects,
     learning: () => renderDomain("learning", "学习", "技术知识、源码笔记与可复习内容。"),
-    opportunity: () => renderDomain("opportunity", "机会", "公开的能力表达与阶段复盘。"),
+    opportunity: renderOpportunity,
     reading: () => renderDomain("reading", "阅读人生", "历史、金融、政治、社会与个人札记。"),
     columns: () => renderDomain("columns", "专栏", "持续整理并公开发布的主题文章。"),
+
+    // Old route compatibility
+    questions: renderQuestions,
+    companies: renderCompanies,
+    interviews: renderInterviews,
+    plans: renderPlans,
+
+    // Search
+    search: renderSearch,
   };
   (renderers[route.view] || renderOverview)();
   window.scrollTo({ top: 0, behavior: "instant" });
+
+  // Hydrate daily tip on overview
+  if (route.view === "overview" || !renderers[route.view]) {
+    hydrateDailyTip();
+  }
 }
 
+const BUILD_VERSION = "20260706-5";
+
 async function loadSite() {
-  const response = await fetch("./site-index.json?v=20260706-2");
+  const response = await fetch(`./site-index.json?v=${BUILD_VERSION}`);
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const payload = await response.json();
   state.articles = Array.isArray(payload) ? payload : payload.articles || [];
@@ -632,43 +954,148 @@ async function loadSite() {
   state.projects = payload.projects || [];
   state.aliases = payload.aliases || {};
   await renderRoute();
-  loadDailyTip();
 }
 
-async function loadDailyTip() {
-  const title = document.getElementById("hero-title");
-  const source = document.getElementById("daily-tip-source");
-  if (!title || !source) return;
-  const apply = (text, label) => {
-    const midpoint = text.length > 13 ? Math.ceil(text.length / 2) : text.length;
-    title.innerHTML = `${escapeHtml(text.slice(0, midpoint))}${midpoint < text.length ? "<br />" + escapeHtml(text.slice(midpoint)) : ""}`;
-    source.textContent = `每日摘句 / ${label}`;
-  };
-  let settled = false;
-  const applyOnce = (text, label) => {
-    if (settled) return;
-    settled = true;
-    apply(text, label);
-  };
-  const useFallback = async () => {
-    const tips = await fetch("./data/tips.json")
-      .then((response) => response.json())
-      .catch(() => ["博观而约取，厚积而薄发。"]);
-    applyOnce(tips[new Date().getDate() % tips.length], "本地摘句");
-  };
-  const fallbackTimer = window.setTimeout(useFallback, 2500);
+// ---- daily tip caching ----
+const DAILY_TIP_CACHE_KEY = "wy_daily_tip_v1";
+
+function getLocalDateKey(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function readDailyTipCache() {
   try {
-    if (window.jinrishici) {
-      window.jinrishici.load((result) => {
-        window.clearTimeout(fallbackTimer);
-        applyOnce(result.data.content, result.data.origin.title || "今日诗词");
-      });
+    const raw = localStorage.getItem(DAILY_TIP_CACHE_KEY);
+    if (!raw) return null;
+
+    const cache = JSON.parse(raw);
+    if (!cache || cache.date !== getLocalDateKey()) return null;
+    if (!cache.text) return null;
+
+    return cache;
+  } catch {
+    return null;
+  }
+}
+
+function writeDailyTipCache(text, source) {
+  try {
+    localStorage.setItem(
+      DAILY_TIP_CACHE_KEY,
+      JSON.stringify({
+        date: getLocalDateKey(),
+        text,
+        source,
+        savedAt: Date.now(),
+      })
+    );
+  } catch {
+    // ignore localStorage errors
+  }
+}
+
+function normalizeTip(item) {
+  if (typeof item === "string") {
+    return {
+      text: item,
+      source: "本地摘句",
+    };
+  }
+
+  return {
+    text: item?.text || item?.content || "博观而约取，厚积而薄发。",
+    source: item?.source || item?.author || "本地摘句",
+  };
+}
+
+function renderDailyTip(text, source) {
+  const heroTitle = document.getElementById("hero-title");
+  const tipSource = document.getElementById("daily-tip-source");
+
+  if (!heroTitle || !tipSource) return;
+
+  const safeText = String(text || "博观而约取，厚积而薄发。")
+    .trim()
+    .replace(/[，。！？；：,.!?;:]$/, "");
+
+  const shortText = safeText.length > 18 ? safeText.slice(0, 18) : safeText;
+  const cut = Math.ceil(shortText.length / 2);
+
+  heroTitle.innerHTML = `${escapeHtml(shortText.slice(0, cut))}<br />${escapeHtml(shortText.slice(cut))}`;
+  tipSource.textContent = `每日摘句 / ${source || "本地摘句"}`;
+}
+
+async function loadFallbackDailyTip({ random = false } = {}) {
+  const tips = await fetch("./data/tips.json")
+    .then((response) => response.json())
+    .catch(() => ["博观而约取，厚积而薄发。"]);
+
+  const index = random
+    ? Math.floor(Math.random() * tips.length)
+    : new Date().getDate() % tips.length;
+
+  const tip = normalizeTip(tips[index]);
+
+  renderDailyTip(tip.text, tip.source);
+  writeDailyTipCache(tip.text, tip.source);
+}
+
+function fetchPoemDailyTip() {
+  return new Promise((resolve, reject) => {
+    if (!window.jinrishici || !window.jinrishici.load) {
+      reject(new Error("jinrishici sdk not available"));
       return;
     }
-    throw new Error("sdk unavailable");
-  } catch (_) {
-    window.clearTimeout(fallbackTimer);
-    await useFallback();
+
+    window.jinrishici.load(
+      (result) => {
+        const data = result?.data;
+        const origin = data?.origin;
+
+        if (!data?.content) {
+          reject(new Error("empty poem content"));
+          return;
+        }
+
+        const source = origin
+          ? `${origin.dynasty ? `〖${origin.dynasty}〗` : ""}${origin.author || ""}${origin.title ? `《${origin.title}》` : ""}`
+          : "今日诗词";
+
+        resolve({
+          text: data.content,
+          source: source || "今日诗词",
+        });
+      },
+      (error) => reject(error || new Error("jinrishici failed"))
+    );
+  });
+}
+
+async function hydrateDailyTip({ force = false, randomFallback = false } = {}) {
+  if (!force) {
+    const cache = readDailyTipCache();
+
+    if (cache) {
+      renderDailyTip(cache.text, cache.source);
+      return;
+    }
+  }
+
+  try {
+    const tip = await Promise.race([
+      fetchPoemDailyTip(),
+      new Promise((_, reject) =>
+        window.setTimeout(() => reject(new Error("jinrishici timeout")), 2500)
+      ),
+    ]);
+
+    renderDailyTip(tip.text, tip.source);
+    writeDailyTipCache(tip.text, tip.source);
+  } catch {
+    await loadFallbackDailyTip({ random: randomFallback });
   }
 }
 
@@ -676,9 +1103,16 @@ ui.search.addEventListener("input", (event) => {
   state.query = event.target.value.trim().toLowerCase();
   const route = parseRoute();
   if (route.view === "article" || route.view === "overview") {
-    location.hash = "/learning";
+    location.hash = "/search";
   } else {
     renderRoute();
+  }
+});
+
+// "换一句" button support
+document.addEventListener("click", (event) => {
+  if (event.target.closest("#tip-refresh")) {
+    hydrateDailyTip({ force: true, randomFallback: true });
   }
 });
 
