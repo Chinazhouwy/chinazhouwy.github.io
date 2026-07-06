@@ -1,9 +1,9 @@
 const SECTION_LABELS = {
-  questions: "题库",
-  companies: "公司面经",
-  interviews: "模拟面试",
-  plans: "计划",
-  notes: "技术随记",
+  tasks: "任务",
+  projects: "项目",
+  learning: "学习",
+  opportunity: "机会",
+  reading: "阅读",
   columns: "专栏",
 };
 
@@ -17,6 +17,8 @@ const state = {
   articles: [],
   dashboard: {},
   columns: [],
+  projects: [],
+  aliases: {},
   query: "",
 };
 
@@ -173,16 +175,14 @@ function renderOverview() {
   const today = dashboard.today || {};
   const recent = filteredArticles().slice(0, 6);
   const weakTopics = dashboard.weakTopics || [];
-  const plans = (dashboard.plans || []).slice(0, 3);
-  const dateLabel = formatDate(today.date, { year: "numeric", weekday: "long" });
 
   ui.app.innerHTML = `
     <section class="dashboard">
       <div class="dashboard-lead reveal">
-        <p class="mono-label">${escapeHtml(dateLabel)}</p>
-        <h1>今天继续把<br />知识练成能力</h1>
-        <p class="lead-copy">${today.count ? `今天已完成 ${today.count} 道题。` : "今天还没有新的练习记录。"} 保持节奏，比偶尔用力更重要。</p>
-        <a class="primary-link" href="#/interviews">进入今日模拟 ${iconArrow()}</a>
+        <p class="mono-label" id="daily-tip-source">每日摘句 / 正在加载</p>
+        <h1 id="hero-title">正在加载<br />每日摘句</h1>
+        <p class="lead-copy">${escapeHtml(formatDate(today.date, { year: "numeric", weekday: "long" }))}</p>
+        <a class="primary-link" href="#/projects">查看当前方向 ${iconArrow()}</a>
       </div>
 
       <aside class="today-panel reveal delay-1">
@@ -192,12 +192,12 @@ function renderOverview() {
         </div>
         <div class="today-number">
           <strong>${today.count || 0}</strong>
-          <span>道题</span>
+          <span>项记录</span>
         </div>
         <dl>
           <div><dt>今日均分</dt><dd>${today.averageScore ?? "—"}</dd></div>
           <div><dt>连续练习</dt><dd>${dashboard.streakDays || 0} 天</dd></div>
-          <div><dt>累计记录</dt><dd>${dashboard.totalQuestions || 0} 题</dd></div>
+          <div><dt>累计练习</dt><dd>${dashboard.totalQuestions || 0} 项</dd></div>
         </dl>
       </aside>
 
@@ -205,8 +205,26 @@ function renderOverview() {
         <div><span>整体均分</span><strong>${dashboard.averageScore ?? "—"}</strong><small>/ 10</small></div>
         <div><span>已评分</span><strong>${dashboard.scoredQuestions || 0}</strong><small>道</small></div>
         <div><span>知识文章</span><strong>${state.articles.length}</strong><small>篇</small></div>
-        <div><span>公司面经</span><strong>${filteredArticles("companies").length}</strong><small>篇</small></div>
+        <div><span>公开项目</span><strong>${state.projects.length}</strong><small>项</small></div>
       </div>
+
+      <section class="project-strip reveal">
+        <div class="section-heading">
+          <div><p class="mono-label">PROJECTS / 当前项目</p><h2>长期建设</h2></div>
+          <a href="#/projects">查看项目 ${iconArrow()}</a>
+        </div>
+        <div class="quiet-list">
+          ${state.projects
+            .map(
+              (project) => `
+                <a class="quiet-row" href="#/projects">
+                  <span><strong>${escapeHtml(project.name)}</strong><small>${escapeHtml(project.summary || "")}</small></span>
+                  <em class="public-pill">${escapeHtml(project.status || "进行中")}</em>
+                </a>`,
+            )
+            .join("") || '<p class="empty-copy">项目清单等待补充。</p>'}
+        </div>
+      </section>
 
       <section class="trend-section reveal">
         <div class="section-heading">
@@ -218,7 +236,7 @@ function renderOverview() {
 
       <section class="focus-section reveal delay-1">
         <div class="section-heading">
-          <div><p class="mono-label">FOCUS / 薄弱方向</p><h2>下一步练什么</h2></div>
+          <div><p class="mono-label">FOCUS / 当前方向</p><h2>正在推进</h2></div>
         </div>
         <div class="weak-list">
           ${
@@ -234,25 +252,25 @@ function renderOverview() {
                       </a>`,
                   )
                   .join("")
-              : '<p class="empty-copy">有评分记录后自动生成。</p>'
+              : state.projects.map((item, index) => `<a href="#/projects"><span>${String(index + 1).padStart(2, "0")}</span><strong>${escapeHtml(item.name)}</strong><i style="--level:${Math.max(18, 90-index*15)}%"></i><em>${escapeHtml(item.status)}</em></a>`).join("")
           }
         </div>
       </section>
 
       <section class="plan-section reveal">
         <div class="section-heading">
-          <div><p class="mono-label">AGENDA / 后续安排</p><h2>今日与下一步</h2></div>
-          <a href="#/plans">完整计划 ${iconArrow()}</a>
+          <div><p class="mono-label">READING / 阅读人生</p><h2>最近阅读</h2></div>
+          <a href="#/reading">进入阅读 ${iconArrow()}</a>
         </div>
         <div class="plan-list">
           ${
-            plans.length
-              ? plans
+            filteredArticles("reading").slice(0,3).length
+              ? filteredArticles("reading").slice(0,3)
                   .map(
                     (plan, index) => `
                       <a href="${articleHref(plan.path)}">
                         <time>${String(index + 1).padStart(2, "0")}</time>
-                        <span><strong>${escapeHtml(plan.title)}</strong><small>打开计划查看今日安排</small></span>
+                        <span><strong>${escapeHtml(plan.title)}</strong><small>${escapeHtml(plan.summary || "阅读沉淀")}</small></span>
                         ${iconArrow()}
                       </a>`,
                   )
@@ -262,6 +280,20 @@ function renderOverview() {
         </div>
       </section>
 
+      <details class="private-summary reveal">
+        <summary>内部任务摘要</summary>
+        <div class="quiet-list">
+          ${state.projects
+            .map(
+              (project) => `
+                <div class="quiet-row">
+                  <span><strong>${escapeHtml(project.name)}</strong><small>${escapeHtml(project.next_public_step || "按当前节奏继续推进")}</small></span>
+                </div>`,
+            )
+            .join("") || '<p class="empty-copy">暂无待办摘要。</p>'}
+        </div>
+      </details>
+
       <section class="recent-section reveal delay-1">
         <div class="section-heading">
           <div><p class="mono-label">LATEST / 最近更新</p><h2>继续阅读</h2></div>
@@ -270,6 +302,52 @@ function renderOverview() {
       </section>
     </section>
   `;
+}
+
+function renderProjects() {
+  const articles = filteredArticles("projects");
+  ui.app.innerHTML = `
+    <section class="directory-page">
+      ${sectionIntro("PROJECTS", "项目", "自研项目、工程源码研究和长期建设。", state.projects.length)}
+      <div class="project-strip reveal delay-1">
+        <div class="quiet-list">
+          ${state.projects
+            .map(
+              (project) => `
+                <div class="quiet-row">
+                  <span>
+                    <strong>${escapeHtml(project.name)}</strong>
+                    <small>${escapeHtml(project.summary || "")}</small>
+                    ${project.next_public_step ? `<small>下一步：${escapeHtml(project.next_public_step)}</small>` : ""}
+                  </span>
+                  <em class="public-pill">${escapeHtml(project.status || "进行中")}</em>
+                </div>`,
+            )
+            .join("") || '<p class="empty-copy">项目清单等待补充。</p>'}
+        </div>
+      </div>
+      ${
+        articles.length
+          ? `<section class="directory-group reveal"><header><h2>项目记录</h2><span>${articles.length} 篇</span></header><div class="article-list">${articles.map((article) => articleRow(article)).join("")}</div></section>`
+          : ""
+      }
+    </section>`;
+}
+
+function renderDomain(section, title, description) {
+  const items = filteredArticles(section);
+  const groups = Object.entries(groupBy(items, "area", "综合"));
+  ui.app.innerHTML = `
+    <section class="directory-page">
+      ${sectionIntro(section.toUpperCase(), title, description, items.length)}
+      <div class="directory-groups">
+        ${groups.length ? groups.map(([area, articles]) => `
+          <section class="directory-group reveal">
+            <header><h2>${escapeHtml(area)}</h2><span>${articles.length} 篇</span></header>
+            <div class="article-list">${articles.map((article) => articleRow(article)).join("")}</div>
+          </section>`).join("") : '<p class="empty-copy">栏目已建立，等待内容沉淀。</p>'}
+      </div>
+    </section>`;
 }
 
 function renderQuestions() {
@@ -457,7 +535,8 @@ function createToc(container) {
 }
 
 async function renderArticle(path) {
-  const article = state.articles.find((item) => item.path === path);
+  const resolvedPath = state.aliases[path] || path;
+  const article = state.articles.find((item) => item.path === resolvedPath);
   if (!article) {
     renderError("没有找到这篇文章", "它可能已被移动，返回总览重新选择。");
     return;
@@ -472,7 +551,7 @@ async function renderArticle(path) {
     ui.app.innerHTML = `
       <section class="reader">
         <aside class="reader-rail">
-          <a class="back-link" href="#/${article.section === "interviews" ? "interviews" : article.section === "companies" ? "companies" : article.section === "plans" ? "plans" : "questions"}">← 返回${SECTION_LABELS[article.section] || "题库"}</a>
+          <a class="back-link" href="#/${article.section || "learning"}">← 返回${SECTION_LABELS[article.section] || "学习"}</a>
           <p class="mono-label">CONTENTS</p>
           <nav id="article-toc"></nav>
         </aside>
@@ -492,7 +571,7 @@ async function renderArticle(path) {
       </section>
     `;
     document.getElementById("article-toc").innerHTML = createToc(document.getElementById("article-body"));
-    document.title = `${article.title} · WY 面试实验室`;
+    document.title = `${article.title} · WY 工作台`;
     window.scrollTo({ top: 0, behavior: "instant" });
   } catch (error) {
     renderError("文章加载失败", `${error.message}。请检查文件权限或稍后重试。`, true);
@@ -526,15 +605,16 @@ function updateActiveNav(view) {
 async function renderRoute() {
   const route = parseRoute();
   updateActiveNav(route.view);
-  document.title = "WY 面试实验室";
+  document.title = "WY 工作台 · Life OS";
   if (route.view === "article") return renderArticle(route.path);
   const renderers = {
     overview: renderOverview,
-    questions: renderQuestions,
-    companies: renderCompanies,
-    interviews: renderInterviews,
-    columns: renderColumns,
-    plans: renderPlans,
+    tasks: () => renderDomain("tasks", "任务", "今日行动摘要与待复盘项。"),
+    projects: renderProjects,
+    learning: () => renderDomain("learning", "学习", "技术知识、源码笔记与可复习内容。"),
+    opportunity: () => renderDomain("opportunity", "机会", "公开的能力表达与阶段复盘。"),
+    reading: () => renderDomain("reading", "阅读人生", "历史、金融、政治、社会与个人札记。"),
+    columns: () => renderDomain("columns", "专栏", "持续整理并公开发布的主题文章。"),
   };
   (renderers[route.view] || renderOverview)();
   window.scrollTo({ top: 0, behavior: "instant" });
@@ -547,14 +627,54 @@ async function loadSite() {
   state.articles = Array.isArray(payload) ? payload : payload.articles || [];
   state.dashboard = payload.dashboard || {};
   state.columns = payload.columns || [];
+  state.projects = payload.projects || [];
+  state.aliases = payload.aliases || {};
   await renderRoute();
+  loadDailyTip();
+}
+
+async function loadDailyTip() {
+  const title = document.getElementById("hero-title");
+  const source = document.getElementById("daily-tip-source");
+  if (!title || !source) return;
+  const apply = (text, label) => {
+    const midpoint = text.length > 13 ? Math.ceil(text.length / 2) : text.length;
+    title.innerHTML = `${escapeHtml(text.slice(0, midpoint))}${midpoint < text.length ? "<br />" + escapeHtml(text.slice(midpoint)) : ""}`;
+    source.textContent = `每日摘句 / ${label}`;
+  };
+  let settled = false;
+  const applyOnce = (text, label) => {
+    if (settled) return;
+    settled = true;
+    apply(text, label);
+  };
+  const useFallback = async () => {
+    const tips = await fetch("./data/tips.json")
+      .then((response) => response.json())
+      .catch(() => ["博观而约取，厚积而薄发。"]);
+    applyOnce(tips[new Date().getDate() % tips.length], "本地摘句");
+  };
+  const fallbackTimer = window.setTimeout(useFallback, 2500);
+  try {
+    if (window.jinrishici) {
+      window.jinrishici.load((result) => {
+        window.clearTimeout(fallbackTimer);
+        applyOnce(result.data.content, result.data.origin.title || "今日诗词");
+      });
+      return;
+    }
+    throw new Error("sdk unavailable");
+  } catch (_) {
+    window.clearTimeout(fallbackTimer);
+    await useFallback();
+  }
 }
 
 ui.search.addEventListener("input", (event) => {
   state.query = event.target.value.trim().toLowerCase();
   const route = parseRoute();
   if (route.view === "article" || route.view === "overview") {
-    location.hash = "/questions";
+    location.hash = "/learning";
   } else {
     renderRoute();
   }

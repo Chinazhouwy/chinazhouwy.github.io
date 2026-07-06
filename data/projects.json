@@ -1,0 +1,6 @@
+[
+  {"id":"opportunity-radar","name":"机会雷达","priority":"P0","status":"进行中","visibility":"public","summary":"机会观察、能力表达、阶段复盘。","next_public_step":"阶段复盘"},
+  {"id":"self-built-projects","name":"自研项目","priority":"P1","status":"进行中","visibility":"public","summary":"工具产品、复盘系统、移动端、小应用。","next_public_step":"功能整理"},
+  {"id":"source-code-research","name":"工程源码研究","priority":"P1","status":"进行中","visibility":"public","summary":"Agent、工具系统、插件机制、上下文。","next_public_step":"源码笔记"},
+  {"id":"reading-life","name":"阅读人生","priority":"P2","status":"持续","visibility":"public","summary":"历史、金融、政治、社会观察。","next_public_step":"阅读地图"}
+]
