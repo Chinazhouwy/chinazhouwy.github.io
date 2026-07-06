@@ -4,7 +4,7 @@ const SECTION_LABELS = {
   learning: "学习",
   opportunity: "机会",
   reading: "阅读",
-  columns: "专栏",
+  columns: "知识地图",
   questions: "能力复盘",
   companies: "机会记录",
   interviews: "模拟面试",
@@ -159,6 +159,20 @@ function inferSectionByPath(path = "") {
   if (normalizedPath.includes("content/columns/")) return "columns";
 
   return "";
+}
+
+// ---- reading area normalization ----
+function normalizeReadingArea(article) {
+  const raw = String(article.area || article.category || article.folder || article.path || "").toLowerCase();
+
+  if (raw.includes("politics") || raw.includes("society") || raw.includes("policy") || raw.includes("world")) return "世界观察";
+  if (raw.includes("finance") || raw.includes("market") || raw.includes("industry") || raw.includes("business")) return "市场笔记";
+  if (raw.includes("history")) return "历史纵深";
+  if (raw.includes("book") || raw.includes("books")) return "读书札记";
+  if (raw.includes("hobbies") || raw.includes("life") || raw.includes("personal") || raw.includes("chayanyuese")) return "生活审美";
+  if (raw.includes("clips") || raw.includes("clip")) return "剪藏箱";
+
+  return article.area || "剪藏箱";
 }
 
 // ---- section-specific article getters ----
@@ -452,7 +466,7 @@ function renderOverview() {
 
       <section class="plan-section reveal">
         <div class="section-heading">
-          <div><p class="mono-label">READING / 阅读人生</p><h2>最近阅读</h2></div>
+          <div><p class="mono-label">READING / 阅读流</p><h2>最近阅读</h2></div>
           <a href="#/reading">进入阅读 ${iconArrow()}</a>
         </div>
         <div class="plan-list">
@@ -468,7 +482,7 @@ function renderOverview() {
                       </a>`,
                   )
                   .join("")
-              : '<p class="empty-copy">阅读人生栏目已建立，等待第一篇沉淀。</p>'
+              : '<p class="empty-copy">阅读栏目已建立，等待第一篇沉淀。</p>'
           }
         </div>
       </section>
@@ -527,9 +541,19 @@ function renderProjects() {
     </section>`;
 }
 
-function renderDomain(section, title, description) {
+function renderDomain(section, title, description, { groupKey } = {}) {
   const items = filteredArticles(section);
-  const groups = Object.entries(groupBy(items, "area", "综合"));
+  const effectiveGroupKey = groupKey || "area";
+  const groups = Object.entries(
+    typeof effectiveGroupKey === "function"
+      ? items.reduce((acc, item) => {
+          const key = effectiveGroupKey(item);
+          acc[key] ||= [];
+          acc[key].push(item);
+          return acc;
+        }, {})
+      : groupBy(items, effectiveGroupKey, "综合")
+  );
   ui.app.innerHTML = `
     <section class="directory-page">
       ${sectionIntro(section.toUpperCase(), title, description, items.length)}
@@ -778,16 +802,17 @@ function renderColumns() {
   const definitions = state.columns.length
     ? state.columns
     : [
-        ["technology", "技术", "Java、中间件、AI Agent、源码研读、系统设计与工程实践。"],
-        ["business-finance", "商业与金融", "金融基础、宏观经济、公司研究、行业观察与投资复盘。"],
-        ["mathematical-sciences", "数理科学", "数学、概率统计、物理、算法与计算理论。"],
-        ["society-humanities", "社会与人文", "历史、政治制度、法律、哲学与社会观察。"],
-        ["career-life", "职业与生活", "职业规划、表达写作、健康管理与个人兴趣。"],
+        ["technology", "工程技术", "Java、JVM、Redis、数据库、分布式、系统设计。"],
+        ["ai-agent", "AI Agent", "Agent、工具系统、RAG、MCP、上下文、源码研究。"],
+        ["business-finance", "金融市场", "宏观、资产配置、基金、股票、行业观察。"],
+        ["society-humanities", "历史社会", "历史、政治、制度、社会结构、国际关系。"],
+        ["career-life", "职业成长", "能力表达、机会复盘、学习计划、长期路线。"],
+        ["projects", "项目沉淀", "自研项目、网站、工具产品、工程实践。"],
       ].map(([id, name, description]) => ({ id, name, description, count: 0 }));
 
   ui.app.innerHTML = `
     <section class="directory-page column-page">
-      ${sectionIntro("KNOWLEDGE COLUMNS", "专栏", "先建立长期知识地图，再让文章慢慢把空白填满。", readable.length)}
+      ${sectionIntro("KNOWLEDGE MAP", "知识地图", "把零散题目、阅读、项目和复盘连接成长期结构，逐步形成自己的知识坐标。", readable.length)}
       <div class="column-directory">
         ${definitions
           .map((column, index) => {
@@ -921,8 +946,8 @@ async function renderRoute() {
     projects: renderProjects,
     learning: () => renderDomain("learning", "学习", "技术知识、源码笔记与可复习内容。"),
     opportunity: renderOpportunity,
-    reading: () => renderDomain("reading", "阅读人生", "历史、金融、政治、社会与个人札记。"),
-    columns: () => renderDomain("columns", "专栏", "持续整理并公开发布的主题文章。"),
+    reading: () => renderDomain("reading", "阅读", "闲暇输入、网页剪藏、读书札记和个人观察。这里不追求每篇都成体系，先保留思考痕迹。", { groupKey: normalizeReadingArea }),
+    columns: () => renderDomain("columns", "知识地图", "把零散题目、阅读、项目和复盘连接成长期结构，逐步形成自己的知识坐标。"),
 
     // Old route compatibility
     questions: renderQuestions,
