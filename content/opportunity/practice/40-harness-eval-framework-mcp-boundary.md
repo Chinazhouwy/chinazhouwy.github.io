@@ -129,3 +129,43 @@ Harness（最大的圈）
 - GPT 纠错：Eval 可以独立于 Harness 存在，也可以接入 Harness 的反馈闭环，不能说它必然是 Harness 内部模块。
 - GPT 纠错：MCP 不只是“工具说明书”，协议还定义 Tools、Resources、Prompts 等能力以及客户端与服务端的互操作方式。
 - GPT 纠错：Skills 与 MCP 是正交关系，不是“MCP → Skills”的升级替代。MCP 解决连接和协议，Skill 主要沉淀触发条件、流程和领域经验，两者可以组合使用。
+
+---
+
+## 最终修正版（审计后）
+
+### 核心概念
+
+```
+Harness = 让 Agent 可运行、可控制、可观测的工程运行层
+Eval = Agent 评测体系（可独立存在，也可接入 Harness）
+Agent Framework = 开发抽象和编排层（与 Harness 可重叠可独立）
+MCP = 标准化工具连接协议（定义 Tools/Resources/Prompts）
+Skills = 结构化工作流（触发条件+流程+坑点，与 MCP 正交组合）
+```
+
+### 四者关系（修正后）
+
+```
+Harness（工程运行层）
+  ├── 工具管理（MCP 协议连接）
+  ├── 流程编排（Agent Framework 或自定义）
+  ├── 评测体系（Eval，可独立）
+  ├── 上下文、记忆、权限、沙箱、观测
+  └── 反馈闭环（可接入 Eval）
+
+注意：
+  - 这不是固定包含关系，具体边界由产品实现决定
+  - Framework 偏开发抽象，Harness 偏运行控制
+  - MCP 和 Skills 是正交关系，可以组合使用
+```
+
+### 对比速记
+
+| 概念 | 定位 | 与 Harness 关系 |
+|------|------|----------------|
+| Harness | 工程运行层 | 本身 |
+| Agent Framework | 开发抽象和编排 | 可重叠可独立 |
+| Eval | 评测体系 | 可独立可接入 |
+| MCP | 工具连接协议 | 被 Harness 使用 |
+| Skills | 结构化工作流 | 与 MCP 正交组合 |
