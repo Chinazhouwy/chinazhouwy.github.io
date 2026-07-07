@@ -967,7 +967,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260706-8";
+const BUILD_VERSION = "20260707-1";
 
 async function loadSite() {
   const response = await fetch(`./site-index.json?v=${BUILD_VERSION}`);
@@ -1141,7 +1141,19 @@ document.addEventListener("click", (event) => {
   }
 });
 
-window.addEventListener("hashchange", renderRoute);
+window.addEventListener("hashchange", () => {
+  const hash = location.hash;
+  // 页面内锚点跳转（如文章 TOC 的 #section-1、刷题页话题索引的 #topic-java），
+  // 这类 hash 不含 "/"，不是路由，直接滚动到对应元素即可。
+  if (hash.startsWith("#") && !hash.includes("/")) {
+    const target = document.querySelector(hash);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+  }
+  renderRoute();
+});
 
 loadSite().catch((error) => {
   console.error(error);
