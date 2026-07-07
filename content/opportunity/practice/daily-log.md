@@ -80,7 +80,7 @@ tags:
 - 顺延新题：无
 - 回顾完成：#51 R1（1→5分）、#46 R1（3→4分）
 - 回顾顺延：无
-- 次日新题：待定
+- 次日新题：#57、#58、#59
 - 新增或修改文件：`practice/55-long-context-optimization.md`、`practice/56-mcp-rag-skill-differences.md`
 - 提交：`cae23c0`、`f6a435e`、`f94029d`
-- 推送：Gitee 成功；GitHub 成功
+- 推送：Gitee pending；GitHub pending

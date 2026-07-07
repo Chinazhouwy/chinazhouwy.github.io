@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-06T00:00:00+08:00",
+  "generatedAt": "2026-07-07T00:00:00+08:00",
   "articles": [
     {
       "title": "17 种 Agent 架构模式深度解析",
@@ -3530,6 +3530,37 @@
       "question": ""
     },
     {
+      "title": "面试模拟 Harness 系统 — 深度研究与技术方案",
+      "path": "content/projects/interview-harness/interview-harness-deep-research.md",
+      "url": "content/projects/interview-harness/interview-harness-deep-research.md",
+      "date": "2026-07-06",
+      "domain": "项目",
+      "area": "工程",
+      "module": "",
+      "project": "面试模拟 Harness",
+      "type": "设计文档",
+      "status": "draft",
+      "priority": "P1",
+      "energy": "high",
+      "visibility": "private",
+      "summary": "面试模拟 Harness 系统架构设计：可插拔、可扩展、支持多 Agent 协作的智能面试平台",
+      "tags": [
+        "harness",
+        "agent",
+        "interview",
+        "system-design",
+        "java",
+        "python"
+      ],
+      "section": "projects",
+      "topic": "工程",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "面试知识库 RAG 系统设计方案",
       "path": "content/projects/rag-agent/rag-interview-design.md",
       "url": "content/projects/rag-agent/rag-interview-design.md",
@@ -6609,7 +6640,14 @@
       "energy": "medium",
       "visibility": "private",
       "summary": "一次Java面试复盘",
-      "tags": [],
+      "tags": [
+        "Java",
+        "面试复盘",
+        "RabbitMQ",
+        "Redis",
+        "Redisson",
+        "线程池"
+      ],
       "section": "learning",
       "topic": "技术",
       "company": "",
@@ -6897,11 +6935,12 @@
     "industry/2026-06-24-fed-china-geopolitical-economics.md": "content/reading/society/2026-06-24-fed-china-geopolitical-economics.md",
     "xiaohongshu-interview-collection-2026-06-25.md": "content/sources/interview/xiaohongshu/xiaohongshu-interview-collection-2026-06-25.md",
     "rag-interview-design.md": "content/projects/rag-agent/rag-interview-design.md",
-    "codex gpt 修复点.md": "content/projects/site-life-os/codex-gpt-fixes.md"
+    "codex gpt 修复点.md": "content/projects/site-life-os/codex-gpt-fixes.md",
+    "content/projects/interview-harness/README.md": "content/projects/interview-harness/interview-harness-deep-research.md"
   },
   "domains": {
     "任务": 0,
-    "项目": 2,
+    "项目": 3,
     "学习": 187,
     "机会": 81,
     "阅读": 4,
@@ -6912,7 +6951,7 @@
     "companies": 21,
     "questions": 55,
     "plans": 3,
-    "projects": 2,
+    "projects": 3,
     "reading": 4,
     "opportunity": 2
   },
@@ -6956,9 +6995,9 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-07-06",
-      "count": 5,
-      "averageScore": 5.5
+      "date": "2026-07-07",
+      "count": 0,
+      "averageScore": null
     },
     "totalQuestions": 58,
     "scoredQuestions": 51,
