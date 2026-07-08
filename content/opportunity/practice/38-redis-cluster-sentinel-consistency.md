@@ -19,9 +19,9 @@ sources:
   - "java/hupu-java-backend-round2-redis-distributed.md"
   - "practice/10-distributed-lock.md"
   - "practice/14-redis-distributed-lock-deep.md"
-score: "4/10"
-round: "R0"
-next_review: "unknown"
+score: "6/10"
+round: "R1"
+next_review: "2026-07-12"
 session_id: "unknown"
 ---
 
@@ -230,3 +230,21 @@ boolean acquired = lock.acquire(5, TimeUnit.SECONDS); // 最多等5秒
 - GPT 纠错：ZooKeeper Session 失效后，旧客户端可能暂时还不知道自己已经失去锁，因此“不会出现以为有锁实际没有”并不严谨。
 - GPT 纠错：`sessionTimeoutMs` 是会话超时参数，不等同于固定的锁 TTL，也不是简单的“最小超时”；服务端会根据配置协商实际超时。
 - GPT 纠错：Redis Cluster 并非完全不支持事务和 Lua；多个 key 位于同一 hash slot 时可以执行。故障转移耗时也不能固定写成“通常 15 秒内”。
+
+---
+
+## R1 回顾（2026-07-08）
+
+**得分：6/10**
+
+用户回答要点：
+- Sentinel：客户端连哨兵，哨兵告诉连哪个实例 ✓
+- Cluster：自己分配主从 ✓
+- 主挂了，同步过程中可能丢 key ✓
+- 理解分片：每台机器只存一部分，按 hash 规则分配 ✓
+- Hash Slot 概念理解正确 ✓
+
+漏掉/不准确的：
+- 哨兵数量：应该是3个（奇数），不是2个
+- Cluster 核心是分片 + 复制，不只是主从
+- 丢数据原因是异步复制的延迟窗口

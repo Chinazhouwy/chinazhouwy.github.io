@@ -3965,8 +3965,8 @@
       "section": "questions",
       "topic": "机会雷达",
       "company": "",
-      "round": "R0",
-      "score": 3,
+      "round": "R1",
+      "score": 7,
       "questionNumber": "50",
       "question": "Spring · Spring Boot 限流拦截器"
     },
@@ -4157,8 +4157,8 @@
       "section": "questions",
       "topic": "机会雷达",
       "company": "",
-      "round": "R0",
-      "score": 4,
+      "round": "R1",
+      "score": 6,
       "questionNumber": "38",
       "question": "Redis — Cluster 和 Sentinel 区别 + 主从切换一致性风险"
     },
@@ -7114,7 +7114,7 @@
     },
     "totalQuestions": 61,
     "scoredQuestions": 54,
-    "averageScore": 4.7,
+    "averageScore": 4.8,
     "streakDays": 1,
     "daily": [
       {
@@ -7195,7 +7195,7 @@
       {
         "date": "2026-07-01",
         "count": 6,
-        "averageScore": 5
+        "averageScore": 5.3
       },
       {
         "date": "2026-07-02",
@@ -7210,7 +7210,7 @@
       {
         "date": "2026-07-04",
         "count": 2,
-        "averageScore": 4
+        "averageScore": 6
       },
       {
         "date": "2026-07-05",

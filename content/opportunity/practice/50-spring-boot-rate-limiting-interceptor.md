@@ -19,9 +19,9 @@ sources:
   - "java/spring-concurrency-throttle-interceptor.md"
   - "java/megvii-java-round1-12-questions.md"
   - "java/eleme-java-backend-round1.md"
-score: "3/10"
-round: "R0"
-next_review: "2026-07-06"
+score: "7/10"
+round: "R1"
+next_review: "2026-07-11"
 session_id: "unknown"
 ---
 
@@ -54,3 +54,18 @@ Spring Boot 落地：拦截器 + `RateLimiter`（Guava）或 Sentinel
 ### 复习骨架
 
 令牌桶允许突发 vs 漏桶严格平滑 → 滑动窗口比固定窗口精确 → 落地用 Guava RateLimiter 或 Sentinel
+
+---
+
+## R1 回顾（2026-07-08）
+
+**得分：7/10**
+
+用户回答要点：
+- 令牌桶：令牌累积，能抗突发 ✓
+- 漏桶：一滴一滴，控制消费端速率 ✓
+- 滑动窗口：时间段内总量限制，可以不均匀 ✓
+
+漏掉的：
+- 具体实现代码
+- Spring Boot 落地方式（拦截器/AOP/Redis+Lua）
