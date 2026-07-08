@@ -87,6 +87,34 @@
       "question": "TCP — 三次握手、WebSocket vs HTTP 轮询怎么讲？"
     },
     {
+      "title": "算法 — 合并 K 个升序链表",
+      "path": "content/opportunity/practice/59-merge-k-sorted-lists.md",
+      "url": "content/opportunity/practice/59-merge-k-sorted-lists.md",
+      "date": "2026-07-08",
+      "domain": "机会",
+      "area": "机会雷达",
+      "module": "",
+      "project": "机会雷达",
+      "type": "题目",
+      "status": "completed",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "算法 — 合并 K 个升序链表",
+      "tags": [
+        "algorithm",
+        "linked-list",
+        "heap"
+      ],
+      "section": "questions",
+      "topic": "机会雷达",
+      "company": "",
+      "round": "R0",
+      "score": 7,
+      "questionNumber": "59",
+      "question": "算法 — 合并 K 个升序链表怎么写？复杂度是多少？"
+    },
+    {
       "title": "17 种 Agent 架构模式深度解析",
       "path": "content/learning/ai-agent/17-agent-architectures.md",
       "url": "content/learning/ai-agent/17-agent-architectures.md",
@@ -7027,13 +7055,13 @@
     "任务": 0,
     "项目": 3,
     "学习": 187,
-    "机会": 83,
+    "机会": 84,
     "阅读": 4,
     "专栏": 0
   },
   "sectionCounts": {
     "learning": 188,
-    "questions": 57,
+    "questions": 58,
     "companies": 21,
     "plans": 3,
     "projects": 3,
@@ -7081,12 +7109,12 @@
   "dashboard": {
     "today": {
       "date": "2026-07-08",
-      "count": 2,
-      "averageScore": 5.5
+      "count": 3,
+      "averageScore": 6
     },
-    "totalQuestions": 60,
-    "scoredQuestions": 53,
-    "averageScore": 4.6,
+    "totalQuestions": 61,
+    "scoredQuestions": 54,
+    "averageScore": 4.7,
     "streakDays": 1,
     "daily": [
       {
@@ -7196,8 +7224,8 @@
       },
       {
         "date": "2026-07-08",
-        "count": 2,
-        "averageScore": 5.5
+        "count": 3,
+        "averageScore": 6
       }
     ],
     "weakTopics": [],
