@@ -19,15 +19,15 @@ sources:
   - "middleware/2026-06-01-jvm-core-principles-troubleshooting.md"
   - "java/jd-java-backend-round2-jvm-concurrency.md"
   - "java/megvii-java-round1-12-questions.md"
-score: "5/10"
-round: "R0"
-next_review: "unknown"
+score: "7/10"
+round: "R1"
+next_review: "2026-07-11"
 session_id: "unknown"
 ---
 
 # 第43题：JVM — 对象分配流程：TLAB、Eden、Minor GC、老年代晋升
 
-> 日期：2026-07-01
+> 日期：2026-07-01（首次）→ 2026-07-08（R1 回顾）
 > 来源：`middleware/2026-06-01-jvm-core-principles-troubleshooting.md`; `java/jd-java-backend-round2-jvm-concurrency.md`; `java/megvii-java-round1-12-questions.md`
 
 ---
@@ -249,3 +249,22 @@ new Object()
 面试时建议说明：
   "以下是分代堆的经典流程，G1/ZGC 有各自的特点"
 ```
+
+---
+
+## R1 回顾（2026-07-08）
+
+**得分：7/10**
+
+用户回答要点：
+- 先分配新生代，满了到老年代 ✓
+- 大对象直接进老年代 ✓
+- S0/S1 来回倒 ✓
+- Eden 满触发 Minor GC ✓
+- GC 后存活对象复制到另一个 S 空间 ✓
+- 放不下进老年代 ✓
+
+漏掉/不准确的：
+- TLAB（线程本地分配缓冲区）未提及
+- 年龄阈值默认15，不是"一定时间"
+- 分配担保机制未展开

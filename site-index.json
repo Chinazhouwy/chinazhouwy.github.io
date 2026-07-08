@@ -4169,8 +4169,8 @@
       "section": "questions",
       "topic": "机会雷达",
       "company": "",
-      "round": "R0",
-      "score": 1,
+      "round": "R1",
+      "score": 4,
       "questionNumber": "42",
       "question": "RAG — 评测和优化：召回率、精排、幻觉率"
     },
@@ -4193,8 +4193,8 @@
       "section": "questions",
       "topic": "机会雷达",
       "company": "",
-      "round": "R0",
-      "score": 5,
+      "round": "R1",
+      "score": 7,
       "questionNumber": "43",
       "question": "JVM — 对象分配流程：TLAB、Eden、Minor GC、老年代晋升"
     },
@@ -7030,7 +7030,7 @@
     },
     "totalQuestions": 58,
     "scoredQuestions": 51,
-    "averageScore": 4.5,
+    "averageScore": 4.6,
     "streakDays": 0,
     "daily": [
       {
@@ -7111,7 +7111,7 @@
       {
         "date": "2026-07-01",
         "count": 6,
-        "averageScore": 4.2
+        "averageScore": 5
       },
       {
         "date": "2026-07-02",

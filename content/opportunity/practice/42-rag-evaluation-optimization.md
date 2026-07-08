@@ -19,9 +19,9 @@ sources:
   - "practice/19-rag-system-design.md"
   - "ai-agent/taotian-ai-agent-interview.md"
   - "ai-agent/bytedance-agent-interview-round2.md"
-score: "1/10"
-round: "R0"
-next_review: "unknown"
+score: "4/10"
+round: "R1"
+next_review: "2026-07-11"
 session_id: "unknown"
 ---
 

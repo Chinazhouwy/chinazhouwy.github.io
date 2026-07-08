@@ -96,3 +96,15 @@ tags:
 - 新增或修改文件：无
 - 提交：pending
 - 推送：Gitee pending；GitHub pending
+
+## 2026-07-08
+
+- 计划新题：#57
+- 实际完成：待定
+- 顺延新题：无
+- 回顾完成：#42 R1（1→4/10）、#43 R1（5→7/10）
+- 回顾顺延：无
+- 次日新题：待定
+- 新增或修改文件：`practice/42-rag-evaluation-optimization.md`（更新）、`practice/43-jvm-object-allocation-tlab-eden-gc.md`（更新）
+- 提交：pending
+- 推送：Gitee pending；GitHub pending
