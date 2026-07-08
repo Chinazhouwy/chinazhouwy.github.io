@@ -106,5 +106,5 @@ tags:
 - 回顾顺延：无
 - 次日新题：#60（最长无重复子串）、#61（B+树）
 - 新增或修改文件：`practice/42-rag-evaluation-optimization.md`（更新）、`practice/43-jvm-object-allocation-tlab-eden-gc.md`（更新）、`practice/57-agent-evaluation-system.md`（新建）、`practice/58-tcp-three-way-handshake-websocket.md`（新建）、`practice/59-merge-k-sorted-lists.md`（新建）、`practice/38-redis-cluster-sentinel.md`（新建）、`practice/50-spring-boot-rate-limiter.md`（更新）
-- 提交：pending
-- 推送：Gitee pending；GitHub pending
+- 提交：`0675111`、`2d7ab87`、`84ea725`、`341daf9`
+- 推送：Gitee 成功；GitHub 成功
