@@ -31,6 +31,62 @@
       "question": ""
     },
     {
+      "title": "AI Agent — 评测体系设计：任务成功率、工具调用准确率、幻觉率",
+      "path": "content/opportunity/practice/57-agent-evaluation-system.md",
+      "url": "content/opportunity/practice/57-agent-evaluation-system.md",
+      "date": "2026-07-08",
+      "domain": "机会",
+      "area": "机会雷达",
+      "module": "",
+      "project": "机会雷达",
+      "type": "题目",
+      "status": "completed",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "AI Agent — 评测体系设计：任务成功率、工具调用准确率、幻觉率",
+      "tags": [
+        "ai-agent",
+        "evaluation",
+        "metrics"
+      ],
+      "section": "questions",
+      "topic": "机会雷达",
+      "company": "",
+      "round": "R0",
+      "score": 5,
+      "questionNumber": "57",
+      "question": "AI Agent — 评测体系设计：任务成功率、工具调用准确率、幻觉率怎么测？"
+    },
+    {
+      "title": "TCP — 三次握手、四次挥手、WebSocket vs HTTP 轮询",
+      "path": "content/opportunity/practice/58-tcp-three-way-handshake-websocket.md",
+      "url": "content/opportunity/practice/58-tcp-three-way-handshake-websocket.md",
+      "date": "2026-07-08",
+      "domain": "机会",
+      "area": "机会雷达",
+      "module": "",
+      "project": "机会雷达",
+      "type": "题目",
+      "status": "completed",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "TCP — 三次握手、四次挥手、WebSocket vs HTTP 轮询",
+      "tags": [
+        "tcp",
+        "network",
+        "websocket"
+      ],
+      "section": "questions",
+      "topic": "机会雷达",
+      "company": "",
+      "round": "R0",
+      "score": 6,
+      "questionNumber": "58",
+      "question": "TCP — 三次握手、WebSocket vs HTTP 轮询怎么讲？"
+    },
+    {
       "title": "17 种 Agent 架构模式深度解析",
       "path": "content/learning/ai-agent/17-agent-architectures.md",
       "url": "content/learning/ai-agent/17-agent-architectures.md",
@@ -6971,14 +7027,14 @@
     "任务": 0,
     "项目": 3,
     "学习": 187,
-    "机会": 81,
+    "机会": 83,
     "阅读": 4,
     "专栏": 0
   },
   "sectionCounts": {
     "learning": 188,
+    "questions": 57,
     "companies": 21,
-    "questions": 55,
     "plans": 3,
     "projects": 3,
     "reading": 4,
@@ -7025,13 +7081,13 @@
   "dashboard": {
     "today": {
       "date": "2026-07-08",
-      "count": 0,
-      "averageScore": null
+      "count": 2,
+      "averageScore": 5.5
     },
-    "totalQuestions": 58,
-    "scoredQuestions": 51,
+    "totalQuestions": 60,
+    "scoredQuestions": 53,
     "averageScore": 4.6,
-    "streakDays": 0,
+    "streakDays": 1,
     "daily": [
       {
         "date": "2026-05-28",
@@ -7136,6 +7192,11 @@
       {
         "date": "2026-07-06",
         "count": 5,
+        "averageScore": 5.5
+      },
+      {
+        "date": "2026-07-08",
+        "count": 2,
         "averageScore": 5.5
       }
     ],

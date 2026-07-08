@@ -70,8 +70,8 @@ tags:
 || 54 | 系统设计 | 优惠券/满减活动规则和库存怎么设计？（✅ 已完成） | `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md`; `chayanyuese/2026-05-26-chayanyuese-java-round2-scenario-35k.md`; `java/baidu-java-backend-round1-shezhao.md` |
 | 55 | AI Agent | 超长上下文冗余怎么优化？摘要、裁剪、子 Agent 怎么取舍？（✅ 已完成） | `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md`; `ai-agent/backend-to-agent-transition.md`; `ai-agent/claude-code-dynamic-workflows.md` |
 | 56 | AI Agent | MCP、RAG、Skill 三者区别和组合方式是什么？（✅ 已完成） | `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md`; `practice/21-mcp-protocol-vs-function-calling.md`; `ai-agent/agentium-mcp-execution-mechanism.md` |
-| 57 | AI Agent | Agent 评测体系怎么设计？任务成功率、工具调用准确率、幻觉率怎么测？ | `ai-agent/bytedance-agent-interview-round2.md`; `codex gpt 修复点.md`; `ai-agent/agent-interview-questions-summary.md` |
-| 58 | 网络/OS | TCP 三次握手、WebSocket vs HTTP 轮询怎么讲？ | `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `java/baidu-java-backend-round1-shezhao.md`; `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md` |
+| 57 | AI Agent | Agent 评测体系怎么设计？任务成功率、工具调用准确率、幻觉率怎么测？（✅ 已完成） | `ai-agent/bytedance-agent-interview-round2.md`; `codex gpt 修复点.md`; `ai-agent/agent-interview-questions-summary.md` |
+| 58 | 网络/OS | TCP 三次握手、WebSocket vs HTTP 轮询怎么讲？（✅ 已完成） | `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `java/baidu-java-backend-round1-shezhao.md`; `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md` |
 | 59 | 算法 | 合并 K 个升序链表怎么写？复杂度是多少？ | `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md` |
 | 60 | 算法 | 最长无重复子串 / 最长回文子串怎么写？ | `java/eleme-java-backend-round1.md`; `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md` |
 | 61 | MySQL | B+ 树为什么适合数据库索引？和 B 树、红黑树有什么区别？ | `java/2026-05-18-youzan-java-ai-interview.md`; `java/cainiao-java-backend-round2-mysql.md`; `kuaishou/2026-05-25-kuaishou-backend-java-round1-mysql.md` |
