@@ -1,6 +1,35 @@
 {
-  "generatedAt": "2026-07-07T00:00:00+08:00",
+  "generatedAt": "2026-07-08T00:00:00+08:00",
   "articles": [
+    {
+      "title": "DeepSeek Agent Harness 产品经理岗位分析",
+      "path": "content/learning/ai-agents/deepseek-agent-harness-pm-analysis.md",
+      "url": "content/learning/ai-agents/deepseek-agent-harness-pm-analysis.md",
+      "date": "2026-07-08",
+      "domain": "",
+      "area": "",
+      "module": "",
+      "project": "",
+      "type": "文章",
+      "status": "",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "",
+      "tags": [
+        "deepseek",
+        "产品经理",
+        "agent",
+        "harness"
+      ],
+      "section": "learning",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
     {
       "title": "17 种 Agent 架构模式深度解析",
       "path": "content/learning/ai-agent/17-agent-architectures.md",
@@ -6947,7 +6976,7 @@
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 187,
+    "learning": 188,
     "companies": 21,
     "questions": 55,
     "plans": 3,
@@ -6995,14 +7024,14 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-07-07",
+      "date": "2026-07-08",
       "count": 0,
       "averageScore": null
     },
     "totalQuestions": 58,
     "scoredQuestions": 51,
     "averageScore": 4.5,
-    "streakDays": 6,
+    "streakDays": 0,
     "daily": [
       {
         "date": "2026-05-28",
