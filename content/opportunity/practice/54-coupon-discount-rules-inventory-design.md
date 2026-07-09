@@ -19,9 +19,9 @@ sources:
   - "tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md"
   - "chayanyuese/2026-05-26-chayanyuese-java-round2-scenario-35k.md"
   - "java/baidu-java-backend-round1-shezhao.md"
-score: "4/10"
-round: "R0"
-next_review: "2026-07-06"
+score: "5/10"
+round: "R1"
+next_review: "2026-07-12"
 session_id: "unknown"
 ---
 
@@ -262,3 +262,24 @@ end
 > 库存防超卖用Redis Lua脚本保证原子性，DB用MQ做最终一致。Lua预扣成功后发MQ，消费端落库，失败可重试。
 >
 > 高并发靠Redis预扣+令牌限流+库存分片，把热点从DB移到Redis，再用限流保护下游。"
+
+### R1 回顾（2026-07-09）
+
+**得分：5/10**（R0→R1 +1分）
+
+**答对的部分：**
+- 规则类型分类（满减、折扣、叠加） ✓
+- Redis Lua 脚本做库存扣减 ✓
+- MQ 做削峰和异步持久化 ✓
+- Redis 预扣 → MQ → DB 最终一致的链路思路 ✓
+
+**扣分点：**
+- "公司不同所以没法设计" → 规则引擎架构是通用的（策略模式），规则内容才因公司而异（-2）
+- Redis Lua 扣减细节没展开（-1）
+- DB 层一致性没提（-1）
+
+**关键理解（用户追问后确认）：**
+- 规则引擎 = 策略模式 + for 循环按优先级执行
+- 责任链本质是 for 循环的封装，优惠券场景 for 循环够用
+- 责任链分"硬链"（return null 终止）和"软链"（全部执行）
+- 面试时要说清：架构通用（策略模式），规则内容因业务而异

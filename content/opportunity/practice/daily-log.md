@@ -94,8 +94,8 @@ tags:
 - 回顾顺延：无
 - 次日新题：#57、#58、#59（顺延）
 - 新增或修改文件：无
-- 提交：pending
-- 推送：Gitee pending；GitHub pending
+- 提交：`e7f4c96`
+- 推送：Gitee 成功；GitHub 成功
 
 ## 2026-07-08
 
@@ -104,7 +104,19 @@ tags:
 - 顺延新题：无
 - 回顾完成：#42 R1（1→4/10）、#43 R1（5→7/10）、#38 R1（→6/10）、#50 R1（→7/10）
 - 回顾顺延：无
-- 次日新题：#60（最长无重复子串）、#61（B+树）
-- 新增或修改文件：`practice/42-rag-evaluation-optimization.md`（更新）、`practice/43-jvm-object-allocation-tlab-eden-gc.md`（更新）、`practice/57-agent-evaluation-system.md`（新建）、`practice/58-tcp-three-way-handshake-websocket.md`（新建）、`practice/59-merge-k-sorted-lists.md`（新建）、`practice/38-redis-cluster-sentinel.md`（新建）、`practice/50-spring-boot-rate-limiter.md`（更新）
+- 次日新题：#60（最长无重复子串）、#61（B+树）、#62（索引失效场景）
+- 新增或修改文件：`practice/42-rag-evaluation-optimization.md`（更新）、`practice/43-jvm-object-allocation-tlab-eden-gc.md`（更新）、`practice/57-agent-evaluation-system.md`（新建）、`practice/58-tcp-three-way-handshake-websocket.md`（新建）、`practice/59-merge-k-sorted-lists.md`（新建）、`practice/38-redis-cluster-sentinel-consistency.md`（更新）、`practice/50-spring-boot-rate-limiting-interceptor.md`（更新）
 - 提交：`0675111`、`2d7ab87`、`84ea725`、`341daf9`
 - 推送：Gitee 成功；GitHub 成功
+
+## 2026-07-09
+
+- 计划新题：#60、#61、#62
+- 实际完成：无（新题）
+- 顺延新题：#60、#61、#62
+- 回顾完成：#52 R1（4→5/10）、#54 R1（4→5/10）
+- 回顾顺延：无
+- 次日新题：#60、#61、#62（顺延）
+- 新增或修改文件：`practice/52-distributed-id-snowflake-segment-redis-autoincrement.md`（更新）、`practice/54-coupon-discount-rules-inventory-design.md`（更新）
+- 提交：`09fc9e3`
+- 推送：Gitee pending；GitHub pending

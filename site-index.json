@@ -2,6 +2,34 @@
   "generatedAt": "2026-07-09T00:00:00+08:00",
   "articles": [
     {
+      "title": "设计模式本质：每个模式替换了什么基础控制流",
+      "path": "content/learning/java/design-patterns-essence.md",
+      "url": "content/learning/java/design-patterns-essence.md",
+      "date": "2026-07-09",
+      "domain": "专栏",
+      "area": "技术",
+      "module": "Java",
+      "project": "",
+      "type": "学习",
+      "status": "completed",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "设计模式本质：每个模式替换了什么基础控制流",
+      "tags": [
+        "设计模式",
+        "Java",
+        "面试"
+      ],
+      "section": "columns",
+      "topic": "Java",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "Interview Harness — 设计思考与技术方案",
       "path": "content/projects/interview-harness/interview-harness-deep-research.md",
       "url": "content/projects/interview-harness/interview-harness-deep-research.md",
@@ -3922,8 +3950,8 @@
       "section": "questions",
       "topic": "机会雷达",
       "company": "",
-      "round": "R0",
-      "score": 4,
+      "round": "R1",
+      "score": 5,
       "questionNumber": "52",
       "question": "分布式 ID 方案：雪花算法、号段、Redis、自增 ID 怎么选？"
     },
@@ -3970,8 +3998,8 @@
       "section": "questions",
       "topic": "机会雷达",
       "company": "",
-      "round": "R0",
-      "score": 4,
+      "round": "R1",
+      "score": 5,
       "questionNumber": "54",
       "question": "优惠券/满减活动规则和库存怎么设计？"
     },
@@ -7086,9 +7114,10 @@
     "学习": 187,
     "机会": 84,
     "阅读": 4,
-    "专栏": 0
+    "专栏": 1
   },
   "sectionCounts": {
+    "columns": 1,
     "projects": 4,
     "learning": 188,
     "questions": 58,
@@ -7244,7 +7273,7 @@
       {
         "date": "2026-07-05",
         "count": 3,
-        "averageScore": 4.3
+        "averageScore": 5
       },
       {
         "date": "2026-07-06",
