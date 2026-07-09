@@ -2,7 +2,7 @@
   "generatedAt": "2026-07-09T00:00:00+08:00",
   "articles": [
     {
-      "title": "Interview Harness — 技术方案与开发路线",
+      "title": "Interview Harness — 设计思考与技术方案",
       "path": "content/projects/interview-harness/interview-harness-deep-research.md",
       "url": "content/projects/interview-harness/interview-harness-deep-research.md",
       "date": "2026-07-09",
@@ -15,7 +15,7 @@
       "priority": "P0",
       "energy": "high",
       "visibility": "private",
-      "summary": "基于 Spring AI 模型抽象、自研 Mini Harness 和显式业务状态机的面试训练系统。重点解决 Rubric 评测、追问闭环、能力证据和 Eval 回归，而非普通 AI 模拟面试聊天页面。",
+      "summary": "基于 Spring AI 模型抽象、自研 Mini Harness 和显式业务状态机的面试训练系统。重点解决 Rubric 评测、追问闭环、能力证据和 Eval 回归。",
       "tags": [
         "interview",
         "harness",
@@ -46,7 +46,7 @@
       "priority": "P0",
       "energy": "high",
       "visibility": "private",
-      "summary": "Interview Harness 分阶段实现路线图：44 个步骤，每步包含目标、类、测试、验收标准和 Commit Message。",
+      "summary": "Interview Harness 实现路线图：当前迭代的详细步骤，以及后续阶段的进入条件和计划方向。",
       "tags": [
         "interview",
         "harness",
