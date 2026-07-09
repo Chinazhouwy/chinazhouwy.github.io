@@ -1,6 +1,66 @@
 {
-  "generatedAt": "2026-07-08T00:00:00+08:00",
+  "generatedAt": "2026-07-09T00:00:00+08:00",
   "articles": [
+    {
+      "title": "Interview Harness — 技术方案与开发路线",
+      "path": "content/projects/interview-harness/interview-harness-deep-research.md",
+      "url": "content/projects/interview-harness/interview-harness-deep-research.md",
+      "date": "2026-07-09",
+      "domain": "项目",
+      "area": "自研项目",
+      "module": "",
+      "project": "自研项目",
+      "type": "设计文档",
+      "status": "draft",
+      "priority": "P0",
+      "energy": "high",
+      "visibility": "private",
+      "summary": "基于 Spring AI 模型抽象、自研 Mini Harness 和显式业务状态机的面试训练系统。重点解决 Rubric 评测、追问闭环、能力证据和 Eval 回归，而非普通 AI 模拟面试聊天页面。",
+      "tags": [
+        "interview",
+        "harness",
+        "agent",
+        "spring-ai",
+        "eval",
+        "java"
+      ],
+      "section": "projects",
+      "topic": "自研项目",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
+      "title": "Interview Harness — 实现路线图",
+      "path": "content/projects/interview-harness/interview-harness-implementation-roadmap.md",
+      "url": "content/projects/interview-harness/interview-harness-implementation-roadmap.md",
+      "date": "2026-07-09",
+      "domain": "项目",
+      "area": "自研项目",
+      "module": "",
+      "project": "自研项目",
+      "type": "路线图",
+      "status": "draft",
+      "priority": "P0",
+      "energy": "high",
+      "visibility": "private",
+      "summary": "Interview Harness 分阶段实现路线图：44 个步骤，每步包含目标、类、测试、验收标准和 Commit Message。",
+      "tags": [
+        "interview",
+        "harness",
+        "roadmap",
+        "java"
+      ],
+      "section": "projects",
+      "topic": "自研项目",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
     {
       "title": "DeepSeek Agent Harness 产品经理岗位分析",
       "path": "content/learning/ai-agents/deepseek-agent-harness-pm-analysis.md",
@@ -3643,37 +3703,6 @@
       "question": ""
     },
     {
-      "title": "面试模拟 Harness 系统 — 深度研究与技术方案",
-      "path": "content/projects/interview-harness/interview-harness-deep-research.md",
-      "url": "content/projects/interview-harness/interview-harness-deep-research.md",
-      "date": "2026-07-06",
-      "domain": "项目",
-      "area": "工程",
-      "module": "",
-      "project": "面试模拟 Harness",
-      "type": "设计文档",
-      "status": "draft",
-      "priority": "P1",
-      "energy": "high",
-      "visibility": "private",
-      "summary": "面试模拟 Harness 系统架构设计：可插拔、可扩展、支持多 Agent 协作的智能面试平台",
-      "tags": [
-        "harness",
-        "agent",
-        "interview",
-        "system-design",
-        "java",
-        "python"
-      ],
-      "section": "projects",
-      "topic": "工程",
-      "company": "",
-      "round": "",
-      "score": null,
-      "questionNumber": null,
-      "question": ""
-    },
-    {
       "title": "面试知识库 RAG 系统设计方案",
       "path": "content/projects/rag-agent/rag-interview-design.md",
       "url": "content/projects/rag-agent/rag-interview-design.md",
@@ -7053,18 +7082,18 @@
   },
   "domains": {
     "任务": 0,
-    "项目": 3,
+    "项目": 4,
     "学习": 187,
     "机会": 84,
     "阅读": 4,
     "专栏": 0
   },
   "sectionCounts": {
+    "projects": 4,
     "learning": 188,
     "questions": 58,
     "companies": 21,
     "plans": 3,
-    "projects": 3,
     "reading": 4,
     "opportunity": 2
   },
@@ -7108,9 +7137,9 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-07-08",
-      "count": 3,
-      "averageScore": 6
+      "date": "2026-07-09",
+      "count": 0,
+      "averageScore": null
     },
     "totalQuestions": 61,
     "scoredQuestions": 54,
