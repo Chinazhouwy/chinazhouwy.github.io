@@ -2,6 +2,37 @@
   "generatedAt": "2026-07-10T00:00:00+08:00",
   "articles": [
     {
+      "title": "设计模式进阶：意图、边界、代价与 Java 框架源码",
+      "path": "content/learning/java/design-patterns-advanced.md",
+      "url": "content/learning/java/design-patterns-advanced.md",
+      "date": "2026-07-10",
+      "domain": "学习",
+      "area": "技术",
+      "module": "Java",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "high",
+      "visibility": "private",
+      "summary": "纠正入门篇的简化表述，深入解释设计模式的意图、边界、代价和 Java 框架中的真实实现。按容易混淆的问题组织，涵盖 Strategy/State、Proxy/Decorator、Factory 三种层次、Template Method/Callback、Observer/EventBus/MQ、CoR/FilterChain/Pipeline 等。",
+      "tags": [
+        "Java",
+        "设计模式",
+        "Spring",
+        "MyBatis",
+        "Netty",
+        "源码"
+      ],
+      "section": "learning",
+      "topic": "Java",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "后续题目计划（23-226）",
       "path": "content/opportunity/practice/active-batch-plan.md",
       "url": "content/opportunity/practice/active-batch-plan.md",
@@ -26,26 +57,27 @@
       "question": ""
     },
     {
-      "title": "设计模式本质：每个模式替换了什么基础控制流",
+      "title": "设计模式入门：从 if、for 和 new 开始理解常见模式",
       "path": "content/learning/java/design-patterns-essence.md",
       "url": "content/learning/java/design-patterns-essence.md",
       "date": "2026-07-09",
-      "domain": "专栏",
+      "domain": "学习",
       "area": "技术",
       "module": "Java",
       "project": "",
-      "type": "学习",
-      "status": "completed",
+      "type": "文章",
+      "status": "可复习",
       "priority": "P1",
       "energy": "medium",
       "visibility": "private",
-      "summary": "设计模式本质：每个模式替换了什么基础控制流",
+      "summary": "从基础控制流（if-else、for、new）出发，理解 12 种常见设计模式为什么出现、解决什么问题、什么时候先不要用。",
       "tags": [
-        "设计模式",
         "Java",
-        "面试"
+        "设计模式",
+        "基础",
+        "代码重构"
       ],
-      "section": "columns",
+      "section": "learning",
       "topic": "Java",
       "company": "",
       "round": "",
@@ -7111,16 +7143,15 @@
   "domains": {
     "任务": 0,
     "项目": 4,
-    "学习": 187,
+    "学习": 189,
     "机会": 84,
     "阅读": 4,
-    "专栏": 1
+    "专栏": 0
   },
   "sectionCounts": {
+    "learning": 190,
     "plans": 3,
-    "columns": 1,
     "projects": 4,
-    "learning": 188,
     "questions": 58,
     "companies": 21,
     "reading": 4,
