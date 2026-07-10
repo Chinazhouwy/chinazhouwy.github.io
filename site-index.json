@@ -1,6 +1,30 @@
 {
-  "generatedAt": "2026-07-09T00:00:00+08:00",
+  "generatedAt": "2026-07-10T00:00:00+08:00",
   "articles": [
+    {
+      "title": "后续题目计划（23-226）",
+      "path": "content/opportunity/practice/active-batch-plan.md",
+      "url": "content/opportunity/practice/active-batch-plan.md",
+      "date": "2026-07-10",
+      "domain": "机会",
+      "area": "机会雷达",
+      "module": "",
+      "project": "机会雷达",
+      "type": "题目",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "后续题目计划（23-226）",
+      "tags": [],
+      "section": "plans",
+      "topic": "机会雷达",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
     {
       "title": "设计模式本质：每个模式替换了什么基础控制流",
       "path": "content/learning/java/design-patterns-essence.md",
@@ -3659,30 +3683,6 @@
       "question": "AI Agent · MCP、RAG、Skill 三者区别和组合方式"
     },
     {
-      "title": "后续题目计划（23-216）",
-      "path": "content/opportunity/practice/active-batch-plan.md",
-      "url": "content/opportunity/practice/active-batch-plan.md",
-      "date": "2026-07-06",
-      "domain": "机会",
-      "area": "机会雷达",
-      "module": "",
-      "project": "机会雷达",
-      "type": "题目",
-      "status": "可复习",
-      "priority": "P1",
-      "energy": "medium",
-      "visibility": "private",
-      "summary": "后续题目计划（23-216）",
-      "tags": [],
-      "section": "plans",
-      "topic": "机会雷达",
-      "company": "",
-      "round": "",
-      "score": null,
-      "questionNumber": null,
-      "question": ""
-    },
-    {
       "title": "面试练习每日事实账本",
       "path": "content/opportunity/practice/daily-log.md",
       "url": "content/opportunity/practice/daily-log.md",
@@ -7117,12 +7117,12 @@
     "专栏": 1
   },
   "sectionCounts": {
+    "plans": 3,
     "columns": 1,
     "projects": 4,
     "learning": 188,
     "questions": 58,
     "companies": 21,
-    "plans": 3,
     "reading": 4,
     "opportunity": 2
   },
@@ -7166,8 +7166,8 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-07-09",
-      "count": 0,
+      "date": "2026-07-10",
+      "count": 1,
       "averageScore": null
     },
     "totalQuestions": 61,
@@ -7277,13 +7277,18 @@
       },
       {
         "date": "2026-07-06",
-        "count": 5,
+        "count": 4,
         "averageScore": 5.5
       },
       {
         "date": "2026-07-08",
         "count": 3,
         "averageScore": 6
+      },
+      {
+        "date": "2026-07-10",
+        "count": 1,
+        "averageScore": null
       }
     ],
     "weakTopics": [],

@@ -104,19 +104,19 @@ tags:
 - 顺延新题：无
 - 回顾完成：#42 R1（1→4/10）、#43 R1（5→7/10）、#38 R1（→6/10）、#50 R1（→7/10）
 - 回顾顺延：无
-- 次日新题：#60（最长无重复子串）、#61（B+树）、#62（索引失效场景）
+- 次日新题：#60、#61、#62（后续于 2026-07-10 重排为 Hermes/Harness 优先题）
 - 新增或修改文件：`practice/42-rag-evaluation-optimization.md`（更新）、`practice/43-jvm-object-allocation-tlab-eden-gc.md`（更新）、`practice/57-agent-evaluation-system.md`（新建）、`practice/58-tcp-three-way-handshake-websocket.md`（新建）、`practice/59-merge-k-sorted-lists.md`（新建）、`practice/38-redis-cluster-sentinel-consistency.md`（更新）、`practice/50-spring-boot-rate-limiting-interceptor.md`（更新）
 - 提交：`0675111`、`2d7ab87`、`84ea725`、`341daf9`
 - 推送：Gitee 成功；GitHub 成功
 
 ## 2026-07-09
 
-- 计划新题：#60、#61、#62
+- 计划新题：#60、#61、#62（重排前旧题：最长无重复子串、B+树、索引失效）
 - 实际完成：无（新题）
-- 顺延新题：#60、#61、#62
+- 顺延新题：#60、#61、#62（2026-07-10 重排后改为 Hermes/Harness 优先题）
 - 回顾完成：#52 R1（4→5/10）、#54 R1（4→5/10）
 - 回顾顺延：无
-- 次日新题：#60、#61、#62（顺延）
+- 次日新题：#60、#61、#62（顺延；2026-07-10 重排后为 Hermes/Harness 优先题）
 - 新增或修改文件：`practice/52-distributed-id-snowflake-segment-redis-autoincrement.md`（更新）、`practice/54-coupon-discount-rules-inventory-design.md`（更新）
 - 提交：`873d9c5`
 - 推送：Gitee 成功；GitHub 成功
