@@ -1,9 +1,9 @@
 ---
 title: "设计模式进阶：意图、边界、代价与 Java 框架源码"
 date: "2026-07-10"
-domain: "学习"
+domain: "专栏"
 area: "技术"
-module: "Java"
+module: "设计模式"
 project: ""
 type: "文章"
 status: "可复习"
