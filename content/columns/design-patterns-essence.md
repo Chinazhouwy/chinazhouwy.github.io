@@ -216,9 +216,11 @@ eventBus.publish(new OrderCreatedEvent(order));
 **原始代码**：
 
 ```java
-for (Handler h : handlers) {
-    Result r = h.handle(request);
-    if (r == null) break;  // 某个节点处理后终止
+for (Handler handler : handlers) {
+    HandleResult result = handler.handle(request);
+    if (result.isHandled()) {
+        break;  // 某个处理器处理后就终止
+    }
 }
 ```
 
@@ -228,10 +230,10 @@ for (Handler h : handlers) {
 
 ```java
 handlerChain.handle(request);
-// 每个节点内部决定：处理后是否传给下一个节点
+// 每个节点内部决定：自己处理请求，还是传给下一个处理器
 ```
 
-**一句话理解**：把"是否继续传递"的控制权从集中循环移到每个节点自身。硬链（某个节点拒绝后终止）和软链（所有节点依次执行）是两种常见变体。
+**一句话理解**：把"是否继续传递"的控制权从集中循环移到每个节点自身。经典责任链常见的是"命中某个处理器后终止"；工程中也存在让所有节点依次处理的变体，后者往往更接近 Filter Chain 或 Pipeline。
 
 **什么时候先不要用**：处理流程简单且固定、节点间没有复杂的传递逻辑时，`for` 循环更直观。
 
@@ -317,11 +319,11 @@ public void save(Order order) {
     checkPermission(order);         // 前置
     dao.save(order);                // 核心业务
     log.info("保存完成");           // 后置
-    notify(order);                  // 后置
+    metrics.record(order);          // 后置
 }
 ```
 
-**问题**：日志、权限、通知等横切关注点和业务逻辑混在一起。每个方法都重复这套前置/后置逻辑。
+**问题**：日志、权限、指标等横切关注点和业务逻辑混在一起。每个方法都重复这套前置/后置逻辑。
 
 **模式重组**：
 
@@ -362,7 +364,7 @@ InputStream input = new BufferedInputStream(
 // 每一层只负责一个功能（缓冲、解压、文件读取），可以自由组合
 ```
 
-**一句话理解**：通过层层包装的方式，动态给对象添加职责。每一层和被装饰对象保持相同接口，所以可以无限组合。
+**一句话理解**：通过层层包装的方式，动态给对象添加职责。因为保持相同抽象接口，可以在类型兼容、顺序合理的前提下灵活组合。
 
 **什么时候先不要用**：功能组合方式固定且不会变化时，装饰器带来的层层包装反而降低可读性。
 
@@ -407,21 +409,26 @@ item.getSize();  // 客户端不需要判断类型，不需要自己写递归
 
 ```java
 // 系统里到底有几个配置对象？几个连接池？
-Config config1 = new Config();
-Config config2 = Config.getInstance();
-// 无法保证全局唯一
+// 到处 new，无法保证全局唯一
 ```
 
-**问题**：某些对象需要全局唯一（配置、连接池），但 `new` 无法保证这一点。
+**问题**：某些对象需要全局共享同一个实例（配置、连接池），但公开构造器无法阻止外界随意创建。
 
 **模式重组**：
 
 ```java
-Config config = Config.getInstance();
-// 明确保证：全局只有一个实例
+final class Config {
+    private static final Config INSTANCE = new Config();
+
+    private Config() {}  // 构造器私有，外界无法 new
+
+    public static Config getInstance() {
+        return INSTANCE;
+    }
+}
 ```
 
-**一句话理解**：控制实例数量，确保全局只有一个访问入口。
+**一句话理解**：控制实例数量，并为共享实例提供统一的访问点。"一个实例"指该类在运行时只有这一个共享对象，不意味着只能有一个引用或一个调用入口。
 
 > Spring 默认的 singleton scope 是指每个容器、每个 Bean 定义一个共享实例，不等于 GoF 中"整个 JVM 只存在一个该类的对象"。同一个类可以注册为多个不同的 Spring Bean。这是进阶篇会展开讨论的常见误区。
 
@@ -468,7 +475,7 @@ Config config = Config.getInstance();
 
 ---
 
-如果你已经能通过这些代码直觉识别常见模式，可以继续阅读：[设计模式进阶：意图、边界、代价与 Java 框架源码](./design-patterns-advanced.md)
+如果你已经能通过这些代码直觉识别常见模式，可以继续阅读：[设计模式进阶：意图、边界、代价与 Java 框架案例](#/article/content%2Fcolumns%2Fdesign-patterns-advanced.md)
 
 ---
 
