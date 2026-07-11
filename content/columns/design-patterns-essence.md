@@ -167,11 +167,11 @@ new Order(userId, productId, quantity, couponId,
 
 ```java
 Order order = Order.builder()
-    .userId(1L)          // 必填
-    .productId(100L)      // 必填
-    .quantity(2)          // 必填
+    .userId(1L)          // 业务上必填
+    .productId(100L)      // 业务上必填
+    .quantity(2)          // 业务上必填
     .remark("急")        // 可选，不传也没关系
-    .build();
+    .build();             // 在 build() 中校验必填字段和业务不变量
 ```
 
 **一句话理解**：把构造过程分步骤进行，每个步骤有明确的方法名，参数按需设置。
@@ -262,12 +262,14 @@ connect(); query(); parse(); close();
 ```java
 abstract class DataFetcher {
     final void fetch() {
-        connect();    // 公共步骤
-        doQuery();    // 子类实现差异
-        parse();      // 公共步骤
-        close();      // 公共步骤
+        connect();
+        Object rawData = doQuery();
+        parse(rawData);
+        close();
     }
-    protected abstract void doQuery();
+
+    protected abstract Object doQuery();   // 不同数据源的查询方式不同
+    protected abstract void parse(Object rawData);  // 解析方式也不同
 }
 ```
 
