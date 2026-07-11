@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-10T00:00:00+08:00",
+  "generatedAt": "2026-07-11T00:00:00+08:00",
   "articles": [
     {
       "title": "设计模式进阶：意图、边界、代价与 Java 框架源码",
@@ -7198,8 +7198,8 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-07-10",
-      "count": 1,
+      "date": "2026-07-11",
+      "count": 0,
       "averageScore": null
     },
     "totalQuestions": 61,

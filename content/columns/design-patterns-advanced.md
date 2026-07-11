@@ -235,7 +235,7 @@ jdbcTemplate.query("SELECT * FROM user", (rs, rowNum) ->
 // SimpleExecutor、BatchExecutor、ReuseExecutor 继承并实现差异
 ```
 
-这是继承式模板方法的框架案例。`BaseExecutor` 统一处理一级缓存、查询栈、延迟加载等公共流程，并把 `doQuery()`、`doUpdate()` 等具体执行步骤交给 `SimpleExecutor`、`BatchExecutor`、`ReuseExecutor` 实现。具体 Statement 创建、参数设置和 SQL 执行更多由 `StatementHandler` 体系参与；`BaseExecutor` 的 `queryFromDatabase()` 最终调用的是抽象的 `doQuery()`。
+这是继承式模板方法的框架案例。`BaseExecutor` 统一处理一级缓存、查询栈、延迟加载、提交回滚等公共流程，并将 `doQuery()`、`doUpdate()`、`doFlushStatements()` 等具体执行步骤留给 `SimpleExecutor`、`ReuseExecutor` 和 `BatchExecutor` 实现。
 
 ```text
 // MyBatis Executor 模板方法调用链
@@ -253,11 +253,11 @@ BaseExecutor#query
 
 | | Observer | Event Bus | Spring Event | 消息队列 |
 |---|---|---|---|---|
-| 范围 | 通常进程内 | 通常进程内 | 默认进程内 | 通常跨进程 |
+| 范围 | 通常进程内 | 通常进程内 | 默认进程内 | 通常跨进程或跨服务 |
 | 同步/异步 | 取决于实现 | 均可 | 默认同步，可配置异步 | 通常异步 |
 | 持久化 | 通常无 | 通常无 | 默认无 | 取决于产品和配置 |
-| 重试 | 需自行实现 | 需自行实现 | 需自行实现或扩展 | 通常提供相关机制 |
-| 顺序 | 取决于实现 | 取决于实现 | 取决于监听器顺序配置 | 通常仅在特定队列或分区内保证 |
+| 重试 | 通常自行实现 | 通常自行实现 | 通常自行实现或扩展 | 通常提供重试或失败处理机制 |
+| 顺序 | 取决于实现 | 取决于实现 | 可配置监听顺序 | 通常仅在特定队列、分区或消息组内保证 |
 | 主要目标 | 对象间通知 | 进程内事件分发 | Spring 容器内事件 | 可靠的跨系统消息传递 |
 
 Observer 的价值不在于"替换 for 循环"——它的底层通知仍然可能通过遍历完成。它的价值在于**发布者不需要知道具体订阅者是谁、有几个**，新增订阅方不需要修改发布代码。
@@ -404,7 +404,7 @@ DispatcherServlet#doDispatch
 
 ### MyBatis
 
-- `BaseExecutor`：**Template Method**——定义 SQL 执行骨架，子类（SimpleExecutor、BatchExecutor）实现差异。
+- `BaseExecutor`：**Template Method**——定义 Executor 层公共执行与缓存控制骨架，子类（SimpleExecutor、BatchExecutor）实现差异。
 - Cache 包装结构：**Decorator**——`LruCache(new LoggingCache(new PerpetualCache("id")))`，层层叠加功能。注意 `PerpetualCache` 需要传入 id，`FifoCache`（不是 `FIFOcache`）也是合法装饰器。
 - Mapper 代理：**Proxy**——`MapperProxy` 拦截接口方法调用，转为 SQL 执行。
 - 插件机制：插件通过动态代理层层包装目标对象，更接近 Proxy/Decorator 的组合，不是经典责任链。
@@ -437,11 +437,7 @@ ChannelPipeline
 
 基础篇从控制流出发帮你建立直觉：if 分支膨胀了可以看看 Strategy，散落的 new 可以看看 Factory，重复的前置后置逻辑可以看看 Proxy。
 
-进阶篇补充了更关键的判断：Strategy 和 State 的代码可以一模一样，差别在于你读代码时想到的是什么问题；Proxy 和 Decorator 的区别不是"层数"而是意图；框架里没有纯粹的单模式实现，一个类通常融合了多种设计思想——不要看到接口就说 Strategy，看到包装就说 Decorator。
-
-每个模式都有代价。在**真正感受到痛点之前不引入模式**，比"提前为未来设计"更务实。
-
-框架模块经常组合多个模式。分析源码时，应区分主要设计意图与辅助实现机制，而不是强行给每个类贴唯一标签。有些类的模式归属非常清晰——比如 `HandlerAdapter` 就是明确的适配边界——但更多时候一个模块融合了多种设计思想，需要具体分析。
+进阶篇补充了更关键的判断：Strategy 和 State 的代码可以一模一样，差别在于你读代码时想到的是什么问题；Proxy 和 Decorator 的区别不是"层数"而是意图。框架模块经常组合多个模式，分析源码时应区分主要设计意图与辅助实现机制，而不是强行给每个类贴唯一标签——有些类的模式归属非常清晰（比如 `HandlerAdapter` 就是明确的适配边界），但更多时候需要具体分析。
 
 ---
 
