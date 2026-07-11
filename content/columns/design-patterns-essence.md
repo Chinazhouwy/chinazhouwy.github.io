@@ -374,34 +374,77 @@ InputStream input = new BufferedInputStream(
 
 ### 11. Composite（组合）
 
-**原始代码**：
+> **我的理解变化**：我以前一直以为"组合模式"就是把多个对象装到一个对象里。后来才意识到，这只是普通的对象组合——`Car` 持有 `Engine`，`OrderService` 持有 `PaymentService`，这些都是正常的面向对象协作。GoF 的 Composite 更特殊：**单个对象和由多个对象组成的整体，共享同一种抽象**。组合对象内部持有的仍然是这种抽象，因此整体可以被当成一个普通对象继续使用。树不是定义，是这种递归组合结构自然形成的结果。
+
+先看一个普通对象组合的例子——它**不是** Composite：
 
 ```java
-if (item instanceof File) {
-    size += ((File) item).getSize();
-} else if (item instanceof Folder) {
-    for (Item child : ((Folder) item).getChildren()) {
-        // 递归判断每个 child 是 File 还是 Folder...
+class Car {
+    private Engine engine;
+    private List<Wheel> wheels;
+    // Car、Engine、Wheel 不需要实现同一个接口，这只是对象之间的包含和协作
+}
+```
+
+再看 Composite Pattern：
+
+```java
+// 叶子和组合对象共享同一个抽象
+interface FileSystemNode {
+    long size();
+}
+
+final class FileNode implements FileSystemNode {
+    private final long size;
+
+    FileNode(long size) { this.size = size; }
+
+    @Override
+    public long size() { return size; }
+}
+
+final class DirectoryNode implements FileSystemNode {
+    private final List<FileSystemNode> children = new ArrayList<>();
+
+    public void add(FileSystemNode child) { children.add(child); }
+
+    @Override
+    public long size() {
+        long total = 0;
+        for (FileSystemNode child : children) {
+            total += child.size();  // 递归在这里，但被封装在组合对象内部
+        }
+        return total;
     }
 }
 ```
 
-**问题**：树形结构中，客户端需要频繁判断节点类型并写递归逻辑。树的结构变化时，所有递归代码都要调整。
+关键点：
 
-**模式重组**：
+- `FileNode` 是 `FileSystemNode`，`DirectoryNode` 也是 `FileSystemNode`
+- `DirectoryNode` 内部持有的仍然是 `FileSystemNode`
+- 因此组合完成后，`DirectoryNode` 仍然可以被当成一个 `FileSystemNode` 使用
+
+客户端只需要统一调用 `node.size()`，不需要判断 `node instanceof FileNode` 还是 `DirectoryNode`。
+
+**一句话理解**：组合模式把"单个对象"和"由多个对象组成的整体"抽象成同一种类型，让客户端统一处理部分与整体。树形结构通常是这种递归组合的结果，而不是组合模式的定义。
+
+**口语记忆**：一个文件是一个节点，一个目录里有很多节点，但目录本身也仍然被当成一个节点。
+
+**什么时候不是 Composite**：
 
 ```java
-interface TreeNode {
-    int getSize();
+class OrderService {
+    private PaymentService paymentService;
+    private InventoryService inventoryService;
 }
-// FileNode、FolderNode 都实现，FolderNode 内部递归处理子节点
-
-item.getSize();  // 客户端不需要判断类型，不需要自己写递归
 ```
 
-**一句话理解**：Composite 统一了叶子节点和组合节点，把递归和类型判断封装到组合对象内部。它没有消灭递归，只是让递归不再散落在每个调用方。
+这只是普通组合——`OrderService` 不需要和 `PaymentService` 使用同一个抽象，组合后的整体不能继续作为 `PaymentService` 使用，不存在"部分与整体统一处理"的需求。
 
-**什么时候先不要用**：树的深度和结构可预测、处理逻辑简单时，直接判断类型写递归可能更清晰。使用 Composite 可能迫使叶子节点实现无意义的方法（如 "添加子节点"）。
+**什么时候先不要用**：如果"叶子"和"容器"的行为差异巨大，强行统一接口反而更别扭——比如让文件实现 `addChild()` 方法毫无意义。
+
+> 另一个也大量使用对象组合的模式是 Bridge，但它解决的是两个变化维度独立扩展的问题，放在[进阶篇](#/article/content%2Fcolumns%2Fdesign-patterns-advanced.md)讨论。
 
 ---
 
