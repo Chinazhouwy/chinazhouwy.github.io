@@ -20,8 +20,8 @@ sources:
   - "ai-agent/completable-future-production-pitfalls.md"
   - "java/jd-java-backend-round2-jvm-concurrency.md"
 score: "3/10"
-round: "R0"
-next_review: "unknown"
+round: "R1"
+next_review: "2026-07-18"
 session_id: "unknown"
 ---
 
@@ -269,3 +269,226 @@ CompletableFuture.allOf(dbFuture, httpFuture, cacheFuture)
 - GPT 纠错：不带 Executor 的 async 方法默认使用 `ForkJoinPool.commonPool()`，但 commonPool 并非绝对错误；隔离阻塞 IO、控制容量和上下文传播时才应明确使用业务线程池。
 - GPT 纠错：“IO 线程池=CPU×2”“CPU 线程池=CPU+1”不是通用生产公式，应根据阻塞比例、下游容量、延迟目标和压测结果配置。
 - GPT 纠错：`thenApply` 是非 async 阶段，它可能由完成上一步的线程或调用完成方法的线程执行，不能简单称为“串行假异步”。
+
+---
+
+## 九、补充 · 与线程池的关系（2026-07-15 回顾追问）
+
+### CompletableFuture ≠ 线程池
+
+```
+ExecutorService（线程池） = 干活的工人，负责"怎么跑"
+CompletableFuture        = 工头，负责"跑完怎么串联结果"
+```
+
+- `CompletableFuture` 是一个**容器**：里面放着一个将来会有的结果
+- 你不能用它来取代 `ThreadPoolExecutor`
+- 它**依赖**线程池来干活，只是把"提交 → 等待 → 组合 → 异常"的过程从你手动写变成了链式声明
+- `supplyAsync(() -> task())` 用 `ForkJoinPool.commonPool()`（默认）
+- `supplyAsync(() -> task(), myPool)` 用自定义线程池
+
+---
+
+## 十、补充 · CompletableFuture 完整 API 速查
+
+### 前置概念：Async vs 非 Async
+
+```java
+.thenApply(fn)         // 非 async：可能由完成上游的线程执行，不一定开新线程
+.thenApplyAsync(fn)    // async：一定在新线程执行（默认 commonPool 或指定线程池）
+```
+
+| 方法后缀 | 执行线程 | 何时用 |
+|---------|---------|--------|
+| 无后缀 | 复用上游线程 | 轻量转换（CPU 密集且极快） |
+| `Async` | 新线程执行 | 阻塞操作（IO/DB），必须指定线程池 |
+| `Async(pool)` | 指定线程池 | 生产环境强烈建议 |
+
+---
+
+### Java 8 核心 API
+
+#### 创建
+
+```java
+// 有返回值（Supplier）
+CompletableFuture<String> f1 = CompletableFuture.supplyAsync(() -> "hello");
+CompletableFuture<String> f2 = CompletableFuture.supplyAsync(() -> "hello", pool);
+
+// 无返回值（Runnable）
+CompletableFuture<Void> f3 = CompletableFuture.runAsync(() -> log("done"));
+CompletableFuture<Void> f4 = CompletableFuture.runAsync(() -> log("done"), pool);
+
+// 直接完成
+CompletableFuture<String> f5 = CompletableFuture.completedFuture("已知值");
+```
+
+#### 单步转换（thenXxx 系列）
+
+```java
+// thenApply：接收上一步结果，返回新值（类似 Stream.map）
+.thenApply(user -> user.getName())
+
+// thenAccept：接收结果，无返回值（类似 Stream.forEach）
+.thenAccept(user -> System.out.println(user))
+
+// thenRun：不关心结果，只执行动作
+.thenRun(() -> log("完成"))
+
+// thenCompose：接收结果，返回一个新的 CompletableFuture（类似 flatMap）
+// ★ 关键：避免 thenApply 返回 CompletableFuture<CompletableFuture<T>>
+.thenCompose(user -> supplyAsync(() -> queryOrders(user.getId())))
+```
+
+#### 双步组合
+
+```java
+// thenCombine：两个都完成后，合并结果
+cf1.thenCombine(cf2, (r1, r2) -> r1 + r2)
+
+// thenAcceptBoth：两个都完成后，消费结果（无返回值）
+cf1.thenAcceptBoth(cf2, (r1, r2) -> log(r1 + r2))
+
+// runAfterBoth：两个都完成后，执行动作
+cf1.runAfterBoth(cf2, () -> log("都完了"))
+
+// applyToEither：任一完成就用它的结果
+cf1.applyToEither(cf2, result -> result)
+
+// acceptEither：任一完成就消费
+cf1.acceptEither(cf2, result -> log(result))
+
+// runAfterEither：任一完成就执行
+cf1.runAfterEither(cf2, () -> log("有一个完了"))
+```
+
+#### 批量等待
+
+```java
+// allOf：等全部完成，返回 Void（需要手动 join 取结果）
+CompletableFuture.allOf(f1, f2, f3).join();
+String r1 = f1.join();  // 此时一定完成了
+String r2 = f2.join();
+
+// anyOf：任一完成就返回（返回 Object，需要转型）
+Object result = CompletableFuture.anyOf(f1, f2, f3).join();
+```
+
+#### 异常处理
+
+```java
+// exceptionally：捕获异常 → 返回兜底值（不抛异常了）
+.exceptionally(ex -> "兜底")
+
+// handle：同时处理正常结果和异常（必须返回新值）
+.handle((result, ex) -> {
+    if (ex != null) return "兜底";
+    return result.toUpperCase();
+})
+
+// whenComplete：事后回调（不改变结果，异常继续传播）
+.whenComplete((result, ex) -> {
+    if (ex != null) log.error("炸了", ex);
+    else log.info("结果: {}", result);
+})
+```
+
+#### 主动完成与取消
+
+```java
+CompletableFuture<String> f = new CompletableFuture<>();
+
+// 外部主动完成
+f.complete("手动结果");      // 成功完成
+f.completeExceptionally(ex);  // 异常完成
+f.obtrudeValue("强制覆盖");   // 强制重置（无视已有结果）
+
+// 取消
+f.cancel(true);   // 用 CancellationException 完成
+f.isCancelled();  // 是否已取消
+f.isDone();       // 是否已完成（正常/异常/取消都算 done）
+```
+
+---
+
+### Java 9 新增
+
+```java
+// 超时
+.orTimeout(3, TimeUnit.SECONDS)           // 超时抛 TimeoutException
+.completeOnTimeout("默认值", 3, SECONDS)  // 超时给默认值（不抛异常）
+
+// 延迟执行（必须传 Executor）
+CompletableFuture.delayedExecutor(3, SECONDS)           // commonPool
+CompletableFuture.delayedExecutor(3, SECONDS, pool)    // 自定义池
+
+// 带超时的 join/get
+.copy()                          // 返回一个副本（用于防御性编程）
+.newIncompleteFuture()           // 返回同类型的新未完成 Future
+.completeAsync(supplier)         // 异步完成（用默认 ForkJoinPool）
+.completeAsync(supplier, pool)   // 异步完成（指定线程池）
+
+// 失败 Future（静态方法）
+CompletableFuture<T> f = CompletableFuture.failedFuture(ex);
+
+// exceptionallyCompose：异常时切换到备用链路
+.exceptionallyCompose(ex -> supplyAsync(() -> callFallback()))
+```
+
+---
+
+### Java 12+ 新增
+
+```java
+// exceptionallyAsync / exceptionallyComposeAsync（异步异常处理）
+.exceptionallyAsync(ex -> fallback(ex))             // 默认池
+.exceptionallyAsync(ex -> fallback(ex), pool)       // 自定义池
+.exceptionallyComposeAsync(ex -> callFallback(ex))  // 默认池
+
+// completeAsync —— 兜底数据的异步获取
+f.completeAsync(() -> computeDefault(), pool)
+```
+
+---
+
+### ⚠️ join() vs get() 的区别（面试高频）
+
+```java
+// get()：抛出 checked 异常（ExecutionException、InterruptedException）
+//       必须 try-catch，代码臃肿
+String r = future.get();           // 需要处理异常
+String r = future.get(3, SECONDS); // 带超时
+
+// join()：抛出 unchecked 异常（CompletionException）
+//        链式调用友好，不需要 try-catch
+String r = future.join();
+```
+
+实际项目中 **优先用 `join()`**，因为 CompletableFuture 的设计哲学就是声明式 + 不强制检查异常。`get()` 来自 Future 接口的历史包袱。
+
+---
+
+### 💡 快速选型指南
+
+| 需求 | 用这个 |
+|------|--------|
+| 异步执行一个任务 | `supplyAsync(() -> task(), pool)` |
+| 等结果 | `join()` |
+| 转换结果 | `.thenApply(r -> transform(r))` |
+| 消费结果 | `.thenAccept(r -> log(r))` |
+| 组合两个任务 | `.thenCombine(f2, (a, b) -> merge(a, b))` |
+| 扁平化异步调用 | `.thenCompose(r -> supplyAsync(...))` |
+| 等 N 个全部完成 | `CompletableFuture.allOf(f1, f2, f3)` |
+| 异常兜底 | `.exceptionally(ex -> fallback)` |
+| 异常记录日志后继续抛 | `.whenComplete((r, ex) -> {...})` |
+| 异常后走备用链路 | `.exceptionallyCompose(ex -> callFallback())` |
+| 超时 | `.orTimeout(3, SECONDS)` (Java 9) / `applyToEither` (Java 8) |
+
+---
+
+## 2026-07-15 回顾记录
+
+- R1 回顾：用户记忆了线程池隔离要点（4/10），未答出 API 全貌、异常处理和超时
+- 追问1：Java 8 超时 —— 手动 `applyToEither` 竞速模式
+- 追问2：与线程池关系 —— CF 不是线程池，是线程池的编排层
+- 补充：完整 API 速查（Java 8 / 9 / 12+）
