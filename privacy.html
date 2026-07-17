@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f7f5" />
+    <meta
+      name="description"
+      content="Markdown 阅读器隐私政策：文档仅在浏览器本地处理，不会上传或出售用户数据。"
+    />
+    <title>Markdown 阅读器隐私政策 | Privacy Policy</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --page: #f4f7f5;
+        --surface: #ffffff;
+        --ink: #17211d;
+        --muted: #5b6962;
+        --line: #dce5e0;
+        --accent: #157f5b;
+        --accent-soft: #e3f3ec;
+        --code: #eef3f0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--page);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "PingFang SC", "Microsoft YaHei", sans-serif;
+        font-size: 16px;
+        line-height: 1.75;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
+      }
+
+      a:hover {
+        text-decoration-thickness: 2px;
+      }
+
+      .site-header {
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.92);
+      }
+
+      .site-header-inner,
+      main {
+        width: min(100% - 40px, 840px);
+        margin: 0 auto;
+      }
+
+      .site-header-inner {
+        min-height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .brand {
+        color: var(--ink);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .language-links {
+        display: flex;
+        gap: 16px;
+        font-size: 14px;
+      }
+
+      main {
+        padding: 72px 0 88px;
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        color: var(--accent);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 720px;
+        font-size: clamp(36px, 6vw, 58px);
+        line-height: 1.12;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 720px;
+        margin: 24px 0 0;
+        color: var(--muted);
+        font-size: 19px;
+      }
+
+      .summary {
+        margin: 36px 0 0;
+        padding: 20px 22px;
+        border-left: 4px solid var(--accent);
+        background: var(--accent-soft);
+      }
+
+      .summary strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .updated {
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      article {
+        margin-top: 64px;
+      }
+
+      section + section {
+        margin-top: 48px;
+        padding-top: 48px;
+        border-top: 1px solid var(--line);
+      }
+
+      h2 {
+        margin: 0 0 16px;
+        font-size: 26px;
+        line-height: 1.3;
+        letter-spacing: 0;
+      }
+
+      h3 {
+        margin: 28px 0 10px;
+        font-size: 18px;
+        letter-spacing: 0;
+      }
+
+      p,
+      ul {
+        margin: 0 0 16px;
+      }
+
+      ul {
+        padding-left: 22px;
+      }
+
+      li + li {
+        margin-top: 8px;
+      }
+
+      code {
+        padding: 2px 5px;
+        border-radius: 4px;
+        background: var(--code);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.9em;
+      }
+
+      .english {
+        color: #24332c;
+      }
+
+      .footer-note {
+        margin-top: 64px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      @media (max-width: 600px) {
+        .site-header-inner,
+        main {
+          width: min(100% - 28px, 840px);
+        }
+
+        .site-header-inner {
+          min-height: 58px;
+        }
+
+        main {
+          padding: 48px 0 64px;
+        }
+
+        .language-links {
+          gap: 10px;
+        }
+
+        .lead {
+          font-size: 17px;
+        }
+
+        article {
+          margin-top: 48px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header-inner">
+        <a class="brand" href="/">Markdown 阅读器</a>
+        <nav class="language-links" aria-label="Language">
+          <a href="#zh">中文</a>
+          <a href="#en">English</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <p class="eyebrow">Privacy Policy / 隐私政策</p>
+      <h1>Markdown 阅读器</h1>
+      <p class="lead">
+        阅读、编辑、搜索和导出本地 Markdown 文档。所有文档处理均在浏览器本地完成。
+      </p>
+      <div class="summary">
+        <strong>核心承诺</strong>
+        不收集、不上传、不出售，也不向第三方共享用户的文档内容或个人数据。
+      </div>
+      <p class="updated">生效及最后更新日期：2026 年 7 月 17 日</p>
+
+      <article id="zh" aria-labelledby="zh-title">
+        <section>
+          <h2 id="zh-title">中文隐私政策</h2>
+          <p>
+            本政策适用于 Microsoft Edge、Google Chrome 及其他兼容浏览器中的
+            “Markdown 阅读器”扩展。使用本扩展即表示你了解本政策中说明的数据处理方式。
+          </p>
+        </section>
+
+        <section>
+          <h2>1. 扩展的单一用途</h2>
+          <p>
+            本扩展用于读取、渲染、编辑、搜索、打印和导出由用户主动打开或选择的本地
+            Markdown、Markdown Text 及文本文件。扩展不会在此用途之外处理文档内容。
+          </p>
+        </section>
+
+        <section>
+          <h2>2. 扩展会访问的数据</h2>
+          <h3>本地文件内容</h3>
+          <p>
+            当用户打开本地文件 URL 或在查看器中选择文件夹时，扩展会访问相应文件的文本、图片引用和链接，以便在浏览器中显示和编辑文档。这些内容仅在用户设备上处理，不会发送给开发者或第三方。
+          </p>
+
+          <h3>浏览器本地存储</h3>
+          <p>
+            扩展可能使用浏览器提供的 <code>storage</code>
+            权限保存主题、语言、面板宽度、编辑器设置、最近文件或文件夹提示，以及更新提醒状态。这些设置仅保存在用户的浏览器中。
+          </p>
+        </section>
+
+        <section>
+          <h2>3. 数据收集、传输与共享</h2>
+          <ul>
+            <li>不收集或上传本地文档内容。</li>
+            <li>不出售、出租或向第三方共享用户数据。</li>
+            <li>不使用分析服务、广告 SDK 或第三方跟踪器。</li>
+            <li>不使用远程托管的代码执行扩展功能。</li>
+            <li>不将用户数据用于信用评估、借贷或与扩展单一用途无关的目的。</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>4. 更新检查</h2>
+          <p>
+            Microsoft Edge、Google Chrome 或其他浏览器可能通过其官方扩展更新服务检查和安装新版本。更新检查不会由本扩展附带或上传用户的文档内容。
+          </p>
+        </section>
+
+        <section>
+          <h2>5. 数据保留与删除</h2>
+          <p>
+            本扩展不在开发者服务器上保留用户数据。用户可以通过清除扩展存储或卸载扩展删除浏览器中保存的设置。用户的原始本地文件始终由用户自行管理。
+          </p>
+        </section>
+
+        <section>
+          <h2>6. 政策变更与联系</h2>
+          <p>
+            如本扩展的数据处理方式发生变化，本页面将同步更新。有关隐私或扩展支持的问题，请通过
+            <a href="https://www.zhouwy.top/">zhouwy.top</a> 联系开发者。
+          </p>
+        </section>
+      </article>
+
+      <article id="en" class="english" aria-labelledby="en-title" lang="en">
+        <section>
+          <h2 id="en-title">Privacy Policy in English</h2>
+          <p>
+            This policy applies to the Markdown Viewer extension for Microsoft Edge,
+            Google Chrome, and other compatible browsers.
+          </p>
+        </section>
+
+        <section>
+          <h2>1. Single Purpose</h2>
+          <p>
+            The extension reads, renders, edits, searches, prints, and exports local
+            Markdown and text files that the user explicitly opens or selects. It does
+            not process document content for any unrelated purpose.
+          </p>
+        </section>
+
+        <section>
+          <h2>2. Data the Extension Accesses</h2>
+          <p>
+            The extension accesses the text, image references, and links in local files
+            selected by the user so it can display and edit those documents. All
+            document processing occurs locally on the user's device. Document content
+            is never sent to the developer or a third party.
+          </p>
+          <p>
+            Browser storage may contain local preferences such as theme, language,
+            panel widths, editor settings, recent file or folder hints, and update
+            reminder state. These settings remain in the user's browser.
+          </p>
+        </section>
+
+        <section>
+          <h2>3. Collection, Transfer, and Sharing</h2>
+          <ul>
+            <li>The extension does not collect or upload local document content.</li>
+            <li>User data is not sold, rented, or shared with third parties.</li>
+            <li>No analytics, advertising SDKs, or third-party trackers are used.</li>
+            <li>No remotely hosted code is used to provide extension functionality.</li>
+            <li>User data is not used for credit, lending, or unrelated purposes.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>4. Updates, Retention, and Deletion</h2>
+          <p>
+            The browser may use its official extension update service to check for and
+            install new versions. The extension does not attach document content to
+            update checks. The developer does not retain user data on a server. Users
+            can remove locally stored settings by clearing extension storage or
+            uninstalling the extension.
+          </p>
+        </section>
+
+        <section>
+          <h2>5. Changes and Contact</h2>
+          <p>
+            This page will be updated if the extension's data practices change. For
+            privacy questions or extension support, contact the developer through
+            <a href="https://www.zhouwy.top/">zhouwy.top</a>.
+          </p>
+        </section>
+      </article>
+
+      <p class="footer-note">
+        Markdown 阅读器 · Local-first Markdown viewing and editing
+      </p>
+    </main>
+  </body>
+</html>
