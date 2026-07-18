@@ -44,6 +44,11 @@ tags:
 | `practice/15-spring-ioc-bean-lifecycle-circular-dependency.md` | BPP 后置方法名写错 | 后置是 `postProcessAfterInitialization()` |
 | `practice/19-rag-system-design.md` | “混合检索提升10-15%”像固定结论 | 改成“通常更稳，具体靠评测验证” |
 | `practice/20-agent-architecture-react.md` | Function Calling vs Tool Use 概念边界错 | Function Calling 是结构化调用机制；Tool Use 是更宽泛的工具使用行为；Workflow 才是流程编排 |
+| `practice/47-completable-future-async-programming.md` | `thenApplyAsync` 被写成“一定新建线程”，Future 被写成自带线程池 | async 阶段提交到 Executor，不保证新建线程；Future 只是结果句柄 |
+| `practice/47-completable-future-async-programming.md` | `exceptionally` 被写成只处理紧邻一步，`join()` 被写成绝对优先 | 异常可沿上游链传播；`join()`/`get()` 根据中断与异常契约选择 |
+| `practice/60-interview-harness-two-layer-architecture.md` | 把 Rubric 评测判断直接归入 Agent Runtime | Runtime 负责可靠执行；评测语义、结果校验和状态迁移属于面试业务层 |
+| `practice/61-rubric-evaluation-covered-missing-incorrect.md` | 把三段式、三次模型处理说成唯一完整方案 | 提取/评估/计分是逻辑职责，可按 Eval 选择一次、两次或混合实现 |
+| `practice/62-llm-score-drift-eval-regression.md` | 正文“不评分”但元数据 `0/10`，回归门禁只有相对不退化 | 统一为未作答 0/10；门禁同时包含绝对底线、相对退化和重复运行波动 |
 | `ai-agent/AI-Coding-Agent-技术参考文档.md` | 断言 Claude Code 使用 ACP | 改成通用 Host-Agent/Tool 通信层，不把未公开内部细节当事实 |
 | `ai-agent/alibaba-fliggy-backend-interview.md` | Harness 被窄化为评测框架 | 改成工具、上下文、记忆、权限、沙箱、评测、观测、反馈的工程外壳 |
 

@@ -143,10 +143,10 @@ try {
 
 ```
 1. 异常不会丢失 — 未处理的异常一路传播到最后终结操作
-2. exceptionally 只捕获前一步的异常
-3. handle 能捕获所有上游异常
+2. exceptionally 处理当前阶段收到的上游异常完成，不只限于紧邻一步
+3. handle 同时处理当前阶段收到的正常结果或上游异常
 4. join() 抛 CompletionException，get() 抛 ExecutionException
-5. 多层链路中，exceptionally 只拦"最近"的异常
+5. 异常被某个恢复阶段转换成正常结果后，下游不会再次看到原异常
 ```
 
 ---
@@ -174,7 +174,8 @@ scheduler.schedule(() -> timeoutFuture.complete("超时兜底"), 3, TimeUnit.SEC
 CompletableFuture<String> result = future.applyToEither(timeoutFuture, Function.identity());
 ```
 
-**⚠️ 踩坑**：orTimeout 内部用 ScheduledExecutorService 实现，如果用自定义线程池创建 Future，超时回调也在那个线程池执行——可能导致线程池被占满。
+**⚠️ 踩坑**：`orTimeout` 只把当前 CompletableFuture 标记为超时异常完成，通常不会
+自动取消底层 HTTP、数据库或计算任务。超时后的资源取消需要调用方单独设计。
 
 ---
 
@@ -192,9 +193,9 @@ ExecutorService httpPool = Executors.newFixedThreadPool(20);
 supplyAsync(() -> queryDB(), dbPool);
 supplyAsync(() -> callHTTP(), httpPool);
 
-// ⚠️ 关键：下游链路也会用上游的线程池！
+// ⚠️ 非 async 阶段通常由完成上游的线程执行，但不能依赖某个固定线程！
 supplyAsync(() -> queryDB(), dbPool)
-    .thenApply(data -> transform(data));  // transform 也在 dbPool！
+    .thenApply(data -> transform(data));
 // ✅ 解决：thenApplyAsync + 指定线程池
 supplyAsync(() -> queryDB(), dbPool)
     .thenApplyAsync(data -> transform(data), computePool)
@@ -222,8 +223,8 @@ supplyAsync(() -> queryDB(), dbPool)
 1. 未指定线程池 → 所有任务挤 commonPool → 一个慢全卡住
 2. 异常被吞 → 调用链太长，中间层没处理 → join() 结果不对
 3. Future 不取消 → 业务逻辑判断不需要了，但底层线程还在跑 → 资源浪费
-4. CompletableFuture 不能被中断 → interrupt() 无效，只能靠 cancel + timeout
-5. thenApply 异步传播 → 默认用上一步的线程，不指定线程池就是串行假异步
+4. cancel(true) 不保证中断底层任务 → 需要底层客户端支持取消并主动传播取消信号
+5. 把阻塞操作放进非 async 回调 → 可能占住完成上游的线程，拖慢同一执行器
 ```
 
 ---
@@ -237,7 +238,7 @@ supplyAsync(() -> queryDB(), dbPool)
 | 异常处理     | try-catch               | exceptionally/handle       |
 | 超时         | get(timeout) 粗糙       | orTimeout/completeOnTimeout|
 | 组合         | 手动编排                 | thenApply/allOf 链式       |
-| 线程池       | 每个 Future 自带         | 可指定、可复用              |
+| 线程池       | 由提交任务的 Executor 提供 | async 阶段可使用默认或指定 Executor |
 | 取消         | cancel(true) 中断        | cancel + timeout           |
 | 流式编排     | ❌                       | ✅ 链式操作                 |
 ```
@@ -269,6 +270,10 @@ CompletableFuture.allOf(dbFuture, httpFuture, cacheFuture)
 - GPT 纠错：不带 Executor 的 async 方法默认使用 `ForkJoinPool.commonPool()`，但 commonPool 并非绝对错误；隔离阻塞 IO、控制容量和上下文传播时才应明确使用业务线程池。
 - GPT 纠错：“IO 线程池=CPU×2”“CPU 线程池=CPU+1”不是通用生产公式，应根据阻塞比例、下游容量、延迟目标和压测结果配置。
 - GPT 纠错：`thenApply` 是非 async 阶段，它可能由完成上一步的线程或调用完成方法的线程执行，不能简单称为“串行假异步”。
+- GPT 纠错：`thenApplyAsync` 表示把动作提交给默认或指定 Executor 异步执行，不保证“创建一个全新线程”。
+- GPT 纠错：`Future` 只是结果句柄，不自带线程池；任务在哪执行由 `ExecutorService` 等执行器决定。
+- GPT 纠错：`exceptionally` 能接收整条上游链传播下来的异常完成，不是只捕获“前一步”或“最近一步”。
+- GPT 纠错：`join()` 和 `get()` 没有绝对优先级；需要响应线程中断或遵循 checked exception 接口时使用 `get()`，内部异步编排常用 `join()`。
 
 ---
 
@@ -295,14 +300,14 @@ CompletableFuture        = 工头，负责"跑完怎么串联结果"
 
 ```java
 .thenApply(fn)         // 非 async：可能由完成上游的线程执行，不一定开新线程
-.thenApplyAsync(fn)    // async：一定在新线程执行（默认 commonPool 或指定线程池）
+.thenApplyAsync(fn)    // async：提交到默认或指定 Executor，不保证新建线程
 ```
 
 | 方法后缀 | 执行线程 | 何时用 |
 |---------|---------|--------|
-| 无后缀 | 复用上游线程 | 轻量转换（CPU 密集且极快） |
-| `Async` | 新线程执行 | 阻塞操作（IO/DB），必须指定线程池 |
-| `Async(pool)` | 指定线程池 | 生产环境强烈建议 |
+| 无后缀 | 由完成上游或注册阶段的线程执行 | 轻量、非阻塞转换 |
+| `Async` | 默认异步执行器 | 不要求隔离且任务很轻时 |
+| `Async(pool)` | 指定 Executor | 需要资源隔离、容量控制或上下文传播时 |
 
 ---
 
@@ -418,7 +423,7 @@ f.isDone();       // 是否已完成（正常/异常/取消都算 done）
 .orTimeout(3, TimeUnit.SECONDS)           // 超时抛 TimeoutException
 .completeOnTimeout("默认值", 3, SECONDS)  // 超时给默认值（不抛异常）
 
-// 延迟执行（必须传 Executor）
+// 延迟执行（既有默认执行器重载，也有自定义 Executor 重载）
 CompletableFuture.delayedExecutor(3, SECONDS)           // commonPool
 CompletableFuture.delayedExecutor(3, SECONDS, pool)    // 自定义池
 
@@ -431,8 +436,6 @@ CompletableFuture.delayedExecutor(3, SECONDS, pool)    // 自定义池
 // 失败 Future（静态方法）
 CompletableFuture<T> f = CompletableFuture.failedFuture(ex);
 
-// exceptionallyCompose：异常时切换到备用链路
-.exceptionallyCompose(ex -> supplyAsync(() -> callFallback()))
 ```
 
 ---
@@ -440,13 +443,11 @@ CompletableFuture<T> f = CompletableFuture.failedFuture(ex);
 ### Java 12+ 新增
 
 ```java
-// exceptionallyAsync / exceptionallyComposeAsync（异步异常处理）
+// 异常恢复阶段的异步与组合变体
 .exceptionallyAsync(ex -> fallback(ex))             // 默认池
 .exceptionallyAsync(ex -> fallback(ex), pool)       // 自定义池
+.exceptionallyCompose(ex -> callFallback(ex))       // 返回新的 CompletionStage
 .exceptionallyComposeAsync(ex -> callFallback(ex))  // 默认池
-
-// completeAsync —— 兜底数据的异步获取
-f.completeAsync(() -> computeDefault(), pool)
 ```
 
 ---
@@ -464,7 +465,8 @@ String r = future.get(3, SECONDS); // 带超时
 String r = future.join();
 ```
 
-实际项目中 **优先用 `join()`**，因为 CompletableFuture 的设计哲学就是声明式 + 不强制检查异常。`get()` 来自 Future 接口的历史包袱。
+内部异步编排常用 `join()`，因为它不强制处理 checked exception；如果调用方需要响应线程
+中断、使用带超时的 `get(timeout)`，或接口契约要求 checked exception，则使用 `get()`。
 
 ---
 

@@ -1,6 +1,90 @@
 {
-  "generatedAt": "2026-07-17T00:00:00+08:00",
+  "generatedAt": "2026-07-18T00:00:00+08:00",
   "articles": [
+    {
+      "title": "第60题：Interview Harness 两层架构拆分",
+      "path": "content/opportunity/practice/60-interview-harness-two-layer-architecture.md",
+      "url": "content/opportunity/practice/60-interview-harness-two-layer-architecture.md",
+      "date": "2026-07-17",
+      "domain": "机会",
+      "area": "机会雷达",
+      "module": "",
+      "project": "机会雷达",
+      "type": "题目",
+      "status": "completed",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "Interview Harness 为什么要拆成 Interview Orchestrator 和 Agent Runtime 两层",
+      "tags": [
+        "Harness",
+        "Agent",
+        "架构设计"
+      ],
+      "section": "questions",
+      "topic": "机会雷达",
+      "company": "",
+      "round": "R0",
+      "score": 4,
+      "questionNumber": "60",
+      "question": "Interview Harness 为什么要拆成 Interview Orchestrator 和 Agent Runtime 两层？边界和失败隔离怎么讲？"
+    },
+    {
+      "title": "第61题：Rubric 评测的 Covered/Missing/Incorrect/Evidence 设计",
+      "path": "content/opportunity/practice/61-rubric-evaluation-covered-missing-incorrect.md",
+      "url": "content/opportunity/practice/61-rubric-evaluation-covered-missing-incorrect.md",
+      "date": "2026-07-17",
+      "domain": "机会",
+      "area": "机会雷达",
+      "module": "",
+      "project": "机会雷达",
+      "type": "题目",
+      "status": "completed",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "面试系统的 Rubric 评测怎么设计",
+      "tags": [
+        "Harness",
+        "Eval",
+        "Rubric"
+      ],
+      "section": "questions",
+      "topic": "机会雷达",
+      "company": "",
+      "round": "R0",
+      "score": 5,
+      "questionNumber": "61",
+      "question": "面试系统的 Rubric 评测怎么设计？Covered、Missing、Incorrect、Evidence 如何结构化？"
+    },
+    {
+      "title": "第62题：LLM 评分漂移的 Eval 回归设计",
+      "path": "content/opportunity/practice/62-llm-score-drift-eval-regression.md",
+      "url": "content/opportunity/practice/62-llm-score-drift-eval-regression.md",
+      "date": "2026-07-17",
+      "domain": "机会",
+      "area": "机会雷达",
+      "module": "",
+      "project": "机会雷达",
+      "type": "题目",
+      "status": "completed",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "LLM 评分漂移怎么做 Eval 回归",
+      "tags": [
+        "Harness",
+        "Eval",
+        "Regression"
+      ],
+      "section": "questions",
+      "topic": "机会雷达",
+      "company": "",
+      "round": "R0",
+      "score": 0,
+      "questionNumber": "62",
+      "question": "LLM 评分漂移怎么做 Eval 回归？固定样本、指标和阈值怎么设计？"
+    },
     {
       "title": "刀笔巅峰之作：我读长沙\"女干部占车位事件\"《情况通报》",
       "path": "content/reading/society/2026-07-13-changsha-official-report-text-analysis.md",
@@ -7396,18 +7480,18 @@
     "任务": 0,
     "项目": 4,
     "学习": 187,
-    "机会": 84,
+    "机会": 87,
     "阅读": 5,
     "专栏": 2
   },
   "sectionCounts": {
+    "questions": 61,
     "reading": 5,
     "opportunity": 10,
     "columns": 2,
     "plans": 3,
     "projects": 4,
     "learning": 188,
-    "questions": 58,
     "companies": 21
   },
   "projects": [
@@ -7450,14 +7534,14 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-07-17",
+      "date": "2026-07-18",
       "count": 0,
       "averageScore": null
     },
-    "totalQuestions": 61,
-    "scoredQuestions": 54,
-    "averageScore": 4.8,
-    "streakDays": 0,
+    "totalQuestions": 64,
+    "scoredQuestions": 57,
+    "averageScore": 4.7,
+    "streakDays": 1,
     "daily": [
       {
         "date": "2026-05-28",
@@ -7573,6 +7657,11 @@
         "date": "2026-07-10",
         "count": 1,
         "averageScore": null
+      },
+      {
+        "date": "2026-07-17",
+        "count": 3,
+        "averageScore": 3
       }
     ],
     "weakTopics": [],

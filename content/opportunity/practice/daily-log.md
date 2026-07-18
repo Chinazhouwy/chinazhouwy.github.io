@@ -204,3 +204,15 @@ tags:
 - 新增或修改文件：无
 - 提交：pending（本条记录提交后以 Git 历史为准）
 - 推送：Gitee pending（分支已分叉，本地+2/远端+8；禁止自动合并/变基）；GitHub pending（同上）
+
+## 2026-07-17
+
+- 计划新题：#60、#61、#62
+- 实际完成：#60、#61、#62（#62 未作答，记 0/10）
+- 顺延新题：无
+- 回顾完成：无
+- 回顾顺延：无
+- 次日新题：正式模拟主线 #70、#71、#72、#73、#74；项目研读 #63 已出题未作答，#64～#69 按需继续且不占正式题配额
+- 新增或修改文件：`content/opportunity/practice/60-interview-harness-two-layer-architecture.md`、`content/opportunity/practice/61-rubric-evaluation-covered-missing-incorrect.md`、`content/opportunity/practice/62-llm-score-drift-eval-regression.md`
+- 提交：pending（本条记录提交后以 Git 历史为准）
+- 推送：Gitee pending；GitHub pending

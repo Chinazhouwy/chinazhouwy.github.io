@@ -19,6 +19,7 @@ tags:
 > 进度必须以当前 `content/opportunity/practice/` 文件和最近会话为准，不使用历史提交号推断。
 > 状态约定：`✅ 已完成` 表示已有练习文件；`🟡 已练习，待补档` 表示已有对话记录但文件缺失，不重新抽题；无标记表示尚未练习。
 > 2026-07-10 重排原则：已完成 #1-#59 不改；#60 起优先 Hermes、Agent、AI、Harness、RAG、AI Coding，普通 Java/数据库/算法整体后移。
+> 2026-07-18 轨道调整：#63-#69 是“项目研读支线”，用于讨论尚未完成的自研设计，不计正式模拟题数量和得分；正式模拟主线完成 #62 后从 #70 继续。
 
 ---
 
@@ -28,7 +29,9 @@ tags:
 |------|------|
 | 1-22 | 已完成，暂不重复抽 |
 | 23-59 | 已完成或待补档，保留原题号 |
-| 60-119 | Hermes / Agent / AI / Harness / RAG / AI Coding 优先模拟区 |
+| 60-62 | Interview Harness 已完成练习 |
+| 63-69 | 项目研读支线，不计正式模拟题配额和得分 |
+| 70-119 | Agent / AI / RAG / AI Coding 正式模拟主线 |
 | 120-226 | Java 后端、数据库、中间件、系统设计、算法后置区 |
 
 ## 重排审计
@@ -37,6 +40,8 @@ tags:
 - 已提取新增题：#60-#69，全部围绕 Interview Harness、Hermes/Agent Runtime、Eval、Skill/Memory、模型路由和项目表达。
 - 新增 Java 设计模式长文暂不提前插队；它适合后续 Spring/设计模式专项，不符合本轮 Hermes/Agent/AI 优先目标。
 - 最近模拟审计：2026-07-08 已完成 #57-#59；2026-07-09 新题未做、只完成 #52/#54 R1，所以今日新题从重排后的 #60 开始。
+- 2026-07-17 已完成 #60-#62；#63 已出题但未作答，#63-#69 经审计改为项目研读支线。
+- 2026-07-13 新增的 AgentScope Java 2.0 八篇资料已映射到 #64、#65、#67、#70-#72、#78、#81 等现有题，不重复扩充题号。
 
 ## 当前题目顺序
 
@@ -79,28 +84,28 @@ tags:
 | 57 | AI Agent | Agent 评测体系怎么设计？任务成功率、工具调用准确率、幻觉率怎么测？（✅ 已完成） | `ai-agent/bytedance-agent-interview-round2.md`; `codex gpt 修复点.md`; `ai-agent/agent-interview-questions-summary.md` | 已完成 |
 | 58 | 网络/OS | TCP 三次握手、WebSocket vs HTTP 轮询怎么讲？（✅ 已完成） | `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `java/baidu-java-backend-round1-shezhao.md`; `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md` | 已完成 |
 | 59 | 算法 | 合并 K 个升序链表怎么写？复杂度是多少？（✅ 已完成） | `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md` | 已完成 |
-| 60 | Hermes/Harness | Interview Harness 为什么要拆成 Interview Orchestrator 和 Agent Runtime 两层？边界和失败隔离怎么讲？ | `content/projects/interview-harness/interview-harness-deep-research.md`; `content/learning/ai-agent/AgentScope-Java-1.1.0-Harness-Framework.md` | 新增：2026-07-10 从近期 Hermes/Harness 资料提取 |
-| 61 | Hermes/Harness | 面试系统的 Rubric 评测怎么设计？Covered/Missing/Incorrect/Evidence 如何结构化？ | `content/projects/interview-harness/interview-harness-deep-research.md`; `content/projects/site-life-os/codex-gpt-fixes.md` | 新增：2026-07-10 从近期 Hermes/Harness 资料提取 |
-| 62 | Hermes/Harness | LLM 评分漂移怎么做 Eval 回归？固定样本、指标和阈值怎么设计？ | `content/projects/interview-harness/interview-harness-deep-research.md`; `content/opportunity/practice/57-agent-evaluation-system.md` | 新增：2026-07-10 从近期 Hermes/Harness 资料提取 |
-| 63 | Hermes/Harness | MasteryEvidence 能力证据怎么建模？为什么不能把“用户不懂某知识点”直接写进长期记忆？ | `content/projects/interview-harness/interview-harness-deep-research.md`; `content/references/ai-memory-tag-system-design.md` | 新增：2026-07-10 从近期 Hermes/Harness 资料提取 |
-| 64 | Hermes/Harness | Mini Harness 的核心抽象怎么拆？AgentState、StateStore、RuntimeContext、Hook、Event、ToolLoop 分别负责什么？ | `content/projects/interview-harness/interview-harness-deep-research.md`; `content/projects/interview-harness/interview-harness-implementation-roadmap.md`; `content/learning/ai-agent/agent-series-index.md` | 新增：2026-07-10 从近期 Hermes/Harness 资料提取 |
-| 65 | Hermes/Harness | 为什么不用 Spring AI 自动 ToolCallingAdvisor，而选择自己控制 Tool Loop？权限、重试、循环上限怎么落地？ | `content/projects/interview-harness/interview-harness-deep-research.md`; `content/projects/interview-harness/interview-harness-implementation-roadmap.md` | 新增：2026-07-10 从近期 Hermes/Harness 资料提取 |
-| 66 | Hermes/Agent | Hermes 的 Skill 和长期记忆应该怎么治理？哪些信息该固化，哪些必须写回业务文档或 practice？ | `docs/hermes-skills/README.md`; `docs/new-session-handoff-site-hermes.md`; `content/projects/site-life-os/codex-gpt-fixes.md` | 新增：2026-07-10 从近期 Hermes/Harness 资料提取 |
-| 67 | Hermes/Agent | Agent 模型路由怎么做？模拟面试、整理资料、普通问答为什么可能需要不同模型和上下文窗口策略？ | `content/learning/ai-agent/agent-series-06-从零实现-Agent-系统连载-06｜AI-网关路由、限流、内容与成本.md`; `content/learning/ai-agent/agent-series-18-从零实现-Agent-系统连载-18｜DeepSeek-V4-网关适配Model.md` | 新增：2026-07-10 从近期 Hermes/Harness 资料提取 |
-| 68 | AI 产品/Harness | DeepSeek Agent Harness PM 如何定义“更多场景、更深入、更多人”？产品指标如何反哺模型和 Harness 迭代？ | `content/learning/ai-agents/deepseek-agent-harness-pm-analysis.md`; `content/opportunity/sources/2026-05-25-deepseek-agent-harness-hiring.md` | 新增：2026-07-10 从近期 Hermes/Harness 资料提取 |
-| 69 | AI Coding | 把 Interview Harness 写成简历项目时，如何讲清 Java 后端能力、Agent Runtime 能力和 Eval 能力？ | `content/projects/interview-harness/interview-harness-deep-research.md`; `content/projects/interview-harness/interview-harness-implementation-roadmap.md`; `content/learning/ai-agent/backend-to-agent-transition.md` | 新增：2026-07-10 从近期 Hermes/Harness 资料提取 |
-| 70 | AI Agent | Agent 和普通 LLM 调用有什么区别？工具、记忆、规划分别是什么？ | `tencent/2026-06-07-wxg-wechat-pay-cool-jing.md`; `practice/20-agent-architecture-react.md`; `ai-agent/agent-interview-questions-summary.md` | 原 #94 |
-| 71 | AI Agent | ReAct 原理和工程落地怎么讲？什么时候会循环失败？ | `practice/08-react-pattern-vs-cot.md`; `practice/20-agent-architecture-react.md`; `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md` | 原 #95 |
-| 72 | AI Agent | Function Calling、Tool Use、Workflow、MCP 的边界是什么？ | `practice/21-mcp-protocol-vs-function-calling.md`; `practice/20-agent-architecture-react.md`; `ai-agent/agentium-mcp-execution-mechanism.md` | 原 #96 |
+| 60 | Hermes/Harness | Interview Harness 为什么要拆成 Interview Orchestrator 和 Agent Runtime 两层？边界和失败隔离怎么讲？（✅ 已完成） | `content/projects/interview-harness/interview-harness-deep-research.md`; `content/learning/ai-agent/AgentScope-Java-1.1.0-Harness-Framework.md` | 已完成：4/10；2026-07-18 GPT 纠错 |
+| 61 | Hermes/Harness | 面试系统的 Rubric 评测怎么设计？Covered/Missing/Incorrect/Evidence 如何结构化？（✅ 已完成） | `content/projects/interview-harness/interview-harness-deep-research.md`; `content/projects/site-life-os/codex-gpt-fixes.md` | 已完成：5/10；2026-07-18 GPT 纠错 |
+| 62 | Hermes/Harness | LLM 评分漂移怎么做 Eval 回归？固定样本、指标和阈值怎么设计？（✅ 已完成） | `content/projects/interview-harness/interview-harness-deep-research.md`; `content/opportunity/practice/57-agent-evaluation-system.md` | 已完成：0/10（未作答）；2026-07-18 GPT 纠错 |
+| 63 | 项目研读 · Harness | MasteryEvidence 能力证据怎么建模？为什么不能把“用户不懂某知识点”直接写进长期记忆？ | `content/projects/interview-harness/interview-harness-deep-research.md`; `content/references/ai-memory-tag-system-design.md` | 已出题未作答；不计正式题配额和得分 |
+| 64 | 项目研读 · Harness | Mini Harness 的核心抽象怎么拆？AgentState、StateStore、RuntimeContext、Hook、Event、ToolLoop 分别负责什么？ | `content/projects/interview-harness/interview-harness-deep-research.md`; `content/projects/interview-harness/interview-harness-implementation-roadmap.md`; `content/sources/agentscope-java2-series/02.md`; `content/sources/agentscope-java2-series/03.md`; `content/sources/agentscope-java2-series/06.md`; `content/sources/agentscope-java2-series/07.md` | 不计正式题配额和得分 |
+| 65 | 项目研读 · Harness | 为什么不用 Spring AI 自动 ToolCallingAdvisor，而选择自己控制 Tool Loop？权限、重试、循环上限怎么落地？ | `content/projects/interview-harness/interview-harness-deep-research.md`; `content/projects/interview-harness/interview-harness-implementation-roadmap.md`; `content/sources/agentscope-java2-series/05.md`; `content/sources/agentscope-java2-series/06.md` | 不计正式题配额和得分 |
+| 66 | 项目研读 · Hermes | Hermes 的 Skill 和长期记忆应该怎么治理？哪些信息该固化，哪些必须写回业务文档或 practice？ | `docs/hermes-skills/README.md`; `docs/new-session-handoff-site-hermes.md`; `content/projects/site-life-os/codex-gpt-fixes.md` | 不计正式题配额和得分 |
+| 67 | 项目研读 · Agent | Agent 模型路由怎么做？模拟面试、整理资料、普通问答为什么可能需要不同模型和上下文窗口策略？ | `content/learning/ai-agent/agent-series-06-从零实现-Agent-系统连载-06｜AI-网关路由、限流、内容与成本.md`; `content/learning/ai-agent/agent-series-18-从零实现-Agent-系统连载-18｜DeepSeek-V4-网关适配Model.md`; `content/sources/agentscope-java2-series/04.md` | 不计正式题配额和得分 |
+| 68 | 项目研读 · AI 产品 | DeepSeek Agent Harness PM 如何定义“更多场景、更深入、更多人”？产品指标如何反哺模型和 Harness 迭代？ | `content/learning/ai-agents/deepseek-agent-harness-pm-analysis.md`; `content/opportunity/sources/2026-05-25-deepseek-agent-harness-hiring.md` | 不计正式题配额和得分 |
+| 69 | 项目研读 · AI Coding | 把 Interview Harness 写成简历项目时，如何讲清 Java 后端能力、Agent Runtime 能力和 Eval 能力？ | `content/projects/interview-harness/interview-harness-deep-research.md`; `content/projects/interview-harness/interview-harness-implementation-roadmap.md`; `content/learning/ai-agent/backend-to-agent-transition.md` | 项目完成后再做；不虚构经历 |
+| 70 | AI Agent | Agent 和普通 LLM 调用有什么区别？工具、记忆、规划分别是什么？ | `tencent/2026-06-07-wxg-wechat-pay-cool-jing.md`; `practice/20-agent-architecture-react.md`; `ai-agent/agent-interview-questions-summary.md`; `content/sources/agentscope-java2-series/01.md`; `content/sources/agentscope-java2-series/02.md` | 正式模拟主线起点；原 #94 |
+| 71 | AI Agent | ReAct 原理和工程落地怎么讲？什么时候会循环失败？ | `practice/08-react-pattern-vs-cot.md`; `practice/20-agent-architecture-react.md`; `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md`; `content/sources/agentscope-java2-series/02.md` | 原 #95 |
+| 72 | AI Agent | Function Calling、Tool Use、Workflow、MCP 的边界是什么？ | `practice/21-mcp-protocol-vs-function-calling.md`; `practice/20-agent-architecture-react.md`; `ai-agent/agentium-mcp-execution-mechanism.md`; `content/sources/agentscope-java2-series/05.md` | 原 #96 |
 | 73 | RAG | RAG 完整流程怎么讲？离线索引和在线检索分别做什么？ | `practice/19-rag-system-design.md`; `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `java/2026-05-18-youzan-java-ai-interview.md` | 原 #97 |
 | 74 | RAG | 向量检索、BM25、混合检索、RRF、Reranker 分别解决什么问题？ | `practice/04-rag-retrieval-indices.md`; `practice/19-rag-system-design.md`; `ai-agent/rag-hybrid-search-meilisearch.md` | 原 #98 |
 | 75 | RAG | RAG 幻觉怎么治理？检索无关、答案编造、引用错误怎么处理？ | `java/2026-05-18-youzan-java-ai-interview.md`; `ai-agent/bytedance-agent-interview-round2.md`; `ai-agent/taotian-ai-agent-interview.md` | 原 #99 |
 | 76 | AI Agent | 多 Agent 协作怎么设计？主从、对等、层级、竞争模式怎么选？ | `practice/20-agent-architecture-react.md`; `ai-agent/agent-interview-questions-summary.md`; `ai-agent/claude-code-dynamic-workflows.md` | 原 #100 |
 | 77 | AI Agent | Claude Code 为什么更偏 grep/工具检索，而不是直接 RAG 检索代码？ | `ai-agent/claude-code-grep-vs-rag-code-retrieval.md`; `ai-agent/backend-to-agent-transition.md` | 原 #101 |
-| 78 | AI Agent | AI Coding Agent 的沙箱、权限、上下文压缩和错误恢复怎么设计？ | `ai-agent/AI-Coding-Agent-技术参考文档.md`; `ai-agent/backend-to-agent-transition.md`; `codex gpt 修复点.md` | 原 #102 |
+| 78 | AI Agent | AI Coding Agent 的沙箱、权限、上下文压缩和错误恢复怎么设计？ | `ai-agent/AI-Coding-Agent-技术参考文档.md`; `ai-agent/backend-to-agent-transition.md`; `codex gpt 修复点.md`; `content/sources/agentscope-java2-series/07.md`; `content/sources/agentscope-java2-series/08.md` | 原 #102 |
 | 79 | AI Agent | LangGraph checkpoint、状态恢复、人机协作节点怎么讲？ | `ai-agent/langgraph-state-machine-engine.md`; `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md` | 原 #103 |
 | 80 | AI Agent | Agent 项目如何做 Badcase 闭环？日志、trace、评测集、回流怎么做？ | `ai-agent/bytedance-agent-interview-round2.md`; `ai-agent/taotian-ai-agent-interview.md`; `codex gpt 修复点.md` | 原 #104 |
-| 81 | AI Agent | Agent 安全怎么做？工具权限、Prompt 注入、数据泄露、人工审核怎么防？ | `ai-agent/2026-05-25-kimi-frontend-agent-interview-detailed.md`; `ai-agent/alibaba-intl-ai-agent-interview.md`; `ai-agent/AgentScope-Java-1.1.0-Harness-Framework.md` | 原 #105 |
+| 81 | AI Agent | Agent 安全怎么做？工具权限、Prompt 注入、数据泄露、人工审核怎么防？ | `ai-agent/2026-05-25-kimi-frontend-agent-interview-detailed.md`; `ai-agent/alibaba-intl-ai-agent-interview.md`; `ai-agent/AgentScope-Java-1.1.0-Harness-Framework.md`; `content/sources/agentscope-java2-series/08.md` | 原 #105 |
 | 82 | 前端/AI | SSE、WebSocket、流式输出和 Generative UI 怎么设计？ | `frontend/ai-agent-frontend-interview.md`; `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md` | 原 #106 |
 | 83 | 项目 | 后端项目如何结合 AI Agent？RAG、工具调用、权限和审计怎么落地？ | `ai-agent/backend-to-agent-transition.md`; `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `ai-agent/bytedance-ai-agent-backend-round1.md` | 原 #118 |
 | 84 | 项目 | AI 辅助写代码在公司里怎么用？Spec、Plan、Agent Mode 怎么区分？ | `ai-agent/amap-agent-backend-intern-interview.md`; `ai-agent/backend-to-agent-transition.md`; `ai-agent/claude-code-dynamic-workflows.md` | 原 #119 |
