@@ -214,5 +214,17 @@ tags:
 - 回顾顺延：无
 - 次日新题：正式模拟主线 #70、#71、#72、#73、#74；项目研读 #63 已出题未作答，#64～#69 按需继续且不占正式题配额
 - 新增或修改文件：`content/opportunity/practice/60-interview-harness-two-layer-architecture.md`、`content/opportunity/practice/61-rubric-evaluation-covered-missing-incorrect.md`、`content/opportunity/practice/62-llm-score-drift-eval-regression.md`
+- 提交：`4caf72e`（2026-07-18 台账整理时一并提交）
+- 推送：Gitee 成功；GitHub 成功
+
+## 2026-07-18
+
+- 计划新题：#70、#71、#72、#73、#74
+- 实际完成：无（仅 GPT 纠错 #60-#62，不抵新题）
+- 顺延新题：#70、#71、#72、#73、#74
+- 回顾完成：无
+- 回顾顺延：#62（R1，0/10，P1）、#60（R1，4/10，P1）、#61（R1，5/10，P1）
+- 次日新题：#70、#71、#72、#73、#74（顺延，周日 5 题）
+- 新增或修改文件：`practice/60-interview-harness-two-layer-architecture.md`（GPT 纠错）、`practice/61-rubric-evaluation-covered-missing-incorrect.md`（GPT 纠错）、`practice/62-llm-score-drift-eval-regression.md`（GPT 纠错）、`practice/47-completable-future-async-programming.md`（更新）
 - 提交：pending（本条记录提交后以 Git 历史为准）
 - 推送：Gitee pending；GitHub pending
