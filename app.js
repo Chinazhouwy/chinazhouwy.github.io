@@ -679,7 +679,6 @@ function renderReading() {
   ui.app.innerHTML = `
     <section class="directory-page">
       ${sectionIntro("READING", "阅读", "闲暇输入、网页剪藏、读书札记和个人观察。这里不追求每篇都成体系，先保留思考痕迹。", items.length)}
-      ${renderQuickLinks()}
       <div class="directory-groups">
         ${
           groups.length
@@ -695,6 +694,7 @@ function renderReading() {
             : '<p class="empty-copy">栏目已建立，等待内容沉淀。</p>'
         }
       </div>
+      ${renderQuickLinks()}
     </section>`;
 }
 
@@ -1142,7 +1142,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260719-3";
+const BUILD_VERSION = "20260719-4";
 
 async function loadSite() {
   const [response, quickLinks] = await Promise.all([
