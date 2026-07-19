@@ -11,6 +11,13 @@ const SECTION_LABELS = {
   plans: "阶段路线",
 };
 
+const GISCUS_CONFIG = {
+  repo: "Chinazhouwy/chinazhouwy.github.io",
+  repoId: "R_kgDOOzTMhA",
+  category: "Announcements",
+  categoryId: "DIC_kwDOOzTMhM4DBhIz",
+};
+
 const ui = {
   app: document.getElementById("app"),
   search: document.getElementById("search-input"),
@@ -851,6 +858,30 @@ function createToc(container) {
     .join("");
 }
 
+function mountComments(articlePath) {
+  const container = document.getElementById("article-comments");
+  if (!container) return;
+
+  const script = document.createElement("script");
+  script.src = "https://giscus.app/client.js";
+  script.dataset.repo = GISCUS_CONFIG.repo;
+  script.dataset.repoId = GISCUS_CONFIG.repoId;
+  script.dataset.category = GISCUS_CONFIG.category;
+  script.dataset.categoryId = GISCUS_CONFIG.categoryId;
+  script.dataset.mapping = "specific";
+  script.dataset.term = `article:${articlePath}`;
+  script.dataset.strict = "1";
+  script.dataset.reactionsEnabled = "1";
+  script.dataset.emitMetadata = "0";
+  script.dataset.inputPosition = "top";
+  script.dataset.theme = "noborder_light";
+  script.dataset.lang = "zh-CN";
+  script.dataset.loading = "lazy";
+  script.crossOrigin = "anonymous";
+  script.async = true;
+  container.appendChild(script);
+}
+
 async function renderArticle(rawPath) {
   // Resolve aliases
   const resolvedPath = state.aliases[rawPath] || rawPath;
@@ -900,10 +931,21 @@ async function renderArticle(rawPath) {
             </div>
           </header>
           <article id="article-body" class="article-body">${rendered}</article>
+          <section class="comments-section" aria-labelledby="comments-title">
+            <header>
+              <div>
+                <p class="mono-label">DISCUSSION</p>
+                <h2 id="comments-title">留言与讨论</h2>
+              </div>
+              <p>使用 GitHub 账号参与讨论，留言会公开保存在 GitHub Discussions。</p>
+            </header>
+            <div id="article-comments" class="comments-container"></div>
+          </section>
         </main>
       </section>
     `;
     document.getElementById("article-toc").innerHTML = createToc(document.getElementById("article-body"));
+    mountComments(fetchPath);
     document.title = `${displayTitle} · WY 工作台`;
     window.scrollTo({ top: 0, behavior: "instant" });
   } catch (error) {
@@ -967,7 +1009,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260707-1";
+const BUILD_VERSION = "20260719-1";
 
 async function loadSite() {
   const response = await fetch(`./site-index.json?v=${BUILD_VERSION}`);

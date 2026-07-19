@@ -1,6 +1,38 @@
 {
-  "generatedAt": "2026-07-18T00:00:00+08:00",
+  "generatedAt": "2026-07-19T00:00:00+08:00",
   "articles": [
+    {
+      "title": "普通人长寿手册：压住炎症，稳住血糖，留住肌肉",
+      "path": "content/reading/personal-notes/health/2026-07-19-longevity-manual.md",
+      "url": "content/reading/personal-notes/health/2026-07-19-longevity-manual.md",
+      "date": "2026-07-19",
+      "domain": "阅读",
+      "area": "personal-notes",
+      "module": "health",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "长寿不是玄学。对普通人来说，真正关键的是压住慢性炎症、稳住血糖、留住肌肉、维持心肺能力、减少长期压力，并让自己持续有活下去的动力。",
+      "tags": [
+        "健康",
+        "长寿",
+        "睡眠",
+        "炎症",
+        "血糖",
+        "肌肉",
+        "压力"
+      ],
+      "section": "reading",
+      "topic": "health",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
     {
       "title": "第60题：Interview Harness 两层架构拆分",
       "path": "content/opportunity/practice/60-interview-harness-two-layer-architecture.md",
@@ -7481,12 +7513,12 @@
     "项目": 4,
     "学习": 187,
     "机会": 87,
-    "阅读": 5,
+    "阅读": 6,
     "专栏": 2
   },
   "sectionCounts": {
+    "reading": 6,
     "questions": 61,
-    "reading": 5,
     "opportunity": 10,
     "columns": 2,
     "plans": 3,
@@ -7534,14 +7566,14 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-07-18",
+      "date": "2026-07-19",
       "count": 0,
       "averageScore": null
     },
     "totalQuestions": 64,
     "scoredQuestions": 57,
     "averageScore": 4.7,
-    "streakDays": 1,
+    "streakDays": 0,
     "daily": [
       {
         "date": "2026-05-28",
