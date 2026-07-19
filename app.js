@@ -339,7 +339,9 @@ function articleRow(article, options = {}) {
         </small>
       </span>
       ${
-        article.score !== null && article.score !== undefined
+        options.actionLabel
+          ? `<span class="article-row-action">${escapeHtml(options.actionLabel)}</span>`
+          : article.score !== null && article.score !== undefined
           ? `<span class="score ${article.score < 4 ? "score-low" : ""}">${scoreText(article.score)}</span>`
           : iconArrow()
       }
@@ -687,7 +689,7 @@ function renderReading() {
                   ([area, articles]) => `
                     <section class="directory-group reveal">
                       <header><h2>${escapeHtml(area)}</h2><span>${articles.length} 篇</span></header>
-                      <div class="article-list">${articles.map((article) => articleRow(article)).join("")}</div>
+                      <div class="article-list">${articles.map((article) => articleRow(article, { actionLabel: "阅读全文 / 留言" })).join("")}</div>
                     </section>`,
                 )
                 .join("")
@@ -1061,22 +1063,34 @@ async function renderArticle(rawPath) {
               ${article?.round ? `<span>${escapeHtml(article.round)}</span>` : ""}
               ${article?.score !== null && article?.score !== undefined ? `<span class="score">${scoreText(article.score)}</span>` : ""}
             </div>
+            <button id="comment-jump" class="comment-jump" type="button">
+              <span>留言</span>
+              跳到文章评论区 ↓
+            </button>
           </header>
           <article id="article-body" class="article-body">${rendered}</article>
-          <section class="comments-section" aria-labelledby="comments-title">
+          <section id="comments-section" class="comments-section" aria-labelledby="comments-title">
             <header>
               <div>
                 <p class="mono-label">DISCUSSION</p>
                 <h2 id="comments-title">留言与讨论</h2>
               </div>
-              <p>使用 GitHub 账号参与讨论，留言会公开保存在 GitHub Discussions。</p>
+              <p>点击“使用 GitHub 登录”完成授权，输入内容后点击“评论”。留言会公开保存在 GitHub Discussions。</p>
             </header>
+            <ol class="comment-steps" aria-label="留言步骤">
+              <li><span>1</span>使用 GitHub 登录</li>
+              <li><span>2</span>输入留言内容</li>
+              <li><span>3</span>点击“评论”发布</li>
+            </ol>
             <div id="article-comments" class="comments-container"></div>
           </section>
         </main>
       </section>
     `;
     document.getElementById("article-toc").innerHTML = createToc(document.getElementById("article-body"));
+    document.getElementById("comment-jump").addEventListener("click", () => {
+      document.getElementById("comments-section").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
     rememberGiscusArticleRoute(fetchPath);
     mountComments(fetchPath);
     document.title = `${displayTitle} · WY 工作台`;
@@ -1142,7 +1156,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260719-4";
+const BUILD_VERSION = "20260719-5";
 
 async function loadSite() {
   const [response, quickLinks] = await Promise.all([

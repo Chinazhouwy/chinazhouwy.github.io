@@ -850,6 +850,14 @@ a {
   white-space: nowrap;
 }
 
+.article-row-action {
+  color: var(--green);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 .article-row-main small {
   margin-top: 4px;
   overflow: hidden;
@@ -1291,6 +1299,32 @@ a {
   display: none;
 }
 
+.comment-jump {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  margin-top: 22px;
+  padding: 11px 14px;
+  border: 1px solid var(--green);
+  background: transparent;
+  color: var(--green);
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.comment-jump span {
+  padding: 3px 7px;
+  background: var(--green);
+  color: white;
+}
+
+.comment-jump:hover {
+  background: rgba(36, 83, 65, 0.06);
+}
+
 .article-body {
   padding: 36px 0 70px;
   font-size: 16px;
@@ -1430,6 +1464,37 @@ a {
   font-size: 12px;
   line-height: 1.8;
   text-align: right;
+}
+
+.comment-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.comment-steps li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 12px;
+  border: 1px solid var(--line-soft);
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.comment-steps span {
+  display: grid;
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  background: var(--green);
+  color: white;
+  font-family: var(--mono);
+  font-size: 9px;
 }
 
 .comments-container {
@@ -1874,6 +1939,10 @@ a {
     -webkit-line-clamp: 2;
   }
 
+  .article-row-action {
+    font-size: 9px;
+  }
+
   .company-grid {
     gap: 16px;
     margin-top: 28px;
@@ -1965,6 +2034,12 @@ a {
     font-size: 37px;
   }
 
+  .comment-jump {
+    width: 100%;
+    justify-content: space-between;
+    min-height: 44px;
+  }
+
   .article-body {
     padding-top: 26px;
     font-size: 15px;
@@ -1999,6 +2074,10 @@ a {
   .comments-section > header > p {
     margin-top: 12px;
     text-align: left;
+  }
+
+  .comment-steps {
+    grid-template-columns: 1fr;
   }
 }
 
