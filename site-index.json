@@ -2,6 +2,37 @@
   "generatedAt": "2026-07-19T00:00:00+08:00",
   "articles": [
     {
+      "title": "闲暇养生阅读清单：黄帝内经、周易、道德经",
+      "path": "content/reading/personal-notes/health/2026-07-19-huangdi-yijing-dao-reading-list.md",
+      "url": "content/reading/personal-notes/health/2026-07-19-huangdi-yijing-dao-reading-list.md",
+      "date": "2026-07-19",
+      "domain": "阅读",
+      "area": "personal-notes",
+      "module": "health",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "low",
+      "visibility": "public",
+      "summary": "围绕养生、节律、修身和心性，整理《黄帝内经》《周易》《道德经》的入门读法、推荐切口与稳定原文入口，适合闲暇时慢慢看。",
+      "tags": [
+        "健康",
+        "黄帝内经",
+        "周易",
+        "道德经",
+        "养生",
+        "修身"
+      ],
+      "section": "reading",
+      "topic": "health",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "普通人长寿手册：压住炎症，稳住血糖，留住肌肉",
       "path": "content/reading/personal-notes/health/2026-07-19-longevity-manual.md",
       "url": "content/reading/personal-notes/health/2026-07-19-longevity-manual.md",
@@ -7513,11 +7544,11 @@
     "项目": 4,
     "学习": 187,
     "机会": 87,
-    "阅读": 6,
+    "阅读": 7,
     "专栏": 2
   },
   "sectionCounts": {
-    "reading": 6,
+    "reading": 7,
     "questions": 61,
     "opportunity": 10,
     "columns": 2,

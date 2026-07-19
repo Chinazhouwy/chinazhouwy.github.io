@@ -18,6 +18,24 @@ const GISCUS_CONFIG = {
   categoryId: "DIC_kwDOOzTMhM4DBhIz",
 };
 
+const GISCUS_RETURN_HASH_KEY = "wy_giscus_return_hash";
+
+function restoreGiscusArticleRoute() {
+  const hasGiscusToken = new URLSearchParams(location.search).has("giscus");
+  if (!hasGiscusToken || location.hash) return;
+
+  try {
+    const returnHash = sessionStorage.getItem(GISCUS_RETURN_HASH_KEY);
+    if (!returnHash?.startsWith("#/article/")) return;
+    sessionStorage.removeItem(GISCUS_RETURN_HASH_KEY);
+    history.replaceState(null, "", `${location.pathname}${location.search}${returnHash}`);
+  } catch {
+    // Session storage may be unavailable in strict privacy modes.
+  }
+}
+
+restoreGiscusArticleRoute();
+
 const ui = {
   app: document.getElementById("app"),
   search: document.getElementById("search-input"),
@@ -29,6 +47,7 @@ const state = {
   dashboard: {},
   columns: [],
   projects: [],
+  quickLinks: [],
   aliases: {},
   query: "",
 };
@@ -574,6 +593,92 @@ function renderDomain(section, title, description, { groupKey } = {}) {
     </section>`;
 }
 
+function quickLinkCard(link) {
+  return `
+    <a class="quick-link-card" href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">
+      <span>${escapeHtml(link.group)}</span>
+      <strong>${escapeHtml(link.shortName || link.name)}</strong>
+      <p>${escapeHtml(link.description)}</p>
+      <em>打开资源 ↗</em>
+    </a>
+  `;
+}
+
+function renderQuickLinks() {
+  const links = state.quickLinks;
+  if (!links.length) return "";
+
+  const featured = links.filter((link) => link.featured).slice(0, 12);
+  const groups = Object.entries(groupBy(links, "group"));
+
+  return `
+    <section class="quick-links-section reveal delay-1">
+      <div class="section-heading">
+        <div><p class="mono-label">QUICK LINKS / 快速连接</p><h2>原典与开放知识入口</h2></div>
+        <span class="quick-link-count">${links.length} 个站点</span>
+      </div>
+      <p class="quick-links-intro">从原典、人物与地理数据库开始，再进入哲学解释、数学史和开放课程。</p>
+      <div class="quick-link-grid">${featured.map(quickLinkCard).join("")}</div>
+      <details class="quick-link-directory">
+        <summary>查看全部 ${links.length} 个资源</summary>
+        <div class="quick-link-groups">
+          ${groups
+            .map(
+              ([group, groupLinks]) => `
+                <section>
+                  <h3>${escapeHtml(group)}</h3>
+                  <div>
+                    ${groupLinks
+                      .map(
+                        (link) => `
+                          <a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">
+                            ${escapeHtml(link.shortName || link.name)} <span>↗</span>
+                          </a>`,
+                      )
+                      .join("")}
+                  </div>
+                </section>`,
+            )
+            .join("")}
+        </div>
+      </details>
+    </section>
+  `;
+}
+
+function renderReading() {
+  const items = filteredArticles("reading");
+  const groups = Object.entries(
+    items.reduce((acc, item) => {
+      const key = normalizeReadingArea(item);
+      acc[key] ||= [];
+      acc[key].push(item);
+      return acc;
+    }, {}),
+  );
+
+  ui.app.innerHTML = `
+    <section class="directory-page">
+      ${sectionIntro("READING", "阅读", "闲暇输入、网页剪藏、读书札记和个人观察。这里不追求每篇都成体系，先保留思考痕迹。", items.length)}
+      ${renderQuickLinks()}
+      <div class="directory-groups">
+        ${
+          groups.length
+            ? groups
+                .map(
+                  ([area, articles]) => `
+                    <section class="directory-group reveal">
+                      <header><h2>${escapeHtml(area)}</h2><span>${articles.length} 篇</span></header>
+                      <div class="article-list">${articles.map((article) => articleRow(article)).join("")}</div>
+                    </section>`,
+                )
+                .join("")
+            : '<p class="empty-copy">栏目已建立，等待内容沉淀。</p>'
+        }
+      </div>
+    </section>`;
+}
+
 function renderQuestions() {
   const items = getQuestionArticles();
   const groups = groupBy(items, "topic");
@@ -882,6 +987,14 @@ function mountComments(articlePath) {
   container.appendChild(script);
 }
 
+function rememberGiscusArticleRoute(articlePath) {
+  try {
+    sessionStorage.setItem(GISCUS_RETURN_HASH_KEY, articleHref(articlePath));
+  } catch {
+    // The comments still render; only OAuth route restoration is unavailable.
+  }
+}
+
 async function renderArticle(rawPath) {
   // Resolve aliases
   const resolvedPath = state.aliases[rawPath] || rawPath;
@@ -945,6 +1058,7 @@ async function renderArticle(rawPath) {
       </section>
     `;
     document.getElementById("article-toc").innerHTML = createToc(document.getElementById("article-body"));
+    rememberGiscusArticleRoute(fetchPath);
     mountComments(fetchPath);
     document.title = `${displayTitle} · WY 工作台`;
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -988,7 +1102,7 @@ async function renderRoute() {
     projects: renderProjects,
     learning: () => renderDomain("learning", "学习", "技术知识、源码笔记与可复习内容。"),
     opportunity: renderOpportunity,
-    reading: () => renderDomain("reading", "阅读", "闲暇输入、网页剪藏、读书札记和个人观察。这里不追求每篇都成体系，先保留思考痕迹。", { groupKey: normalizeReadingArea }),
+    reading: renderReading,
     columns: () => renderDomain("columns", "知识地图", "把零散题目、阅读、项目和复盘连接成长期结构，逐步形成自己的知识坐标。"),
 
     // Old route compatibility
@@ -1009,16 +1123,22 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260719-1";
+const BUILD_VERSION = "20260719-2";
 
 async function loadSite() {
-  const response = await fetch(`./site-index.json?v=${BUILD_VERSION}`);
+  const [response, quickLinks] = await Promise.all([
+    fetch(`./site-index.json?v=${BUILD_VERSION}`),
+    fetch(`./data/quick-links.json?v=${BUILD_VERSION}`)
+      .then((result) => (result.ok ? result.json() : []))
+      .catch(() => []),
+  ]);
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const payload = await response.json();
   state.articles = Array.isArray(payload) ? payload : payload.articles || [];
   state.dashboard = payload.dashboard || {};
   state.columns = payload.columns || [];
   state.projects = payload.projects || [];
+  state.quickLinks = Array.isArray(quickLinks) ? quickLinks : [];
   state.aliases = payload.aliases || {};
   await renderRoute();
 }
