@@ -1036,7 +1036,7 @@ async function renderArticle(rawPath) {
   ui.app.innerHTML = '<div class="loading-state"><span></span><p>正在展开文章…</p></div>';
 
   try {
-    const response = await fetch(`./${fetchPath}`);
+    const response = await fetch(`./${fetchPath}?v=${BUILD_VERSION}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const raw = await response.text();
     const content = raw.startsWith("---") ? raw.replace(/^---\n[\s\S]*?\n---\n?/, "") : raw;
@@ -1156,7 +1156,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260719-5";
+const BUILD_VERSION = "20260719-6";
 
 async function loadSite() {
   const [response, quickLinks] = await Promise.all([
