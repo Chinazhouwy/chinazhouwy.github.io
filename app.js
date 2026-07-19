@@ -22,13 +22,32 @@ const GISCUS_RETURN_HASH_KEY = "wy_giscus_return_hash";
 
 function restoreGiscusArticleRoute() {
   const hasGiscusToken = new URLSearchParams(location.search).has("giscus");
-  if (!hasGiscusToken || location.hash) return;
+  if (!hasGiscusToken) return;
 
   try {
     const returnHash = sessionStorage.getItem(GISCUS_RETURN_HASH_KEY);
     if (!returnHash?.startsWith("#/article/")) return;
-    sessionStorage.removeItem(GISCUS_RETURN_HASH_KEY);
-    history.replaceState(null, "", `${location.pathname}${location.search}${returnHash}`);
+
+    const keepArticleRoute = () => {
+      if (!location.hash) {
+        history.replaceState(null, "", `${location.pathname}${location.search}${returnHash}`);
+      }
+    };
+
+    keepArticleRoute();
+
+    // Giscus removes the OAuth query asynchronously and may also drop the SPA hash.
+    let checks = 0;
+    const routeGuard = window.setInterval(() => {
+      checks += 1;
+      keepArticleRoute();
+
+      const tokenConsumed = !new URLSearchParams(location.search).has("giscus");
+      if (tokenConsumed || checks >= 100) {
+        window.clearInterval(routeGuard);
+        if (tokenConsumed) sessionStorage.removeItem(GISCUS_RETURN_HASH_KEY);
+      }
+    }, 100);
   } catch {
     // Session storage may be unavailable in strict privacy modes.
   }
@@ -1123,7 +1142,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260719-2";
+const BUILD_VERSION = "20260719-3";
 
 async function loadSite() {
   const [response, quickLinks] = await Promise.all([
