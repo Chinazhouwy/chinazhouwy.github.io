@@ -3,8 +3,8 @@
   "articles": [
     {
       "title": "LangChain教程知识点整理（2026版·尚硅谷）",
-      "path": "content/learning/ai-agents/langchain-2026-tutorial-knowledge-points.md",
-      "url": "content/learning/ai-agents/langchain-2026-tutorial-knowledge-points.md",
+      "path": "content/learning/bilibili/langchain-2026-tutorial-knowledge-points.md",
+      "url": "content/learning/bilibili/langchain-2026-tutorial-knowledge-points.md",
       "date": "2026-07-20",
       "domain": "技术",
       "area": "AI Agent",
@@ -32,8 +32,8 @@
     },
     {
       "title": "LangGraph教程知识点整理（尚硅谷132集）",
-      "path": "content/learning/ai-agents/langgraph-tutorial-knowledge-points.md",
-      "url": "content/learning/ai-agents/langgraph-tutorial-knowledge-points.md",
+      "path": "content/learning/bilibili/langgraph-tutorial-knowledge-points.md",
+      "url": "content/learning/bilibili/langgraph-tutorial-knowledge-points.md",
       "date": "2026-07-20",
       "domain": "技术",
       "area": "AI Agent",
@@ -61,8 +61,8 @@
     },
     {
       "title": "NLP零基础教程知识点整理（尚硅谷187集）",
-      "path": "content/learning/ai-agents/nlp-tutorial-knowledge-points.md",
-      "url": "content/learning/ai-agents/nlp-tutorial-knowledge-points.md",
+      "path": "content/learning/bilibili/nlp-tutorial-knowledge-points.md",
+      "url": "content/learning/bilibili/nlp-tutorial-knowledge-points.md",
       "date": "2026-07-20",
       "domain": "技术",
       "area": "AI Agent",
@@ -92,8 +92,8 @@
     },
     {
       "title": "SpringAI教程知识点整理（尚硅谷86集）",
-      "path": "content/learning/ai-agents/springai-tutorial-knowledge-points.md",
-      "url": "content/learning/ai-agents/springai-tutorial-knowledge-points.md",
+      "path": "content/learning/bilibili/springai-tutorial-knowledge-points.md",
+      "url": "content/learning/bilibili/springai-tutorial-knowledge-points.md",
       "date": "2026-07-20",
       "domain": "技术",
       "area": "AI Agent",
