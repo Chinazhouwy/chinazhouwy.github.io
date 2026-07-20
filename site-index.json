@@ -31,6 +31,35 @@
       "question": ""
     },
     {
+      "title": "真正的高手落地第一招是收走分粥的勺子",
+      "path": "content/reading/management/真正的高手落地第一招是收走分粥的勺子-青史留声.md",
+      "url": "content/reading/management/真正的高手落地第一招是收走分粥的勺子-青史留声.md",
+      "date": "2026-07-20",
+      "domain": "阅读",
+      "area": "管理",
+      "module": "",
+      "project": "",
+      "type": "图文笔记",
+      "status": "可复习",
+      "priority": "P2",
+      "energy": "low",
+      "visibility": "private",
+      "summary": "空降领导的核心生存法则：先收权，再做事",
+      "tags": [
+        "管理思维",
+        "空降领导",
+        "职场真相",
+        "权力"
+      ],
+      "section": "reading",
+      "topic": "管理",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "第60题：Interview Harness 两层架构拆分",
       "path": "content/opportunity/practice/60-interview-harness-two-layer-architecture.md",
       "url": "content/opportunity/practice/60-interview-harness-two-layer-architecture.md",
@@ -7510,11 +7539,11 @@
     "项目": 4,
     "学习": 187,
     "机会": 87,
-    "阅读": 6,
+    "阅读": 7,
     "专栏": 2
   },
   "sectionCounts": {
-    "reading": 6,
+    "reading": 7,
     "questions": 61,
     "opportunity": 10,
     "columns": 2,
