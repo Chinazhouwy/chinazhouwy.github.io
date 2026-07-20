@@ -31,6 +31,35 @@
       "question": ""
     },
     {
+      "title": "LangGraph教程知识点整理（尚硅谷132集）",
+      "path": "content/learning/ai-agents/langgraph-tutorial-knowledge-points.md",
+      "url": "content/learning/ai-agents/langgraph-tutorial-knowledge-points.md",
+      "date": "2026-07-20",
+      "domain": "技术",
+      "area": "AI Agent",
+      "module": "",
+      "project": "",
+      "type": "学习笔记",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "high",
+      "visibility": "private",
+      "summary": "LangGraph从入门到智能体项目实战的132集课程知识点",
+      "tags": [
+        "LangGraph",
+        "AI Agent",
+        "LangChain",
+        "状态图"
+      ],
+      "section": "learning",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "SpringAI教程知识点整理（尚硅谷86集）",
       "path": "content/learning/ai-agents/springai-tutorial-knowledge-points.md",
       "url": "content/learning/ai-agents/springai-tutorial-knowledge-points.md",
@@ -7666,7 +7695,7 @@
     "专栏": 2
   },
   "sectionCounts": {
-    "learning": 190,
+    "learning": 191,
     "reading": 9,
     "questions": 61,
     "opportunity": 10,
