@@ -698,16 +698,16 @@ function renderReading() {
             : '<p class="empty-copy">栏目已建立，等待内容沉淀。</p>'
         }
       </div>
-      ${renderQuickLinks()}
     </section>`;
 }
 
 function renderThirdPartyLinks() {
   const links = state.thirdPartyLinks;
+  const totalLinks = links.length + state.quickLinks.length;
 
   ui.app.innerHTML = `
     <section class="directory-page third-party-page">
-      ${sectionIntro("THIRD-PARTY LINKS", "三方链接", "值得长期收藏的外部项目、在线书籍与开放资源。链接会跳转到第三方网站。", links.length)}
+      ${sectionIntro("THIRD-PARTY LINKS", "三方链接", "值得长期收藏的外部项目、在线书籍、原典数据库与开放知识资源。链接会跳转到第三方网站。", totalLinks)}
       <div class="third-party-grid">
         ${
           links.length
@@ -731,6 +731,7 @@ function renderThirdPartyLinks() {
             : '<p class="empty-copy">等待添加第一个三方链接。</p>'
         }
       </div>
+      ${renderQuickLinks()}
     </section>`;
 }
 
@@ -1191,7 +1192,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260720-1";
+const BUILD_VERSION = "20260720-2";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks] = await Promise.all([
