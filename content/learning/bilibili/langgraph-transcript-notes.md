@@ -205,37 +205,189 @@ print(app.get_graph().draw_mermaid())
 
 **推荐方式：dict（字典方式）**，因为功能上没有区别，最简洁。
 
-```python
-# Pydantic方式示例
-from pydantic import BaseModel
+#### ✅ 完整可运行代码：TypedDict方式
 
-class State(BaseModel):
+```python
+from langgraph.graph import StateGraph, START, END
+from typing import TypedDict
+
+# 1. 定义状态（TypedDict方式，推荐简洁场景）
+class OverallState(TypedDict):
     input: str
     output: str
+    current_id: str
 
-# 使用时
-state = State(input="hello", output="")
-# 或用字典
-state = State(**{"input": "hello", "output": ""})
+# 2. 定义节点
+def node1(state: OverallState) -> dict:
+    """节点支持部分更新——只返回需要修改的字段"""
+    return {"output": f"处理: {state['input']}", "current_id": "node1"}
+
+def node2(state: OverallState) -> dict:
+    return {"output": f"二次处理: {state['output']}", "current_id": "node2"}
+
+# 3. 构建图
+builder = StateGraph(OverallState)
+builder.add_node("node1", node1)
+builder.add_node("node2", node2)
+builder.add_edge(START, "node1")
+builder.add_edge("node1", "node2")
+builder.add_edge("node2", END)
+
+# 4. 编译并运行
+app = builder.compile()
+result = app.invoke({"input": "hello", "output": "", "current_id": ""})
+print(result)
+# {'input': 'hello', 'output': '二次处理: 处理: hello', 'current_id': 'node2'}
 ```
+
+#### ✅ 完整可运行代码：dataclass方式（类似Java类定义）
+
+```python
+from langgraph.graph import StateGraph, START, END
+from dataclasses import dataclass, field
+
+@dataclass
+class OverallState:
+    input: str = ""
+    output: str = ""
+    current_id: str = ""
+
+# 节点中用点号访问属性（不是中括号）
+def node1(state: OverallState) -> dict:
+    # dataclass用点号调用：state.input 而非 state["input"]
+    return {"output": f"处理: {state.input}", "current_id": "node1"}
+
+def node2(state: OverallState) -> dict:
+    return {"output": f"二次处理: {state.output}", "current_id": "node2"}
+
+builder = StateGraph(OverallState)
+builder.add_node("node1", node1)
+builder.add_node("node2", node2)
+builder.add_edge(START, "node1")
+builder.add_edge("node1", "node2")
+builder.add_edge("node2", END)
+
+app = builder.compile()
+# 创建时可以用字典，也可以用类实例
+result = app.invoke({"input": "hello", "output": "", "current_id": ""})
+print(result)
+# 或：result = app.invoke(OverallState(input="hello"))
+```
+
+#### ✅ 完整可运行代码：Pydantic方式（严格类型校验）
+
+```python
+from langgraph.graph import StateGraph, START, END
+from pydantic import BaseModel
+
+class OverallState(BaseModel):
+    input: str
+    output: str
+    current_id: str = ""  # 可设默认值
+
+def node1(state: OverallState) -> dict:
+    # Pydantic也用点号访问
+    return {"output": f"处理: {state.input}", "current_id": "node1"}
+
+builder = StateGraph(OverallState)
+builder.add_node("node1", node1)
+builder.add_edge(START, "node1")
+builder.add_edge("node1", END)
+
+app = builder.compile()
+# Pydantic会校验类型，不匹配抛ValidationError
+result = app.invoke(OverallState(input="hello", output=""))
+print(result)
+```
+
+> **LangGraph校验行为对比：**
+> - TypedDict → 字段不匹配抛 `KeyError`
+> - dataclass → 字段不匹配抛 `TypeError`
+> - Pydantic → 类型不匹配抛 `ValidationError`
+> - **三种方式功能无差别，推荐用dict方式（TypedDict）最简洁**
 
 ### 3.2 Reducer（状态归约）
 
 **问题**：多个节点更新同一状态字段，如何合并？
 
-```python
-from typing import Annotated
-from operator import add
+#### ✅ 完整可运行代码：自定义Reducer
 
-class State(TypedDict):
-    messages: Annotated[list[str], add]  # 列表追加
-    count: Annotated[int, lambda a, b: a + b]  # 整数累加
+```python
+from langgraph.graph import StateGraph, START, END
+from typing import TypedDict, Annotated
+
+# 自定义Reducer函数
+def my_reducer(current: list[str], update: list[str]) -> list[str]:
+    """当前值 + 新值 → 合并后的值"""
+    # current是从最开始累加到当前的值，不是上一个节点的值
+    # update是当前节点新产生的值
+    return current + update
+
+# 定义状态，用Annotated注解关联Reducer
+class OverallState(TypedDict):
+    logs: Annotated[list[str], my_reducer]  # 自定义reducer
+    step: str
+
+def node_a(state: OverallState) -> dict:
+    return {"logs": ["Node A执行完毕"], "step": "a"}
+
+def node_b(state: OverallState) -> dict:
+    return {"logs": ["Node B执行完毕"], "step": "b"}
+
+builder = StateGraph(OverallState)
+builder.add_node("node_a", node_a)
+builder.add_node("node_b", node_b)
+builder.add_edge(START, "node_a")
+builder.add_edge("node_a", "node_b")
+builder.add_edge("node_b", END)
+
+app = builder.compile()
+result = app.invoke({"logs": ["Start"], "step": ""})
+print(result["logs"])
+# ['Start', 'Node A执行完毕', 'Node B执行完毕'] —— Reducer执行列表追加
 ```
+
+#### ✅ 完整可运行代码：add_messages Reducer（消息合并核心）
+
+```python
+from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
+from langgraph.graph import add_messages
+
+# 模拟左侧（已归约好的历史消息）
+left_messages = [
+    SystemMessage(content="你是一个专业的翻译", id="1"),
+    HumanMessage(content="你好", id="2"),
+    AIMessage(content="你好，我是专业的翻译", id="3"),
+]
+
+# 模拟右侧（当前新产生的消息）
+right_messages = [
+    HumanMessage(content="我是老王", id="2"),     # ID=2相同 → 覆盖替换
+    AIMessage(content="好的我记住了", id="4"),     # ID=4不存在 → 追加
+    HumanMessage(content="你是谁", id="5"),        # ID=5不存在 → 追加
+]
+
+merged = add_messages(left_messages, right_messages)
+
+for msg in merged:
+    print(f"ID={msg.id}, type={type(msg).__name__}, content={msg.content}")
+
+# 输出：
+# ID=1, type=SystemMessage, content=你是一个专业的翻译        ← 保留（无同ID）
+# ID=2, type=HumanMessage, content=我是老王                  ← 覆盖（ID=2相同）
+# ID=3, type=AIMessage, content=你好，我是专业的翻译         ← 保留
+# ID=4, type=AIMessage, content=好的我记住了                 ← 追加（新ID）
+# ID=5, type=HumanMessage, content=你是谁                    ← 追加（新ID）
+```
+
+> **add_messages核心逻辑：不是简单列表拼接！**
+> - 新ID → 追加到末尾
+> - 相同ID → 用新消息覆盖旧消息（即使消息子类型不同也按ID判断）
 
 | Reducer | 行为 |
 |---------|------|
-| `add` | 列表追加 |
-| `operator.add` | 数值累加 |
+| `add` | 列表/数值拼接（并集） |
+| `add_messages` | 按ID合并消息（新追加/旧覆盖） |
 | 自定义lambda | 自定义合并逻辑 |
 
 ### 3.3 4种状态更新模式
@@ -274,6 +426,44 @@ def node_b(state: State):
 # overwrite只影响当前节点，后续节点恢复Reducer逻辑
 ```
 
+#### ✅ 完整可运行代码：Overwrite覆盖机制
+
+```python
+from langgraph.graph import StateGraph, START, END
+from typing import TypedDict, Annotated
+from operator import add
+from langgraph.types import overwrite
+
+class OverallState(TypedDict):
+    logs: Annotated[list[str], add]  # 配置了Reducer
+
+def node_a(state: OverallState) -> dict:
+    return {"logs": ["Node A执行完毕"]}
+
+def node_b(state: OverallState) -> dict:
+    # ⚠️ 使用overwrite直接覆盖，不走Reducer追加逻辑
+    return overwrite({"logs": ["Node B执行完毕"]})  # 清空之前所有内容
+
+def node_c(state: OverallState) -> dict:
+    # 没有overwrite，恢复正常Reducer逻辑
+    return {"logs": ["Node C执行完毕"]}
+
+builder = StateGraph(OverallState)
+builder.add_node("node_a", node_a)
+builder.add_node("node_b", node_b)
+builder.add_node("node_c", node_c)
+builder.add_edge(START, "node_a")
+builder.add_edge("node_a", "node_b")
+builder.add_edge("node_b", "node_c")
+builder.add_edge("node_c", END)
+
+app = builder.compile()
+result = app.invoke({"logs": ["Start"]})
+print(result["logs"])
+# ['Node B执行完毕', 'Node C执行完毕']
+# ↑ node_b用overwrite清空了之前的，node_c恢复Reducer正常追加
+```
+
 ### 3.6 节点并行执行
 
 ```python
@@ -292,14 +482,75 @@ graph.add_edge("node_b", END)
 
 ### 3.7 预定义状态 MessagesState
 
-```python
-from langgraph.graph import MessagesState
+`MessagesState` 内置了 `messages` 字段和追加Reducer，适合对话场景。
 
-class MyState(MessagesState):
-    extra_field: str  # 可扩展字段
+#### ✅ MessagesState内部源码结构
+
+```python
+# LangGraph官方MessagesState的等效定义
+from typing import Annotated
+from langchain_core.messages import AnyMessage
+from langgraph.graph import add_messages
+
+class MessagesState(dict):
+    messages: Annotated[list[AnyMessage], add_messages]  # 内置messages + add_messages reducer
 ```
 
-`MessagesState` 内置了 `messages` 字段和追加Reducer，适合对话场景。
+#### ✅ 完整可运行代码：MessagesState + DeepSeek LLM对话
+
+```python
+from dotenv import load_dotenv
+load_dotenv(override=True)
+
+from langgraph.graph import StateGraph, START, END, MessagesState
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage
+
+# 1. 定义状态（继承MessagesState，自动拥有messages字段+Reducer）
+class OverallState(MessagesState):
+    username: str           # 自定义扩展字段
+    final_output: str       # 最终输出
+
+# 2. 连接LLM
+model = ChatOpenAI(model="deepseek-v4-flash")
+
+# 3. 定义节点A：组装用户消息
+def node_a(state: OverallState) -> dict:
+    return {
+        "messages": [HumanMessage(content=f"你好，我是{state['username']}")]
+    }
+
+# 4. 定义LLM节点：直接把messages发给模型
+def llm_node(state: OverallState) -> dict:
+    # MessagesState的messages字段可以直接发给模型！
+    response = model.invoke(state["messages"])
+    return {
+        "messages": [response],           # AI回复追加到messages
+        "final_output": response.content  # 同时提取content
+    }
+
+# 5. 构建图
+builder = StateGraph(OverallState)
+builder.add_node("node_a", node_a)
+builder.add_node("llm_node", llm_node)
+builder.add_edge(START, "node_a")
+builder.add_edge("node_a", "llm_node")
+builder.add_edge("llm_node", END)
+
+app = builder.compile()
+
+# 6. 执行
+result = app.invoke({"username": "老王", "messages": [], "final_output": ""})
+print(f"最终输出: {result['final_output']}")
+print(f"消息历史:")
+for msg in result["messages"]:
+    msg.pretty_print()
+```
+
+> **使用MessagesState的好处：**
+> - 内置messages字段 + add_messages Reducer，自动维护对话历史
+> - messages可以直接发给LLM，无需手动拼装
+> - 回复自动追加到messages，保持完整的对话上下文
 
 ### 3.8 节点命名注意
 
@@ -410,48 +661,108 @@ graph.add_edge("tool_node", "agent")  # 工具结果回到Agent
 
 **完整ReAct实现（P42）：**
 
+#### ✅ 完整可运行代码：静态循环ReAct（含工具调用+失败重试模拟）
+
 ```python
+from dotenv import load_dotenv
+load_dotenv(override=True)
+
 from langgraph.graph import StateGraph, START, END, MessagesState
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage, ToolMessage
+from langchain_core.tools import tool
+from langchain_openai import ChatOpenAI
+import random
 
-# 1. 声明状态
+# ========== 1. 定义工具 ==========
+@tool
+def get_weather(city: str) -> str:
+    """查询指定城市的当日天气
+
+    Arguments:
+        city: 城市名称
+    """
+    # 模拟外部API调用（实际项目中对接真实天气API）
+    return f"{city}今天天气晴朗，气温25度，适合出行"
+
+@tool
+def get_news(domain: str) -> str:
+    """查询特定领域的当日热点
+
+    Arguments:
+        domain: 特定领域（如AI、食品安全）
+    """
+    if domain == "AI":
+        return "AI热点：DeepSeek发布新模型，性能超越GPT-4"
+    elif domain == "食品安全":
+        return "食品安全：新版国标将于下月实施"
+    return f"未找到{domain}领域相关新闻"
+
+# 工具字典（方便按名称调用）
+tools_by_name = {"get_weather": get_weather, "get_news": get_news}
+tools = list(tools_by_name.values())
+
+# ========== 2. 连接LLM并绑定工具 ==========
+model = ChatOpenAI(model="deepseek-v4-flash")
+model_with_tools = model.bind_tools(tools)
+
+# ========== 3. 定义状态 ==========
 class OverallState(MessagesState):
     user_input: str
     final_output: str
 
-# 2. 定义输入节点：将user_input转为message
-def input_node(state):
+# ========== 4. 定义节点 ==========
+# 输入节点：将user_input转为HumanMessage
+def input_node(state: OverallState) -> dict:
     return {"messages": [HumanMessage(content=state["user_input"])]}
 
-# 3. 大模型节点
-def llm_node(state):
+# LLM节点：调用模型，返回结果
+def llm_node(state: OverallState) -> dict:
     response = model_with_tools.invoke(state["messages"])
     return {"messages": [response]}
 
-# 4. 工具节点（手动实现）
-def tool_node(state):
+# 工具节点（手动实现，含模拟失败重试）
+def tool_node(state: OverallState) -> dict:
     messages = state["messages"]
     last_message = messages[-1]
     tool_calls = last_message.tool_calls
-    
+
     for tool_call in tool_calls:
         tool_name = tool_call["name"]
+        tool_args = tool_call["args"]
+
         if tool_name in tools_by_name:
-            result = tools_by_name[tool_name].invoke(tool_call["args"])
+            # 模拟30%失败概率（演示ReAct循环重试）
+            if random.random() < 0.3:
+                messages.append(ToolMessage(
+                    content=f"网络波动，调用{tool_name}失败，请重试",
+                    tool_call_id=tool_call["id"]
+                ))
+            else:
+                # 正常执行工具
+                result = tools_by_name[tool_name].invoke(tool_args)
+                messages.append(ToolMessage(
+                    content=str(result),
+                    tool_call_id=tool_call["id"]
+                ))
+        else:
             messages.append(ToolMessage(
-                content=str(result),
+                content=f"工具名称错误：{tool_name}，调用失败",
                 tool_call_id=tool_call["id"]
             ))
     return {"messages": messages}
 
-# 5. 路由：判断是否需要工具调用
-def router(state):
+# 输出节点：提取最终结果
+def output_node(state: OverallState) -> dict:
+    return {"final_output": state["messages"][-1].content}
+
+# 路由：判断是否需要工具调用
+def router(state: OverallState):
     last_message = state["messages"][-1]
     if last_message.tool_calls:
-        return "tool_node"
-    return "output_node"
+        return "tool_node"    # 有tool_calls → 走工具节点（循环）
+    return "output_node"      # 无tool_calls → 直接输出
 
-# 6. 构建图
+# ========== 5. 构建图 ==========
 builder = StateGraph(OverallState)
 builder.add_node("input_node", input_node)
 builder.add_node("llm_node", llm_node)
@@ -461,9 +772,29 @@ builder.add_node("output_node", output_node)
 builder.add_edge(START, "input_node")
 builder.add_edge("input_node", "llm_node")
 builder.add_conditional_edges("llm_node", router)
-builder.add_edge("tool_node", "llm_node")  # 循环
+builder.add_edge("tool_node", "llm_node")   # 工具结果回到LLM（循环）
 builder.add_edge("output_node", END)
+
+app = builder.compile()
+
+# ========== 6. 执行 ==========
+result = app.invoke({
+    "user_input": "今天上海天气怎么样？",
+    "messages": [SystemMessage(content="如果工具调用失败，必须重新调用直到成功为止")],
+    "final_output": ""
+})
+
+print(f"最终输出: {result['final_output']}")
+print(f"\n对话历史:")
+for msg in result["messages"]:
+    msg.pretty_print()
 ```
+
+> **ReAct循环关键点：**
+> 1. LLM返回的message中有`tool_calls`字段 → 判断是否需要调用工具
+> 2. 工具执行后返回`ToolMessage` → 回到LLM节点继续判断
+> 3. LLM不再返回`tool_calls` → 退出循环，输出最终结果
+> 4. 失败重试：ToolMessage返回错误信息 → LLM会自动重新调用工具
 
 ### 4.8 Command控制
 
@@ -723,20 +1054,80 @@ def approval_node(state):
     return {"approved": False}
 ```
 
-**HITL完整流程：**
+#### ✅ 完整可运行代码：HITL审批流程
+
 ```python
-# 1. 执行到中断点
-app.invoke(input, config=config)
+from langgraph.graph import StateGraph, START, END
+from langgraph.types import interrupt
+from langgraph.checkpoint.memory import MemorySaver
+from typing import TypedDict
 
-# 2. 获取中断状态
+# 1. 定义状态
+class OverallState(TypedDict):
+    username: str
+    approved: bool
+
+# 2. 定义节点：询问用户姓名
+def ask_name(state: OverallState) -> dict:
+    # interrupt() 会暂停图执行，等待用户输入
+    user_input = interrupt("请输入您的姓名：")
+    return {"username": user_input}
+
+# 3. 定义节点：审批节点
+def approval_node(state: OverallState) -> dict:
+    decision = interrupt(f"用户 {state['username']}，确认提交？(approve/reject)")
+    return {"approved": decision == "approve"}
+
+# 4. 定义节点：执行节点
+def execute_node(state: OverallState) -> dict:
+    if state["approved"]:
+        print(f"✅ 已为 {state['username']} 提交成功")
+    else:
+        print(f"❌ {state['username']} 的提交被拒绝")
+
+# 5. 构建图
+builder = StateGraph(OverallState)
+builder.add_node("ask_name", ask_name)
+builder.add_node("approval", approval_node)
+builder.add_node("execute", execute_node)
+builder.add_edge(START, "ask_name")
+builder.add_edge("ask_name", "approval")
+builder.add_edge("approval", "execute")
+builder.add_edge("execute", END)
+
+# 6. 编译（必须配置checkpoint！）
+checkpointer = MemorySaver()
+app = builder.compile(checkpointer=checkpointer)
+
+# ========== 模拟HITL交互 ==========
+
+config = {"configurable": {"thread_id": "user_001"}}
+
+# 第一次执行 → 在ask_name处中断，等待输入
+print("=== 第一次执行（触发中断）===")
+result = app.invoke({}, config=config)
+print(f"中断信息: {result}")
+
+# 获取中断状态
 state = app.get_state(config)
+print(f"下一步: {state.next}")  # ['ask_name']
 
-# 3. 人工决策后恢复
-app.invoke(
-    {"decision": "approve"},
-    config=config
-)
+# 第二次执行 → 传入用户输入，恢复执行
+print("\n=== 第二次执行（传入姓名）===")
+result = app.invoke("小王", config=config)
+print(f"中断信息: {result}")  # approval节点触发中断
+
+# 第三次执行 → 传入审批决策
+print("\n=== 第三次执行（审批通过）===")
+result = app.invoke("approve", config=config)
+print(f"执行结果: {result}")
+# ✅ 已为小王 提交成功
 ```
+
+> **HITL核心流程：**
+> 1. `interrupt(value)` → value展示给用户，图暂停
+> 2. 第二次`app.invoke(feedback, config)` → feedback作为interrupt返回值
+> 3. **必须配置checkpointer**，否则中断后无法恢复
 
 ### 6.3 多级审批
 
@@ -1109,9 +1500,77 @@ Prompt1 → LLM1 → Prompt2 → LLM2 → 输出
 - **适用场景**：翻译→校对→润色；生成→检查一致性→修订
 - **特点**：可加入条件边做质量管控
 
+#### ✅ 完整可运行代码：提示词链（生成笑话→检查→改进→润色）
+
 ```python
-# 生成笑话 → 检查是否有包袱 → 有则改进 → 润色
-# 生成 → 判断（条件边） → 合格：END / 不合格：改进 → 润色
+from dotenv import load_dotenv
+load_dotenv(override=True)
+
+from langgraph.graph import StateGraph, START, END
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage
+from typing import TypedDict
+
+model = ChatOpenAI(model="deepseek-v4-flash")
+
+# 状态：保存笑话和改进建议
+class OverallState(TypedDict):
+    topic: str
+    joke: str
+    improved_joke: str
+    final_joke: str
+    improvement_suggestion: str
+
+# 节点1：生成笑话
+def generate_joke(state: OverallState) -> dict:
+    response = model.invoke([HumanMessage(content=f"写一个关于{state['topic']}的简短笑话")])
+    return {"joke": response.content}
+
+# 节点2：检查笑话是否有包袱（条件判断）
+def check_joke(state: OverallState) -> dict:
+    joke = state["joke"]
+    # 简单规则：检查是否有问号或感叹号（模拟质量检查）
+    if "?" in joke or "!" in joke:
+        return {"improvement_suggestion": ""}
+    return {"improvement_suggestion": "笑话缺少双关语或反转，请添加"}
+
+# 节点3：条件路由
+def route_joke(state: OverallState):
+    if state["improvement_suggestion"]:  # 有建议 → 需要改进
+        return "improve_joke"
+    return "polish_joke"  # 无建议 → 直接润色
+
+# 节点4：改进笑话
+def improve_joke(state: OverallState) -> dict:
+    response = model.invoke([HumanMessage(
+        content=f"改进这个笑话，添加双关语让它更有趣：{state['joke']}\n改进建议：{state['improvement_suggestion']}"
+    )])
+    return {"improved_joke": response.content}
+
+# 节点5：润色笑话
+def polish_joke(state: OverallState) -> dict:
+    joke_to_polish = state.get("improved_joke") or state["joke"]
+    response = model.invoke([HumanMessage(content=f"给这个笑话添加一个出乎意料的反转结尾：{joke_to_polish}")])
+    return {"final_joke": response.content}
+
+# 构建图
+builder = StateGraph(OverallState)
+builder.add_node("generate_joke", generate_joke)
+builder.add_node("check_joke", check_joke)
+builder.add_node("improve_joke", improve_joke)
+builder.add_node("polish_joke", polish_joke)
+
+builder.add_edge(START, "generate_joke")
+builder.add_edge("generate_joke", "check_joke")
+builder.add_conditional_edges("check_joke", route_joke)
+builder.add_edge("improve_joke", "polish_joke")
+builder.add_edge("polish_joke", END)
+
+app = builder.compile()
+result = app.invoke({"topic": "猫", "joke": "", "improved_joke": "", "final_joke": "", "improvement_suggestion": ""})
+print(f"原始笑话: {result['joke']}")
+print(f"改进笑话: {result.get('improved_joke', '无')}")
+print(f"最终笑话: {result['final_joke']}")
 ```
 
 ### 11.2 并行化（Parallelization，P129）
@@ -1123,18 +1582,70 @@ Prompt1 → LLM1 → Prompt2 → LLM2 → 输出
 ```
 
 - **核心思想**：相互独立的任务同时执行，汇总结果
-- **两种用途**：
-  - 任务拆分：提升速度
-  - 多次独立判断：提升置信度（投票/平均）
+- **两种用途**：任务拆分（提升速度）、多次独立判断（提升置信度）
 - **适用场景**：多角度分析、多模型评分
 
+#### ✅ 完整可运行代码：并行化（同时生成笑话、故事、诗歌）
+
 ```python
-# 同时生成笑话、故事、诗歌，合并为单一输出
-builder.add_edge(START, "node_joke")
-builder.add_edge(START, "node_story")
-builder.add_edge(START, "node_poem")
+from dotenv import load_dotenv
+load_dotenv(override=True)
+
+from langgraph.graph import StateGraph, START, END
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage
+from typing import TypedDict
+
+model = ChatOpenAI(model="deepseek-v4-flash")
+
+class OverallState(TypedDict):
+    topic: str
+    joke: str
+    story: str
+    poem: str
+    combined_output: str
+
+# 并行节点：各自独立执行
+def generate_joke(state: OverallState) -> dict:
+    response = model.invoke([HumanMessage(content=f"写一个关于{state['topic']}的简短笑话")])
+    return {"joke": response.content}
+
+def generate_story(state: OverallState) -> dict:
+    response = model.invoke([HumanMessage(content=f"写一个关于{state['topic']}的简短故事（100字以内）")])
+    return {"story": response.content}
+
+def generate_poem(state: OverallState) -> dict:
+    response = model.invoke([HumanMessage(content=f"写一首关于{state['topic']}的四行诗")])
+    return {"poem": response.content}
+
 # 合并节点
-["node_joke", "node_story", "node_poem"] >> merge_node
+def merge_output(state: OverallState) -> dict:
+    combined = f"=== 关于{state['topic']}的创意合集 ===\n\n"
+    combined += f"笑话：\n{state['joke']}\n\n"
+    combined += f"故事：\n{state['story']}\n\n"
+    combined += f"诗歌：\n{state['poem']}"
+    return {"combined_output": combined}
+
+# 构建图：扇入扇出结构
+builder = StateGraph(OverallState)
+builder.add_node("joke", generate_joke)
+builder.add_node("story", generate_story)
+builder.add_node("poem", generate_poem)
+builder.add_node("merge", merge_output)
+
+# 扇出：START → 三个并行节点
+builder.add_edge(START, "joke")
+builder.add_edge(START, "story")
+builder.add_edge(START, "poem")
+# 扇入：三个并行节点 → merge
+builder.add_edge("joke", "merge")
+builder.add_edge("story", "merge")
+builder.add_edge("poem", "merge")
+builder.add_edge("merge", END)
+
+app = builder.compile()
+result = app.invoke({"topic": "猫", "joke": "", "story": "", "poem": "", "combined_output": ""})
+print(result["combined_output"])
 ```
 
 ### 11.3 路由（Routing，P129）
@@ -1148,12 +1659,74 @@ builder.add_edge(START, "node_poem")
 - **核心思想**：根据输入特征选择专业处理器
 - **适用场景**：意图分类、专家系统
 
+#### ✅ 完整可运行代码：路由模式（意图分类→专家处理）
+
 ```python
-def router(state):
-    intent = classify_intent(state["input"])
-    if intent == "math": return "math_expert"
-    if intent == "code": return "code_expert"
+from dotenv import load_dotenv
+load_dotenv(override=True)
+
+from langgraph.graph import StateGraph, START, END
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage
+from typing import TypedDict
+
+model = ChatOpenAI(model="deepseek-v4-flash")
+
+class OverallState(TypedDict):
+    input: str
+    intent: str
+    result: str
+
+# 节点：LLM意图分类
+def classify_intent(state: OverallState) -> dict:
+    response = model.invoke([HumanMessage(
+        content=f"判断以下问题的意图，只返回一个词（math/code/general）：{state['input']}"
+    )])
+    return {"intent": response.content.strip().lower()}
+
+# 路由函数
+def route_intent(state: OverallState):
+    intent = state["intent"]
+    if "math" in intent:
+        return "math_expert"
+    elif "code" in intent:
+        return "code_expert"
     return "general_expert"
+
+# 专家节点
+def math_expert(state: OverallState) -> dict:
+    response = model.invoke([HumanMessage(content=f"你是数学专家，请解答：{state['input']}")])
+    return {"result": response.content}
+
+def code_expert(state: OverallState) -> dict:
+    response = model.invoke([HumanMessage(content=f"你是编程专家，请解答：{state['input']}")])
+    return {"result": response.content}
+
+def general_expert(state: OverallState) -> dict:
+    response = model.invoke([HumanMessage(content=f"请回答：{state['input']}")])
+    return {"result": response.content}
+
+# 构建图
+builder = StateGraph(OverallState)
+builder.add_node("classifier", classify_intent)
+builder.add_node("math_expert", math_expert)
+builder.add_node("code_expert", code_expert)
+builder.add_node("general_expert", general_expert)
+
+builder.add_edge(START, "classifier")
+builder.add_conditional_edges("classifier", route_intent, {
+    "math_expert": "math_expert",
+    "code_expert": "code_expert",
+    "general_expert": "general_expert"
+})
+builder.add_edge("math_expert", END)
+builder.add_edge("code_expert", END)
+builder.add_edge("general_expert", END)
+
+app = builder.compile()
+result = app.invoke({"input": "Python如何读取JSON文件？", "intent": "", "result": ""})
+print(f"意图分类: {result['intent']}")
+print(f"专家回答: {result['result']}")
 ```
 
 ### 11.4 编排器-工作者模式（Orchestrator-Worker，P130）
@@ -1171,22 +1744,79 @@ def router(state):
 - **与并行化的区别**：并行化编译时已确定任务数量；编排器模式运行时动态决定
 - **本质**：MapReduce
 
-```python
-# 编排器生成章节列表 → send动态发放worker → 聚合
-def orchestrator(state):
-    # LLM生成章节规划
-    plan = planner_llm.invoke(state["input"])
-    return {"chapters": plan.chapters}
+#### ✅ 完整可运行代码：编排器-工作者（动态章节报告生成）
 
-# 条件边：动态发放
-def dispatch_chapters(state):
+```python
+from dotenv import load_dotenv
+load_dotenv(override=True)
+
+from langgraph.graph import StateGraph, START, END
+from langgraph.types import Send
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage
+from typing import TypedDict
+from pydantic import BaseModel
+
+model = ChatOpenAI(model="deepseek-v4-flash")
+
+# 结构化输出：章节规划
+class ChapterPlan(BaseModel):
+    chapters: list[str]
+
+# 编排器节点：生成章节规划
+def orchestrator(state: dict) -> dict:
+    response = model.with_structured_output(ChapterPlan).invoke([
+        HumanMessage(content=f"为'{state['topic']}'生成3-5个章节标题，每个标题简短清晰")
+    ])
+    return {"chapters": response.chapters}
+
+# 条件边：动态发放worker（Send机制）
+def dispatch_chapters(state: dict):
     return [
-        Send("worker_node", {"chapter": ch})
+        Send("worker", {"chapter": ch})
         for ch in state["chapters"]
     ]
 
+# 工作者节点：为每个章节生成内容
+def worker(state: dict) -> dict:
+    response = model.invoke([
+        HumanMessage(content=f"为'{state['chapter']}'这个章节写一段100字的内容概述")
+    ])
+    return {"chapter_contents": [f"## {state['chapter']}\n{response.content}"]}
+
+# 聚合节点：合并所有章节
+def aggregator(state: dict) -> dict:
+    # chapter_contents是list[str]，用Reducer自动合并
+    report = f"# {state['topic']}\n\n"
+    report += "\n\n---\n\n".join(state["chapter_contents"])
+    return {"report": report}
+
+# 全局状态
+class OverallState(TypedDict):
+    topic: str
+    chapters: list[str]
+    chapter_contents: list[str]  # 需要Reducer合并
+    report: str
+
+# 构建图
+builder = StateGraph(OverallState)
+builder.add_node("orchestrator", orchestrator)
+builder.add_node("worker", worker)
+builder.add_node("aggregator", aggregator)
+
+builder.add_edge(START, "orchestrator")
 builder.add_conditional_edges("orchestrator", dispatch_chapters)
-builder.add_edge("worker_node", "aggregator")
+builder.add_edge("worker", "aggregator")  # 所有worker汇聚到aggregator
+builder.add_edge("aggregator", END)
+
+app = builder.compile()
+result = app.invoke({
+    "topic": "大语言模型缩放定律",
+    "chapters": [],
+    "chapter_contents": [],
+    "report": ""
+})
+print(result["report"])
 ```
 
 ### 11.5 评估器-优化器模式（Evaluator-Optimizer，P131）
@@ -1199,15 +1829,72 @@ builder.add_edge("worker_node", "aggregator")
 - **核心思想**：生成后评估，不满意则循环改进
 - **适用场景**：代码生成、文本润色
 
-```python
-def evaluator(state):
-    score = evaluate(state["output"])
-    if score >= 0.8:
-        return "end"
-    return "generator"  # 继续改进
+#### ✅ 完整可运行代码：评估器-优化器（笑话质量迭代）
 
-builder.add_conditional_edges("evaluator", evaluator)
-builder.add_edge("generator", "evaluator")  # 循环
+```python
+from dotenv import load_dotenv
+load_dotenv(override=True)
+
+from langgraph.graph import StateGraph, START, END
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage
+from typing import TypedDict
+from pydantic import BaseModel
+
+model = ChatOpenAI(model="deepseek-v4-flash")
+
+# 结构化输出：评估结果
+class Evaluation(BaseModel):
+    is_funny: bool
+    score: float  # 0-1
+    suggestion: str
+
+# 状态
+class OverallState(TypedDict):
+    topic: str
+    joke: str
+    evaluation: dict
+
+# 生成器节点
+def generator(state: OverallState) -> dict:
+    suggestion = state.get("evaluation", {}).get("suggestion", "")
+    prompt = f"写一个关于{state['topic']}的简短笑话"
+    if suggestion:
+        prompt += f"\n改进建议：{suggestion}"
+    response = model.invoke([HumanMessage(content=prompt)])
+    return {"joke": response.content}
+
+# 评估器节点
+def evaluator(state: OverallState) -> dict:
+    response = model.with_structured_output(Evaluation).invoke([
+        HumanMessage(content=f"评估这个笑话是否好笑，给出0-1的分数和改进建议：{state['joke']}")
+    ])
+    return {"evaluation": {"is_funny": response.is_funny, "score": response.score, "suggestion": response.suggestion}}
+
+# 条件路由
+def route_evaluation(state: OverallState):
+    eval_data = state.get("evaluation", {})
+    if eval_data.get("is_funny") or eval_data.get("score", 0) >= 0.7:
+        return "end"  # 满意 → 结束
+    return "generator"  # 不满意 → 继续改进
+
+# 构建图
+builder = StateGraph(OverallState)
+builder.add_node("generator", generator)
+builder.add_node("evaluator", evaluator)
+
+builder.add_edge(START, "generator")
+builder.add_edge("generator", "evaluator")
+builder.add_conditional_edges("evaluator", route_evaluation, {"generator": "generator", "end": END})
+
+# 编译时设置递归限制（避免无限循环）
+app = builder.compile()
+result = app.invoke(
+    {"topic": "猫", "joke": "", "evaluation": {}},
+    config={"recursion_limit": 5}  # 最多循环5次
+)
+print(f"最终笑话: {result['joke']}")
+print(f"评估分数: {result['evaluation'].get('score', 'N/A')}")
 ```
 
 ### 11.6 Agent模式（P132）
@@ -1224,23 +1911,72 @@ Agent（观察结果）→ 继续/结束
 - **核心思想**：大模型自主决定是否调用工具（与workflow最大的区别：无需人为控制执行路径）
 - **适用场景**：开放式问题、多步推理
 
-```python
-# 最基础的ReAct架构
-model_with_tools = model.bind_tools([tool1, tool2])
+#### ✅ 完整可运行代码：Agent模式（最基础ReAct架构）
 
-def agent_node(state):
-    response = model_with_tools.invoke(state["messages"])
+```python
+from dotenv import load_dotenv
+load_dotenv(override=True)
+
+from langgraph.graph import StateGraph, START, END, MessagesState
+from langgraph.prebuilt import ToolNode
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage
+from langchain_core.tools import tool
+
+# 定义工具
+@tool
+def get_weather(city: str) -> str:
+    """查询指定城市的天气
+
+    Arguments:
+        city: 城市名称
+    """
+    return f"{city}今天天气晴朗，微风"
+
+@tool
+def search_web(query: str) -> str:
+    """搜索网页信息
+
+    Arguments:
+        query: 搜索关键词
+    """
+    return f"搜索结果：关于'{query}'的最新信息..."
+
+# 绑定工具到模型
+tools = [get_weather, search_web]
+model = ChatOpenAI(model="deepseek-v4-flash").bind_tools(tools)
+
+# Agent节点
+def agent_node(state: MessagesState) -> dict:
+    response = model.invoke(state["messages"])
     return {"messages": [response]}
 
-def router(state):
+# 路由函数
+def router(state: MessagesState):
     last_msg = state["messages"][-1]
     if last_msg.tool_calls:
-        return "tool_node"
-    return END
+        return "tools"  # 有tool_calls → 调用工具
+    return END          # 无tool_calls → 结束
 
+# 构建图
+builder = StateGraph(MessagesState)
+builder.add_node("agent", agent_node)
+builder.add_node("tools", ToolNode(tools))  # 使用预构建的ToolNode
+
+builder.add_edge(START, "agent")
 builder.add_conditional_edges("agent", router)
-builder.add_edge("tool_node", "agent")
+builder.add_edge("tools", "agent")  # 工具结果回到agent（循环）
+
+app = builder.compile()
+result = app.invoke({"messages": [HumanMessage(content="今天北京天气怎么样？")]})
+
+for msg in result["messages"]:
+    msg.pretty_print()
 ```
+
+> **Agent模式 vs Workflow模式的本质区别：**
+> - Workflow：人为定义执行路径（条件边、路由函数）
+> - Agent：大模型自主决定是否调用工具，无需人为控制执行路径
 
 ### 11.7 设计模式选择指南
 

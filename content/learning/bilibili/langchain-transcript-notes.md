@@ -194,7 +194,144 @@ LANGSMITH_TRACING=true
 | batch() | 批量调用 | 列表 |
 | ainvoke() | 异步调用 | 协程 |
 
-### 3.6 关键参数
+### 3.6 完整代码示例：四种调用方法
+
+#### invoke —— 阻塞式同步调用
+```python
+import os
+from dotenv import load_dotenv
+from langchain.chat_models import init_chat_model
+from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
+from rich import print as rprint
+
+load_dotenv(override=True)
+
+# 初始化模型（推荐 init_chat_model 统一方式）
+model = init_chat_model(
+    model="deepseek-v4-flash",
+    model_provider="DeepSeek"
+)
+
+# --- 场景1：字符串输入（最简单）---
+response = model.invoke("用一句话介绍 LangChain")
+print(response.content)
+# 'LangChain 是一个用于构建大语言模型应用的开源框架。'
+
+# --- 场景2：字典列表输入（推荐写法，支持多角色）---
+messages = [
+    {"role": "system", "content": "你是一个专业的Python导师"},
+    {"role": "user", "content": "帮我解释一下什么是斐波那契数列"}
+]
+response = model.invoke(messages)
+print(response.content)
+# '斐波那契数列是指从0和1开始，后面每一项都是前两项之和的数列...'
+
+# --- 场景3：消息对象列表输入（类型最明确）---
+from langchain_core.messages import HumanMessage, SystemMessage
+
+messages = [
+    SystemMessage(content="你是一个专业的Python导师"),
+    HumanMessage(content="帮我解释一下什么是斐波那契数列")
+]
+response = model.invoke(messages)
+print(response.content)
+
+# --- 场景4：多轮对话 + 记忆传递 ---
+conversation = [
+    {"role": "user", "content": "我叫小明"},
+]
+# 第一轮对话
+response1 = model.invoke(conversation)
+print(f"AI回复1: {response1.content}")
+
+# 添加记忆：将AI回复追加到对话历史
+conversation.append({"role": "assistant", "content": response1.content})
+conversation.append({"role": "user", "content": "我叫什么名字"})
+
+# 第二轮对话（模型能记住你叫小明）
+response2 = model.invoke(conversation)
+print(f"AI回复2: {response2.content}")
+# '你叫小明。'
+
+# --- 查看返回值的完整信息 ---
+rprint(response2)  # 美化输出 AIMessage 的所有字段
+
+# 提取关键字段
+print("内容:", response2.content)
+print("Token消耗:", response2.response_metadata.get("token_usage", {}))
+print("模型:", response2.response_metadata.get("model_name", ""))
+print("结束原因:", response2.response_metadata.get("finish_reason", ""))
+```
+
+#### stream —— 流式输出（打字机效果）
+```python
+# 流式输出：逐 token 返回，体验更流畅
+stream = model.stream("帮我解释一下什么是人工智能")
+
+for chunk in stream:
+    print(chunk.content, end="", flush=True)
+# 人工智能（Artificial Intelligence，简称AI）是指...
+
+# 流式输出配合消息列表
+messages = [
+    {"role": "system", "content": "你是一个简洁的助手，回答控制在50字以内"},
+    {"role": "user", "content": "什么是量子计算？"}
+]
+
+print("回答: ", end="")
+for chunk in model.stream(messages):
+    print(chunk.content, end="", flush=True)
+print()  # 换行
+```
+
+#### batch —— 批量调用（并发处理，效率更高）
+```python
+# 一次性发送多个请求，模型在后台并行处理
+questions = [
+    "Python是什么？",
+    "Java是什么？",
+    "JavaScript是什么？",
+    "Rust是什么？",
+    "Go是什么？"
+]
+
+# 批量调用：比逐个 invoke 更高效（减少网络往返）
+responses = model.batch(questions)
+
+for q, r in zip(questions, responses):
+    print(f"Q: {q}")
+    print(f"A: {r.content[:80]}...")
+    print()
+
+# 带 config 的 batch（控制最大并发数，避免压力过大）
+responses = model.batch(
+    questions,
+    config={"max_concurrency": 3}  # 最多同时处理3个请求
+)
+```
+
+#### ainvoke —— 异步调用（配合 async/await）
+```python
+import asyncio
+from langchain.chat_models import init_chat_model
+
+model = init_chat_model(model="deepseek-v4-flash", model_provider="DeepSeek")
+
+async def main():
+    # 单个异步调用
+    response = await model.ainvoke("你好，请自我介绍")
+    print(response.content)
+    
+    # 异步批量调用
+    tasks = [model.ainvoke(q) for q in ["问题1", "问题2", "问题3"]]
+    results = await asyncio.gather(*tasks)
+    for r in results:
+        print(r.content)
+
+asyncio.run(main())
+```
+
+### 3.7 关键参数
 ```python
 # temperature：控制输出随机性（0.0-2.0，默认0.7）
 # 数学运算/数据提取 → 低值（0.0-0.3）
@@ -208,7 +345,7 @@ LANGSMITH_TRACING=true
 # max_retries：最大重试次数（默认6）
 ```
 
-### 3.7 LangSmith 监控
+### 3.8 LangSmith 监控
 ```env
 # 配置.env
 LANGSMITH_TRACING=true
@@ -348,6 +485,152 @@ model.bind_tools(tools, tool_choice="auto")
 ```
 
 ### 5.3 实践经验
+- 错误处理要完善
+
+### 5.4 完整代码示例：工具调用的两种方式
+
+#### 方式一：直接调用工具（不经过模型）
+```python
+from langchain_core.tools import tool
+from langchain_core.utils import convert_to_openai_tool
+from rich import print as rprint
+
+# 定义工具（@tool 装饰器方式）
+@tool(description="查询指定城市的天气情况")
+def get_weather(city: str) -> str:
+    """查询天气。"""
+    return f"{city}天气晴朗，气温25°C"
+
+# 查看工具转换后的JSON Schema（模型看到的工具描述）
+rprint(convert_to_openai_tool(get_weather))
+# {
+#   "type": "function",
+#   "function": {
+#     "name": "get_weather",
+#     "description": "查询指定城市的天气情况",
+#     "parameters": {
+#       "type": "object",
+#       "properties": {"city": {"type": "string"}},
+#       "required": ["city"]
+#     }
+#   }
+# }
+
+# 直接调用工具（不经过模型）
+result = get_weather.invoke({"city": "北京"})
+print(result)  # '北京天气晴朗，气温25°C'
+```
+
+#### 方式二：基于模型调用工具（模型决定是否调用）
+```python
+import os
+from dotenv import load_dotenv
+from langchain.chat_models import init_chat_model
+from langchain_core.tools import tool
+from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
+from rich import print as rprint
+
+load_dotenv(override=True)
+
+# 1. 创建模型
+model = init_chat_model(model="deepseek-v4-flash", model_provider="DeepSeek")
+
+# 2. 定义工具
+@tool(description="查询指定城市的天气情况")
+def get_weather(city: str) -> str:
+    """查询天气。"""
+    return f"{city}天气晴朗，气温25°C"
+
+# 3. 【关键步骤】将工具绑定到模型（模型才知道有哪些工具可用）
+model_with_tools = model.bind_tools([get_weather])
+
+# 4. 发送请求 —— 模型分析后决定是否调用工具
+response = model_with_tools.invoke("北京今天天气如何？")
+rprint(response)
+# AIMessage(
+#   content='',
+#   tool_calls=[{'name': 'get_weather', 'args': {'city': '北京'}, 'id': '...'}]
+# )
+
+# 5. 检查模型是否决定调用工具
+if response.tool_calls:
+    # 有工具调用 → 手动执行工具（大模型只能分析，不能直接调用）
+    messages = [HumanMessage(content="北京今天天气如何？")]
+    messages.append(response)  # 添加 AIMessage
+    
+    for tool_call in response.tool_calls:
+        # 执行工具
+        tool_result = get_weather.invoke(tool_call["args"])
+        
+        # 创建 ToolMessage 添加到消息列表
+        messages.append(ToolMessage(
+            content=tool_result,
+            tool_call_id=tool_call["id"]  # 必须匹配 tool_call 的 id
+        ))
+    
+    # 6. 将工具结果再次发给模型，让模型整合最终回复
+    final_response = model_with_tools.invoke(messages)
+    print(final_response.content)
+    # '北京今天天气晴朗，气温25°C。'
+else:
+    # 无工具调用 → 直接返回模型回复
+    print(response.content)
+
+# 打印消息流转过程
+print("\n--- 消息流转过程 ---")
+for msg in messages:
+    print(f"{type(msg).__name__}: {msg.content[:50] if msg.content else msg.tool_calls}")
+# HumanMessage: 北京今天天气如何？
+# AIMessage: [{'name': 'get_weather', ...}]
+# ToolMessage: 北京天气晴朗，气温25°C
+# AIMessage: 北京今天天气晴朗，气温25°C。
+```
+
+#### 完整示例：4种工具定义方式对比
+```python
+from langchain_core.tools import tool
+from pydantic import BaseModel, Field
+from langchain_core.utils import convert_to_openai_tool
+from typing import Literal
+
+# ===== 方式1：手动定义（传统方式，不推荐）=====
+def get_weather_v1(city: str) -> str:
+    """查询天气"""
+    return f"{city}天气晴朗"
+
+# ===== 方式2：@tool + description（简洁，推荐）=====
+@tool(description="查询指定城市的天气情况")
+def get_weather_v2(city: str) -> str:
+    return f"{city}天气晴朗"
+
+# ===== 方式3：@tool + args_schema（Pydantic，参数复杂时推荐）=====
+class WeatherInput(BaseModel):
+    """天气查询参数"""
+    city: str = Field(description="城市名称，如：北京")
+    unit: Literal["摄氏", "华氏"] = Field(default="摄氏", description="温度单位")
+    include_forecast: bool = Field(default=False, description="是否包含未来5天预报")
+
+@tool(args_schema=WeatherInput)
+def get_weather_v3(city: str, unit: str = "摄氏", include_forecast: bool = False) -> str:
+    return f"{city}天气晴朗，{unit}25度" + ("，含预报" if include_forecast else "")
+
+# ===== 方式4：@tool + Google风格docstring（最简洁）=====
+@tool
+def get_weather_v4(city: str) -> str:
+    """查询天气。
+
+    Args:
+        city: 城市名称
+    """
+    return f"{city}天气晴朗"
+
+# 验证每种方式的工具描述
+for i, tool_obj in enumerate([get_weather_v1, get_weather_v2, get_weather_v3, get_weather_v4], 1):
+    schema = convert_to_openai_tool(tool_obj)
+    print(f"方式{i}: {schema['function']['description'][:40]}")
+    print(f"  参数: {list(schema['function']['parameters']['properties'].keys())}")
+    print()
+```
 - 工具描述要清晰准确，直接影响模型选择
 - 参数类型要明确
 - 工具数量建议2-5个，过多会导致选择困难
@@ -498,6 +781,177 @@ agent = create_agent(
 # 自定义字符串：返回固定提示
 # 指定异常类型：只捕获特定异常
 # 自定义函数：精细化处理
+
+### 7.7 完整代码示例：Agent 创建、调用与流式输出
+
+#### 基础用法：创建Agent并调用
+```python
+import os
+from dotenv import load_dotenv
+from langchain.chat_models import init_chat_model
+from langchain.agents import create_agent
+from langchain_core.tools import tool
+from langchain_core.messages import HumanMessage, AIMessage
+from rich import print as rprint
+
+load_dotenv(override=True)
+
+# 1. 创建模型（两种传入方式均可）
+# 方式A：传字符串（简洁）
+agent = create_agent(
+    model="deepseek-v4-flash",                    # 字符串方式
+    model_provider="DeepSeek",                    # 指明provider，避免自动推断错误
+    tools=[get_weather],                           # 工具列表
+    system_prompt="你是一个天气助手，回答要简洁",   # 系统提示词
+    name="weather_assistant"                       # Agent名称（可选）
+)
+
+# 方式B：传模型对象（灵活，可自定义参数）
+model = init_chat_model(
+    model="deepseek-v4-flash",
+    model_provider="DeepSeek",
+    temperature=0.7
+)
+
+agent = create_agent(
+    model=model,                                   # 传模型实例
+    tools=[get_weather],
+    system_prompt="你是一个天气助手"
+)
+
+# 2. 调用Agent —— invoke（同步阻塞）
+response = agent.invoke({
+    "messages": [HumanMessage(content="北京天气如何")]
+})
+rprint(response)
+# {'messages': [HumanMessage, AIMessage, ToolMessage, AIMessage]}
+
+# 提取最终回复
+for msg in reversed(response["messages"]):
+    if isinstance(msg, AIMessage) and msg.content:
+        print(f"Agent回复: {msg.content}")
+        break
+
+# 3. 查看Agent底层图结构（LangGraph）
+graph = agent.get_graph()
+print(graph.draw_mermaid())  # 输出 Mermaid 格式的流程图
+```
+
+#### 流式输出（7种模式）
+```python
+# --- 模式1：updates（默认）—— 每步输出增量变化 ---
+for chunk in agent.stream(
+    {"messages": [HumanMessage(content="北京天气如何")]},
+    stream_mode="updates"
+):
+    print(chunk)
+# {'model': {'messages': [AIMessage(...)]}}
+# {'tools': {'messages': [ToolMessage(...)]}}
+# {'model': {'messages': [AIMessage(...)]}}
+
+# --- 模式2：messages —— 逐token输出（打字机效果，最常用）---
+print("回答: ", end="")
+for chunk, metadata in agent.stream(
+    {"messages": [HumanMessage(content="用三句话介绍人工智能")]},
+    stream_mode="messages"
+):
+    content = chunk.content
+    if content:
+        print(content, end="", flush=True)
+print()
+
+# --- 模式3：values —— 每步输出完整状态 ---
+for chunk in agent.stream(
+    {"messages": [HumanMessage(content="北京天气如何")]},
+    stream_mode="values"
+):
+    # chunk 包含完整状态：messages列表等
+    messages = chunk["messages"]
+    print(f"当前消息数: {len(messages)}")
+
+# --- 其他模式 ---
+# "tasks"    —— 输出任务生命周期
+# "debug"    —— 增加步骤和时间戳
+# "checkpoints" —— 检查点触发输出
+# "custom"   —— 自定义writer输出
+
+# 限制Agent调用次数（防止无限循环）
+response = agent.invoke(
+    {"messages": [HumanMessage(content="你好")]},
+    config={"recursion_limit": 5}  # 最多执行5步
+)
+```
+
+#### 完整实战：多功能智能助手
+```python
+import os
+from datetime import datetime
+from dotenv import load_dotenv
+from langchain.chat_models import init_chat_model
+from langchain.agents import create_agent
+from langchain_core.tools import tool
+from langchain_core.messages import HumanMessage, AIMessage
+
+load_dotenv(override=True)
+
+# 定义多个工具
+@tool(description="查询指定城市的天气")
+def get_weather(city: str) -> str:
+    """查询天气。"""
+    return f"{city}天气晴朗，气温25°C"
+
+@tool(description="进行数学计算，支持加减乘除")
+def calculate(expression: str) -> str:
+    """计算数学表达式。
+
+    Args:
+        expression: 数学表达式，如 '2+3*4'
+    """
+    try:
+        result = eval(expression)  # 生产环境应使用安全的计算库
+        return f"{expression} = {result}"
+    except Exception as e:
+        return f"计算错误: {e}"
+
+@tool(description="获取当前时间")
+def get_time() -> str:
+    """获取当前时间。"""
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+# 创建多功能Agent
+agent = create_agent(
+    model="deepseek-v4-flash",
+    model_provider="DeepSeek",
+    tools=[get_weather, calculate, get_time],
+    system_prompt="你是一个多功能智能助手，可以查询天气、做数学计算、查看时间。回答要简洁。"
+)
+
+# 交互式对话（带记忆）
+class SmartAssistant:
+    def __init__(self):
+        self.messages = []
+    
+    def chat(self, user_input: str) -> str:
+        self.messages.append(HumanMessage(content=user_input))
+        result = agent.invoke({"messages": self.messages})
+        self.messages = result["messages"]
+        # 取最后一条AI消息
+        for msg in reversed(self.messages):
+            if isinstance(msg, AIMessage) and msg.content:
+                return msg.content
+        return "抱歉，无法回答"
+    
+    def reset(self):
+        self.messages = []
+
+# 使用示例
+assistant = SmartAssistant()
+print(assistant.chat("北京天气怎么样？"))
+print(assistant.chat("上海呢？"))        # 能记住上下文
+print(assistant.chat("(3+5)*12等于多少？"))
+print(assistant.chat("现在几点了？"))
+assistant.reset()  # 清空记忆
+```
 agent = create_agent(
     model=model,
     tools=[...],
@@ -508,7 +962,7 @@ agent = create_agent(
 )
 ```
 
-### 7.7 流式输出模式（7种）
+### 7.8 流式输出模式（7种）
 | 模式 | 说明 | 适用场景 |
 |------|------|---------|
 | values | 每步输出完整状态 | 状态持久化 |
@@ -529,7 +983,7 @@ for chunk in agent.stream(
     print(content, end="", flush=True)
 ```
 
-### 7.8 限制Agent调用次数
+### 7.9 限制Agent调用次数
 ```python
 response = agent.invoke(
     {"messages": [...]},
@@ -537,7 +991,7 @@ response = agent.invoke(
 )
 ```
 
-### 7.9 实战：多功能智能助手
+### 7.10 实战：多功能智能助手
 ```python
 class SmartAssistant:
     def __init__(self):
@@ -977,6 +1431,265 @@ results = collection.search(
     param={"metric_type": "L2", "params": {"nprobe": 10}},
     limit=5
 )
+```
+
+### 11.7 完整代码示例：RAG 全链路
+
+#### 第一步：文档加载（TextLoader + CSVLoader + JSONLoader + PDFLoader）
+```python
+import os
+from dotenv import load_dotenv
+from langchain_community.document_loaders import TextLoader, CSVLoader, JSONLoader
+from langchain_community.document_loaders import PyPDFLoader
+
+load_dotenv(override=True)
+
+# --- 1. TextLoader：加载 .txt 文件 ---
+loader = TextLoader("knowledge.txt", encoding="utf-8")
+docs = loader.load()
+print(f"加载了 {len(docs)} 个文档片段")
+print(f"第一个片段前100字: {docs[0].page_content[:100]}")
+
+# --- 2. CSVLoader：加载 .csv 文件 ---
+loader = CSVLoader("data.csv", csv_args={"delimiter": ","})
+docs = loader.load()
+print(f"加载了 {len(docs)} 行数据")
+
+# --- 3. JSONLoader：加载 .json 文件（需要 jq 库）---
+loader = JSONLoader(
+    "data.json",
+    jq_schema=".[]",          # 提取所有元素
+    text_content=False         # 提取的不是纯字符串时设为 False
+)
+docs = loader.load()
+print(f"加载了 {len(docs)} 个文档片段")
+
+# --- 4. PyPDFLoader：加载 PDF 文件 ---
+loader = PyPDFLoader("document.pdf")
+docs = loader.load()
+print(f"加载了 {len(docs)} 页PDF内容")
+
+# 查看每个文档的元数据
+for doc in docs[:3]:
+    print(f"来源: {doc.metadata.get('source', 'N/A')}")
+    print(f"内容: {doc.page_content[:80]}...")
+    print()
+```
+
+#### 第二步：文档切分（RecursiveCharacterTextSplitter，最常用）
+```python
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+# 初始化切分器
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=500,       # 每个切片最大字符数
+    chunk_overlap=50,     # 切片间重叠字符数（保证语义连续性）
+    separators=[          # 递归切分的分隔符优先级
+        "\n\n",           # 1. 先按段落切
+        "\n",             # 2. 再按换行切
+        "。", "！", "？",  # 3. 再按中文标点切
+        "，", " ",        # 4. 最后按逗号和空格切
+    ]
+)
+
+# 三个核心方法
+# 方法1：切分字符串 → 返回字符串列表
+text = "LangChain是一个大模型应用开发框架。\n\n它支持多种模型。\n\n包括GPT、Claude等。"
+chunks = splitter.split_text(text)
+for i, chunk in enumerate(chunks):
+    print(f"片段{i+1} ({len(chunk)}字): {chunk}")
+    print("---")
+
+# 方法2：切分文档列表 → 返回 Document 列表
+docs = loader.load()
+chunks = splitter.split_documents(docs)
+print(f"切分前: {len(docs)} 个文档 → 切分后: {len(chunks)} 个片段")
+
+# 方法3：从文本创建文档 → 返回 Document 列表
+docs = splitter.create_documents([text])
+print(f"创建了 {len(docs)} 个文档对象")
+```
+
+#### 第三步：文档向量化（Embedding）
+```python
+from langchain_openai import OpenAIEmbeddings
+from langchain.chat_models import init_chat_model
+
+# 初始化嵌入模型（推荐 init_embeddings 或直接 OpenAIEmbeddings）
+embeddings = OpenAIEmbeddings(
+    model="text-embedding-3-small",  # 1536维，性价比高
+    # model="text-embedding-3-large",  # 3072维，更精细但更贵
+)
+
+# 或使用 init_embeddings（LangChain 1.x 统一方式）
+# from langchain.chat_models import init_embeddings
+# embeddings = init_embeddings(
+#     model="text-embedding-3-small",
+#     model_provider="OpenAI"
+# )
+
+# 文档向量化：将切分后的 chunk 转为向量
+chunks = splitter.split_documents(docs)
+vectors = embeddings.embed_documents([doc.page_content for doc in chunks])
+print(f"向量化了 {len(vectors)} 个片段，每个向量维度: {len(vectors[0])}")
+
+# 查询向量化：将用户问题转为向量
+query_vector = embeddings.embed_query("什么是LangChain？")
+print(f"查询向量维度: {len(query_vector)}")
+```
+
+#### 第四步：存入向量数据库（Milvus）
+```python
+from langchain_milvus import Milvus
+
+# 连接 Milvus 并创建集合（首次）
+vectorstore = Milvus(
+    embedding_function=embeddings,
+    collection_name="langchain_docs",
+    connection_args={"host": "localhost", "port": 19530},
+    # 自动创建集合（如果不存在）
+    auto_id=True,
+    index_params={"metric_type": "COSINE", "index_type": "FLAT", "params": {}}
+)
+
+# 写入文档（自动向量化 + 存储）
+vectorstore.add_documents(documents=chunks)
+print(f"已存入 {len(chunks)} 个文档片段到 Milvus")
+
+# 如果已有向量库，直接连接
+# vectorstore = Milvus(
+#     embedding_function=embeddings,
+#     collection_name="langchain_docs",
+#     connection_args={"host": "localhost", "port": 19530}
+# )
+```
+
+#### 第五步：检索（相似度搜索 + 带评分的检索）
+```python
+# 基础相似度检索
+results = vectorstore.similarity_search("LangChain是什么", k=3)
+print("=== 相似度搜索结果 ===")
+for i, doc in enumerate(results):
+    print(f"结果{i+1} (来源: {doc.metadata.get('source', 'N/A')}):")
+    print(f"  {doc.page_content[:100]}...")
+    print()
+
+# 带评分的检索（返回相似度分数）
+results_with_score = vectorstore.similarity_search_with_score("LangChain是什么", k=3)
+print("=== 带评分的检索结果 ===")
+for doc, score in results_with_score:
+    print(f"相似度分数: {score:.4f}")
+    print(f"  {doc.page_content[:80]}...")
+    print()
+
+# 高级检索：过滤特定来源
+results = vectorstore.similarity_search(
+    "工具调用",
+    k=3,
+    filter={"source": "knowledge.txt"}  # 只从特定文件检索
+)
+```
+
+#### 第六步：完整RAG链（检索 + 上下文增强 + 生成）
+```python
+from langchain.chat_models import init_chat_model
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnablePassthrough
+
+# 1. 初始化LLM
+llm = init_chat_model(model="deepseek-v4-flash", model_provider="DeepSeek")
+
+# 2. 创建检索器
+retriever = vectorstore.as_retriever(
+    search_type="similarity",  # 相似度检索
+    search_kwargs={"k": 3}     # 返回最相关的3个片段
+)
+
+# 3. 创建提示词模板（RAG专用）
+RAG_PROMPT = """你是一个专业的知识助手。请根据以下上下文信息回答用户的问题。
+如果上下文中没有相关信息，请坦诚说"我没有找到相关信息"，不要编造答案。
+
+上下文信息：
+{context}
+
+用户问题：{question}
+
+请给出准确、有条理的回答："""
+
+prompt = ChatPromptTemplate.from_template(RAG_PROMPT)
+
+# 4. 格式化检索结果为上下文
+def format_docs(docs):
+    """将检索到的文档格式化为上下文字符串"""
+    formatted = []
+    for i, doc in enumerate(docs):
+        source = doc.metadata.get("source", "未知来源")
+        formatted.append(f"[文档{i+1}] (来源: {source})\n{doc.page_content}")
+    return "\n\n".join(formatted)
+
+# 5. 构建RAG链（使用 LCEL 管道语法）
+rag_chain = (
+    {
+        "context": retriever | format_docs,  # 检索 + 格式化
+        "question": RunnablePassthrough()     # 直接传递用户问题
+    }
+    | prompt      # 填充提示词
+    | llm         # 调用大模型
+    | StrOutputParser()  # 提取字符串输出
+)
+
+# 6. 使用RAG链
+answer = rag_chain.invoke("LangChain是什么？它有哪些核心功能？")
+print("=== RAG回答 ===")
+print(answer)
+
+# 带流式输出的RAG
+print("=== 流式RAG回答 ===")
+for chunk in rag_chain.stream("LangChain的工具调用是怎么工作的？"):
+    print(chunk, end="", flush=True)
+print()
+```
+
+#### 第七步：封装为Agent工具（RAG作为知识库检索工具）
+```python
+from langchain.agents import create_agent
+from langchain_core.tools import tool
+
+# 将RAG检索封装为工具
+@tool(description="从知识库中检索相关信息，回答关于LangChain的问题")
+def knowledge_base_search(query: str) -> str:
+    """检索知识库获取相关信息。
+
+    Args:
+        query: 用户的查询问题
+    """
+    # 检索相关文档
+    docs = retriever.invoke(query)
+    context = format_docs(docs)
+    
+    # 使用LLM基于上下文生成回答
+    response = llm.invoke(
+        f"根据以下上下文回答问题：\n\n{context}\n\n问题：{query}"
+    )
+    return response.content
+
+# 创建带知识库的Agent
+knowledge_agent = create_agent(
+    model="deepseek-v4-flash",
+    model_provider="DeepSeek",
+    tools=[knowledge_base_search, get_weather],
+    system_prompt="你是一个智能助手，可以查询知识库和天气。回答要准确。"
+)
+
+# 调用
+response = knowledge_agent.invoke({
+    "messages": [HumanMessage(content="LangChain的RAG是怎么工作的？")]
+})
+for msg in reversed(response["messages"]):
+    if isinstance(msg, AIMessage) and msg.content:
+        print(f"Agent回复: {msg.content}")
+        break
 ```
 
 ---

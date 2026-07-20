@@ -225,7 +225,6 @@ public ChatClient chatClient(ChatClient.Builder builder) {
         .build();
 }
 ```
-
 **方式二：编程方式创建**
 ```java
 ChatClient client = ChatClient.builder(chatModel)
@@ -235,7 +234,88 @@ ChatClient client = ChatClient.builder(chatModel)
     .build();
 ```
 
-### 3.3 关键结论
+### 3.3 ChatClient完整代码示例
+
+> 以下是从P17-P20转写还原的完整可运行代码，展示ChatClient从配置到使用的全流程
+
+**配置类（推荐方式，一次配置全局可用）**：
+```java
+@Configuration
+public class ChatClientConfig {
+
+    @Bean
+    public ChatClient chatClient(ChatModel chatModel) {
+        return ChatClient.builder(chatModel)
+            .defaultSystem("你是阿里巴巴通义千问")
+            .build();
+    }
+}
+```
+
+**Controller中使用ChatClient（链式调用）**：
+```java
+@RestController
+@RequestMapping("/chat/client")
+public class ChatClientController {
+
+    @Resource
+    private ChatClient chatClient;
+
+    @GetMapping("/ask")
+    public String ask(@RequestParam(defaultValue = "2加9等于几") String message) {
+        // ChatClient 链式调用：prompt() → user() → call() → content()
+        return chatClient.prompt()
+            .user(message)
+            .call()
+            .content();
+    }
+}
+```
+
+**混合使用：ChatModel + ChatClient 共存**：
+```java
+@RestController
+@RequestMapping("/chat")
+public class ChatController {
+
+    // 方式一：ChatModel - 支持自动注入
+    @Resource
+    private ChatModel chatModel;
+
+    // 方式二：ChatClient - 需要通过Bean配置注入
+    @Resource
+    private ChatClient chatClient;
+
+    // ChatModel 调用（传统方式，样板代码风格）
+    @GetMapping("/model")
+    public String chatByModel(@RequestParam(defaultValue = "你是谁") String message) {
+        return chatModel.call(new Prompt(message))
+            .getResult().getOutput().getContent();
+    }
+
+    // ChatClient 调用（链式调用，流式编程风格）
+    @GetMapping("/client")
+    public String chatByClient(@RequestParam(defaultValue = "你是谁") String message) {
+        return chatClient.prompt()
+            .user(message)
+            .call()
+            .content();
+    }
+}
+```
+
+**ChatClient流式调用（SSE）**：
+```java
+@GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+public Flux<String> streamChat(@RequestParam String message) {
+    return chatClient.prompt()
+        .user(message)
+        .stream()
+        .content();
+}
+```
+
+### 3.4 关键结论
 
 - ChatClient 是**不可变的**，每次 `.build()` 生成新实例
 - 实际工作中 ChatModel 和 ChatClient **混合使用**
@@ -670,40 +750,178 @@ spring:
 用户查询 → 查询向量化 → 相似度搜索(Top-K) → 拼接上下文 → LLM生成回答
 ```
 
-### 10.3 AI智能运维案例
+### 10.3 AI智能运维案例（完整代码）
 
+> 以下是从P59-P64转写还原的完整可运行代码，包含文档加载、切分、向量化、去重、检索、生成全流程
+
+**运维编码手册（ops.txt）**：
+```
+00000,系统OK,正确执行后返回
+A0001,用户错误,一级宏观错误编码
+A0010,权限不足,用户没有操作权限
+A0020,参数错误,请求参数不合法
+B0001,系统错误,一级宏观错误编码
+B0010,服务不可用,服务暂时无法响应
+B0020,超时,请求处理超时
+C0001,数据库错误,数据库连接异常
+C0010,缓存失效,缓存数据不可用
+C0020,消息队列异常,消息投递失败
+```
+
+**Maven依赖**：
+```xml
+<dependency>
+    <groupId>org.springframework.ai</groupId>
+    <artifactId>spring-ai-alibaba-starter-dashscope</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.ai</groupId>
+    <artifactId>spring-ai-starter-vector-store-redis</artifactId>
+</dependency>
+<dependency>
+    <groupId>redis.clients</groupId>
+    <artifactId>jedis</artifactId>
+</dependency>
+```
+
+**application.yml配置**：
+```yaml
+server:
+  port: 8080
+
+spring:
+  ai:
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY}
+      chat:
+        options:
+          model: deepseek-v3      # 对话模型
+      embedding:
+        options:
+          model: text-embedding-v3 # 向量化模型
+    vectorstore:
+      redis:
+        uri: redis://localhost:6379
+        index: rag-ops-index       # 向量索引名
+        prefix: "rag-ops:"         # 向量数据前缀
+        initialize-schema: true    # 自动初始化
+```
+
+**大模型配置类（ChatModel + ChatClient多模型共存）**：
 ```java
-// 1. 初始化 - 加载文档到向量数据库
-@PostConstruct
-public void init() {
-    // 读取文件
-    TextReader reader = new TextReader(opsFile);
-    reader.setCharset(StandardCharsets.UTF_8);
-    
-    // 文本切分
-    List<Document> documents = new TokenTextSplitter()
-        .apply(reader.read());
-    
-    // 去重判断（Redis setnx）
-    String source = "ops.txt";
-    String key = "vector:ops:" + SecurityUtil.md5(source);
-    Boolean exists = redisTemplate.hasKey(key);
-    
-    if (!Boolean.TRUE.equals(exists)) {
-        vectorStore.add(documents);
-        redisTemplate.opsForValue().set(key, "1");
+@Configuration
+public class ChatModelConfig {
+
+    @Bean
+    public ChatClient chatClient(ChatModel chatModel) {
+        return ChatClient.builder(chatModel)
+            .defaultSystem("你是AI智能运维助手，根据错误编码给出故障解释")
+            .build();
     }
 }
+```
 
-// 2. RAG查询
-@GetMapping("/rag/query")
-public String ragQuery(@RequestParam String question) {
-    return chatClient.prompt()
-        .user(question)
-        .advisors(new QuestionAnswerAdvisor(vectorStore))
-        .call()
-        .content();
+**Redis Config**：
+```java
+@Configuration
+public class RedisConfig {
+    @Bean
+    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
+        RedisTemplate<String, String> template = new RedisTemplate<>();
+        template.setConnectionFactory(factory);
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new StringRedisSerializer());
+        return template;
+    }
 }
+```
+
+**核心Service（初始化向量数据库 + RAG查询 + 去重）**：
+```java
+@Service
+public class OpsRagService {
+
+    @Autowired
+    private VectorStore vectorStore;
+
+    @Autowired
+    private ChatClient chatClient;
+
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
+
+    @Value("classpath:ops.txt")
+    private Resource opsFile;
+
+    /**
+     * 初始化：每次启动将运维手册加载到向量数据库（带去重）
+     */
+    @PostConstruct
+    public void init() {
+        // 1. 读取文件（注意编码，Windows上传到Linux要用UTF-8）
+        TextReader reader = new TextReader(opsFile);
+        reader.setCharset(StandardCharsets.UTF_8);
+
+        // 2. 文本切分（按token分段，形成chunk块）
+        List<Document> documents = new TokenTextSplitter()
+            .apply(reader.read());
+
+        // 3. 去重判断（使用Redis setNX防止重复加载）
+        String source = (String) reader.getCustomMetadata().get("source");
+        String md5Source = SecurityUtil.md5(source);      // MD5加密文件名
+        String key = "vector:ops:" + md5Source;            // Redis Key
+
+        // setNX: key不存在才插入，存在则返回false
+        Boolean flag = redisTemplate.opsForValue()
+            .setIfAbsent(key, "1");
+
+        if (Boolean.TRUE.equals(flag)) {
+            // 首次插入：键不存在，保存向量数据
+            vectorStore.add(documents);
+            log.info("向量数据首次初始化完成，source={}", source);
+        } else {
+            // 键已存在：跳过，避免重复插入
+            log.info("向量数据已存在，跳过初始化，source={}", source);
+        }
+    }
+
+    /**
+     * RAG查询：用户提问 → 向量检索 → LLM生成回答
+     */
+    public String ragQuery(String question) {
+        return chatClient.prompt()
+            .system("你是一个运维工程师，根据给出的错误编码给出对应的故障解释，找不到就回复没有这个信息")
+            .user(question)
+            .advisors(new QuestionAnswerAdvisor(vectorStore))
+            .call()
+            .content();
+    }
+}
+```
+
+**Controller（RAG查询接口）**：
+```java
+@RestController
+@RequestMapping("/ops")
+public class OpsRagController {
+
+    @Autowired
+    private OpsRagService opsRagService;
+
+    @GetMapping("/query")
+    public String query(@RequestParam String code) {
+        // 示例：/ops/query?code=00000 → "系统OK，正确执行后返回"
+        return opsRagService.ragQuery(code);
+    }
+}
+```
+
+**测试效果**：
+```
+GET /ops/query?code=00000  → "00000代表系统OK，正确执行后返回"
+GET /ops/query?code=A0001  → "A0001代表用户错误，一级宏观错误编码"
+GET /ops/query?code=C0020  → "C0020代表消息队列异常，消息投递失败"
+GET /ops/query?code=33333  → "没有找到相关信息"
 ```
 
 ### 10.4 向量数据库去重
@@ -730,50 +948,133 @@ public String ragQuery(@RequestParam String question) {
     └── 需要 → 返回工具名+参数 → 执行工具 → 结果返回LLM → LLM生成最终回答
 ```
 
-### 11.3 定义工具类
+### 11.3 定义工具类（完整示例）
 
+> 以下是从P65-P69转写还原的完整可运行代码
+
+**工具类定义（@Tool注解）**：
 ```java
+import org.springframework.ai.tool.annotation.Tool;
+import org.springframework.ai.tool.annotation.ToolParam;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class DateTimeTools {
-    
-    @Tool(description = "获取当前时间")
+
+    /**
+     * @Tool 注解参数说明：
+     * - description: 工具描述（必填），告诉LLM这个工具能做什么
+     * - returnDirect: 是否直接返回给用户（默认false）
+     *   false = 工具结果返回给LLM，LLM整合后回复（推荐，结果更优雅）
+     *   true  = 工具结果直接透传给用户，不经过LLM处理（更快捷）
+     */
+    @Tool(description = "获取当前时间", returnDirect = false)
     public String getCurrentTime() {
-        return LocalDateTime.now().format(
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return LocalDateTime.now()
+            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
-    
-    // @Tool 参数说明：
-    // description: 工具描述（必填）
-    // returnDirect: 是否直接返回（默认false，由LLM整合后返回）
 }
 ```
 
-### 11.4 ChatModel方式使用Tool Calling
-
+**多工具类示例（@ToolParam传参）**：
 ```java
-// 1. 注册工具
-ToolCallbackProvider toolProvider = ToolCallbacks.forAll(new DateTimeTools());
+public class WeatherTools {
 
-// 2. 构建Options
-ChatOptions options = DashScopeChatOptions.builder()
-    .withToolCallbacks(toolProvider)
-    .build();
+    @Tool(description = "根据城市名称获取天气信息")
+    public String getWeather(
+            @ToolParam(description = "城市名称，如：北京、上海") String city) {
+        return switch (city) {
+            case "北京" -> "晴，25℃，南风3级";
+            case "上海" -> "多云，22℃，东风2级";
+            case "深圳" -> "小雨，28℃，东南风4级";
+            default -> "未查到" + city + "的天气信息";
+        };
+    }
+}
 
-// 3. 调用
-ChatResponse response = chatModel.call(
-    new Prompt("现在几点了？", options));
+public class StockTools {
+
+    @Tool(description = "获取实时股票价格")
+    public String getStockPrice(
+            @ToolParam(description = "股票代码，如：sh000001") String code) {
+        // 模拟实时股价
+        return "股票" + code + "当前价格：15.23元，涨幅：+2.3%";
+    }
+}
 ```
 
-### 11.5 ChatClient方式使用Tool Calling
+### 11.4 ChatModel方式使用Tool Calling（完整示例）
 
 ```java
-chatClient.prompt()
-    .user("现在几点了？")
-    .tools(new DateTimeTools())
-    .call()
-    .content();
+@RestController
+@RequestMapping("/tool/model")
+public class ToolCallingModelController {
+
+    @Autowired
+    private ChatModel chatModel;
+
+    /**
+     * 步骤1：注册工具 → 步骤2：构建Options → 步骤3：调用
+     */
+    @GetMapping("/time")
+    public String getTime() {
+        // 1. 工具注册到工具集合（forAll支持多个工具类）
+        ToolCallbackProvider toolProvider = ToolCallbacks.forAll(
+            new DateTimeTools(),
+            new WeatherTools()   // 可以同时注册多个工具类
+        );
+
+        // 2. 构建Options，将工具类注入
+        ChatOptions options = DashScopeChatOptions.builder()
+            .withToolCallbacks(toolProvider)
+            .build();
+
+        // 3. 调用时带上提示词和Options
+        ChatResponse response = chatModel.call(
+            new Prompt("现在几点了？", options));
+
+        return response.getResult().getOutput().getContent();
+    }
+}
 ```
 
-### 11.6 returnDirect 参数
+### 11.5 ChatClient方式使用Tool Calling（完整示例）
+
+```java
+@RestController
+@RequestMapping("/tool/client")
+public class ToolCallingClientController {
+
+    @Autowired
+    private ChatClient chatClient;
+
+    /**
+     * ChatClient 方式更简洁：链式调用 .tools() 即可
+     */
+    @GetMapping("/time")
+    public String getTime() {
+        return chatClient.prompt()
+            .user("现在几点了？")
+            .tools(new DateTimeTools())   // 注入工具类
+            .call()
+            .content();
+    }
+
+    /**
+     * 同时使用多个工具：LLM自行判断该调哪个
+     */
+    @GetMapping("/weather")
+    public String getWeather(@RequestParam(defaultValue = "北京") String city) {
+        return chatClient.prompt()
+            .user(city + "今天天气怎么样？")
+            .tools(new WeatherTools())
+            .call()
+            .content();
+    }
+}
+```
+
+### 11.6 returnDirect 参数对比
 
 - `false`（默认）：工具结果返回给LLM，LLM整合后回复
 - `true`：工具结果直接返回给用户，不经过LLM处理
@@ -822,54 +1123,261 @@ MCP Server C（百度地图）
 | **STDIO** | 标准输入输出 | 本地集成，双向流 |
 | **SSE** | HTTP长连接 | 远程服务，单向推送 |
 
-### 12.5 本地MCP Server实现
+### 12.5 本地MCP Server完整代码
 
-```java
-// 1. 工具服务类
-@Service
-public class WeatherService {
-    public String getWeather(String city) {
-        return switch(city) {
-            case "北京" -> "晴，25℃";
-            case "上海" -> "多云，22℃";
-            default -> "未查到城市";
-        };
-    }
-}
+> 以下是从P74-P75转写还原的完整可运行MCP Server代码，端口8014
 
-// 2. MCP Server配置
-@Bean
-public ToolCallbackProvider weatherToolCallbackProvider() {
-    return MethodToolCallbackProvider.builder()
-        .toolObjects(new WeatherService())
-        .build();
-}
+**Maven依赖**（⚠️注意：不要引入spring-boot-starter-web，用webflux替代）：
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter</artifactId>
+        <!-- 注意：不引入spring-boot-starter-web，避免与webflux冲突 -->
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-mcp-server-webflux</artifactId>
+        <!-- MCP Server 核心依赖，启动Netty（非Tomcat） -->
+    </dependency>
+</dependencies>
 ```
 
-**MCP Server配置**（application.yml）：
+**application.yml配置**：
 ```yaml
+server:
+  port: 8014
+
 spring:
   ai:
     mcp:
       server:
         enabled: true
-        name: weather-server
-        version: 1.0.0
+        name: weather-server       # MCP Server 名称
+        version: 1.0.0             # 版本号
 ```
 
-**注意**：MCP Server 要引入 `mcp-server-webflux`，启动 **Netty**（不是Tomcat）
+**工具服务类（天气查询）**：
+```java
+@Service
+public class WeatherService {
 
-### 12.6 本地MCP Client实现
+    /**
+     * 模拟按城市查询天气（实际项目可对接和风天气等API）
+     */
+    public String getWeather(String city) {
+        return switch (city) {
+            case "北京" -> "晴，25℃，南风3级，当前温度25℃";
+            case "上海" -> "多云，15-27℃，南风三级，当前温度27℃";
+            case "深圳" -> "小雨，28℃，东南风4级，当前温度28℃";
+            default -> "未查到" + city + "的天气信息";
+        };
+    }
+}
+```
+
+**MCP Server配置类（暴露工具给外部调用）**：
+```java
+@Configuration
+public class McpServerConfig {
+
+    @Bean
+    public ToolCallbackProvider weatherToolCallbackProvider() {
+        // 将WeatherService注册为MCP对外暴露的工具服务
+        return MethodToolCallbackProvider.builder()
+            .toolObjects(new WeatherService())
+            .build();
+    }
+}
+```
+
+**启动后控制台应看到**：
+```
+Netty started on port 8014
+# 注意：是Netty，不是Tomcat！
+```
+
+### 12.6 本地MCP Client完整代码
+
+> 以下是从P75转写还原的完整可运行MCP Client代码，端口8015，调用8014的Server
 
 **Maven依赖**：
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+        <!-- Client端可以用Tomcat -->
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-mcp-client</artifactId>
+        <!-- MCP Client 核心依赖 -->
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-starter-model-dashscope</artifactId>
+    </dependency>
+</dependencies>
+```
+
+**application.yml配置（关键：SSE连接指向Server地址）**：
+```yaml
+server:
+  port: 8015
+
+spring:
+  ai:
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY}
+      chat:
+        options:
+          model: qwen-plus
+    mcp:
+      client:
+        async:
+          timeout: 60s            # 异步超时时间
+        toolcallback:
+          enabled: true           # 开启Tool Calling支持
+        sse:
+          connections:
+            weather-server:       # Server名称（自定义）
+              url: http://localhost:8014  # MCP Server地址
+```
+
+**ChatClient配置类（赋能MCP调用能力）**：
+```java
+@Configuration
+public class McpClientConfig {
+
+    @Bean
+    public ChatClient chatClient(ChatModel chatModel) {
+        return ChatClient.builder(chatModel)
+            .defaultSystem("你是智能助手，可以查询天气等实时信息")
+            .build();
+    }
+}
+```
+
+**Controller（ChatClient vs ChatModel 对比）**：
+```java
+@RestController
+@RequestMapping("/mcp")
+public class McpClientController {
+
+    @Autowired
+    private ChatClient chatClient;
+
+    @Autowired
+    private ChatModel chatModel;
+
+    /**
+     * ✅ 使用MCP：ChatClient通过配置文件已接入MCP Server
+     * 可以调用MCP Server提供的天气查询等工具
+     */
+    @GetMapping("/with-mcp")
+    public String withMcp(@RequestParam(defaultValue = "上海") String city) {
+        return chatClient.prompt()
+            .user(city + "今天的天气怎么样？")
+            .call()
+            .content();
+        // 预期输出：上海天气预报是多云，15到27℃，南风三级，当前温度27℃
+    }
+
+    /**
+     * ❌ 无MCP：普通ChatModel调用，无法获取实时天气
+     */
+    @GetMapping("/without-mcp")
+    public String withoutMcp(@RequestParam(defaultValue = "上海") String city) {
+        return chatModel.call(new Prompt(city + "今天的天气怎么样？"))
+            .getResult().getOutput().getContent();
+        // 预期输出：我目前无法直接获取实时天气信息，建议你使用实时天气服务...
+    }
+}
+```
+
+### 12.7 百度地图MCP案例（完整配置）
+
+> 以下是从P76-P79转写还原的完整百度地图MCP集成步骤
+
+**步骤1：申请百度地图API密钥**
+1. 注册百度账号 → 控制台 → 创建应用
+2. 应用类型：服务端
+3. 启用服务：全部勾选
+4. IP白名单：写死（如 `127.0.0.1`，本地测试用）
+5. 获取 **百度 Map API Key**（AK）
+
+**步骤2：安装Node.js环境**
+```bash
+# 下载安装Node.js（LTS版本），或
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# 验证
+node --version
+npm --version
+```
+
+**步骤3：Maven依赖**
 ```xml
 <dependency>
     <groupId>org.springframework.ai</groupId>
     <artifactId>spring-ai-starter-mcp-client</artifactId>
 </dependency>
+<dependency>
+    <groupId>org.springframework.ai</groupId>
+    <artifactId>spring-ai-starter-model-dashscope</artifactId>
+</dependency>
 ```
 
-**配置**：
+**步骤4：application.yml配置**：
+```yaml
+server:
+  port: 8016
+
+spring:
+  ai:
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY}
+      chat:
+        options:
+          model: qwen-plus
+    mcp:
+      client:
+        stdio:
+          servers:
+            baidu-map-server:
+              command: cmd
+              args: ["/c", "npx", "-y", "@baidu/map-mcp-server"]
+              env:
+                BAIDU_MAP_API_KEY: 你的百度地图AK
+```
+
+**步骤5：mcp-server.json5配置（分离配置，支持注释）**：
+```json5
+// mcp-server.json5 - 百度地图MCP配置
+// JSON5 = JSON + 注释支持（类似HTML5扩展）
+{
+  "mcpServers": {
+    // 百度地图MCP Server
+    "baidu-map": {
+      // command: 启动Windows命令行解释器
+      "command": "cmd",
+      // args:
+      //   /c = 执行完后自动关闭
+      //   npx = Node.js包执行器（需本地Node.js环境）
+      //   -y = 同意全部操作
+      //   @baidu/map-mcp-server = 百度地图MCP包
+      "args": ["/c", "npx", "-y", "@baidu/map-mcp-server"],
+      "env": {
+        "BAIDU_MAP_API_KEY": "你的百度地图AK"
+      }
+    }
+  }
+}
+```
+
+**application.yml引用json5**：
 ```yaml
 spring:
   ai:
@@ -877,46 +1385,88 @@ spring:
       client:
         stdio:
           servers:
-            weather-server:
-              command: java
-              args: -jar, weather-server.jar
-        sse:
-          connections:
-            server1:
-              url: http://localhost:8014
+            baidu-map-server:
+              command: cmd
+              args: ["/c", "npx", "-y", "@baidu/map-mcp-server"]
+              env:
+                BAIDU_MAP_API_KEY: ${BAIDU_MAP_API_KEY}
 ```
 
-**使用**：
+**ChatClient配置**：
 ```java
-@Autowired
-private ChatClient chatClient;  // 已集成 MCP 能力
+@Configuration
+public class BaiduMapMcpConfig {
 
-chatClient.prompt()
-    .user("北京今天天气怎么样？")
-    .call()
-    .content();
-```
-
-### 12.7 百度地图MCP案例
-
-1. 申请百度地图 API Key
-2. 安装 Node.js 环境
-3. 配置 `mcp-server.json5`：
-```json5
-{
-  "mcpServers": {
-    "baidu-map": {
-      "command": "cmd",
-      "args": ["/c", "npx", "-y", "@baidu/map-mcp-server"],
-      "env": {
-        "BAIDU_MAP_API_KEY": "你的AK"
-      }
+    @Bean
+    public ChatClient chatClient(ChatModel chatModel) {
+        return ChatClient.builder(chatModel)
+            .defaultSystem("你是智能助手，可以使用百度地图查询天气、路线规划、IP定位等")
+            .build();
     }
-  }
 }
 ```
 
-4. 通过 ChatClient 调用，可获得：地理编码、天气预报、路线规划、IP定位等功能
+**Controller（调用百度地图MCP）**：
+```java
+@RestController
+@RequestMapping("/baidu/map")
+public class BaiduMapMcpController {
+
+    @Autowired
+    private ChatClient chatClient;
+
+    /** 查询实时天气（通过经纬度） */
+    @GetMapping("/weather")
+    public String weather(
+            @RequestParam(defaultValue = "39.9042") String latitude,
+            @RequestParam(defaultValue = "116.4074") String longitude) {
+        return chatClient.prompt()
+            .user("查询经纬度(" + latitude + "," + longitude + ")的实时天气和未来五天预报")
+            .call()
+            .content();
+    }
+
+    /** IP定位（通过IP地址获取位置信息） */
+    @GetMapping("/ip-location")
+    public String ipLocation(@RequestParam(defaultValue = "61.149.21.1") String ip) {
+        return chatClient.prompt()
+            .user("查询IP地址" + ip + "的位置信息")
+            .call()
+            .content();
+    }
+
+    /** 路线规划 */
+    @GetMapping("/route")
+    public String route(
+            @RequestParam(defaultValue = "昌平") String from,
+            @RequestParam(defaultValue = "天安门") String to) {
+        return chatClient.prompt()
+            .user("查询从" + from + "到" + to + "的驾车路线规划")
+            .call()
+            .content();
+    }
+}
+```
+
+**启动后控制台应看到**：
+```
+百度MCP Server Running on STDIO
+# 表示MCP连接成功，可以调用百度地图10个工具方法
+```
+
+**百度MCP提供的10个工具方法**：
+| 方法名 | 功能 |
+|--------|------|
+| map_geo_code | 地理编码服务（地址→经纬度） |
+| map_reverse_geo_code | 全球逆地理编码（经纬度→地址） |
+| map_weather | 天气预报（实时+未来5天） |
+| map_ip_location | IP地址定位 |
+| map_poi_search | 地点检索 |
+| map_route_direction | 路线规划（驾车） |
+| map_route_transit | 路线规划（公交） |
+| map_route_walking | 路线规划（步行） |
+| map_traffic_realtime | 实时路况查询 |
+| map_traffic_trend | 拥堵趋势分析 |
 
 ### 12.8 MCP vs Tool Calling
 
