@@ -11,50 +11,6 @@ const SECTION_LABELS = {
   plans: "阶段路线",
 };
 
-const GISCUS_CONFIG = {
-  repo: "Chinazhouwy/chinazhouwy.github.io",
-  repoId: "R_kgDOOzTMhA",
-  category: "Announcements",
-  categoryId: "DIC_kwDOOzTMhM4DBhIz",
-};
-
-const GISCUS_RETURN_HASH_KEY = "wy_giscus_return_hash";
-
-function restoreGiscusArticleRoute() {
-  const hasGiscusToken = new URLSearchParams(location.search).has("giscus");
-  if (!hasGiscusToken) return;
-
-  try {
-    const returnHash = sessionStorage.getItem(GISCUS_RETURN_HASH_KEY);
-    if (!returnHash?.startsWith("#/article/")) return;
-
-    const keepArticleRoute = () => {
-      if (!location.hash) {
-        history.replaceState(null, "", `${location.pathname}${location.search}${returnHash}`);
-      }
-    };
-
-    keepArticleRoute();
-
-    // Giscus removes the OAuth query asynchronously and may also drop the SPA hash.
-    let checks = 0;
-    const routeGuard = window.setInterval(() => {
-      checks += 1;
-      keepArticleRoute();
-
-      const tokenConsumed = !new URLSearchParams(location.search).has("giscus");
-      if (tokenConsumed || checks >= 100) {
-        window.clearInterval(routeGuard);
-        if (tokenConsumed) sessionStorage.removeItem(GISCUS_RETURN_HASH_KEY);
-      }
-    }, 100);
-  } catch {
-    // Session storage may be unavailable in strict privacy modes.
-  }
-}
-
-restoreGiscusArticleRoute();
-
 const ui = {
   app: document.getElementById("app"),
   search: document.getElementById("search-input"),
@@ -66,7 +22,6 @@ const state = {
   dashboard: {},
   columns: [],
   projects: [],
-  quickLinks: [],
   aliases: {},
   query: "",
 };
@@ -339,9 +294,7 @@ function articleRow(article, options = {}) {
         </small>
       </span>
       ${
-        options.actionLabel
-          ? `<span class="article-row-action">${escapeHtml(options.actionLabel)}</span>`
-          : article.score !== null && article.score !== undefined
+        article.score !== null && article.score !== undefined
           ? `<span class="score ${article.score < 4 ? "score-low" : ""}">${scoreText(article.score)}</span>`
           : iconArrow()
       }
@@ -611,92 +564,6 @@ function renderDomain(section, title, description, { groupKey } = {}) {
             <div class="article-list">${articles.map((article) => articleRow(article)).join("")}</div>
           </section>`).join("") : '<p class="empty-copy">栏目已建立，等待内容沉淀。</p>'}
       </div>
-    </section>`;
-}
-
-function quickLinkCard(link) {
-  return `
-    <a class="quick-link-card" href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">
-      <span>${escapeHtml(link.group)}</span>
-      <strong>${escapeHtml(link.shortName || link.name)}</strong>
-      <p>${escapeHtml(link.description)}</p>
-      <em>打开资源 ↗</em>
-    </a>
-  `;
-}
-
-function renderQuickLinks() {
-  const links = state.quickLinks;
-  if (!links.length) return "";
-
-  const featured = links.filter((link) => link.featured).slice(0, 12);
-  const groups = Object.entries(groupBy(links, "group"));
-
-  return `
-    <section class="quick-links-section reveal delay-1">
-      <div class="section-heading">
-        <div><p class="mono-label">QUICK LINKS / 快速连接</p><h2>原典与开放知识入口</h2></div>
-        <span class="quick-link-count">${links.length} 个站点</span>
-      </div>
-      <p class="quick-links-intro">从原典、人物与地理数据库开始，再进入哲学解释、数学史和开放课程。</p>
-      <div class="quick-link-grid">${featured.map(quickLinkCard).join("")}</div>
-      <details class="quick-link-directory">
-        <summary>查看全部 ${links.length} 个资源</summary>
-        <div class="quick-link-groups">
-          ${groups
-            .map(
-              ([group, groupLinks]) => `
-                <section>
-                  <h3>${escapeHtml(group)}</h3>
-                  <div>
-                    ${groupLinks
-                      .map(
-                        (link) => `
-                          <a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">
-                            ${escapeHtml(link.shortName || link.name)} <span>↗</span>
-                          </a>`,
-                      )
-                      .join("")}
-                  </div>
-                </section>`,
-            )
-            .join("")}
-        </div>
-      </details>
-    </section>
-  `;
-}
-
-function renderReading() {
-  const items = filteredArticles("reading");
-  const groups = Object.entries(
-    items.reduce((acc, item) => {
-      const key = normalizeReadingArea(item);
-      acc[key] ||= [];
-      acc[key].push(item);
-      return acc;
-    }, {}),
-  );
-
-  ui.app.innerHTML = `
-    <section class="directory-page">
-      ${sectionIntro("READING", "阅读", "闲暇输入、网页剪藏、读书札记和个人观察。这里不追求每篇都成体系，先保留思考痕迹。", items.length)}
-      <div class="directory-groups">
-        ${
-          groups.length
-            ? groups
-                .map(
-                  ([area, articles]) => `
-                    <section class="directory-group reveal">
-                      <header><h2>${escapeHtml(area)}</h2><span>${articles.length} 篇</span></header>
-                      <div class="article-list">${articles.map((article) => articleRow(article, { actionLabel: "阅读全文 / 留言" })).join("")}</div>
-                    </section>`,
-                )
-                .join("")
-            : '<p class="empty-copy">栏目已建立，等待内容沉淀。</p>'
-        }
-      </div>
-      ${renderQuickLinks()}
     </section>`;
 }
 
@@ -984,38 +851,6 @@ function createToc(container) {
     .join("");
 }
 
-function mountComments(articlePath) {
-  const container = document.getElementById("article-comments");
-  if (!container) return;
-
-  const script = document.createElement("script");
-  script.src = "https://giscus.app/client.js";
-  script.dataset.repo = GISCUS_CONFIG.repo;
-  script.dataset.repoId = GISCUS_CONFIG.repoId;
-  script.dataset.category = GISCUS_CONFIG.category;
-  script.dataset.categoryId = GISCUS_CONFIG.categoryId;
-  script.dataset.mapping = "specific";
-  script.dataset.term = `article:${articlePath}`;
-  script.dataset.strict = "1";
-  script.dataset.reactionsEnabled = "1";
-  script.dataset.emitMetadata = "0";
-  script.dataset.inputPosition = "top";
-  script.dataset.theme = "noborder_light";
-  script.dataset.lang = "zh-CN";
-  script.dataset.loading = "lazy";
-  script.crossOrigin = "anonymous";
-  script.async = true;
-  container.appendChild(script);
-}
-
-function rememberGiscusArticleRoute(articlePath) {
-  try {
-    sessionStorage.setItem(GISCUS_RETURN_HASH_KEY, articleHref(articlePath));
-  } catch {
-    // The comments still render; only OAuth route restoration is unavailable.
-  }
-}
-
 async function renderArticle(rawPath) {
   // Resolve aliases
   const resolvedPath = state.aliases[rawPath] || rawPath;
@@ -1036,7 +871,7 @@ async function renderArticle(rawPath) {
   ui.app.innerHTML = '<div class="loading-state"><span></span><p>正在展开文章…</p></div>';
 
   try {
-    const response = await fetch(`./${fetchPath}?v=${BUILD_VERSION}`);
+    const response = await fetch(`./${fetchPath}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const raw = await response.text();
     const content = raw.startsWith("---") ? raw.replace(/^---\n[\s\S]*?\n---\n?/, "") : raw;
@@ -1063,36 +898,12 @@ async function renderArticle(rawPath) {
               ${article?.round ? `<span>${escapeHtml(article.round)}</span>` : ""}
               ${article?.score !== null && article?.score !== undefined ? `<span class="score">${scoreText(article.score)}</span>` : ""}
             </div>
-            <button id="comment-jump" class="comment-jump" type="button">
-              <span>留言</span>
-              跳到文章评论区 ↓
-            </button>
           </header>
           <article id="article-body" class="article-body">${rendered}</article>
-          <section id="comments-section" class="comments-section" aria-labelledby="comments-title">
-            <header>
-              <div>
-                <p class="mono-label">DISCUSSION</p>
-                <h2 id="comments-title">留言与讨论</h2>
-              </div>
-              <p>点击“使用 GitHub 登录”完成授权，输入内容后点击“评论”。留言会公开保存在 GitHub Discussions。</p>
-            </header>
-            <ol class="comment-steps" aria-label="留言步骤">
-              <li><span>1</span>使用 GitHub 登录</li>
-              <li><span>2</span>输入留言内容</li>
-              <li><span>3</span>点击“评论”发布</li>
-            </ol>
-            <div id="article-comments" class="comments-container"></div>
-          </section>
         </main>
       </section>
     `;
     document.getElementById("article-toc").innerHTML = createToc(document.getElementById("article-body"));
-    document.getElementById("comment-jump").addEventListener("click", () => {
-      document.getElementById("comments-section").scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-    rememberGiscusArticleRoute(fetchPath);
-    mountComments(fetchPath);
     document.title = `${displayTitle} · WY 工作台`;
     window.scrollTo({ top: 0, behavior: "instant" });
   } catch (error) {
@@ -1135,7 +946,7 @@ async function renderRoute() {
     projects: renderProjects,
     learning: () => renderDomain("learning", "学习", "技术知识、源码笔记与可复习内容。"),
     opportunity: renderOpportunity,
-    reading: renderReading,
+    reading: () => renderDomain("reading", "阅读", "闲暇输入、网页剪藏、读书札记和个人观察。这里不追求每篇都成体系，先保留思考痕迹。", { groupKey: normalizeReadingArea }),
     columns: () => renderDomain("columns", "知识地图", "把零散题目、阅读、项目和复盘连接成长期结构，逐步形成自己的知识坐标。"),
 
     // Old route compatibility
@@ -1156,22 +967,16 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260719-6";
+const BUILD_VERSION = "20260707-1";
 
 async function loadSite() {
-  const [response, quickLinks] = await Promise.all([
-    fetch(`./site-index.json?v=${BUILD_VERSION}`),
-    fetch(`./data/quick-links.json?v=${BUILD_VERSION}`)
-      .then((result) => (result.ok ? result.json() : []))
-      .catch(() => []),
-  ]);
+  const response = await fetch(`./site-index.json?v=${BUILD_VERSION}`);
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const payload = await response.json();
   state.articles = Array.isArray(payload) ? payload : payload.articles || [];
   state.dashboard = payload.dashboard || {};
   state.columns = payload.columns || [];
   state.projects = payload.projects || [];
-  state.quickLinks = Array.isArray(quickLinks) ? quickLinks : [];
   state.aliases = payload.aliases || {};
   await renderRoute();
 }
