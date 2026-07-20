@@ -60,6 +60,37 @@
       "question": ""
     },
     {
+      "title": "NLP零基础教程知识点整理（尚硅谷187集）",
+      "path": "content/learning/ai-agents/nlp-tutorial-knowledge-points.md",
+      "url": "content/learning/ai-agents/nlp-tutorial-knowledge-points.md",
+      "date": "2026-07-20",
+      "domain": "技术",
+      "area": "AI Agent",
+      "module": "",
+      "project": "",
+      "type": "学习笔记",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "high",
+      "visibility": "private",
+      "summary": "NLP从零基础到Transformer/BERT/LLM大模型训练的187集课程知识点",
+      "tags": [
+        "NLP",
+        "Transformer",
+        "BERT",
+        "LSTM",
+        "Word2Vec",
+        "大模型"
+      ],
+      "section": "learning",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "SpringAI教程知识点整理（尚硅谷86集）",
       "path": "content/learning/ai-agents/springai-tutorial-knowledge-points.md",
       "url": "content/learning/ai-agents/springai-tutorial-knowledge-points.md",
@@ -7695,7 +7726,7 @@
     "专栏": 2
   },
   "sectionCounts": {
-    "learning": 191,
+    "learning": 192,
     "reading": 9,
     "questions": 61,
     "opportunity": 10,
