@@ -214,7 +214,7 @@ function normalizeReadingArea(article) {
 
   if (raw.includes("politics") || raw.includes("society") || raw.includes("policy") || raw.includes("world")) return "世界观察";
   if (raw.includes("finance") || raw.includes("market") || raw.includes("industry") || raw.includes("business")) return "市场笔记";
-  if (raw.includes("history")) return "历史纵深";
+  if (raw.includes("history")) return "历史";
   if (raw.includes("book") || raw.includes("books")) return "读书札记";
   if (raw.includes("hobbies") || raw.includes("life") || raw.includes("personal") || raw.includes("chayanyuese")) return "生活审美";
   if (raw.includes("clips") || raw.includes("clip")) return "剪藏箱";
@@ -1192,7 +1192,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260720-2";
+const BUILD_VERSION = "20260721-1";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks] = await Promise.all([
