@@ -133,6 +133,41 @@
       "question": ""
     },
     {
+      "title": "SSE 跨层流式系统：从 Spring flush 到浏览器渲染",
+      "path": "content/learning/middleware/2026-07-21-sse-cross-layer-streaming-system.md",
+      "url": "content/learning/middleware/2026-07-21-sse-cross-layer-streaming-system.md",
+      "date": "2026-07-21",
+      "domain": "学习",
+      "area": "技术",
+      "module": "SSE",
+      "project": "",
+      "type": "深度文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "high",
+      "visibility": "public",
+      "summary": "把 SSE 放回完整网络链路中理解：事件格式、Spring MVC、Servlet/Tomcat、HTTP、压缩、TLS、JDK NIO、Linux TCP、Nginx、浏览器解析与 UI 渲染，以及一套可复现的分层排查方法。",
+      "tags": [
+        "SSE",
+        "Spring MVC",
+        "SseEmitter",
+        "Tomcat",
+        "Nginx",
+        "HTTP",
+        "TLS",
+        "TCP",
+        "流式系统",
+        "故障排查"
+      ],
+      "section": "learning",
+      "topic": "SSE",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "LangChain教程知识点整理（2026版·尚硅谷）",
       "path": "content/learning/bilibili/langchain-2026-tutorial-knowledge-points.md",
       "url": "content/learning/bilibili/langchain-2026-tutorial-knowledge-points.md",
@@ -7851,13 +7886,13 @@
   "domains": {
     "任务": 0,
     "项目": 4,
-    "学习": 187,
+    "学习": 188,
     "机会": 87,
     "阅读": 9,
     "专栏": 2
   },
   "sectionCounts": {
-    "learning": 196,
+    "learning": 197,
     "reading": 9,
     "questions": 61,
     "opportunity": 10,
