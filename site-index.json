@@ -168,6 +168,37 @@
       "question": ""
     },
     {
+      "title": "从赵括争议看统帅任命：组织政治、项目失控与风险管理",
+      "path": "content/reading/management/2026-07-21-zhaokuo-leadership-risk-management.md",
+      "url": "content/reading/management/2026-07-21-zhaokuo-leadership-risk-management.md",
+      "date": "2026-07-21",
+      "domain": "阅读",
+      "area": "management",
+      "module": "history",
+      "project": "",
+      "type": "外部文章阅读笔记",
+      "status": "待核验",
+      "priority": "P2",
+      "energy": "low",
+      "visibility": "public",
+      "summary": "从长平之战的赵括争议出发，理解统帅任命背后的组织政治、战略失控、资源约束与风险管理。",
+      "tags": [
+        "历史",
+        "长平之战",
+        "赵括",
+        "组织管理",
+        "风险管理",
+        "战略"
+      ],
+      "section": "reading",
+      "topic": "history",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "LangChain教程知识点整理（2026版·尚硅谷）",
       "path": "content/learning/bilibili/langchain-2026-tutorial-knowledge-points.md",
       "url": "content/learning/bilibili/langchain-2026-tutorial-knowledge-points.md",
@@ -7888,12 +7919,12 @@
     "项目": 4,
     "学习": 188,
     "机会": 87,
-    "阅读": 9,
+    "阅读": 10,
     "专栏": 2
   },
   "sectionCounts": {
     "learning": 197,
-    "reading": 9,
+    "reading": 10,
     "questions": 61,
     "opportunity": 10,
     "columns": 2,
