@@ -88,6 +88,35 @@
       "question": "ReAct 原理和工程落地怎么讲？什么时候会循环失败？"
     },
     {
+      "title": "A股高股息候选池整理（2026-07-22）",
+      "path": "content/reading/a-share-high-dividend-candidate-pool-20260722.md",
+      "url": "content/reading/a-share-high-dividend-candidate-pool-20260722.md",
+      "date": "2026-07-22",
+      "domain": "投资",
+      "area": "高股息",
+      "module": "",
+      "project": "",
+      "type": "研究笔记",
+      "status": "",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "A股连续现金分红5年以上、基本面强、股息率≥3.5%的候选池筛选",
+      "tags": [
+        "投资",
+        "高股息",
+        "A股",
+        "红利"
+      ],
+      "section": "learning",
+      "topic": "高股息",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "LangChain 2026教程 转写笔记（尚硅谷120集）",
       "path": "content/learning/bilibili/langchain-transcript-notes.md",
       "url": "content/learning/bilibili/langchain-transcript-notes.md",
@@ -8010,7 +8039,7 @@
     "专栏": 2
   },
   "sectionCounts": {
-    "learning": 198,
+    "learning": 199,
     "questions": 63,
     "reading": 10,
     "opportunity": 10,
