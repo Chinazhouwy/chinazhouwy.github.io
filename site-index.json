@@ -2,6 +2,37 @@
   "generatedAt": "2026-07-22T00:00:00+08:00",
   "articles": [
     {
+      "title": "Agrona OneToOneRingBuffer 无锁环形缓冲深度拆解",
+      "path": "content/learning/java/agrona-onetoring-ringbuffer.md",
+      "url": "content/learning/java/agrona-onetoring-ringbuffer.md",
+      "date": "2026-07-22",
+      "domain": "学习",
+      "area": "Java 并发",
+      "module": "",
+      "project": "",
+      "type": "学习笔记",
+      "status": "",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "Agrona OneToOneRingBuffer 无锁环形缓冲区设计原理，对比 JDK 队列的性能优势和五大瓶颈",
+      "tags": [
+        "Java",
+        "并发",
+        "无锁",
+        "RingBuffer",
+        "Agrona",
+        "高性能"
+      ],
+      "section": "learning",
+      "topic": "Java 并发",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "第70题：Agent 与普通 LLM 调用的区别",
       "path": "content/opportunity/practice/70-agent-vs-llm-calling.md",
       "url": "content/opportunity/practice/70-agent-vs-llm-calling.md",
@@ -7973,14 +8004,14 @@
   "domains": {
     "任务": 0,
     "项目": 4,
-    "学习": 188,
+    "学习": 189,
     "机会": 89,
     "阅读": 10,
     "专栏": 2
   },
   "sectionCounts": {
+    "learning": 198,
     "questions": 63,
-    "learning": 197,
     "reading": 10,
     "opportunity": 10,
     "columns": 2,
