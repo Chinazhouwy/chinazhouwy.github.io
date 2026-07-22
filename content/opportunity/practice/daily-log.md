@@ -274,5 +274,5 @@ tags:
 - 回顾顺延：无
 - 次日新题：#72（顺延）、#73、#74
 - 新增或修改文件：`practice/70-agent-vs-llm-calling.md`（新建）、`practice/71-react-principle-loop-failure.md`（新建）、`practice/60-interview-harness-two-layer-architecture.md`（R1 更新）、`practice/62-llm-score-drift-eval-regression.md`（R1 更新）、`active-batch-plan.md`（#70、#71 标记已完成）、`README.md`（#60、#62 分数更新，#70、#71 补录）
-- 提交：`c44abc1`
+- 提交：pending（本条记录提交后以 Git 历史为准）
 - 推送：Gitee 成功；GitHub 成功
