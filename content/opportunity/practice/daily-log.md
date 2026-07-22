@@ -273,6 +273,6 @@ tags:
 - 回顾完成：#62 R1（0→5/10）、#60 R1（4→5/10）
 - 回顾顺延：无
 - 次日新题：#72（顺延）、#73、#74
-- 新增或修改文件：`practice/70-agent-vs-llm-calling.md`（新建）、`practice/71-react-principle-loop-failure.md`（新建）、`practice/60-interview-harness-two-layer-architecture.md`（R1 更新）、`practice/62-llm-score-drift-eval-regression.md`（R1 更新）
+- 新增或修改文件：`practice/70-agent-vs-llm-calling.md`（新建）、`practice/71-react-principle-loop-failure.md`（新建）、`practice/60-interview-harness-two-layer-architecture.md`（R1 更新）、`practice/62-llm-score-drift-eval-regression.md`（R1 更新）、`active-batch-plan.md`（#70、#71 标记已完成）、`README.md`（#60、#62 分数更新，#70、#71 补录）
 - 提交：`c44abc1`
 - 推送：Gitee 成功；GitHub 成功
