@@ -130,7 +130,7 @@ tags:
 - 回顾顺延：无
 - 次日新题：#60、#61、#62（顺延）、#63（事务隔离级别/Read View）、#64（MySQL 主从复制/binlog）
 - 新增或修改文件：无
-- 提交：`0cde3a3`（本条记录提交后以 Git 历史为准）
+- 提交：pending（本条记录提交后以 Git 历史为准）
 - 推送：Gitee pending（远端领先 1 个提交 `fe73e1c`；禁止自动合并/变基）；GitHub pending（同上）
 
 ## 2026-07-11
@@ -142,7 +142,7 @@ tags:
 - 回顾顺延：无
 - 次日新题：#60、#61、#62、#63、#64（顺延）
 - 新增或修改文件：无
-- 提交：`0cde3a3`（本条记录提交后以 Git 历史为准）
+- 提交：pending（本条记录提交后以 Git 历史为准）
 - 推送：Gitee pending（远端领先 8 个提交 `fe73e1c..6a69c28`，包含题号重排；禁止自动合并/变基）；GitHub pending（同上）
 
 ## 2026-07-12
@@ -154,7 +154,7 @@ tags:
 - 回顾顺延：无
 - 次日新题：#60、#61、#62（顺延，占周一 3 题配额）；#63、#64 继续顺延
 - 新增或修改文件：无
-- 提交：`0cde3a3`（本条记录提交后以 Git 历史为准）
+- 提交：pending（本条记录提交后以 Git 历史为准）
 - 推送：Gitee pending（远端领先 8 个提交；禁止自动合并/变基）；GitHub pending（同上）
 
 ## 2026-07-13
@@ -166,7 +166,7 @@ tags:
 - 回顾顺延：无
 - 次日新题：#60、#61、#62（顺延，占周二 3 题配额）；#63、#64 继续顺延
 - 新增或修改文件：无
-- 提交：`0cde3a3`（本条记录提交后以 Git 历史为准）
+- 提交：pending（本条记录提交后以 Git 历史为准）
 - 推送：Gitee pending（远端领先 8 个提交，存在分叉；禁止自动合并/变基）；GitHub pending（同上）
 
 ## 2026-07-14
@@ -178,7 +178,7 @@ tags:
 - 回顾顺延：无
 - 次日新题：#60、#61、#62（顺延，占周三 3 题配额）；#63、#64 继续顺延
 - 新增或修改文件：无
-- 提交：`0cde3a3`（本条记录提交后以 Git 历史为准）
+- 提交：pending（本条记录提交后以 Git 历史为准）
 - 推送：Gitee pending（分支已分叉，本地+2/远端+8；禁止自动合并/变基）；GitHub pending（同上）
 
 ## 2026-07-15
@@ -190,7 +190,7 @@ tags:
 - 回顾顺延：无
 - 次日新题：#60、#61、#62（顺延，占周四 3 题配额）；#63、#64 继续顺延
 - 新增或修改文件：`practice/47-completable-future-async-programming.md`（更新 R1）
-- 提交：`0cde3a3`（本条记录提交后以 Git 历史为准）
+- 提交：pending（本条记录提交后以 Git 历史为准）
 - 推送：Gitee pending（分支已分叉，本地+2/远端+8；禁止自动合并/变基）；GitHub pending（同上）
 
 ## 2026-07-16
@@ -202,7 +202,7 @@ tags:
 - 回顾顺延：无
 - 次日新题：#60、#61、#62（顺延，占周五 3 题配额）；#63、#64 继续顺延
 - 新增或修改文件：无
-- 提交：`0cde3a3`（本条记录提交后以 Git 历史为准）
+- 提交：pending（本条记录提交后以 Git 历史为准）
 - 推送：Gitee pending（分支已分叉，本地+2/远端+8；禁止自动合并/变基）；GitHub pending（同上）
 
 ## 2026-07-17
@@ -226,7 +226,7 @@ tags:
 - 回顾顺延：#62（R1，0/10，P1）、#60（R1，4/10，P1）、#61（R1，5/10，P1）
 - 次日新题：#70、#71、#72、#73、#74（顺延，周日 5 题）
 - 新增或修改文件：`practice/60-interview-harness-two-layer-architecture.md`（GPT 纠错）、`practice/61-rubric-evaluation-covered-missing-incorrect.md`（GPT 纠错）、`practice/62-llm-score-drift-eval-regression.md`（GPT 纠错）、`practice/47-completable-future-async-programming.md`（更新）
-- 提交：`0cde3a3`（本条记录提交后以 Git 历史为准）
+- 提交：pending（本条记录提交后以 Git 历史为准）
 - 推送：Gitee 成功；GitHub 成功
 
 ## 2026-07-19
@@ -238,7 +238,7 @@ tags:
 - 回顾顺延：#62（R1，0/10，P1）、#60（R1，4/10，P1）、#61（R1，5/10，P1）
 - 次日新题：#70、#71、#72（顺延，占周一 3 题配额）；#73、#74 继续顺延
 - 新增或修改文件：无
-- 提交：`0cde3a3`（本条记录提交后以 Git 历史为准）
+- 提交：pending（本条记录提交后以 Git 历史为准）
 - 推送：Gitee pending（远端领先 9 个提交 `68f7a67..7004ea6`，本地有未提交 site-index.json 修改；禁止自动合并/变基）；GitHub pending（同上）
 
 ## 2026-07-20
@@ -274,5 +274,5 @@ tags:
 - 回顾顺延：无
 - 次日新题：#72（顺延）、#73、#74
 - 新增或修改文件：`practice/70-agent-vs-llm-calling.md`（新建）、`practice/71-react-principle-loop-failure.md`（新建）、`practice/60-interview-harness-two-layer-architecture.md`（R1 更新）、`practice/62-llm-score-drift-eval-regression.md`（R1 更新）
-- 提交：`0cde3a3`
+- 提交：`c44abc1`
 - 推送：Gitee 成功；GitHub 成功
