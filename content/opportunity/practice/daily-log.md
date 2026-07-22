@@ -252,3 +252,27 @@ tags:
 - 新增或修改文件：无
 - 提交：无 practice 文件变更，不提交
 - 推送：Gitee pending（远端领先；禁止自动合并/变基）；GitHub pending（同上）
+
+## 2026-07-21
+
+- 计划新题：#70、#71、#72
+- 实际完成：无
+- 顺延新题：#70、#71、#72
+- 回顾完成：无
+- 回顾顺延：#62（R1，0/10，P1）、#60（R1，4/10，P1）、#61（R1，5/10，P1）
+- 次日新题：#70、#71、#72（顺延，占周三 3 题配额）；#73、#74 继续顺延
+- 新增或修改文件：无
+- 提交：无 practice 文件变更，不提交
+- 推送：Gitee pending（远端领先 3 个提交，本地有未提交 site-index.json 修改；禁止自动合并/变基）；GitHub pending（同上）
+
+## 2026-07-22
+
+- 计划新题：#70、#71、#72
+- 实际完成：#70、#71（#72 未做）
+- 顺延新题：#72
+- 回顾完成：#62 R1（0→5/10）、#60 R1（4→5/10）
+- 回顾顺延：无
+- 次日新题：#72（顺延）、#73、#74
+- 新增或修改文件：`practice/70-agent-vs-llm-calling.md`（新建）、`practice/71-react-principle-loop-failure.md`（新建）、`practice/60-interview-harness-two-layer-architecture.md`（R1 更新）、`practice/62-llm-score-drift-eval-regression.md`（R1 更新）
+- 提交：pending
+- 推送：Gitee pending；GitHub pending
