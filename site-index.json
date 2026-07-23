@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-22T00:00:00+08:00",
+  "generatedAt": "2026-07-23T00:00:00+08:00",
   "articles": [
     {
       "title": "Agrona OneToOneRingBuffer 无锁环形缓冲深度拆解",
@@ -7746,6 +7746,30 @@
       "score": null,
       "questionNumber": null,
       "question": ""
+    },
+    {
+      "title": "梁文锋四小时投资人会议实录",
+      "path": "content/reading/society/梁文锋投资人会议实录.md",
+      "url": "content/reading/society/梁文锋投资人会议实录.md",
+      "date": "",
+      "domain": "",
+      "area": "",
+      "module": "",
+      "project": "",
+      "type": "文章",
+      "status": "",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "",
+      "tags": [],
+      "section": "learning",
+      "topic": "综合",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
     }
   ],
   "aliases": {
@@ -8039,7 +8063,7 @@
     "专栏": 2
   },
   "sectionCounts": {
-    "learning": 199,
+    "learning": 200,
     "questions": 63,
     "reading": 10,
     "opportunity": 10,
@@ -8088,9 +8112,9 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-07-22",
-      "count": 2,
-      "averageScore": 4.5
+      "date": "2026-07-23",
+      "count": 0,
+      "averageScore": null
     },
     "totalQuestions": 66,
     "scoredQuestions": 59,
