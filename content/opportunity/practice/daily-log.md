@@ -274,5 +274,29 @@ tags:
 - 回顾顺延：无
 - 次日新题：#72（顺延）、#73、#74
 - 新增或修改文件：`practice/70-agent-vs-llm-calling.md`（新建）、`practice/71-react-principle-loop-failure.md`（新建）、`practice/60-interview-harness-two-layer-architecture.md`（R1 更新）、`practice/62-llm-score-drift-eval-regression.md`（R1 更新）、`active-batch-plan.md`（#70、#71 标记已完成）、`README.md`（#60、#62 分数更新，#70、#71 补录）
-- 提交：pending（本条记录提交后以 Git 历史为准）
+- 提交：`0cde3a3`、`c44abc1`、`5102b35`、`e4fcd06`
 - 推送：Gitee 成功；GitHub 成功
+
+## 2026-07-23
+
+- 计划新题：#72、#73、#74
+- 实际完成：无
+- 顺延新题：#72、#73、#74
+- 回顾完成：无
+- 回顾顺延：无
+- 次日新题：#72、#73、#74（顺延，占周五 3 题配额）
+- 新增或修改文件：无
+- 提交：无 practice 文件变更，不提交
+- 推送：Gitee pending（远端领先 2 个提交 `8ea29f4..371f29c`；禁止自动合并/变基）；GitHub pending（同上）
+
+## 2026-07-24
+
+- 计划新题：#72、#73、#74
+- 实际完成：无
+- 顺延新题：#72、#73、#74
+- 回顾完成：无
+- 回顾顺延：无
+- 次日新题：#72、#73、#74（顺延，占周六 3/5 题配额）、#75、#76
+- 新增或修改文件：无
+- 提交：pending（本条记录提交后以 Git 历史为准）
+- 推送：Gitee pending（远端领先 2 个提交 `8ea29f4..371f29c`；禁止自动合并/变基）；GitHub pending（同上）
