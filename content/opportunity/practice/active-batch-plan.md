@@ -1,5 +1,5 @@
 ---
-title: "后续题目计划（23-244）"
+title: "后续题目计划（23-255）"
 date: "2026-07-10"
 domain: "机会"
 area: "机会雷达"
@@ -10,17 +10,17 @@ status: "可复习"
 priority: "P1"
 energy: "medium"
 visibility: "private"
-summary: "后续题目计划（23-244）"
+summary: "后续题目计划（23-255）"
 tags:
 ---
 
-# 后续题目计划（23-244）
+# 后续题目计划（23-255）
 
 > 进度必须以当前 `content/opportunity/practice/` 文件和最近会话为准，不使用历史提交号推断。
 > 状态约定：`✅ 已完成` 表示已有练习文件；`🟡 已练习，待补档` 表示已有对话记录但文件缺失，不重新抽题；无标记表示尚未练习。
 > 2026-07-10 重排原则：已完成 #1-#59 不改；#60 起优先 Hermes、Agent、AI、Harness、RAG、AI Coding，普通 Java/数据库/算法整体后移。
 > 2026-07-18 轨道调整：#63-#69 是“项目研读支线”，用于讨论尚未完成的自研设计，不计正式模拟题数量和得分；正式模拟主线完成 #62 后从 #70 继续。
-> 2026-07-25 简历驱动调整：已完成 #1-#71 和既有 #72-#226 不改号；新增 #227-#244 简历专项，并将其设为下一批正式模拟主线。
+> 2026-07-25 简历驱动调整：已完成 #1-#71 和既有 #72-#226 不改号；新增 #227-#244 核心专项与 #245-#255 简历保卫题，并将其设为下一批正式模拟主线。
 
 ---
 
@@ -35,7 +35,8 @@ tags:
 | 70-71 | Agent 正式模拟已完成 |
 | 72-121 | Agent / AI / RAG / AI Coding 既有题池，简历专项后继续 |
 | 122-226 | Java 后端、数据库、中间件、系统设计、算法既有题池 |
-| 227-244 | 简历驱动专项，下一批优先执行 |
+| 227-244 | 简历核心专项，下一批优先执行 |
+| 245-255 | 简历保卫题，覆盖具体技术名词与上线追问 |
 
 ## 重排审计
 
@@ -46,14 +47,16 @@ tags:
 - 2026-07-17 已完成 #60-#62；#63 已出题但未作答，#63-#69 经审计改为项目研读支线。
 - 2026-07-13 新增的 AgentScope Java 2.0 八篇资料已映射到 #64、#65、#67、#70-#72、#78、#81 等现有题，不重复扩充题号。
 - 2026-07-25 根据最新简历新增 #227-#244，覆盖个人介绍、保险金融业务、权限、状态机、分布式事务、遗留系统、OceanBase、报表、JVM、Redis、稳定性、团队管理、AI 客服与个人 Agent。
+- 2026-07-25 二次逐条审计简历后新增 #245-#255，补齐保单生命周期、项目数据口径、MyBatis 分页插件、OGG/存储过程服务化、关系查询、Kafka/Hadoop/ORC、公共组件、可观测性、AI 生产治理、工程运维和 PostgreSQL 使用边界。
 - 简历专项完成前，#72-#226 保留原题和来源但不作为下一次默认抽题，避免继续堆积与个人经历关联较弱的通用题。
 
 ## 当前执行优先级
 
 1. 下一次正式模拟从 #227 开始，工作日依次安排 #227、#228、#229。
 2. 周末继续 #230、#231，并按实际完成情况顺延。
-3. 每道题都要求先讲真实项目，再补原理、方案取舍、故障边界和追问。
-4. 完成 #227-#244 后回到 #72，继续既有 Agent / RAG 正式题池。
+3. 先完成 #227-#244 核心专项，再完成 #245-#255 简历保卫题。
+4. 每道题都要求先讲真实项目，再补原理、方案取舍、故障边界和追问。
+5. 完成 #227-#255 后回到 #72，继续既有 Agent / RAG 正式题池。
 
 ## 当前题目顺序
 
@@ -281,6 +284,17 @@ tags:
 | 242 | 工具与安全 | Function Calling 和 MCP 在业务工具接入中分别解决什么问题？鉴权、参数校验、敏感操作审批和审计如何落地？ | `content/about/about-me.md`; `content/opportunity/practice/21-mcp-protocol-vs-function-calling.md`; `content/sources/agentscope-java2-series/08.md` | 简历专项 16 |
 | 243 | SSE | AI 客服的 SSE 流式链路如何设计？如何处理 flush、代理缓冲、取消、超时、断线重连和上游资源释放？ | `content/about/about-me.md`; `content/learning/middleware/2026-07-21-sse-cross-layer-streaming-system.md` | 简历专项 17 |
 | 244 | 个人 Agent | MiniHarness 当前解决了什么问题？Spring AI、结构化输出、Memory、Tool Calling、评测和持久化如何组成最小闭环？下一步为什么要自控 Tool Loop？ | `content/about/about-me.md`; `content/projects/interview-harness/interview-harness-deep-research.md`; `content/projects/interview-harness/interview-harness-implementation-roadmap.md` | 简历专项 18 |
+| 245 | 保险业务 | 保险产品、投保单、保单、批改、续期、渠道订单和资金流水分别是什么关系？跨系统状态不一致时如何对账、补偿和保留审计证据？ | `content/about/about-me.md`; `content/opportunity/practice/53-shopping-cart-design-sync.md` | 简历保卫 01 |
+| 246 | 项目表达 | “日均 3 万+”“千万级节点”“百万行导出”“分钟级到秒级”分别如何统计？如果没有精确历史监控，怎样诚实说明数据口径、测试条件和个人贡献？ | `content/about/about-me.md`; `content/learning/ai-agent/backend-to-agent-transition.md` | 简历保卫 02 |
+| 247 | MyBatis 插件 | 自研 MyBatis 分页拦截器如何基于插件机制改写 SQL？如何处理 count、方言、参数绑定、嵌套查询、线程安全以及 Oracle/OceanBase 差异？ | `content/about/about-me.md`; `content/learning/java/alibaba-backend-java-final-round-framework.md`; `content/opportunity/practice/48-deep-pagination-optimization.md` | 简历保卫 03 |
+| 248 | 批处理改造 | 为什么要把 OGG 或存储过程批处理改造成 Java 服务 + XXL-Job？如何拆分事务、控制批次、保证幂等、断点续跑、失败补偿和结果一致？ | `content/about/about-me.md`; `content/learning/java/baidu-java-backend-final-round.md` | 简历保卫 04 |
+| 249 | 关系查询 | 千万级客户关系的多度查询如何用递归 CTE、索引和剪枝优化？为什么调研 Neo4j，最终在什么条件下选择或放弃图数据库？ | `content/about/about-me.md`; `content/opportunity/practice/12-mysql-slow-sql.md` | 简历保卫 05 |
+| 250 | 数据链路 | 机器学习平台和客户行为轨迹中的埋点、Kafka、Hadoop、ORC 链路如何设计？如何处理分区、有序性、重复数据、Schema 演进和离线补数？ | `content/about/about-me.md`; `content/opportunity/practice/22-kafka-consumer-group-rebalance.md` | 简历保卫 06 |
+| 251 | 公共组件 | Redis 分布式锁、通用缓存、RocketMQ 封装和短链接为什么值得做成公共组件？如何设计扩展点、默认值、版本兼容、监控和防误用边界？ | `content/about/about-me.md`; `content/opportunity/practice/14-redis-distributed-lock-deep.md`; `content/learning/middleware/rocketmq-kafka-transaction-ordering.md` | 简历保卫 07 |
+| 252 | 可观测性 | MDC + ELK 如何贯通 HTTP、线程池、MQ 和定时任务的 TraceId？接口耗时、消息堆积、任务失败和 Full GC 分别设置哪些指标与告警？ | `content/about/about-me.md`; `content/learning/java/arthas-diagnostic-guide.md`; `content/learning/middleware/rocketmq-kafka-transaction-ordering.md` | 简历保卫 08 |
+| 253 | AI 生产治理 | AI 客服上线后如何处理模型超时、限流、重试、熔断、降级、提示词版本、人工兜底、用户反馈和回归评测？如何证明系统真的可用？ | `content/about/about-me.md`; `content/opportunity/practice/42-rag-evaluation-optimization.md`; `content/learning/middleware/2026-07-21-sse-cross-layer-streaming-system.md` | 简历保卫 09 |
+| 254 | 工程运维 | 从代码提交到生产发布，Jenkins、Docker 和 Kubernetes 分别承担什么职责？镜像、配置、健康检查、滚动发布和回滚如何落地？“了解 Kubernetes”的真实边界是什么？ | `content/about/about-me.md`; `content/learning/java/baidu-java-backend-final-round.md` | 简历保卫 10 |
+| 255 | 数据库边界 | 简历同时写 Oracle、OceanBase、MySQL、PostgreSQL，各自实际用在什么场景？事务、MVCC、索引、分页和 SQL 兼容有哪些差异？若 PostgreSQL 只做过基础使用，应如何如实表述？ | `content/about/about-me.md`; `content/opportunity/practice/06-mvcc.md`; `content/opportunity/practice/23-mysql-explain-execution-plan.md` | 简历保卫 11 |
 
 ## 抽题规则
 
@@ -289,6 +303,6 @@ tags:
 3. 每次提供 1～3 道候选题，只给题目和来源，不提前给答案。
 4. 用户回答后由实时面试会话负责评分、完整答案和追问记录。
 5. Hermes 的最终修正版存在疑点时，进入 `codex gpt 修复点.md` 审计。
-6. #227-#244 完成前优先从简历专项抽题，不按数字大小自动回到 #72。
+6. #227-#255 完成前优先从简历专项抽题，不按数字大小自动回到 #72。
 
 ---
