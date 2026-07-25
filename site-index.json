@@ -2,6 +2,35 @@
   "generatedAt": "2026-07-25T00:00:00+08:00",
   "articles": [
     {
+      "title": "周维扬｜资深 Java 后端工程师与 AI Agent 实践者",
+      "path": "content/about/about-me.md",
+      "url": "content/about/about-me.md",
+      "date": "2026-07-25",
+      "domain": "个人",
+      "area": "关于我",
+      "module": "",
+      "project": "",
+      "type": "个人介绍",
+      "status": "持续更新",
+      "priority": "P0",
+      "energy": "low",
+      "visibility": "public",
+      "summary": "11 年 Java 后端与保险金融系统经验，持续实践 Java AI Agent、RAG、工具调用和工程化评测。",
+      "tags": [
+        "Java",
+        "保险金融",
+        "OceanBase",
+        "AI Agent"
+      ],
+      "section": "about",
+      "topic": "关于我",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "梁文锋投资者交流会-录音转文本",
       "path": "content/reading/society/梁文锋投资人会议实录.md",
       "url": "content/reading/society/梁文锋投资人会议实录.md",
@@ -951,7 +980,7 @@
       "question": ""
     },
     {
-      "title": "后续题目计划（23-226）",
+      "title": "后续题目计划（23-244）",
       "path": "content/opportunity/practice/active-batch-plan.md",
       "url": "content/opportunity/practice/active-batch-plan.md",
       "date": "2026-07-10",
@@ -964,7 +993,7 @@
       "priority": "P1",
       "energy": "medium",
       "visibility": "private",
-      "summary": "后续题目计划（23-226）",
+      "summary": "后续题目计划（23-244）",
       "tags": [],
       "section": "plans",
       "topic": "机会雷达",
@@ -8068,6 +8097,7 @@
     "专栏": 2
   },
   "sectionCounts": {
+    "about": 1,
     "reading": 12,
     "learning": 198,
     "questions": 63,

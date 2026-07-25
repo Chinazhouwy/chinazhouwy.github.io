@@ -1,5 +1,5 @@
 ---
-title: "后续题目计划（23-226）"
+title: "后续题目计划（23-244）"
 date: "2026-07-10"
 domain: "机会"
 area: "机会雷达"
@@ -10,16 +10,17 @@ status: "可复习"
 priority: "P1"
 energy: "medium"
 visibility: "private"
-summary: "后续题目计划（23-226）"
+summary: "后续题目计划（23-244）"
 tags:
 ---
 
-# 后续题目计划（23-226）
+# 后续题目计划（23-244）
 
 > 进度必须以当前 `content/opportunity/practice/` 文件和最近会话为准，不使用历史提交号推断。
 > 状态约定：`✅ 已完成` 表示已有练习文件；`🟡 已练习，待补档` 表示已有对话记录但文件缺失，不重新抽题；无标记表示尚未练习。
 > 2026-07-10 重排原则：已完成 #1-#59 不改；#60 起优先 Hermes、Agent、AI、Harness、RAG、AI Coding，普通 Java/数据库/算法整体后移。
 > 2026-07-18 轨道调整：#63-#69 是“项目研读支线”，用于讨论尚未完成的自研设计，不计正式模拟题数量和得分；正式模拟主线完成 #62 后从 #70 继续。
+> 2026-07-25 简历驱动调整：已完成 #1-#71 和既有 #72-#226 不改号；新增 #227-#244 简历专项，并将其设为下一批正式模拟主线。
 
 ---
 
@@ -31,8 +32,10 @@ tags:
 | 23-59 | 已完成或待补档，保留原题号 |
 | 60-62 | Interview Harness 已完成练习 |
 | 63-69 | 项目研读支线，不计正式模拟题配额和得分 |
-| 70-119 | Agent / AI / RAG / AI Coding 正式模拟主线 |
-| 120-226 | Java 后端、数据库、中间件、系统设计、算法后置区 |
+| 70-71 | Agent 正式模拟已完成 |
+| 72-121 | Agent / AI / RAG / AI Coding 既有题池，简历专项后继续 |
+| 122-226 | Java 后端、数据库、中间件、系统设计、算法既有题池 |
+| 227-244 | 简历驱动专项，下一批优先执行 |
 
 ## 重排审计
 
@@ -42,6 +45,15 @@ tags:
 - 最近模拟审计：2026-07-08 已完成 #57-#59；2026-07-09 新题未做、只完成 #52/#54 R1，所以今日新题从重排后的 #60 开始。
 - 2026-07-17 已完成 #60-#62；#63 已出题但未作答，#63-#69 经审计改为项目研读支线。
 - 2026-07-13 新增的 AgentScope Java 2.0 八篇资料已映射到 #64、#65、#67、#70-#72、#78、#81 等现有题，不重复扩充题号。
+- 2026-07-25 根据最新简历新增 #227-#244，覆盖个人介绍、保险金融业务、权限、状态机、分布式事务、遗留系统、OceanBase、报表、JVM、Redis、稳定性、团队管理、AI 客服与个人 Agent。
+- 简历专项完成前，#72-#226 保留原题和来源但不作为下一次默认抽题，避免继续堆积与个人经历关联较弱的通用题。
+
+## 当前执行优先级
+
+1. 下一次正式模拟从 #227 开始，工作日依次安排 #227、#228、#229。
+2. 周末继续 #230、#231，并按实际完成情况顺延。
+3. 每道题都要求先讲真实项目，再补原理、方案取舍、故障边界和追问。
+4. 完成 #227-#244 后回到 #72，继续既有 Agent / RAG 正式题池。
 
 ## 当前题目顺序
 
@@ -251,6 +263,24 @@ tags:
 | 224 | 算法 | DP 面试题怎么讲状态、转移、初始化和空间优化？ | `ai-agent/alibaba-dp-string-fill-count.md`; `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md`; `tencent/2026-05-25-wxg-wechat-pay-backend-round2.md` | 原 #197 |
 | 225 | 算法 | 链表题怎么准备？反转链表、倒数第 K 个、合并链表怎么写？ | `tiktok/2026-05-27-tiktok-ecommerce-backend-round1.md`; `tencent/2026-06-07-tencent-ai-backend-round1-xhs.md`; `java/eleme-java-backend-round1.md` | 原 #198 |
 | 226 | 算法 | TopK、高频词、堆排序和快速选择怎么讲？ | `middleware/京东上岸Java岗面经48题.md`; `java/baidu-java-backend-final-round.md`; `tiktok/2026-06-07-bytedance-ai-agent-backend-round1.md` | 原 #199 |
+| 227 | 简历表达 | 请分别用 90 秒和 3 分钟完成自我介绍，如何把保险金融、Java 后端、组长经验和 AI Agent 串成一条主线？ | `content/about/about-me.md`; `content/learning/ai-agent/backend-to-agent-transition.md` | 简历专项 01 |
+| 228 | 保险业务 | 保险销售、电商、业务员、客户和出单链路如何拆分领域与系统边界？核心业务对象和状态如何建模？ | `content/about/about-me.md`; `content/columns/design-patterns-essence.md` | 简历专项 02 |
+| 229 | 权限系统 | RBAC + AOP + SpEL 动态数据权限怎么设计？组织层级、行级范围、表达式安全和 SQL 注入点如何处理？ | `content/about/about-me.md`; `content/opportunity/practice/27-spring-aop-proxy-transaction.md` | 简历专项 03 |
+| 230 | 状态机 | 商机创建、分配、跟进、转化和关闭如何用状态模式实现？如何防非法流转、重复消息和状态回退？ | `content/about/about-me.md`; `content/columns/design-patterns-essence.md` | 简历专项 04 |
+| 231 | 分布式事务 | 资金划扣为什么选 TCC？本地消息表 + RocketMQ 如何保证最终一致性？平安后续使用 Seata AT 时如何处理幂等、回滚和异常补偿？ | `content/about/about-me.md`; `content/opportunity/practice/09-distributed-transaction.md`; `content/learning/middleware/rocketmq-kafka-transaction-ordering.md` | 简历专项 05 |
+| 232 | 架构升级 | Ant 到 Maven、Spring 3 到 Spring Boot、WebLogic 到 Undertow 的迁移如何分阶段实施？兼容、灰度和回退怎么做？ | `content/about/about-me.md`; `content/learning/java/baidu-java-backend-final-round.md` | 简历专项 06 |
+| 233 | 数据库迁移 | Oracle 到 OceanBase 迁移如何处理分页、树查询、函数、空字符串和存储过程差异？如何做结果比对与切换？ | `content/about/about-me.md`; `content/opportunity/practice/12-mysql-slow-sql.md` | 简历专项 07 |
+| 234 | 报表性能 | 核心报表从分钟级优化到秒级如何定位和实施？SQL、索引、JOIN、物化视图和预聚合怎么取舍？ | `content/about/about-me.md`; `content/opportunity/practice/12-mysql-slow-sql.md`; `content/learning/middleware/后端慢SQL优化面经.md` | 简历专项 08 |
+| 235 | 大数据导出 | 百万行 Excel 导出为什么容易 OOM？分页并发查询、顺序写入、SXSSFWorkbook 和背压如何设计？ | `content/about/about-me.md`; `content/opportunity/practice/47-completable-future-async-programming.md` | 简历专项 09 |
+| 236 | JVM 故障 | 线上 Full GC 频繁时，如何使用监控、GC 日志、Arthas、Heap Dump 和 MAT 完成止血、定位、修复和验证？ | `content/about/about-me.md`; `content/opportunity/practice/05-jvm-full-gc-troubleshooting.md`; `content/learning/java/arthas-diagnostic-guide.md` | 简历专项 10 |
+| 237 | Redis 组件 | Redis 分布式锁如何处理唯一 Token、Lua 原子释放、超时、续期、可重入和业务幂等？自研组件的边界是什么？ | `content/about/about-me.md`; `content/opportunity/practice/14-redis-distributed-lock-deep.md` | 简历专项 11 |
+| 238 | 稳定性治理 | 营销活动和月末高峰如何使用 Sentinel、RocketMQ、线程池隔离、异步化和监控告警保障核心链路？ | `content/about/about-me.md`; `content/opportunity/practice/50-spring-boot-rate-limiting-interceptor.md`; `content/learning/middleware/rocketmq-kafka-transaction-ordering.md` | 简历专项 12 |
+| 239 | 团队管理 | 作为 5 人后端组长，如何做需求拆解、技术评审、排期、Code Review、风险暴露、冲突处理和生产事故复盘？ | `content/about/about-me.md`; `content/learning/ai-agent/backend-to-agent-transition.md` | 简历专项 13 |
+| 240 | AI 客服 | 已上线保险 AI 客服的完整架构是什么？模型、RAG、业务工具、权限审计、人工兜底和传统系统如何协作？ | `content/about/about-me.md`; `content/opportunity/practice/19-rag-system-design.md`; `content/opportunity/practice/21-mcp-protocol-vs-function-calling.md` | 简历专项 14 |
+| 241 | RAG | AI 客服知识库如何做切分、混合检索、重排、权限过滤、版本更新和答案评测？ | `content/about/about-me.md`; `content/opportunity/practice/19-rag-system-design.md`; `content/opportunity/practice/42-rag-evaluation-optimization.md` | 简历专项 15 |
+| 242 | 工具与安全 | Function Calling 和 MCP 在业务工具接入中分别解决什么问题？鉴权、参数校验、敏感操作审批和审计如何落地？ | `content/about/about-me.md`; `content/opportunity/practice/21-mcp-protocol-vs-function-calling.md`; `content/sources/agentscope-java2-series/08.md` | 简历专项 16 |
+| 243 | SSE | AI 客服的 SSE 流式链路如何设计？如何处理 flush、代理缓冲、取消、超时、断线重连和上游资源释放？ | `content/about/about-me.md`; `content/learning/middleware/2026-07-21-sse-cross-layer-streaming-system.md` | 简历专项 17 |
+| 244 | 个人 Agent | MiniHarness 当前解决了什么问题？Spring AI、结构化输出、Memory、Tool Calling、评测和持久化如何组成最小闭环？下一步为什么要自控 Tool Loop？ | `content/about/about-me.md`; `content/projects/interview-harness/interview-harness-deep-research.md`; `content/projects/interview-harness/interview-harness-implementation-roadmap.md` | 简历专项 18 |
 
 ## 抽题规则
 
@@ -259,5 +289,6 @@ tags:
 3. 每次提供 1～3 道候选题，只给题目和来源，不提前给答案。
 4. 用户回答后由实时面试会话负责评分、完整答案和追问记录。
 5. Hermes 的最终修正版存在疑点时，进入 `codex gpt 修复点.md` 审计。
+6. #227-#244 完成前优先从简历专项抽题，不按数字大小自动回到 #72。
 
 ---

@@ -7,6 +7,7 @@ const SECTION_LABELS = {
   reading: "阅读",
   columns: "知识地图",
   links: "三方链接",
+  about: "关于我",
   questions: "能力复盘",
   companies: "机会记录",
   interviews: "表达演练",
@@ -199,6 +200,11 @@ function normalizeSection(value) {
     columns: "columns",
     column: "columns",
     "专栏": "columns",
+
+    about: "about",
+    profile: "about",
+    "关于我": "about",
+    "个人": "about",
   };
 
   return map[raw] || raw;
@@ -233,6 +239,7 @@ function inferSectionByPath(path = "") {
   if (normalizedPath.includes("content/reading/")) return "reading";
   if (normalizedPath.includes("content/projects/")) return "projects";
   if (normalizedPath.includes("content/columns/")) return "columns";
+  if (normalizedPath.includes("content/about/")) return "about";
 
   return "";
 }
@@ -1205,6 +1212,45 @@ function rememberGiscusArticleRoute(articlePath) {
   }
 }
 
+async function renderAbout() {
+  const profilePath = "content/about/about-me.md";
+  ui.app.innerHTML = '<div class="loading-state"><span></span><p>正在整理个人介绍…</p></div>';
+
+  try {
+    const response = await fetch(`./${profilePath}?v=${BUILD_VERSION}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const raw = await response.text();
+    const content = raw.startsWith("---") ? raw.replace(/^---\n[\s\S]*?\n---\n?/, "") : raw;
+    const rendered = DOMPurify.sanitize(marked.parse(content));
+
+    ui.app.innerHTML = `
+      <section class="about-page">
+        <header class="about-hero reveal">
+          <div class="about-lead">
+            <p class="mono-label">ABOUT / ZHOU WEIYANG</p>
+            <h1>把复杂系统做稳，<br />把 AI 能力做实。</h1>
+            <p>资深 Java 后端工程师、5 人后端组长。长期深耕保险金融系统，持续实践 Java AI Agent。</p>
+            <div class="about-actions">
+              <a href="https://github.com/Chinazhouwy" target="_blank" rel="noreferrer">GitHub ${iconArrow()}</a>
+              <a href="https://github.com/Chinazhouwy/mini-harness" target="_blank" rel="noreferrer">MiniHarness ${iconArrow()}</a>
+            </div>
+          </div>
+          <aside class="about-signal" aria-label="职业概况">
+            <p class="mono-label">PROFILE / 2026</p>
+            <div><strong>11</strong><span>年 Java 后端</span></div>
+            <div><strong>10</strong><span>年保险金融</span></div>
+            <div><strong>5</strong><span>人后端团队</span></div>
+          </aside>
+        </header>
+        <article class="article-body about-body">${rendered}</article>
+      </section>
+    `;
+    document.title = "关于周维扬 · WY 工作台";
+  } catch (error) {
+    renderError("个人介绍加载失败", `${error.message}。请检查文件权限或稍后重试。`, true);
+  }
+}
+
 async function renderArticle(rawPath) {
   // Resolve aliases
   const resolvedPath = state.aliases[rawPath] || rawPath;
@@ -1328,6 +1374,7 @@ async function renderRoute() {
     reading: renderReading,
     columns: () => renderDomain("columns", "知识地图", "把零散题目、阅读、项目和复盘连接成长期结构，逐步形成自己的知识坐标。"),
     links: renderThirdPartyLinks,
+    about: renderAbout,
 
     // Old route compatibility
     questions: renderQuestions,
@@ -1347,7 +1394,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260725-1";
+const BUILD_VERSION = "20260725-2";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks] = await Promise.all([
