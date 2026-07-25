@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-23T00:00:00+08:00",
+  "generatedAt": "2026-07-25T00:00:00+08:00",
   "articles": [
     {
       "title": "梁文锋投资者交流会-录音转文本",
@@ -8117,14 +8117,14 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-07-23",
+      "date": "2026-07-25",
       "count": 0,
       "averageScore": null
     },
     "totalQuestions": 66,
     "scoredQuestions": 59,
     "averageScore": 4.8,
-    "streakDays": 1,
+    "streakDays": 0,
     "daily": [
       {
         "date": "2026-05-28",

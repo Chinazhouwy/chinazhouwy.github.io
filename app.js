@@ -1,5 +1,6 @@
 const SECTION_LABELS = {
   tasks: "行动摘要",
+  timeline: "时光轴",
   projects: "项目",
   learning: "学习",
   opportunity: "机会",
@@ -71,6 +72,7 @@ const state = {
   thirdPartyLinks: [],
   aliases: {},
   query: "",
+  timelineFilter: "all",
 };
 
 marked.setOptions({ breaks: true, gfm: true });
@@ -105,6 +107,33 @@ function scoreText(score) {
 function average(values) {
   const valid = values.filter((value) => typeof value === "number");
   return valid.length ? valid.reduce((sum, value) => sum + value, 0) / valid.length : null;
+}
+
+const TIMELINE_FILTERS = [
+  ["all", "全部"],
+  ["questions", "练习"],
+  ["learning", "学习"],
+  ["projects", "项目"],
+  ["reading", "阅读"],
+  ["opportunity", "机会"],
+];
+
+function timelineCategory(article) {
+  const section = normalizeSection(getArticleSection(article));
+  if (["questions", "interviews", "plans"].includes(section)) return "questions";
+  if (["projects", "tasks"].includes(section)) return "projects";
+  if (["opportunity", "companies"].includes(section)) return "opportunity";
+  if (section === "columns") return "learning";
+  return section;
+}
+
+function timelineDateParts(value) {
+  const parsed = new Date(`${value}T00:00:00`);
+  return {
+    short: value.slice(5).replace("-", "."),
+    year: value.slice(0, 4),
+    weekday: new Intl.DateTimeFormat("zh-CN", { weekday: "short" }).format(parsed),
+  };
 }
 
 // ---- visibility helpers ----
@@ -552,12 +581,137 @@ function renderOverview() {
 
       <section class="recent-section reveal delay-1">
         <div class="section-heading">
-          <div><p class="mono-label">LATEST / 最近沉淀</p><h2>继续阅读</h2></div>
+          <div><p class="mono-label">ACTIVITY / 每日进度</p><h2>最近沉淀</h2></div>
+          <a href="#/timeline">查看时光轴 ${iconArrow()}</a>
         </div>
         <div class="article-list">${recent.map((item, index) => articleRow(item, { index: String(index + 1).padStart(2, "0") })).join("")}</div>
       </section>
     </section>
   `;
+}
+
+function renderTimeline() {
+  const datedArticles = state.articles
+    .filter(canShowInSection)
+    .filter(matchesSearch)
+    .filter((article) => /^\d{4}-\d{2}-\d{2}$/.test(article.date || ""));
+  const filtered =
+    state.timelineFilter === "all"
+      ? datedArticles
+      : datedArticles.filter((article) => timelineCategory(article) === state.timelineFilter);
+  const days = Object.entries(groupBy(filtered, "date"))
+    .sort(([left], [right]) => right.localeCompare(left));
+  const filterCounts = Object.fromEntries(
+    TIMELINE_FILTERS.map(([id]) => [
+      id,
+      id === "all"
+        ? datedArticles.length
+        : datedArticles.filter((article) => timelineCategory(article) === id).length,
+    ]),
+  );
+  const latestDate = days[0]?.[0] || "";
+
+  ui.app.innerHTML = `
+    <section class="directory-page timeline-page">
+      ${sectionIntro("DAILY PROGRESS", "时光轴", "每天完成的练习、学习、项目、阅读和机会记录。", filtered.length)}
+
+      <div class="timeline-toolbar reveal delay-1">
+        <div class="timeline-filters" role="group" aria-label="筛选每日进度">
+          ${TIMELINE_FILTERS.map(
+            ([id, label]) => `
+              <button
+                type="button"
+                data-timeline-filter="${id}"
+                class="${state.timelineFilter === id ? "active" : ""}"
+                aria-pressed="${state.timelineFilter === id}"
+              >
+                <span>${label}</span><strong>${filterCounts[id]}</strong>
+              </button>`,
+          ).join("")}
+        </div>
+        <dl class="timeline-stats">
+          <div><dt>沉淀天数</dt><dd>${days.length}</dd></div>
+          <div><dt>当前记录</dt><dd>${filtered.length}</dd></div>
+          <div><dt>最近更新</dt><dd>${latestDate ? latestDate.slice(5).replace("-", ".") : "—"}</dd></div>
+        </dl>
+      </div>
+
+      <div class="timeline-list">
+        ${
+          days.length
+            ? days
+                .map(([date, articles], dayIndex) => {
+                  const dateParts = timelineDateParts(date);
+                  const categoryCounts = TIMELINE_FILTERS.slice(1)
+                    .map(([id, label]) => ({
+                      id,
+                      label,
+                      count: articles.filter((article) => timelineCategory(article) === id).length,
+                    }))
+                    .filter((item) => item.count);
+                  const visible = articles.slice(0, 6);
+                  const remaining = articles.slice(6);
+
+                  return `
+                    <section class="timeline-day reveal" style="--delay:${Math.min(dayIndex, 6) * 45}ms">
+                      <header class="timeline-date">
+                        <time datetime="${date}">
+                          <strong>${dateParts.short}</strong>
+                          <span>${dateParts.weekday}</span>
+                          <small>${dateParts.year}</small>
+                        </time>
+                      </header>
+                      <div class="timeline-day-content">
+                        <header>
+                          <div class="timeline-day-summary">
+                            ${categoryCounts
+                              .map(
+                                (item) =>
+                                  `<span data-category="${item.id}">${item.label} ${item.count}</span>`,
+                              )
+                              .join("")}
+                          </div>
+                          <strong>${articles.length} 项</strong>
+                        </header>
+                        <div class="article-list">
+                          ${visible
+                            .map((article, index) =>
+                              articleRow(article, { index: String(index + 1).padStart(2, "0") }),
+                            )
+                            .join("")}
+                        </div>
+                        ${
+                          remaining.length
+                            ? `<details class="timeline-more">
+                                <summary>展开其余 ${remaining.length} 项</summary>
+                                <div class="article-list">
+                                  ${remaining
+                                    .map((article, index) =>
+                                      articleRow(article, {
+                                        index: String(index + visible.length + 1).padStart(2, "0"),
+                                      }),
+                                    )
+                                    .join("")}
+                                </div>
+                              </details>`
+                            : ""
+                        }
+                      </div>
+                    </section>`;
+                })
+                .join("")
+            : '<p class="empty-copy timeline-empty">当前筛选下还没有每日记录。</p>'
+        }
+      </div>
+    </section>
+  `;
+
+  document.querySelectorAll("[data-timeline-filter]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.timelineFilter = button.dataset.timelineFilter;
+      renderTimeline();
+    });
+  });
 }
 
 function renderProjects() {
@@ -1166,6 +1320,7 @@ async function renderRoute() {
   if (route.view === "article") return renderArticle(route.path);
   const renderers = {
     overview: renderOverview,
+    timeline: renderTimeline,
     tasks: () => renderDomain("tasks", "任务", "今日行动摘要与待复盘项。"),
     projects: renderProjects,
     learning: () => renderDomain("learning", "学习", "技术知识、源码笔记与可复习内容。"),
@@ -1192,7 +1347,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260721-1";
+const BUILD_VERSION = "20260725-1";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks] = await Promise.all([
