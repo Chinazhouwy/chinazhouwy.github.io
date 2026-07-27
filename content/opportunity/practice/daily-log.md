@@ -323,8 +323,8 @@ tags:
 - 回顾顺延：#61（R1，5/10，逾期）；无新回顾执行
 - 次日新题：#230、#231（简历专项，占周二 2 题配额）
 - 新增或修改文件：`practice/227-self-introduction-90s-3min.md`、`practice/228-insurance-domain-boundary-modeling.md`、`practice/229-rbac-aop-spel-permission.md`
-- 提交：pending（本条记录提交后以 Git 历史为准）
-- 推送：Gitee pending；GitHub pending
+- 提交：`5021338`
+- 推送：Gitee 成功；GitHub 成功
 
 ## 2026-07-26
 
