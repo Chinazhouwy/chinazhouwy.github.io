@@ -142,6 +142,34 @@
       "question": "资金划扣为什么选 TCC？本地消息表 + RocketMQ 如何保证最终一致性？平安后续使用 Seata AT 时如何处理幂等、回滚和异常补偿？"
     },
     {
+      "title": "第232题：架构升级与技术迁移（简历专项 06）",
+      "path": "content/opportunity/practice/232-ant-maven-springboot-weblogic-migration.md",
+      "url": "content/opportunity/practice/232-ant-maven-springboot-weblogic-migration.md",
+      "date": "2026-07-27",
+      "domain": "机会",
+      "area": "机会雷达",
+      "module": "",
+      "project": "机会雷达",
+      "type": "题目",
+      "status": "completed",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "Ant→Maven、Spring 3→Boot、WebLogic→Undertow 迁移",
+      "tags": [
+        "架构升级",
+        "灰度发布",
+        "技术迁移"
+      ],
+      "section": "questions",
+      "topic": "机会雷达",
+      "company": "",
+      "round": "R0",
+      "score": 4,
+      "questionNumber": "232",
+      "question": "Ant 到 Maven、Spring 3 到 Spring Boot、WebLogic 到 Undertow 的迁移如何分阶段实施？兼容、灰度和回退怎么做？"
+    },
+    {
       "title": "周维扬｜资深 Java 后端工程师与 AI Agent 实践者",
       "path": "content/about/about-me.md",
       "url": "content/about/about-me.md",
@@ -8232,12 +8260,12 @@
     "任务": 0,
     "项目": 4,
     "学习": 189,
-    "机会": 94,
+    "机会": 95,
     "阅读": 12,
     "专栏": 2
   },
   "sectionCounts": {
-    "questions": 68,
+    "questions": 69,
     "about": 1,
     "reading": 12,
     "learning": 198,
@@ -8288,11 +8316,11 @@
   "dashboard": {
     "today": {
       "date": "2026-07-27",
-      "count": 5,
-      "averageScore": 3.6
+      "count": 6,
+      "averageScore": 3.7
     },
-    "totalQuestions": 71,
-    "scoredQuestions": 64,
+    "totalQuestions": 72,
+    "scoredQuestions": 65,
     "averageScore": 4.7,
     "streakDays": 1,
     "daily": [
@@ -8423,8 +8451,8 @@
       },
       {
         "date": "2026-07-27",
-        "count": 5,
-        "averageScore": 3.6
+        "count": 6,
+        "averageScore": 3.7
       }
     ],
     "weakTopics": [],

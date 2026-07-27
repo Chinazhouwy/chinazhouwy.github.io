@@ -271,7 +271,7 @@ tags:
 | 229 | 权限系统 | RBAC + AOP + SpEL 动态数据权限怎么设计？组织层级、行级范围、表达式安全和 SQL 注入点如何处理？（✅ 已完成） | `content/about/about-me.md`; `content/opportunity/practice/27-spring-aop-proxy-transaction.md` | 简历专项 03 |
 | 230 | 状态机 | 商机创建、分配、跟进、转化和关闭如何用状态模式实现？如何防非法流转、重复消息和状态回退？（✅ 已完成） | `content/about/about-me.md`; `content/columns/design-patterns-essence.md` | 简历专项 04 |
 | 231 | 分布式事务 | 资金划扣为什么选 TCC？本地消息表 + RocketMQ 如何保证最终一致性？平安后续使用 Seata AT 时如何处理幂等、回滚和异常补偿？（✅ 已完成） | `content/about/about-me.md`; `content/opportunity/practice/09-distributed-transaction.md`; `content/learning/middleware/rocketmq-kafka-transaction-ordering.md` | 简历专项 05 |
-| 232 | 架构升级 | Ant 到 Maven、Spring 3 到 Spring Boot、WebLogic 到 Undertow 的迁移如何分阶段实施？兼容、灰度和回退怎么做？ | `content/about/about-me.md`; `content/learning/java/baidu-java-backend-final-round.md` | 简历专项 06 |
+| 232 | 架构升级 | Ant 到 Maven、Spring 3 到 Spring Boot、WebLogic 到 Undertow 的迁移如何分阶段实施？兼容、灰度和回退怎么做？（✅ 已完成） | `content/about/about-me.md`; `content/learning/java/baidu-java-backend-final-round.md` | 简历专项 06 |
 | 233 | 数据库迁移 | Oracle 到 OceanBase 迁移如何处理分页、树查询、函数、空字符串和存储过程差异？如何做结果比对与切换？ | `content/about/about-me.md`; `content/opportunity/practice/12-mysql-slow-sql.md` | 简历专项 07 |
 | 234 | 报表性能 | 核心报表从分钟级优化到秒级如何定位和实施？SQL、索引、JOIN、物化视图和预聚合怎么取舍？ | `content/about/about-me.md`; `content/opportunity/practice/12-mysql-slow-sql.md`; `content/learning/middleware/后端慢SQL优化面经.md` | 简历专项 08 |
 | 235 | 大数据导出 | 百万行 Excel 导出为什么容易 OOM？分页并发查询、顺序写入、SXSSFWorkbook 和背压如何设计？ | `content/about/about-me.md`; `content/opportunity/practice/47-completable-future-async-programming.md` | 简历专项 09 |
