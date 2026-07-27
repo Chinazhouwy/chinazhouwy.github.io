@@ -1,6 +1,90 @@
 {
-  "generatedAt": "2026-07-25T00:00:00+08:00",
+  "generatedAt": "2026-07-27T00:00:00+08:00",
   "articles": [
+    {
+      "title": "第227题：自我介绍与主线串联（简历专项 01）",
+      "path": "content/opportunity/practice/227-self-introduction-90s-3min.md",
+      "url": "content/opportunity/practice/227-self-introduction-90s-3min.md",
+      "date": "2026-07-27",
+      "domain": "机会",
+      "area": "机会雷达",
+      "module": "",
+      "project": "机会雷达",
+      "type": "题目",
+      "status": "completed",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "90秒和3分钟自我介绍，保险→Java→AI主线",
+      "tags": [
+        "简历表达",
+        "自我介绍"
+      ],
+      "section": "questions",
+      "topic": "机会雷达",
+      "company": "",
+      "round": "R0",
+      "score": 3,
+      "questionNumber": "227",
+      "question": "请分别用 90 秒和 3 分钟完成自我介绍，如何把保险金融、Java 后端、组长经验和 AI Agent 串成一条主线？"
+    },
+    {
+      "title": "第228题：保险销售领域建模与系统边界（简历专项 02）",
+      "path": "content/opportunity/practice/228-insurance-domain-boundary-modeling.md",
+      "url": "content/opportunity/practice/228-insurance-domain-boundary-modeling.md",
+      "date": "2026-07-27",
+      "domain": "机会",
+      "area": "机会雷达",
+      "module": "",
+      "project": "机会雷达",
+      "type": "题目",
+      "status": "completed",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "保险销售、电商、出单的领域边界与对象建模",
+      "tags": [
+        "保险业务",
+        "领域建模",
+        "DDD"
+      ],
+      "section": "questions",
+      "topic": "机会雷达",
+      "company": "",
+      "round": "R0",
+      "score": 4,
+      "questionNumber": "228",
+      "question": "保险销售、电商、业务员、客户和出单链路如何拆分领域与系统边界？核心业务对象和状态如何建模？"
+    },
+    {
+      "title": "第229题：RBAC + AOP + SpEL 权限设计（简历专项 03）",
+      "path": "content/opportunity/practice/229-rbac-aop-spel-permission.md",
+      "url": "content/opportunity/practice/229-rbac-aop-spel-permission.md",
+      "date": "2026-07-27",
+      "domain": "机会",
+      "area": "机会雷达",
+      "module": "",
+      "project": "机会雷达",
+      "type": "题目",
+      "status": "completed",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "RBAC角色权限 + AOP切面 + SpEL动态表达式",
+      "tags": [
+        "权限系统",
+        "RBAC",
+        "AOP",
+        "Spring"
+      ],
+      "section": "questions",
+      "topic": "机会雷达",
+      "company": "",
+      "round": "R0",
+      "score": 3,
+      "questionNumber": "229",
+      "question": "RBAC + AOP + SpEL 动态数据权限怎么设计？组织层级、行级范围、表达式安全和 SQL 注入点如何处理？"
+    },
     {
       "title": "周维扬｜资深 Java 后端工程师与 AI Agent 实践者",
       "path": "content/about/about-me.md",
@@ -8092,15 +8176,15 @@
     "任务": 0,
     "项目": 4,
     "学习": 189,
-    "机会": 89,
+    "机会": 92,
     "阅读": 12,
     "专栏": 2
   },
   "sectionCounts": {
+    "questions": 66,
     "about": 1,
     "reading": 12,
     "learning": 198,
-    "questions": 63,
     "opportunity": 10,
     "columns": 2,
     "plans": 3,
@@ -8147,14 +8231,14 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-07-25",
-      "count": 0,
-      "averageScore": null
+      "date": "2026-07-27",
+      "count": 3,
+      "averageScore": 3.3
     },
-    "totalQuestions": 66,
-    "scoredQuestions": 59,
-    "averageScore": 4.8,
-    "streakDays": 0,
+    "totalQuestions": 69,
+    "scoredQuestions": 62,
+    "averageScore": 4.7,
+    "streakDays": 1,
     "daily": [
       {
         "date": "2026-05-28",
@@ -8280,6 +8364,11 @@
         "date": "2026-07-22",
         "count": 2,
         "averageScore": 4.5
+      },
+      {
+        "date": "2026-07-27",
+        "count": 3,
+        "averageScore": 3.3
       }
     ],
     "weakTopics": [],
