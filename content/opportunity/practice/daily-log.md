@@ -323,8 +323,8 @@ tags:
 - 回顾顺延：#61（R1，5/10，逾期）；无新回顾执行
 - 次日新题：#233、#234、#235（简历专项，占周二 3 题配额）
 - 新增或修改文件：`practice/227-self-introduction-90s-3min.md`、`practice/228-insurance-domain-boundary-modeling.md`、`practice/229-rbac-aop-spel-permission.md`、`practice/230-state-machine-opportunity-flow.md`、`practice/231-tcc-local-message-table-distributed-tx.md`、`practice/232-ant-maven-springboot-weblogic-migration.md`
-- 提交：pending
-- 推送：Gitee pending；GitHub pending
+- 提交：`6c91ffc`
+- 推送：Gitee 成功；GitHub 成功
 
 ## 2026-07-26
 
