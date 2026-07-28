@@ -2,6 +2,37 @@
   "generatedAt": "2026-07-28T00:00:00+08:00",
   "articles": [
     {
+      "title": "独立开发技术栈（2026）— 工具详解与选型分析",
+      "path": "content/references/2026-07-28-indie-dev-tech-stack-2026.md",
+      "url": "content/references/2026-07-28-indie-dev-tech-stack-2026.md",
+      "date": "2026-07-28",
+      "domain": "学习",
+      "area": "技术",
+      "module": "",
+      "project": "",
+      "type": "参考",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "独立开发者 2026 年技术栈全景：Next.js + Tailwind + shadcn/ui + Claude Code + Supabase + PostgreSQL + 阿里云 + Vercel + Sentry + GitHub + Appark，含官方文档、优势与劣势分析",
+      "tags": [
+        "独立开发",
+        "技术栈",
+        "Next.js",
+        "Supabase",
+        "Vercel",
+        "全栈"
+      ],
+      "section": "learning",
+      "topic": "技术",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "货拉拉 Agent 开发日常实习二面面经（已过）",
       "path": "content/sources/interview/2026-07-28-huolala-agent-interview.md",
       "url": "content/sources/interview/2026-07-28-huolala-agent-interview.md",
@@ -8290,17 +8321,17 @@
   "domains": {
     "任务": 0,
     "项目": 4,
-    "学习": 189,
+    "学习": 190,
     "机会": 95,
     "阅读": 12,
     "专栏": 2
   },
   "sectionCounts": {
+    "learning": 199,
     "opportunity": 11,
     "questions": 69,
     "about": 1,
     "reading": 12,
-    "learning": 198,
     "columns": 2,
     "plans": 3,
     "projects": 4,
