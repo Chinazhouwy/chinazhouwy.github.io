@@ -1,6 +1,37 @@
 {
-  "generatedAt": "2026-07-27T00:00:00+08:00",
+  "generatedAt": "2026-07-28T00:00:00+08:00",
   "articles": [
+    {
+      "title": "货拉拉 Agent 开发日常实习二面面经（已过）",
+      "path": "content/sources/interview/2026-07-28-huolala-agent-interview.md",
+      "url": "content/sources/interview/2026-07-28-huolala-agent-interview.md",
+      "date": "2026-07-28",
+      "domain": "面试",
+      "area": "AI Agent",
+      "module": "",
+      "project": "",
+      "type": "面经",
+      "status": "待整理",
+      "priority": "P0",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "货拉拉 Agent 开发日常实习二面面经，涵盖 RAG 知识库设计、Agent 评估、记忆压缩、Function Call/MCP/Skill 演进、LoRA vs RAG 等 13 道面试题",
+      "tags": [
+        "面经",
+        "货拉拉",
+        "AI Agent",
+        "RAG",
+        "MCP",
+        "面试"
+      ],
+      "section": "opportunity",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "二面",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
     {
       "title": "第227题：自我介绍与主线串联（简历专项 01）",
       "path": "content/opportunity/practice/227-self-introduction-90s-3min.md",
@@ -8265,11 +8296,11 @@
     "专栏": 2
   },
   "sectionCounts": {
+    "opportunity": 11,
     "questions": 69,
     "about": 1,
     "reading": 12,
     "learning": 198,
-    "opportunity": 10,
     "columns": 2,
     "plans": 3,
     "projects": 4,
@@ -8315,9 +8346,9 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-07-27",
-      "count": 6,
-      "averageScore": 3.7
+      "date": "2026-07-28",
+      "count": 0,
+      "averageScore": null
     },
     "totalQuestions": 72,
     "scoredQuestions": 65,
