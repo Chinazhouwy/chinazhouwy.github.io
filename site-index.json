@@ -33,6 +33,39 @@
       "question": ""
     },
     {
+      "title": "蚂蚁 Java 后端一面面经（18连击，已挂）",
+      "path": "content/sources/interview/2026-07-28-ant-java-round1-interview.md",
+      "url": "content/sources/interview/2026-07-28-ant-java-round1-interview.md",
+      "date": "2026-07-28",
+      "domain": "面试",
+      "area": "Java 后端",
+      "module": "",
+      "project": "",
+      "type": "面经",
+      "status": "待整理",
+      "priority": "P0",
+      "energy": "medium",
+      "visibility": "private",
+      "summary": "蚂蚁 Java 后端一面，18道连环追问，涵盖项目架构、多级缓存一致性、秒杀Redis预扣减、容灾对账、消息队列选型、共同关注计算、搜索优化、布隆过滤器",
+      "tags": [
+        "面经",
+        "蚂蚁",
+        "Java",
+        "缓存",
+        "消息队列",
+        "Kafka",
+        "布隆过滤器",
+        "后端"
+      ],
+      "section": "opportunity",
+      "topic": "Java 后端",
+      "company": "",
+      "round": "一面",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "货拉拉 Agent 开发日常实习二面面经（已过）",
       "path": "content/sources/interview/2026-07-28-huolala-agent-interview.md",
       "url": "content/sources/interview/2026-07-28-huolala-agent-interview.md",
@@ -8328,7 +8361,7 @@
   },
   "sectionCounts": {
     "learning": 199,
-    "opportunity": 11,
+    "opportunity": 12,
     "questions": 69,
     "about": 1,
     "reading": 12,
