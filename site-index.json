@@ -2,6 +2,38 @@
   "generatedAt": "2026-07-28T00:00:00+08:00",
   "articles": [
     {
+      "title": "携程生产级 Java Agent 框架实践 — Spring-Ai-Trip 深度解析",
+      "path": "content/references/2026-07-28-ctrip-spring-ai-trip-java-agent.md",
+      "url": "content/references/2026-07-28-ctrip-spring-ai-trip-java-agent.md",
+      "date": "2026-07-28",
+      "domain": "学习",
+      "area": "AI Agent",
+      "module": "Java Agent",
+      "project": "",
+      "type": "参考",
+      "status": "可复习",
+      "priority": "P0",
+      "energy": "high",
+      "visibility": "public",
+      "summary": "携程自研 Java Agent 框架 Spring-Ai-Trip：渐进式短期记忆（微压缩+结构化摘要+增量更新）、Span+Event 可观测性、Spill 溢出保护、Skill 按需加载+MCP 热插拔、虚拟线程并行调用，全链路生产化实践",
+      "tags": [
+        "Java Agent",
+        "Spring AI",
+        "携程",
+        "短期记忆",
+        "可观测性",
+        "MCP",
+        "生产实践"
+      ],
+      "section": "learning",
+      "topic": "Java Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "独立开发技术栈（2026）— 工具详解与选型分析",
       "path": "content/references/2026-07-28-indie-dev-tech-stack-2026.md",
       "url": "content/references/2026-07-28-indie-dev-tech-stack-2026.md",
@@ -8354,13 +8386,13 @@
   "domains": {
     "任务": 0,
     "项目": 4,
-    "学习": 190,
+    "学习": 191,
     "机会": 95,
     "阅读": 12,
     "专栏": 2
   },
   "sectionCounts": {
-    "learning": 199,
+    "learning": 200,
     "opportunity": 12,
     "questions": 69,
     "about": 1,
