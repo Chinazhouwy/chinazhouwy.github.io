@@ -2,7 +2,7 @@
 title: "字节后端开发 一二三面面经（已oc）"
 date: "2026-04-16"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

@@ -2,7 +2,7 @@
 title: "大厂面试SQL高频题 第2期"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "数据与中间件"
 module: ""
 project: ""
 type: "文章"

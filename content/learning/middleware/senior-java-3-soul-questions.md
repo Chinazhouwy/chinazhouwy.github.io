@@ -2,7 +2,7 @@
 title: "高级Java工程师3道灵魂面试题"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

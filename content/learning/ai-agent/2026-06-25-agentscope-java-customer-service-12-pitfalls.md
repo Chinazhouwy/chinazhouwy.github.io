@@ -2,7 +2,7 @@
 title: "我的AgentScope Java 客服项目，挖出12个生产级深坑"
 date: "2026-06-25"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

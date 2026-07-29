@@ -2,7 +2,7 @@
 title: "AgentScope(Java)2.0 无状态引擎 + AgentState：多租户会话管理"
 date: "2026-06-28"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

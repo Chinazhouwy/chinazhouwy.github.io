@@ -2,7 +2,7 @@
 title: "字节跳动 AI Agent 三轮技术面拿下2-2"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

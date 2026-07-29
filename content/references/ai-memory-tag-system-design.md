@@ -2,7 +2,7 @@
 title: "AI 记忆标签体系设计 — 双维度标签解决 consolidation 混乱"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: "参考资料"
 project: ""
 type: "技术资料"

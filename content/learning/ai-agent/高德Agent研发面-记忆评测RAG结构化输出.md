@@ -2,7 +2,7 @@
 title: "🎬 高德 Agent 研发面经 — 记忆、评测、RAG、结构化输出"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

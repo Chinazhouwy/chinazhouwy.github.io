@@ -2,7 +2,7 @@
 title: "唯品会Java开发面经复盘｜5年Java"
 date: "2025-05-11"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

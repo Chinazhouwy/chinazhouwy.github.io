@@ -2,7 +2,7 @@
 title: "蚂蚁 AI 前端研发工程师面经"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "前端"
 module: ""
 project: ""
 type: "文章"

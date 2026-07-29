@@ -2,7 +2,7 @@
 title: "AI Agent 常见面试题"
 date: "2026-05-07"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

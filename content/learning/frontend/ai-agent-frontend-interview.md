@@ -2,7 +2,7 @@
 title: "AI Agent 前端开发工程师 面经"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "前端"
 module: ""
 project: ""
 type: "文章"

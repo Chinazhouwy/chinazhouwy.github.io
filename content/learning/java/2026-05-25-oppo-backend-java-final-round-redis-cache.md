@@ -2,7 +2,7 @@
 title: "OPPO 后端Java终面面经 — Redis+缓存架构专项"
 date: "2026-05-25"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

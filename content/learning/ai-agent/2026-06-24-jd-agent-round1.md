@@ -2,7 +2,7 @@
 title: "京东 AI Agent开发一面面经"
 date: "2026-06-24"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

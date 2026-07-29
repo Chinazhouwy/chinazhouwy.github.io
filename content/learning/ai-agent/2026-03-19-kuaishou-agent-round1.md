@@ -2,7 +2,7 @@
 title: "快手 AI Agent 开发 一面"
 date: "2026-03-19"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

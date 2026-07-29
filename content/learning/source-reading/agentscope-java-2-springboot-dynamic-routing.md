@@ -2,7 +2,7 @@
 title: "Spring Boot接入AgentScope Java 2.0后，如何实现动态路由？"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

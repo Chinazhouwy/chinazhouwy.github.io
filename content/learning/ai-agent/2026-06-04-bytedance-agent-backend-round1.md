@@ -2,7 +2,7 @@
 title: "字节AI Agent后端面经"
 date: "2026-06-04"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

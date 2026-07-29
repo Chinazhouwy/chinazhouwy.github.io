@@ -2,7 +2,7 @@
 title: "📋 DeepSeek Agent 面试分享（第15集）"
 date: "2026-06-25"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

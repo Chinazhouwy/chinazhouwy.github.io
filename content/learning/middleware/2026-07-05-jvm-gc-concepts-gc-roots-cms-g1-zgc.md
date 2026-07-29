@@ -2,7 +2,7 @@
 title: "JVM 垃圾回收核心概念：GC Roots、并发标记、浮动垃圾、写屏障、SATB vs Incremental Update"
 date: "2026-07-05"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

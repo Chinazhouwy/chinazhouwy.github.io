@@ -2,7 +2,7 @@
 title: "联想 2026 · 前端开发（AI应用方向）社招面试真题"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "前端"
 module: ""
 project: ""
 type: "文章"

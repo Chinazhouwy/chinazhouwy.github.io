@@ -2,7 +2,7 @@
 title: "字节Agent面经记录带答案"
 date: "2026-05-26"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

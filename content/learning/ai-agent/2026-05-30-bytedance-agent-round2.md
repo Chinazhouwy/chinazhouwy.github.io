@@ -2,7 +2,7 @@
 title: "字节跳动 Agent 开发岗 二面（贼难）"
 date: "2026-05-30"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

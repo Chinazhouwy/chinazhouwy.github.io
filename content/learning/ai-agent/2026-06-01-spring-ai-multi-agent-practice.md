@@ -2,7 +2,7 @@
 title: "Spring AI 2.0 Multi-Agent 实战：构建智能协作系统"
 date: "2026-06-01"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

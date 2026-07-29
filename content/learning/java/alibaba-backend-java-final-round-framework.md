@@ -2,7 +2,7 @@
 title: "阿里后端Java终面面经 — 框架源码+问题排查"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

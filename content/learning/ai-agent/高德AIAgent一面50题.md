@@ -2,7 +2,7 @@
 title: "高德 AI Agent 一面（问得难啊）"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

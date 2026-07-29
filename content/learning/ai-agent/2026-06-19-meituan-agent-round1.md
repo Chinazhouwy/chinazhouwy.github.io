@@ -2,7 +2,7 @@
 title: "美团 AI Agent开发 一面面经"
 date: "2026-06-19"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

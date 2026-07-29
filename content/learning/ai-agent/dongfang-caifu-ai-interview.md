@@ -2,7 +2,7 @@
 title: "东方财富 AI应用开发岗（暑期实习）一面凉经"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

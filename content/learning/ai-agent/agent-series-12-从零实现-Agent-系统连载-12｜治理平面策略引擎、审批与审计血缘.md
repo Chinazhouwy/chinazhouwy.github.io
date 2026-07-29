@@ -2,7 +2,7 @@
 title: "《从零实现 Agent 系统》连载 12｜治理平面：策略引擎、审批与审计血缘"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

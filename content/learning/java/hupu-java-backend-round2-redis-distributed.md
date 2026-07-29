@@ -2,7 +2,7 @@
 title: "虎扑后端Java二面面经 — Redis+分布式"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

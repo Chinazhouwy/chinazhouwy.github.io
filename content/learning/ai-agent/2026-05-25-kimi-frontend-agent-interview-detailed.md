@@ -2,7 +2,7 @@
 title: "Kimi AI 前端 Agent 岗面经（详细版）"
 date: "2026-05-25"
 domain: "学习"
-area: "技术"
+area: "前端"
 module: ""
 project: ""
 type: "文章"

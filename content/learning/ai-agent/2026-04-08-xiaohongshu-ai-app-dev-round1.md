@@ -2,7 +2,7 @@
 title: "小红书 AI应用开发 一面"
 date: "2026-04-08"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

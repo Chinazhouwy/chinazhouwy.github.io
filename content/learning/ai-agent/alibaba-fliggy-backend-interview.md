@@ -2,7 +2,7 @@
 title: "阿里飞猪后端面经（深度版）"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

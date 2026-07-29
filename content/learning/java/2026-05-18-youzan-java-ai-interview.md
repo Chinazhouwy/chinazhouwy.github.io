@@ -2,7 +2,7 @@
 title: "有赞 Java & AI 开发岗（社招）面经"
 date: "2026-05-18"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

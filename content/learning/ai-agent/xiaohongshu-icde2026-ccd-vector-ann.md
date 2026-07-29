@@ -2,7 +2,7 @@
 title: "CCD级负载感知线程编排：小红书ICDE 2026论文解析"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "工程与架构"
 module: ""
 project: ""
 type: "文章"
@@ -181,4 +181,3 @@ tags:
 ## 原始链接
 
 https://arxiv.org/abs/2605.10090
-

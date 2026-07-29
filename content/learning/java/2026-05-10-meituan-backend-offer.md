@@ -2,7 +2,7 @@
 title: "美团后端开发面经（已offer）"
 date: "2026-05-10"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

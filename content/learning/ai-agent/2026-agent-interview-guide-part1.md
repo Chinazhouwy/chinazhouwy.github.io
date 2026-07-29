@@ -2,7 +2,7 @@
 title: "2026大模型Agent面试全攻略（上）"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

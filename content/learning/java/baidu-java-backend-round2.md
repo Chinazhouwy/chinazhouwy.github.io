@@ -2,7 +2,7 @@
 title: "百度后端 Java 二面面经"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

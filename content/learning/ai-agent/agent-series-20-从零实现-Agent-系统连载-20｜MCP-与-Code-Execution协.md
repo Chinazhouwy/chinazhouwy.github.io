@@ -2,7 +2,7 @@
 title: "《从零实现 Agent 系统》连载 20｜MCP 与 Code Execution：协议、档位与 Sidecar"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

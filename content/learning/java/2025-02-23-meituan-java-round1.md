@@ -2,7 +2,7 @@
 title: "美团 JAVA岗 一面面经"
 date: "2025-02-23"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

@@ -2,7 +2,7 @@
 title: "小鹏汽车两轮Java技术面"
 date: "2025-11-18"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

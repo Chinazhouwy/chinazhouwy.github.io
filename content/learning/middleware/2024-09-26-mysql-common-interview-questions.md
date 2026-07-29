@@ -2,7 +2,7 @@
 title: "MySQL常见⾯试题"
 date: "2024-09-26"
 domain: "学习"
-area: "技术"
+area: "数据与中间件"
 module: ""
 project: ""
 type: "文章"

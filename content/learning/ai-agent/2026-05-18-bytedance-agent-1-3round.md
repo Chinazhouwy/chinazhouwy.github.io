@@ -2,7 +2,7 @@
 title: "字节 agent开发 1-3面面经 5月"
 date: "2026-05-18"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

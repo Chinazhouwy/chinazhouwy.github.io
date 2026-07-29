@@ -2,7 +2,7 @@
 title: "《从零实现 Agent 系统》连载 08｜编排与工作流：从 Chat 到任务图"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

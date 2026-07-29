@@ -2,7 +2,7 @@
 title: "未知标题"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: "参考资料"
 project: ""
 type: "技术资料"

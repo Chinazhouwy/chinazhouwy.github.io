@@ -2,7 +2,7 @@
 title: "字节Agent开发三面面经"
 date: "2026-05-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

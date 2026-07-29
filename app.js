@@ -73,6 +73,7 @@ const state = {
   projects: [],
   quickLinks: [],
   thirdPartyLinks: [],
+  learningAreas: [],
   aliases: {},
   query: "",
   timelineFilter: "all",
@@ -794,7 +795,13 @@ function setLearningGroupExpanded(group, expanded) {
 
 function renderLearning() {
   const items = filteredArticles("learning");
-  const groups = Object.entries(groupBy(items, "area", "综合"));
+  const areaOrder = new Map(state.learningAreas.map((area, index) => [area.name, index]));
+  const groups = Object.entries(groupBy(items, "area", "综合")).sort(
+    ([left], [right]) =>
+      (areaOrder.get(left) ?? Number.MAX_SAFE_INTEGER) -
+        (areaOrder.get(right) ?? Number.MAX_SAFE_INTEGER) ||
+      left.localeCompare(right, "zh-CN"),
+  );
   const compactGroupCount = groups.filter(([, articles]) => articles.length > LEARNING_PREVIEW_COUNT).length;
 
   ui.app.innerHTML = `
@@ -1484,10 +1491,10 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260729-1";
+const BUILD_VERSION = "20260729-2";
 
 async function loadSite() {
-  const [response, quickLinks, thirdPartyLinks] = await Promise.all([
+  const [response, quickLinks, thirdPartyLinks, learningTaxonomy] = await Promise.all([
     fetch(`./site-index.json?v=${BUILD_VERSION}`),
     fetch(`./data/quick-links.json?v=${BUILD_VERSION}`)
       .then((result) => (result.ok ? result.json() : []))
@@ -1495,6 +1502,9 @@ async function loadSite() {
     fetch(`./data/third-party-links.json?v=${BUILD_VERSION}`)
       .then((result) => (result.ok ? result.json() : []))
       .catch(() => []),
+    fetch(`./data/learning-taxonomy.json?v=${BUILD_VERSION}`)
+      .then((result) => (result.ok ? result.json() : {}))
+      .catch(() => ({})),
   ]);
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const payload = await response.json();
@@ -1504,6 +1514,7 @@ async function loadSite() {
   state.projects = payload.projects || [];
   state.quickLinks = Array.isArray(quickLinks) ? quickLinks : [];
   state.thirdPartyLinks = Array.isArray(thirdPartyLinks) ? thirdPartyLinks : [];
+  state.learningAreas = Array.isArray(learningTaxonomy.areas) ? learningTaxonomy.areas : [];
   state.aliases = payload.aliases || {};
   await renderRoute();
 }

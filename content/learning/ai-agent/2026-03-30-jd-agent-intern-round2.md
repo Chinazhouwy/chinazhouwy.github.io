@@ -2,7 +2,7 @@
 title: "京东Agent实习二面问题总结"
 date: "2026-03-30"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

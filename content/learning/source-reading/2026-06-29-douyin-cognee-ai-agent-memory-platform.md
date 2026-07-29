@@ -2,7 +2,7 @@
 title: "🎬 赛博吴同学：开源AI Agent记忆平台cognee"
 date: "2026-06-29"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

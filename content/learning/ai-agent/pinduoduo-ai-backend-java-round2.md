@@ -2,7 +2,7 @@
 title: "拼多多 AI Java后端开发二面面经"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

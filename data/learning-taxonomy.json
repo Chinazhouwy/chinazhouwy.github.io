@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "areas": [
+    {
+      "name": "AI Agent",
+      "description": "大模型、Agent 框架、RAG、MCP、记忆、工具调用与 AI 应用工程。"
+    },
+    {
+      "name": "Java 后端",
+      "description": "Java、JVM、并发、Spring、后端开发与相关源码分析。"
+    },
+    {
+      "name": "数据与中间件",
+      "description": "MySQL、Redis、消息队列、缓存、事务与数据基础设施。"
+    },
+    {
+      "name": "前端",
+      "description": "JavaScript、TypeScript、Vue、浏览器与前端工程。"
+    },
+    {
+      "name": "工程与架构",
+      "description": "系统设计、网络通信、可观测性、工程效能与跨栈架构。"
+    },
+    {
+      "name": "安全",
+      "description": "Web 安全、应用安全、AI 安全、权限、审计与攻防基础。"
+    }
+  ],
+  "rules": {
+    "reuse_existing_first": true,
+    "new_area_requires_user_confirmation": true,
+    "module_is_for_recurring_series": true
+  }
+}

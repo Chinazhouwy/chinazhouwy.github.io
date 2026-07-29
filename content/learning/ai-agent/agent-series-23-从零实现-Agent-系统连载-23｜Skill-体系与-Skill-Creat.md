@@ -2,7 +2,7 @@
 title: "《从零实现 Agent 系统》连载 23｜Skill 体系与 Skill Creator：能力打包与迭代"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

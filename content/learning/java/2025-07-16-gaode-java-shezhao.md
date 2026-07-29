@@ -2,7 +2,7 @@
 title: "高德Java后端社招面经"
 date: "2025-07-16"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

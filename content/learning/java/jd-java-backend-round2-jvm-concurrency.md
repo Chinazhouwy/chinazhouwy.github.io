@@ -2,7 +2,7 @@
 title: "京东Java后端二面面经 — JVM调优 & 并发编程（底层原理版）"
 date: "2026-05-28"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

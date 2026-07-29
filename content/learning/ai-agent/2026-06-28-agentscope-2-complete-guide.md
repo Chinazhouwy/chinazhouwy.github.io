@@ -2,7 +2,7 @@
 title: "AgentScope 2.0 从入门到精通：全功能实战指南"
 date: "2026-06-28"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

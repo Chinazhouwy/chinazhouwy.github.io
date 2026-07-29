@@ -2,7 +2,7 @@
 title: "AI Coding Agent 技术参考文档"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

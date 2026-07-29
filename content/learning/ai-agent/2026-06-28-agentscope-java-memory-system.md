@@ -2,7 +2,7 @@
 title: "AgentScope(Java)2.0 的记忆系统"
 date: "2026-06-28"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

@@ -2,7 +2,7 @@
 title: "Arthas Java 诊断工具完全指南"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

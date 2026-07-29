@@ -2,7 +2,7 @@
 title: "28天 Agent 开发学习路线"
 date: "2026-05-25"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

@@ -2,7 +2,7 @@
 title: "百度 Java后端一面面经（社招进阶版）"
 date: "2026-05-29"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

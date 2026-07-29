@@ -1,6 +1,8 @@
 ---
 title: "DeepSeek Agent Harness 产品经理岗位分析"
 date: 2026-07-08
+domain: "学习"
+area: "AI Agent"
 category: "ai-agents"
 tags: ["deepseek", "产品经理", "agent", "harness"]
 visibility: private

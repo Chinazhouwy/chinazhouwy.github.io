@@ -2,7 +2,7 @@
 title: "拼多多 Java 后端 三轮技术面 + AI Agent 实战题全记录"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

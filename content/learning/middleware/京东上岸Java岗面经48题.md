@@ -2,7 +2,7 @@
 title: "京东集团 Java 岗面经（48题精选）"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

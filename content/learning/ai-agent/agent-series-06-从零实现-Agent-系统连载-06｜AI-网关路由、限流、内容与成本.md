@@ -2,7 +2,7 @@
 title: "《从零实现 Agent 系统》连载 06｜AI 网关：路由、限流、内容与成本"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

@@ -2,7 +2,7 @@
 title: "腾讯 AI Agent 开发一面（暑期）"
 date: "2026-04-18"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

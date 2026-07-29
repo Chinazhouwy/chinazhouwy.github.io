@@ -2,7 +2,7 @@
 title: "SSE + Redis Stream 渐进式异步数据加载方案（改进版）"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "工程与架构"
 module: "参考资料"
 project: ""
 type: "技术资料"

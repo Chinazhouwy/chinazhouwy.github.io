@@ -2,7 +2,7 @@
 title: "Agent Harness 工程实战指南"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

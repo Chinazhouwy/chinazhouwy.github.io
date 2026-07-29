@@ -2,7 +2,7 @@
 title: "SSE 跨层流式系统：从 Spring flush 到浏览器渲染"
 date: "2026-07-21"
 domain: "学习"
-area: "技术"
+area: "工程与架构"
 module: "SSE"
 project: ""
 type: "深度文章"

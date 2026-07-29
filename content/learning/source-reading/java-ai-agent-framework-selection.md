@@ -2,7 +2,7 @@
 title: "放弃 Spring AI？这 3 个开源框架，才是让 SpringBoot 玩转 AI Agent 的正解"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

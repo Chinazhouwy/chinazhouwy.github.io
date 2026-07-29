@@ -2,7 +2,7 @@
 title: "《从零实现 Agent 系统》连载 09｜沙箱与资源：执行隔离的工程含义"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

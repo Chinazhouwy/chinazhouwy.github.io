@@ -2,7 +2,7 @@
 title: "Spring 三级缓存解决循环依赖 —— 完整讨论记录"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

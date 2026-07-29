@@ -2,7 +2,7 @@
 title: "《从零实现 Agent 系统》连载 17｜记忆再往下挖：压缩分档、九档归属与 Skill 策略"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

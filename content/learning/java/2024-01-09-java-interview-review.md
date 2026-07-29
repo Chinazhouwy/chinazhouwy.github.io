@@ -2,7 +2,7 @@
 title: "一次Java面试复盘"
 date: "2024-01-09"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

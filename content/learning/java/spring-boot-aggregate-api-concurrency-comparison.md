@@ -2,7 +2,7 @@
 title: "Spring Boot 聚合API查询，3种方式性能对比（虚拟线程+结构化并发，CompletableFuture）"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

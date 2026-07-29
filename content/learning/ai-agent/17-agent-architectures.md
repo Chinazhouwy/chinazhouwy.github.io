@@ -2,7 +2,7 @@
 title: "17 种 Agent 架构模式深度解析"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

@@ -2,7 +2,7 @@
 title: "蚂蚁国际 · 智能体与大模型应用工程 一面面经"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

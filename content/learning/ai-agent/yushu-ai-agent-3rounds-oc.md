@@ -2,7 +2,7 @@
 title: "宇树科技 AI Agent 开发三轮技术面（已 OC）"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

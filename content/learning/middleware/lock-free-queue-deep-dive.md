@@ -2,7 +2,7 @@
 title: "无锁队列深度解析 — 高并发编程核心"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

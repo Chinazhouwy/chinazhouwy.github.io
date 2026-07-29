@@ -2,7 +2,7 @@
 title: "后端八股总结——Redis篇"
 date: "2026-03-05"
 domain: "学习"
-area: "技术"
+area: "数据与中间件"
 module: ""
 project: ""
 type: "文章"

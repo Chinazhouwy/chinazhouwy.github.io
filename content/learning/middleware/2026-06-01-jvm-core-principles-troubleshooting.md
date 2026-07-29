@@ -2,7 +2,7 @@
 title: "JVM 核心原理与线上排查"
 date: "2026-06-01"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

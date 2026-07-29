@@ -2,7 +2,7 @@
 title: "用Java 17手写一个MVCC，彻底搞懂多版本并发控制"
 date: "2026-05-29"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

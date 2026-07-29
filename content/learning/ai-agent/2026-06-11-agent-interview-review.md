@@ -2,7 +2,7 @@
 title: "【2026年6月面试复盘】面 Agent 岗的这段日子"
 date: "2026-06-11"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

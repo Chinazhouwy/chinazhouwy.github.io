@@ -2,7 +2,7 @@
 title: "字节跳动 Agent 开发 一面"
 date: "2026-03-28"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

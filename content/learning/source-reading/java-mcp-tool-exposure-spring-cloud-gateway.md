@@ -2,7 +2,7 @@
 title: "Java单体项目存量HTTP接口暴露为MCP Tool架构方案"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

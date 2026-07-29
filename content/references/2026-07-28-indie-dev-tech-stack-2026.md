@@ -2,7 +2,7 @@
 title: "独立开发技术栈（2026）— 工具详解与选型分析"
 date: 2026-07-28
 domain: "学习"
-area: "技术"
+area: "工程与架构"
 module: ""
 project: ""
 type: "参考"

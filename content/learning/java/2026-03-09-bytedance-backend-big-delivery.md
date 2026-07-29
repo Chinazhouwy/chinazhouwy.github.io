@@ -2,7 +2,7 @@
 title: "字节后端面经大放送"
 date: "2026-03-09"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

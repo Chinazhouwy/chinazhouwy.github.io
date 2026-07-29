@@ -2,7 +2,7 @@
 title: "旷视Java开发岗面经 — 12道高频题"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "Java 后端"
 module: ""
 project: ""
 type: "文章"

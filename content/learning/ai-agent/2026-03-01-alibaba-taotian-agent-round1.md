@@ -2,7 +2,7 @@
 title: "26春招｜阿里淘天 Agent 一面面经分享"
 date: "2026-03-01"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"

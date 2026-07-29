@@ -2,7 +2,7 @@
 title: "从零开始写 Agent（四）：用两步做一个财报研报 Agent"
 date: "2026-07-06"
 domain: "学习"
-area: "技术"
+area: "AI Agent"
 module: ""
 project: ""
 type: "文章"
