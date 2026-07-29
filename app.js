@@ -14,6 +14,8 @@ const SECTION_LABELS = {
   plans: "阶段路线",
 };
 
+const LEARNING_PREVIEW_COUNT = 5;
+
 const GISCUS_CONFIG = {
   repo: "Chinazhouwy/chinazhouwy.github.io",
   repoId: "R_kgDOOzTMhA",
@@ -777,6 +779,94 @@ function renderDomain(section, title, description, { groupKey } = {}) {
     </section>`;
 }
 
+function setLearningGroupExpanded(group, expanded) {
+  const toggle = group.querySelector("[data-learning-toggle]");
+  if (!toggle) return;
+
+  const total = Number(toggle.dataset.total || 0);
+  const label = toggle.querySelector("[data-learning-toggle-label]");
+  group.classList.toggle("is-collapsed", !expanded);
+  toggle.setAttribute("aria-expanded", String(expanded));
+  label.textContent = expanded
+    ? `收起至最近 ${LEARNING_PREVIEW_COUNT} 篇`
+    : `展开全部 ${total} 篇`;
+}
+
+function renderLearning() {
+  const items = filteredArticles("learning");
+  const groups = Object.entries(groupBy(items, "area", "综合"));
+  const compactGroupCount = groups.filter(([, articles]) => articles.length > LEARNING_PREVIEW_COUNT).length;
+
+  ui.app.innerHTML = `
+    <section class="directory-page learning-page">
+      ${sectionIntro("LEARNING", "学习", "技术知识、源码笔记与可复习内容。", items.length)}
+      ${
+        compactGroupCount
+          ? `<div class="learning-directory-tools reveal delay-1">
+              <p><strong>${compactGroupCount}</strong> 个长主题默认展示最近 ${LEARNING_PREVIEW_COUNT} 篇</p>
+              <div class="learning-directory-actions" role="group" aria-label="学习主题显示方式">
+                <button type="button" data-learning-action="expand">全部展开</button>
+                <button type="button" data-learning-action="collapse">全部收起</button>
+              </div>
+            </div>`
+          : ""
+      }
+      <div class="directory-groups">
+        ${
+          groups.length
+            ? groups
+                .map(([area, articles], index) => {
+                  const collapsible = articles.length > LEARNING_PREVIEW_COUNT;
+                  const listId = `learning-topic-${index}`;
+                  return `
+                    <section class="directory-group learning-group reveal${collapsible ? " is-collapsed" : ""}" data-learning-group>
+                      <header class="learning-group-header">
+                        <div class="learning-group-title">
+                          <h2>${escapeHtml(area)}</h2>
+                          <span>${articles.length} 篇</span>
+                        </div>
+                        ${
+                          collapsible
+                            ? `<button
+                                class="learning-group-toggle"
+                                type="button"
+                                data-learning-toggle
+                                data-total="${articles.length}"
+                                aria-expanded="false"
+                                aria-controls="${listId}"
+                              >
+                                <span data-learning-toggle-label>展开全部 ${articles.length} 篇</span>
+                                <i class="learning-group-toggle-icon" aria-hidden="true"></i>
+                              </button>`
+                            : ""
+                        }
+                      </header>
+                      <div class="article-list" id="${listId}">${articles.map((article) => articleRow(article)).join("")}</div>
+                    </section>`;
+                })
+                .join("")
+            : '<p class="empty-copy">栏目已建立，等待内容沉淀。</p>'
+        }
+      </div>
+    </section>`;
+
+  ui.app.querySelectorAll("[data-learning-toggle]").forEach((toggle) => {
+    toggle.addEventListener("click", () => {
+      const group = toggle.closest("[data-learning-group]");
+      setLearningGroupExpanded(group, toggle.getAttribute("aria-expanded") !== "true");
+    });
+  });
+
+  ui.app.querySelectorAll("[data-learning-action]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const expanded = button.dataset.learningAction === "expand";
+      ui.app
+        .querySelectorAll("[data-learning-group]")
+        .forEach((group) => setLearningGroupExpanded(group, expanded));
+    });
+  });
+}
+
 function quickLinkCard(link) {
   return `
     <a class="quick-link-card" href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">
@@ -1369,7 +1459,7 @@ async function renderRoute() {
     timeline: renderTimeline,
     tasks: () => renderDomain("tasks", "任务", "今日行动摘要与待复盘项。"),
     projects: renderProjects,
-    learning: () => renderDomain("learning", "学习", "技术知识、源码笔记与可复习内容。"),
+    learning: renderLearning,
     opportunity: renderOpportunity,
     reading: renderReading,
     columns: () => renderDomain("columns", "知识地图", "把零散题目、阅读、项目和复盘连接成长期结构，逐步形成自己的知识坐标。"),
@@ -1394,7 +1484,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260725-2";
+const BUILD_VERSION = "20260729-1";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks] = await Promise.all([

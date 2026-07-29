@@ -1245,6 +1245,54 @@ a {
   gap: 58px;
 }
 
+.learning-directory-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 28px 0 50px;
+  padding: 14px 0;
+  border-block: 1px solid var(--line);
+}
+
+.learning-directory-tools p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.learning-directory-tools p strong {
+  color: var(--orange);
+  font-family: var(--mono);
+  font-weight: 500;
+}
+
+.learning-directory-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.learning-directory-actions button,
+.learning-group-toggle {
+  border: 1px solid var(--line);
+  background: rgba(248, 250, 246, 0.55);
+  color: var(--green);
+  cursor: pointer;
+  font-size: 11px;
+  transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
+}
+
+.learning-directory-actions button {
+  padding: 8px 13px;
+}
+
+.learning-directory-actions button:hover,
+.learning-group-toggle:hover {
+  border-color: var(--green);
+  background: var(--green);
+  color: white;
+}
+
 .column-directory {
   display: grid;
   gap: 0;
@@ -1313,6 +1361,65 @@ a {
   color: var(--muted);
   font-family: var(--mono);
   font-size: 11px;
+}
+
+.learning-group-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.learning-group-title h2 {
+  margin-bottom: 8px;
+}
+
+.learning-group-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 150px;
+  padding: 9px 11px;
+  text-align: left;
+}
+
+.learning-group-toggle [data-learning-toggle-label] {
+  flex: 1;
+  color: inherit;
+  font-family: var(--mono);
+  font-size: 10px;
+}
+
+.learning-group-toggle-icon {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  flex: none;
+}
+
+.learning-group-toggle-icon::before,
+.learning-group-toggle-icon::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+  transform: translate(-50%, -50%);
+  transition: transform 150ms ease;
+}
+
+.learning-group-toggle-icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.learning-group:not(.is-collapsed) .learning-group-toggle-icon::after {
+  transform: translate(-50%, -50%) rotate(0);
+}
+
+.learning-group.is-collapsed .article-list > :nth-child(n + 6) {
+  display: none;
 }
 
 .company-grid {
@@ -2336,6 +2443,24 @@ a {
     gap: 46px;
   }
 
+  .learning-directory-tools {
+    align-items: flex-start;
+    margin: 18px 0 36px;
+  }
+
+  .learning-directory-tools p {
+    max-width: 180px;
+    line-height: 1.6;
+  }
+
+  .learning-directory-actions {
+    flex: none;
+  }
+
+  .learning-directory-actions button {
+    padding-inline: 10px;
+  }
+
   .directory-group,
   .interview-day {
     display: block;
@@ -2349,6 +2474,17 @@ a {
 
   .directory-group > header h2 {
     font-size: 25px;
+  }
+
+  .learning-group-header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .learning-group-toggle {
+    min-width: 142px;
   }
 
   .article-row {
