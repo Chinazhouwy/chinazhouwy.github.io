@@ -5,7 +5,7 @@ const SECTION_LABELS = {
   learning: "学习",
   opportunity: "机会",
   reading: "阅读",
-  columns: "知识地图",
+  columns: "专栏",
   links: "三方链接",
   about: "关于我",
   questions: "能力复盘",
@@ -77,6 +77,7 @@ const state = {
   aliases: {},
   query: "",
   timelineFilter: "all",
+  timelineVisibleDays: 12,
 };
 
 marked.setOptions({ breaks: true, gfm: true });
@@ -88,6 +89,37 @@ function escapeHtml(value = "") {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function uniqueTextParts(values) {
+  const seen = new Set();
+  return values
+    .map((value) => String(value || "").trim())
+    .filter((value) => {
+      if (!value || seen.has(value)) return false;
+      seen.add(value);
+      return true;
+    });
+}
+
+function normalizedHeading(value) {
+  return String(value || "")
+    .replace(/\s+/g, "")
+    .replace(/[·:：—\-_|]/g, "")
+    .toLowerCase();
+}
+
+function stripDuplicateLeadingTitle(html, title) {
+  const template = document.createElement("template");
+  template.innerHTML = html;
+  const first = template.content.firstElementChild;
+  if (
+    first?.tagName === "H1" &&
+    normalizedHeading(first.textContent) === normalizedHeading(title)
+  ) {
+    first.remove();
+  }
+  return template.innerHTML;
 }
 
 function articleHref(path) {
@@ -128,7 +160,14 @@ function timelineCategory(article) {
   if (["projects", "tasks"].includes(section)) return "projects";
   if (["opportunity", "companies"].includes(section)) return "opportunity";
   if (section === "columns") return "learning";
-  return section;
+  if (["learning", "reading"].includes(section)) return section;
+  return "";
+}
+
+function timelineDate(article) {
+  const category = timelineCategory(article);
+  if (category === "questions") return article.practicedAt || article.date;
+  return article.publishedAt || article.createdAt || article.date;
 }
 
 function timelineDateParts(value) {
@@ -313,6 +352,7 @@ function matchesSearch(article) {
     article.project,
     article.type,
     article.question,
+    article.searchText,
     ...(article.tags || []),
   ]
     .filter(Boolean)
@@ -405,20 +445,45 @@ function sectionIntro(kicker, title, description, count) {
 
 function lineChart(daily) {
   const points = daily.slice(-14);
-  if (!points.length) return '<div class="chart-empty">持续记录后，这里会出现阶段趋势。</div>';
+  if (
+    !points.length ||
+    !points.some((item) => item.count > 0 || typeof item.averageScore === "number")
+  ) {
+    return '<div class="chart-empty">当前视图暂无可展示的练习记录。</div>';
+  }
   const width = 720;
   const height = 210;
   const padding = 28;
   const maxCount = Math.max(...points.map((item) => item.count), 1);
   const step = points.length > 1 ? (width - padding * 2) / (points.length - 1) : 0;
-  const scorePoints = points
-    .map((item, index) => {
-      const x = padding + index * step;
-      const score = item.averageScore ?? 0;
-      const y = height - padding - (score / 10) * (height - padding * 2);
-      return `${x},${y}`;
-    })
-    .join(" ");
+  const positionedScores = points.map((item, index) => {
+    if (typeof item.averageScore !== "number") return null;
+    const x = padding + index * step;
+    const y = height - padding - (item.averageScore / 10) * (height - padding * 2);
+    return { x, y };
+  });
+  const scoreSegments = [];
+  let currentSegment = [];
+  positionedScores.forEach((point) => {
+    if (point) {
+      currentSegment.push(point);
+    } else if (currentSegment.length) {
+      scoreSegments.push(currentSegment);
+      currentSegment = [];
+    }
+  });
+  if (currentSegment.length) scoreSegments.push(currentSegment);
+  const scoreLines = scoreSegments
+    .filter((segment) => segment.length > 1)
+    .map(
+      (segment) =>
+        `<polyline class="chart-line" points="${segment.map((point) => `${point.x},${point.y}`).join(" ")}"></polyline>`,
+    )
+    .join("");
+  const scoreDots = positionedScores
+    .filter(Boolean)
+    .map((point) => `<circle class="chart-score-dot" cx="${point.x}" cy="${point.y}" r="4"></circle>`)
+    .join("");
   const bars = points
     .map((item, index) => {
       const x = padding + index * step - 9;
@@ -434,10 +499,10 @@ function lineChart(daily) {
     .join("");
 
   return `
-    <svg class="trend-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="近十四天题量与平均分趋势">
+    <svg class="trend-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="最近十四个自然日的练习题量与平均分趋势">
       <line class="chart-axis" x1="${padding}" y1="${height - padding}" x2="${width - padding}" y2="${height - padding}"></line>
       <g class="chart-bars">${bars}</g>
-      <polyline class="chart-line" points="${scorePoints}"></polyline>
+      <g class="chart-scores">${scoreLines}${scoreDots}</g>
       <g class="chart-labels">${labels}</g>
     </svg>
   `;
@@ -485,18 +550,18 @@ function renderOverview() {
         </div>
         <div class="today-number">
           <strong>${today.count || 0}</strong>
-          <span>项记录</span>
+          <span>项练习</span>
         </div>
         <dl>
-          <div><dt>今日状态</dt><dd>${today.averageScore ?? "—"}</dd></div>
-          <div><dt>连续记录</dt><dd>${dashboard.streakDays || 0} 天</dd></div>
-          <div><dt>累计沉淀</dt><dd>${dashboard.totalQuestions || 0} 项</dd></div>
+          <div><dt>今日均分</dt><dd>${today.averageScore ?? "—"}</dd></div>
+          <div><dt>连续练习</dt><dd>${dashboard.streakDays || 0} 天</dd></div>
+          <div><dt>累计练习</dt><dd>${dashboard.totalQuestions || 0} 项</dd></div>
         </dl>
       </aside>
 
       <div class="metric-strip reveal delay-1">
-        <div><span>整体评分</span><strong>${dashboard.averageScore ?? "—"}</strong><small>/ 10</small></div>
-        <div><span>已复盘</span><strong>${dashboard.scoredQuestions || 0}</strong><small>道</small></div>
+        <div><span>练习均分</span><strong>${dashboard.averageScore ?? "—"}</strong><small>/ 10</small></div>
+        <div><span>已评分练习</span><strong>${dashboard.scoredQuestions || 0}</strong><small>道</small></div>
         <div><span>内容沉淀</span><strong>${state.articles.length}</strong><small>篇</small></div>
         <div><span>当前项目</span><strong>${state.projects.length}</strong><small>项</small></div>
       </div>
@@ -504,8 +569,8 @@ function renderOverview() {
       <div class="overview-grid">
         <section class="trend-section reveal">
           <div class="section-heading">
-            <div><p class="mono-label">PROGRESS / 近 14 天</p><h2>阶段趋势</h2></div>
-            <div class="chart-legend"><span class="legend-bar">记录</span><span class="legend-line">状态</span></div>
+            <div><p class="mono-label">PRACTICE / 近 14 天</p><h2>练习趋势</h2></div>
+            <div class="chart-legend"><span class="legend-bar">题量</span><span class="legend-line">平均分</span></div>
           </div>
           ${lineChart(dashboard.daily || [])}
         </section>
@@ -591,7 +656,7 @@ function renderOverview() {
 
       <section class="recent-section reveal delay-1">
         <div class="section-heading">
-          <div><p class="mono-label">ACTIVITY / 每日进度</p><h2>最近沉淀</h2></div>
+          <div><p class="mono-label">ARCHIVE / 内容时间线</p><h2>最近沉淀</h2></div>
           <a href="#/timeline">查看时光轴 ${iconArrow()}</a>
         </div>
         <div class="article-list">${recent.map((item, index) => articleRow(item, { index: String(index + 1).padStart(2, "0") })).join("")}</div>
@@ -604,12 +669,14 @@ function renderTimeline() {
   const datedArticles = state.articles
     .filter(canShowInSection)
     .filter(matchesSearch)
-    .filter((article) => /^\d{4}-\d{2}-\d{2}$/.test(article.date || ""));
+    .filter((article) => timelineCategory(article))
+    .map((article) => ({ ...article, timelineDate: timelineDate(article) }))
+    .filter((article) => /^\d{4}-\d{2}-\d{2}$/.test(article.timelineDate || ""));
   const filtered =
     state.timelineFilter === "all"
       ? datedArticles
       : datedArticles.filter((article) => timelineCategory(article) === state.timelineFilter);
-  const days = Object.entries(groupBy(filtered, "date"))
+  const days = Object.entries(groupBy(filtered, "timelineDate"))
     .sort(([left], [right]) => right.localeCompare(left));
   const filterCounts = Object.fromEntries(
     TIMELINE_FILTERS.map(([id]) => [
@@ -620,10 +687,11 @@ function renderTimeline() {
     ]),
   );
   const latestDate = days[0]?.[0] || "";
+  const visibleDays = days.slice(0, state.timelineVisibleDays);
 
   ui.app.innerHTML = `
     <section class="directory-page timeline-page">
-      ${sectionIntro("DAILY PROGRESS", "时光轴", "每天完成的练习、学习、项目、阅读和机会记录。", filtered.length)}
+      ${sectionIntro("CONTENT ARCHIVE", "内容时光轴", "按练习或内容记录日期归档；批量迁移日期不代表当天实际完成量。", filtered.length)}
 
       <div class="timeline-toolbar reveal delay-1">
         <div class="timeline-filters" role="group" aria-label="筛选每日进度">
@@ -640,16 +708,16 @@ function renderTimeline() {
           ).join("")}
         </div>
         <dl class="timeline-stats">
-          <div><dt>沉淀天数</dt><dd>${days.length}</dd></div>
-          <div><dt>当前记录</dt><dd>${filtered.length}</dd></div>
+          <div><dt>归档日期</dt><dd>${days.length}</dd></div>
+          <div><dt>归档内容</dt><dd>${filtered.length}</dd></div>
           <div><dt>最近更新</dt><dd>${latestDate ? latestDate.slice(5).replace("-", ".") : "—"}</dd></div>
         </dl>
       </div>
 
       <div class="timeline-list">
         ${
-          days.length
-            ? days
+          visibleDays.length
+            ? visibleDays
                 .map(([date, articles], dayIndex) => {
                   const dateParts = timelineDateParts(date);
                   const categoryCounts = TIMELINE_FILTERS.slice(1)
@@ -693,16 +761,8 @@ function renderTimeline() {
                         ${
                           remaining.length
                             ? `<details class="timeline-more">
-                                <summary>展开其余 ${remaining.length} 项</summary>
-                                <div class="article-list">
-                                  ${remaining
-                                    .map((article, index) =>
-                                      articleRow(article, {
-                                        index: String(index + visible.length + 1).padStart(2, "0"),
-                                      }),
-                                    )
-                                    .join("")}
-                                </div>
+                                <summary data-timeline-date="${date}">展开其余 ${remaining.length} 项</summary>
+                                <div class="article-list" data-timeline-more-list></div>
                               </details>`
                             : ""
                         }
@@ -713,14 +773,42 @@ function renderTimeline() {
             : '<p class="empty-copy timeline-empty">当前筛选下还没有每日记录。</p>'
         }
       </div>
+      ${
+        visibleDays.length < days.length
+          ? `<button class="timeline-load-more" type="button" data-timeline-load-more>
+              加载更早的 ${Math.min(12, days.length - visibleDays.length)} 个日期
+            </button>`
+          : ""
+      }
     </section>
   `;
 
   document.querySelectorAll("[data-timeline-filter]").forEach((button) => {
     button.addEventListener("click", () => {
       state.timelineFilter = button.dataset.timelineFilter;
+      state.timelineVisibleDays = 12;
       renderTimeline();
     });
+  });
+
+  document.querySelectorAll(".timeline-more").forEach((details) => {
+    details.addEventListener("toggle", () => {
+      if (!details.open || details.dataset.loaded === "true") return;
+      const date = details.querySelector("[data-timeline-date]")?.dataset.timelineDate;
+      const articles = days.find(([day]) => day === date)?.[1] || [];
+      const remaining = articles.slice(6);
+      details.querySelector("[data-timeline-more-list]").innerHTML = remaining
+        .map((article, index) =>
+          articleRow(article, { index: String(index + 7).padStart(2, "0") }),
+        )
+        .join("");
+      details.dataset.loaded = "true";
+    });
+  });
+
+  document.querySelector("[data-timeline-load-more]")?.addEventListener("click", () => {
+    state.timelineVisibleDays += 12;
+    renderTimeline();
   });
 }
 
@@ -1221,60 +1309,55 @@ function renderOpportunity() {
 }
 
 function renderColumns() {
-  const readable = state.articles.filter(
-    (article) =>
-      ["questions", "notes"].includes(article.section) && matchesSearch(article),
-  );
-  const definitions = state.columns.length
-    ? state.columns
-    : [
-        ["technology", "工程技术", "Java、JVM、Redis、数据库、分布式、系统设计。"],
-        ["ai-agent", "AI Agent", "Agent、工具系统、RAG、MCP、上下文、源码研究。"],
-        ["business-finance", "金融市场", "宏观、资产配置、基金、股票、行业观察。"],
-        ["society-humanities", "历史社会", "历史、政治、制度、社会结构、国际关系。"],
-        ["career-life", "职业成长", "能力表达、机会复盘、学习计划、长期路线。"],
-        ["projects", "项目沉淀", "自研项目、网站、工具产品、工程实践。"],
-      ].map(([id, name, description]) => ({ id, name, description, count: 0 }));
+  const items = filteredArticles("columns");
+  const groups = Object.entries(groupBy(items, "area", "未分类"));
 
   ui.app.innerHTML = `
     <section class="directory-page column-page">
-      ${sectionIntro("KNOWLEDGE MAP", "知识地图", "把零散题目、阅读、项目和复盘连接成长期结构，逐步形成自己的知识坐标。", readable.length)}
-      <div class="column-directory">
-        ${definitions
-          .map((column, index) => {
-            const articles = readable.filter((article) => article.column === column.id);
-            return `
-              <section class="column-group reveal" style="--delay:${index * 45}ms">
-                <header>
-                  <span>${String(index + 1).padStart(2, "0")}</span>
-                  <div>
-                    <h2>${escapeHtml(column.name)}</h2>
-                    <p>${escapeHtml(column.description)}</p>
-                  </div>
-                  <strong>${articles.length} 篇</strong>
-                </header>
-                ${
-                  articles.length
-                    ? `<div class="article-list">${articles.map((article) => articleRow(article)).join("")}</div>`
-                    : '<p class="column-empty">栏目已经建立，等待第一篇文章。</p>'
-                }
-              </section>`;
-          })
-          .join("")}
+      ${sectionIntro("COLUMNS", "专栏", "围绕长期主题持续整理的系列文章。", items.length)}
+      <div class="directory-groups">
+        ${
+          groups.length
+            ? groups
+                .map(
+                  ([area, articles]) => `
+                    <section class="directory-group reveal">
+                      <header><h2>${escapeHtml(area)}</h2><span>${articles.length} 篇</span></header>
+                      <div class="article-list">${articles.map((article) => articleRow(article)).join("")}</div>
+                    </section>`,
+                )
+                .join("")
+            : '<p class="empty-copy">专栏已建立，等待第一篇系列文章。</p>'
+        }
       </div>
     </section>
   `;
 }
 
-function createToc(container) {
+function createToc(container, routeHash) {
   const headings = [...container.querySelectorAll("h2, h3")];
-  return headings
-    .slice(0, 16)
+  const html = headings
     .map((heading, index) => {
       heading.id ||= `section-${index + 1}`;
-      return `<a class="${heading.tagName === "H3" ? "toc-sub" : ""}" href="#${heading.id}">${escapeHtml(heading.textContent)}</a>`;
+      const href = `${routeHash}?section=${encodeURIComponent(heading.id)}`;
+      return `<a class="${heading.tagName === "H3" ? "toc-sub" : ""}" href="${escapeHtml(href)}" data-toc-target="${escapeHtml(heading.id)}">${escapeHtml(heading.textContent)}</a>`;
     })
     .join("");
+  return { html, count: headings.length };
+}
+
+function bindTocLinks(container, routeHash) {
+  container.querySelectorAll("[data-toc-target]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const targetId = link.dataset.tocTarget;
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      event.preventDefault();
+      history.replaceState(null, "", `${routeHash}?section=${encodeURIComponent(targetId)}`);
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      link.closest("details")?.removeAttribute("open");
+    });
+  });
 }
 
 function mountComments(articlePath) {
@@ -1348,7 +1431,7 @@ async function renderAbout() {
   }
 }
 
-async function renderArticle(rawPath) {
+async function renderArticle(rawPath, requestedSection = "") {
   // Resolve aliases
   const resolvedPath = state.aliases[rawPath] || rawPath;
 
@@ -1372,11 +1455,19 @@ async function renderArticle(rawPath) {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const raw = await response.text();
     const content = raw.startsWith("---") ? raw.replace(/^---\n[\s\S]*?\n---\n?/, "") : raw;
-    const rendered = DOMPurify.sanitize(marked.parse(content));
+    const sanitized = DOMPurify.sanitize(marked.parse(content));
 
     const backSection = article ? getArticleSection(article) : "learning";
     const backLabel = SECTION_LABELS[backSection] || "学习";
     const displayTitle = article?.title || fetchPath.split("/").pop() || "文章详情";
+    const rendered = stripDuplicateLeadingTitle(sanitized, displayTitle);
+    const headerTrail = uniqueTextParts([
+      backLabel,
+      article?.topic,
+      article?.module,
+      article?.area,
+    ]);
+    const articleRoute = articleHref(fetchPath);
 
     ui.app.innerHTML = `
       <section class="reader">
@@ -1387,7 +1478,7 @@ async function renderArticle(rawPath) {
         </aside>
         <main class="reader-main">
           <header class="reader-header">
-            <p class="mono-label">${escapeHtml([backLabel, article?.topic, article?.module, article?.area].filter(Boolean).join(" / ") || "文章")}</p>
+            <p class="mono-label">${escapeHtml(headerTrail.join(" / ") || "文章")}</p>
             <h1>${escapeHtml(displayTitle)}</h1>
             <div>
               ${article?.date ? `<time>${escapeHtml(article.date)}</time>` : ""}
@@ -1400,6 +1491,10 @@ async function renderArticle(rawPath) {
               跳到文章评论区 ↓
             </button>
           </header>
+          <details class="mobile-toc">
+            <summary><span>文章目录</span><strong id="mobile-toc-count"></strong></summary>
+            <nav id="mobile-article-toc"></nav>
+          </details>
           <article id="article-body" class="article-body">${rendered}</article>
           <section id="comments-section" class="comments-section" aria-labelledby="comments-title">
             <header>
@@ -1419,7 +1514,14 @@ async function renderArticle(rawPath) {
         </main>
       </section>
     `;
-    document.getElementById("article-toc").innerHTML = createToc(document.getElementById("article-body"));
+    const toc = createToc(document.getElementById("article-body"), articleRoute);
+    const desktopToc = document.getElementById("article-toc");
+    const mobileToc = document.getElementById("mobile-article-toc");
+    desktopToc.innerHTML = toc.html;
+    mobileToc.innerHTML = toc.html;
+    document.getElementById("mobile-toc-count").textContent = `${toc.count} 项`;
+    bindTocLinks(desktopToc, articleRoute);
+    bindTocLinks(mobileToc, articleRoute);
     document.getElementById("comment-jump").addEventListener("click", () => {
       document.getElementById("comments-section").scrollIntoView({ behavior: "smooth", block: "start" });
     });
@@ -1427,6 +1529,11 @@ async function renderArticle(rawPath) {
     mountComments(fetchPath);
     document.title = `${displayTitle} · WY 工作台`;
     window.scrollTo({ top: 0, behavior: "instant" });
+    if (requestedSection) {
+      window.requestAnimationFrame(() => {
+        document.getElementById(requestedSection)?.scrollIntoView({ block: "start" });
+      });
+    }
   } catch (error) {
     renderError("文章加载失败", `${error.message}。请检查文件权限或稍后重试。`, true);
   }
@@ -1443,13 +1550,16 @@ function renderError(title, detail, retry = false) {
 function parseRoute() {
   const hash = location.hash.replace(/^#\/?/, "");
   if (!hash) return { view: "overview" };
-  if (hash.startsWith("article/")) {
-    return { view: "article", path: decodeURIComponent(hash.slice(8)) };
+  const queryIndex = hash.indexOf("?");
+  const routePath = queryIndex >= 0 ? hash.slice(0, queryIndex) : hash;
+  const params = new URLSearchParams(queryIndex >= 0 ? hash.slice(queryIndex + 1) : "");
+  if (routePath.startsWith("article/")) {
+    return { view: "article", path: decodeURIComponent(routePath.slice(8)), params };
   }
-  if (hash.endsWith(".md") || decodeURIComponent(hash).endsWith(".md")) {
-    return { view: "article", path: decodeURIComponent(hash) };
+  if (routePath.endsWith(".md") || decodeURIComponent(routePath).endsWith(".md")) {
+    return { view: "article", path: decodeURIComponent(routePath), params };
   }
-  return { view: hash.split("?")[0] };
+  return { view: routePath, params };
 }
 
 function updateActiveNav(view) {
@@ -1460,7 +1570,16 @@ async function renderRoute() {
   const route = parseRoute();
   updateActiveNav(route.view);
   document.title = "WY 工作台 · Life OS";
-  if (route.view === "article") return renderArticle(route.path);
+  if (route.view === "article") {
+    return renderArticle(route.path, route.params.get("section") || "");
+  }
+  if (route.view === "search") {
+    state.query = (route.params.get("q") || "").trim().toLowerCase();
+    ui.search.value = route.params.get("q") || "";
+  } else {
+    state.query = "";
+    ui.search.value = "";
+  }
   const renderers = {
     overview: renderOverview,
     timeline: renderTimeline,
@@ -1469,7 +1588,7 @@ async function renderRoute() {
     learning: renderLearning,
     opportunity: renderOpportunity,
     reading: renderReading,
-    columns: () => renderDomain("columns", "知识地图", "把零散题目、阅读、项目和复盘连接成长期结构，逐步形成自己的知识坐标。"),
+    columns: renderColumns,
     links: renderThirdPartyLinks,
     about: renderAbout,
 
@@ -1491,7 +1610,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260729-2";
+const BUILD_VERSION = "20260730-2";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy] = await Promise.all([
@@ -1663,12 +1782,15 @@ async function hydrateDailyTip({ force = false, randomFallback = false } = {}) {
 }
 
 ui.search.addEventListener("input", (event) => {
-  state.query = event.target.value.trim().toLowerCase();
+  const rawQuery = event.target.value.trim();
+  state.query = rawQuery.toLowerCase();
   const route = parseRoute();
-  if (route.view === "article" || route.view === "overview") {
-    location.hash = "/search";
+  const nextHash = `#/search${rawQuery ? `?q=${encodeURIComponent(rawQuery)}` : ""}`;
+  if (route.view !== "search") {
+    location.hash = nextHash;
   } else {
-    renderRoute();
+    history.replaceState(null, "", nextHash);
+    renderSearch();
   }
 });
 
