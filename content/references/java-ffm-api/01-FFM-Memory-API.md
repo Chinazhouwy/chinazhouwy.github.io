@@ -1,5 +1,5 @@
 ---
-title: "未知标题"
+title: "Java FFM API：Memory API 与堆外内存管理"
 date: "2026-07-06"
 domain: "学习"
 area: "Java 后端"
@@ -10,11 +10,15 @@ status: "digested"
 priority: "P1"
 energy: "medium"
 visibility: "public"
-summary: "未知标题"
+summary: "介绍 Java FFM API 的 MemorySegment、Arena、堆外内存生命周期，以及它相对 ByteBuffer 和 Unsafe 的改进。"
 tags:
+  - "Java"
+  - "FFM API"
+  - "MemorySegment"
+  - "堆外内存"
 ---
 
-# 未知标题
+# Java FFM API：Memory API 与堆外内存管理
 
 **类型：📚 参考资料（非面试题/面经）**
 
@@ -24,13 +28,12 @@ tags:
 
 ---
 
-Java FFM API(Project Panama)（1）
+Java FFM API（Project Panama）系列（1）
 
-Foreign Function & Memory API（简称 FFM API）是 Java 
-
-Project Panama（巴拿马项目）
-
- 的核心产物。在JDK 22 中就已经正式转正，但是由于JDK25是最近的一个LTS，所以可以认为是JDK25的一个新特性：https://openjdk.org/jeps/454
+Foreign Function & Memory API（简称 FFM API）是 Java Project Panama
+（巴拿马项目）的核心产物。它经历 JDK 19～21 的预览，在 **JDK 22**
+通过 [JEP 454](https://openjdk.org/jeps/454) 正式定稿；JDK 25 LTS
+继续提供这套标准 API，但它不是 JDK 25 才引入的新特性。
 
 FFM API由两大部分组成，一个是
 
@@ -52,7 +55,8 @@ Foreign Function Interface
 
 1、什么是Memory API
 
-简单来说Memory API就是用来控制外部内存的分配与释放，要清楚Memory API的作用我们就要先知道什么是堆外内存
+简单来说，Memory API 用于安全访问外部内存，并通过 `MemorySegment`
+和 `Arena` 管理访问边界、线程约束与生命周期。要理解它的作用，先要知道什么是堆外内存。
 
 2、什么是堆外内存
 
@@ -64,7 +68,9 @@ xmx
 
 xms
 
-等参数限制也不参与GC，所以只能手动管理生命周期，笔者之前的文章
+等参数直接限制，也不作为普通 Java 对象参与堆 GC。其生命周期并非只能手动管理：
+`Arena.ofConfined()` 和 `Arena.ofShared()` 支持显式、确定性释放，
+`Arena.ofAuto()` 则由 GC 检测不可达后释放，`Arena.global()` 的生命周期与进程一致。笔者之前的文章
 字符串常量池真的在堆上吗？
  中介绍了本地内存（Native Memory） ，事实上本地内存就包含了堆外内存，堆外内存包含了如下部分：
 

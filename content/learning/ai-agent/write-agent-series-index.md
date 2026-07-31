@@ -26,17 +26,17 @@ tags:
 
 | # | 标题 | 字数 | 文件 |
 |---|------|------|------|
-| 1 | 从司机变乘客：这就是 Agent 编程的范式革命 | ~1700 | [01](01-从司机变乘客-Agent编程的范式革命.md) |
-| 2 | 从零开始写Agent(二) - 让模型调用工具 | ~4900 | [02](02-让模型调用工具.md) |
-| 3 | 从零开始写 Agent(三) - Agent Loop | ~4100 | [03](03-Agent-Loop.md) |
-| 4 | 从零开始写 Agent（四）：用两步做一个财报研报 Agent | ~8800 | [04](04-财报研报Agent.md) |
-| 5 | 从零开始写 Agent（五）：聊聊 Agent 的设计范式 | ~1000 | [05](05-Agent设计范式.md) |
-| 6 | 从零开始写 Agent（六）：记忆系统 | ~10200 | [06](06-记忆系统.md) |
-| 7 | 从零开始写 Agent（七）：上下文工程 | ~19400 | [07](07-上下文工程.md) |
-| 8 | 从零开始写 Agent 之八：外接知识库 | ~9500 | [08](08-外接知识库.md) |
-| 9 | 从零开始写 Agent 之九 - 浏览器自动化 | ~17500 | [09](09-浏览器自动化.md) |
-| 10 | 从零开始写 Agent ：给 Agent 加上 Skills 系统 | ~13300 | [10](10-Skills系统.md) |
-| 11 | 从零开始写 Agent 终篇：如何设计一个生产级 Agent 系统 | ~9900 | [11](11-生产级Agent系统.md) |
+| 1 | 从司机变乘客：这就是 Agent 编程的范式革命 | ~1700 | [01](write-agent-series/01-从司机变乘客-Agent编程的范式革命.md) |
+| 2 | 从零开始写Agent(二) - 让模型调用工具 | ~4900 | [02](write-agent-series/02-让模型调用工具.md) |
+| 3 | 从零开始写 Agent(三) - Agent Loop | ~4100 | [03](write-agent-series/03-Agent-Loop.md) |
+| 4 | 从零开始写 Agent（四）：用两步做一个财报研报 Agent | ~8800 | [04](write-agent-series/04-财报研报Agent.md) |
+| 5 | 从零开始写 Agent（五）：聊聊 Agent 的设计范式 | ~1000 | [05](write-agent-series/05-Agent设计范式.md) |
+| 6 | 从零开始写 Agent（六）：记忆系统 | ~10200 | [06](write-agent-series/06-记忆系统.md) |
+| 7 | 从零开始写 Agent（七）：上下文工程 | ~19400 | [07](write-agent-series/07-上下文工程.md) |
+| 8 | 从零开始写 Agent 之八：外接知识库 | ~9500 | [08](write-agent-series/08-外接知识库.md) |
+| 9 | 从零开始写 Agent 之九 - 浏览器自动化 | ~17500 | [09](write-agent-series/09-浏览器自动化.md) |
+| 10 | 从零开始写 Agent ：给 Agent 加上 Skills 系统 | ~13300 | [10](write-agent-series/10-Skills系统.md) |
+| 11 | 从零开始写 Agent 终篇：如何设计一个生产级 Agent 系统 | ~9900 | [11](write-agent-series/11-生产级Agent系统.md) |
 
 ---
 

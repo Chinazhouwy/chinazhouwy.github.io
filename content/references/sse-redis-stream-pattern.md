@@ -1,5 +1,5 @@
 ---
-title: "SSE + Redis Stream 渐进式异步数据加载方案（改进版）"
+title: "SSE + Redis Stream：基于事件 ID 的断线续传方案"
 date: "2026-07-06"
 domain: "学习"
 area: "工程与架构"
@@ -10,358 +10,325 @@ status: "digested"
 priority: "P1"
 energy: "medium"
 visibility: "public"
-summary: "SSE + Redis Stream 渐进式异步数据加载方案（改进版）"
+summary: "使用 Redis Stream ID 对齐 SSE Last-Event-ID，实现可重放、可过期的单向流式任务；说明消费者组不适合浏览器广播的原因。"
 tags:
+  - "SSE"
+  - "Redis Stream"
+  - "断线重连"
+  - "Spring Boot"
 ---
 
-# SSE + Redis Stream 渐进式异步数据加载方案（改进版）
+# SSE + Redis Stream：基于事件 ID 的断线续传方案
 
-> 适用：Java 21+，Redis 5.0+
-> 优于原文章的 Redis List + offset 方案：自动 offset 跟踪、阻塞读取、消费者组、自动清理
+> 适用：Java 21+、Spring Boot 3、Redis 5.0+
+>
+> 核心原则：Redis Stream 负责保存事件，SSE 的 `id` 直接使用 Redis Stream ID。
 
 ---
 
-## 整体架构
+## 一、先纠正一个常见误区
 
+消费者组适合“多个后端 Worker 竞争处理一批消息”，不适合“多个浏览器都要看到同一条
+任务流”：
+
+- 同一消费者组会在消费者之间分摊消息，而不是广播。
+- `ReadOffset.lastConsumed()` 表示组级消费进度，不等于某个浏览器已经渲染到哪里。
+- 未确认消息会进入 Pending Entries List，重连后还涉及原消费者、`XAUTOCLAIM`
+  和重复处理。
+- 多个连接共用固定 consumer 名称，会让连接之间相互影响。
+
+浏览器断线续传更直接的做法是：
+
+1. 生产者把事件写入 Redis Stream。
+2. 服务端把 Redis Stream ID 写入 SSE 的 `id` 字段。
+3. 浏览器断线重连时发送 `Last-Event-ID`。
+4. 服务端从该 ID 之后继续 `XREAD`。
+
+这是一条“每个订阅者都有独立游标”的广播式读取链路，不需要 `XACK`。
+
+---
+
+## 二、整体链路
+
+```text
+POST /api/tasks
+  └─ 创建 taskId，异步执行任务
+       └─ XADD task:stream:{taskId} data=...
+       └─ XADD task:stream:{taskId} type=DONE
+
+GET /api/tasks/{taskId}/events
+  ├─ 首次连接：从 0-0 开始读
+  ├─ 断线重连：从 Last-Event-ID 之后读
+  └─ 每条 SSE：id = Redis Stream ID
 ```
-用户请求 → 创建任务 → 返回 taskId
-              │
-              ▼
-      虚拟线程（生产者）
-      每算出一条数据，XADD 到 Redis Stream
-              │
-              ▼
-      ┌───────────────┐
-      │ Redis Stream  │ ← 消息持久化，不断连
-      │ task:xxx      │
-      │ 消费者组      │
-      └───────┬───────┘
-              │ XREADGROUP BLOCK
-              ▼
-      虚拟线程（消费者）
-      XREADGROUP 阻塞等待新消息
-      拿到后 SSE 推送
-```
+
+Redis Stream 是有限保留的重放日志，不是永久消息仓库。任务结果如果需要长期保存，
+仍应写数据库或对象存储。
 
 ---
 
-## 一、依赖
+## 三、接口设计
 
-```xml
-<!-- Spring Boot Redis -->
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-data-redis</artifactId>
-</dependency>
-```
+### 1. 创建任务
 
----
-
-## 二、核心代码
-
-### 1. 控制器
+创建任务属于有副作用的操作，应使用 `POST`，不要用可被缓存或预取的 `GET`。
 
 ```java
 @RestController
-@RequestMapping("/api/task")
+@RequestMapping("/api/tasks")
 public class TaskController {
 
-    @Autowired
-    private TaskService taskService;
+    private final TaskService taskService;
 
-    /** 创建异步任务，返回 taskId */
-    @GetMapping("/create")
-    public String createTask(@RequestParam String userId) {
-        return taskService.createTask(userId);
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
     }
 
-    /** SSE 订阅任务进度 */
-    @GetMapping(path = "/stream/{taskId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public SseEmitter stream(@PathVariable String taskId) {
-        SseEmitter emitter = new SseEmitter(300_000L); // 5 分钟超时
-        taskService.consume(taskId, emitter);
-        return emitter;
+    @PostMapping
+    public Map<String, String> create(@RequestBody CreateTaskRequest request) {
+        String taskId = taskService.create(request);
+        return Map.of("taskId", taskId);
+    }
+
+    @GetMapping(
+        path = "/{taskId}/events",
+        produces = MediaType.TEXT_EVENT_STREAM_VALUE
+    )
+    public SseEmitter events(
+        @PathVariable String taskId,
+        @RequestHeader(value = "Last-Event-ID", required = false)
+        String lastEventId
+    ) {
+        return taskService.subscribe(taskId, lastEventId);
     }
 }
 ```
 
-### 2. 服务层
+生产环境还必须校验“当前用户是否有权读取该 taskId”，随机 ID 不能代替鉴权。
+
+### 2. 生产事件
 
 ```java
-@Service
-public class TaskService {
+private static final String STREAM_PREFIX = "task:stream:";
+private static final String STATUS_PREFIX = "task:status:";
 
-    // ==================== Redis Key 常量 ====================
-    private static final String STREAM_PREFIX = "task:stream:";
-    private static final String STATUS_PREFIX = "task:status:";
-    private static final String GROUP_NAME = "sse-consumers";
-
-    @Autowired
-    private StringRedisTemplate redis;
-
-    /** 创建任务 */
-    public String createTask(String userId) {
-        String taskId = UUID.randomUUID().toString().replace("-", "");
-
-        // 初始化状态
-        redis.opsForValue().set(STATUS_PREFIX + taskId, "PRODUCING");
-
-        // 创建 Stream 和消费者组（幂等）
-        try {
-            redis.opsForStream().createGroup(STREAM_PREFIX + taskId, GROUP_NAME);
-        } catch (Exception e) {
-            // 组已存在是正常情况
+private void produce(String taskId) {
+    String streamKey = STREAM_PREFIX + taskId;
+    try {
+        for (int index = 0; index < queryTotalCount(); index++) {
+            String data = doExpensiveWork(index);
+            redis.opsForStream().add(
+                streamKey,
+                Map.of(
+                    "type", "DATA",
+                    "index", Integer.toString(index),
+                    "data", data
+                )
+            );
         }
 
-        // 异步启动生产者（虚拟线程，Java 21+）
-        Thread.startVirtualThread(() -> produce(taskId));
-
-        return taskId;
+        redis.opsForValue().set(STATUS_PREFIX + taskId, "DONE");
+        redis.opsForStream().add(
+            streamKey,
+            Map.of("type", "DONE", "data", "")
+        );
+        expireTask(taskId, Duration.ofHours(24));
+    } catch (Exception ex) {
+        redis.opsForValue().set(STATUS_PREFIX + taskId, "FAILED");
+        redis.opsForStream().add(
+            streamKey,
+            Map.of("type", "ERROR", "message", safeMessage(ex))
+        );
+        expireTask(taskId, Duration.ofHours(24));
     }
+}
+```
 
-    // ==================== 生产者 ====================
+`DONE` 和 `ERROR` 也要进入 Stream。只写一个独立状态键会产生竞态：客户端可能看到
+任务已完成，却还没读到最后一批事件。
 
-    /** 虚拟线程异步生产数据 */
-    private void produce(String taskId) {
-        try {
-            int total = queryTotalCount(); // 你的业务：查出总数据量
+### 3. 从游标后继续读取
 
-            for (int i = 0; i < total; i++) {
-                // ---- 你的业务逻辑开始 ----
-                String data = doExpensiveWork(i); // 慢慢算
-                // ---- 你的业务逻辑结束 ----
+```java
+public SseEmitter subscribe(String taskId, String lastEventId) {
+    verifyTaskOwner(taskId);
 
-                // XADD 到 Redis Stream
-                redis.opsForStream()
-                    .add(STREAM_PREFIX + taskId,
-                         Map.of("data", data, "index", String.valueOf(i)));
+    SseEmitter emitter = new SseEmitter(5 * 60_000L);
+    AtomicBoolean closed = new AtomicBoolean(false);
+    emitter.onCompletion(() -> closed.set(true));
+    emitter.onTimeout(() -> closed.set(true));
+    emitter.onError(error -> closed.set(true));
 
-                // Stream 自动截断，只保留最近 5000 条（防内存泄漏）
-                redis.opsForStream()
-                    .trim(STREAM_PREFIX + taskId, 5000);
+    String cursor = normalizeCursor(lastEventId); // 首次连接返回 "0-0"
+    Thread.startVirtualThread(
+        () -> consumeFromCursor(taskId, cursor, emitter, closed)
+    );
+    return emitter;
+}
 
-                // 更新总数（可选，用于前端进度条）
-                redis.opsForValue()
-                    .set(STATUS_PREFIX + taskId + ":total", String.valueOf(total));
-            }
+private void consumeFromCursor(
+    String taskId,
+    String initialCursor,
+    SseEmitter emitter,
+    AtomicBoolean closed
+) {
+    String streamKey = STREAM_PREFIX + taskId;
+    String cursor = initialCursor;
 
-            // 标记生产完成
-            redis.opsForValue().set(STATUS_PREFIX + taskId, "PRODUCE_DONE");
-            // 发送一条特殊的结束消息
-            redis.opsForStream()
-                .add(STREAM_PREFIX + taskId,
-                     Map.of("type", "DONE", "data", ""));
-
-        } catch (Exception e) {
-            redis.opsForValue().set(STATUS_PREFIX + taskId, "FAILED:" + e.getMessage());
-            log.error("Produce failed: {}", taskId, e);
-        }
-    }
-
-    // ==================== 消费者 ====================
-
-    /** SSE 消费数据 */
-    public void consume(String taskId, SseEmitter emitter) {
-        // 虚拟线程异步消费，不阻塞 Tomcat 线程
-        Thread.startVirtualThread(() -> {
-            try {
-                String status = redis.opsForValue().get(STATUS_PREFIX + taskId);
-
-                // 如果任务不存在或已失败
-                if (status == null) {
-                    emitter.completeWithError(new RuntimeException("Task not found"));
-                    return;
-                }
-                if (status.startsWith("FAILED")) {
-                    emitter.send(SseEmitter.event()
-                        .name("error")
-                        .data(status));
-                    emitter.complete();
-                    return;
-                }
-
-                // 如果是已完成状态（PRODUCE_DONE），且已消费完，直接结束
-                if ("PRODUCE_DONE".equals(status) && allConsumed(taskId)) {
-                    emitter.send(SseEmitter.event().name("done").data(""));
-                    emitter.complete();
-                    return;
-                }
-
-                // 阻塞消费
-                consumeLoop(taskId, emitter);
-
-            } catch (Exception e) {
-                emitter.completeWithError(e);
-            }
-        });
-    }
-
-    /** 阻塞消费循环 */
-    private void consumeLoop(String taskId, SseEmitter emitter) throws IOException {
-        while (true) {
-            // XREADGROUP BLOCK 5 秒，阻塞等待新消息
-            List<MapRecord<String, Object, Object>> records = redis
-                .opsForStream()
-                .read(
-                    Consumer.from(GROUP_NAME, "consumer-1"),
+    try {
+        while (!closed.get()) {
+            List<MapRecord<String, Object, Object>> records =
+                redis.opsForStream().read(
                     StreamReadOptions.empty()
-                        .block(Duration.ofSeconds(5))   // 阻塞 5 秒
-                        .count(10),                      // 一次最多取 10 条
+                        .block(Duration.ofSeconds(15))
+                        .count(100),
                     StreamOffset.create(
-                        STREAM_PREFIX + taskId,
-                        ReadOffset.lastConsumed())       // 从上次断点继续
+                        streamKey,
+                        ReadOffset.from(cursor)
+                    )
                 );
 
             if (records == null || records.isEmpty()) {
-                // 没新数据，检查是否生产已完成
-                String status = redis.opsForValue()
-                    .get(STATUS_PREFIX + taskId);
-                if ("PRODUCE_DONE".equals(status) && allConsumed(taskId)) {
-                    emitter.send(SseEmitter.event().name("done").data(""));
-                    emitter.complete();
-                    return;
-                }
-                continue; // 还有数据，继续等
+                continue;
             }
 
-            for (var record : records) {
+            for (MapRecord<String, Object, Object> record : records) {
+                cursor = record.getId().getValue();
                 Map<Object, Object> value = record.getValue();
+                String type = String.valueOf(value.get("type"));
 
-                // 检查结束消息
-                if ("DONE".equals(value.get("type"))) {
-                    emitter.send(SseEmitter.event().name("done").data(""));
+                emitter.send(
+                    SseEmitter.event()
+                        .id(cursor)
+                        .name(type.toLowerCase(Locale.ROOT))
+                        .data(value)
+                );
+
+                if ("DONE".equals(type) || "ERROR".equals(type)) {
                     emitter.complete();
-                    // XACK 确认消费
-                    redis.opsForStream()
-                        .acknowledge(GROUP_NAME, record);
                     return;
                 }
-
-                // 推送数据到 SSE
-                emitter.send(SseEmitter.event()
-                    .name("message")
-                    .data(value.get("data").toString()));
-
-                // XACK 确认：只有推送成功才确认消费
-                redis.opsForStream()
-                    .acknowledge(GROUP_NAME, record);
             }
         }
-    }
-
-    /** 检查是否所有消息都已消费 */
-    private boolean allConsumed(String taskId) {
-        StreamInfo.XInfoStream info = redis.opsForStream()
-            .info(STREAM_PREFIX + taskId);
-        StreamInfo.XInfoGroup group = redis.opsForStream()
-            .groups(STREAM_PREFIX + taskId)
-            .stream()
-            .filter(g -> GROUP_NAME.equals(g.groupName()))
-            .findFirst()
-            .orElse(null);
-        if (group == null) return true;
-        return group.pendingCount() == 0 && group.streamSize() == 0;
-    }
-
-    // ==================== 你的业务逻辑 ====================
-
-    private int queryTotalCount() {
-        // TODO: 你的数据查询
-        return 100;
-    }
-
-    private String doExpensiveWork(int index) {
-        // TODO: 你的耗时操作
-        return "data-" + index;
+    } catch (IOException clientDisconnected) {
+        closed.set(true);
+    } catch (Exception ex) {
+        if (!closed.get()) {
+            emitter.completeWithError(ex);
+        }
     }
 }
 ```
 
-### 3. 前端示例（JavaScript）
+Spring Data Redis 的 `ReadOffset.from(cursor)` 表示读取该 ID 之后的消息。不要在独立
+读取模式里使用 `ReadOffset.latest()` 轮询，否则两次读取之间到达的消息可能被跳过。
+
+---
+
+## 四、浏览器端
 
 ```javascript
-// 1. 创建任务
-const res = await fetch('/api/task/create?userId=user123');
-const taskId = await res.text();
+const response = await fetch("/api/tasks", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ reportDate: "2026-07-31" }),
+});
+const { taskId } = await response.json();
 
-// 2. SSE 接收
-const evtSource = new EventSource(`/api/task/stream/${taskId}`);
+const source = new EventSource(`/api/tasks/${taskId}/events`);
 
-evtSource.addEventListener('message', (e) => {
-    console.log('收到数据:', e.data);
-    // 更新 UI
+source.addEventListener("data", (event) => {
+  console.log("stream id:", event.lastEventId);
+  render(JSON.parse(event.data));
 });
 
-evtSource.addEventListener('done', () => {
-    console.log('全部完成');
-    evtSource.close();
+source.addEventListener("done", () => {
+  source.close();
 });
 
-evtSource.addEventListener('error', (e) => {
-    console.error('SSE 错误', e);
-    // 3 秒后自动重连（浏览器自带 EventSource 重连）
+source.addEventListener("error", () => {
+  // EventSource 会自动重连；服务端会收到 Last-Event-ID。
+  // 这里不要主动创建第二个 EventSource，避免重复连接。
 });
 ```
+
+服务端必须给每条事件设置 `id`，否则浏览器没有可靠游标，自动重连只能重新建立连接，
+不能保证从正确位置继续。
 
 ---
 
-## 三、跟原文章的对比
+## 五、保留、截断与“游标过旧”
 
-| 维度 | 原方案（List + offset） | 改进方案（Stream） |
-|------|----------------------|------------------|
-| 读取方式 | `Thread.sleep(2000)` 轮询 | `XREADGROUP BLOCK 5s` **阻塞等** |
-| 消费进度 | 手动维护 offset `set("consume:offset", ...)` | Redis **自动跟踪** |
-| 断点续传 | 重连读 offset，可能重复 | `lastConsumed()` **精确续传** |
-| 消息确认 | 更新 offset 就算确认（可能丢） | `XACK` **确认后才算消费** |
-| 消息清理 | 从不清理（内存泄漏） | `XTRIM` **自动截断** |
-| 多消费者 | 自己实现 | **原生消费者组** |
+Stream 必须设置保留策略，但不能在每次写入后无条件截断为很小的长度：
 
----
+- 慢客户端还没读到的事件可能被删掉。
+- 重连携带的 `Last-Event-ID` 可能早于当前第一条消息。
+- 一旦发生截断，就不能再声称“无损续传”。
 
-## 四、生产注意事项
-
-### 4.1 Stream 清理
+建议按任务设置 TTL，并结合容量上限：
 
 ```java
-// 生产完成后，延迟清理 Stream
-produceDone(taskId);
-redis.expire(STREAM_PREFIX + taskId, Duration.ofHours(24));
-redis.expire(STATUS_PREFIX + taskId, Duration.ofHours(24));
-```
-
-### 4.2 超时与重试
-
-```java
-// SSE 超时断开后，浏览器 EventSource 会自动重连
-// 服务端在 consumeLoop 中通过 lastConsumed() 从断点续传
-
-// 如果消费者挂了，XACK 未确认的消息会变成 Pending
-// 可以通过 XPENDING 检查并重新分配
-```
-
-### 4.3 取消任务
-
-```java
-// 提供一个取消接口
-@GetMapping("/cancel/{taskId}")
-public void cancel(@PathVariable String taskId) {
-    redis.opsForValue().set(STATUS_PREFIX + taskId, "CANCELLED");
-    // 生产者线程需定期检查状态
+private void expireTask(String taskId, Duration retention) {
+    redis.expire(STREAM_PREFIX + taskId, retention);
+    redis.expire(STATUS_PREFIX + taskId, retention);
 }
 ```
 
+若需要 `MAXLEN` 控制内存，应在订阅前比较客户端游标与 Stream 的首条 ID。游标过旧时
+返回明确的 `reset` 事件，让客户端重新拉取数据库快照，而不是静默漏数据。
+
 ---
 
-## 五、什么时候用这个方案
+## 六、生产检查清单
 
-**✅ 适合：**
-- 数据导出（Excel/CSV/PDF）
-- 批量处理（批量导入/审核）
-- AI Agent 流式输出（RAG 检索结果逐步推）
-- 报表渐进式加载
-- 任何超过 5 秒的耗时操作
+| 风险 | 处理方式 |
+|---|---|
+| 越权订阅 | taskId 绑定 userId，每次订阅都鉴权 |
+| 重复渲染 | 前端按 Stream ID 去重，业务写入本身保持幂等 |
+| 客户端断开后线程未停 | `onCompletion/onTimeout/onError` 置关闭标记，阻塞读取设置有限超时 |
+| 服务重启 | 事件仍在 Redis，重连按 `Last-Event-ID` 继续 |
+| Stream 被截断 | 检测游标是否早于首条记录，触发快照重置 |
+| 任务取消 | 状态机标记 `CANCELLED`，生产者定期检查并写终止事件 |
+| 代理缓冲 | Nginx 关闭 `proxy_buffering`，禁用会聚合响应的压缩或包装器 |
+| 连接数过高 | 容量评估、心跳、超时、用户级连接上限 |
 
-**❌ 不适合：**
-- 需要双向通信（用 WebSocket）
-- 超低延迟 <100ms（用 TCP 直连）
-- 大文件传输（用分片下载）
+---
+
+## 七、什么时候才使用消费者组
+
+消费者组用于以下语义：
+
+- 多个 Worker 分摊图片转码、账单计算、索引构建等后台任务。
+- 需要 `XACK`、Pending Entries List、失败接管和重试。
+- 每条消息只需要由组内一个消费者处理。
+
+如果处理结果还要广播给浏览器，可以拆成两条 Stream：
+
+```text
+command stream --consumer group--> workers
+result stream  --independent cursor--> browsers
+```
+
+不要用一个消费者组同时承担“后台竞争消费”和“前端每人都要收到全部事件”这两种相反语义。
+
+---
+
+## 八、结论
+
+SSE 断线续传的关键不是“用了 Redis Stream”，而是把三个游标对齐：
+
+```text
+Redis Stream ID
+      =
+SSE event id
+      =
+浏览器 Last-Event-ID
+```
+
+只要保留窗口仍覆盖该 ID，服务端就能从断点后继续读取。消费者组解决的是后端工作分配，
+不是浏览器广播；两种模型应从设计阶段分开。
+
+## 参考
+
+- [Spring Data Redis：Redis Streams](https://docs.spring.io/spring-data/redis/reference/redis/redis-streams.html)
+- [MDN：Using server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events)
