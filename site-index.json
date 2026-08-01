@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T00:00:00+08:00",
+  "generatedAt": "2026-08-01T00:00:00+08:00",
   "articles": [
     {
       "title": "TypeScript 极速梳理：Vue 3 开发所需的类型基础",
@@ -1785,7 +1785,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-07-31",
+      "date": "2026-08-01",
       "count": 0,
       "averageScore": null
     },
@@ -1794,11 +1794,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-07-18",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-07-19",
         "count": 0,
@@ -1861,6 +1856,11 @@
       },
       {
         "date": "2026-07-31",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-08-01",
         "count": 0,
         "averageScore": null
       }
