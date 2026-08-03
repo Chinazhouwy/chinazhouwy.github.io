@@ -1,0 +1,785 @@
+---
+title: "MyBatis 源码深度拆解（八）：二级缓存机制详解"
+date: "2026-07-27"
+domain: "学习"
+area: "Java 后端"
+module: "MyBatis 源码拆解"
+project: ""
+type: "文章"
+status: "可复习"
+priority: "P1"
+energy: "medium"
+visibility: "public"
+summary: "面试官：MyBatis 的二级缓存是什么级别的？如何开启？它与一级缓存有什么区别？为什么二级缓存需要事务提交后才生效？ …"
+tags:
+  - "MyBatis"
+  - "源码分析"
+---
+
+# MyBatis 源码深度拆解（八）：二级缓存机制详解
+
+> 来源：微信公众号（MyBatis 源码深度拆解系列）
+> 链接：[http://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484057&idx=1&sn=6a1425b89e56f10244a4174f7bdf5f41&chksm=c2b810c6f5cf99d03ed7738fa8a3a7434d90989cb10fc14989133205aa5dfe524de9278183af](http://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484057&idx=1&sn=6a1425b89e56f10244a4174f7bdf5f41&chksm=c2b810c6f5cf99d03ed7738fa8a3a7434d90989cb10fc14989133205aa5dfe524de9278183af)
+> 类型：📚 参考资料（非面试题/面经）—— MyBatis 源码深度拆解系列
+> 相关：第235题(百万行导出)
+> 整理时间：2026-08-03
+
+---
+
+面试官：MyBatis 的二级缓存是什么级别的？如何开启？它与一级缓存有什么区别？为什么二级缓存需要事务提交后才生效？
+
+一、开篇
+
+二级缓存是 MyBatis 中
+
+跨 SqlSession 共享
+
+的缓存机制，作用范围是
+
+Mapper 的 namespace
+
+（即一个 Mapper 接口或 XML 文件中的所有 SQL 共享同一个二级缓存）。默认关闭，需要手动配置开启。
+
+本篇目标
+
+：
+
+二级缓存的开启与配置方式
+
+理解
+
+CachingExecutor
+
+与
+
+TransactionalCache
+
+的协作
+
+缓存的延迟提交机制（事务提交后才真正写入）
+
+一级缓存与二级缓存的执行顺序
+
+缓存刷新（flush）的时机与作用
+
+二、二级缓存整体架构
+
+核心组件
+
+：
+
+CachingExecutor
+
+：装饰器，为普通 Executor 添加二级缓存能力。
+
+TransactionalCacheManager
+
+：管理每个
+
+Cache
+
+对应的
+
+TransactionalCache
+
+。
+
+TransactionalCache
+
+：事务性缓存包装器，存储当前事务中待提交的缓存条目。
+
+Cache
+
+（通常是 
+
+PerpetualCache
+
+）：真正的缓存存储，本质是 
+
+HashMap
+
+。
+
+三、二级缓存的开启与配置
+
+3.1 全局开关
+
+在 
+
+mybatis-config.xml
+
+ 中：
+
+
+```
+<code><span leaf=""><span class="code-snippet__tag"><</span><span class="code-snippet__tag"><span class="code-snippet__name">settings</span></span><span class="code-snippet__tag">></span></span></code><code><span leaf="">    <span class="code-snippet__comment"><!-- 默认 true，若设为 false，所有二级缓存失效 --></span></span></code><code><span leaf="">    <span class="code-snippet__tag"><</span><span class="code-snippet__tag"><span class="code-snippet__name">setting</span></span><span class="code-snippet__tag"> </span><span class="code-snippet__tag"><span class="code-snippet__attr">name</span></span><span class="code-snippet__tag">=</span><span class="code-snippet__tag"><span class="code-snippet__string">"cacheEnabled"</span></span><span class="code-snippet__tag"> </span><span class="code-snippet__tag"><span class="code-snippet__attr">value</span></span><span class="code-snippet__tag">=</span><span class="code-snippet__tag"><span class="code-snippet__string">"true"</span></span><span class="code-snippet__tag">/></span></span></code><code><span leaf=""><span class="code-snippet__tag"></</span><span class="code-snippet__tag"><span class="code-snippet__name">settings</span></span><span class="code-snippet__tag">></span></span></code>
+```
+
+
+3.2 Mapper 级别开启
+
+在 Mapper XML 文件中添加 
+
+<cache>
+
+ 标签：
+
+
+```
+<code><span leaf=""><span class="code-snippet__tag"><</span><span class="code-snippet__tag"><span class="code-snippet__name">mapper</span></span><span class="code-snippet__tag"> </span><span class="code-snippet__tag"><span class="code-snippet__attr">namespace</span></span><span class="code-snippet__tag">=</span><span class="code-snippet__tag"><span class="code-snippet__string">"com.example.mapper.UserMapper"</span></span><span class="code-snippet__tag">></span></span></code><code><span leaf="">    <span class="code-snippet__comment"><!-- 开启二级缓存 --></span></span></code><code><span leaf="">    <span class="code-snippet__tag"><</span><span class="code-snippet__tag"><span class="code-snippet__name">cache</span></span><span class="code-snippet__tag">/></span></span></code><code><span leaf="">    <span class="code-snippet__tag"><</span><span class="code-snippet__tag"><span class="code-snippet__name">select</span></span><span class="code-snippet__tag"> </span><span class="code-snippet__tag"><span class="code-snippet__attr">id</span></span><span class="code-snippet__tag">=</span><span class="code-snippet__tag"><span class="code-snippet__string">"selectById"</span></span><span class="code-snippet__tag"> </span><span class="code-snippet__tag"><span class="code-snippet__attr">resultType</span></span><span class="code-snippet__tag">=</span><span class="code-snippet__tag"><span class="code-snippet__string">"User"</span></span><span class="code-snippet__tag">></span></span></code><code><span leaf="">        SELECT * FROM user WHERE id = #{id}</span></code><code><span leaf="">    <span class="code-snippet__tag"></</span><span class="code-snippet__tag"><span class="code-snippet__name">select</span></span><span class="code-snippet__tag">></span></span></code><code><span leaf=""><span class="code-snippet__tag"></</span><span class="code-snippet__tag"><span class="code-snippet__name">mapper</span></span><span class="code-snippet__tag">></span></span></code>
+```
+
+
+或者使用注解 
+
+@CacheNamespace
+
+注意
+
+：
+
+cacheEnabled
+
+ 是二级缓存的全局总开关，默认为 
+
+true
+
+。这意味着
+
+二级缓存在全局是‘可用’的
+
+，但还需要在具体的 Mapper XML 文件中添加 
+
+<cache/>
+
+ 标签才能
+
+启用
+
+。因此，‘二级缓存默认是关闭的’这句话，是从
+
+需要手动在 Mapper 中配置
+
+这个角度来说的
+
+3.3 单个 SQL 的二级缓存控制
+
+useCache
+
+：默认
+
+true
+
+，设为
+
+false
+
+时该查询不使用二级缓存。
+
+flushCache
+
+：对于 
+
+<select>
+
+ 默认 
+
+false
+
+，对于 
+
+<insert/update/delete>
+
+ 默认 
+
+true
+
+。
+
+
+```
+<code><span leaf=""><<span class="code-snippet__keyword">select</span> <span class="code-snippet__built_in">id</span>=<span class="code-snippet__string">"selectUser"</span> resultType=<span class="code-snippet__string">"User"</span> useCache=<span class="code-snippet__string">"true"</span> flushCache=<span class="code-snippet__string">"false"</span>></span></code><code><span leaf="">    SELECT * FROM user WHERE <span class="code-snippet__built_in">id</span> = <span class="code-snippet__comment">#{id}</span></span></code><code><span leaf=""></select></span></code>
+```
+
+
+当
+
+flushCache=true
+
+时，在执行该 SQL
+
+之前
+
+，会清空对应的缓存区域：
+
+对于 
+
+INSERT
+
+ / 
+
+UPDATE
+
+ / 
+
+DELETE
+
+：清空当前 namespace 的二级缓存。
+
+一级缓存不受影响，它会在同一个 SqlSession 的事务
+
+提交（commit）后
+
+被清空
+
+对于 
+
+SELECT
+
+：
+
+清空当前 namespace 的
+
+二级缓存
+
+（但通常查询不需要清空缓存，默认 false）。一级缓存不受影响。
+
+四、
+
+CachingExecutor
+
+源码分析
+
+CachingExecutor
+
+ 是二级缓存的核心入口，它装饰真正的执行器（如 
+
+SimpleExecutor
+
+）。
+
+4.1 装饰器构造
+
+
+```
+<code><span leaf=""><span class="code-snippet__comment">// CachingExecutor</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">CachingExecutor</span> <span class="code-snippet__title">implements</span> <span class="code-snippet__title">Executor</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> final Executor <span class="code-snippet__built_in">delegate</span>;</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> final TransactionalCacheManager tcm = <span class="code-snippet__keyword">new</span> TransactionalCacheManager();</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__function"><span class="code-snippet__keyword">public</span></span><span class="code-snippet__function"> </span><span class="code-snippet__function"><span class="code-snippet__title">CachingExecutor</span></span><span class="code-snippet__function">(</span><span class="code-snippet__function"><span class="code-snippet__params">Executor </span></span><span class="code-snippet__function"><span class="code-snippet__params"><span class="code-snippet__built_in">delegate</span></span></span><span class="code-snippet__function">)</span> {</span></code><code><span leaf="">        <span class="code-snippet__keyword">this</span>.<span class="code-snippet__built_in">delegate</span> = <span class="code-snippet__built_in">delegate</span>;</span></code><code><span leaf="">        <span class="code-snippet__built_in">delegate</span>.setExecutorWrapper(<span class="code-snippet__keyword">this</span>);</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+```
+
+
+4.2
+
+query
+
+方法
+
+
+```
+<code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <E> List<E> <span class="code-snippet__title">query</span><span class="code-snippet__params">(MappedStatement ms, Object parameterObject, RowBounds rowBounds,</span></span></code><code><span leaf="">                         ResultHandler resultHandler, CacheKey key, BoundSql boundSql) <span class="code-snippet__keyword">throws</span> SQLException {</span></code><code><span leaf="">    <span class="code-snippet__type">Cache</span> <span class="code-snippet__variable">cache</span> <span class="code-snippet__operator">=</span> ms.getCache();                     <span class="code-snippet__comment">// 获取 Mapper 关联的 Cache</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (cache != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">        flushCacheIfRequired(ms);                    <span class="code-snippet__comment">// 若需要清空缓存，则清空</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (ms.isUseCache() && resultHandler == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">            ensureNoOutParams(ms, boundSql);         <span class="code-snippet__comment">// 存储过程 OUT 参数不支持二级缓存</span></span></code><code><span leaf="">            <span class="code-snippet__meta">@SuppressWarnings("unchecked")</span></span></code><code><span leaf="">            List<E> list = (List<E>) tcm.getObject(cache, key);</span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (list == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">                list = delegate.query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);</span></code><code><span leaf="">                tcm.putObject(cache, key, list);     <span class="code-snippet__comment">// 存入事务缓存</span></span></code><code><span leaf="">            }</span></code><code><span leaf="">            <span class="code-snippet__keyword">return</span> list;</span></code><code><span leaf="">        }</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> delegate.query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);</span></code><code><span leaf="">}</span></code>
+```
+
+
+流程
+
+：
+
+检查当前
+
+MappedStatement
+
+是否配置了二级缓存（
+
+ms.getCache()
+
+）。
+
+执行
+
+flushCacheIfRequired
+
+：如果该查询标签设置了
+
+flushCache=true
+
+，清空整个二级缓存。
+
+如果
+
+useCache=true
+
+且没有使用
+
+ResultHandler
+
+，且不是存储过程带 OUT 参数，则进入二级缓存逻辑。
+
+从
+
+TransactionalCacheManager
+
+中尝试获取缓存结果。
+
+若未命中，调用
+
+delegate.query
+
+（进入一级缓存 + 数据库查询），然后将结果存入
+
+TransactionalCache
+
+。
+
+若未配置二级缓存或不满足条件，直接委托给
+
+delegate.query
+
+。
+
+4.3 
+
+update
+
+ 方法
+
+
+```
+<code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__type">int</span> <span class="code-snippet__title">update</span><span class="code-snippet__params">(MappedStatement ms, Object parameterObject)</span> <span class="code-snippet__keyword">throws</span> SQLException {</span></code><code><span leaf="">    flushCacheIfRequired(ms);</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> delegate.update(ms, parameterObject);</span></code><code><span leaf="">}</span></code>
+```
+
+
+更新操作会调用
+
+flushCacheIfRequired
+
+，根据
+
+flushCache
+
+配置（默认
+
+true
+
+）决定是否清空二级缓存。
+
+4.4 
+
+commit
+
+ 和 
+
+rollback
+
+ 方法
+
+
+```
+<code><span leaf="">@Override</span></code><code><span leaf=""><span class="code-snippet__function"><span class="code-snippet__keyword">public</span></span><span class="code-snippet__function"> </span><span class="code-snippet__function"><span class="code-snippet__keyword">void</span></span><span class="code-snippet__function"> </span><span class="code-snippet__function"><span class="code-snippet__title">commit</span></span><span class="code-snippet__function">(</span><span class="code-snippet__function"><span class="code-snippet__params">boolean </span></span><span class="code-snippet__function"><span class="code-snippet__params"><span class="code-snippet__keyword">required</span></span></span><span class="code-snippet__function">) throws SQLException</span> {</span></code><code><span leaf="">    <span class="code-snippet__built_in">delegate</span>.commit(<span class="code-snippet__keyword">required</span>);</span></code><code><span leaf="">    tcm.commit();                   <span class="code-snippet__comment">// 提交所有暂存的缓存项</span></span></code><code><span leaf="">}</span></code><code><span leaf="">@Override</span></code><code><span leaf=""><span class="code-snippet__function"><span class="code-snippet__keyword">public</span></span><span class="code-snippet__function"> </span><span class="code-snippet__function"><span class="code-snippet__keyword">void</span></span><span class="code-snippet__function"> </span><span class="code-snippet__function"><span class="code-snippet__title">rollback</span></span><span class="code-snippet__function">(</span><span class="code-snippet__function"><span class="code-snippet__params">boolean </span></span><span class="code-snippet__function"><span class="code-snippet__params"><span class="code-snippet__keyword">required</span></span></span><span class="code-snippet__function">) throws SQLException</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">        <span class="code-snippet__built_in">delegate</span>.rollback(<span class="code-snippet__keyword">required</span>);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (<span class="code-snippet__keyword">required</span>) {</span></code><code><span leaf="">            tcm.rollback();         <span class="code-snippet__comment">// 回滚时丢弃暂存的缓存项</span></span></code><code><span leaf="">        }</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+```
+
+
+关键
+
+：二级缓存并非立即写入，而是等到事务提交时才真正刷新。这保证了缓存与事务的一致性。
+
+五、TransactionalCacheManager与TransactionalCache
+
+5.1 
+
+TransactionalCacheManager
+
+
+```
+<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">TransactionalCacheManager</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> final <span class="code-snippet__title">Map</span><<span class="code-snippet__title">Cache</span>, <span class="code-snippet__title">TransactionalCache</span>> transactionalCaches = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">HashMap</span><>();</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">putObject</span>(<span class="code-snippet__params"><span class="code-snippet__title">Cache</span></span><span class="code-snippet__params"> cache, </span><span class="code-snippet__params"><span class="code-snippet__title">CacheKey</span></span><span class="code-snippet__params"> key, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> value</span>) {</span></code><code><span leaf="">        <span class="code-snippet__title">getTransactionalCache</span>(cache).<span class="code-snippet__title">putObject</span>(key, value);</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">Object</span> <span class="code-snippet__title">getObject</span>(<span class="code-snippet__params"><span class="code-snippet__title">Cache</span></span><span class="code-snippet__params"> cache, </span><span class="code-snippet__params"><span class="code-snippet__title">CacheKey</span></span><span class="code-snippet__params"> key</span>) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> <span class="code-snippet__title">getTransactionalCache</span>(cache).<span class="code-snippet__title">getObject</span>(key);</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">commit</span>() {</span></code><code><span leaf="">        <span class="code-snippet__keyword">for</span> (<span class="code-snippet__title">TransactionalCache</span> txCache : transactionalCaches.<span class="code-snippet__title">values</span>()) {</span></code><code><span leaf="">            txCache.<span class="code-snippet__title">commit</span>();</span></code><code><span leaf="">        }</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">rollback</span>() {</span></code><code><span leaf="">        <span class="code-snippet__keyword">for</span> (<span class="code-snippet__title">TransactionalCache</span> txCache : transactionalCaches.<span class="code-snippet__title">values</span>()) {</span></code><code><span leaf="">            txCache.<span class="code-snippet__title">rollback</span>();</span></code><code><span leaf="">        }</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+```
+
+
+5.2
+
+TransactionalCache
+
+核心逻辑
+
+
+```
+<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">TransactionalCache</span> <span class="code-snippet__keyword">implements</span> <span class="code-snippet__title">Cache</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> final <span class="code-snippet__title">Cache</span> delegate;                       <span class="code-snippet__comment">// 真正的缓存对象（如 PerpetualCache）</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> final <span class="code-snippet__title">Map</span><<span class="code-snippet__title">Object</span>, <span class="code-snippet__title">Object</span>> entriesToAddOnCommit;   <span class="code-snippet__comment">// 待提交的缓存条目</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> final <span class="code-snippet__title">Set</span><<span class="code-snippet__title">Object</span>> entriesMissedInCache;           <span class="code-snippet__comment">// 本次事务中未命中缓存的 key</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__built_in">boolean</span> clearOnCommit;                            <span class="code-snippet__comment">// 提交时是否清空缓存</span></span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">putObject</span>(<span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> key, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> value</span>) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 暂存到待提交列表，不立即写入 delegate</span></span></code><code><span leaf="">        entriesToAddOnCommit.<span class="code-snippet__title">put</span>(key, value);</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">Object</span> <span class="code-snippet__title">getObject</span>(<span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> key</span>) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 先从 delegate 中获取</span></span></code><code><span leaf="">        <span class="code-snippet__title">Object</span> <span class="code-snippet__built_in">object</span> = delegate.<span class="code-snippet__title">getObject</span>(key);</span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (<span class="code-snippet__built_in">object</span> == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">            entriesMissedInCache.<span class="code-snippet__title">add</span>(key);</span></code><code><span leaf="">        }</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> <span class="code-snippet__built_in">object</span>;</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">commit</span>() {</span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (clearOnCommit) {</span></code><code><span leaf="">            delegate.<span class="code-snippet__title">clear</span>();</span></code><code><span leaf="">        }</span></code><code><span leaf="">        <span class="code-snippet__comment">// 将暂存的所有条目刷新到真正的缓存中</span></span></code><code><span leaf="">        <span class="code-snippet__title">flushPendingEntries</span>();</span></code><code><span leaf="">        <span class="code-snippet__title">reset</span>();</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">rollback</span>() {</span></code><code><span leaf="">        <span class="code-snippet__title">unlockMissedEntries</span>();</span></code><code><span leaf="">        <span class="code-snippet__comment">// 回滚：丢弃待提交的条目，不清空 delegate 中已有的缓存</span></span></code><code><span leaf="">        <span class="code-snippet__title">reset</span>();</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">flushPendingEntries</span>() {</span></code><code><span leaf="">        <span class="code-snippet__keyword">for</span> (<span class="code-snippet__title">Map</span>.<span class="code-snippet__property">Entry</span><<span class="code-snippet__title">Object</span>, <span class="code-snippet__title">Object</span>> entry : entriesToAddOnCommit.<span class="code-snippet__title">entrySet</span>()) {</span></code><code><span leaf="">            delegate.<span class="code-snippet__title">putObject</span>(entry.<span class="code-snippet__title">getKey</span>(), entry.<span class="code-snippet__title">getValue</span>());</span></code><code><span leaf="">        }</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">unlockMissedEntries</span>() {</span></code><code><span leaf="">        <span class="code-snippet__keyword">for</span> (<span class="code-snippet__title">Object</span> key : entriesMissedInCache) {</span></code><code><span leaf="">            <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">                delegate.<span class="code-snippet__title">getObject</span>(key);   <span class="code-snippet__comment">// 触发缓存实体的解锁（如果底层缓存实现了锁机制）</span></span></code><code><span leaf="">            } <span class="code-snippet__keyword">catch</span> (<span class="code-snippet__title">Exception</span> e) {</span></code><code><span leaf="">                <span class="code-snippet__comment">// ignore</span></span></code><code><span leaf="">            }</span></code><code><span leaf="">        }</span></code><code><span leaf="">        entriesMissedInCache.<span class="code-snippet__title">clear</span>();</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+```
+
+
+延迟提交机制
+
+：
+
+事务内查询的结果先存入
+
+entriesToAddOnCommit
+
+，不写入
+
+delegate
+
+。
+
+事务提交时（
+
+commit()
+
+），将所有暂存条目真正写入底层缓存。
+
+事务回滚时，直接丢弃暂存条目。
+
+如果事务中执行了更新且配置了
+
+flushCache=true
+
+，会标记
+
+clearOnCommit
+
+，提交时清空整个缓存。
+
+这样设计保证了
+
+缓存与数据库事务的隔离性
+
+：一个事务中查询的数据不会被其他事务看到，直到该事务提交。
+
+六、二级缓存与一级缓存的执行顺序
+
+一次带二级缓存的查询完整调用链：
+
+
+```
+<code><span leaf="">CachingExecutor.query</span></code><code><span leaf="">    ↓</span></code><code><span leaf="">检查二级缓存（ms.getCache()）</span></code><code><span leaf="">    ↓</span></code><code><span leaf="">从 TransactionalCache 获取结果</span></code><code><span leaf="">    ↓ 未命中</span></code><code><span leaf=""><span class="code-snippet__built_in">delegate</span>.query（即 BaseExecutor.query）</span></code><code><span leaf="">    ↓</span></code><code><span leaf="">一级缓存 localCache.getObject(key)</span></code><code><span leaf="">    ↓ 未命中</span></code><code><span leaf="">数据库查询 → 写入一级缓存</span></code><code><span leaf="">    ↓</span></code><code><span leaf="">返回结果给 CachingExecutor</span></code><code><span leaf="">    ↓</span></code><code><span leaf="">tcm.putObject(cache, key, list) → 存入事务缓存</span></code><code><span leaf="">    ↓</span></code><code><span leaf="">事务提交时，tcm.commit() → 刷新到真正的二级缓存</span></code>
+```
+
+
+顺序总结
+
+：
+
+一次带二级缓存的查询完整调用链的最终顺序是：
+
+一级缓存 → 二级缓存 → 数据库
+
+。原因是：CachingExecutor 在逻辑上先处理二级缓存，但实际查询时会委托给 BaseExecutor，后者会优先检查一级缓存。
+
+七、缓存清空（Flush）机制
+
+7.1 清空时机
+
+执行
+
+INSERT/UPDATE/DELETE
+
+且该标签的
+
+flushCache
+
+属性为
+
+true
+
+（默认
+
+true
+
+）。
+
+执行
+
+<select flushCache="true">
+
+的查询。
+
+手动调用
+
+sqlSession.clearCache()
+
+（仅清空一级缓存，不清二级）。
+
+二级缓存可设置
+
+flushInterval
+
+，定时清空。
+
+缓存回收策略（如
+
+LRU
+
+）达到容量上限时清除。
+
+7.2 源码中的清空流程
+
+CachingExecutor.flushCacheIfRequired
+
+ 方法：
+
+
+```
+<code><span leaf=""><span class="code-snippet__keyword">private</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">flushCacheIfRequired</span>(<span class="code-snippet__params"><span class="code-snippet__title">MappedStatement</span></span><span class="code-snippet__params"> ms</span>) {</span></code><code><span leaf="">    <span class="code-snippet__title">Cache</span> cache = ms.<span class="code-snippet__title">getCache</span>();</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (cache != <span class="code-snippet__literal">null</span> && ms.<span class="code-snippet__title">isFlushCacheRequired</span>()) {</span></code><code><span leaf="">        tcm.<span class="code-snippet__title">clear</span>(cache);</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+```
+
+
+TransactionalCacheManager.clear
+
+→
+
+TransactionalCache.clear
+
+：
+
+
+```
+<code><span leaf=""><span class="code-snippet__function"><span class="code-snippet__keyword">public</span></span><span class="code-snippet__function"> </span><span class="code-snippet__function"><span class="code-snippet__keyword">void</span></span><span class="code-snippet__function"> </span><span class="code-snippet__function"><span class="code-snippet__title">clear</span></span><span class="code-snippet__function">()</span> {</span></code><code><span leaf="">    clearOnCommit = <span class="code-snippet__literal">true</span>;</span></code><code><span leaf="">    entriesToAddOnCommit.clear();</span></code><code><span leaf="">}</span></code>
+```
+
+
+提交时，若 
+
+clearOnCommit
+
+ 为 
+
+true
+
+，会先执行 
+
+delegate.clear()
+
+，清空整个缓存。
+
+八、面试高频题
+
+Q1：二级缓存是 Mapper 级别还是 namespace 级别？
+
+A
+
+：每个 Mapper XML 文件（或注解的
+
+@CacheNamespace
+
+）对应一个独立的
+
+Cache
+
+实例，同一个 namespace 下的所有 SQL 共享该缓存。如果多个 Mapper 共享同一个 namespace（如通过
+
+cache-ref
+
+），则它们共用同一个缓存。
+
+Q2：为什么二级缓存需要事务提交后才写入？
+
+A
+
+：为了防止脏读。如果事务内查询的数据立即写入缓存，其他事务就能读到这些未提交的数据，违反了事务隔离性。通过
+
+TransactionalCache
+
+延迟提交机制，只有当事务提交成功后才将缓存可见，如果事务回滚，这些缓存条目会被丢弃，避免了脏数据传播。
+
+Q3：二级缓存能否跨不同的 SqlSession 共享数据？
+
+A
+
+：可以。二级缓存的
+
+Cache
+
+实例是 Mapper namespace 级别的，所有
+
+SqlSession
+
+共享同一个
+
+Cache
+
+对象。只要事务提交后，缓存数据就会被其他
+
+SqlSession
+
+读到。
+
+Q4：什么时候不应该使用二级缓存？
+
+A
+
+：
+
+数据更新频繁的 Mapper，缓存经常被清空，收益不大。
+
+查询结果涉及多个 Mapper 关联的数据，若其中一个 Mapper 更新了数据，其他 Mapper 的缓存可能无法感知（可通过
+
+cache-ref
+
+共享缓存来缓解，但复杂场景仍然容易产生脏数据）。
+
+对实时性要求极高的场景（缓存延迟导致读到旧数据）。
+
+Q5：如何清空二级缓存？
+
+A
+
+：
+
+执行任意
+
+INSERT/UPDATE/DELETE
+
+（默认
+
+flushCache=true
+
+）会清空对应 namespace 的二级缓存。
+
+通过配置
+
+<select flushCache="true">
+
+。
+
+通过
+
+<cache flushInterval="60000"/>
+
+定时刷新。
+
+手动调用
+
+Cache
+
+的
+
+clear()
+
+方法（可通过插件或代码获取
+
+Configuration
+
+中的
+
+Cache
+
+实例）。
+
+Q6：一级缓存和二级缓存有什么区别？
+
+维度
+
+一级缓存
+
+二级缓存
+
+作用范围
+
+SqlSession
+
+级别
+
+Mapper namespace 级别
+
+默认状态
+
+开启
+
+关闭
+
+生命周期
+
+SqlSession
+
+打开到关闭
+
+全局，除非主动清空或超时
+
+是否跨会话
+
+否
+
+是
+
+实现类
+
+PerpetualCache
+
+PerpetualCache
+
+（通过
+
+TransactionalCache
+
+包装）
+
+事务提交影响
+
+无特殊处理
+
+延迟提交
+
+九、下篇预告
+
+第 9 篇我们将深入
+
+MyBatis 插件（Interceptor）底层原理
+
+，包括：
+
+责任链模式 + 装饰器模式的源码实现
+
+四大拦截点：
+
+Executor
+
+、
+
+StatementHandler
+
+、
+
+ParameterHandler
+
+、
+
+ResultSetHandler
+
+自定义分页插件的实现原理
+
+如果觉得有帮助，欢迎
+
+点赞、在看、转发
+
+支持！
+
+系列持续更新，关注不走丢 
+
+👇
+
+          
+
+            var first_sceen__time = (+new Date());
+            if ("" == 1 && document.getElementById('js_content')) {
+              document.getElementById('js_content').addEventListener("selectstart",function(e){ e.preventDefault(); });
+            }
+          
+
+        
+
+                
+
+       
+       
+        if ("0" == 1) {
+          document.addEventListener("keydown",function(e){
+            if ((e.metaKey || e.ctrlKey) && (e.key === 'c' || e.key === 'C' || e.key === 'x' || e.key === 'X' || e.key === 'a' || e.key === 'A')) {
+              if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') { return; }
+              e.preventDefault();
+            }
+          });
+          document.addEventListener("copy",function(e){
+            var sel = window.getSelection();
+            var content = document.getElementById('js_content');
+            if (sel && sel.rangeCount > 0 && content && content.contains(sel.getRangeAt(0).commonAncestorContainer)) {
+              e.preventDefault();
+            }
+          });
+        }
