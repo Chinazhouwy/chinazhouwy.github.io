@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T00:00:00+08:00",
+  "generatedAt": "2026-08-06T00:00:00+08:00",
   "articles": [
     {
       "title": "MyBatis 源码深度拆解（九）：插件 Plugin 拦截器底层原理",
@@ -2073,7 +2073,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-08-05",
+      "date": "2026-08-06",
       "count": 0,
       "averageScore": null
     },
@@ -2082,11 +2082,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-07-23",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-07-24",
         "count": 0,
@@ -2149,6 +2144,11 @@
       },
       {
         "date": "2026-08-05",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-08-06",
         "count": 0,
         "averageScore": null
       }
