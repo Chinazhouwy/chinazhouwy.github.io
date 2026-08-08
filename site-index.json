@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T00:00:00+08:00",
+  "generatedAt": "2026-08-08T00:00:00+08:00",
   "articles": [
     {
       "title": "Sentinel 限流熔断实战指南：接入、规则、持久化与生产实践",
@@ -2108,7 +2108,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-08-07",
+      "date": "2026-08-08",
       "count": 0,
       "averageScore": null
     },
@@ -2117,11 +2117,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-07-25",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-07-26",
         "count": 0,
@@ -2184,6 +2179,11 @@
       },
       {
         "date": "2026-08-07",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-08-08",
         "count": 0,
         "averageScore": null
       }
