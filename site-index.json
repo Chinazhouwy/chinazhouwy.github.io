@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T00:00:00+08:00",
+  "generatedAt": "2026-08-10T00:00:00+08:00",
   "articles": [
     {
       "title": "手机 Codex App 远程连接打通记：代理排障与 systemd 加固",
@@ -2285,7 +2285,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-08-09",
+      "date": "2026-08-10",
       "count": 0,
       "averageScore": null
     },
@@ -2294,11 +2294,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-07-27",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-07-28",
         "count": 0,
@@ -2361,6 +2356,11 @@
       },
       {
         "date": "2026-08-09",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-08-10",
         "count": 0,
         "averageScore": null
       }
