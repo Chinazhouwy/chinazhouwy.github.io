@@ -2,6 +2,41 @@
   "generatedAt": "2026-08-09T00:00:00+08:00",
   "articles": [
     {
+      "title": "手机 Codex App 远程连接打通记：代理排障与 systemd 加固",
+      "path": "content/learning/ai-agent/2026-08-09-codex-phone-remote-connect.md",
+      "url": "content/learning/ai-agent/2026-08-09-codex-phone-remote-connect.md",
+      "date": "2026-08-09",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "AI Agent",
+      "module": "",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "手机 Codex App 通过服务器中转连接 OpenAI 的完整排障记录：app-server 缺代理环境变量导致直连 OpenAI 卡死（SYN-SENT）、pkill 误杀插曲、systemd 服务化加固，附排查命令与配置。",
+      "tags": [
+        "Codex",
+        "代理",
+        "systemd",
+        "网络排障",
+        "OpenAI"
+      ],
+      "section": "learning",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": "",
+      "searchText": "手机 Codex App 远程连接打通记：代理排障与 systemd 加固 背景 手机上的 Codex App 支持「远程连接到自己的服务器」（会话来源 codex chatgpt ios remote ）：对话请求通过服务器上的 codex app-server 中转，再转发给 OpenAI。好处是手机端零算力压力、会话与配置统一在服务器，随时能跑 max 推理的重活。 整体架构： 手机 Codex App │ 虚拟网卡 / 隧道（手机端必须，见下文） ▼ 服务器 codex app-server（监听 unix socket） │ HTTP PROXY=http://127.0.0.1:7890 ▼ mihomo 代理（rule 分流） │ ▼ OpenAI API 症状 App 里发了一句「你好」，一直卡在「正在思考...」，最后弹「Codex 运行已停止」。会话文件生成了，但没有任何模型输出。 排查过程 1. 先排除服务器侧常规项 mihomo 代理进程活着（127.0.0.1:7890 + 9090）， codex CLI 本地正常，OpenAI 登录态正常。问题只可能在「中转链路」上。 2. 看进程环境变量 —— 发现关键差异 ps 定位到 app-server 进程，读它的环境变量： bash tr '\\0' '\\n' /environ grep -i proxy 结果只有 AGENT BROWSER PROXY 和 ANTHROPIC BASE URL ， 没有 HTTP PROXY / HTTPS PROXY 。 也就是说：这个进程启动时没继承代理环境变量，它根本不知道要走代理。 3. 看连接状态 —— 实锤卡死 bash ss -tnp grep 199.16 看到一条 SYN-SENT 连接： 10.2.0.2 → 199.16.156.75:443 （OpenAI）。 SYN-SENT 表示 TCP 三次握手的第一个包发出去了，但永远等不到回应——国内直连 OpenAI 就是这个下场。请求全部堵在握手阶段，对外表现就是「正在思考...」无限期。 4. 根因 服务器访问外网靠的是 环境变量代理（应用层自觉） ，而不是网络层强制（没开 TUN）。手动启动 app-server 时漏带了代理变量 → 进程裸连 OpenAI → 握手卡死。 修复：带代理重启 杀掉旧进程，带代理环境变量重启（第一版用 setsid + nohup 脱离会话守护）： bash HTTP PROXY=http://127.0.0.1:7890 HTTPS PROXY=http://127.0.0.1:7890 \\ NO PROXY=localhost,127.0.0.1 \\ setsid nohup codex app-server --listen unix:// \\ /root/.codex/log/app-server.log 2 &1 /environ 一查一个准。 3. 服务化优先于手工进程 。声明式环境变量、崩溃自愈、开机自启，三个手工方案做不到的点，systemd 全包。 4. pkill -f 会匹配自己的命令行 ，批量杀进程前先 pgrep 确认目标。 5. 验证修复要看连接 ： ss -tnp 出现到代理的 ESTABLISHED ，而不是只看进程活着。"
+    },
+    {
       "title": "HTML 基础笔记：标签、排版、图片、超链接、列表、表格与表单",
       "path": "content/learning/frontend/2026-08-09-01-html-basics.md",
       "url": "content/learning/frontend/2026-08-09-01-html-basics.md",
@@ -2199,13 +2234,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 58,
+    "学习": 59,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 58,
+    "learning": 59,
     "about": 1,
     "reading": 7,
     "projects": 2
