@@ -9,16 +9,29 @@
       name="description"
       content="周维扬的个人网站：长期项目、工程实践、源码研究、阅读与持续写作。"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260811-2" />
+    <script>
+      (() => {
+        try {
+          document.documentElement.dataset.theme =
+            localStorage.getItem("wy_theme_v1") === "ink" ? "ink" : "editorial";
+        } catch {
+          document.documentElement.dataset.theme = "editorial";
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="./styles.css?v=20260811-3" />
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
     <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-    <script defer src="./app.js?v=20260811-2"></script>
+    <script defer src="./app.js?v=20260811-3"></script>
   </head>
   <body>
     <header class="site-header">
       <a class="brand" href="#/overview" aria-label="返回总览">
-        <span class="brand-mark">WY</span>
+        <span class="brand-mark">
+          <span class="brand-mark-default">WY</span>
+          <span class="brand-mark-ink" aria-hidden="true">维扬</span>
+        </span>
         <span>
           <strong>周维扬</strong>
           <small>NOTES &amp; PROJECTS</small>
@@ -43,6 +56,18 @@
           </svg>
           <input id="search-input" type="search" placeholder="搜索" />
         </label>
+
+        <button
+          id="theme-toggle"
+          class="theme-toggle"
+          type="button"
+          aria-pressed="false"
+          aria-label="切换到水墨主题"
+          title="切换到水墨主题"
+        >
+          <span class="theme-toggle-glyph" aria-hidden="true">墨</span>
+          <span class="theme-toggle-label">水墨</span>
+        </button>
 
         <details class="nav-more">
           <summary>更多</summary>

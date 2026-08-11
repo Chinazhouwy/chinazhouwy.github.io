@@ -63,8 +63,43 @@ restoreGiscusArticleRoute();
 const ui = {
   app: document.getElementById("app"),
   search: document.getElementById("search-input"),
+  themeToggle: document.getElementById("theme-toggle"),
+  themeLabel: document.querySelector(".theme-toggle-label"),
+  themeColor: document.querySelector('meta[name="theme-color"]'),
   navLinks: [...document.querySelectorAll("[data-view]")],
 };
+
+const THEME_STORAGE_KEY = "wy_theme_v1";
+
+function applyTheme(theme, { persist = false } = {}) {
+  const isInk = theme === "ink";
+  document.documentElement.dataset.theme = isInk ? "ink" : "editorial";
+
+  if (ui.themeToggle) {
+    const nextThemeLabel = isInk ? "切换到原色主题" : "切换到水墨主题";
+    ui.themeToggle.setAttribute("aria-pressed", String(isInk));
+    ui.themeToggle.setAttribute("aria-label", nextThemeLabel);
+    ui.themeToggle.title = nextThemeLabel;
+  }
+
+  if (ui.themeLabel) ui.themeLabel.textContent = isInk ? "原色" : "水墨";
+  if (ui.themeColor) ui.themeColor.content = isInk ? "#eee4cf" : "#f3efe7";
+
+  if (persist) {
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, isInk ? "ink" : "editorial");
+    } catch {
+      // Theme switching still works when storage is blocked.
+    }
+  }
+}
+
+applyTheme(document.documentElement.dataset.theme);
+
+ui.themeToggle?.addEventListener("click", () => {
+  const nextTheme = document.documentElement.dataset.theme === "ink" ? "editorial" : "ink";
+  applyTheme(nextTheme, { persist: true });
+});
 
 const state = {
   articles: [],
@@ -1612,7 +1647,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260811-2";
+const BUILD_VERSION = "20260811-3";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy] = await Promise.all([
