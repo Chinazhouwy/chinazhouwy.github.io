@@ -509,158 +509,140 @@ function lineChart(daily) {
 }
 
 function renderOverview() {
-  const dashboard = state.dashboard;
-  const today = dashboard.today || {};
-  const recent = state.articles
-    .filter(canShowOnHome)
-    .filter(matchesSearch)
-    .slice(0, 6);
-  const weakTopics = dashboard.weakTopics || [];
-
-  // Focus items: prefer projects over weakTopics
-  const focusItems = state.projects.length
-    ? state.projects.map((item) => ({
-        name: item.name,
-        status: item.status || item.priority || "进行中",
-      }))
-    : weakTopics.map((item) => ({
-        name: item.topic,
-        status: item.averageScore ? `${item.averageScore}` : "待复盘",
-      }));
-
-  // Reading section uses canShowOnHome
+  const publicArticles = state.articles.filter(canShowOnHome).filter(matchesSearch);
+  const latestWriting = publicArticles
+    .filter((article) => !["about", "reading", "questions", "companies", "interviews", "plans"].includes(getArticleSection(article)))
+    .slice(0, 7);
   const readingItems = state.articles
     .filter((a) => canShowOnHome(a) && normalizeSection(getArticleSection(a)) === "reading")
     .filter(matchesSearch)
     .slice(0, 3);
+  const featuredArticle = latestWriting[0];
+  const writingList = latestWriting.slice(1);
+  const projectRoute = (project) => ({
+    "opportunity-radar": "#/opportunity",
+    "source-code-research": "#/learning",
+    "reading-life": "#/reading",
+  })[project.id] || "#/projects";
+  const nowProjects = state.projects.slice(0, 3);
+  const contentAreas = new Set(publicArticles.map((article) => getArticleSection(article)).filter(Boolean));
 
   ui.app.innerHTML = `
-    <section class="dashboard">
-      <div class="dashboard-lead reveal">
-        <p class="mono-label" id="daily-tip-source">每日摘句 / 正在加载</p>
-        <h1 id="hero-title">正在加载<br />每日摘句</h1>
-        <p class="lead-copy">${escapeHtml(formatDate(today.date, { year: "numeric", weekday: "long" }))}</p>
-        <a class="primary-link" href="#/projects">查看当前方向 ${iconArrow()}</a>
-      </div>
-
-      <aside class="today-panel reveal delay-1">
-        <div class="panel-heading">
-          <span class="mono-label">TODAY / 今日状态</span>
-          <span class="status-dot"></span>
+    <section class="home-page">
+      <header class="home-hero">
+        <div class="home-edition reveal">
+          <span>ZHOU WEIYANG / PERSONAL ARCHIVE</span>
+          <span>SHANGHAI · 2026</span>
         </div>
-        <div class="today-number">
-          <strong>${today.count || 0}</strong>
-          <span>项练习</span>
+
+        <div class="home-hero-grid">
+          <div class="home-intro reveal">
+            <p class="home-role">Java 后端工程师 · AI Agent 实践者 · 持续写作者</p>
+            <h1>把复杂系统<br /><em>做稳，也做透。</em></h1>
+            <p class="home-deck">这里记录我正在建设的项目、读过的源码、形成的方法，以及对技术与生活的长期思考。不是简历，也不只是博客，而是一份持续更新的个人档案。</p>
+            <div class="home-actions">
+              <a class="home-button home-button-primary" href="#latest-writing">最近写作 ${iconArrow()}</a>
+              <a class="home-button" href="#/about">认识我</a>
+            </div>
+          </div>
+
+          <aside class="now-card reveal delay-1">
+            <header><span>NOW / 此刻</span><time>${escapeHtml(formatDate(new Date().toISOString().slice(0, 10), { year: "numeric" }))}</time></header>
+            <h2>正在把想法<br />变成长期作品。</h2>
+            <ol>
+              ${nowProjects
+                .map(
+                  (project, index) => `
+                    <li>
+                      <span>${String(index + 1).padStart(2, "0")}</span>
+                      <a href="${projectRoute(project)}"><strong>${escapeHtml(project.name)}</strong><small>${escapeHtml(project.summary || "持续推进")}</small></a>
+                    </li>`,
+                )
+                .join("") || '<li><span>01</span><p>正在整理下一阶段方向。</p></li>'}
+            </ol>
+            <a class="now-link" href="#/projects">查看全部项目 ${iconArrow()}</a>
+          </aside>
         </div>
-        <dl>
-          <div><dt>今日均分</dt><dd>${today.averageScore ?? "—"}</dd></div>
-          <div><dt>连续练习</dt><dd>${dashboard.streakDays || 0} 天</dd></div>
-          <div><dt>累计练习</dt><dd>${dashboard.totalQuestions || 0} 项</dd></div>
-        </dl>
-      </aside>
 
-      <div class="metric-strip reveal delay-1">
-        <div><span>练习均分</span><strong>${dashboard.averageScore ?? "—"}</strong><small>/ 10</small></div>
-        <div><span>已评分练习</span><strong>${dashboard.scoredQuestions || 0}</strong><small>道</small></div>
-        <div><span>内容沉淀</span><strong>${state.articles.length}</strong><small>篇</small></div>
-        <div><span>当前项目</span><strong>${state.projects.length}</strong><small>项</small></div>
-      </div>
-
-      <div class="overview-grid">
-        <section class="trend-section reveal">
-          <div class="section-heading">
-            <div><p class="mono-label">PRACTICE / 近 14 天</p><h2>练习趋势</h2></div>
-            <div class="chart-legend"><span class="legend-bar">题量</span><span class="legend-line">平均分</span></div>
-          </div>
-          ${lineChart(dashboard.daily || [])}
-        </section>
-
-        <section class="focus-section reveal delay-1">
-          <div class="section-heading">
-            <div><p class="mono-label">FOCUS / 当前方向</p><h2>正在推进</h2></div>
-          </div>
-          <div class="weak-list">
-            ${
-              focusItems.length
-                ? focusItems
-                    .map(
-                      (item, index) => `
-                        <a href="#/projects">
-                          <span>${String(index + 1).padStart(2, "0")}</span>
-                          <strong>${escapeHtml(item.name)}</strong>
-                          <i style="--level:${Math.max(18, 90-index*15)}%"></i>
-                          <em>${escapeHtml(item.status)}</em>
-                        </a>`,
-                    )
-                    .join("")
-                : '<p class="empty-copy">持续记录后，这里会出现当前方向。</p>'
-            }
-          </div>
-        </section>
-      </div>
-
-      <section class="project-strip reveal">
-        <div class="section-heading">
-          <div><p class="mono-label">PROJECTS / 当前项目</p><h2>长期建设</h2></div>
-          <a href="#/projects">查看项目 ${iconArrow()}</a>
+        <div class="home-facts reveal delay-2" aria-label="站点概览">
+          <div><strong>${publicArticles.length}</strong><span>公开记录</span></div>
+          <div><strong>${state.projects.length}</strong><span>长期项目</span></div>
+          <div><strong>${contentAreas.size}</strong><span>内容领域</span></div>
+          <p>以文件为底座，以项目为主线，持续更新。</p>
         </div>
-        <div class="quiet-list">
+      </header>
+
+      <section class="home-projects reveal">
+        <div class="home-section-label"><span>01</span><p>SELECTED PROJECTS / 长期建设</p><a href="#/projects">全部项目 ${iconArrow()}</a></div>
+        <div class="project-cards">
           ${state.projects
             .map(
-              (project) => `
-                <a class="quiet-row" href="#/projects">
-                  <span><strong>${escapeHtml(project.name)}</strong><small>${escapeHtml(project.summary || "")}</small></span>
-                  <em class="public-pill">${escapeHtml(project.status || "进行中")}</em>
+              (project, index) => `
+                <a class="project-card" href="${projectRoute(project)}">
+                  <span class="project-card-index">${String(index + 1).padStart(2, "0")}</span>
+                  <div><p>${escapeHtml(project.priority || "ONGOING")}</p><h2>${escapeHtml(project.name)}</h2><small>${escapeHtml(project.summary || "持续建设")}</small></div>
+                  <footer><em>${escapeHtml(project.status || "进行中")}</em>${iconArrow()}</footer>
                 </a>`,
             )
             .join("") || '<p class="empty-copy">项目清单等待补充。</p>'}
         </div>
       </section>
 
-      <section class="plan-section reveal">
-        <div class="section-heading">
-          <div><p class="mono-label">READING / 阅读流</p><h2>最近阅读</h2></div>
-          <a href="#/reading">进入阅读 ${iconArrow()}</a>
-        </div>
-        <div class="plan-list">
-          ${
-            readingItems.length
-              ? readingItems
-                  .map(
-                    (plan, index) => `
-                      <a href="${articleHref(plan.path)}">
-                        <time>${String(index + 1).padStart(2, "0")}</time>
-                        <span><strong>${escapeHtml(plan.title)}</strong><small>${escapeHtml(plan.summary || "阅读沉淀")}</small></span>
-                        ${iconArrow()}
-                      </a>`,
-                  )
-                  .join("")
-              : '<p class="empty-copy">阅读栏目已建立，等待第一篇沉淀。</p>'
-          }
+      <section class="home-editorial reveal" id="latest-writing">
+        <div class="home-section-label"><span>02</span><p>RECENT WRITING / 最近写作</p><a href="#/timeline">完整时光轴 ${iconArrow()}</a></div>
+        <div class="editorial-grid">
+          ${featuredArticle
+            ? `<a class="featured-writing" href="${articleHref(featuredArticle.path)}">
+                <p>${escapeHtml(SECTION_LABELS[getArticleSection(featuredArticle)] || getArticleSection(featuredArticle))} / ${escapeHtml(featuredArticle.date || "持续更新")}</p>
+                <h2>${escapeHtml(featuredArticle.title)}</h2>
+                <span>${escapeHtml(featuredArticle.summary || "打开阅读全文")}</span>
+                <strong>阅读全文 ${iconArrow()}</strong>
+              </a>`
+            : '<div class="featured-writing"><p>WRITING</p><h2>下一篇文章正在形成。</h2></div>'}
+          <div class="writing-index">
+            ${writingList
+              .map(
+                (article, index) => `
+                  <a href="${articleHref(article.path)}">
+                    <span>${String(index + 2).padStart(2, "0")}</span>
+                    <div><strong>${escapeHtml(article.title)}</strong><small>${escapeHtml(SECTION_LABELS[getArticleSection(article)] || getArticleSection(article))} · ${escapeHtml(article.date || "持续更新")}</small></div>
+                    ${iconArrow()}
+                  </a>`,
+              )
+              .join("") || '<p class="empty-copy">更多写作正在整理。</p>'}
+          </div>
         </div>
       </section>
 
-      <details class="private-summary reveal">
-        <summary>内部任务摘要</summary>
-        <div class="quiet-list">
-          ${state.projects
+      <section class="home-reading reveal">
+        <div class="home-section-label"><span>03</span><p>READING &amp; THINKING / 阅读与思考</p><a href="#/reading">进入阅读 ${iconArrow()}</a></div>
+        <div class="reading-shelf">
+          ${readingItems
             .map(
-              (project) => `
-                <div class="quiet-row">
-                  <span><strong>${escapeHtml(project.name)}</strong><small>${escapeHtml(project.next_public_step || "按当前节奏继续推进")}</small></span>
-                </div>`,
+              (article, index) => `
+                <a href="${articleHref(article.path)}">
+                  <span>${String(index + 1).padStart(2, "0")}</span>
+                  <h2>${escapeHtml(article.title)}</h2>
+                  <p>${escapeHtml(article.summary || "阅读沉淀")}</p>
+                  <footer><small>${escapeHtml(article.date || "持续更新")}</small>${iconArrow()}</footer>
+                </a>`,
             )
-            .join("") || '<p class="empty-copy">暂无待办摘要。</p>'}
+            .join("") || '<p class="empty-copy">阅读栏目已建立，等待第一篇沉淀。</p>'}
         </div>
-      </details>
-
-      <section class="recent-section reveal delay-1">
-        <div class="section-heading">
-          <div><p class="mono-label">ARCHIVE / 内容时间线</p><h2>最近沉淀</h2></div>
-          <a href="#/timeline">查看时光轴 ${iconArrow()}</a>
-        </div>
-        <div class="article-list">${recent.map((item, index) => articleRow(item, { index: String(index + 1).padStart(2, "0") })).join("")}</div>
       </section>
+
+      <footer class="home-closing reveal">
+        <div class="daily-note">
+          <p class="mono-label" id="daily-tip-source">DAILY NOTE / 正在加载</p>
+          <blockquote id="hero-title">博观而约取，<br />厚积而薄发。</blockquote>
+          <button id="tip-refresh" type="button">换一句</button>
+        </div>
+        <div class="home-closing-copy">
+          <p>ARCHIVE, NOT FEED</p>
+          <h2>记录不是为了堆积，<br />而是为了看见自己的方向。</h2>
+          <a href="#/timeline">沿时间继续阅读 ${iconArrow()}</a>
+        </div>
+      </footer>
     </section>
   `;
 }
@@ -1292,6 +1274,22 @@ function renderOpportunity() {
         </article>
       </div>
 
+      <section class="practice-pulse reveal delay-2">
+        <div class="section-heading">
+          <div><p class="mono-label">PRACTICE PULSE / 近 14 天</p><h2>表达训练脉冲</h2></div>
+          <div class="chart-legend"><span class="legend-bar">题量</span><span class="legend-line">平均分</span></div>
+        </div>
+        <div class="practice-pulse-grid">
+          <div class="practice-pulse-chart">${lineChart(state.dashboard.daily || [])}</div>
+          <dl>
+            <div><dt>累计练习</dt><dd>${state.dashboard.totalQuestions || 0}<small>项</small></dd></div>
+            <div><dt>已评分</dt><dd>${state.dashboard.scoredQuestions || 0}<small>项</small></dd></div>
+            <div><dt>平均分</dt><dd>${state.dashboard.averageScore ?? "—"}<small>/ 10</small></dd></div>
+            <div><dt>连续练习</dt><dd>${state.dashboard.streakDays || 0}<small>天</small></dd></div>
+          </dl>
+        </div>
+      </section>
+
       <section class="recent-section reveal delay-2" style="margin-top:66px">
         <div class="section-heading">
           <div><p class="mono-label">LATEST / 最近机会</p><h2>最新记录</h2></div>
@@ -1425,7 +1423,7 @@ async function renderAbout() {
         <article class="article-body about-body">${rendered}</article>
       </section>
     `;
-    document.title = "关于周维扬 · WY 工作台";
+    document.title = "关于周维扬 · 写作与项目";
   } catch (error) {
     renderError("个人介绍加载失败", `${error.message}。请检查文件权限或稍后重试。`, true);
   }
@@ -1520,6 +1518,10 @@ async function renderArticle(rawPath, requestedSection = "") {
     desktopToc.innerHTML = toc.html;
     mobileToc.innerHTML = toc.html;
     document.getElementById("mobile-toc-count").textContent = `${toc.count} 项`;
+    if (!toc.count) {
+      document.querySelector(".reader")?.classList.add("has-no-toc");
+      document.querySelector(".mobile-toc").hidden = true;
+    }
     bindTocLinks(desktopToc, articleRoute);
     bindTocLinks(mobileToc, articleRoute);
     document.getElementById("comment-jump").addEventListener("click", () => {
@@ -1527,7 +1529,7 @@ async function renderArticle(rawPath, requestedSection = "") {
     });
     rememberGiscusArticleRoute(fetchPath);
     mountComments(fetchPath);
-    document.title = `${displayTitle} · WY 工作台`;
+    document.title = `${displayTitle} · 周维扬`;
     window.scrollTo({ top: 0, behavior: "instant" });
     if (requestedSection) {
       window.requestAnimationFrame(() => {
@@ -1569,7 +1571,7 @@ function updateActiveNav(view) {
 async function renderRoute() {
   const route = parseRoute();
   updateActiveNav(route.view);
-  document.title = "WY 工作台 · Life OS";
+  document.title = "周维扬 · 写作与项目";
   if (route.view === "article") {
     return renderArticle(route.path, route.params.get("section") || "");
   }
@@ -1610,7 +1612,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260730-2";
+const BUILD_VERSION = "20260811-2";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy] = await Promise.all([
@@ -1798,6 +1800,12 @@ ui.search.addEventListener("input", (event) => {
 document.addEventListener("click", (event) => {
   if (event.target.closest("#tip-refresh")) {
     hydrateDailyTip({ force: true, randomFallback: true });
+  }
+
+  if (event.target.closest(".nav-more a, .mobile-menu a")) {
+    document.querySelectorAll(".nav-more[open], .mobile-menu[open]").forEach((menu) => {
+      menu.removeAttribute("open");
+    });
   }
 });
 
