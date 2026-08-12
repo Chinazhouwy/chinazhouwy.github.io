@@ -574,8 +574,8 @@ function renderOverview() {
         <div class="home-hero-grid">
           <div class="home-intro reveal">
             <p class="home-role">Java 后端工程师 · AI Agent 实践者 · 持续写作者</p>
-            <h1 class="editorial-hero-title">把复杂系统<br /><em>做稳，也做透。</em></h1>
-            <h1 class="ink-hero-title"><span>把复杂系统</span><em>做稳，也做透</em><i aria-hidden="true">维扬记</i></h1>
+            <h1 class="editorial-hero-title">做事，读书，<br /><em>写下我所见。</em></h1>
+            <h1 class="ink-hero-title"><span>做事，读书</span><em>写下我所见</em><i aria-hidden="true">维扬记</i></h1>
             <p class="home-deck">这里记录我正在建设的项目、读过的源码、形成的方法，以及对技术与生活的长期思考。不是简历，也不只是博客，而是一份持续更新的个人档案。</p>
             <div class="home-actions">
               <a class="home-button home-button-primary" href="#latest-writing">最近写作 ${iconArrow()}</a>
@@ -1445,7 +1445,7 @@ async function renderAbout() {
         <header class="about-hero reveal">
           <div class="about-lead">
             <p class="mono-label">ABOUT / ZHOU WEIYANG</p>
-            <h1>把复杂系统做稳，<br />把 AI 能力做实。</h1>
+            <h1>Java 工程、AI Agent，<br />与持续写作。</h1>
             <p>资深 Java 后端工程师、5 人后端组长。长期深耕保险金融系统，持续实践 Java AI Agent。</p>
             <div class="about-actions">
               <a href="https://github.com/Chinazhouwy" target="_blank" rel="noreferrer">GitHub ${iconArrow()}</a>
@@ -1651,7 +1651,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260812-1";
+const BUILD_VERSION = "20260812-2";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy] = await Promise.all([
