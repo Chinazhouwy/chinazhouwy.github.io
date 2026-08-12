@@ -360,7 +360,7 @@ interface TaskLabels {
 
 const labels: TaskLabels = {
   priority: 'P1',
-  owner: '周维扬',
+  owner: 'WY',
 }
 ```
 

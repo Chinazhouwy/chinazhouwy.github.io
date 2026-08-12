@@ -1,5 +1,5 @@
 ---
-title: "周维扬｜资深 Java 后端工程师与 AI Agent 实践者"
+title: "WY｜资深 Java 后端工程师与 AI Agent 实践者"
 date: 2026-07-25
 domain: "个人"
 area: "关于我"

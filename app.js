@@ -566,16 +566,15 @@ function renderOverview() {
     <section class="home-page">
       <header class="home-hero">
         <div class="home-edition reveal">
-          <span class="editorial-edition">ZHOU WEIYANG / PERSONAL ARCHIVE</span>
-          <span class="ink-edition">维扬手记 · 岁在丙午</span>
+          <span class="editorial-edition">WY / PERSONAL ARCHIVE</span>
+          <span class="ink-edition">WY 手记 · 岁在丙午</span>
           <span>SHANGHAI · 2026</span>
         </div>
 
         <div class="home-hero-grid">
           <div class="home-intro reveal">
-            <p class="home-role">Java 后端工程师 · AI Agent 实践者 · 持续写作者</p>
-            <h1 class="editorial-hero-title">做事，读书，<br /><em>写下我所见。</em></h1>
-            <h1 class="ink-hero-title"><span>做事，读书</span><em>写下我所见</em><i aria-hidden="true">维扬记</i></h1>
+            <h1 class="editorial-hero-title">人间尚有春风在，<br /><em>何妨从头再少年。</em></h1>
+            <h1 class="ink-hero-title" aria-label="人间尚有春风在，何妨从头再少年。"><span>人间尚有春风在</span><em>何妨从头再少年</em><i aria-hidden="true">WY</i></h1>
             <p class="home-deck">这里记录我正在建设的项目、读过的源码、形成的方法，以及对技术与生活的长期思考。不是简历，也不只是博客，而是一份持续更新的个人档案。</p>
             <div class="home-actions">
               <a class="home-button home-button-primary" href="#latest-writing">最近写作 ${iconArrow()}</a>
@@ -1444,7 +1443,7 @@ async function renderAbout() {
       <section class="about-page">
         <header class="about-hero reveal">
           <div class="about-lead">
-            <p class="mono-label">ABOUT / ZHOU WEIYANG</p>
+            <p class="mono-label">ABOUT / WY</p>
             <h1>Java 工程、AI Agent，<br />与持续写作。</h1>
             <p>资深 Java 后端工程师、5 人后端组长。长期深耕保险金融系统，持续实践 Java AI Agent。</p>
             <div class="about-actions">
@@ -1462,7 +1461,7 @@ async function renderAbout() {
         <article class="article-body about-body">${rendered}</article>
       </section>
     `;
-    document.title = "关于周维扬 · 写作与项目";
+    document.title = "关于 WY · 写作与项目";
   } catch (error) {
     renderError("个人介绍加载失败", `${error.message}。请检查文件权限或稍后重试。`, true);
   }
@@ -1568,7 +1567,7 @@ async function renderArticle(rawPath, requestedSection = "") {
     });
     rememberGiscusArticleRoute(fetchPath);
     mountComments(fetchPath);
-    document.title = `${displayTitle} · 周维扬`;
+    document.title = `${displayTitle} · WY`;
     window.scrollTo({ top: 0, behavior: "instant" });
     if (requestedSection) {
       window.requestAnimationFrame(() => {
@@ -1610,7 +1609,7 @@ function updateActiveNav(view) {
 async function renderRoute() {
   const route = parseRoute();
   updateActiveNav(route.view);
-  document.title = "周维扬 · 写作与项目";
+  document.title = "WY · 写作与项目";
   if (route.view === "article") {
     return renderArticle(route.path, route.params.get("section") || "");
   }
@@ -1651,7 +1650,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260812-2";
+const BUILD_VERSION = "20260812-3";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy] = await Promise.all([

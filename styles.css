@@ -3021,14 +3021,6 @@ a {
   padding: clamp(72px, 9vw, 120px) 0 62px;
 }
 
-.home-role {
-  margin: 0 0 24px;
-  color: var(--green);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-
 .home-intro h1 {
   max-width: 780px;
   margin: 0;
@@ -4007,16 +3999,9 @@ a {
     padding: 58px 0 42px;
   }
 
-  .home-role {
-    max-width: 260px;
-    margin-bottom: 18px;
-    font-size: 11px;
-    line-height: 1.7;
-  }
-
   .home-intro h1 {
-    font-size: clamp(43px, 14.5vw, 62px);
-    letter-spacing: -0.055em;
+    font-size: clamp(31px, 10.5vw, 62px);
+    letter-spacing: -0.045em;
   }
 
   .home-deck {
@@ -4184,7 +4169,7 @@ a {
   }
 
   .home-intro h1 {
-    font-size: 43px;
+    font-size: clamp(29px, 9.5vw, 34px);
   }
 
   .home-button {
@@ -4514,27 +4499,6 @@ html[data-theme="ink"] .home-intro {
   padding: 62px 0 36px 30px;
 }
 
-html[data-theme="ink"] .home-role {
-  grid-column: 2;
-  margin: 0 0 22px;
-  color: #3e4c40;
-  font-family: var(--serif);
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  line-height: 1.8;
-}
-
-html[data-theme="ink"] .home-role::before {
-  display: inline-block;
-  width: 24px;
-  height: 2px;
-  margin: 0 9px 4px 0;
-  background: var(--orange);
-  content: "";
-  transform: rotate(-3deg);
-}
-
 html[data-theme="ink"] .ink-hero-title {
   position: relative;
   grid-row: 1 / 4;
@@ -4548,7 +4512,7 @@ html[data-theme="ink"] .ink-hero-title {
   margin: 0;
   color: var(--ink);
   font-family: var(--calligraphy);
-  font-size: clamp(62px, 5.4vw, 82px);
+  font-size: clamp(48px, 4.1vw, 56px);
   font-weight: 400;
   letter-spacing: 0.08em;
   line-height: 1.04;
@@ -5260,19 +5224,13 @@ html[data-theme="ink"] .mobile-nav {
     padding: 48px 0 0;
   }
 
-  html[data-theme="ink"] .home-role {
-    margin-bottom: 16px;
-    font-size: 12px;
-    line-height: 1.7;
-  }
-
   html[data-theme="ink"] .ink-hero-title {
     display: block;
     width: auto;
     height: auto;
     margin: 0;
-    font-size: clamp(48px, 15vw, 62px);
-    letter-spacing: 0.055em;
+    font-size: clamp(34px, 10.5vw, 48px);
+    letter-spacing: 0.01em;
     line-height: 1.12;
     writing-mode: horizontal-tb;
   }
@@ -5281,8 +5239,9 @@ html[data-theme="ink"] .mobile-nav {
   html[data-theme="ink"] .ink-hero-title em {
     display: block;
     width: auto;
-    letter-spacing: 0.055em;
+    letter-spacing: 0.01em;
     overflow-wrap: normal;
+    white-space: nowrap;
     word-break: normal;
     writing-mode: horizontal-tb;
   }
@@ -5434,7 +5393,7 @@ html[data-theme="ink"] .mobile-nav {
   }
 
   html[data-theme="ink"] .ink-hero-title {
-    font-size: 46px;
+    font-size: clamp(30px, 9.5vw, 34px);
   }
 
   html[data-theme="ink"] .home-deck {
