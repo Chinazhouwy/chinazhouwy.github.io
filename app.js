@@ -566,14 +566,16 @@ function renderOverview() {
     <section class="home-page">
       <header class="home-hero">
         <div class="home-edition reveal">
-          <span>ZHOU WEIYANG / PERSONAL ARCHIVE</span>
+          <span class="editorial-edition">ZHOU WEIYANG / PERSONAL ARCHIVE</span>
+          <span class="ink-edition">维扬手记 · 岁在丙午</span>
           <span>SHANGHAI · 2026</span>
         </div>
 
         <div class="home-hero-grid">
           <div class="home-intro reveal">
             <p class="home-role">Java 后端工程师 · AI Agent 实践者 · 持续写作者</p>
-            <h1>把复杂系统<br /><em>做稳，也做透。</em></h1>
+            <h1 class="editorial-hero-title">把复杂系统<br /><em>做稳，也做透。</em></h1>
+            <h1 class="ink-hero-title"><span>把复杂系统</span><em>做稳，也做透</em><i aria-hidden="true">维扬记</i></h1>
             <p class="home-deck">这里记录我正在建设的项目、读过的源码、形成的方法，以及对技术与生活的长期思考。不是简历，也不只是博客，而是一份持续更新的个人档案。</p>
             <div class="home-actions">
               <a class="home-button home-button-primary" href="#latest-writing">最近写作 ${iconArrow()}</a>
@@ -599,6 +601,8 @@ function renderOverview() {
           </aside>
         </div>
 
+        <a class="ink-art-credit" href="https://www.metmuseum.org/art/collection/search/49157" target="_blank" rel="noopener noreferrer">卷首取意 · 王翚《仿巨然燕文贵山水图》· 1713 · The Met Open Access</a>
+
         <div class="home-facts reveal delay-2" aria-label="站点概览">
           <div><strong>${publicArticles.length}</strong><span>公开记录</span></div>
           <div><strong>${state.projects.length}</strong><span>长期项目</span></div>
@@ -608,7 +612,7 @@ function renderOverview() {
       </header>
 
       <section class="home-projects reveal">
-        <div class="home-section-label"><span>01</span><p>SELECTED PROJECTS / 长期建设</p><a href="#/projects">全部项目 ${iconArrow()}</a></div>
+        <div class="home-section-label"><span>01</span><p><b class="editorial-section-title">SELECTED PROJECTS / 长期建设</b><b class="ink-section-title">所作 · 长期建设</b></p><a href="#/projects">全部项目 ${iconArrow()}</a></div>
         <div class="project-cards">
           ${state.projects
             .map(
@@ -624,7 +628,7 @@ function renderOverview() {
       </section>
 
       <section class="home-editorial reveal" id="latest-writing">
-        <div class="home-section-label"><span>02</span><p>RECENT WRITING / 最近写作</p><a href="#/timeline">完整时光轴 ${iconArrow()}</a></div>
+        <div class="home-section-label"><span>02</span><p><b class="editorial-section-title">RECENT WRITING / 最近写作</b><b class="ink-section-title">新札 · 最近写作</b></p><a href="#/timeline">完整时光轴 ${iconArrow()}</a></div>
         <div class="editorial-grid">
           ${featuredArticle
             ? `<a class="featured-writing" href="${articleHref(featuredArticle.path)}">
@@ -650,7 +654,7 @@ function renderOverview() {
       </section>
 
       <section class="home-reading reveal">
-        <div class="home-section-label"><span>03</span><p>READING &amp; THINKING / 阅读与思考</p><a href="#/reading">进入阅读 ${iconArrow()}</a></div>
+        <div class="home-section-label"><span>03</span><p><b class="editorial-section-title">READING &amp; THINKING / 阅读与思考</b><b class="ink-section-title">读卷 · 阅读与思考</b></p><a href="#/reading">进入阅读 ${iconArrow()}</a></div>
         <div class="reading-shelf">
           ${readingItems
             .map(
@@ -1647,7 +1651,7 @@ async function renderRoute() {
   }
 }
 
-const BUILD_VERSION = "20260811-3";
+const BUILD_VERSION = "20260812-1";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy] = await Promise.all([
