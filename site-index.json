@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T00:00:00+08:00",
+  "generatedAt": "2026-08-14T00:00:00+08:00",
   "articles": [
     {
       "title": "Pi-Agent 源码精读笔记（冬瓜）：10 章拆解生产级 Agent SDK",
@@ -2320,7 +2320,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-08-13",
+      "date": "2026-08-14",
       "count": 0,
       "averageScore": null
     },
@@ -2329,11 +2329,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-07-31",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-01",
         "count": 0,
@@ -2396,6 +2391,11 @@
       },
       {
         "date": "2026-08-13",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-08-14",
         "count": 0,
         "averageScore": null
       }
