@@ -60,44 +60,57 @@ function restoreGiscusArticleRoute() {
 
 restoreGiscusArticleRoute();
 
-const ui = {
-  app: document.getElementById("app"),
-  search: document.getElementById("search-input"),
-  themeToggle: document.getElementById("theme-toggle"),
-  themeLabel: document.querySelector(".theme-toggle-label"),
-  themeColor: document.querySelector('meta[name="theme-color"]'),
-  navLinks: [...document.querySelectorAll("[data-view]")],
-};
+const THEME_STORAGE_KEY = "wy_theme_v2";
 
-const THEME_STORAGE_KEY = "wy_theme_v1";
+function themeName(theme) {
+  return theme === "nova" ? "深空" : "亮色";
+}
+
+function giscusTheme(theme) {
+  return theme === "nova" ? "noborder_dark" : "light";
+}
 
 function applyTheme(theme, { persist = false } = {}) {
-  const isInk = theme === "ink";
-  document.documentElement.dataset.theme = isInk ? "ink" : "editorial";
+  const isDark = theme === "nova";
+  const currentTheme = isDark ? "nova" : "light";
+  const nextTheme = isDark ? "light" : "nova";
+  document.documentElement.dataset.theme = currentTheme;
 
-  if (ui.themeToggle) {
-    const nextThemeLabel = isInk ? "切换到原色主题" : "切换到水墨主题";
-    ui.themeToggle.setAttribute("aria-pressed", String(isInk));
-    ui.themeToggle.setAttribute("aria-label", nextThemeLabel);
-    ui.themeToggle.title = nextThemeLabel;
+  const toggle = document.getElementById("theme-toggle");
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+
+  if (toggle) {
+    toggle.setAttribute("aria-pressed", String(isDark));
+    toggle.setAttribute("aria-label", `当前为${themeName(currentTheme)}主题，点击切换到${themeName(nextTheme)}主题`);
+    toggle.title = `当前：${themeName(currentTheme)}主题；点击切换到${themeName(nextTheme)}主题`;
   }
+  if (themeColor) themeColor.content = isDark ? "#05070f" : "#f4f8ff";
 
-  if (ui.themeLabel) ui.themeLabel.textContent = isInk ? "原色" : "水墨";
-  if (ui.themeColor) ui.themeColor.content = isInk ? "#eee4cf" : "#f3efe7";
+  document.querySelector("iframe.giscus-frame")?.contentWindow?.postMessage(
+    { giscus: { setConfig: { theme: giscusTheme(currentTheme) } } },
+    "https://giscus.app",
+  );
 
   if (persist) {
     try {
-      localStorage.setItem(THEME_STORAGE_KEY, isInk ? "ink" : "editorial");
+      localStorage.setItem(THEME_STORAGE_KEY, isDark ? "nova" : "light");
     } catch {
       // Theme switching still works when storage is blocked.
     }
   }
 }
 
-applyTheme(document.documentElement.dataset.theme);
+applyTheme(document.documentElement.dataset.theme === "nova" ? "nova" : "light");
+
+const ui = {
+  app: document.getElementById("app"),
+  search: document.getElementById("search-input"),
+  themeToggle: document.getElementById("theme-toggle"),
+  navLinks: [...document.querySelectorAll("[data-view]")],
+};
 
 ui.themeToggle?.addEventListener("click", () => {
-  const nextTheme = document.documentElement.dataset.theme === "ink" ? "editorial" : "ink";
+  const nextTheme = document.documentElement.dataset.theme === "nova" ? "light" : "nova";
   applyTheme(nextTheme, { persist: true });
 });
 
@@ -543,14 +556,196 @@ function lineChart(daily) {
   `;
 }
 
+const KNOWLEDGE_LANES = [
+  { id: "agent", code: "A", label: "AGENT / AI" },
+  { id: "systems", code: "S", label: "SYSTEMS / JAVA" },
+  { id: "interface", code: "I", label: "INTERFACE / WEB" },
+  { id: "security", code: "R", label: "SECURITY / RELIABILITY" },
+  { id: "reading", code: "L", label: "READING / LIFE" },
+];
+
+function knowledgeRecordDate(article) {
+  return article.publishedAt || article.createdAt || article.practicedAt || article.date || "";
+}
+
+function knowledgeLane(article) {
+  const section = normalizeSection(getArticleSection(article));
+  const terms = [
+    article.area,
+    article.module,
+    article.topic,
+    article.title,
+    ...(article.tags || []),
+  ].join(" ").toLowerCase();
+
+  if (section === "reading") return KNOWLEDGE_LANES[4];
+  if (/security|secure|xss|csrf|攻击|安全|注入|越权|漏洞|可靠性|故障/.test(terms)) return KNOWLEDGE_LANES[3];
+  if (/agent|llm|claude|hermes|mcp|codex|openai|大模型|语言模型|智能体/.test(terms)) return KNOWLEDGE_LANES[0];
+  if (/frontend|html|css|vue|react|typescript|javascript|前端|浏览器/.test(terms)) return KNOWLEDGE_LANES[2];
+  return KNOWLEDGE_LANES[1];
+}
+
+function stableHash(value = "") {
+  let hash = 17;
+  for (const character of String(value)) {
+    hash = (hash * 31 + character.codePointAt(0)) >>> 0;
+  }
+  return hash;
+}
+
+function renderKnowledgeMap(articles) {
+  const datedArticles = articles
+    .map((article) => ({ article, date: knowledgeRecordDate(article) }))
+    .filter(({ date }) => /^\d{4}-\d{2}-\d{2}$/.test(date))
+    .sort((left, right) => left.date.localeCompare(right.date));
+
+  if (!datedArticles.length) {
+    return '<p class="nova-empty">还没有足够的日期数据来绘制星图。</p>';
+  }
+
+  const day = 86400000;
+  const timestamps = datedArticles.map(({ date }) => Date.parse(`${date}T00:00:00Z`));
+  const minTime = Math.min(...timestamps);
+  const maxTime = Math.max(...timestamps);
+  const timeRange = Math.max(day, maxTime - minTime);
+  const xStart = 152;
+  const xEnd = 958;
+  const yStart = 66;
+  const laneStep = 76;
+  const initial = datedArticles.at(-1);
+  const initialLane = knowledgeLane(initial.article);
+  const middleDate = new Date(minTime + (maxTime - minTime) / 2).toISOString().slice(0, 10);
+
+  const laneGuides = KNOWLEDGE_LANES.map((lane, index) => {
+    const y = yStart + index * laneStep;
+    return `
+      <g class="knowledge-lane knowledge-lane--${lane.id}">
+        <text x="18" y="${y + 4}">${lane.code}</text>
+        <line x1="${xStart}" y1="${y}" x2="${xEnd}" y2="${y}"></line>
+      </g>`;
+  }).join("");
+
+  const timeGuides = [0, 0.25, 0.5, 0.75, 1]
+    .map((ratio) => {
+      const x = Math.round(xStart + (xEnd - xStart) * ratio);
+      return `<line x1="${x}" y1="38" x2="${x}" y2="386"></line>`;
+    })
+    .join("");
+
+  const laneByArticle = datedArticles.map(({ article }) => knowledgeLane(article));
+  const groupSizes = new Map();
+  datedArticles.forEach(({ date }, index) => {
+    const key = `${date}:${laneByArticle[index].id}`;
+    groupSizes.set(key, (groupSizes.get(key) || 0) + 1);
+  });
+  const groupPositions = new Map();
+
+  const nodes = datedArticles.map(({ article, date }, index) => {
+    const lane = laneByArticle[index];
+    const laneIndex = KNOWLEDGE_LANES.findIndex((item) => item.id === lane.id);
+    const timestamp = timestamps[index];
+    const hash = stableHash(article.path || article.title);
+    const groupKey = `${date}:${lane.id}`;
+    const groupSize = groupSizes.get(groupKey);
+    const groupPosition = groupPositions.get(groupKey) || 0;
+    const groupColumns = Math.ceil(groupSize / 5);
+    const groupRows = Math.min(groupSize, 5);
+    const xJitter = groupSize === 1
+      ? (hash % 7) - 3
+      : (Math.floor(groupPosition / 5) - (groupColumns - 1) / 2) * 10;
+    const yJitter = groupSize === 1
+      ? (Math.floor(hash / 11) % 13) - 6
+      : (groupPosition % 5 - (groupRows - 1) / 2) * 10;
+    groupPositions.set(groupKey, groupPosition + 1);
+    const x = Math.round(xStart + ((timestamp - minTime) / timeRange) * (xEnd - xStart) + xJitter);
+    const y = yStart + laneIndex * laneStep + yJitter;
+    const href = articleHref(article.path);
+    const isLatest = date === initial.date;
+
+    return `
+      <a
+        class="knowledge-node${isLatest ? " is-latest" : ""}"
+        href="${href}"
+        data-title="${escapeHtml(article.title)}"
+        data-date="${date}"
+        data-lane-label="${escapeHtml(lane.label)}"
+        data-lane="${lane.id}"
+        data-href="${href}"
+        aria-label="${escapeHtml(`${date}，${lane.label}，${article.title}`)}"
+        style="--node-order: ${index % 18}"
+      >
+        <circle class="knowledge-node-hit" cx="${x}" cy="${y}" r="14"></circle>
+        <circle class="knowledge-node-dot" cx="${x}" cy="${y}" r="${isLatest ? 6.5 : 4.8}"></circle>
+        <title>${escapeHtml(`${date} · ${lane.label} · ${article.title}`)}</title>
+      </a>`;
+  }).join("");
+
+  return `
+    <div class="knowledge-map-shell">
+      <div class="knowledge-map-panel">
+        <div class="knowledge-map-legend" aria-label="知识星域图例">
+          ${KNOWLEDGE_LANES.map((lane) => `<span data-lane="${lane.id}"><i></i>${escapeHtml(lane.label)}</span>`).join("")}
+        </div>
+        <div class="knowledge-map-scroll" tabindex="0" aria-label="知识坐标图，手机端可横向滑动">
+          <svg class="knowledge-map" data-knowledge-map viewBox="0 0 1000 430" role="img" aria-labelledby="knowledge-map-title knowledge-map-description">
+            <title id="knowledge-map-title">公开文章星域坐标图</title>
+            <desc id="knowledge-map-description">横轴为时间轨道，纵轴为知识星域，每个光点可打开对应记录。</desc>
+            <g class="knowledge-time-guides">${timeGuides}</g>
+            <g class="knowledge-lanes">${laneGuides}</g>
+            <g class="knowledge-nodes">${nodes}</g>
+            <g class="knowledge-date-labels">
+              <text x="${xStart}" y="414" text-anchor="start">${datedArticles[0].date.replaceAll("-", ".")}</text>
+              <text x="${(xStart + xEnd) / 2}" y="414" text-anchor="middle">${middleDate.replaceAll("-", ".")}</text>
+              <text x="${xEnd}" y="414" text-anchor="end">${initial.date.replaceAll("-", ".")}</text>
+              <text class="knowledge-axis-name" x="${xEnd}" y="26" text-anchor="end">TIME / t</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <aside class="knowledge-readout" aria-live="polite">
+        <span>SELECTED SIGNAL</span>
+        <p><time data-map-date>${initial.date}</time><b data-map-lane>${escapeHtml(initialLane.label)}</b></p>
+        <h3 data-map-title>${escapeHtml(initial.article.title)}</h3>
+        <a data-map-link href="${articleHref(initial.article.path)}">打开这篇记录 ${iconArrow()}</a>
+        <small>移动鼠标或使用 Tab 选择星体</small>
+      </aside>
+    </div>`;
+}
+
+function bindKnowledgeMap() {
+  const map = ui.app.querySelector("[data-knowledge-map]");
+  if (!map) return;
+
+  const updateReadout = (node) => {
+    const title = ui.app.querySelector("[data-map-title]");
+    const date = ui.app.querySelector("[data-map-date]");
+    const lane = ui.app.querySelector("[data-map-lane]");
+    const link = ui.app.querySelector("[data-map-link]");
+    if (!title || !date || !lane || !link) return;
+
+    title.textContent = node.dataset.title;
+    date.textContent = node.dataset.date;
+    lane.textContent = node.dataset.laneLabel;
+    link.href = node.dataset.href;
+  };
+
+  const selectNode = (event) => {
+    const node = event.target.closest?.("[data-title]");
+    if (node) updateReadout(node);
+  };
+
+  map.addEventListener("pointerover", selectNode);
+  map.addEventListener("focusin", selectNode);
+}
+
 function renderOverview() {
-  const publicArticles = state.articles.filter(canShowOnHome).filter(matchesSearch);
+  const newestFirst = (left, right) => knowledgeRecordDate(right).localeCompare(knowledgeRecordDate(left));
+  const publicArticles = state.articles.filter(canShowOnHome).filter(matchesSearch).sort(newestFirst);
   const latestWriting = publicArticles
     .filter((article) => !["about", "reading", "questions", "companies", "interviews", "plans"].includes(getArticleSection(article)))
     .slice(0, 7);
-  const readingItems = state.articles
-    .filter((a) => canShowOnHome(a) && normalizeSection(getArticleSection(a)) === "reading")
-    .filter(matchesSearch)
+  const readingItems = publicArticles
+    .filter((article) => normalizeSection(getArticleSection(article)) === "reading")
     .slice(0, 3);
   const featuredArticle = latestWriting[0];
   const writingList = latestWriting.slice(1);
@@ -559,130 +754,168 @@ function renderOverview() {
     "source-code-research": "#/learning",
     "reading-life": "#/reading",
   })[project.id] || "#/projects";
-  const nowProjects = state.projects.slice(0, 3);
-  const contentAreas = new Set(publicArticles.map((article) => getArticleSection(article)).filter(Boolean));
+  const datedValues = publicArticles
+    .map(knowledgeRecordDate)
+    .filter((date) => /^\d{4}-\d{2}-\d{2}$/.test(date))
+    .sort();
+  const dateSpan = datedValues.length
+    ? Math.max(1, Math.round((Date.parse(`${datedValues.at(-1)}T00:00:00Z`) - Date.parse(`${datedValues[0]}T00:00:00Z`)) / 86400000) + 1)
+    : 0;
+  const mapArticles = publicArticles.filter((article) => normalizeSection(getArticleSection(article)) !== "about");
+  const activeLanes = new Set(mapArticles.map((article) => knowledgeLane(article).id));
 
   ui.app.innerHTML = `
-    <section class="home-page">
-      <header class="home-hero">
-        <div class="home-edition reveal">
-          <span class="editorial-edition">WY / PERSONAL ARCHIVE</span>
-          <span class="ink-edition">WY 手记 · 岁在丙午</span>
-          <span>SHANGHAI · 2026</span>
+    <section class="nova-home">
+      <header class="nova-masthead reveal">
+        <div class="nova-system-line">
+          <span>WY / NEBULA ARCHIVE</span>
+          <span>LIVE SIGNALS · 2026</span>
         </div>
 
-        <div class="home-hero-grid">
-          <div class="home-intro reveal">
-            <h1 class="editorial-hero-title">人间尚有春风在，<br /><em>何妨从头再少年。</em></h1>
-            <h1 class="ink-hero-title" aria-label="人间尚有春风在，何妨从头再少年。"><span>人间尚有春风在</span><em>何妨从头再少年</em><i aria-hidden="true">WY</i></h1>
-            <p class="home-deck">这里记录我正在建设的项目、读过的源码、形成的方法，以及对技术与生活的长期思考。不是简历，也不只是博客，而是一份持续更新的个人档案。</p>
-            <div class="home-actions">
-              <a class="home-button home-button-primary" href="#latest-writing">最近写作 ${iconArrow()}</a>
-              <a class="home-button" href="#/about">认识我</a>
+        <div class="nova-hero">
+          <div class="nova-hero-copy">
+            <p class="nova-coordinate">ORBITAL LOG / 001 · CONTINUOUS NOTES</p>
+            <h1><span>星云</span><em>档案</em></h1>
+            <p class="nova-deck">把项目、源码、阅读与每一次练习，标记成一条可以回望的轨道。每一篇记录，都是一颗被点亮的星体。</p>
+            <div class="nova-actions">
+              <a href="#/timeline">进入时间轨道 ${iconArrow()}</a>
+              <a href="#/learning">浏览知识星域</a>
             </div>
           </div>
 
-          <aside class="now-card reveal delay-1">
-            <header><span>NOW / 此刻</span><time>${escapeHtml(formatDate(new Date().toISOString().slice(0, 10), { year: "numeric" }))}</time></header>
-            <h2>正在把想法<br />变成长期作品。</h2>
-            <ol>
-              ${nowProjects
-                .map(
-                  (project, index) => `
-                    <li>
-                      <span>${String(index + 1).padStart(2, "0")}</span>
-                      <a href="${projectRoute(project)}"><strong>${escapeHtml(project.name)}</strong><small>${escapeHtml(project.summary || "持续推进")}</small></a>
-                    </li>`,
-                )
-                .join("") || '<li><span>01</span><p>正在整理下一阶段方向。</p></li>'}
-            </ol>
-            <a class="now-link" href="#/projects">查看全部项目 ${iconArrow()}</a>
-          </aside>
+          <div class="nova-orbit-visual" aria-hidden="true">
+            <div class="nova-orbit nova-orbit--one"><i></i><i></i></div>
+            <div class="nova-orbit nova-orbit--two"><i></i><i></i><i></i></div>
+            <div class="nova-orbit nova-orbit--three"><i></i><i></i></div>
+            <div class="nova-orbit-core"><span>WY</span><small>ORIGIN</small></div>
+            <p class="nova-orbit-quote">人间尚有春风在，<br />何妨从头再少年。</p>
+          </div>
         </div>
 
-        <a class="ink-art-credit" href="https://www.metmuseum.org/art/collection/search/49157" target="_blank" rel="noopener noreferrer">卷首取意 · 王翚《仿巨然燕文贵山水图》· 1713 · The Met Open Access</a>
-
-        <div class="home-facts reveal delay-2" aria-label="站点概览">
-          <div><strong>${publicArticles.length}</strong><span>公开记录</span></div>
-          <div><strong>${state.projects.length}</strong><span>长期项目</span></div>
-          <div><strong>${contentAreas.size}</strong><span>内容领域</span></div>
-          <p>以文件为底座，以项目为主线，持续更新。</p>
-        </div>
+        <dl class="nova-stats" aria-label="公开知识库概览">
+          <div><dt>SIGNALS / 公开记录</dt><dd>${publicArticles.length}</dd></div>
+          <div><dt>FIELDS / 知识域</dt><dd>${activeLanes.size}</dd></div>
+          <div><dt>SPAN / 日跨度</dt><dd>${dateSpan}</dd></div>
+          <div><dt>ORBITS / 长期项目</dt><dd>${state.projects.length}</dd></div>
+        </dl>
       </header>
 
-      <section class="home-projects reveal">
-        <div class="home-section-label"><span>01</span><p><b class="editorial-section-title">SELECTED PROJECTS / 长期建设</b><b class="ink-section-title">所作 · 长期建设</b></p><a href="#/projects">全部项目 ${iconArrow()}</a></div>
-        <div class="project-cards">
-          ${state.projects
-            .map(
-              (project, index) => `
-                <a class="project-card" href="${projectRoute(project)}">
-                  <span class="project-card-index">${String(index + 1).padStart(2, "0")}</span>
-                  <div><p>${escapeHtml(project.priority || "ONGOING")}</p><h2>${escapeHtml(project.name)}</h2><small>${escapeHtml(project.summary || "持续建设")}</small></div>
-                  <footer><em>${escapeHtml(project.status || "进行中")}</em>${iconArrow()}</footer>
-                </a>`,
-            )
-            .join("") || '<p class="empty-copy">项目清单等待补充。</p>'}
-        </div>
-      </section>
+      <div class="nova-dashboard">
+        <section class="nova-panel nova-panel--map reveal delay-1">
+          <header class="nova-panel-heading">
+            <div><span>01 / STARFIELD</span><h2>公开记录的星域坐标</h2></div>
+            <p>time = 轨道 · field = 知识星域 · point = 记录</p>
+          </header>
+          <div class="nova-panel-body">${renderKnowledgeMap(mapArticles)}</div>
+        </section>
 
-      <section class="home-editorial reveal" id="latest-writing">
-        <div class="home-section-label"><span>02</span><p><b class="editorial-section-title">RECENT WRITING / 最近写作</b><b class="ink-section-title">新札 · 最近写作</b></p><a href="#/timeline">完整时光轴 ${iconArrow()}</a></div>
-        <div class="editorial-grid">
-          ${featuredArticle
-            ? `<a class="featured-writing" href="${articleHref(featuredArticle.path)}">
-                <p>${escapeHtml(SECTION_LABELS[getArticleSection(featuredArticle)] || getArticleSection(featuredArticle))} / ${escapeHtml(featuredArticle.date || "持续更新")}</p>
-                <h2>${escapeHtml(featuredArticle.title)}</h2>
-                <span>${escapeHtml(featuredArticle.summary || "打开阅读全文")}</span>
-                <strong>阅读全文 ${iconArrow()}</strong>
-              </a>`
-            : '<div class="featured-writing"><p>WRITING</p><h2>下一篇文章正在形成。</h2></div>'}
-          <div class="writing-index">
-            ${writingList
+        <aside class="nova-panel nova-panel--now reveal delay-1">
+          <header class="nova-panel-heading">
+            <div><span>02 / LIVE SIGNAL</span><h2>最新信号</h2></div>
+            <a href="${featuredArticle ? articleHref(featuredArticle.path) : "#/timeline"}">打开 ${iconArrow()}</a>
+          </header>
+          <div class="nova-now-card">
+            ${
+              featuredArticle
+                ? `
+                  <p>${escapeHtml(knowledgeLane(featuredArticle).label)} · ${escapeHtml(knowledgeRecordDate(featuredArticle) || "持续更新")}</p>
+                  <h3>${escapeHtml(featuredArticle.title)}</h3>
+                  <em>${escapeHtml(featuredArticle.summary || "打开阅读全文")}</em>
+                  <a href="${articleHref(featuredArticle.path)}">READ SIGNAL ${iconArrow()}</a>`
+                : `<span>SIGNAL</span><h3>下一条信号正在生成。</h3>`
+            }
+          </div>
+          <dl class="nova-mini-metrics">
+            <div><dt>LAST SEEN</dt><dd>${(datedValues.at(-1) || "—").replaceAll("-", ".")}</dd></div>
+            <div><dt>READING</dt><dd>${readingItems.length}</dd></div>
+            <div><dt>ACTIVE LANES</dt><dd>${activeLanes.size}</dd></div>
+          </dl>
+        </aside>
+
+        <section class="nova-panel nova-panel--orbits reveal">
+          <header class="nova-panel-heading">
+            <div><span>03 / ACTIVE ORBITS</span><h2>正在推进的轨道</h2></div>
+            <a href="#/projects">全部项目 ${iconArrow()}</a>
+          </header>
+          <div class="nova-orbit-list">
+            ${state.projects
               .map(
-                (article, index) => `
-                  <a href="${articleHref(article.path)}">
-                    <span>${String(index + 2).padStart(2, "0")}</span>
-                    <div><strong>${escapeHtml(article.title)}</strong><small>${escapeHtml(SECTION_LABELS[getArticleSection(article)] || getArticleSection(article))} · ${escapeHtml(article.date || "持续更新")}</small></div>
+                (project, index) => `
+                  <a class="nova-orbit-row" href="${projectRoute(project)}">
+                    <span class="nova-orbit-index">${String(index + 1).padStart(2, "0")}</span>
+                    <div>
+                      <h3>${escapeHtml(project.name)}</h3>
+                      <p>${escapeHtml(project.summary || "持续建设")}</p>
+                    </div>
+                    <dl>
+                      <div><dt>priority</dt><dd>${escapeHtml(project.priority || "P1")}</dd></div>
+                      <div><dt>state</dt><dd>${escapeHtml(project.status || "进行中")}</dd></div>
+                    </dl>
                     ${iconArrow()}
                   </a>`,
               )
-              .join("") || '<p class="empty-copy">更多写作正在整理。</p>'}
+              .join("") || '<p class="nova-empty">项目轨道等待补充。</p>'}
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section class="home-reading reveal">
-        <div class="home-section-label"><span>03</span><p><b class="editorial-section-title">READING &amp; THINKING / 阅读与思考</b><b class="ink-section-title">读卷 · 阅读与思考</b></p><a href="#/reading">进入阅读 ${iconArrow()}</a></div>
-        <div class="reading-shelf">
-          ${readingItems
-            .map(
-              (article, index) => `
-                <a href="${articleHref(article.path)}">
-                  <span>${String(index + 1).padStart(2, "0")}</span>
-                  <h2>${escapeHtml(article.title)}</h2>
-                  <p>${escapeHtml(article.summary || "阅读沉淀")}</p>
-                  <footer><small>${escapeHtml(article.date || "持续更新")}</small>${iconArrow()}</footer>
-                </a>`,
-            )
-            .join("") || '<p class="empty-copy">阅读栏目已建立，等待第一篇沉淀。</p>'}
-        </div>
-      </section>
+        <section class="nova-panel nova-panel--signals reveal">
+          <header class="nova-panel-heading">
+            <div><span>04 / SIGNAL STREAM</span><h2>最近信号</h2></div>
+            <a href="#/timeline">完整时光轴 ${iconArrow()}</a>
+          </header>
+          <div class="nova-signal-grid">
+            ${
+              writingList.length
+                ? writingList
+                    .map(
+                      (article, index) => `
+                        <a class="nova-signal-card" href="${articleHref(article.path)}">
+                          <span>${String(index + 2).padStart(3, "0")}</span>
+                          <p>${escapeHtml(knowledgeLane(article).label)} · ${escapeHtml(knowledgeRecordDate(article) || "持续更新")}</p>
+                          <h3>${escapeHtml(article.title)}</h3>
+                          <em>${escapeHtml(article.summary || "打开阅读全文")}</em>
+                          ${iconArrow()}
+                        </a>`,
+                    )
+                    .join("")
+                : '<p class="nova-empty">更多信号正在整理。</p>'
+            }
+          </div>
+        </section>
 
-      <footer class="home-closing reveal">
-        <div class="daily-note">
-          <p class="mono-label" id="daily-tip-source">DAILY NOTE / 正在加载</p>
-          <blockquote id="hero-title">博观而约取，<br />厚积而薄发。</blockquote>
-          <button id="tip-refresh" type="button">换一句</button>
-        </div>
-        <div class="home-closing-copy">
-          <p>ARCHIVE, NOT FEED</p>
-          <h2>记录不是为了堆积，<br />而是为了看见自己的方向。</h2>
-          <a href="#/timeline">沿时间继续阅读 ${iconArrow()}</a>
-        </div>
+        <section class="nova-panel nova-panel--references reveal">
+          <header class="nova-panel-heading">
+            <div><span>05 / REFERENCES</span><h2>阅读与参考</h2></div>
+            <a href="#/reading">进入阅读专栏 ${iconArrow()}</a>
+          </header>
+          <div class="nova-reference-strip">
+            ${
+              readingItems.length
+                ? readingItems
+                    .map(
+                      (article, index) => `
+                        <a href="${articleHref(article.path)}">
+                          <span>[R${index + 1}]</span>
+                          <div><h3>${escapeHtml(article.title)}</h3><p>${escapeHtml(article.summary || "阅读沉淀")}</p></div>
+                          <time>${escapeHtml(knowledgeRecordDate(article) || "持续更新")}</time>
+                        </a>`,
+                    )
+                    .join("")
+                : '<p class="nova-empty">阅读星域已建立，等待第一篇沉淀。</p>'
+            }
+          </div>
+        </section>
+      </div>
+
+      <footer class="nova-closing reveal">
+        <span>END / CURRENT SIGNAL</span>
+        <p>索引会随记录更新，星图也会随之改变。</p>
+        <a href="#/timeline">继续查看全部记录 ${iconArrow()}</a>
       </footer>
     </section>
   `;
+
+  bindKnowledgeMap();
 }
 
 function renderTimeline() {
@@ -713,93 +946,121 @@ function renderTimeline() {
     <section class="directory-page timeline-page">
       ${sectionIntro("CONTENT ARCHIVE", "内容时光轴", "按练习或内容记录日期归档；批量迁移日期不代表当天实际完成量。", filtered.length)}
 
-      <div class="timeline-toolbar reveal delay-1">
-        <div class="timeline-filters" role="group" aria-label="筛选每日进度">
-          ${TIMELINE_FILTERS.map(
-            ([id, label]) => `
-              <button
-                type="button"
-                data-timeline-filter="${id}"
-                class="${state.timelineFilter === id ? "active" : ""}"
-                aria-pressed="${state.timelineFilter === id}"
-              >
-                <span>${label}</span><strong>${filterCounts[id]}</strong>
-              </button>`,
-          ).join("")}
-        </div>
-        <dl class="timeline-stats">
-          <div><dt>归档日期</dt><dd>${days.length}</dd></div>
-          <div><dt>归档内容</dt><dd>${filtered.length}</dd></div>
-          <div><dt>最近更新</dt><dd>${latestDate ? latestDate.slice(5).replace("-", ".") : "—"}</dd></div>
-        </dl>
-      </div>
+      <div class="timeline-shell reveal delay-1">
+        <aside class="timeline-rail">
+          <p class="mono-label">ORBIT INDEX</p>
+          <div class="timeline-rail-count">
+            <strong>${days.length}</strong><span>个归档日期</span>
+          </div>
+          <nav class="timeline-day-index" aria-label="日期索引">
+            ${
+              visibleDays.length
+                ? visibleDays
+                    .map(([date, articles]) => {
+                      const dateParts = timelineDateParts(date);
+                      return `
+                        <a href="#day-${date}">
+                          <time>${dateParts.short}</time>
+                          <span>${articles.length} 项</span>
+                        </a>`;
+                    })
+                    .join("")
+                : '<span class="timeline-rail-empty">暂无日期</span>'
+            }
+          </nav>
+          <small>点击日期可跳转到对应轨道</small>
+        </aside>
 
-      <div class="timeline-list">
-        ${
-          visibleDays.length
-            ? visibleDays
-                .map(([date, articles], dayIndex) => {
-                  const dateParts = timelineDateParts(date);
-                  const categoryCounts = TIMELINE_FILTERS.slice(1)
-                    .map(([id, label]) => ({
-                      id,
-                      label,
-                      count: articles.filter((article) => timelineCategory(article) === id).length,
-                    }))
-                    .filter((item) => item.count);
-                  const visible = articles.slice(0, 6);
-                  const remaining = articles.slice(6);
+        <div class="timeline-body">
+          <div class="timeline-toolbar">
+            <div class="timeline-filters" role="group" aria-label="筛选每日进度">
+              ${TIMELINE_FILTERS.map(
+                ([id, label]) => `
+                  <button
+                    type="button"
+                    data-timeline-filter="${id}"
+                    class="${state.timelineFilter === id ? "active" : ""}"
+                    aria-pressed="${state.timelineFilter === id}"
+                  >
+                    <span>${label}</span><strong>${filterCounts[id]}</strong>
+                  </button>`,
+              ).join("")}
+            </div>
+            <dl class="timeline-stats">
+              <div><dt>归档日期</dt><dd>${days.length}</dd></div>
+              <div><dt>归档内容</dt><dd>${filtered.length}</dd></div>
+              <div><dt>最近更新</dt><dd>${latestDate ? latestDate.slice(5).replace("-", ".") : "—"}</dd></div>
+            </dl>
+          </div>
 
-                  return `
-                    <section class="timeline-day reveal" style="--delay:${Math.min(dayIndex, 6) * 45}ms">
-                      <header class="timeline-date">
-                        <time datetime="${date}">
-                          <strong>${dateParts.short}</strong>
-                          <span>${dateParts.weekday}</span>
-                          <small>${dateParts.year}</small>
-                        </time>
-                      </header>
-                      <div class="timeline-day-content">
-                        <header>
-                          <div class="timeline-day-summary">
-                            ${categoryCounts
-                              .map(
-                                (item) =>
-                                  `<span data-category="${item.id}">${item.label} ${item.count}</span>`,
-                              )
-                              .join("")}
+          <div class="timeline-list">
+            ${
+              visibleDays.length
+                ? visibleDays
+                    .map(([date, articles], dayIndex) => {
+                      const dateParts = timelineDateParts(date);
+                      const categoryCounts = TIMELINE_FILTERS.slice(1)
+                        .map(([id, label]) => ({
+                          id,
+                          label,
+                          count: articles.filter((article) => timelineCategory(article) === id).length,
+                        }))
+                        .filter((item) => item.count);
+                      const visible = articles.slice(0, 6);
+                      const remaining = articles.slice(6);
+
+                      return `
+                        <section id="day-${date}" class="timeline-day reveal" style="--delay:${Math.min(dayIndex, 6) * 45}ms">
+                          <header class="timeline-date">
+                            <time datetime="${date}">
+                              <strong>${dateParts.short}</strong>
+                              <span>${dateParts.weekday}</span>
+                              <small>${dateParts.year}</small>
+                            </time>
+                          </header>
+                          <div class="timeline-day-content">
+                            <header>
+                              <div class="timeline-day-summary">
+                                ${categoryCounts
+                                  .map(
+                                    (item) =>
+                                      `<span data-category="${item.id}">${item.label} ${item.count}</span>`,
+                                  )
+                                  .join("")}
+                              </div>
+                              <strong>${articles.length} 项</strong>
+                            </header>
+                            <div class="article-list">
+                              ${visible
+                                .map((article, index) =>
+                                  articleRow(article, { index: String(index + 1).padStart(2, "0") }),
+                                )
+                                .join("")}
+                            </div>
+                            ${
+                              remaining.length
+                                ? `<details class="timeline-more">
+                                    <summary data-timeline-date="${date}">展开其余 ${remaining.length} 项</summary>
+                                    <div class="article-list" data-timeline-more-list></div>
+                                  </details>`
+                                : ""
+                            }
                           </div>
-                          <strong>${articles.length} 项</strong>
-                        </header>
-                        <div class="article-list">
-                          ${visible
-                            .map((article, index) =>
-                              articleRow(article, { index: String(index + 1).padStart(2, "0") }),
-                            )
-                            .join("")}
-                        </div>
-                        ${
-                          remaining.length
-                            ? `<details class="timeline-more">
-                                <summary data-timeline-date="${date}">展开其余 ${remaining.length} 项</summary>
-                                <div class="article-list" data-timeline-more-list></div>
-                              </details>`
-                            : ""
-                        }
-                      </div>
-                    </section>`;
-                })
-                .join("")
-            : '<p class="empty-copy timeline-empty">当前筛选下还没有每日记录。</p>'
-        }
+                        </section>`;
+                    })
+                    .join("")
+                : '<p class="empty-copy timeline-empty">当前筛选下还没有每日记录。</p>'
+            }
+          </div>
+          ${
+            visibleDays.length < days.length
+              ? `<button class="timeline-load-more" type="button" data-timeline-load-more>
+                  加载更早的 ${Math.min(12, days.length - visibleDays.length)} 个日期
+                </button>`
+              : ""
+          }
+        </div>
       </div>
-      ${
-        visibleDays.length < days.length
-          ? `<button class="timeline-load-more" type="button" data-timeline-load-more>
-              加载更早的 ${Math.min(12, days.length - visibleDays.length)} 个日期
-            </button>`
-          : ""
-      }
     </section>
   `;
 
@@ -835,24 +1096,30 @@ function renderTimeline() {
 function renderProjects() {
   const articles = filteredArticles("projects");
   ui.app.innerHTML = `
-    <section class="directory-page">
+    <section class="directory-page project-directory-page">
       ${sectionIntro("PROJECTS", "项目", "自研项目、工程源码研究和长期建设。", state.projects.length)}
-      <div class="project-strip reveal delay-1">
-        <div class="quiet-list">
-          ${state.projects
-            .map(
-              (project) => `
-                <div class="quiet-row">
-                  <span>
-                    <strong>${escapeHtml(project.name)}</strong>
-                    <small>${escapeHtml(project.summary || "")}</small>
-                    ${project.next_public_step ? `<small>下一步：${escapeHtml(project.next_public_step)}</small>` : ""}
-                  </span>
-                  <em class="public-pill">${escapeHtml(project.status || "进行中")}</em>
-                </div>`,
-            )
-            .join("") || '<p class="empty-copy">项目清单等待补充。</p>'}
-        </div>
+      <div class="project-signal-grid reveal delay-1">
+        ${state.projects
+          .map((project, index) => {
+            const priority = String(project.priority || "P2").toLowerCase();
+            return `
+              <article class="project-signal-card" data-priority="${escapeHtml(priority)}">
+                <header>
+                  <span class="project-signal-index">PRJ / ${String(index + 1).padStart(2, "0")}</span>
+                  <em class="project-signal-state"><i aria-hidden="true"></i>${escapeHtml(project.status || "进行中")}</em>
+                </header>
+                <div class="project-signal-body">
+                  <small>${escapeHtml(project.priority || "P2")} · ACTIVE ORBIT</small>
+                  <h2>${escapeHtml(project.name)}</h2>
+                  <p>${escapeHtml(project.summary || "等待补充项目说明。")}</p>
+                </div>
+                <footer>
+                  <span>NEXT SIGNAL</span>
+                  <strong>${escapeHtml(project.next_public_step || "继续建设")}</strong>
+                </footer>
+              </article>`;
+          })
+          .join("") || '<p class="empty-copy">项目清单等待补充。</p>'}
       </div>
       ${
         articles.length
@@ -926,7 +1193,7 @@ function renderLearning() {
             </div>`
           : ""
       }
-      <div class="directory-groups">
+      <div class="learning-board">
         ${
           groups.length
             ? groups
@@ -934,11 +1201,13 @@ function renderLearning() {
                   const collapsible = articles.length > LEARNING_PREVIEW_COUNT;
                   const listId = `learning-topic-${index}`;
                   return `
-                    <section class="directory-group learning-group reveal${collapsible ? " is-collapsed" : ""}" data-learning-group>
-                      <header class="learning-group-header">
-                        <div class="learning-group-title">
+                    <section class="learning-card learning-group reveal${collapsible ? " is-collapsed" : ""}" data-learning-group>
+                      <header class="learning-card-header">
+                        <span class="learning-card-index">${String(index + 1).padStart(2, "0")}</span>
+                        <div class="learning-card-title">
+                          <p>LEARNING FIELD / ${String(index + 1).padStart(2, "0")}</p>
                           <h2>${escapeHtml(area)}</h2>
-                          <span>${articles.length} 篇</span>
+                          <span>${articles.length} 篇记录</span>
                         </div>
                         ${
                           collapsible
@@ -1047,16 +1316,20 @@ function renderReading() {
   );
 
   ui.app.innerHTML = `
-    <section class="directory-page">
+    <section class="directory-page reading-directory-page">
       ${sectionIntro("READING", "阅读", "闲暇输入、网页剪藏、读书札记和个人观察。这里不追求每篇都成体系，先保留思考痕迹。", items.length)}
       <div class="directory-groups">
         ${
           groups.length
             ? groups
                 .map(
-                  ([area, articles]) => `
-                    <section class="directory-group reveal">
-                      <header><h2>${escapeHtml(area)}</h2><span>${articles.length} 篇</span></header>
+                  ([area, articles], index) => `
+                    <section class="directory-group reading-group reveal" style="--delay:${index * 45}ms">
+                      <header>
+                        <small class="reading-group-code">FIELD / ${String(index + 1).padStart(2, "0")}</small>
+                        <h2>${escapeHtml(area)}</h2>
+                        <span>${articles.length} 篇记录</span>
+                      </header>
                       <div class="article-list">${articles.map((article) => articleRow(article, { actionLabel: "阅读全文 / 留言" })).join("")}</div>
                     </section>`,
                 )
@@ -1412,7 +1685,7 @@ function mountComments(articlePath) {
   script.dataset.reactionsEnabled = "1";
   script.dataset.emitMetadata = "0";
   script.dataset.inputPosition = "top";
-  script.dataset.theme = "noborder_light";
+  script.dataset.theme = giscusTheme(document.documentElement.dataset.theme);
   script.dataset.lang = "zh-CN";
   script.dataset.loading = "lazy";
   script.crossOrigin = "anonymous";
@@ -1461,10 +1734,27 @@ async function renderAbout() {
         <article class="article-body about-body">${rendered}</article>
       </section>
     `;
-    document.title = "关于 WY · 写作与项目";
+    document.title = "关于 WY · 星云档案";
   } catch (error) {
     renderError("个人介绍加载失败", `${error.message}。请检查文件权限或稍后重试。`, true);
   }
+}
+
+function updateReadingProgress() {
+  const bar = document.getElementById("reading-progress-bar");
+  const body = document.getElementById("article-body");
+  if (!bar || !body) return;
+  const total = body.scrollHeight - window.innerHeight;
+  const progress = total > 0 ? Math.min(100, Math.max(0, (window.scrollY / total) * 100)) : 100;
+  bar.style.width = `${progress}%`;
+}
+
+let readingProgressBound = false;
+function bindReadingProgress() {
+  updateReadingProgress();
+  if (readingProgressBound) return;
+  readingProgressBound = true;
+  window.addEventListener("scroll", updateReadingProgress, { passive: true });
 }
 
 async function renderArticle(rawPath, requestedSection = "") {
@@ -1509,10 +1799,16 @@ async function renderArticle(rawPath, requestedSection = "") {
       <section class="reader">
         <aside class="reader-rail">
           <a class="back-link" href="#/${backSection}">← 返回${backLabel}</a>
-          <p class="mono-label">CONTENTS</p>
+          <p class="mono-label">ON THIS ORBIT</p>
           <nav id="article-toc"></nav>
+          <small class="reader-rail-hint">TOC / ${fetchPath.split("/").pop() || "ARTICLE"}</small>
         </aside>
         <main class="reader-main">
+          <div class="reading-progress" aria-hidden="true"><span id="reading-progress-bar"></span></div>
+          <header class="reader-context">
+            <a class="back-link reader-context-back" href="#/${backSection}">← ${backLabel}</a>
+            <span><i></i>READING SIGNAL</span>
+          </header>
           <header class="reader-header">
             <p class="mono-label">${escapeHtml(headerTrail.join(" / ") || "文章")}</p>
             <h1>${escapeHtml(displayTitle)}</h1>
@@ -1565,6 +1861,7 @@ async function renderArticle(rawPath, requestedSection = "") {
     document.getElementById("comment-jump").addEventListener("click", () => {
       document.getElementById("comments-section").scrollIntoView({ behavior: "smooth", block: "start" });
     });
+    bindReadingProgress();
     rememberGiscusArticleRoute(fetchPath);
     mountComments(fetchPath);
     document.title = `${displayTitle} · WY`;
@@ -1609,7 +1906,7 @@ function updateActiveNav(view) {
 async function renderRoute() {
   const route = parseRoute();
   updateActiveNav(route.view);
-  document.title = "WY · 写作与项目";
+  document.title = "WY · 星云档案 / Nebula Archive";
   if (route.view === "article") {
     return renderArticle(route.path, route.params.get("section") || "");
   }
@@ -1644,13 +1941,9 @@ async function renderRoute() {
   (renderers[route.view] || renderOverview)();
   window.scrollTo({ top: 0, behavior: "instant" });
 
-  // Hydrate daily tip on overview
-  if (route.view === "overview" || !renderers[route.view]) {
-    hydrateDailyTip();
-  }
 }
 
-const BUILD_VERSION = "20260812-3";
+const BUILD_VERSION = "20260816-7";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy] = await Promise.all([
@@ -1678,149 +1971,6 @@ async function loadSite() {
   await renderRoute();
 }
 
-// ---- daily tip caching ----
-const DAILY_TIP_CACHE_KEY = "wy_daily_tip_v1";
-
-function getLocalDateKey(date = new Date()) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
-
-function readDailyTipCache() {
-  try {
-    const raw = localStorage.getItem(DAILY_TIP_CACHE_KEY);
-    if (!raw) return null;
-
-    const cache = JSON.parse(raw);
-    if (!cache || cache.date !== getLocalDateKey()) return null;
-    if (!cache.text) return null;
-
-    return cache;
-  } catch {
-    return null;
-  }
-}
-
-function writeDailyTipCache(text, source) {
-  try {
-    localStorage.setItem(
-      DAILY_TIP_CACHE_KEY,
-      JSON.stringify({
-        date: getLocalDateKey(),
-        text,
-        source,
-        savedAt: Date.now(),
-      })
-    );
-  } catch {
-    // ignore localStorage errors
-  }
-}
-
-function normalizeTip(item) {
-  if (typeof item === "string") {
-    return {
-      text: item,
-      source: "本地摘句",
-    };
-  }
-
-  return {
-    text: item?.text || item?.content || "博观而约取，厚积而薄发。",
-    source: item?.source || item?.author || "本地摘句",
-  };
-}
-
-function renderDailyTip(text, source) {
-  const heroTitle = document.getElementById("hero-title");
-  const tipSource = document.getElementById("daily-tip-source");
-
-  if (!heroTitle || !tipSource) return;
-
-  const safeText = String(text || "博观而约取，厚积而薄发。")
-    .trim()
-    .replace(/[，。！？；：,.!?;:]$/, "");
-
-  const shortText = safeText.length > 18 ? safeText.slice(0, 18) : safeText;
-  const cut = Math.ceil(shortText.length / 2);
-
-  heroTitle.innerHTML = `${escapeHtml(shortText.slice(0, cut))}<br />${escapeHtml(shortText.slice(cut))}`;
-  tipSource.textContent = `每日摘句 / ${source || "本地摘句"}`;
-}
-
-async function loadFallbackDailyTip({ random = false } = {}) {
-  const tips = await fetch("./data/tips.json")
-    .then((response) => response.json())
-    .catch(() => ["博观而约取，厚积而薄发。"]);
-
-  const index = random
-    ? Math.floor(Math.random() * tips.length)
-    : new Date().getDate() % tips.length;
-
-  const tip = normalizeTip(tips[index]);
-
-  renderDailyTip(tip.text, tip.source);
-  writeDailyTipCache(tip.text, tip.source);
-}
-
-function fetchPoemDailyTip() {
-  return new Promise((resolve, reject) => {
-    if (!window.jinrishici || !window.jinrishici.load) {
-      reject(new Error("jinrishici sdk not available"));
-      return;
-    }
-
-    window.jinrishici.load(
-      (result) => {
-        const data = result?.data;
-        const origin = data?.origin;
-
-        if (!data?.content) {
-          reject(new Error("empty poem content"));
-          return;
-        }
-
-        const source = origin
-          ? `${origin.dynasty ? `〖${origin.dynasty}〗` : ""}${origin.author || ""}${origin.title ? `《${origin.title}》` : ""}`
-          : "今日诗词";
-
-        resolve({
-          text: data.content,
-          source: source || "今日诗词",
-        });
-      },
-      (error) => reject(error || new Error("jinrishici failed"))
-    );
-  });
-}
-
-async function hydrateDailyTip({ force = false, randomFallback = false } = {}) {
-  if (!force) {
-    const cache = readDailyTipCache();
-
-    if (cache) {
-      renderDailyTip(cache.text, cache.source);
-      return;
-    }
-  }
-
-  try {
-    const tip = await Promise.race([
-      fetchPoemDailyTip(),
-      new Promise((_, reject) =>
-        window.setTimeout(() => reject(new Error("jinrishici timeout")), 2500)
-      ),
-    ]);
-
-    renderDailyTip(tip.text, tip.source);
-    writeDailyTipCache(tip.text, tip.source);
-  } catch {
-    await loadFallbackDailyTip({ random: randomFallback });
-  }
-}
-
 ui.search.addEventListener("input", (event) => {
   const rawQuery = event.target.value.trim();
   state.query = rawQuery.toLowerCase();
@@ -1834,12 +1984,7 @@ ui.search.addEventListener("input", (event) => {
   }
 });
 
-// "换一句" button support
 document.addEventListener("click", (event) => {
-  if (event.target.closest("#tip-refresh")) {
-    hydrateDailyTip({ force: true, randomFallback: true });
-  }
-
   if (event.target.closest(".nav-more a, .mobile-menu a")) {
     document.querySelectorAll(".nav-more[open], .mobile-menu[open]").forEach((menu) => {
       menu.removeAttribute("open");

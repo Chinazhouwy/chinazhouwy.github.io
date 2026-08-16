@@ -3,27 +3,26 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#f3efe7" />
-    <title>WY · 写作与项目</title>
+    <meta name="theme-color" content="#f4f8ff" />
+    <title>WY · 星云档案 / Nebula Archive</title>
     <meta
       name="description"
-      content="WY 的个人网站：长期项目、工程实践、源码研究、阅读与持续写作。"
+      content="WY 的星云档案：以时间轨道与知识星域组织项目、工程实践、源码研究、阅读与持续写作。"
     />
     <script>
       (() => {
         try {
           document.documentElement.dataset.theme =
-            localStorage.getItem("wy_theme_v1") === "ink" ? "ink" : "editorial";
+            localStorage.getItem("wy_theme_v2") === "nova" ? "nova" : "light";
         } catch {
-          document.documentElement.dataset.theme = "editorial";
+          document.documentElement.dataset.theme = "light";
         }
       })();
     </script>
-    <link rel="stylesheet" href="./styles.css?v=20260812-3" />
+    <link rel="stylesheet" href="./styles.css?v=20260816-7" />
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
-    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-    <script defer src="./app.js?v=20260812-3"></script>
+    <script defer src="./app.js?v=20260816-7"></script>
   </head>
   <body>
     <header class="site-header">
@@ -34,7 +33,7 @@
         </span>
         <span>
           <strong>WY</strong>
-          <small>NOTES &amp; PROJECTS</small>
+          <small>NEBULA ARCHIVE</small>
         </span>
       </a>
 
@@ -54,7 +53,7 @@
             <circle cx="11" cy="11" r="6.5"></circle>
             <path d="m16 16 4 4"></path>
           </svg>
-          <input id="search-input" type="search" placeholder="搜索" />
+          <input id="search-input" type="search" placeholder="搜索信号" />
         </label>
 
         <button
@@ -62,11 +61,17 @@
           class="theme-toggle"
           type="button"
           aria-pressed="false"
-          aria-label="切换到水墨主题"
-          title="切换到水墨主题"
+          aria-label="当前为亮色主题，点击切换到深空主题"
+          title="切换亮色 / 深空主题"
         >
-          <span class="theme-toggle-glyph" aria-hidden="true">墨</span>
-          <span class="theme-toggle-label">水墨</span>
+          <span class="theme-toggle-choice theme-toggle-choice--light" aria-hidden="true">
+            <span class="theme-toggle-icon">☀</span>
+            <span class="theme-toggle-text">亮色</span>
+          </span>
+          <span class="theme-toggle-choice theme-toggle-choice--nova" aria-hidden="true">
+            <span class="theme-toggle-icon">☾</span>
+            <span class="theme-toggle-text">深空</span>
+          </span>
         </button>
 
         <details class="nav-more">
@@ -98,7 +103,7 @@
     <main id="app" class="app-main" aria-live="polite">
       <div class="loading-state">
         <span></span>
-        <p>正在整理今天的学习记录…</p>
+        <p>正在建立今日星云索引…</p>
       </div>
     </main>
 
