@@ -123,12 +123,63 @@ const state = {
   thirdPartyLinks: [],
   learningAreas: [],
   aliases: {},
+  searchIndex: new Map(),
+  searchIndexLoaded: false,
+  searchIndexPromise: null,
   query: "",
   timelineFilter: "all",
   timelineVisibleDays: 12,
 };
 
-marked.setOptions({ breaks: true, gfm: true });
+let markdownLibrariesPromise = null;
+
+function loadExternalScript(src, globalName) {
+  if (window[globalName]) return Promise.resolve(window[globalName]);
+
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = src;
+    script.async = true;
+    script.dataset.library = globalName;
+    script.addEventListener(
+      "load",
+      () => {
+        if (window[globalName]) {
+          resolve(window[globalName]);
+        } else {
+          reject(new Error(`${globalName} 加载完成但未暴露全局对象`));
+        }
+      },
+      { once: true },
+    );
+    script.addEventListener("error", () => reject(new Error(`${globalName} 加载失败`)), { once: true });
+    document.head.appendChild(script);
+  });
+}
+
+function ensureMarkdownLibraries() {
+  if (window.marked && window.DOMPurify) {
+    window.marked.setOptions({ breaks: true, gfm: true });
+    return Promise.resolve();
+  }
+
+  if (!markdownLibrariesPromise) {
+    markdownLibrariesPromise = Promise.all([
+      loadExternalScript("https://cdn.jsdelivr.net/npm/marked/marked.min.js", "marked"),
+      loadExternalScript("https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js", "DOMPurify"),
+    ])
+      .then(() => {
+        if (!window.marked || !window.DOMPurify) throw new Error("Markdown 渲染依赖未就绪");
+        window.marked.setOptions({ breaks: true, gfm: true });
+      })
+      .catch((error) => {
+        markdownLibrariesPromise = null;
+        throw error;
+      });
+  }
+
+  return markdownLibrariesPromise;
+}
 
 function escapeHtml(value = "") {
   return String(value)
@@ -382,8 +433,35 @@ function getPlanArticles() {
 }
 
 // ---- search ----
+async function ensureSearchIndex() {
+  if (state.searchIndexLoaded) return;
+  if (!state.searchIndexPromise) {
+    state.searchIndexPromise = fetch(`./search-index.json?v=${BUILD_VERSION}`)
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then((payload) => {
+        const entries = Array.isArray(payload) ? payload : payload.entries || [];
+        state.searchIndex = new Map(
+          entries
+            .filter((entry) => entry && (entry.path || entry.url))
+            .map((entry) => [entry.path || entry.url, String(entry.searchText || "")]),
+        );
+        state.searchIndexLoaded = true;
+      })
+      .catch((error) => {
+        state.searchIndexPromise = null;
+        throw error;
+      });
+  }
+  return state.searchIndexPromise;
+}
+
 function matchesSearch(article) {
   if (!state.query) return true;
+
+  const indexedText = state.searchIndex.get(article.path) || state.searchIndex.get(article.url) || "";
 
   const haystack = [
     article.title,
@@ -400,7 +478,7 @@ function matchesSearch(article) {
     article.project,
     article.type,
     article.question,
-    article.searchText,
+    indexedText,
     ...(article.tags || []),
   ]
     .filter(Boolean)
@@ -1168,8 +1246,255 @@ function setLearningGroupExpanded(group, expanded) {
     : `展开全部 ${total} 篇`;
 }
 
+const EXAM_NOTE_VISUALS = {
+  "exam-math-map": {
+    kicker: "考研数学 / MAP",
+    title: "三条主线，先找研究对象",
+    question: "看到题目，先判断它在研究变化、空间还是随机性。",
+    diagram: "math-map",
+    tone: "blue",
+    blocks: [["高数", "变化 / 累积"], ["线代", "空间 / 变换"], ["概率", "随机 / 分布"]],
+    answer: "不要从公式开始，从对象开始。",
+  },
+  "exam-math-limit-continuity": {
+    kicker: "极限 / LIMIT",
+    title: "先判对象，再选方法",
+    question: "极限题真正考的是趋近过程，不是把数直接代进表达式。",
+    diagram: "limit",
+    tone: "yellow",
+    blocks: [["信号", "0 / 无穷 / 单侧"], ["动作", "等价 / 夹逼 / 泰勒"]],
+    answer: "洛必达是工具，不是起手式。",
+  },
+  "exam-math-derivative-mean-value": {
+    kicker: "导数 / DERIVATIVE",
+    title: "局部斜率如何变成区间结论",
+    question: "只看一阶、二阶导数，为什么能判断函数的整体走向？",
+    diagram: "derivative",
+    tone: "blue",
+    blocks: [["一阶导", "单调 / 极值"], ["二阶导", "凹凸 / 拐点"], ["中值定理", "把局部连到区间"]],
+    answer: "先找定义域，再划分可导区间。",
+  },
+  "exam-math-integral": {
+    kicker: "积分 / INTEGRAL",
+    title: "把微小变化累计起来",
+    question: "面积、路程、功和总量，为什么最后都落到同一种运算？",
+    diagram: "integral",
+    tone: "red",
+    blocks: [["定积分", "区间上的总量"], ["换元", "换一个更自然的变量"], ["分部", "把乘积拆成两部分"]],
+    answer: "先找累计对象，再确定边界和变量。",
+  },
+  "exam-math-linear-algebra": {
+    kicker: "线性代数 / RANK",
+    title: "秩：矩阵丢掉了多少维",
+    question: "一个数字，为什么能同时判断方程组、相关性和可逆性？",
+    diagram: "matrix",
+    tone: "green",
+    blocks: [["一致性", "r(A) = r(A|b)"], ["自由度", "n - r(A)"], ["变换", "像空间的维数"]],
+    answer: "秩不是计算结果，是空间信息。",
+  },
+  "exam-math-probability": {
+    kicker: "概率 / RANDOM VARIABLE",
+    title: "分布是随机变量的说明书",
+    question: "从一次随机试验到期望、方差，中间到底压缩了什么？",
+    diagram: "probability",
+    tone: "purple",
+    blocks: [["分布", "X 取什么值"], ["期望", "长期平均位置"], ["方差", "围绕平均的波动"]],
+    answer: "独立不等于不相关，先看联合分布。",
+  },
+  "exam-408-map": {
+    kicker: "408 / MAP",
+    title: "四门课，其实是一条机器链",
+    question: "数据如何组织、执行、被管理，最后穿过网络？",
+    diagram: "computer-map",
+    tone: "blue",
+    blocks: [["数据结构", "组织数据"], ["组成原理", "执行指令"], ["操作系统", "管理资源"], ["计算机网络", "传递字节"]],
+    answer: "408 不是四本书，是一台机器的四个观察面。",
+  },
+  "exam-408-data-structure": {
+    kicker: "数据结构 / GRAPH",
+    title: "先看关系，再选遍历",
+    question: "树题和图题，为什么不能只背 DFS、BFS 的顺序？",
+    diagram: "tree",
+    tone: "yellow",
+    blocks: [["树", "无环 / 有层次"], ["图", "关系 / 路径"], ["搜索", "状态 + 访问标记"]],
+    answer: "遍历只是动作，关系才是题目的骨架。",
+  },
+  "exam-408-computer-organization-cache": {
+    kicker: "组成原理 / CACHE",
+    title: "局部性如何变成速度",
+    question: "Cache 不是更快的内存，它利用的是程序访问地址的规律。",
+    diagram: "cache",
+    tone: "red",
+    blocks: [["时间局部性", "刚用过，可能再用"], ["空间局部性", "附近地址一起用"], ["命中", "少付一次主存代价"]],
+    answer: "Cache 的速度来自命中，不是容量本身。",
+  },
+  "exam-408-operating-system": {
+    kicker: "操作系统 / OS",
+    title: "进程是边界，线程是执行流",
+    question: "进程、线程、虚拟内存分别在管理什么？",
+    diagram: "os",
+    tone: "green",
+    blocks: [["进程", "地址空间 / 资源"], ["线程", "执行流 / 栈"], ["虚拟内存", "连续的错觉"]],
+    answer: "先分清资源归属，再谈切换开销。",
+  },
+  "exam-408-network-tcp": {
+    kicker: "计算机网络 / TCP",
+    title: "丢包后，TCP 如何补回来",
+    question: "序号、确认、窗口、重传，四条线如何共同完成可靠传输？",
+    diagram: "network",
+    tone: "purple",
+    blocks: [["序号", "给字节排位置"], ["确认", "报告连续收到哪里"], ["重传", "补回缺失数据"]],
+    answer: "可靠性、流量控制、拥塞控制不是一个概念。",
+  },
+  "exam-408-program-to-packet": {
+    kicker: "408 / CROSSOVER",
+    title: "一次请求穿过四门课",
+    question: "从用户态的一行代码，到网卡上的一个数据包，中间发生了什么？",
+    diagram: "request",
+    tone: "blue",
+    blocks: [["用户态", "构造数据 / 调系统调用"], ["内核态", "缓冲区 / 协议栈"], ["硬件", "CPU / 网卡 / 链路"]],
+    answer: "沿着数据真正经过的路径复习，四科就连上了。",
+  },
+};
+
+function examNoteVisual(article) {
+  const slug = (article.path || article.url || "").split("/").pop().replace(/\.md$/, "");
+  const matched = Object.entries(EXAM_NOTE_VISUALS).find(([key]) => slug.includes(key));
+  return matched?.[1] || {
+    kicker: `${article.area || "考研"} / NOTE`,
+    title: article.title,
+    question: article.summary || "把一个知识点拆成对象、关系、方法和结论。",
+    diagram: "computer-map",
+    tone: "blue",
+    blocks: [["识别", "先找题目对象"], ["推导", "再找不变量"], ["复盘", "最后记录易错点"]],
+    answer: "先看结构，再做计算。",
+  };
+}
+
+function examNoteDiagram(kind) {
+  const diagrams = {
+    "math-map": `
+      <div class="exam-diagram exam-diagram-flow">
+        <span class="diagram-node diagram-node-blue">高数<small>变化</small></span><i>→</i>
+        <span class="diagram-node diagram-node-yellow">线代<small>空间</small></span><i>→</i>
+        <span class="diagram-node diagram-node-red">概率<small>随机</small></span>
+      </div>`,
+    limit: `
+      <div class="exam-diagram exam-diagram-axis">
+        <svg viewBox="0 0 280 112" role="img" aria-label="极限曲线示意图">
+          <path class="diagram-grid-line" d="M18 88H264M44 14V96" />
+          <path class="diagram-curve" d="M52 80C88 74 94 52 126 54S160 78 180 42 218 28 254 22" />
+          <circle class="diagram-dot" cx="126" cy="54" r="5" />
+        </svg>
+        <b>lim x → x₀</b><span>先判断趋近对象</span>
+      </div>`,
+    derivative: `
+      <div class="exam-diagram exam-diagram-axis">
+        <svg viewBox="0 0 280 112" role="img" aria-label="导数与切线示意图">
+          <path class="diagram-grid-line" d="M18 92H264M48 12V98" />
+          <path class="diagram-curve" d="M44 88C78 78 92 36 126 46S170 94 218 30 240 18 260 12" />
+          <path class="diagram-tangent" d="M92 78L166 28" />
+          <circle class="diagram-dot" cx="126" cy="55" r="5" />
+        </svg>
+        <b>f′(x) = 局部斜率</b><span>中值定理把点连成段</span>
+      </div>`,
+    integral: `
+      <div class="exam-diagram exam-diagram-axis">
+        <svg viewBox="0 0 280 112" role="img" aria-label="积分面积示意图">
+          <path class="diagram-grid-line" d="M18 92H264M44 12V98" />
+          <path class="diagram-fill" d="M48 84C78 72 94 40 126 46S178 80 228 28L228 92H48Z" />
+          <path class="diagram-curve" d="M48 84C78 72 94 40 126 46S178 80 228 28" />
+          <path class="diagram-bar" d="M78 92V70M110 92V47M142 92V56M174 92V67" />
+        </svg>
+        <b>∫ f(x) dx = 累计量</b><span>边界决定答案</span>
+      </div>`,
+    matrix: `
+      <div class="exam-diagram exam-diagram-matrix">
+        <span class="matrix-bracket">[ A ]</span><i>→</i><span class="matrix-space"><b>像空间</b><small>r(A)</small></span>
+        <div class="matrix-dots"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>`,
+    probability: `
+      <div class="exam-diagram exam-diagram-bars">
+        <div class="probability-axis"><i style="height:28%"></i><i style="height:52%"></i><i style="height:86%"></i><i style="height:64%"></i><i style="height:38%"></i><i style="height:20%"></i></div>
+        <b>X → F(x) → E(X)</b><span>分布逐步压缩成特征</span>
+      </div>`,
+    "computer-map": `
+      <div class="exam-diagram exam-diagram-flow exam-diagram-four">
+        <span class="diagram-node diagram-node-blue">数据结构</span><i>→</i><span class="diagram-node diagram-node-yellow">组成</span><i>→</i><span class="diagram-node diagram-node-green">OS</span><i>→</i><span class="diagram-node diagram-node-red">网络</span>
+      </div>`,
+    tree: `
+      <div class="exam-diagram exam-diagram-tree">
+        <span class="tree-node tree-root">关系</span><div class="tree-branches"><span>树 / 层次</span><span>图 / 路径</span></div><div class="tree-leaves"><i>DFS</i><i>BFS</i><i>标记</i></div>
+      </div>`,
+    cache: `
+      <div class="exam-diagram exam-diagram-pipeline"><span>CPU</span><i>→</i><b>Cache</b><i>→</i><span>主存</span><div class="cache-pulse"></div><small>命中率 × 访问规律 = 速度</small></div>`,
+    os: `
+      <div class="exam-diagram exam-diagram-layers"><span class="layer-process">进程 / 资源边界</span><span class="layer-thread">线程 / 执行流</span><span class="layer-memory">虚拟内存 / 地址空间</span><small>调度器在层之间切换</small></div>`,
+    network: `
+      <div class="exam-diagram exam-diagram-packets"><div><span>SEQ</span><span>ACK</span><span>WIN</span></div><i>→</i><div><span>丢失</span><span>超时</span><span>重传</span></div><small>连续确认 + 在途窗口</small></div>`,
+    request: `
+      <div class="exam-diagram exam-diagram-request"><span>程序</span><i>↓</i><span>系统调用</span><i>↓</i><span>协议栈</span><i>↓</i><span>数据包</span></div>`,
+  };
+  return diagrams[kind] || diagrams["computer-map"];
+}
+
+function examNoteCard(article, index) {
+  const refPath = article.path || article.url;
+  if (!refPath) return articleRow(article, { index: String(index + 1).padStart(2, "0") });
+
+  const visual = examNoteVisual(article);
+  const tags = (article.tags || []).slice(0, 3).join(" / ");
+  return `
+    <a class="exam-note-post" href="${articleHref(refPath)}" aria-label="打开 ${escapeHtml(article.title)}">
+      <article class="exam-note-sheet exam-note-tone-${visual.tone}">
+        <header class="exam-note-sheet-head">
+          <span>${escapeHtml(visual.kicker)}</span>
+          <b>${String(index + 1).padStart(2, "0")}</b>
+        </header>
+        <h3>${escapeHtml(visual.title)}</h3>
+        <p class="exam-note-question">${escapeHtml(visual.question)}</p>
+        ${examNoteDiagram(visual.diagram)}
+        <div class="exam-note-blocks">
+          ${visual.blocks.map(([label, value], blockIndex) => `
+            <div class="exam-note-block">
+              <b>${String(blockIndex + 1).padStart(2, "0")}</b>
+              <span><strong>${escapeHtml(label)}</strong>${escapeHtml(value)}</span>
+            </div>`).join("")}
+        </div>
+        <footer class="exam-note-answer"><span>一句话</span><strong>${escapeHtml(visual.answer)}</strong></footer>
+      </article>
+      <div class="exam-note-caption">
+        <strong>${escapeHtml(article.title)}</strong>
+        <span>${escapeHtml(tags || article.module || "考研知识卡片")} <em>↗</em></span>
+      </div>
+    </a>`;
+}
+
+function examNoteStudio(groups) {
+  const total = groups.reduce((count, [, articles]) => count + articles.length, 0);
+  return `
+    <section class="exam-note-studio reveal" data-exam-studio>
+      <header class="exam-studio-profile">
+        <div class="exam-studio-avatar">WY</div>
+        <div>
+          <p class="exam-studio-kicker">PERSONAL STUDY NOTES / 2026</p>
+          <h2>考研数学 · 408</h2>
+          <span>把公式、结构和题型画成可以反复打开的笔记。</span>
+        </div>
+        <div class="exam-studio-stat"><strong>${total}</strong><span>张笔记</span></div>
+      </header>
+      <div class="exam-studio-tabs"><b>笔记</b><span>数学与计算机基础</span><span>${groups.length} 个专题</span></div>
+      ${groups.map(([area, articles], index) => `
+        <section class="exam-note-field" data-exam-area="${escapeHtml(area)}">
+          <header><div><small>NOTE FIELD / ${String(index + 1).padStart(2, "0")}</small><h3>${escapeHtml(area)}</h3></div><span>${articles.length} 张</span></header>
+          <div class="exam-note-grid">${articles.map((article, articleIndex) => examNoteCard(article, articleIndex)).join("")}</div>
+        </section>`).join("")}
+    </section>`;
+}
+
 function renderLearning() {
   const items = filteredArticles("learning");
+  const noteAreas = new Set(["考研数学", "考研 408"]);
   const areaOrder = new Map(state.learningAreas.map((area, index) => [area.name, index]));
   const groups = Object.entries(groupBy(items, "area", "综合")).sort(
     ([left], [right]) =>
@@ -1177,11 +1502,14 @@ function renderLearning() {
         (areaOrder.get(right) ?? Number.MAX_SAFE_INTEGER) ||
       left.localeCompare(right, "zh-CN"),
   );
-  const compactGroupCount = groups.filter(([, articles]) => articles.length > LEARNING_PREVIEW_COUNT).length;
+  const noteGroups = groups.filter(([area]) => noteAreas.has(area));
+  const standardGroups = groups.filter(([area]) => !noteAreas.has(area));
+  const compactGroupCount = standardGroups.filter(([, articles]) => articles.length > LEARNING_PREVIEW_COUNT).length;
 
   ui.app.innerHTML = `
     <section class="directory-page learning-page">
       ${sectionIntro("LEARNING", "学习", "技术知识、源码笔记与可复习内容。", items.length)}
+      ${noteGroups.length ? examNoteStudio(noteGroups) : ""}
       ${
         compactGroupCount
           ? `<div class="learning-directory-tools reveal delay-1">
@@ -1195,13 +1523,13 @@ function renderLearning() {
       }
       <div class="learning-board">
         ${
-          groups.length
-            ? groups
+          standardGroups.length
+            ? standardGroups
                 .map(([area, articles], index) => {
                   const collapsible = articles.length > LEARNING_PREVIEW_COUNT;
                   const listId = `learning-topic-${index}`;
                   return `
-                    <section class="learning-card learning-group reveal${collapsible ? " is-collapsed" : ""}" data-learning-group>
+                    <section class="learning-card learning-group reveal${collapsible ? " is-collapsed" : ""}" data-learning-group data-learning-area="${escapeHtml(area)}">
                       <header class="learning-card-header">
                         <span class="learning-card-index">${String(index + 1).padStart(2, "0")}</span>
                         <div class="learning-card-title">
@@ -1539,6 +1867,24 @@ function renderSearch() {
   `;
 }
 
+async function renderSearchRoute() {
+  if (!state.query) {
+    renderSearch();
+    return;
+  }
+
+  const requestedQuery = state.query;
+  ui.app.innerHTML = '<div class="loading-state"><span></span><p>正在加载搜索索引…</p></div>';
+  try {
+    await ensureSearchIndex();
+    if (parseRoute().view !== "search" || state.query !== requestedQuery) return;
+    renderSearch();
+  } catch (error) {
+    if (parseRoute().view !== "search" || state.query !== requestedQuery) return;
+    renderError("搜索索引加载失败", `${error.message}。请稍后重试。`, true);
+  }
+}
+
 function renderOpportunity() {
   const questionsCount = state.articles.filter((a) => canShowInSection(a) && getArticleSection(a) === "questions").length;
   const companiesCount = state.articles.filter((a) => canShowInSection(a) && getArticleSection(a) === "companies").length;
@@ -1706,11 +2052,13 @@ async function renderAbout() {
   ui.app.innerHTML = '<div class="loading-state"><span></span><p>正在整理个人介绍…</p></div>';
 
   try {
+    const markdownLibraries = ensureMarkdownLibraries();
     const response = await fetch(`./${profilePath}?v=${BUILD_VERSION}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const raw = await response.text();
     const content = raw.startsWith("---") ? raw.replace(/^---\n[\s\S]*?\n---\n?/, "") : raw;
-    const rendered = DOMPurify.sanitize(marked.parse(content));
+    await markdownLibraries;
+    const rendered = window.DOMPurify.sanitize(window.marked.parse(content));
 
     ui.app.innerHTML = `
       <section class="about-page">
@@ -1777,11 +2125,13 @@ async function renderArticle(rawPath, requestedSection = "") {
   ui.app.innerHTML = '<div class="loading-state"><span></span><p>正在展开文章…</p></div>';
 
   try {
+    const markdownLibraries = ensureMarkdownLibraries();
     const response = await fetch(`./${fetchPath}?v=${BUILD_VERSION}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const raw = await response.text();
     const content = raw.startsWith("---") ? raw.replace(/^---\n[\s\S]*?\n---\n?/, "") : raw;
-    const sanitized = DOMPurify.sanitize(marked.parse(content));
+    await markdownLibraries;
+    const sanitized = window.DOMPurify.sanitize(window.marked.parse(content));
 
     const backSection = article ? getArticleSection(article) : "learning";
     const backLabel = SECTION_LABELS[backSection] || "学习";
@@ -1913,6 +2263,9 @@ async function renderRoute() {
   if (route.view === "search") {
     state.query = (route.params.get("q") || "").trim().toLowerCase();
     ui.search.value = route.params.get("q") || "";
+    await renderSearchRoute();
+    window.scrollTo({ top: 0, behavior: "instant" });
+    return;
   } else {
     state.query = "";
     ui.search.value = "";
@@ -1936,14 +2289,13 @@ async function renderRoute() {
     plans: renderPlans,
 
     // Search
-    search: renderSearch,
   };
   (renderers[route.view] || renderOverview)();
   window.scrollTo({ top: 0, behavior: "instant" });
 
 }
 
-const BUILD_VERSION = "20260816-7";
+const BUILD_VERSION = "20260818-3";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy] = await Promise.all([
@@ -1980,7 +2332,7 @@ ui.search.addEventListener("input", (event) => {
     location.hash = nextHash;
   } else {
     history.replaceState(null, "", nextHash);
-    renderSearch();
+    void renderSearchRoute();
   }
 });
 
