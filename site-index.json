@@ -206,6 +206,40 @@
       "question": ""
     },
     {
+      "title": "《背包问题九讲》V2：动态规划经典材料",
+      "path": "content/learning/exam-408/2026-08-18-pack-nine-lectures.md",
+      "url": "content/learning/exam-408/2026-08-18-pack-nine-lectures.md",
+      "date": "2026-08-18",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "考研 408",
+      "module": "算法与动态规划",
+      "project": "",
+      "type": "参考资料",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "归档崔添翼《背包问题九讲》V2，说明九类背包问题的学习顺序、动态规划状态设计和本站镜像来源。",
+      "tags": [
+        "考研 408",
+        "数据结构",
+        "动态规划",
+        "背包问题",
+        "参考资料"
+      ],
+      "section": "learning",
+      "topic": "算法与动态规划",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "考研数学：导数与中值定理，局部斜率怎样变成区间结论",
       "path": "content/learning/exam-math/2026-08-18-exam-math-derivative-mean-value.md",
       "url": "content/learning/exam-math/2026-08-18-exam-math-derivative-mean-value.md",
@@ -2607,13 +2641,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 72,
+    "学习": 73,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 72,
+    "learning": 73,
     "about": 1,
     "reading": 7,
     "projects": 2

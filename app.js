@@ -1301,6 +1301,15 @@ const EXAM_NOTE_VISUALS = {
     blocks: [["分布", "X 取什么值"], ["期望", "长期平均位置"], ["方差", "围绕平均的波动"]],
     answer: "独立不等于不相关，先看联合分布。",
   },
+  "pack-nine-lectures": {
+    kicker: "算法 / KNAPSACK",
+    title: "状态转移，怎样把选择题做成表",
+    question: "背包问题的核心不是背模板，而是定义状态、决策和边界。",
+    diagram: "knapsack",
+    tone: "red",
+    blocks: [["状态", "前 i 件 / 容量 v"], ["决策", "选 or 不选"], ["优化", "滚动数组降空间"]],
+    answer: "先说清状态含义，再写转移方程。",
+  },
   "exam-408-map": {
     kicker: "408 / MAP",
     title: "四门课，其实是一条机器链",
@@ -1378,6 +1387,13 @@ function examNoteDiagram(kind) {
         <span class="diagram-node diagram-node-blue">高数<small>变化</small></span><i>→</i>
         <span class="diagram-node diagram-node-yellow">线代<small>空间</small></span><i>→</i>
         <span class="diagram-node diagram-node-red">概率<small>随机</small></span>
+      </div>`,
+    knapsack: `
+      <div class="exam-diagram exam-diagram-knapsack">
+        <div class="knapsack-items"><span>物品 1</span><span>物品 2</span><span>物品 3</span></div>
+        <i>↓ 选 / 不选</i>
+        <div class="knapsack-table"><b>F[i, v]</b><span>F[i - 1, v]</span><span>F[i - 1, v - Cᵢ] + Wᵢ</span></div>
+        <small>状态 = 前 i 件物品 + 容量 v</small>
       </div>`,
     limit: `
       <div class="exam-diagram exam-diagram-axis">
@@ -2295,7 +2311,7 @@ async function renderRoute() {
 
 }
 
-const BUILD_VERSION = "20260818-3";
+const BUILD_VERSION = "20260818-4";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy] = await Promise.all([

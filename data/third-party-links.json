@@ -9,5 +9,17 @@
       "在线阅读",
       "Agent 实战"
     ]
+  },
+  {
+    "title": "背包问题九讲 V2",
+    "url": "https://github.com/tianyicui/pack/blob/master/V2.pdf",
+    "description": "崔添翼的动态规划经典材料，原文件标注 CC BY-NC-SA，适合作为 408 算法复习参考。",
+    "category": "算法与 408",
+    "tags": [
+      "动态规划",
+      "背包问题",
+      "原始 PDF",
+      "CC BY-NC-SA"
+    ]
   }
 ]
