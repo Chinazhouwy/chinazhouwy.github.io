@@ -1,6 +1,40 @@
 {
-  "generatedAt": "2026-08-18T00:00:00+08:00",
+  "generatedAt": "2026-08-21T00:00:00+08:00",
   "articles": [
+    {
+      "title": "LLM 主流分词算法：BPE 分词原理与实战",
+      "path": "content/learning/ai-agent/2026-08-21-bpe-tokenization-video.md",
+      "url": "content/learning/ai-agent/2026-08-21-bpe-tokenization-video.md",
+      "date": "2026-08-21",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "AI Agent",
+      "module": "",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "小红书视频《LLM主流分词算法，神奇的BPE分词》要点归档：从词表概念、早期分词困境讲到 BPE 逐轮合并原理、三种停止条件，以及 891 基础字符合并到 1000 目标词表的完整演示。",
+      "tags": [
+        "分词",
+        "BPE",
+        "Tokenizer",
+        "大模型",
+        "学习资源"
+      ],
+      "section": "learning",
+      "topic": "AI Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
     {
       "title": "考研 408 组成原理：Cache 为什么有效，局部性如何变成速度",
       "path": "content/learning/exam-408/2026-08-18-exam-408-computer-organization-cache.md",
@@ -2641,13 +2675,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 73,
+    "学习": 74,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 73,
+    "learning": 74,
     "about": 1,
     "reading": 7,
     "projects": 2
@@ -2692,7 +2726,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-08-18",
+      "date": "2026-08-21",
       "count": 0,
       "averageScore": null
     },
@@ -2701,21 +2735,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-05",
-        "count": 0,
-        "averageScore": null
-      },
-      {
-        "date": "2026-08-06",
-        "count": 0,
-        "averageScore": null
-      },
-      {
-        "date": "2026-08-07",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-08",
         "count": 0,
@@ -2768,6 +2787,21 @@
       },
       {
         "date": "2026-08-18",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-08-19",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-08-20",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-08-21",
         "count": 0,
         "averageScore": null
       }
