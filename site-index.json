@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-21T00:00:00+08:00",
+  "generatedAt": "2026-08-22T00:00:00+08:00",
   "articles": [
     {
       "title": "LLM 主流分词算法：BPE 分词原理与实战",
@@ -2726,7 +2726,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-08-21",
+      "date": "2026-08-22",
       "count": 0,
       "averageScore": null
     },
@@ -2735,11 +2735,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-08",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-09",
         "count": 0,
@@ -2802,6 +2797,11 @@
       },
       {
         "date": "2026-08-21",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-08-22",
         "count": 0,
         "averageScore": null
       }
