@@ -1,6 +1,38 @@
 {
-  "generatedAt": "2026-08-23T00:00:00+08:00",
+  "generatedAt": "2026-08-24T00:00:00+08:00",
   "articles": [
+    {
+      "title": "如果由你来实现 Stream，会怎么设计？——一次\\\"重新发明\\\"的思维之旅",
+      "path": "content/learning/java/2026-08-24-stream-redesign-thinking.md",
+      "url": "content/learning/java/2026-08-24-stream-redesign-thinking.md",
+      "date": "2026-08-24",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "Java 后端",
+      "module": "Stream 设计系列",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "以 Stream 设计者的视角推演六个设计决策：内部迭代、类型即状态、惰性求值、Sink 责任链、最小协议、并行红利，并提炼 8 个可迁移的设计思想。",
+      "tags": [
+        "Java",
+        "Stream",
+        "设计思想"
+      ],
+      "section": "learning",
+      "topic": "Stream 设计系列",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
     {
       "title": "LLM 主流分词算法：BPE 分词原理与实战",
       "path": "content/learning/ai-agent/2026-08-21-bpe-tokenization-video.md",
@@ -2675,13 +2707,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 74,
+    "学习": 75,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 74,
+    "learning": 75,
     "about": 1,
     "reading": 7,
     "projects": 2
@@ -2726,7 +2758,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-08-23",
+      "date": "2026-08-24",
       "count": 0,
       "averageScore": null
     },
@@ -2735,11 +2767,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-10",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-11",
         "count": 0,
@@ -2802,6 +2829,11 @@
       },
       {
         "date": "2026-08-23",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-08-24",
         "count": 0,
         "averageScore": null
       }
