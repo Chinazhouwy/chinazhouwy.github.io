@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T00:00:00+08:00",
+  "generatedAt": "2026-08-27T00:00:00+08:00",
   "articles": [
     {
       "title": "如果由你来实现 Stream，会怎么设计？——一次\\\"重新发明\\\"的思维之旅",
@@ -2758,7 +2758,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-08-26",
+      "date": "2026-08-27",
       "count": 0,
       "averageScore": null
     },
@@ -2767,11 +2767,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-13",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-14",
         "count": 0,
@@ -2834,6 +2829,11 @@
       },
       {
         "date": "2026-08-26",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-08-27",
         "count": 0,
         "averageScore": null
       }
