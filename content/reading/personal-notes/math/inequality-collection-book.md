@@ -3,7 +3,7 @@ title: "《从初等到高等 不等式大全》"
 date: "2026-05-29"
 domain: "阅读"
 area: "personal-notes"
-readingCategory: "书与长文"
+readingCategory: books
 module: ""
 project: ""
 type: "札记"

@@ -33,7 +33,9 @@
   const READING_CATEGORY_MAP = Object.freeze(
     Object.fromEntries(READING_CATEGORIES.map((category) => [category.id, category])),
   );
-  const READING_CATEGORY_LABELS = new Set(READING_CATEGORIES.map((category) => category.label));
+  const READING_CATEGORY_LABEL_MAP = Object.freeze(
+    Object.fromEntries(READING_CATEGORIES.map((category) => [category.label, category])),
+  );
 
   const READING_PATTERNS = Object.freeze({
     history: ["history", "历史", "文明", "古代", "史学", "朝代"],
@@ -70,9 +72,14 @@
     return id ? READING_CATEGORY_MAP[id].label : "";
   }
 
+  function resolveReadingCategory(value = "") {
+    const explicit = String(value || "").trim();
+    return READING_CATEGORY_MAP[explicit] || READING_CATEGORY_LABEL_MAP[explicit] || null;
+  }
+
   function normalizeReadingCategory(article = {}) {
-    const explicit = String(article.readingCategory || "").trim();
-    if (READING_CATEGORY_LABELS.has(explicit)) return explicit;
+    const explicit = resolveReadingCategory(article.readingCategory);
+    if (explicit) return explicit.label;
 
     const articlePath = String(article.path || "");
     const pathDirectory = articlePath.includes("/")
@@ -147,9 +154,9 @@
     if (lane && !KNOWLEDGE_LANE_MAP[lane]) {
       errors.push(`lane 必须是 ${KNOWLEDGE_LANES.map((item) => item.id).join("/")}，实际为 ${lane}`);
     }
-    if (readingCategory && !READING_CATEGORY_LABELS.has(readingCategory)) {
+    if (readingCategory && !resolveReadingCategory(readingCategory)) {
       errors.push(
-        `readingCategory 必须是 ${READING_CATEGORIES.map((item) => item.label).join("/")}，实际为 ${readingCategory}`,
+        `readingCategory 必须是 ${READING_CATEGORIES.map((item) => item.id).join("/")}（兼容已有中文标签），实际为 ${readingCategory}`,
       );
     }
     return errors;
@@ -161,6 +168,7 @@
     READING_CATEGORIES,
     inferKnowledgeLane,
     normalizeReadingCategory,
+    resolveReadingCategory,
     resolveKnowledgeLane,
     validateTaxonomyMetadata,
   });
