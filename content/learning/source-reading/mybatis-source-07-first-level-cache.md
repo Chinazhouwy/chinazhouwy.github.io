@@ -138,7 +138,36 @@ BaseExecutor
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// org.apache.ibatis.cache.impl.PerpetualCache</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">PerpetualCache</span> <span class="code-snippet__keyword">implements</span> <span class="code-snippet__title">Cache</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> final <span class="code-snippet__title">String</span> id;</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> final <span class="code-snippet__title">Map</span><<span class="code-snippet__title">Object</span>, <span class="code-snippet__title">Object</span>> cache = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">HashMap</span><>();</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">PerpetualCache</span>(<span class="code-snippet__title">String</span> id) {</span></code><code><span leaf="">        <span class="code-snippet__variable">this</span>.<span class="code-snippet__property">id</span> = id;</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">putObject</span>(<span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> key, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> value</span>) {</span></code><code><span leaf="">        cache.<span class="code-snippet__title">put</span>(key, value);</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">Object</span> <span class="code-snippet__title">getObject</span>(<span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> key</span>) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> cache.<span class="code-snippet__title">get</span>(key);</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">Object</span> <span class="code-snippet__title">removeObject</span>(<span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> key</span>) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> cache.<span class="code-snippet__title">remove</span>(key);</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">clear</span>() {</span></code><code><span leaf="">        cache.<span class="code-snippet__title">clear</span>();</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__comment">// ... 其他方法</span></span></code><code><span leaf="">}</span></code>
+// org.apache.ibatis.cache.impl.PerpetualCache
+public class PerpetualCache implements Cache {
+    private final String id;
+    private final Map<Object, Object> cache = new HashMap<>();
+
+    public PerpetualCache(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public void putObject(Object key, Object value) {
+        cache.put(key, value);
+    }
+
+    @Override
+    public Object getObject(Object key) {
+        return cache.get(key);
+    }
+
+    @Override
+    public Object removeObject(Object key) {
+        return cache.remove(key);
+    }
+
+    @Override
+    public void clear() {
+        cache.clear();
+    }
+    // ... 其他方法
+}
 ```
 
 
@@ -150,7 +179,16 @@ BaseExecutor
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">abstract</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">BaseExecutor</span> <span class="code-snippet__keyword">implements</span> <span class="code-snippet__title">Executor</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> PerpetualCache localCache;</span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> PerpetualCache localOutputParameterCache;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">BaseExecutor</span><span class="code-snippet__params">(Configuration configuration, Transaction transaction)</span> {</span></code><code><span leaf="">        <span class="code-snippet__built_in">this</span>.localCache = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">PerpetualCache</span>(<span class="code-snippet__string">"LocalCache"</span>);</span></code><code><span leaf="">        <span class="code-snippet__built_in">this</span>.localOutputParameterCache = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">PerpetualCache</span>(<span class="code-snippet__string">"LocalOutputParameterCache"</span>);</span></code><code><span leaf="">        <span class="code-snippet__comment">// ...</span></span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+public abstract class BaseExecutor implements Executor {
+    protected PerpetualCache localCache;
+    protected PerpetualCache localOutputParameterCache;
+
+    public BaseExecutor(Configuration configuration, Transaction transaction) {
+        this.localCache = new PerpetualCache("LocalCache");
+        this.localOutputParameterCache = new PerpetualCache("LocalOutputParameterCache");
+        // ...
+    }
+}
 ```
 
 
@@ -192,7 +230,52 @@ BaseExecutor.createCacheKey
 
 
 ```
-<code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__title">CacheKey</span> <span class="code-snippet__title">createCacheKey</span>(<span class="code-snippet__params"><span class="code-snippet__title">MappedStatement</span></span><span class="code-snippet__params"> ms, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> parameterObject, </span><span class="code-snippet__params"><span class="code-snippet__title">RowBounds</span></span><span class="code-snippet__params"> rowBounds, </span><span class="code-snippet__params"><span class="code-snippet__title">BoundSql</span></span><span class="code-snippet__params"> boundSql</span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (closed) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">ExecutorException</span>(<span class="code-snippet__string">"Executor was closed."</span>);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__title">CacheKey</span> cacheKey = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">CacheKey</span>();</span></code><code><span leaf="">    <span class="code-snippet__comment">// 1. MappedStatement 的 id（namespace + id）</span></span></code><code><span leaf="">    cacheKey.<span class="code-snippet__title">update</span>(ms.<span class="code-snippet__title">getId</span>());</span></code><code><span leaf="">    <span class="code-snippet__comment">// 2. RowBounds 的 offset 和 limit</span></span></code><code><span leaf="">    cacheKey.<span class="code-snippet__title">update</span>(rowBounds.<span class="code-snippet__title">getOffset</span>());</span></code><code><span leaf="">    cacheKey.<span class="code-snippet__title">update</span>(rowBounds.<span class="code-snippet__title">getLimit</span>());</span></code><code><span leaf="">    <span class="code-snippet__comment">// 3. SQL 字符串（已替换 #{} 为 ?）</span></span></code><code><span leaf="">    cacheKey.<span class="code-snippet__title">update</span>(boundSql.<span class="code-snippet__title">getSql</span>());</span></code><code><span leaf="">    <span class="code-snippet__comment">// 4. 参数值（按顺序）</span></span></code><code><span leaf="">    <span class="code-snippet__title">List</span><<span class="code-snippet__title">ParameterMapping</span>> parameterMappings = boundSql.<span class="code-snippet__title">getParameterMappings</span>();</span></code><code><span leaf="">    <span class="code-snippet__title">TypeHandlerRegistry</span> typeHandlerRegistry = ms.<span class="code-snippet__title">getConfiguration</span>().<span class="code-snippet__title">getTypeHandlerRegistry</span>();</span></code><code><span leaf="">    <span class="code-snippet__title">MetaObject</span> metaObject = <span class="code-snippet__literal">null</span>;</span></code><code><span leaf="">    <span class="code-snippet__keyword">for</span> (<span class="code-snippet__title">ParameterMapping</span> parameterMapping : parameterMappings) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 存储过程的 OUT 参数不参与缓存 Key 计算</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (parameterMapping.<span class="code-snippet__title">getMode</span>() != <span class="code-snippet__title">ParameterMode</span>.<span class="code-snippet__property">OUT</span>) {</span></code><code><span leaf="">            <span class="code-snippet__title">Object</span> value;</span></code><code><span leaf="">            <span class="code-snippet__title">String</span> propertyName = parameterMapping.<span class="code-snippet__title">getProperty</span>();</span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (boundSql.<span class="code-snippet__title">hasAdditionalParameter</span>(propertyName)) {</span></code><code><span leaf="">                <span class="code-snippet__comment">// 优先从附加参数中获取（如 <bind> 定义的变量）</span></span></code><code><span leaf="">                value = boundSql.<span class="code-snippet__title">getAdditionalParameter</span>(propertyName);</span></code><code><span leaf="">            } <span class="code-snippet__keyword">else</span> <span class="code-snippet__keyword">if</span> (parameterObject == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">                value = <span class="code-snippet__literal">null</span>;</span></code><code><span leaf="">            } <span class="code-snippet__keyword">else</span> <span class="code-snippet__keyword">if</span> (typeHandlerRegistry.<span class="code-snippet__title">hasTypeHandler</span>(parameterObject.<span class="code-snippet__title">getClass</span>())) {</span></code><code><span leaf="">                <span class="code-snippet__comment">// 参数本身是简单类型，直接使用</span></span></code><code><span leaf="">                value = parameterObject;</span></code><code><span leaf="">            } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">                <span class="code-snippet__comment">// 通过反射获取 POJO 的属性值</span></span></code><code><span leaf="">                <span class="code-snippet__keyword">if</span> (metaObject == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">                    metaObject = configuration.<span class="code-snippet__title">newMetaObject</span>(parameterObject);</span></code><code><span leaf="">                }</span></code><code><span leaf="">                value = metaObject.<span class="code-snippet__title">getValue</span>(propertyName);</span></code><code><span leaf="">            }</span></code><code><span leaf="">            cacheKey.<span class="code-snippet__title">update</span>(value);</span></code><code><span leaf="">        }</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (configuration.<span class="code-snippet__title">getEnvironment</span>() != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 5. 环境 id（若存在多环境）</span></span></code><code><span leaf="">        cacheKey.<span class="code-snippet__title">update</span>(configuration.<span class="code-snippet__title">getEnvironment</span>().<span class="code-snippet__title">getId</span>());</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> cacheKey;</span></code><code><span leaf="">}</span></code>
+@Override
+public CacheKey createCacheKey(MappedStatement ms, Object parameterObject, RowBounds rowBounds, BoundSql boundSql) {
+    if (closed) {
+        throw new ExecutorException("Executor was closed.");
+    }
+    CacheKey cacheKey = new CacheKey();
+    // 1. MappedStatement 的 id（namespace + id）
+    cacheKey.update(ms.getId());
+    // 2. RowBounds 的 offset 和 limit
+    cacheKey.update(rowBounds.getOffset());
+    cacheKey.update(rowBounds.getLimit());
+    // 3. SQL 字符串（已替换 #{} 为 ?）
+    cacheKey.update(boundSql.getSql());
+    // 4. 参数值（按顺序）
+    List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
+    TypeHandlerRegistry typeHandlerRegistry = ms.getConfiguration().getTypeHandlerRegistry();
+    MetaObject metaObject = null;
+    for (ParameterMapping parameterMapping : parameterMappings) {
+        // 存储过程的 OUT 参数不参与缓存 Key 计算
+        if (parameterMapping.getMode() != ParameterMode.OUT) {
+            Object value;
+            String propertyName = parameterMapping.getProperty();
+            if (boundSql.hasAdditionalParameter(propertyName)) {
+                // 优先从附加参数中获取（如 <bind> 定义的变量）
+                value = boundSql.getAdditionalParameter(propertyName);
+            } else if (parameterObject == null) {
+                value = null;
+            } else if (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) {
+                // 参数本身是简单类型，直接使用
+                value = parameterObject;
+            } else {
+                // 通过反射获取 POJO 的属性值
+                if (metaObject == null) {
+                    metaObject = configuration.newMetaObject(parameterObject);
+                }
+                value = metaObject.getValue(propertyName);
+            }
+            cacheKey.update(value);
+        }
+    }
+    if (configuration.getEnvironment() != null) {
+        // 5. 环境 id（若存在多环境）
+        cacheKey.update(configuration.getEnvironment().getId());
+    }
+    return cacheKey;
+}
 ```
 
 
@@ -204,7 +287,30 @@ CacheKey
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">CacheKey</span> <span class="code-snippet__title">implements</span> <span class="code-snippet__title">Cloneable</span>, <span class="code-snippet__title">Serializable</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">static</span> final <span class="code-snippet__built_in">int</span> DEFAULT_MULTIPLYER = <span class="code-snippet__number">37</span>;</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">static</span> final <span class="code-snippet__built_in">int</span> DEFAULT_HASHCODE = <span class="code-snippet__number">17</span>;</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> final <span class="code-snippet__built_in">int</span> multiplier = DEFAULT_MULTIPLYER;</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__built_in">int</span> hashcode = DEFAULT_HASHCODE;</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__built_in">long</span> checksum = <span class="code-snippet__number">0</span>;</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__built_in">int</span> count = <span class="code-snippet__number">0</span>;</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> List<Object> updateList = <span class="code-snippet__keyword">new</span> ArrayList<>();</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__function"><span class="code-snippet__keyword">public</span></span><span class="code-snippet__function"> </span><span class="code-snippet__function"><span class="code-snippet__keyword">void</span></span><span class="code-snippet__function"> </span><span class="code-snippet__function"><span class="code-snippet__title">update</span></span><span class="code-snippet__function">(</span><span class="code-snippet__function"><span class="code-snippet__params">Object </span></span><span class="code-snippet__function"><span class="code-snippet__params"><span class="code-snippet__built_in">object</span></span></span><span class="code-snippet__function">)</span> {</span></code><code><span leaf="">        <span class="code-snippet__built_in">int</span> baseHashCode = <span class="code-snippet__built_in">object</span> == <span class="code-snippet__literal">null</span> ? <span class="code-snippet__number">1</span> : ArrayUtil.hashCode(<span class="code-snippet__built_in">object</span>);</span></code><code><span leaf="">        count++;</span></code><code><span leaf="">        checksum += baseHashCode;</span></code><code><span leaf="">        baseHashCode *= count;</span></code><code><span leaf="">        hashcode = multiplier * hashcode + baseHashCode;</span></code><code><span leaf="">        updateList.<span class="code-snippet__keyword">add</span>(<span class="code-snippet__built_in">object</span>);</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    @Override</span></code><code><span leaf="">    <span class="code-snippet__function"><span class="code-snippet__keyword">public</span></span><span class="code-snippet__function"> boolean </span><span class="code-snippet__function"><span class="code-snippet__title">equals</span></span><span class="code-snippet__function">(</span><span class="code-snippet__function"><span class="code-snippet__params">Object </span></span><span class="code-snippet__function"><span class="code-snippet__params"><span class="code-snippet__built_in">object</span></span></span><span class="code-snippet__function">)</span> {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 比较 hashcode、checksum、count 以及 updateList 中的每个元素</span></span></code><code><span leaf="">        <span class="code-snippet__comment">// 只有当所有要素都相等时，才认为两个 CacheKey 相等</span></span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+public class CacheKey implements Cloneable, Serializable {
+    private static final int DEFAULT_MULTIPLYER = 37;
+    private static final int DEFAULT_HASHCODE = 17;
+    private final int multiplier = DEFAULT_MULTIPLYER;
+    private int hashcode = DEFAULT_HASHCODE;
+    private long checksum = 0;
+    private int count = 0;
+    private List<Object> updateList = new ArrayList<>();
+
+    public void update(Object object) {
+        int baseHashCode = object == null ? 1 : ArrayUtil.hashCode(object);
+        count++;
+        checksum += baseHashCode;
+        baseHashCode *= count;
+        hashcode = multiplier * hashcode + baseHashCode;
+        updateList.add(object);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // 比较 hashcode、checksum、count 以及 updateList 中的每个元素
+        // 只有当所有要素都相等时，才认为两个 CacheKey 相等
+    }
+}
 ```
 
 
@@ -252,7 +358,47 @@ BaseExecutor.query
 
 
 ```
-<code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">  <span class="code-snippet__keyword">public</span> <E> List<E> <span class="code-snippet__title">query</span><span class="code-snippet__params">(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler,</span></span></code><code><span leaf="">      CacheKey key, BoundSql boundSql) <span class="code-snippet__keyword">throws</span> SQLException {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 用于记录当前执行的 SQL 资源信息，便于调试和错误报告</span></span></code><code><span leaf="">    ErrorContext.instance().resource(ms.getResource()).activity(<span class="code-snippet__string">"executing a query"</span>).object(ms.getId());</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (closed) {</span></code><code><span leaf="">      <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">ExecutorException</span>(<span class="code-snippet__string">"Executor was closed."</span>);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__comment">// 1. 如果 flushCacheRequired 为 true（如 <select flushCache="true">），清空本地缓存</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (queryStack == <span class="code-snippet__number">0</span> && ms.isFlushCacheRequired()) {</span></code><code><span leaf="">      clearLocalCache();</span></code><code><span leaf="">    }</span></code><code><span leaf="">    List<E> list;</span></code><code><span leaf="">    <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">      queryStack++;</span></code><code><span leaf="">      <span class="code-snippet__comment">// 2. 尝试从一级缓存获取</span></span></code><code><span leaf="">      list = resultHandler == <span class="code-snippet__literal">null</span> ? (List<E>) localCache.getObject(key) : <span class="code-snippet__literal">null</span>;</span></code><code><span leaf="">      <span class="code-snippet__keyword">if</span> (list != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 缓存命中，处理存储过程的输出参数（如果存在）</span></span></code><code><span leaf="">        handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);</span></code><code><span leaf="">      } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 3. 未命中，从数据库查询</span></span></code><code><span leaf="">        list = queryFromDatabase(ms, parameter, rowBounds, resultHandler, key, boundSql);</span></code><code><span leaf="">      }</span></code><code><span leaf="">    } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">      queryStack--;</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (queryStack == <span class="code-snippet__number">0</span>) {</span></code><code><span leaf="">      <span class="code-snippet__comment">// 延迟加载（Lazy Load） 的核心</span></span></code><code><span leaf="">      <span class="code-snippet__keyword">for</span> (DeferredLoad deferredLoad : deferredLoads) {</span></code><code><span leaf="">        deferredLoad.load();</span></code><code><span leaf="">      }</span></code><code><span leaf="">      <span class="code-snippet__comment">// issue #601</span></span></code><code><span leaf="">      deferredLoads.clear();</span></code><code><span leaf="">      <span class="code-snippet__keyword">if</span> (configuration.getLocalCacheScope() == LocalCacheScope.STATEMENT) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// issue #482</span></span></code><code><span leaf="">        clearLocalCache();</span></code><code><span leaf="">      }</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> list;</span></code><code><span leaf="">  }</span></code>
+@Override
+  public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler,
+      CacheKey key, BoundSql boundSql) throws SQLException {
+    // 用于记录当前执行的 SQL 资源信息，便于调试和错误报告
+    ErrorContext.instance().resource(ms.getResource()).activity("executing a query").object(ms.getId());
+    if (closed) {
+      throw new ExecutorException("Executor was closed.");
+    }
+    // 1. 如果 flushCacheRequired 为 true（如 <select flushCache="true">），清空本地缓存
+    if (queryStack == 0 && ms.isFlushCacheRequired()) {
+      clearLocalCache();
+    }
+    List<E> list;
+    try {
+      queryStack++;
+      // 2. 尝试从一级缓存获取
+      list = resultHandler == null ? (List<E>) localCache.getObject(key) : null;
+      if (list != null) {
+        // 缓存命中，处理存储过程的输出参数（如果存在）
+        handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);
+      } else {
+        // 3. 未命中，从数据库查询
+        list = queryFromDatabase(ms, parameter, rowBounds, resultHandler, key, boundSql);
+      }
+    } finally {
+      queryStack--;
+    }
+    if (queryStack == 0) {
+      // 延迟加载（Lazy Load） 的核心
+      for (DeferredLoad deferredLoad : deferredLoads) {
+        deferredLoad.load();
+      }
+      // issue #601
+      deferredLoads.clear();
+      if (configuration.getLocalCacheScope() == LocalCacheScope.STATEMENT) {
+        // issue #482
+        clearLocalCache();
+      }
+    }
+    return list;
+  }
 ```
 
 
@@ -260,7 +406,25 @@ BaseExecutor.query
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// BaseExecutor</span></span></code><code><span leaf=""><span class="code-snippet__keyword">private</span> <E> <span class="code-snippet__title">List</span><E> <span class="code-snippet__title">queryFromDatabase</span>(<span class="code-snippet__params"><span class="code-snippet__title">MappedStatement</span></span><span class="code-snippet__params"> ms, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> parameter, </span><span class="code-snippet__params"><span class="code-snippet__title">RowBounds</span></span><span class="code-snippet__params"> rowBounds,</span></span></code><code><span leaf="">                                      <span class="code-snippet__title">ResultHandler</span> resultHandler, <span class="code-snippet__title">CacheKey</span> key, <span class="code-snippet__title">BoundSql</span> boundSql) {</span></code><code><span leaf="">    <span class="code-snippet__title">List</span><E> list;</span></code><code><span leaf="">    <span class="code-snippet__comment">// 先放入占位符，防止并发查询时重复查库（实际是避免递归查询死循环）</span></span></code><code><span leaf="">    localCache.<span class="code-snippet__title">putObject</span>(key, <span class="code-snippet__variable">EXECUTION_PLACEHOLDER</span>);</span></code><code><span leaf="">    <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">        list = <span class="code-snippet__title">doQuery</span>(ms, parameter, rowBounds, resultHandler, boundSql);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">        localCache.<span class="code-snippet__title">removeObject</span>(key);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__comment">// 将真实结果存入缓存</span></span></code><code><span leaf="">    localCache.<span class="code-snippet__title">putObject</span>(key, list);</span></code><code><span leaf="">    <span class="code-snippet__comment">//对这步感兴趣的小伙伴可以去研究研究O(∩_∩)O哈~  为什么要缓存参数？</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (ms.<span class="code-snippet__title">getStatementType</span>() == <span class="code-snippet__title">StatementType</span>.<span class="code-snippet__property">CALLABLE</span>) {</span></code><code><span leaf="">      localOutputParameterCache.<span class="code-snippet__title">putObject</span>(key, parameter);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> list;</span></code><code><span leaf="">}</span></code>
+// BaseExecutor
+private <E> List<E> queryFromDatabase(MappedStatement ms, Object parameter, RowBounds rowBounds,
+                                      ResultHandler resultHandler, CacheKey key, BoundSql boundSql) {
+    List<E> list;
+    // 先放入占位符，防止并发查询时重复查库（实际是避免递归查询死循环）
+    localCache.putObject(key, EXECUTION_PLACEHOLDER);
+    try {
+        list = doQuery(ms, parameter, rowBounds, resultHandler, boundSql);
+    } finally {
+        localCache.removeObject(key);
+    }
+    // 将真实结果存入缓存
+    localCache.putObject(key, list);
+    //对这步感兴趣的小伙伴可以去研究研究O(∩_∩)O哈~  为什么要缓存参数？
+    if (ms.getStatementType() == StatementType.CALLABLE) {
+      localOutputParameterCache.putObject(key, parameter);
+    }
+    return list;
+}
 ```
 
 
@@ -282,7 +446,15 @@ ExecutorException
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// BaseExecutor</span></span></code><code><span leaf=""><span class="code-snippet__keyword">private</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">handleLocallyCachedOutputParameters</span>(<span class="code-snippet__params"><span class="code-snippet__title">MappedStatement</span></span><span class="code-snippet__params"> ms, </span><span class="code-snippet__params"><span class="code-snippet__title">CacheKey</span></span><span class="code-snippet__params"> key, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> parameter, </span><span class="code-snippet__params"><span class="code-snippet__title">BoundSql</span></span><span class="code-snippet__params"> boundSql</span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (ms.<span class="code-snippet__title">getStatementType</span>() == <span class="code-snippet__title">StatementType</span>.<span class="code-snippet__property">CALLABLE</span>) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 从 localOutputParameterCache 中取出之前缓存的 OUT 参数</span></span></code><code><span leaf="">        final <span class="code-snippet__title">Object</span> cachedOutputParameter = localOutputParameterCache.<span class="code-snippet__title">getObject</span>(key);</span></code><code><span leaf="">        <span class="code-snippet__comment">// 将缓存的 OUT 参数值设置回 parameter 对象中</span></span></code><code><span leaf="">        <span class="code-snippet__comment">// 具体实现省略...</span></span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+// BaseExecutor
+private void handleLocallyCachedOutputParameters(MappedStatement ms, CacheKey key, Object parameter, BoundSql boundSql) {
+    if (ms.getStatementType() == StatementType.CALLABLE) {
+        // 从 localOutputParameterCache 中取出之前缓存的 OUT 参数
+        final Object cachedOutputParameter = localOutputParameterCache.getObject(key);
+        // 将缓存的 OUT 参数值设置回 parameter 对象中
+        // 具体实现省略...
+    }
+}
 ```
 
 
@@ -308,7 +480,16 @@ DELETE
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// BaseExecutor</span></span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> int <span class="code-snippet__title">update</span>(<span class="code-snippet__params"><span class="code-snippet__title">MappedStatement</span></span><span class="code-snippet__params"> ms, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> parameter</span>) {</span></code><code><span leaf="">    <span class="code-snippet__title">ErrorContext</span>.<span class="code-snippet__title">instance</span>().<span class="code-snippet__title">resource</span>(ms.<span class="code-snippet__title">getResource</span>()).<span class="code-snippet__title">activity</span>(<span class="code-snippet__string">"executing an update"</span>).<span class="code-snippet__title">object</span>(ms.<span class="code-snippet__title">getId</span>());</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (closed) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">ExecutorException</span>(<span class="code-snippet__string">"Executor was closed."</span>);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__title">clearLocalCache</span>();   <span class="code-snippet__comment">// 任何更新操作都会清空一级缓存</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> <span class="code-snippet__title">doUpdate</span>(ms, parameter);</span></code><code><span leaf="">}</span></code>
+// BaseExecutor
+@Override
+public int update(MappedStatement ms, Object parameter) {
+    ErrorContext.instance().resource(ms.getResource()).activity("executing an update").object(ms.getId());
+    if (closed) {
+        throw new ExecutorException("Executor was closed.");
+    }
+    clearLocalCache();   // 任何更新操作都会清空一级缓存
+    return doUpdate(ms, parameter);
+}
 ```
 
 
@@ -324,7 +505,8 @@ SqlSession
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// SqlSession 接口方法</span></span></code><code><span leaf=""><span class="code-snippet__function"><span class="code-snippet__keyword">void</span></span><span class="code-snippet__function"> </span><span class="code-snippet__function"><span class="code-snippet__title">clearCache</span></span><span class="code-snippet__function">()</span>;</span></code>
+// SqlSession 接口方法
+void clearCache();
 ```
 
 
@@ -336,7 +518,10 @@ DefaultSqlSession
 
 
 ```
-<code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">clearCache</span>() {</span></code><code><span leaf="">    executor.<span class="code-snippet__title">clearLocalCache</span>();</span></code><code><span leaf="">}</span></code>
+@Override
+public void clearCache() {
+    executor.clearLocalCache();
+}
 ```
 
 
@@ -356,7 +541,7 @@ mybatis-config.xml
 
 
 ```
-<code><span leaf=""><span class="code-snippet__tag"><</span><span class="code-snippet__tag"><span class="code-snippet__name">setting</span></span><span class="code-snippet__tag"> </span><span class="code-snippet__tag"><span class="code-snippet__attr">name</span></span><span class="code-snippet__tag">=</span><span class="code-snippet__tag"><span class="code-snippet__string">"localCacheScope"</span></span><span class="code-snippet__tag"> </span><span class="code-snippet__tag"><span class="code-snippet__attr">value</span></span><span class="code-snippet__tag">=</span><span class="code-snippet__tag"><span class="code-snippet__string">"STATEMENT"</span></span><span class="code-snippet__tag">/></span></span></code>
+<setting name="localCacheScope" value="STATEMENT"/>
 ```
 
 
@@ -372,7 +557,10 @@ STATEMENT
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// BaseExecutor.query 方法最后</span></span></code><code><span leaf=""><span class="code-snippet__keyword">if</span> (configuration.<span class="code-snippet__title">getLocalCacheScope</span>() == <span class="code-snippet__title">LocalCacheScope</span>.<span class="code-snippet__property">STATEMENT</span>) {</span></code><code><span leaf="">    <span class="code-snippet__title">clearLocalCache</span>();</span></code><code><span leaf="">}</span></code>
+// BaseExecutor.query 方法最后
+if (configuration.getLocalCacheScope() == LocalCacheScope.STATEMENT) {
+    clearLocalCache();
+}
 ```
 
 
@@ -394,7 +582,9 @@ flushCache="true"
 
 
 ```
-<code><span leaf=""><<span class="code-snippet__keyword">select</span> <span class="code-snippet__built_in">id</span>=<span class="code-snippet__string">"selectUser"</span> resultType=<span class="code-snippet__string">"User"</span> flushCache=<span class="code-snippet__string">"true"</span>></span></code><code><span leaf="">    SELECT * FROM user WHERE <span class="code-snippet__built_in">id</span> = <span class="code-snippet__comment">#{id}</span></span></code><code><span leaf=""></select></span></code>
+<select id="selectUser" resultType="User" flushCache="true">
+    SELECT * FROM user WHERE id = #{id}
+</select>
 ```
 
 
@@ -406,7 +596,9 @@ BaseExecutor.query
 
 
 ```
-<code><span leaf="">if (queryStack == 0 && ms.isFlushCacheRequired()) {</span></code><code><span leaf="">    clearLocalCache();</span></code><code><span leaf="">}</span></code>
+if (queryStack == 0 && ms.isFlushCacheRequired()) {
+    clearLocalCache();
+}
 ```
 
 
@@ -498,7 +690,21 @@ CachingExecutor
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// CachingExecutor.query</span></span></code><code><span leaf="">Cache cache = ms.getCache();</span></code><code><span leaf=""><span class="code-snippet__keyword">if</span> (cache != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 先尝试从二级缓存获取（实际是 TransactionalCache）</span></span></code><code><span leaf="">    list = tcm.getObject(cache, key);</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (list == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 二级缓存未命中，调用 delegate.query（即 BaseExecutor.query）</span></span></code><code><span leaf="">        list = <span class="code-snippet__built_in">delegate</span>.query(...);</span></code><code><span leaf="">        <span class="code-snippet__comment">// 将结果存入事务缓存</span></span></code><code><span leaf="">        tcm.putObject(cache, key, list);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> list;</span></code><code><span leaf="">}</span></code><code><span leaf=""><span class="code-snippet__comment">// 没有二级缓存，直接走 BaseExecutor</span></span></code><code><span leaf=""><span class="code-snippet__keyword">return</span> <span class="code-snippet__built_in">delegate</span>.query(...);</span></code>
+// CachingExecutor.query
+Cache cache = ms.getCache();
+if (cache != null) {
+    // 先尝试从二级缓存获取（实际是 TransactionalCache）
+    list = tcm.getObject(cache, key);
+    if (list == null) {
+        // 二级缓存未命中，调用 delegate.query（即 BaseExecutor.query）
+        list = delegate.query(...);
+        // 将结果存入事务缓存
+        tcm.putObject(cache, key, list);
+    }
+    return list;
+}
+// 没有二级缓存，直接走 BaseExecutor
+return delegate.query(...);
 ```
 
 

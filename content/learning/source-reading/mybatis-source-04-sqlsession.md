@@ -40,7 +40,15 @@ SqlSession
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// 1. 构建 SqlSessionFactory</span></span></code><code><span leaf=""><span class="code-snippet__type">SqlSessionFactory</span> <span class="code-snippet__variable">factory</span> <span class="code-snippet__operator">=</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">SqlSessionFactoryBuilder</span>().build(inputStream);</span></code><code><span leaf=""><span class="code-snippet__comment">// 2. 打开 SqlSession</span></span></code><code><span leaf=""><span class="code-snippet__type">SqlSession</span> <span class="code-snippet__variable">session</span> <span class="code-snippet__operator">=</span> factory.openSession();</span></code><code><span leaf=""><span class="code-snippet__comment">// 3. 获取 Mapper 并执行</span></span></code><code><span leaf=""><span class="code-snippet__type">UserMapper</span> <span class="code-snippet__variable">mapper</span> <span class="code-snippet__operator">=</span> session.getMapper(UserMapper.class);</span></code><code><span leaf=""><span class="code-snippet__type">User</span> <span class="code-snippet__variable">user</span> <span class="code-snippet__operator">=</span> mapper.selectById(<span class="code-snippet__number">1</span>);</span></code><code><span leaf=""><span class="code-snippet__comment">// 4. 关闭会话</span></span></code><code><span leaf="">session.close();</span></code>
+// 1. 构建 SqlSessionFactory
+SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(inputStream);
+// 2. 打开 SqlSession
+SqlSession session = factory.openSession();
+// 3. 获取 Mapper 并执行
+UserMapper mapper = session.getMapper(UserMapper.class);
+User user = mapper.selectById(1);
+// 4. 关闭会话
+session.close();
 ```
 
 
@@ -132,7 +140,20 @@ SqlSessionTemplate
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// SqlSessionFactoryBuilder</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__title">SqlSessionFactory</span> <span class="code-snippet__title">build</span>(<span class="code-snippet__params"><span class="code-snippet__title">InputStream</span></span><span class="code-snippet__params"> inputStream, </span><span class="code-snippet__params"><span class="code-snippet__title">String</span></span><span class="code-snippet__params"> environment, </span><span class="code-snippet__params"><span class="code-snippet__title">Properties</span></span><span class="code-snippet__params"> properties</span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">        <span class="code-snippet__title">XMLConfigBuilder</span> parser = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">XMLConfigBuilder</span>(inputStream, environment, properties);</span></code><code><span leaf="">        <span class="code-snippet__title">Configuration</span> config = parser.<span class="code-snippet__title">parse</span>();  <span class="code-snippet__comment">// 解析配置</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> <span class="code-snippet__title">build</span>(config);                    <span class="code-snippet__comment">// 构建 SqlSessionFactory</span></span></code><code><span leaf="">    } <span class="code-snippet__keyword">catch</span> (<span class="code-snippet__title">Exception</span> e) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">throw</span> <span class="code-snippet__title">ExceptionFactory</span>.<span class="code-snippet__title">wrapException</span>(<span class="code-snippet__string">"Error building SqlSession."</span>, e);</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code><code><span leaf=""><br  /></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__title">SqlSessionFactory</span> <span class="code-snippet__title">build</span>(<span class="code-snippet__params"><span class="code-snippet__title">Configuration</span></span><span class="code-snippet__params"> config</span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">DefaultSqlSessionFactory</span>(config);</span></code><code><span leaf="">}</span></code>
+// SqlSessionFactoryBuilder
+public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
+    try {
+        XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);
+        Configuration config = parser.parse();  // 解析配置
+        return build(config);                    // 构建 SqlSessionFactory
+    } catch (Exception e) {
+        throw ExceptionFactory.wrapException("Error building SqlSession.", e);
+    }
+}
+
+public SqlSessionFactory build(Configuration config) {
+    return new DefaultSqlSessionFactory(config);
+}
 ```
 
 
@@ -150,7 +171,32 @@ new DefaultSqlSessionFactory(config)
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// DefaultSqlSessionFactory</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">DefaultSqlSessionFactory</span> <span class="code-snippet__keyword">implements</span> <span class="code-snippet__title">SqlSessionFactory</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> final <span class="code-snippet__title">Configuration</span> configuration;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">DefaultSqlSessionFactory</span>(<span class="code-snippet__title">Configuration</span> configuration) {</span></code><code><span leaf="">        <span class="code-snippet__variable">this</span>.<span class="code-snippet__property">configuration</span> = configuration;</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 各种 openSession 重载方法，最终都调用 openSessionFromDataSource</span></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">SqlSession</span> <span class="code-snippet__title">openSession</span>() {</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> <span class="code-snippet__title">openSessionFromDataSource</span>(configuration.<span class="code-snippet__title">getDefaultExecutorType</span>(), <span class="code-snippet__literal">null</span>, <span class="code-snippet__literal">false</span>);</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">SqlSession</span> <span class="code-snippet__title">openSession</span>(<span class="code-snippet__params"><span class="code-snippet__built_in">boolean</span></span><span class="code-snippet__params"> autoCommit</span>) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> <span class="code-snippet__title">openSessionFromDataSource</span>(configuration.<span class="code-snippet__title">getDefaultExecutorType</span>(), <span class="code-snippet__literal">null</span>, autoCommit);</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">SqlSession</span> <span class="code-snippet__title">openSession</span>(<span class="code-snippet__params"><span class="code-snippet__title">ExecutorType</span></span><span class="code-snippet__params"> execType</span>) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> <span class="code-snippet__title">openSessionFromDataSource</span>(execType, <span class="code-snippet__literal">null</span>, <span class="code-snippet__literal">false</span>);</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// ... 其他重载</span></span></code><code><span leaf="">}</span></code>
+// DefaultSqlSessionFactory
+public class DefaultSqlSessionFactory implements SqlSessionFactory {
+    private final Configuration configuration;
+
+    public DefaultSqlSessionFactory(Configuration configuration) {
+        this.configuration = configuration;
+    }
+
+    // 各种 openSession 重载方法，最终都调用 openSessionFromDataSource
+    @Override
+    public SqlSession openSession() {
+        return openSessionFromDataSource(configuration.getDefaultExecutorType(), null, false);
+    }
+
+    @Override
+    public SqlSession openSession(boolean autoCommit) {
+        return openSessionFromDataSource(configuration.getDefaultExecutorType(), null, autoCommit);
+    }
+
+    @Override
+    public SqlSession openSession(ExecutorType execType) {
+        return openSessionFromDataSource(execType, null, false);
+    }
+
+    // ... 其他重载
+}
 ```
 
 
@@ -240,7 +286,13 @@ MapperScannerRegistrar
 
 
 ```
-<code><span leaf=""><span class="code-snippet__meta">@Retention(RetentionPolicy.RUNTIME)</span></span></code><code><span leaf=""><span class="code-snippet__meta">@Target(ElementType.TYPE)</span></span></code><code><span leaf=""><span class="code-snippet__meta">@Import(MapperScannerRegistrar.class)</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__meta">@interface</span> MapperScan {</span></code><code><span leaf="">    String[] basePackages() <span class="code-snippet__keyword">default</span> {};</span></code><code><span leaf="">    <span class="code-snippet__comment">// ... 其他属性</span></span></code><code><span leaf="">}</span></code>
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Import(MapperScannerRegistrar.class)
+public @interface MapperScan {
+    String[] basePackages() default {};
+    // ... 其他属性
+}
 ```
 
 
@@ -258,7 +310,36 @@ registerBeanDefinitions
 
 
 ```
-<code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">registerBeanDefinitions</span>(<span class="code-snippet__params"><span class="code-snippet__title">AnnotationMetadata</span></span><span class="code-snippet__params"> importingClassMetadata, </span></span></code><code><span leaf="">                                    <span class="code-snippet__title">BeanDefinitionRegistry</span> registry) {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 1. 获取 @MapperScan 注解的所有属性</span></span></code><code><span leaf="">    <span class="code-snippet__title">AnnotationAttributes</span> mapperScanAttrs = <span class="code-snippet__title">AnnotationAttributes</span>.<span class="code-snippet__title">fromMap</span>(</span></code><code><span leaf="">        importingClassMetadata.<span class="code-snippet__title">getAnnotationAttributes</span>(<span class="code-snippet__title">MapperScan</span>.<span class="code-snippet__property">class</span>.<span class="code-snippet__title">getName</span>()));</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (mapperScanAttrs != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 2. 调用重载方法，传入生成的基名</span></span></code><code><span leaf="">        <span class="code-snippet__variable">this</span>.<span class="code-snippet__title">registerBeanDefinitions</span>(importingClassMetadata, mapperScanAttrs, registry, </span></code><code><span leaf="">                                     <span class="code-snippet__title">generateBaseBeanName</span>(importingClassMetadata, <span class="code-snippet__number">0</span>));</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code><code><span leaf=""><br  /></span></code><code><span leaf=""><span class="code-snippet__keyword">private</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">registerBeanDefinitions</span>(<span class="code-snippet__params"><span class="code-snippet__title">AnnotationMetadata</span></span><span class="code-snippet__params"> importingClassMetadata,</span></span></code><code><span leaf="">                                     <span class="code-snippet__title">AnnotationAttributes</span> mapperScanAttrs,</span></code><code><span leaf="">                                     <span class="code-snippet__title">BeanDefinitionRegistry</span> registry, <span class="code-snippet__title">String</span> beanName) {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 3. 创建 MapperScannerConfigurer 的 BeanDefinitionBuilder</span></span></code><code><span leaf="">    <span class="code-snippet__title">BeanDefinitionBuilder</span> builder = <span class="code-snippet__title">BeanDefinitionBuilder</span></span></code><code><span leaf="">        .<span class="code-snippet__title">genericBeanDefinition</span>(<span class="code-snippet__title">MapperScannerConfigurer</span>.<span class="code-snippet__property">class</span>);</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 4. 设置 basePackage（扫描路径）</span></span></code><code><span leaf="">    builder.<span class="code-snippet__title">addPropertyValue</span>(<span class="code-snippet__string">"basePackage"</span>, </span></code><code><span leaf="">        <span class="code-snippet__title">StringUtils</span>.<span class="code-snippet__title">collectionToCommaDelimitedString</span>(basePackages));</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 5. 其他属性设置（sqlSessionFactoryBeanName、annotationClass 等）</span></span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 6. 注册到 Spring 容器，此时扫描尚未执行</span></span></code><code><span leaf="">    registry.<span class="code-snippet__title">registerBeanDefinition</span>(beanName, builder.<span class="code-snippet__title">getBeanDefinition</span>());</span></code><code><span leaf="">}</span></code>
+@Override
+public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
+                                    BeanDefinitionRegistry registry) {
+    // 1. 获取 @MapperScan 注解的所有属性
+    AnnotationAttributes mapperScanAttrs = AnnotationAttributes.fromMap(
+        importingClassMetadata.getAnnotationAttributes(MapperScan.class.getName()));
+
+    if (mapperScanAttrs != null) {
+        // 2. 调用重载方法，传入生成的基名
+        this.registerBeanDefinitions(importingClassMetadata, mapperScanAttrs, registry,
+                                     generateBaseBeanName(importingClassMetadata, 0));
+    }
+}
+
+private void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
+                                     AnnotationAttributes mapperScanAttrs,
+                                     BeanDefinitionRegistry registry, String beanName) {
+    // 3. 创建 MapperScannerConfigurer 的 BeanDefinitionBuilder
+    BeanDefinitionBuilder builder = BeanDefinitionBuilder
+        .genericBeanDefinition(MapperScannerConfigurer.class);
+
+    // 4. 设置 basePackage（扫描路径）
+    builder.addPropertyValue("basePackage",
+        StringUtils.collectionToCommaDelimitedString(basePackages));
+
+    // 5. 其他属性设置（sqlSessionFactoryBeanName、annotationClass 等）
+
+    // 6. 注册到 Spring 容器，此时扫描尚未执行
+    registry.registerBeanDefinition(beanName, builder.getBeanDefinition());
+}
 ```
 
 
@@ -306,7 +387,31 @@ postProcessBeanDefinitionRegistry
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 1. 处理占位符（如 ${basePackage}）</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (<span class="code-snippet__keyword">this</span>.processPropertyPlaceHolders) {</span></code><code><span leaf="">        processPropertyPlaceHolders();</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 2. 创建 ClassPathMapperScanner</span></span></code><code><span leaf="">    ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 3. 设置各项属性</span></span></code><code><span leaf="">    scanner.setAddToConfig(<span class="code-snippet__keyword">this</span>.addToConfig);</span></code><code><span leaf="">    scanner.setAnnotationClass(<span class="code-snippet__keyword">this</span>.annotationClass);</span></code><code><span leaf="">    scanner.setMarkerInterface(<span class="code-snippet__keyword">this</span>.markerInterface);</span></code><code><span leaf="">    scanner.setSqlSessionFactory(<span class="code-snippet__keyword">this</span>.sqlSessionFactory);</span></code><code><span leaf="">    scanner.setSqlSessionTemplate(<span class="code-snippet__keyword">this</span>.sqlSessionTemplate);</span></code><code><span leaf="">    scanner.setResourceLoader(<span class="code-snippet__keyword">this</span>.applicationContext);</span></code><code><span leaf="">    scanner.setBeanNameGenerator(<span class="code-snippet__keyword">this</span>.nameGenerator);</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 4. 注册过滤器（决定哪些接口被扫描）</span></span></code><code><span leaf="">    scanner.registerFilters();</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 5. 执行扫描（核心动作）</span></span></code><code><span leaf="">    scanner.scan(StringUtils.tokenizeToStringArray(<span class="code-snippet__keyword">this</span>.basePackage, </span></code><code><span leaf="">        ConfigurableApplicationContext.CONFIG_LOCATION_DELIMITERS));</span></code><code><span leaf="">}</span></code>
+public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
+    // 1. 处理占位符（如 ${basePackage}）
+    if (this.processPropertyPlaceHolders) {
+        processPropertyPlaceHolders();
+    }
+
+    // 2. 创建 ClassPathMapperScanner
+    ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);
+
+    // 3. 设置各项属性
+    scanner.setAddToConfig(this.addToConfig);
+    scanner.setAnnotationClass(this.annotationClass);
+    scanner.setMarkerInterface(this.markerInterface);
+    scanner.setSqlSessionFactory(this.sqlSessionFactory);
+    scanner.setSqlSessionTemplate(this.sqlSessionTemplate);
+    scanner.setResourceLoader(this.applicationContext);
+    scanner.setBeanNameGenerator(this.nameGenerator);
+
+    // 4. 注册过滤器（决定哪些接口被扫描）
+    scanner.registerFilters();
+
+    // 5. 执行扫描（核心动作）
+    scanner.scan(StringUtils.tokenizeToStringArray(this.basePackage,
+        ConfigurableApplicationContext.CONFIG_LOCATION_DELIMITERS));
+}
 ```
 
 
@@ -334,7 +439,42 @@ doScan
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">ClassPathMapperScanner</span> <span class="code-snippet__keyword">extends</span> <span class="code-snippet__title">ClassPathBeanDefinitionScanner</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__title">Class</span><? <span class="code-snippet__keyword">extends</span> <span class="code-snippet__title">MapperFactoryBean</span>> mapperFactoryBeanClass = <span class="code-snippet__title">MapperFactoryBean</span>.<span class="code-snippet__property">class</span>;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">Set</span><<span class="code-snippet__title">BeanDefinitionHolder</span>> <span class="code-snippet__title">doScan</span>(<span class="code-snippet__params"><span class="code-snippet__title">String</span></span><span class="code-snippet__params">... basePackages</span>) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 1. 调用父类进行标准组件扫描，得到原始 BeanDefinition（beanClass = 接口本身）</span></span></code><code><span leaf="">        <span class="code-snippet__title">Set</span><<span class="code-snippet__title">BeanDefinitionHolder</span>> beanDefinitions = <span class="code-snippet__variable">super</span>.<span class="code-snippet__title">doScan</span>(basePackages);</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (!beanDefinitions.<span class="code-snippet__title">isEmpty</span>()) {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 2. 对扫描到的 BeanDefinition 进行二次处理（关键步骤）</span></span></code><code><span leaf="">            <span class="code-snippet__title">processBeanDefinitions</span>(beanDefinitions);</span></code><code><span leaf="">        }</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> beanDefinitions;</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">processBeanDefinitions</span>(<span class="code-snippet__params"><span class="code-snippet__title">Set</span></span><span class="code-snippet__params"><</span><span class="code-snippet__params"><span class="code-snippet__title">BeanDefinitionHolder</span></span><span class="code-snippet__params">> beanDefinitions</span>) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">for</span> (<span class="code-snippet__title">BeanDefinitionHolder</span> holder : beanDefinitions) {</span></code><code><span leaf="">            <span class="code-snippet__title">BeanDefinition</span> definition = holder.<span class="code-snippet__title">getBeanDefinition</span>();</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">            <span class="code-snippet__comment">// 3. 修改 beanClass：将接口类型改为 MapperFactoryBean</span></span></code><code><span leaf="">            definition.<span class="code-snippet__title">setBeanClass</span>(<span class="code-snippet__variable">this</span>.<span class="code-snippet__property">mapperFactoryBeanClass</span>);</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">            <span class="code-snippet__comment">// 4. 添加构造参数：原始 Mapper 接口类型</span></span></code><code><span leaf="">            definition.<span class="code-snippet__title">getConstructorArgumentValues</span>()</span></code><code><span leaf="">                .<span class="code-snippet__title">addGenericArgumentValue</span>(definition.<span class="code-snippet__title">getBeanClassName</span>());</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">            <span class="code-snippet__comment">// 5. 添加属性：sqlSessionFactory 或 sqlSessionTemplate</span></span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (<span class="code-snippet__variable">this</span>.<span class="code-snippet__property">sqlSessionFactory</span> != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">                definition.<span class="code-snippet__title">getPropertyValues</span>().<span class="code-snippet__title">add</span>(<span class="code-snippet__string">"sqlSessionFactory"</span>, <span class="code-snippet__variable">this</span>.<span class="code-snippet__property">sqlSessionFactory</span>);</span></code><code><span leaf="">            }</span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (<span class="code-snippet__variable">this</span>.<span class="code-snippet__property">sqlSessionTemplate</span> != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">                definition.<span class="code-snippet__title">getPropertyValues</span>().<span class="code-snippet__title">add</span>(<span class="code-snippet__string">"sqlSessionTemplate"</span>, <span class="code-snippet__variable">this</span>.<span class="code-snippet__property">sqlSessionTemplate</span>);</span></code><code><span leaf="">            }</span></code><code><span leaf="">        }</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+public class ClassPathMapperScanner extends ClassPathBeanDefinitionScanner {
+    private Class<? extends MapperFactoryBean> mapperFactoryBeanClass = MapperFactoryBean.class;
+
+    @Override
+    public Set<BeanDefinitionHolder> doScan(String... basePackages) {
+        // 1. 调用父类进行标准组件扫描，得到原始 BeanDefinition（beanClass = 接口本身）
+        Set<BeanDefinitionHolder> beanDefinitions = super.doScan(basePackages);
+
+        if (!beanDefinitions.isEmpty()) {
+            // 2. 对扫描到的 BeanDefinition 进行二次处理（关键步骤）
+            processBeanDefinitions(beanDefinitions);
+        }
+        return beanDefinitions;
+    }
+
+    private void processBeanDefinitions(Set<BeanDefinitionHolder> beanDefinitions) {
+        for (BeanDefinitionHolder holder : beanDefinitions) {
+            BeanDefinition definition = holder.getBeanDefinition();
+
+            // 3. 修改 beanClass：将接口类型改为 MapperFactoryBean
+            definition.setBeanClass(this.mapperFactoryBeanClass);
+
+            // 4. 添加构造参数：原始 Mapper 接口类型
+            definition.getConstructorArgumentValues()
+                .addGenericArgumentValue(definition.getBeanClassName());
+
+            // 5. 添加属性：sqlSessionFactory 或 sqlSessionTemplate
+            if (this.sqlSessionFactory != null) {
+                definition.getPropertyValues().add("sqlSessionFactory", this.sqlSessionFactory);
+            }
+            if (this.sqlSessionTemplate != null) {
+                definition.getPropertyValues().add("sqlSessionTemplate", this.sqlSessionTemplate);
+            }
+        }
+    }
+}
 ```
 
 
@@ -394,7 +534,18 @@ getObject()
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">MapperFactoryBean</span><T> <span class="code-snippet__keyword">extends</span> <span class="code-snippet__title">SqlSessionDaoSupport</span> <span class="code-snippet__keyword">implements</span> <span class="code-snippet__title">FactoryBean</span><T> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> Class<T> mapperInterface;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">MapperFactoryBean</span><span class="code-snippet__params">(Class<T> mapperInterface)</span> {</span></code><code><span leaf="">        <span class="code-snippet__built_in">this</span>.mapperInterface = mapperInterface;</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> T <span class="code-snippet__title">getObject</span><span class="code-snippet__params">()</span> <span class="code-snippet__keyword">throws</span> Exception {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 通过 SqlSession 获取 Mapper 代理对象</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> getSqlSession().getMapper(<span class="code-snippet__built_in">this</span>.mapperInterface);</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+public class MapperFactoryBean<T> extends SqlSessionDaoSupport implements FactoryBean<T> {
+    private Class<T> mapperInterface;
+
+    public MapperFactoryBean(Class<T> mapperInterface) {
+        this.mapperInterface = mapperInterface;
+    }
+    @Override
+    public T getObject() throws Exception {
+        // 通过 SqlSession 获取 Mapper 代理对象
+        return getSqlSession().getMapper(this.mapperInterface);
+    }
+}
 ```
 
 
@@ -404,7 +555,11 @@ getSqlSession().getMapper()
 
 
 ```
-<code><span leaf=""><span class="code-snippet__title">SqlSessionTemplate</span>.<span class="code-snippet__title">getMapper</span>()</span></code><code><span leaf="">    → <span class="code-snippet__title">Configuration</span>.<span class="code-snippet__title">getMapper</span>()</span></code><code><span leaf="">        → <span class="code-snippet__title">MapperRegistry</span>.<span class="code-snippet__title">getMapper</span>()</span></code><code><span leaf="">            → <span class="code-snippet__title">MapperProxyFactory</span>.<span class="code-snippet__title">newInstance</span>()</span></code><code><span leaf="">                → <span class="code-snippet__title">Proxy</span>.<span class="code-snippet__title">newProxyInstance</span>() → 生成 <span class="code-snippet__title">MapperProxy</span></span></code>
+SqlSessionTemplate.getMapper()
+    → Configuration.getMapper()
+        → MapperRegistry.getMapper()
+            → MapperProxyFactory.newInstance()
+                → Proxy.newProxyInstance() → 生成 MapperProxy
 ```
 
 
@@ -424,7 +579,32 @@ MapperProxy
 
 
 ```
-<code><span leaf="">启动类 @MapperScan(<span class="code-snippet__string">"com.example.mapper"</span>)</span></code><code><span leaf="">    ↓</span></code><code><span leaf="">@Import(MapperScannerRegistrar.<span class="code-snippet__keyword">class</span>)</span></code><code><span leaf="">    ↓</span></code><code><span leaf="">MapperScannerRegistrar.registerBeanDefinitions()</span></code><code><span leaf="">    → 注册 MapperScannerConfigurer 的 BeanDefinition</span></code><code><span leaf="">    ↓</span></code><code><span leaf=""><span class="code-snippet__function">Spring </span><span class="code-snippet__function"><span class="code-snippet__title">refresh</span></span><span class="code-snippet__function">() → invokeBeanDefinitionRegistryPostProcessors</span></span></code><code><span leaf="">    ↓</span></code><code><span leaf="">MapperScannerConfigurer.<span class="code-snippet__title">postProcessBeanDefinitionRegistry</span>()</span></code><code><span leaf="">    → 创建 ClassPathMapperScanner</span></code><code><span leaf="">    → 调用 scanner.<span class="code-snippet__title">scan</span>(<span class="code-snippet__params">basePackages</span>)</span></code><code><span leaf="">        ↓</span></code><code><span leaf="">    ClassPathMapperScanner.<span class="code-snippet__title">doScan</span>()</span></code><code><span leaf="">        → super.<span class="code-snippet__title">doScan</span>() → 父类扫描包，发现 Mapper 接口</span></code><code><span leaf="">        → <span class="code-snippet__title">processBeanDefinitions</span>()</span></code><code><span leaf="">            → 修改 BeanDefinition：beanClass = MapperFactoryBean</span></code><code><span leaf="">            → 添加构造参数：原始 Mapper 接口类型</span></code><code><span leaf="">        ↓</span></code><code><span leaf="">    MapperFactoryBean.getObject()</span></code><code><span leaf="">        → sqlSession.getMapper(mapperInterface)</span></code><code><span leaf="">            → MapperRegistry.getMapper()</span></code><code><span leaf="">                → MapperProxyFactory.newInstance()</span></code><code><span leaf="">                    → JDK 动态代理 → MapperProxy</span></code><code><span leaf="">        ↓</span></code><code><span leaf="">Spring 容器注入 MapperProxy 代理对象</span></code>
+启动类 @MapperScan("com.example.mapper")
+    ↓
+@Import(MapperScannerRegistrar.class)
+    ↓
+MapperScannerRegistrar.registerBeanDefinitions()
+    → 注册 MapperScannerConfigurer 的 BeanDefinition
+    ↓
+Spring refresh() → invokeBeanDefinitionRegistryPostProcessors
+    ↓
+MapperScannerConfigurer.postProcessBeanDefinitionRegistry()
+    → 创建 ClassPathMapperScanner
+    → 调用 scanner.scan(basePackages)
+        ↓
+    ClassPathMapperScanner.doScan()
+        → super.doScan() → 父类扫描包，发现 Mapper 接口
+        → processBeanDefinitions()
+            → 修改 BeanDefinition：beanClass = MapperFactoryBean
+            → 添加构造参数：原始 Mapper 接口类型
+        ↓
+    MapperFactoryBean.getObject()
+        → sqlSession.getMapper(mapperInterface)
+            → MapperRegistry.getMapper()
+                → MapperProxyFactory.newInstance()
+                    → JDK 动态代理 → MapperProxy
+        ↓
+Spring 容器注入 MapperProxy 代理对象
 ```
 
 
@@ -434,7 +614,15 @@ MapperProxy
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__class"><span class="code-snippet__keyword">class</span></span><span class="code-snippet__class"> </span><span class="code-snippet__class"><span class="code-snippet__title">DefaultSqlSession</span></span><span class="code-snippet__class"> </span><span class="code-snippet__class"><span class="code-snippet__keyword">implements</span></span><span class="code-snippet__class"> </span><span class="code-snippet__class"><span class="code-snippet__title">SqlSession</span></span><span class="code-snippet__class"> </span>{</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">final</span> Configuration configuration;  <span class="code-snippet__comment">// 全局配置</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">final</span> Executor executor;            <span class="code-snippet__comment">// 执行器</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">final</span> <span class="code-snippet__keyword">boolean</span> autoCommit;           <span class="code-snippet__comment">// 是否自动提交</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">boolean</span> dirty;                      <span class="code-snippet__comment">// 是否有数据变更（用于判断是否需要提交/回滚）</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> List<Cursor<span class="code-snippet__meta"><?</span>>> cursors;            <span class="code-snippet__comment">// 游标集合，用于 close 时批量关闭</span></span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// ... 其他</span></span></code><code><span leaf="">}</span></code>
+public class DefaultSqlSession implements SqlSession {
+    private final Configuration configuration;  // 全局配置
+    private final Executor executor;            // 执行器
+    private final boolean autoCommit;           // 是否自动提交
+    private boolean dirty;                      // 是否有数据变更（用于判断是否需要提交/回滚）
+    private List<Cursor<?>> cursors;            // 游标集合，用于 close 时批量关闭
+
+    // ... 其他
+}
 ```
 
 
@@ -448,7 +636,38 @@ selectOne
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// DefaultSqlSession</span></span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <T> T <span class="code-snippet__title">selectOne</span>(<span class="code-snippet__params"><span class="code-snippet__title">String</span></span><span class="code-snippet__params"> statement, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> parameter</span>) {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 委托给 selectList，然后取第一个元素</span></span></code><code><span leaf="">    <span class="code-snippet__title">List</span><T> list = <span class="code-snippet__variable">this</span>.<span class="code-snippet__title">selectList</span>(statement, parameter);</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (list.<span class="code-snippet__title">size</span>() == <span class="code-snippet__number">1</span>) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> list.<span class="code-snippet__title">get</span>(<span class="code-snippet__number">0</span>);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">else</span> <span class="code-snippet__keyword">if</span> (list.<span class="code-snippet__title">size</span>() > <span class="code-snippet__number">1</span>) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">TooManyResultsException</span>(<span class="code-snippet__string">"..."</span>);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> <span class="code-snippet__literal">null</span>;</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code><code><span leaf=""><br  /></span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <E> <span class="code-snippet__title">List</span><E> <span class="code-snippet__title">selectList</span>(<span class="code-snippet__params"><span class="code-snippet__title">String</span></span><span class="code-snippet__params"> statement, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> parameter</span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> <span class="code-snippet__variable">this</span>.<span class="code-snippet__title">selectList</span>(statement, parameter, <span class="code-snippet__title">RowBounds</span>.<span class="code-snippet__property">DEFAULT</span>);</span></code><code><span leaf="">}</span></code><code><span leaf=""><br  /></span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <E> <span class="code-snippet__title">List</span><E> <span class="code-snippet__title">selectList</span>(<span class="code-snippet__params"><span class="code-snippet__title">String</span></span><span class="code-snippet__params"> statement, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> parameter, </span><span class="code-snippet__params"><span class="code-snippet__title">RowBounds</span></span><span class="code-snippet__params"> rowBounds</span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 1. 从 Configuration 中获取 MappedStatement</span></span></code><code><span leaf="">        <span class="code-snippet__title">MappedStatement</span> ms = configuration.<span class="code-snippet__title">getMappedStatement</span>(statement);</span></code><code><span leaf="">        <span class="code-snippet__comment">// 2. 委托给 Executor 执行</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> executor.<span class="code-snippet__title">query</span>(ms, <span class="code-snippet__title">wrapCollection</span>(parameter), rowBounds, <span class="code-snippet__title">Executor</span>.<span class="code-snippet__property">NO_RESULT_HANDLER</span>);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">catch</span> (<span class="code-snippet__title">Exception</span> e) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">throw</span> <span class="code-snippet__title">ExceptionFactory</span>.<span class="code-snippet__title">wrapException</span>(<span class="code-snippet__string">"Error querying database.  Cause: "</span> + e, e);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">        <span class="code-snippet__title">ErrorContext</span>.<span class="code-snippet__title">instance</span>().<span class="code-snippet__title">reset</span>();</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+// DefaultSqlSession
+@Override
+public <T> T selectOne(String statement, Object parameter) {
+    // 委托给 selectList，然后取第一个元素
+    List<T> list = this.selectList(statement, parameter);
+    if (list.size() == 1) {
+        return list.get(0);
+    } else if (list.size() > 1) {
+        throw new TooManyResultsException("...");
+    } else {
+        return null;
+    }
+}
+
+@Override
+public <E> List<E> selectList(String statement, Object parameter) {
+    return this.selectList(statement, parameter, RowBounds.DEFAULT);
+}
+
+@Override
+public <E> List<E> selectList(String statement, Object parameter, RowBounds rowBounds) {
+    try {
+        // 1. 从 Configuration 中获取 MappedStatement
+        MappedStatement ms = configuration.getMappedStatement(statement);
+        // 2. 委托给 Executor 执行
+        return executor.query(ms, wrapCollection(parameter), rowBounds, Executor.NO_RESULT_HANDLER);
+    } catch (Exception e) {
+        throw ExceptionFactory.wrapException("Error querying database.  Cause: " + e, e);
+    } finally {
+        ErrorContext.instance().reset();
+    }
+}
 ```
 
 
@@ -494,7 +713,23 @@ update
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// DefaultSqlSession</span></span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> int <span class="code-snippet__title">insert</span>(<span class="code-snippet__params"><span class="code-snippet__title">String</span></span><span class="code-snippet__params"> statement, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> parameter</span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> <span class="code-snippet__title">update</span>(statement, parameter);</span></code><code><span leaf="">}</span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> int <span class="code-snippet__title">update</span>(<span class="code-snippet__params"><span class="code-snippet__title">String</span></span><span class="code-snippet__params"> statement, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> parameter</span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">        dirty = <span class="code-snippet__literal">true</span>;  <span class="code-snippet__comment">// 标记数据已变更</span></span></code><code><span leaf="">        <span class="code-snippet__title">MappedStatement</span> ms = configuration.<span class="code-snippet__title">getMappedStatement</span>(statement);</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> executor.<span class="code-snippet__title">update</span>(ms, <span class="code-snippet__title">wrapCollection</span>(parameter));</span></code><code><span leaf="">    } <span class="code-snippet__keyword">catch</span> (<span class="code-snippet__title">Exception</span> e) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">throw</span> <span class="code-snippet__title">ExceptionFactory</span>.<span class="code-snippet__title">wrapException</span>(<span class="code-snippet__string">"Error updating database.  Cause: "</span> + e, e);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">        <span class="code-snippet__title">ErrorContext</span>.<span class="code-snippet__title">instance</span>().<span class="code-snippet__title">reset</span>();</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+// DefaultSqlSession
+@Override
+public int insert(String statement, Object parameter) {
+    return update(statement, parameter);
+}
+@Override
+public int update(String statement, Object parameter) {
+    try {
+        dirty = true;  // 标记数据已变更
+        MappedStatement ms = configuration.getMappedStatement(statement);
+        return executor.update(ms, wrapCollection(parameter));
+    } catch (Exception e) {
+        throw ExceptionFactory.wrapException("Error updating database.  Cause: " + e, e);
+    } finally {
+        ErrorContext.instance().reset();
+    }
+}
 ```
 
 
@@ -584,7 +819,64 @@ sqlSession.commit()
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// DefaultSqlSession</span></span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">commit</span>() {</span></code><code><span leaf="">    <span class="code-snippet__title">commit</span>(<span class="code-snippet__literal">false</span>);</span></code><code><span leaf="">}</span></code><code><span leaf=""><br  /></span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">commit</span>(<span class="code-snippet__params"><span class="code-snippet__built_in">boolean</span></span><span class="code-snippet__params"> force</span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 提交事务，force 参数表示即使不 dirty 也提交</span></span></code><code><span leaf="">        executor.<span class="code-snippet__title">commit</span>(<span class="code-snippet__title">isCommitOrRollbackRequired</span>(force));</span></code><code><span leaf="">        dirty = <span class="code-snippet__literal">false</span>;  <span class="code-snippet__comment">// 提交成功后重置 dirty</span></span></code><code><span leaf="">    } <span class="code-snippet__keyword">catch</span> (<span class="code-snippet__title">Exception</span> e) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">throw</span> <span class="code-snippet__title">ExceptionFactory</span>.<span class="code-snippet__title">wrapException</span>(<span class="code-snippet__string">"Error committing transaction.  Cause: "</span> + e, e);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">        <span class="code-snippet__title">ErrorContext</span>.<span class="code-snippet__title">instance</span>().<span class="code-snippet__title">reset</span>();</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code><code><span leaf=""><br  /></span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">rollback</span>() {</span></code><code><span leaf="">    <span class="code-snippet__title">rollback</span>(<span class="code-snippet__literal">false</span>);</span></code><code><span leaf="">}</span></code><code><span leaf=""><br  /></span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">rollback</span>(<span class="code-snippet__params"><span class="code-snippet__built_in">boolean</span></span><span class="code-snippet__params"> force</span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 回滚事务</span></span></code><code><span leaf="">        executor.<span class="code-snippet__title">rollback</span>(<span class="code-snippet__title">isCommitOrRollbackRequired</span>(force));</span></code><code><span leaf="">        dirty = <span class="code-snippet__literal">false</span>;</span></code><code><span leaf="">    } <span class="code-snippet__keyword">catch</span> (<span class="code-snippet__title">Exception</span> e) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">throw</span> <span class="code-snippet__title">ExceptionFactory</span>.<span class="code-snippet__title">wrapException</span>(<span class="code-snippet__string">"Error rolling back transaction.  Cause: "</span> + e, e);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">        <span class="code-snippet__title">ErrorContext</span>.<span class="code-snippet__title">instance</span>().<span class="code-snippet__title">reset</span>();</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code><code><span leaf=""><br  /></span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">close</span>() {</span></code><code><span leaf="">    <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 如果有未提交的变更，回滚</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (dirty) {</span></code><code><span leaf="">            executor.<span class="code-snippet__title">rollback</span>(<span class="code-snippet__literal">true</span>);</span></code><code><span leaf="">        }</span></code><code><span leaf="">        <span class="code-snippet__comment">// 关闭 executor（会关闭连接）</span></span></code><code><span leaf="">        executor.<span class="code-snippet__title">close</span>(<span class="code-snippet__literal">true</span>);</span></code><code><span leaf="">        dirty = <span class="code-snippet__literal">false</span>;</span></code><code><span leaf="">    } <span class="code-snippet__keyword">catch</span> (<span class="code-snippet__title">Exception</span> e) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">throw</span> <span class="code-snippet__title">ExceptionFactory</span>.<span class="code-snippet__title">wrapException</span>(<span class="code-snippet__string">"Error closing session.  Cause: "</span> + e, e);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">        <span class="code-snippet__title">ErrorContext</span>.<span class="code-snippet__title">instance</span>().<span class="code-snippet__title">reset</span>();</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code><code><span leaf=""><br  /></span></code><code><span leaf=""><span class="code-snippet__comment">// 判断是否需要提交/回滚</span></span></code><code><span leaf=""><span class="code-snippet__keyword">private</span> <span class="code-snippet__built_in">boolean</span> <span class="code-snippet__title">isCommitOrRollbackRequired</span>(<span class="code-snippet__params"><span class="code-snippet__built_in">boolean</span></span><span class="code-snippet__params"> force</span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> (!autoCommit && dirty) || force;</span></code><code><span leaf="">}</span></code>
+// DefaultSqlSession
+@Override
+public void commit() {
+    commit(false);
+}
+
+@Override
+public void commit(boolean force) {
+    try {
+        // 提交事务，force 参数表示即使不 dirty 也提交
+        executor.commit(isCommitOrRollbackRequired(force));
+        dirty = false;  // 提交成功后重置 dirty
+    } catch (Exception e) {
+        throw ExceptionFactory.wrapException("Error committing transaction.  Cause: " + e, e);
+    } finally {
+        ErrorContext.instance().reset();
+    }
+}
+
+@Override
+public void rollback() {
+    rollback(false);
+}
+
+@Override
+public void rollback(boolean force) {
+    try {
+        // 回滚事务
+        executor.rollback(isCommitOrRollbackRequired(force));
+        dirty = false;
+    } catch (Exception e) {
+        throw ExceptionFactory.wrapException("Error rolling back transaction.  Cause: " + e, e);
+    } finally {
+        ErrorContext.instance().reset();
+    }
+}
+
+@Override
+public void close() {
+    try {
+        // 如果有未提交的变更，回滚
+        if (dirty) {
+            executor.rollback(true);
+        }
+        // 关闭 executor（会关闭连接）
+        executor.close(true);
+        dirty = false;
+    } catch (Exception e) {
+        throw ExceptionFactory.wrapException("Error closing session.  Cause: " + e, e);
+    } finally {
+        ErrorContext.instance().reset();
+    }
+}
+
+// 判断是否需要提交/回滚
+private boolean isCommitOrRollbackRequired(boolean force) {
+    return (!autoCommit && dirty) || force;
+}
 ```
 
 
@@ -634,13 +926,31 @@ configuration.newExecutor()
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// SimpleExecutor.doQuery</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <E> List<E> <span class="code-snippet__title">doQuery</span><span class="code-snippet__params">(MappedStatement ms, Object parameter, RowBounds rowBounds, </span></span></code><code><span leaf="">                           ResultHandler resultHandler, BoundSql boundSql) <span class="code-snippet__keyword">throws</span> SQLException {</span></code><code><span leaf="">    <span class="code-snippet__type">Statement</span> <span class="code-snippet__variable">stmt</span> <span class="code-snippet__operator">=</span> <span class="code-snippet__literal">null</span>;</span></code><code><span leaf="">    <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">        <span class="code-snippet__type">Configuration</span> <span class="code-snippet__variable">configuration</span> <span class="code-snippet__operator">=</span> ms.getConfiguration();</span></code><code><span leaf="">        <span class="code-snippet__comment">// 创建 StatementHandler</span></span></code><code><span leaf="">        <span class="code-snippet__type">StatementHandler</span> <span class="code-snippet__variable">handler</span> <span class="code-snippet__operator">=</span> configuration.newStatementHandler(wrapper, ms, parameter, rowBounds, resultHandler, boundSql);</span></code><code><span leaf="">        <span class="code-snippet__comment">// ...</span></span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+// SimpleExecutor.doQuery
+public <E> List<E> doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds,
+                           ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
+    Statement stmt = null;
+    try {
+        Configuration configuration = ms.getConfiguration();
+        // 创建 StatementHandler
+        StatementHandler handler = configuration.newStatementHandler(wrapper, ms, parameter, rowBounds, resultHandler, boundSql);
+        // ...
+    }
+}
 ```
 
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// Configuration</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__title">StatementHandler</span> <span class="code-snippet__title">newStatementHandler</span>(<span class="code-snippet__params"><span class="code-snippet__title">Executor</span></span><span class="code-snippet__params"> executor, </span><span class="code-snippet__params"><span class="code-snippet__title">MappedStatement</span></span><span class="code-snippet__params"> ms, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> parameter, </span></span></code><code><span leaf="">                                             <span class="code-snippet__title">RowBounds</span> rowBounds, <span class="code-snippet__title">ResultHandler</span> resultHandler, <span class="code-snippet__title">BoundSql</span> boundSql) {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 创建 RoutingStatementHandler（会根据 SQL 类型路由到对应的 StatementHandler）</span></span></code><code><span leaf="">    <span class="code-snippet__title">StatementHandler</span> statementHandler = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">RoutingStatementHandler</span>(executor, ms, parameter, rowBounds, resultHandler, boundSql);</span></code><code><span leaf="">    <span class="code-snippet__comment">// 插件拦截</span></span></code><code><span leaf="">    statementHandler = (<span class="code-snippet__title">StatementHandler</span>) interceptorChain.<span class="code-snippet__title">pluginAll</span>(statementHandler);</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> statementHandler;</span></code><code><span leaf="">}</span></code>
+// Configuration
+public StatementHandler newStatementHandler(Executor executor, MappedStatement ms, Object parameter,
+                                             RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
+    // 创建 RoutingStatementHandler（会根据 SQL 类型路由到对应的 StatementHandler）
+    StatementHandler statementHandler = new RoutingStatementHandler(executor, ms, parameter, rowBounds, resultHandler, boundSql);
+    // 插件拦截
+    statementHandler = (StatementHandler) interceptorChain.pluginAll(statementHandler);
+    return statementHandler;
+}
 ```
 
 
@@ -648,7 +958,24 @@ configuration.newExecutor()
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// RoutingStatementHandler 构造方法</span></span></code><code><span leaf=""><span class="code-snippet__function"><span class="code-snippet__keyword">public</span></span><span class="code-snippet__function"> </span><span class="code-snippet__function"><span class="code-snippet__title">RoutingStatementHandler</span></span><span class="code-snippet__function">(</span><span class="code-snippet__function"><span class="code-snippet__params">Executor executor, MappedStatement ms, Object parameter, </span></span></span></code><code><span leaf="">                               RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 根据 MappedStatement 的类型，选择具体的 StatementHandler</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">switch</span> (ms.getStatementType()) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">case</span> STATEMENT:</span></code><code><span leaf="">            <span class="code-snippet__built_in">delegate</span> = <span class="code-snippet__keyword">new</span> SimpleStatementHandler(executor, ms, parameter, rowBounds, resultHandler, boundSql);</span></code><code><span leaf="">            <span class="code-snippet__keyword">break</span>;</span></code><code><span leaf="">        <span class="code-snippet__keyword">case</span> PREPARED:</span></code><code><span leaf="">            <span class="code-snippet__built_in">delegate</span> = <span class="code-snippet__keyword">new</span> PreparedStatementHandler(executor, ms, parameter, rowBounds, resultHandler, boundSql);</span></code><code><span leaf="">            <span class="code-snippet__keyword">break</span>;</span></code><code><span leaf="">        <span class="code-snippet__keyword">case</span> CALLABLE:</span></code><code><span leaf="">            <span class="code-snippet__built_in">delegate</span> = <span class="code-snippet__keyword">new</span> CallableStatementHandler(executor, ms, parameter, rowBounds, resultHandler, boundSql);</span></code><code><span leaf="">            <span class="code-snippet__keyword">break</span>;</span></code><code><span leaf="">        <span class="code-snippet__literal">default</span>:</span></code><code><span leaf="">            <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> RuntimeException(<span class="code-snippet__string">"..."</span>);</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+// RoutingStatementHandler 构造方法
+public RoutingStatementHandler(Executor executor, MappedStatement ms, Object parameter,
+                               RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
+    // 根据 MappedStatement 的类型，选择具体的 StatementHandler
+    switch (ms.getStatementType()) {
+        case STATEMENT:
+            delegate = new SimpleStatementHandler(executor, ms, parameter, rowBounds, resultHandler, boundSql);
+            break;
+        case PREPARED:
+            delegate = new PreparedStatementHandler(executor, ms, parameter, rowBounds, resultHandler, boundSql);
+            break;
+        case CALLABLE:
+            delegate = new CallableStatementHandler(executor, ms, parameter, rowBounds, resultHandler, boundSql);
+            break;
+        default:
+            throw new RuntimeException("...");
+    }
+}
 ```
 
 
@@ -660,7 +987,14 @@ BaseStatementHandler
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// BaseStatementHandler 构造方法</span></span></code><code><span leaf=""><span class="code-snippet__keyword">protected</span> BaseStatementHandler(Executor executor, MappedStatement ms, Object parameter, </span></code><code><span leaf="">                               RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {</span></code><code><span leaf="">    <span class="code-snippet__comment">// ...</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">this</span>.parameterHandler = configuration.newParameterHandler(ms, parameter, boundSql);</span></code><code><span leaf="">    <span class="code-snippet__keyword">this</span>.resultSetHandler = configuration.newResultSetHandler(executor, ms, rowBounds, parameterHandler, resultHandler, boundSql);</span></code><code><span leaf="">}</span></code><code><span leaf=""><br  /></span></code>
+// BaseStatementHandler 构造方法
+protected BaseStatementHandler(Executor executor, MappedStatement ms, Object parameter,
+                               RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
+    // ...
+    this.parameterHandler = configuration.newParameterHandler(ms, parameter, boundSql);
+    this.resultSetHandler = configuration.newResultSetHandler(executor, ms, rowBounds, parameterHandler, resultHandler, boundSql);
+}
+
 ```
 
 
@@ -708,7 +1042,27 @@ BaseExecutor
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// BaseExecutor</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">abstract</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">BaseExecutor</span> <span class="code-snippet__keyword">implements</span> <span class="code-snippet__title">Executor</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> <span class="code-snippet__title">PerpetualCache</span> localCache;      <span class="code-snippet__comment">// 一级缓存</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> <span class="code-snippet__title">PerpetualCache</span> localOutputParameterCache;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 查询时先从缓存取</span></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <E> <span class="code-snippet__title">List</span><E> <span class="code-snippet__title">query</span>(<span class="code-snippet__params"><span class="code-snippet__title">MappedStatement</span></span><span class="code-snippet__params"> ms, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> parameter, </span><span class="code-snippet__params"><span class="code-snippet__title">RowBounds</span></span><span class="code-snippet__params"> rowBounds, </span></span></code><code><span leaf="">                             <span class="code-snippet__title">ResultHandler</span> resultHandler, <span class="code-snippet__title">CacheKey</span> key, <span class="code-snippet__title">BoundSql</span> boundSql) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 从 localCache 中获取</span></span></code><code><span leaf="">        <span class="code-snippet__title">List</span><E> list = resultHandler == <span class="code-snippet__literal">null</span> ? (<span class="code-snippet__title">List</span><E>) localCache.<span class="code-snippet__title">getObject</span>(key) : <span class="code-snippet__literal">null</span>;</span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (list != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 缓存命中</span></span></code><code><span leaf="">            <span class="code-snippet__title">handleLocallyCachedOutputParameters</span>(ms, key, parameter, boundSql);</span></code><code><span leaf="">        } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 缓存未命中，从数据库查询</span></span></code><code><span leaf="">            list = <span class="code-snippet__title">queryFromDatabase</span>(ms, parameter, rowBounds, resultHandler, key, boundSql);</span></code><code><span leaf="">        }</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> list;</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+// BaseExecutor
+public abstract class BaseExecutor implements Executor {
+    protected PerpetualCache localCache;      // 一级缓存
+    protected PerpetualCache localOutputParameterCache;
+
+    // 查询时先从缓存取
+    @Override
+    public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds,
+                             ResultHandler resultHandler, CacheKey key, BoundSql boundSql) {
+        // 从 localCache 中获取
+        List<E> list = resultHandler == null ? (List<E>) localCache.getObject(key) : null;
+        if (list != null) {
+            // 缓存命中
+            handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);
+        } else {
+            // 缓存未命中，从数据库查询
+            list = queryFromDatabase(ms, parameter, rowBounds, resultHandler, key, boundSql);
+        }
+        return list;
+    }
+}
 ```
 
 

@@ -54,7 +54,8 @@ ${}
 
 
 ```
-<code><span leaf=""><span class="code-snippet__built_in">SELECT</span> * FROM user <span class="code-snippet__built_in">WHERE</span> id = <span class="code-snippet__comment">#{id}</span></span></code><code><span leaf=""><span class="code-snippet__built_in">SELECT</span> * FROM user <span class="code-snippet__built_in">WHERE</span> name like <span class="code-snippet__string">'%${keyword}%'</span></span></code>
+SELECT * FROM user WHERE id = #{id}
+SELECT * FROM user WHERE name like '%${keyword}%'
 ```
 
 
@@ -140,7 +141,12 @@ BoundSql
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// MappedStatement</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__title">BoundSql</span> <span class="code-snippet__title">getBoundSql</span>(<span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> parameterObject</span>) {</span></code><code><span leaf="">    <span class="code-snippet__title">BoundSql</span> boundSql = sqlSource.<span class="code-snippet__title">getBoundSql</span>(parameterObject);</span></code><code><span leaf="">    <span class="code-snippet__comment">// 处理 parameterMappings 中可能缺失的参数</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> boundSql;</span></code><code><span leaf="">}</span></code>
+// MappedStatement
+public BoundSql getBoundSql(Object parameterObject) {
+    BoundSql boundSql = sqlSource.getBoundSql(parameterObject);
+    // 处理 parameterMappings 中可能缺失的参数
+    return boundSql;
+}
 ```
 
 
@@ -192,7 +198,28 @@ DynamicSqlSource.getBoundSql
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// DynamicSqlSource</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> BoundSql <span class="code-snippet__title">getBoundSql</span><span class="code-snippet__params">(Object parameterObject)</span> {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 1. 使用 Context 解析动态 SQL，生成最终 SQL 字符串（包含 ${} 的直接拼接和静态文本）</span></span></code><code><span leaf="">    <span class="code-snippet__type">DynamicContext</span> <span class="code-snippet__variable">context</span> <span class="code-snippet__operator">=</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">DynamicContext</span>(configuration, parameterObject);</span></code><code><span leaf="">    <span class="code-snippet__comment">// 在这里，${} 被替换，<if>、<foreach> 等动态标签被处理</span></span></code><code><span leaf="">    rootSqlNode.apply(context);      <span class="code-snippet__comment">// rootSqlNode 是动态 SQL 的根节点</span></span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 2. 处理 ${} 替换后，得到包含 #{} 的 SQL</span></span></code><code><span leaf="">    <span class="code-snippet__type">String</span> <span class="code-snippet__variable">sql</span> <span class="code-snippet__operator">=</span> context.getSql();</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 3. 解析 #{}，生成 ParameterMapping 列表，同时将 #{} 替换为 ?</span></span></code><code><span leaf="">    <span class="code-snippet__type">SqlSourceBuilder</span> <span class="code-snippet__variable">sqlSourceParser</span> <span class="code-snippet__operator">=</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">SqlSourceBuilder</span>(configuration);</span></code><code><span leaf="">    Class<?> parameterType = parameterObject == <span class="code-snippet__literal">null</span> ? Object.class : parameterObject.getClass();</span></code><code><span leaf="">    <span class="code-snippet__type">SqlSource</span> <span class="code-snippet__variable">sqlSource</span> <span class="code-snippet__operator">=</span> sqlSourceParser.parse(sql, parameterType, context.getBindings());</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 4. 获取最终的 BoundSql（此时 sql 已经是带 ? 的）</span></span></code><code><span leaf="">    <span class="code-snippet__type">BoundSql</span> <span class="code-snippet__variable">boundSql</span> <span class="code-snippet__operator">=</span> sqlSource.getBoundSql(parameterObject);</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 5. 将 DynamicContext 中的额外的参数（如 _parameter）复制到 BoundSql 中</span></span></code><code><span leaf="">    context.getBindings().forEach(boundSql::setAdditionalParameter);</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> boundSql;</span></code><code><span leaf="">}</span></code>
+// DynamicSqlSource
+public BoundSql getBoundSql(Object parameterObject) {
+    // 1. 使用 Context 解析动态 SQL，生成最终 SQL 字符串（包含 ${} 的直接拼接和静态文本）
+    DynamicContext context = new DynamicContext(configuration, parameterObject);
+    // 在这里，${} 被替换，<if>、<foreach> 等动态标签被处理
+    rootSqlNode.apply(context);      // rootSqlNode 是动态 SQL 的根节点
+
+    // 2. 处理 ${} 替换后，得到包含 #{} 的 SQL
+    String sql = context.getSql();
+
+    // 3. 解析 #{}，生成 ParameterMapping 列表，同时将 #{} 替换为 ?
+    SqlSourceBuilder sqlSourceParser = new SqlSourceBuilder(configuration);
+    Class<?> parameterType = parameterObject == null ? Object.class : parameterObject.getClass();
+    SqlSource sqlSource = sqlSourceParser.parse(sql, parameterType, context.getBindings());
+
+    // 4. 获取最终的 BoundSql（此时 sql 已经是带 ? 的）
+    BoundSql boundSql = sqlSource.getBoundSql(parameterObject);
+
+    // 5. 将 DynamicContext 中的额外的参数（如 _parameter）复制到 BoundSql 中
+    context.getBindings().forEach(boundSql::setAdditionalParameter);
+    return boundSql;
+}
 ```
 
 
@@ -230,7 +257,19 @@ SqlSourceBuilder.parse
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// SqlSourceBuilder</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__title">SqlSource</span> <span class="code-snippet__title">parse</span>(<span class="code-snippet__params"><span class="code-snippet__title">String</span></span><span class="code-snippet__params"> originalSql, </span><span class="code-snippet__params"><span class="code-snippet__title">Class</span></span><span class="code-snippet__params"><?> parameterType, </span><span class="code-snippet__params"><span class="code-snippet__title">Map</span></span><span class="code-snippet__params"><</span><span class="code-snippet__params"><span class="code-snippet__title">String</span></span><span class="code-snippet__params">, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params">> additionalParameters</span>) {</span></code><code><span leaf="">    <span class="code-snippet__title">ParameterMappingTokenHandler</span> handler = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">ParameterMappingTokenHandler</span>(configuration, parameterType, additionalParameters);</span></code><code><span leaf="">    <span class="code-snippet__title">GenericTokenParser</span> parser = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">GenericTokenParser</span>(<span class="code-snippet__string">"#{"</span>, <span class="code-snippet__string">"}"</span>, handler);</span></code><code><span leaf="">    <span class="code-snippet__title">String</span> sql;</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (configuration.<span class="code-snippet__title">isShrinkWhitespacesInSql</span>()) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 可选：压缩多余空白字符，使 SQL 规范化，提高缓存命中率</span></span></code><code><span leaf="">        sql = parser.<span class="code-snippet__title">parse</span>(<span class="code-snippet__title">removeExtraWhitespaces</span>(originalSql));</span></code><code><span leaf="">    } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">        sql = parser.<span class="code-snippet__title">parse</span>(originalSql);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">StaticSqlSource</span>(configuration, sql, handler.<span class="code-snippet__title">getParameterMappings</span>());</span></code><code><span leaf="">}</span></code>
+// SqlSourceBuilder
+public SqlSource parse(String originalSql, Class<?> parameterType, Map<String, Object> additionalParameters) {
+    ParameterMappingTokenHandler handler = new ParameterMappingTokenHandler(configuration, parameterType, additionalParameters);
+    GenericTokenParser parser = new GenericTokenParser("#{", "}", handler);
+    String sql;
+    if (configuration.isShrinkWhitespacesInSql()) {
+        // 可选：压缩多余空白字符，使 SQL 规范化，提高缓存命中率
+        sql = parser.parse(removeExtraWhitespaces(originalSql));
+    } else {
+        sql = parser.parse(originalSql);
+    }
+    return new StaticSqlSource(configuration, sql, handler.getParameterMappings());
+}
 ```
 
 
@@ -276,7 +315,18 @@ ParameterMappingTokenHandler.handleToken
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// ParameterMappingTokenHandler   将实际内容简单整合了下  看源码时注意下</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__title">String</span> <span class="code-snippet__title">handleToken</span>(<span class="code-snippet__params"><span class="code-snippet__title">String</span></span><span class="code-snippet__params"> content</span>) {</span></code><code><span leaf="">    <span class="code-snippet__comment">// content 是 #{...} 里面的内容，例如 "id", "user.name", "param1"}</span></span></code><code><span leaf="">    <span class="code-snippet__comment">// 1. 解析参数名、javaType、jdbcType、typeHandler 等</span></span></code><code><span leaf="">    <span class="code-snippet__title">ParameterMapping</span>.<span class="code-snippet__property">Builder</span> builder = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">ParameterMapping</span>.<span class="code-snippet__title">Builder</span>(configuration, content, parameterType);</span></code><code><span leaf="">    <span class="code-snippet__comment">// ... 解析属性（javaType, jdbcType, mode, numericScale, resultMapId, typeHandler 等）</span></span></code><code><span leaf="">    <span class="code-snippet__title">ParameterMapping</span> mapping = builder.<span class="code-snippet__title">build</span>();</span></code><code><span leaf="">    <span class="code-snippet__comment">// 2. 添加到参数映射列表</span></span></code><code><span leaf="">    parameterMappings.<span class="code-snippet__title">add</span>(mapping);</span></code><code><span leaf="">    <span class="code-snippet__comment">// 3. 替换为 ? 占位符</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> <span class="code-snippet__string">"?"</span>;</span></code><code><span leaf="">}</span></code>
+// ParameterMappingTokenHandler   将实际内容简单整合了下  看源码时注意下
+public String handleToken(String content) {
+    // content 是 #{...} 里面的内容，例如 "id", "user.name", "param1"}
+    // 1. 解析参数名、javaType、jdbcType、typeHandler 等
+    ParameterMapping.Builder builder = new ParameterMapping.Builder(configuration, content, parameterType);
+    // ... 解析属性（javaType, jdbcType, mode, numericScale, resultMapId, typeHandler 等）
+    ParameterMapping mapping = builder.build();
+    // 2. 添加到参数映射列表
+    parameterMappings.add(mapping);
+    // 3. 替换为 ? 占位符
+    return "?";
+}
 ```
 
 
@@ -306,7 +356,59 @@ GenericTokenParser
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> String <span class="code-snippet__title">parse</span><span class="code-snippet__params">(String text)</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (text == <span class="code-snippet__literal">null</span> || text.isEmpty()) <span class="code-snippet__keyword">return</span> <span class="code-snippet__string">""</span>;</span></code><code><span leaf="">    <span class="code-snippet__type">int</span> <span class="code-snippet__variable">start</span> <span class="code-snippet__operator">=</span> text.indexOf(openToken);</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (start == -<span class="code-snippet__number">1</span>) <span class="code-snippet__keyword">return</span> text;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__type">char</span>[] src = text.toCharArray();</span></code><code><span leaf="">    <span class="code-snippet__type">int</span> <span class="code-snippet__variable">offset</span> <span class="code-snippet__operator">=</span> <span class="code-snippet__number">0</span>;</span></code><code><span leaf="">    <span class="code-snippet__type">StringBuilder</span> <span class="code-snippet__variable">builder</span> <span class="code-snippet__operator">=</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">StringBuilder</span>();</span></code><code><span leaf="">    <span class="code-snippet__type">StringBuilder</span> <span class="code-snippet__variable">expression</span> <span class="code-snippet__operator">=</span> <span class="code-snippet__literal">null</span>;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">do</span> {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 1. 检查开放标记前是否有转义符 '\'</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (start > <span class="code-snippet__number">0</span> && src[start - <span class="code-snippet__number">1</span>] == <span class="code-snippet__string">'\\'</span>) {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 遇到转义：去掉反斜杠，原样输出 openToken，继续</span></span></code><code><span leaf="">            builder.append(src, offset, start - offset - <span class="code-snippet__number">1</span>).append(openToken);</span></code><code><span leaf="">            offset = start + openToken.length();</span></code><code><span leaf="">        } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 2. 找到有效开放标记</span></span></code><code><span leaf="">            builder.append(src, offset, start - offset);</span></code><code><span leaf="">            offset = start + openToken.length();</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">            <span class="code-snippet__comment">// 3. 寻找闭合标记，处理转义</span></span></code><code><span leaf="">            <span class="code-snippet__type">int</span> <span class="code-snippet__variable">end</span> <span class="code-snippet__operator">=</span> text.indexOf(closeToken, offset);</span></code><code><span leaf="">            <span class="code-snippet__keyword">while</span> (end > -<span class="code-snippet__number">1</span>) {</span></code><code><span leaf="">                <span class="code-snippet__keyword">if</span> (src[end - <span class="code-snippet__number">1</span>] != <span class="code-snippet__string">'\\'</span>) {</span></code><code><span leaf="">                    <span class="code-snippet__comment">// 未转义的闭合标记</span></span></code><code><span leaf="">                    expression.append(src, offset, end - offset);</span></code><code><span leaf="">                    <span class="code-snippet__keyword">break</span>;</span></code><code><span leaf="">                }</span></code><code><span leaf="">                <span class="code-snippet__comment">// 转义的闭合标记：去掉反斜杠，保留 closeToken，继续查找</span></span></code><code><span leaf="">                expression.append(src, offset, end - offset - <span class="code-snippet__number">1</span>).append(closeToken);</span></code><code><span leaf="">                offset = end + closeToken.length();</span></code><code><span leaf="">                end = text.indexOf(closeToken, offset);</span></code><code><span leaf="">            }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (end == -<span class="code-snippet__number">1</span>) {</span></code><code><span leaf="">                <span class="code-snippet__comment">// 闭合标记未找到：将剩余部分原样输出</span></span></code><code><span leaf="">                builder.append(src, start, src.length - start);</span></code><code><span leaf="">                offset = src.length;</span></code><code><span leaf="">            } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">                <span class="code-snippet__comment">// 4. 调用 handler 处理内容，并替换为处理结果</span></span></code><code><span leaf="">                builder.append(handler.handleToken(expression.toString()));</span></code><code><span leaf="">                offset = end + closeToken.length();</span></code><code><span leaf="">            }</span></code><code><span leaf="">        }</span></code><code><span leaf="">        start = text.indexOf(openToken, offset);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">while</span> (start > -<span class="code-snippet__number">1</span>);</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (offset < src.length) {</span></code><code><span leaf="">        builder.append(src, offset, src.length - offset);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> builder.toString();</span></code><code><span leaf="">}</span></code>
+public String parse(String text) {
+    if (text == null || text.isEmpty()) return "";
+    int start = text.indexOf(openToken);
+    if (start == -1) return text;
+
+    char[] src = text.toCharArray();
+    int offset = 0;
+    StringBuilder builder = new StringBuilder();
+    StringBuilder expression = null;
+
+    do {
+        // 1. 检查开放标记前是否有转义符 '\'
+        if (start > 0 && src[start - 1] == '\\') {
+            // 遇到转义：去掉反斜杠，原样输出 openToken，继续
+            builder.append(src, offset, start - offset - 1).append(openToken);
+            offset = start + openToken.length();
+        } else {
+            // 2. 找到有效开放标记
+            builder.append(src, offset, start - offset);
+            offset = start + openToken.length();
+
+            // 3. 寻找闭合标记，处理转义
+            int end = text.indexOf(closeToken, offset);
+            while (end > -1) {
+                if (src[end - 1] != '\\') {
+                    // 未转义的闭合标记
+                    expression.append(src, offset, end - offset);
+                    break;
+                }
+                // 转义的闭合标记：去掉反斜杠，保留 closeToken，继续查找
+                expression.append(src, offset, end - offset - 1).append(closeToken);
+                offset = end + closeToken.length();
+                end = text.indexOf(closeToken, offset);
+            }
+
+            if (end == -1) {
+                // 闭合标记未找到：将剩余部分原样输出
+                builder.append(src, start, src.length - start);
+                offset = src.length;
+            } else {
+                // 4. 调用 handler 处理内容，并替换为处理结果
+                builder.append(handler.handleToken(expression.toString()));
+                offset = end + closeToken.length();
+            }
+        }
+        start = text.indexOf(openToken, offset);
+    } while (start > -1);
+
+    if (offset < src.length) {
+        builder.append(src, offset, src.length - offset);
+    }
+    return builder.toString();
+}
 ```
 
 
@@ -344,7 +446,11 @@ char[]
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// 示例：输入 SQL 中包含转义占位符</span></span></code><code><span leaf=""><span class="code-snippet__title">String</span> sql = <span class="code-snippet__string">"SELECT * FROM user WHERE name = '\\#{value}' AND id = #{id}"</span>;</span></code><code><span leaf=""><span class="code-snippet__comment">// 解析结果：</span></span></code><code><span leaf=""><span class="code-snippet__comment">// SELECT * FROM user WHERE name = '#{value}' AND id = ?</span></span></code><code><span leaf=""><span class="code-snippet__comment">// 注：\\#{value} 转义后变为 #{value} 字面文本，不会被处理</span></span></code>
+// 示例：输入 SQL 中包含转义占位符
+String sql = "SELECT * FROM user WHERE name = '\\#{value}' AND id = #{id}";
+// 解析结果：
+// SELECT * FROM user WHERE name = '#{value}' AND id = ?
+// 注：\\#{value} 转义后变为 #{value} 字面文本，不会被处理
 ```
 
 
@@ -398,7 +504,13 @@ ${}
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// TextSqlNode</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">boolean</span> <span class="code-snippet__title">apply</span>(<span class="code-snippet__params"><span class="code-snippet__title">DynamicContext</span></span><span class="code-snippet__params"> context</span>) {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 创建 GenericTokenParser，使用 ${} 标记  稍微合并了一下</span></span></code><code><span leaf="">    <span class="code-snippet__title">GenericTokenParser</span> parser = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">GenericTokenParser</span>(<span class="code-snippet__string">"${"</span>, <span class="code-snippet__string">"}"</span>, <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">BindingTokenParser</span>(context, injectionFilter));</span></code><code><span leaf="">    context.<span class="code-snippet__title">appendSql</span>(parser.<span class="code-snippet__title">parse</span>(text));</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> <span class="code-snippet__literal">true</span>;</span></code><code><span leaf="">}</span></code>
+// TextSqlNode
+public boolean apply(DynamicContext context) {
+    // 创建 GenericTokenParser，使用 ${} 标记  稍微合并了一下
+    GenericTokenParser parser = new GenericTokenParser("${", "}", new BindingTokenParser(context, injectionFilter));
+    context.appendSql(parser.parse(text));
+    return true;
+}
 ```
 
 
@@ -408,7 +520,22 @@ BindingTokenParser.handleToken
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// BindingTokenParser</span></span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__title">String</span> <span class="code-snippet__title">handleToken</span>(<span class="code-snippet__params"><span class="code-snippet__title">String</span></span><span class="code-snippet__params"> content</span>) {</span></code><code><span leaf="">    <span class="code-snippet__title">Object</span> parameter = context.<span class="code-snippet__title">getBindings</span>().<span class="code-snippet__title">get</span>(<span class="code-snippet__string">"_parameter"</span>);</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (parameter == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">        context.<span class="code-snippet__title">getBindings</span>().<span class="code-snippet__title">put</span>(<span class="code-snippet__string">"value"</span>, <span class="code-snippet__literal">null</span>);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">else</span> <span class="code-snippet__keyword">if</span> (<span class="code-snippet__title">SimpleTypeRegistry</span>.<span class="code-snippet__title">isSimpleType</span>(parameter.<span class="code-snippet__title">getClass</span>())) {</span></code><code><span leaf="">        context.<span class="code-snippet__title">getBindings</span>().<span class="code-snippet__title">put</span>(<span class="code-snippet__string">"value"</span>, parameter);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__comment">// 使用 OGNL 或反射从参数对象中获取 property 的值</span></span></code><code><span leaf="">    <span class="code-snippet__title">Object</span> value = <span class="code-snippet__title">OgnlCache</span>.<span class="code-snippet__title">getValue</span>(content, context.<span class="code-snippet__title">getBindings</span>());</span></code><code><span leaf="">    <span class="code-snippet__comment">// 直接返回 value 的字符串形式（null 会转为空字符串）</span></span></code><code><span leaf="">    <span class="code-snippet__title">String</span> srtValue = value == <span class="code-snippet__literal">null</span> ? <span class="code-snippet__string">""</span> : <span class="code-snippet__title">String</span>.<span class="code-snippet__title">valueOf</span>(value);</span></code><code><span leaf="">    <span class="code-snippet__title">checkInjection</span>(srtValue);</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> srtValue;</span></code><code><span leaf="">}</span></code>
+// BindingTokenParser
+@Override
+public String handleToken(String content) {
+    Object parameter = context.getBindings().get("_parameter");
+    if (parameter == null) {
+        context.getBindings().put("value", null);
+    } else if (SimpleTypeRegistry.isSimpleType(parameter.getClass())) {
+        context.getBindings().put("value", parameter);
+    }
+    // 使用 OGNL 或反射从参数对象中获取 property 的值
+    Object value = OgnlCache.getValue(content, context.getBindings());
+    // 直接返回 value 的字符串形式（null 会转为空字符串）
+    String srtValue = value == null ? "" : String.valueOf(value);
+    checkInjection(srtValue);
+    return srtValue;
+}
 ```
 
 
@@ -548,7 +675,28 @@ StatementHandler.prepare
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">abstract</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">BaseStatementHandler</span> <span class="code-snippet__keyword">implements</span> <span class="code-snippet__title">StatementHandler</span> {</span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> Statement <span class="code-snippet__title">prepare</span><span class="code-snippet__params">(Connection connection, Integer transactionTimeout)</span> <span class="code-snippet__keyword">throws</span> SQLException {</span></code><code><span leaf="">        ErrorContext.instance().sql(boundSql.getSql()); <span class="code-snippet__comment">// 记录即将执行的SQL</span></span></code><code><span leaf="">        <span class="code-snippet__type">Statement</span> <span class="code-snippet__variable">statement</span> <span class="code-snippet__operator">=</span> <span class="code-snippet__literal">null</span>;</span></code><code><span leaf="">        <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 1. 关键步骤：调用子类实现的instantiateStatement()来创建具体的Statement对象</span></span></code><code><span leaf="">            statement = instantiateStatement(connection);</span></code><code><span leaf="">            setStatementTimeout(statement, transactionTimeout);</span></code><code><span leaf="">            setFetchSize(statement);</span></code><code><span leaf="">            <span class="code-snippet__keyword">return</span> statement;</span></code><code><span leaf="">        } <span class="code-snippet__keyword">catch</span> (SQLException e) {</span></code><code><span leaf="">            closeStatement(statement);</span></code><code><span leaf="">            <span class="code-snippet__keyword">throw</span> e;</span></code><code><span leaf="">        } <span class="code-snippet__keyword">catch</span> (Exception e) {</span></code><code><span leaf="">            closeStatement(statement);</span></code><code><span leaf="">            <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">ExecutorException</span>(<span class="code-snippet__string">"Error preparing statement.  Cause: "</span> + e, e);</span></code><code><span leaf="">        }</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__comment">// 抽象方法，留给子类去实现，用于创建具体的Statement</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> <span class="code-snippet__keyword">abstract</span> Statement <span class="code-snippet__title">instantiateStatement</span><span class="code-snippet__params">(Connection connection)</span> <span class="code-snippet__keyword">throws</span> SQLException;</span></code><code><span leaf="">}</span></code>
+public abstract class BaseStatementHandler implements StatementHandler {
+    @Override
+    public Statement prepare(Connection connection, Integer transactionTimeout) throws SQLException {
+        ErrorContext.instance().sql(boundSql.getSql()); // 记录即将执行的SQL
+        Statement statement = null;
+        try {
+            // 1. 关键步骤：调用子类实现的instantiateStatement()来创建具体的Statement对象
+            statement = instantiateStatement(connection);
+            setStatementTimeout(statement, transactionTimeout);
+            setFetchSize(statement);
+            return statement;
+        } catch (SQLException e) {
+            closeStatement(statement);
+            throw e;
+        } catch (Exception e) {
+            closeStatement(statement);
+            throw new ExecutorException("Error preparing statement.  Cause: " + e, e);
+        }
+    }
+    // 抽象方法，留给子类去实现，用于创建具体的Statement
+    protected abstract Statement instantiateStatement(Connection connection) throws SQLException;
+}
 ```
 
 
@@ -564,7 +712,17 @@ ParameterHandler.setParameters
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// DefaultParameterHandler</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">void</span> <span class="code-snippet__title">setParameters</span><span class="code-snippet__params">(PreparedStatement ps)</span> {</span></code><code><span leaf="">    List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();</span></code><code><span leaf="">    <span class="code-snippet__keyword">for</span> (<span class="code-snippet__type">int</span> <span class="code-snippet__variable">i</span> <span class="code-snippet__operator">=</span> <span class="code-snippet__number">0</span>; i < parameterMappings.size(); i++) {</span></code><code><span leaf="">        <span class="code-snippet__type">ParameterMapping</span> <span class="code-snippet__variable">mapping</span> <span class="code-snippet__operator">=</span> parameterMappings.get(i);</span></code><code><span leaf="">        <span class="code-snippet__type">String</span> <span class="code-snippet__variable">propertyName</span> <span class="code-snippet__operator">=</span> mapping.getProperty();</span></code><code><span leaf="">        <span class="code-snippet__type">Object</span> <span class="code-snippet__variable">value</span> <span class="code-snippet__operator">=</span> 从参数对象中获取 propertyName 的值;</span></code><code><span leaf="">        <span class="code-snippet__comment">// 根据 jdbcType 和 typeHandler 设置参数</span></span></code><code><span leaf="">        typeHandler.setParameter(ps, i + <span class="code-snippet__number">1</span>, value, jdbcType);</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+// DefaultParameterHandler
+public void setParameters(PreparedStatement ps) {
+    List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
+    for (int i = 0; i < parameterMappings.size(); i++) {
+        ParameterMapping mapping = parameterMappings.get(i);
+        String propertyName = mapping.getProperty();
+        Object value = 从参数对象中获取 propertyName 的值;
+        // 根据 jdbcType 和 typeHandler 设置参数
+        typeHandler.setParameter(ps, i + 1, value, jdbcType);
+    }
+}
 ```
 
 
@@ -664,7 +822,15 @@ SQL 注入示例
 
 
 ```
-<code><span leaf=""><span class="code-snippet__literal">--</span> 使用 <span class="code-snippet__variable">$</span>{}</span></code><code><span leaf=""><span class="code-snippet__built_in">SELECT</span> * FROM user <span class="code-snippet__built_in">WHERE</span> name = <span class="code-snippet__string">'${name}'</span></span></code><code><span leaf=""><span class="code-snippet__literal">--</span> 如果 name 传入 <span class="code-snippet__string">' OR '</span><span class="code-snippet__number">1</span><span class="code-snippet__string">'='</span><span class="code-snippet__number">1</span>，SQL 变为：</span></code><code><span leaf=""><span class="code-snippet__built_in">SELECT</span> * FROM user <span class="code-snippet__built_in">WHERE</span> name = <span class="code-snippet__string">''</span> OR <span class="code-snippet__string">'1'</span>=<span class="code-snippet__string">'1'</span>   <span class="code-snippet__literal">--</span> 永远为真，返回所有用户</span></code><code><span leaf=""><span class="code-snippet__literal">--</span> 使用 <span class="code-snippet__comment">#{}</span></span></code><code><span leaf=""><span class="code-snippet__built_in">SELECT</span> * FROM user <span class="code-snippet__built_in">WHERE</span> name = <span class="code-snippet__comment">#{name}</span></span></code><code><span leaf=""><span class="code-snippet__literal">--</span> 传入同样的值，预编译后：</span></code><code><span leaf=""><span class="code-snippet__built_in">SELECT</span> * FROM user <span class="code-snippet__built_in">WHERE</span> name = ?</span></code><code><span leaf=""><span class="code-snippet__literal">--</span> 参数值被当作字符串字面量，<span class="code-snippet__string">' OR '</span><span class="code-snippet__number">1</span><span class="code-snippet__string">'='</span><span class="code-snippet__number">1</span> 不会改变 SQL 结构</span></code>
+-- 使用 ${}
+SELECT * FROM user WHERE name = '${name}'
+-- 如果 name 传入 ' OR '1'='1，SQL 变为：
+SELECT * FROM user WHERE name = '' OR '1'='1'   -- 永远为真，返回所有用户
+-- 使用 #{}
+SELECT * FROM user WHERE name = #{name}
+-- 传入同样的值，预编译后：
+SELECT * FROM user WHERE name = ?
+-- 参数值被当作字符串字面量，' OR '1'='1 不会改变 SQL 结构
 ```
 
 
@@ -682,7 +848,9 @@ ${}
 
 
 ```
-<code><span leaf=""><span class="code-snippet__operator"><</span><span class="code-snippet__keyword">select</span> id<span class="code-snippet__operator">=</span>"findUser" resultType<span class="code-snippet__operator">=</span>"User"<span class="code-snippet__operator">></span></span></code><code><span leaf="">    <span class="code-snippet__keyword">SELECT</span> <span class="code-snippet__operator">*</span> <span class="code-snippet__keyword">FROM</span> <span class="code-snippet__keyword">user</span> <span class="code-snippet__keyword">WHERE</span> name <span class="code-snippet__operator">=</span> <span class="code-snippet__string">'${name}'</span></span></code><code><span leaf=""><span class="code-snippet__operator"></</span><span class="code-snippet__keyword">select</span><span class="code-snippet__operator">></span></span></code>
+<select id="findUser" resultType="User">
+    SELECT * FROM user WHERE name = '${name}'
+</select>
 ```
 
 
@@ -694,7 +862,7 @@ name = "xxx' OR '1'='1"
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">SELECT</span> <span class="code-snippet__operator">*</span> <span class="code-snippet__keyword">FROM</span> <span class="code-snippet__keyword">user</span> <span class="code-snippet__keyword">WHERE</span> name <span class="code-snippet__operator">=</span> <span class="code-snippet__string">'xxx'</span> <span class="code-snippet__keyword">OR</span> <span class="code-snippet__string">'1'</span><span class="code-snippet__operator">=</span><span class="code-snippet__string">'1'</span></span></code>
+SELECT * FROM user WHERE name = 'xxx' OR '1'='1'
 ```
 
 

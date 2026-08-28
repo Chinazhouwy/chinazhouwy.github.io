@@ -2915,6 +2915,7 @@ a {
   min-height: 36px;
   color: var(--muted);
   font-size: 13px;
+  white-space: nowrap;
 }
 
 .nav-more summary::after {
@@ -5412,6 +5413,7 @@ html[data-theme="ink"] .mobile-nav {
 
 html[data-theme="nova"] {
   color-scheme: dark;
+  overflow-x: clip;
   --paper: #05070f;
   --paper-deep: #090d19;
   --surface: rgba(13, 18, 33, 0.78);
@@ -5438,6 +5440,7 @@ html[data-theme="nova"] {
 html[data-theme="nova"] body {
   isolation: isolate;
   min-height: 100vh;
+  overflow-x: clip;
   color: var(--ink);
   background:
     radial-gradient(1100px 720px at 84% -12%, rgba(139, 123, 255, 0.18), transparent 62%),
@@ -5535,8 +5538,10 @@ html[data-theme="nova"] .brand-mark {
   width: 40px;
   height: 40px;
   border: 0;
+  border-radius: 50%;
   background: linear-gradient(135deg, #55f0ff 0%, #7a7bff 52%, #ff5c9e 120%);
-  clip-path: polygon(25% 2%, 75% 2%, 98% 25%, 98% 75%, 75% 98%, 25% 98%, 2% 75%, 2% 25%);
+  clip-path: none;
+  overflow: hidden;
   color: #04101a;
   box-shadow: 0 0 26px rgba(85, 240, 255, 0.32), 0 0 50px rgba(139, 123, 255, 0.18);
   font-family: var(--mono);
@@ -5584,9 +5589,9 @@ html[data-theme="nova"] .desktop-nav a {
   padding: 0 10px;
   color: var(--muted);
   font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
 html[data-theme="nova"] .desktop-nav a:hover,
@@ -8871,6 +8876,10 @@ html[data-theme="nova"] .reader-rail-hint {
     text-align: left;
   }
 
+  html[data-theme="nova"] .nova-panel-heading > a {
+    display: inline-flex;
+  }
+
   html[data-theme="nova"] .nova-panel--map .knowledge-map-shell {
     grid-template-columns: 1fr;
   }
@@ -9003,8 +9012,9 @@ html[data-theme="light"] ::selection {
 .desktop-nav a {
   color: #6b7c9e;
   font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
 .desktop-nav a:hover,
@@ -9767,9 +9777,18 @@ html[data-theme="light"] ::selection {
 }
 
 .nova-panel-heading > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--mono);
   font-size: 10px;
+  line-height: 1;
   text-decoration: none;
+}
+
+.nova-panel-heading > a .arrow-icon {
+  display: block;
+  flex: 0 0 auto;
 }
 
 .nova-panel--map .knowledge-map-shell {
@@ -10109,6 +10128,10 @@ html[data-theme="light"] ::selection {
     display: inline-block;
     margin-top: 10px;
     text-align: left;
+  }
+
+  .nova-panel-heading > a {
+    display: inline-flex;
   }
 
   .nova-panel--map .knowledge-map-shell { grid-template-columns: 1fr; }
@@ -12415,5 +12438,585 @@ html[data-theme="light"] .knowledge-readout small {
 
   .exam-note-caption span {
     font-size: 6px;
+  }
+}
+
+/* Reading layer: Yohaku-inspired warm neutrals and quiet code surfaces. */
+.article-body pre {
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-gutter: stable;
+  tab-size: 2;
+  -webkit-overflow-scrolling: touch;
+}
+
+.article-body pre code {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+  font-size: inherit;
+  font-variant-ligatures: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+.article-body pre::-webkit-scrollbar {
+  height: 9px;
+}
+
+.article-body pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.article-body pre::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+html[data-theme="nova"] .reader-main {
+  --reader-paper: #171715;
+  --reader-paper-raised: #1e1e1b;
+  --reader-line: rgba(232, 229, 220, 0.14);
+  --reader-copy: #d8d5cc;
+  --reader-heading: #f2efe7;
+  --reader-muted: #aaa69c;
+  --reader-accent: #d58a98;
+}
+
+html[data-theme="nova"] .reader-main::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(circle at 74% 6%, rgba(197, 100, 115, 0.055), transparent 31%),
+    linear-gradient(180deg, rgba(249, 248, 245, 0.018), transparent 420px);
+  content: "";
+  pointer-events: none;
+}
+
+html[data-theme="nova"] .reader-main {
+  position: relative;
+  isolation: isolate;
+}
+
+html[data-theme="nova"] .reader-header h1,
+html[data-theme="nova"] .article-body h1,
+html[data-theme="nova"] .article-body h2,
+html[data-theme="nova"] .article-body h3,
+html[data-theme="nova"] .article-body h4 {
+  color: var(--reader-heading);
+  font-family: var(--serif);
+  font-weight: 500;
+  letter-spacing: -0.018em;
+}
+
+html[data-theme="nova"] .article-body,
+html[data-theme="nova"] .article-body p,
+html[data-theme="nova"] .article-body li {
+  color: var(--reader-copy);
+}
+
+html[data-theme="nova"] .article-body h2 {
+  border-bottom-color: var(--reader-line);
+}
+
+html[data-theme="nova"] .article-body strong {
+  color: var(--reader-heading);
+}
+
+html[data-theme="nova"] .article-body :not(pre) > code {
+  padding: 0.13em 0.38em;
+  border: 1px solid rgba(213, 138, 152, 0.28);
+  border-radius: 4px;
+  background: #24231f;
+  color: #f0cbd2;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+html[data-theme="nova"] .article-body pre {
+  margin: 1.8em 0;
+  padding: 20px 22px;
+  border: 1px solid var(--reader-line);
+  border-left: 3px solid var(--reader-accent);
+  border-radius: 8px;
+  background: var(--reader-paper);
+  color: #ebe8df;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.17);
+  font-size: 13.5px;
+  line-height: 1.78;
+}
+
+html[data-theme="nova"] .article-body pre code {
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+html[data-theme="nova"] .article-body pre::-webkit-scrollbar-thumb {
+  background-color: rgba(232, 229, 220, 0.34);
+}
+
+html[data-theme="nova"] .article-body blockquote {
+  border-left-color: var(--reader-accent);
+  border-radius: 0 8px 8px 0;
+  background: rgba(197, 100, 115, 0.07);
+}
+
+html[data-theme="nova"] .article-body blockquote p {
+  color: #c6c1b7;
+}
+
+html[data-theme="nova"] .article-body th,
+html[data-theme="nova"] .article-body td {
+  border-color: var(--reader-line);
+}
+
+html[data-theme="nova"] .article-body th {
+  background: var(--reader-paper-raised);
+  color: var(--reader-heading);
+}
+
+html[data-theme="light"] .article-body :not(pre) > code {
+  border-color: rgba(64, 63, 58, 0.16);
+  border-radius: 4px;
+  background: #f0efeb;
+  color: #6e3541;
+}
+
+html[data-theme="light"] .article-body pre {
+  border-color: #403f3a;
+  border-left-color: #c56473;
+  border-radius: 8px;
+  background: #24231f;
+  color: #f0efeb;
+  box-shadow: 0 14px 32px rgba(36, 35, 31, 0.12);
+  font-size: 13.5px;
+  line-height: 1.78;
+}
+
+html[data-theme="light"] .article-body pre code {
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+html[data-theme="light"] .article-body pre::-webkit-scrollbar-thumb {
+  background-color: rgba(240, 239, 235, 0.42);
+}
+
+@media (max-width: 680px) {
+  html[data-theme="nova"] .article-body pre,
+  html[data-theme="light"] .article-body pre {
+    margin: 1.45em -4px;
+    padding: 15px 16px;
+    border-radius: 7px;
+    font-size: 12.5px;
+    line-height: 1.72;
+  }
+}
+
+/* Surface borders already define these blocks; extra strokes only add visual noise. */
+html[data-theme="light"] :is(
+  .nova-stats > div,
+  .knowledge-map-panel,
+  .project-signal-card,
+  .page-intro,
+  .reader-header,
+  .about-hero,
+  .exam-note-studio,
+  .nova-margin-note
+)::before,
+html[data-theme="nova"] :is(
+  .nova-stats > div,
+  .knowledge-map-panel,
+  .project-signal-card,
+  .page-intro,
+  .reader-header,
+  .about-hero,
+  .exam-note-studio,
+  .nova-margin-note
+)::before,
+html[data-theme="light"] :is(.nova-panel, .knowledge-map-panel)::after,
+html[data-theme="nova"] :is(.nova-panel, .knowledge-map-panel)::after {
+  display: none;
+  content: none;
+}
+
+/* Keep long directories compact: content should dominate over empty gutters. */
+html[data-theme] .directory-groups {
+  gap: 36px;
+}
+
+html[data-theme] .directory-group {
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 28px;
+}
+
+html[data-theme] .article-row.article-row--no-index {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  min-height: 60px;
+  padding: 8px 12px;
+}
+
+html[data-theme] .article-row.article-row--no-index .arrow-icon {
+  display: none;
+}
+
+html[data-theme] .article-row.article-row--no-index:hover {
+  padding-inline: 12px;
+}
+
+html[data-theme] .article-row.article-row--no-index .article-row-main strong {
+  line-height: 1.4;
+}
+
+html[data-theme] .article-row.article-row--no-index .article-row-main small {
+  margin-top: 2px;
+  line-height: 1.35;
+}
+
+html[data-theme] .article-row-main small .article-row-action {
+  margin-left: 10px;
+}
+
+html[data-theme] .article-row-main small .article-row-action::before {
+  margin-right: 10px;
+  color: var(--muted);
+  content: "·";
+}
+
+html[data-theme] .article-row.article-row--static {
+  grid-template-columns: 44px minmax(0, 1fr);
+}
+
+html[data-theme] .article-row.article-row--no-index.article-row--static {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+html[data-theme] .reading-directory-page .reading-group::before {
+  display: none;
+  content: none;
+}
+
+html[data-theme] .reading-directory-page .directory-groups {
+  gap: 20px;
+  margin-top: 34px;
+}
+
+html[data-theme] .reading-directory-page .reading-group {
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 20px;
+  padding: 18px 20px;
+}
+
+html[data-theme] .reading-directory-page .reading-group > header {
+  position: static;
+  padding-right: 0;
+  border-right: 0;
+}
+
+/* The about layout already has strong card contrast; detached top strokes compete with it. */
+html[data-theme] .about-hero {
+  border-top: 0;
+}
+
+html[data-theme] .about-signal {
+  border-top: 0;
+}
+
+/* Timeline: a compact editorial ledger instead of a tall split card. */
+html[data-theme] .timeline-page .timeline-list {
+  display: grid;
+  gap: 18px;
+  border-top: 0;
+}
+
+html[data-theme] .timeline-page .timeline-day {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding: 0;
+  border-radius: 14px;
+}
+
+html[data-theme] .timeline-page .timeline-day::before,
+html[data-theme] .timeline-page .timeline-day::after {
+  display: none;
+  content: none;
+}
+
+html[data-theme] .timeline-page .timeline-date {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 17px 24px 15px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+html[data-theme="light"] .timeline-page .timeline-date {
+  background: rgba(36, 85, 150, 0.028);
+}
+
+html[data-theme="nova"] .timeline-page .timeline-date {
+  background: rgba(85, 240, 255, 0.025);
+}
+
+html[data-theme] .timeline-page .timeline-date time {
+  display: flex;
+  align-items: baseline;
+  gap: 11px;
+  min-width: 0;
+}
+
+html[data-theme] .timeline-page .timeline-date strong {
+  font-size: 30px;
+  line-height: 1;
+}
+
+html[data-theme] .timeline-page .timeline-date span,
+html[data-theme] .timeline-page .timeline-date small {
+  margin-top: 0;
+}
+
+html[data-theme] .timeline-page .timeline-date span {
+  font-size: 12px;
+}
+
+html[data-theme] .timeline-page .timeline-date small {
+  font-size: 9px;
+}
+
+html[data-theme] .timeline-page .timeline-day-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-left: auto;
+}
+
+html[data-theme] .timeline-page .timeline-day-summary span {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+}
+
+html[data-theme] .timeline-page .timeline-day-summary span::before {
+  display: none;
+  content: none;
+}
+
+html[data-theme] .timeline-page .timeline-day-summary b,
+html[data-theme] .timeline-page .timeline-day-summary em {
+  font: inherit;
+  font-style: normal;
+}
+
+html[data-theme] .timeline-page .timeline-day-summary b {
+  color: var(--day-blue-strong, var(--green));
+  font-weight: 600;
+}
+
+html[data-theme] .timeline-page .timeline-day-summary em {
+  color: var(--muted);
+}
+
+html[data-theme] .timeline-page .timeline-day-content {
+  min-width: 0;
+  padding: 0 24px 4px;
+}
+
+html[data-theme] .timeline-page .timeline-day .article-list {
+  gap: 0;
+  border-top: 0;
+}
+
+html[data-theme] .timeline-page .timeline-day .article-row {
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 14px;
+  min-height: 70px;
+  padding: 14px 0;
+  border: 0;
+  border-bottom: 1px solid var(--line-soft);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+html[data-theme] .timeline-page .timeline-day .article-row:last-child {
+  border-bottom: 0;
+}
+
+html[data-theme] .timeline-page .timeline-day .article-row:hover {
+  padding-inline: 0;
+  border-color: var(--line);
+  background: rgba(36, 85, 150, 0.045);
+  box-shadow: none;
+  transform: none;
+}
+
+html[data-theme] .timeline-page .timeline-day .article-row:hover .article-row-main strong {
+  color: var(--day-blue-strong, var(--green));
+}
+
+html[data-theme] .timeline-page .timeline-day .article-row::before {
+  display: none;
+  content: none;
+}
+
+html[data-theme] .timeline-page .timeline-day .article-row-index {
+  display: block;
+  align-self: start;
+  width: auto;
+  height: auto;
+  margin-top: 2px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--day-blue-strong, var(--green));
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.55;
+  text-align: left;
+}
+
+html[data-theme] .timeline-page .timeline-day .arrow-icon {
+  display: none;
+}
+
+@media (max-width: 680px) {
+  html[data-theme] .directory-groups {
+    gap: 24px;
+  }
+
+  html[data-theme] .directory-group,
+  html[data-theme] .reading-directory-page .reading-group {
+    display: block;
+    padding: 16px;
+  }
+
+  html[data-theme] .directory-group:not(.reading-group) {
+    padding: 0;
+  }
+
+  html[data-theme] .directory-group > header {
+    margin-bottom: 12px;
+  }
+
+  html[data-theme] .article-row.article-row--no-index {
+    min-height: 58px;
+    padding: 8px 10px;
+  }
+
+  html[data-theme] .article-row.article-row--no-index:hover {
+    padding-inline: 10px;
+  }
+
+  html[data-theme] .timeline-page .timeline-shell {
+    gap: 14px;
+    margin-top: 24px;
+  }
+
+  html[data-theme] .timeline-page .timeline-rail {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 6px 12px;
+    align-items: center;
+    overflow: hidden;
+    padding: 13px 14px 11px;
+  }
+
+  html[data-theme] .timeline-page .timeline-rail > .mono-label {
+    margin: 0;
+  }
+
+  html[data-theme] .timeline-page .timeline-rail-count {
+    margin: 0;
+    text-align: right;
+  }
+
+  html[data-theme] .timeline-page .timeline-rail-count strong {
+    font-size: 22px;
+  }
+
+  html[data-theme] .timeline-page .timeline-rail-count span {
+    font-size: 9px;
+  }
+
+  html[data-theme] .timeline-page .timeline-day-index {
+    display: flex;
+    grid-column: 1 / -1;
+    gap: 7px;
+    overflow-x: auto;
+    padding: 4px 0 2px;
+    scrollbar-width: none;
+  }
+
+  html[data-theme] .timeline-page .timeline-day-index::-webkit-scrollbar {
+    display: none;
+  }
+
+  html[data-theme] .timeline-page .timeline-day-index a {
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 7px;
+    padding: 7px 9px;
+    border: 1px solid var(--line-soft);
+  }
+
+  html[data-theme] .timeline-page .timeline-rail > small {
+    display: none;
+  }
+
+  html[data-theme] .timeline-page .timeline-list {
+    gap: 14px;
+  }
+
+  html[data-theme] .timeline-page .timeline-date {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    padding: 15px 16px 13px;
+  }
+
+  html[data-theme] .timeline-page .timeline-date time {
+    width: 100%;
+    gap: 8px;
+  }
+
+  html[data-theme] .timeline-page .timeline-date strong {
+    font-size: 27px;
+  }
+
+  html[data-theme] .timeline-page .timeline-day-summary {
+    margin-left: 0;
+  }
+
+  html[data-theme] .timeline-page .timeline-day-content {
+    padding: 0 16px 3px;
+  }
+
+  html[data-theme] .timeline-page .timeline-day .article-row {
+    grid-template-columns: 24px minmax(0, 1fr);
+    gap: 10px;
+    min-height: 68px;
+    padding: 13px 0;
+  }
+
+  html[data-theme] .timeline-page .timeline-day .article-row-main strong {
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 }

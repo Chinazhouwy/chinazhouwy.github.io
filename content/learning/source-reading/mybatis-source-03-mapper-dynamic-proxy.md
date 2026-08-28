@@ -78,7 +78,7 @@ session.getMapper(UserMapper.class)
 
 
 ```
-<code><span leaf="">UserMapper mapper = session.getMapper(UserMapper.<span class="code-snippet__keyword">class</span>);</span></code>
+UserMapper mapper = session.getMapper(UserMapper.class);
 ```
 
 
@@ -94,7 +94,10 @@ DefaultSqlSession
 
 
 ```
-<code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <T> T <span class="code-snippet__title">getMapper</span>(<span class="code-snippet__params"><span class="code-snippet__title">Class</span></span><span class="code-snippet__params"><T> </span><span class="code-snippet__params"><span class="code-snippet__keyword">type</span></span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> configuration.<span class="code-snippet__title">getMapper</span>(<span class="code-snippet__keyword">type</span>, <span class="code-snippet__variable">this</span>);</span></code><code><span leaf="">}</span></code>
+@Override
+public <T> T getMapper(Class<T> type) {
+    return configuration.getMapper(type, this);
+}
 ```
 
 
@@ -102,7 +105,10 @@ DefaultSqlSession
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// Configuration</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <T> T <span class="code-snippet__title">getMapper</span>(<span class="code-snippet__params"><span class="code-snippet__title">Class</span></span><span class="code-snippet__params"><T> </span><span class="code-snippet__params"><span class="code-snippet__keyword">type</span></span><span class="code-snippet__params">, </span><span class="code-snippet__params"><span class="code-snippet__title">SqlSession</span></span><span class="code-snippet__params"> sqlSession</span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> mapperRegistry.<span class="code-snippet__title">getMapper</span>(<span class="code-snippet__keyword">type</span>, sqlSession);</span></code><code><span leaf="">}</span></code>
+// Configuration
+public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
+    return mapperRegistry.getMapper(type, sqlSession);
+}
 ```
 
 
@@ -124,7 +130,19 @@ MapperRegistry.getMapper()
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <T> T <span class="code-snippet__title">getMapper</span>(<span class="code-snippet__params"><span class="code-snippet__title">Class</span></span><span class="code-snippet__params"><T> </span><span class="code-snippet__params"><span class="code-snippet__keyword">type</span></span><span class="code-snippet__params">, </span><span class="code-snippet__params"><span class="code-snippet__title">SqlSession</span></span><span class="code-snippet__params"> sqlSession</span>) {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 从 knownMappers 中获取该接口对应的 MapperProxyFactory</span></span></code><code><span leaf="">    final <span class="code-snippet__title">MapperProxyFactory</span><T> mapperProxyFactory = (<span class="code-snippet__title">MapperProxyFactory</span><T>) knownMappers.<span class="code-snippet__title">get</span>(<span class="code-snippet__keyword">type</span>);</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (mapperProxyFactory == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">BindingException</span>(<span class="code-snippet__string">"Type "</span> + <span class="code-snippet__keyword">type</span> + <span class="code-snippet__string">" is not known to the MapperRegistry."</span>);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 通过工厂创建代理实例</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> mapperProxyFactory.<span class="code-snippet__title">newInstance</span>(sqlSession);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">catch</span> (<span class="code-snippet__title">Exception</span> e) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">BindingException</span>(<span class="code-snippet__string">"Error getting mapper instance. Cause: "</span> + e, e);</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
+    // 从 knownMappers 中获取该接口对应的 MapperProxyFactory
+    final MapperProxyFactory<T> mapperProxyFactory = (MapperProxyFactory<T>) knownMappers.get(type);
+    if (mapperProxyFactory == null) {
+        throw new BindingException("Type " + type + " is not known to the MapperRegistry.");
+    }
+    try {
+        // 通过工厂创建代理实例
+        return mapperProxyFactory.newInstance(sqlSession);
+    } catch (Exception e) {
+        throw new BindingException("Error getting mapper instance. Cause: " + e, e);
+    }
+}
 ```
 
 
@@ -152,7 +170,18 @@ MapperProxyFactory.newInstance()
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> T <span class="code-snippet__title">newInstance</span>(<span class="code-snippet__params"><span class="code-snippet__title">SqlSession</span></span><span class="code-snippet__params"> sqlSession</span>) {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 创建 MapperProxy，它实现了 InvocationHandler</span></span></code><code><span leaf="">    final <span class="code-snippet__title">MapperProxy</span><T> mapperProxy = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">MapperProxy</span><>(sqlSession, mapperInterface, methodCache);</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> <span class="code-snippet__title">newInstance</span>(mapperProxy);</span></code><code><span leaf="">}</span></code><code><span leaf=""><br  /></span></code><code><span leaf=""><span class="code-snippet__keyword">protected</span> T <span class="code-snippet__title">newInstance</span>(<span class="code-snippet__params"><span class="code-snippet__title">MapperProxy</span></span><span class="code-snippet__params"><T> mapperProxy</span>) {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 使用 JDK 动态代理生成代理对象</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> (T) <span class="code-snippet__title">Proxy</span>.<span class="code-snippet__title">newProxyInstance</span>(mapperInterface.<span class="code-snippet__title">getClassLoader</span>(), </span></code><code><span leaf="">                                      <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">Class</span>[] { mapperInterface }, </span></code><code><span leaf="">                                      mapperProxy);</span></code><code><span leaf="">}</span></code>
+public T newInstance(SqlSession sqlSession) {
+    // 创建 MapperProxy，它实现了 InvocationHandler
+    final MapperProxy<T> mapperProxy = new MapperProxy<>(sqlSession, mapperInterface, methodCache);
+    return newInstance(mapperProxy);
+}
+
+protected T newInstance(MapperProxy<T> mapperProxy) {
+    // 使用 JDK 动态代理生成代理对象
+    return (T) Proxy.newProxyInstance(mapperInterface.getClassLoader(),
+                                      new Class[] { mapperInterface },
+                                      mapperProxy);
+}
 ```
 
 
@@ -204,7 +233,19 @@ MapperProxy.invoke()
 
 
 ```
-<code><span leaf=""><span class="code-snippet__variable">@Override</span></span></code><code><span leaf="">public Object invoke(Object proxy, Method <span class="code-snippet__function"><span class="code-snippet__keyword">method</span></span><span class="code-snippet__function">, </span><span class="code-snippet__function"><span class="code-snippet__title">Object</span></span><span class="code-snippet__function">[] </span><span class="code-snippet__function"><span class="code-snippet__title">args</span></span><span class="code-snippet__function">) </span><span class="code-snippet__function"><span class="code-snippet__title">throws</span></span><span class="code-snippet__function"> </span><span class="code-snippet__function"><span class="code-snippet__title">Throwable</span></span><span class="code-snippet__function"> </span>{</span></code><code><span leaf="">    try {</span></code><code><span leaf="">        <span class="code-snippet__regexp">//</span> 如果是 Object 类的方法（如 toString、hashCode），直接调用，不拦截</span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (Object.class.equals(method.getDeclaringClass())) {</span></code><code><span leaf="">            <span class="code-snippet__keyword">return</span> method.invoke(this, args);</span></code><code><span leaf="">        }</span></code><code><span leaf="">        // 缓存或新建 MapperMethod，然后执行</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> cachedInvoker(<span class="code-snippet__function"><span class="code-snippet__keyword">method</span></span><span class="code-snippet__function">).</span><span class="code-snippet__function"><span class="code-snippet__title">invoke</span></span>(proxy, <span class="code-snippet__keyword">method</span>, args, sqlSession);</span></code><code><span leaf="">    } catch (Throwable t) {</span></code><code><span leaf="">        throw ExceptionUtil.unwrapThrowable(t);</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+@Override
+public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    try {
+        // 如果是 Object 类的方法（如 toString、hashCode），直接调用，不拦截
+        if (Object.class.equals(method.getDeclaringClass())) {
+            return method.invoke(this, args);
+        }
+        // 缓存或新建 MapperMethod，然后执行
+        return cachedInvoker(method).invoke(proxy, method, args, sqlSession);
+    } catch (Throwable t) {
+        throw ExceptionUtil.unwrapThrowable(t);
+    }
+}
 ```
 
 
@@ -278,7 +319,27 @@ PlainMethodInvoker
 
 
 ```
-<code><span leaf="">private MapperMethodInvoker cachedInvoker(Method <span class="code-snippet__function"><span class="code-snippet__keyword">method</span></span><span class="code-snippet__function">) </span><span class="code-snippet__function"><span class="code-snippet__title">throws</span></span><span class="code-snippet__function"> </span><span class="code-snippet__function"><span class="code-snippet__title">Throwable</span></span><span class="code-snippet__function"> </span>{</span></code><code><span leaf="">    try {</span></code><code><span leaf="">      <span class="code-snippet__keyword">return</span> MapUtil.computeIfAbsent(methodCache, <span class="code-snippet__function"><span class="code-snippet__keyword">method</span></span><span class="code-snippet__function">, </span><span class="code-snippet__function"><span class="code-snippet__title">m</span></span><span class="code-snippet__function"> -> </span>{</span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (!m.isDefault()) {</span></code><code><span leaf="">          <span class="code-snippet__keyword">return</span> new PlainMethodInvoker(new MapperMethod(mapperInterface, <span class="code-snippet__function"><span class="code-snippet__keyword">method</span></span><span class="code-snippet__function">, </span><span class="code-snippet__function"><span class="code-snippet__title">sqlSession</span></span><span class="code-snippet__function">.</span><span class="code-snippet__function"><span class="code-snippet__title">getConfiguration</span></span>()));</span></code><code><span leaf="">        }</span></code><code><span leaf="">        try {</span></code><code><span leaf="">          <span class="code-snippet__keyword">if</span> (privateLookupInMethod == null) {</span></code><code><span leaf="">            <span class="code-snippet__keyword">return</span> new DefaultMethodInvoker(getMethodHandleJava8(<span class="code-snippet__function"><span class="code-snippet__keyword">method</span></span><span class="code-snippet__function">))</span>;</span></code><code><span leaf="">          }</span></code><code><span leaf="">          <span class="code-snippet__keyword">return</span> new DefaultMethodInvoker(getMethodHandleJava9(<span class="code-snippet__function"><span class="code-snippet__keyword">method</span></span><span class="code-snippet__function">))</span>;</span></code><code><span leaf="">        } catch (IllegalAccessException | InstantiationException | InvocationTargetException</span></code><code><span leaf="">            | NoSuchMethodException e) {</span></code><code><span leaf="">          throw new RuntimeException(e);</span></code><code><span leaf="">        }</span></code><code><span leaf="">      });</span></code><code><span leaf="">    } catch (RuntimeException re) {</span></code><code><span leaf="">      Throwable cause = re.getCause();</span></code><code><span leaf="">      throw cause == null ? re : cause;</span></code><code><span leaf="">    }</span></code><code><span leaf="">  }</span></code>
+private MapperMethodInvoker cachedInvoker(Method method) throws Throwable {
+    try {
+      return MapUtil.computeIfAbsent(methodCache, method, m -> {
+        if (!m.isDefault()) {
+          return new PlainMethodInvoker(new MapperMethod(mapperInterface, method, sqlSession.getConfiguration()));
+        }
+        try {
+          if (privateLookupInMethod == null) {
+            return new DefaultMethodInvoker(getMethodHandleJava8(method));
+          }
+          return new DefaultMethodInvoker(getMethodHandleJava9(method));
+        } catch (IllegalAccessException | InstantiationException | InvocationTargetException
+            | NoSuchMethodException e) {
+          throw new RuntimeException(e);
+        }
+      });
+    } catch (RuntimeException re) {
+      Throwable cause = re.getCause();
+      throw cause == null ? re : cause;
+    }
+  }
 ```
 
 
@@ -302,7 +363,10 @@ MapperMethod
 
 
 ```
-<code><span leaf="">public <span class="code-snippet__class"><span class="code-snippet__keyword">class</span></span><span class="code-snippet__class"> </span><span class="code-snippet__class"><span class="code-snippet__title">MapperMethod</span></span><span class="code-snippet__class"> </span>{</span></code><code><span leaf="">    private final SqlCommand command;   <span class="code-snippet__regexp">//</span> 封装 SQL 的类型(SELECT/INSERT/UPDATE/DELETE)和 MappedStatement 的 id</span></code><code><span leaf="">    private final MethodSignature <span class="code-snippet__function"><span class="code-snippet__keyword">method</span></span>; // 封装方法的签名信息（返回类型、参数等）</span></code><code><span leaf="">}</span></code>
+public class MapperMethod {
+    private final SqlCommand command;   // 封装 SQL 的类型(SELECT/INSERT/UPDATE/DELETE)和 MappedStatement 的 id
+    private final MethodSignature method; // 封装方法的签名信息（返回类型、参数等）
+}
 ```
 
 
@@ -320,7 +384,43 @@ mapperMethod.execute(sqlSession, args)
 
 
 ```
-<code><span leaf=""><span class="code-snippet__function"><span class="code-snippet__keyword">public</span></span><span class="code-snippet__function"> Object </span><span class="code-snippet__function"><span class="code-snippet__title">execute</span></span><span class="code-snippet__function">(</span><span class="code-snippet__function"><span class="code-snippet__params">SqlSession sqlSession, Object[] </span></span><span class="code-snippet__function"><span class="code-snippet__params"><span class="code-snippet__keyword">args</span></span></span><span class="code-snippet__function">)</span> {</span></code><code><span leaf="">    Object result;</span></code><code><span leaf="">    <span class="code-snippet__keyword">switch</span> (command.getType()) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">case</span> INSERT:</span></code><code><span leaf="">            <span class="code-snippet__comment">// 处理 insert</span></span></code><code><span leaf="">            <span class="code-snippet__keyword">break</span>;</span></code><code><span leaf="">        <span class="code-snippet__keyword">case</span> UPDATE:</span></code><code><span leaf="">            <span class="code-snippet__comment">// 处理 update</span></span></code><code><span leaf="">            <span class="code-snippet__keyword">break</span>;</span></code><code><span leaf="">        <span class="code-snippet__keyword">case</span> DELETE:</span></code><code><span leaf="">            <span class="code-snippet__comment">// 处理 delete</span></span></code><code><span leaf="">            <span class="code-snippet__keyword">break</span>;</span></code><code><span leaf="">        <span class="code-snippet__keyword">case</span> SELECT:</span></code><code><span leaf="">            <span class="code-snippet__comment">// 根据返回类型，调用 sqlSession 的不同方法</span></span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (method.returnsVoid() && method.hasResultHandler()) {</span></code><code><span leaf="">                executeWithResultHandler(sqlSession, <span class="code-snippet__keyword">args</span>);</span></code><code><span leaf="">                result = <span class="code-snippet__literal">null</span>;</span></code><code><span leaf="">            } <span class="code-snippet__keyword">else</span> <span class="code-snippet__keyword">if</span> (method.returnsMany()) {</span></code><code><span leaf="">                result = executeForMany(sqlSession, <span class="code-snippet__keyword">args</span>);</span></code><code><span leaf="">            } <span class="code-snippet__keyword">else</span> <span class="code-snippet__keyword">if</span> (method.returnsMap()) {</span></code><code><span leaf="">                result = executeForMap(sqlSession, <span class="code-snippet__keyword">args</span>);</span></code><code><span leaf="">            } <span class="code-snippet__keyword">else</span> <span class="code-snippet__keyword">if</span> (method.returnsCursor()) {</span></code><code><span leaf="">                result = executeForCursor(sqlSession, <span class="code-snippet__keyword">args</span>);</span></code><code><span leaf="">            } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">                <span class="code-snippet__comment">// 返回单个对象</span></span></code><code><span leaf="">                Object param = method.convertArgsToSqlCommandParam(<span class="code-snippet__keyword">args</span>);</span></code><code><span leaf="">                result = sqlSession.selectOne(command.getName(), param);</span></code><code><span leaf="">            }</span></code><code><span leaf="">            <span class="code-snippet__keyword">break</span>;</span></code><code><span leaf="">        <span class="code-snippet__keyword">case</span> FLUSH:</span></code><code><span leaf="">            result = sqlSession.flushStatements();</span></code><code><span leaf="">            <span class="code-snippet__keyword">break</span>;</span></code><code><span leaf="">        <span class="code-snippet__literal">default</span>:</span></code><code><span leaf="">            <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> BindingException(<span class="code-snippet__string">"Unknown execution method..."</span>);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> result;</span></code><code><span leaf="">}</span></code>
+public Object execute(SqlSession sqlSession, Object[] args) {
+    Object result;
+    switch (command.getType()) {
+        case INSERT:
+            // 处理 insert
+            break;
+        case UPDATE:
+            // 处理 update
+            break;
+        case DELETE:
+            // 处理 delete
+            break;
+        case SELECT:
+            // 根据返回类型，调用 sqlSession 的不同方法
+            if (method.returnsVoid() && method.hasResultHandler()) {
+                executeWithResultHandler(sqlSession, args);
+                result = null;
+            } else if (method.returnsMany()) {
+                result = executeForMany(sqlSession, args);
+            } else if (method.returnsMap()) {
+                result = executeForMap(sqlSession, args);
+            } else if (method.returnsCursor()) {
+                result = executeForCursor(sqlSession, args);
+            } else {
+                // 返回单个对象
+                Object param = method.convertArgsToSqlCommandParam(args);
+                result = sqlSession.selectOne(command.getName(), param);
+            }
+            break;
+        case FLUSH:
+            result = sqlSession.flushStatements();
+            break;
+        default:
+            throw new BindingException("Unknown execution method...");
+    }
+    return result;
+}
 ```
 
 
@@ -417,7 +517,14 @@ MapperScannerRegistrar
 
 
 ```
-<code><span leaf=""><span class="code-snippet__meta">@Retention(RetentionPolicy.RUNTIME)</span></span></code><code><span leaf=""><span class="code-snippet__meta">@Target(ElementType.TYPE)</span></span></code><code><span leaf=""><span class="code-snippet__meta">@Import(MapperScannerRegistrar.class)</span>  <span class="code-snippet__comment">// 关键：导入了一个 Registrar</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__meta">@interface</span> MapperScan {</span></code><code><span leaf="">    String[] value() <span class="code-snippet__keyword">default</span> {};</span></code><code><span leaf="">    String[] basePackages() <span class="code-snippet__keyword">default</span> {};</span></code><code><span leaf="">    <span class="code-snippet__comment">// ...</span></span></code><code><span leaf="">}</span></code>
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Import(MapperScannerRegistrar.class)  // 关键：导入了一个 Registrar
+public @interface MapperScan {
+    String[] value() default {};
+    String[] basePackages() default {};
+    // ...
+}
 ```
 
 
@@ -435,7 +542,36 @@ registerBeanDefinitions
 
 
 ```
-<code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">registerBeanDefinitions</span>(<span class="code-snippet__params"><span class="code-snippet__title">AnnotationMetadata</span></span><span class="code-snippet__params"> importingClassMetadata, </span></span></code><code><span leaf="">                                    <span class="code-snippet__title">BeanDefinitionRegistry</span> registry) {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 1. 获取 @MapperScan 注解的所有属性</span></span></code><code><span leaf="">    <span class="code-snippet__title">AnnotationAttributes</span> mapperScanAttrs = <span class="code-snippet__title">AnnotationAttributes</span>.<span class="code-snippet__title">fromMap</span>(</span></code><code><span leaf="">        importingClassMetadata.<span class="code-snippet__title">getAnnotationAttributes</span>(<span class="code-snippet__title">MapperScan</span>.<span class="code-snippet__property">class</span>.<span class="code-snippet__title">getName</span>()));</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (mapperScanAttrs != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 2. 调用重载方法，传入生成的基名</span></span></code><code><span leaf="">        <span class="code-snippet__variable">this</span>.<span class="code-snippet__title">registerBeanDefinitions</span>(importingClassMetadata, mapperScanAttrs, registry, </span></code><code><span leaf="">                                     <span class="code-snippet__title">generateBaseBeanName</span>(importingClassMetadata, <span class="code-snippet__number">0</span>));</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code><code><span leaf=""><br  /></span></code><code><span leaf=""><span class="code-snippet__keyword">private</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">registerBeanDefinitions</span>(<span class="code-snippet__params"><span class="code-snippet__title">AnnotationMetadata</span></span><span class="code-snippet__params"> importingClassMetadata,</span></span></code><code><span leaf="">                                     <span class="code-snippet__title">AnnotationAttributes</span> mapperScanAttrs,</span></code><code><span leaf="">                                     <span class="code-snippet__title">BeanDefinitionRegistry</span> registry, <span class="code-snippet__title">String</span> beanName) {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 3. 创建 MapperScannerConfigurer 的 BeanDefinitionBuilder</span></span></code><code><span leaf="">    <span class="code-snippet__title">BeanDefinitionBuilder</span> builder = <span class="code-snippet__title">BeanDefinitionBuilder</span></span></code><code><span leaf="">        .<span class="code-snippet__title">genericBeanDefinition</span>(<span class="code-snippet__title">MapperScannerConfigurer</span>.<span class="code-snippet__property">class</span>);</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 4. 设置 basePackage（扫描路径）</span></span></code><code><span leaf="">    builder.<span class="code-snippet__title">addPropertyValue</span>(<span class="code-snippet__string">"basePackage"</span>, </span></code><code><span leaf="">        <span class="code-snippet__title">StringUtils</span>.<span class="code-snippet__title">collectionToCommaDelimitedString</span>(basePackages));</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 5. 其他属性设置（sqlSessionFactoryBeanName、annotationClass 等）</span></span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 6. 注册到 Spring 容器，此时扫描尚未执行</span></span></code><code><span leaf="">    registry.<span class="code-snippet__title">registerBeanDefinition</span>(beanName, builder.<span class="code-snippet__title">getBeanDefinition</span>());</span></code><code><span leaf="">}</span></code>
+@Override
+public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
+                                    BeanDefinitionRegistry registry) {
+    // 1. 获取 @MapperScan 注解的所有属性
+    AnnotationAttributes mapperScanAttrs = AnnotationAttributes.fromMap(
+        importingClassMetadata.getAnnotationAttributes(MapperScan.class.getName()));
+
+    if (mapperScanAttrs != null) {
+        // 2. 调用重载方法，传入生成的基名
+        this.registerBeanDefinitions(importingClassMetadata, mapperScanAttrs, registry,
+                                     generateBaseBeanName(importingClassMetadata, 0));
+    }
+}
+
+private void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
+                                     AnnotationAttributes mapperScanAttrs,
+                                     BeanDefinitionRegistry registry, String beanName) {
+    // 3. 创建 MapperScannerConfigurer 的 BeanDefinitionBuilder
+    BeanDefinitionBuilder builder = BeanDefinitionBuilder
+        .genericBeanDefinition(MapperScannerConfigurer.class);
+
+    // 4. 设置 basePackage（扫描路径）
+    builder.addPropertyValue("basePackage",
+        StringUtils.collectionToCommaDelimitedString(basePackages));
+
+    // 5. 其他属性设置（sqlSessionFactoryBeanName、annotationClass 等）
+
+    // 6. 注册到 Spring 容器，此时扫描尚未执行
+    registry.registerBeanDefinition(beanName, builder.getBeanDefinition());
+}
 ```
 
 
@@ -481,7 +617,31 @@ postProcessBeanDefinitionRegistry
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 1. 处理占位符（如 ${basePackage}）</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (<span class="code-snippet__keyword">this</span>.processPropertyPlaceHolders) {</span></code><code><span leaf="">        processPropertyPlaceHolders();</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 2. 创建 ClassPathMapperScanner</span></span></code><code><span leaf="">    ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 3. 设置各项属性</span></span></code><code><span leaf="">    scanner.setAddToConfig(<span class="code-snippet__keyword">this</span>.addToConfig);</span></code><code><span leaf="">    scanner.setAnnotationClass(<span class="code-snippet__keyword">this</span>.annotationClass);</span></code><code><span leaf="">    scanner.setMarkerInterface(<span class="code-snippet__keyword">this</span>.markerInterface);</span></code><code><span leaf="">    scanner.setSqlSessionFactory(<span class="code-snippet__keyword">this</span>.sqlSessionFactory);</span></code><code><span leaf="">    scanner.setSqlSessionTemplate(<span class="code-snippet__keyword">this</span>.sqlSessionTemplate);</span></code><code><span leaf="">    scanner.setResourceLoader(<span class="code-snippet__keyword">this</span>.applicationContext);</span></code><code><span leaf="">    scanner.setBeanNameGenerator(<span class="code-snippet__keyword">this</span>.nameGenerator);</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 4. 注册过滤器（决定哪些接口被扫描）</span></span></code><code><span leaf="">    scanner.registerFilters();</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 5. 执行扫描（核心动作）</span></span></code><code><span leaf="">    scanner.scan(StringUtils.tokenizeToStringArray(<span class="code-snippet__keyword">this</span>.basePackage, </span></code><code><span leaf="">        ConfigurableApplicationContext.CONFIG_LOCATION_DELIMITERS));</span></code><code><span leaf="">}</span></code>
+public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
+    // 1. 处理占位符（如 ${basePackage}）
+    if (this.processPropertyPlaceHolders) {
+        processPropertyPlaceHolders();
+    }
+
+    // 2. 创建 ClassPathMapperScanner
+    ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);
+
+    // 3. 设置各项属性
+    scanner.setAddToConfig(this.addToConfig);
+    scanner.setAnnotationClass(this.annotationClass);
+    scanner.setMarkerInterface(this.markerInterface);
+    scanner.setSqlSessionFactory(this.sqlSessionFactory);
+    scanner.setSqlSessionTemplate(this.sqlSessionTemplate);
+    scanner.setResourceLoader(this.applicationContext);
+    scanner.setBeanNameGenerator(this.nameGenerator);
+
+    // 4. 注册过滤器（决定哪些接口被扫描）
+    scanner.registerFilters();
+
+    // 5. 执行扫描（核心动作）
+    scanner.scan(StringUtils.tokenizeToStringArray(this.basePackage,
+        ConfigurableApplicationContext.CONFIG_LOCATION_DELIMITERS));
+}
 ```
 
 
@@ -509,7 +669,43 @@ doScan
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// ClassPathMapperScanner (mybatis-spring 3.0.3)</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">ClassPathMapperScanner</span> <span class="code-snippet__keyword">extends</span> <span class="code-snippet__title">ClassPathBeanDefinitionScanner</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__title">Class</span><? <span class="code-snippet__keyword">extends</span> <span class="code-snippet__title">MapperFactoryBean</span>> mapperFactoryBeanClass = <span class="code-snippet__title">MapperFactoryBean</span>.<span class="code-snippet__property">class</span>;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">Set</span><<span class="code-snippet__title">BeanDefinitionHolder</span>> <span class="code-snippet__title">doScan</span>(<span class="code-snippet__params"><span class="code-snippet__title">String</span></span><span class="code-snippet__params">... basePackages</span>) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 1. 调用父类进行标准组件扫描，得到原始 BeanDefinition（beanClass = 接口本身）</span></span></code><code><span leaf="">        <span class="code-snippet__title">Set</span><<span class="code-snippet__title">BeanDefinitionHolder</span>> beanDefinitions = <span class="code-snippet__variable">super</span>.<span class="code-snippet__title">doScan</span>(basePackages);</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (!beanDefinitions.<span class="code-snippet__title">isEmpty</span>()) {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 2. 对扫描到的 BeanDefinition 进行二次处理（关键步骤）</span></span></code><code><span leaf="">            <span class="code-snippet__title">processBeanDefinitions</span>(beanDefinitions);</span></code><code><span leaf="">        }</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> beanDefinitions;</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">processBeanDefinitions</span>(<span class="code-snippet__params"><span class="code-snippet__title">Set</span></span><span class="code-snippet__params"><</span><span class="code-snippet__params"><span class="code-snippet__title">BeanDefinitionHolder</span></span><span class="code-snippet__params">> beanDefinitions</span>) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">for</span> (<span class="code-snippet__title">BeanDefinitionHolder</span> holder : beanDefinitions) {</span></code><code><span leaf="">            <span class="code-snippet__title">BeanDefinition</span> definition = holder.<span class="code-snippet__title">getBeanDefinition</span>();</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">            <span class="code-snippet__comment">// 3. 修改 beanClass：将接口类型改为 MapperFactoryBean</span></span></code><code><span leaf="">            definition.<span class="code-snippet__title">setBeanClass</span>(<span class="code-snippet__variable">this</span>.<span class="code-snippet__property">mapperFactoryBeanClass</span>);</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">            <span class="code-snippet__comment">// 4. 添加构造参数：原始 Mapper 接口类型</span></span></code><code><span leaf="">            definition.<span class="code-snippet__title">getConstructorArgumentValues</span>()</span></code><code><span leaf="">                .<span class="code-snippet__title">addGenericArgumentValue</span>(definition.<span class="code-snippet__title">getBeanClassName</span>());</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">            <span class="code-snippet__comment">// 5. 添加属性：sqlSessionFactory 或 sqlSessionTemplate</span></span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (<span class="code-snippet__variable">this</span>.<span class="code-snippet__property">sqlSessionFactory</span> != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">                definition.<span class="code-snippet__title">getPropertyValues</span>().<span class="code-snippet__title">add</span>(<span class="code-snippet__string">"sqlSessionFactory"</span>, <span class="code-snippet__variable">this</span>.<span class="code-snippet__property">sqlSessionFactory</span>);</span></code><code><span leaf="">            }</span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (<span class="code-snippet__variable">this</span>.<span class="code-snippet__property">sqlSessionTemplate</span> != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">                definition.<span class="code-snippet__title">getPropertyValues</span>().<span class="code-snippet__title">add</span>(<span class="code-snippet__string">"sqlSessionTemplate"</span>, <span class="code-snippet__variable">this</span>.<span class="code-snippet__property">sqlSessionTemplate</span>);</span></code><code><span leaf="">            }</span></code><code><span leaf="">        }</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+// ClassPathMapperScanner (mybatis-spring 3.0.3)
+public class ClassPathMapperScanner extends ClassPathBeanDefinitionScanner {
+    private Class<? extends MapperFactoryBean> mapperFactoryBeanClass = MapperFactoryBean.class;
+
+    @Override
+    public Set<BeanDefinitionHolder> doScan(String... basePackages) {
+        // 1. 调用父类进行标准组件扫描，得到原始 BeanDefinition（beanClass = 接口本身）
+        Set<BeanDefinitionHolder> beanDefinitions = super.doScan(basePackages);
+
+        if (!beanDefinitions.isEmpty()) {
+            // 2. 对扫描到的 BeanDefinition 进行二次处理（关键步骤）
+            processBeanDefinitions(beanDefinitions);
+        }
+        return beanDefinitions;
+    }
+
+    private void processBeanDefinitions(Set<BeanDefinitionHolder> beanDefinitions) {
+        for (BeanDefinitionHolder holder : beanDefinitions) {
+            BeanDefinition definition = holder.getBeanDefinition();
+
+            // 3. 修改 beanClass：将接口类型改为 MapperFactoryBean
+            definition.setBeanClass(this.mapperFactoryBeanClass);
+
+            // 4. 添加构造参数：原始 Mapper 接口类型
+            definition.getConstructorArgumentValues()
+                .addGenericArgumentValue(definition.getBeanClassName());
+
+            // 5. 添加属性：sqlSessionFactory 或 sqlSessionTemplate
+            if (this.sqlSessionFactory != null) {
+                definition.getPropertyValues().add("sqlSessionFactory", this.sqlSessionFactory);
+            }
+            if (this.sqlSessionTemplate != null) {
+                definition.getPropertyValues().add("sqlSessionTemplate", this.sqlSessionTemplate);
+            }
+        }
+    }
+}
 ```
 
 
@@ -567,7 +763,20 @@ getObject()
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// MapperFactoryBean (mybatis-spring 3.0.3)</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">MapperFactoryBean</span><T> <span class="code-snippet__keyword">extends</span> <span class="code-snippet__title">SqlSessionDaoSupport</span> <span class="code-snippet__keyword">implements</span> <span class="code-snippet__title">FactoryBean</span><T> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> Class<T> mapperInterface;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">MapperFactoryBean</span><span class="code-snippet__params">(Class<T> mapperInterface)</span> {</span></code><code><span leaf="">        <span class="code-snippet__built_in">this</span>.mapperInterface = mapperInterface;</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> T <span class="code-snippet__title">getObject</span><span class="code-snippet__params">()</span> <span class="code-snippet__keyword">throws</span> Exception {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 通过 SqlSession 获取 Mapper 代理对象</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> getSqlSession().getMapper(<span class="code-snippet__built_in">this</span>.mapperInterface);</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+// MapperFactoryBean (mybatis-spring 3.0.3)
+public class MapperFactoryBean<T> extends SqlSessionDaoSupport implements FactoryBean<T> {
+    private Class<T> mapperInterface;
+
+    public MapperFactoryBean(Class<T> mapperInterface) {
+        this.mapperInterface = mapperInterface;
+    }
+
+    @Override
+    public T getObject() throws Exception {
+        // 通过 SqlSession 获取 Mapper 代理对象
+        return getSqlSession().getMapper(this.mapperInterface);
+    }
+}
 ```
 
 
@@ -577,7 +786,11 @@ getSqlSession().getMapper()
 
 
 ```
-<code><span leaf=""><span class="code-snippet__title">SqlSessionTemplate</span>.<span class="code-snippet__title">getMapper</span>()</span></code><code><span leaf="">    → <span class="code-snippet__title">Configuration</span>.<span class="code-snippet__title">getMapper</span>()</span></code><code><span leaf="">        → <span class="code-snippet__title">MapperRegistry</span>.<span class="code-snippet__title">getMapper</span>()</span></code><code><span leaf="">            → <span class="code-snippet__title">MapperProxyFactory</span>.<span class="code-snippet__title">newInstance</span>()</span></code><code><span leaf="">                → <span class="code-snippet__title">Proxy</span>.<span class="code-snippet__title">newProxyInstance</span>() → 生成 <span class="code-snippet__title">MapperProxy</span></span></code>
+SqlSessionTemplate.getMapper()
+    → Configuration.getMapper()
+        → MapperRegistry.getMapper()
+            → MapperProxyFactory.newInstance()
+                → Proxy.newProxyInstance() → 生成 MapperProxy
 ```
 
 
@@ -597,7 +810,32 @@ MapperProxy
 
 
 ```
-<code><span leaf="">启动类 @MapperScan(<span class="code-snippet__string">"com.example.mapper"</span>)</span></code><code><span leaf="">    ↓</span></code><code><span leaf="">@Import(MapperScannerRegistrar.<span class="code-snippet__keyword">class</span>)</span></code><code><span leaf="">    ↓</span></code><code><span leaf="">MapperScannerRegistrar.registerBeanDefinitions()</span></code><code><span leaf="">    → 注册 MapperScannerConfigurer 的 BeanDefinition</span></code><code><span leaf="">    ↓</span></code><code><span leaf=""><span class="code-snippet__function">Spring </span><span class="code-snippet__function"><span class="code-snippet__title">refresh</span></span><span class="code-snippet__function">() → invokeBeanDefinitionRegistryPostProcessors</span></span></code><code><span leaf="">    ↓</span></code><code><span leaf="">MapperScannerConfigurer.<span class="code-snippet__title">postProcessBeanDefinitionRegistry</span>()</span></code><code><span leaf="">    → 创建 ClassPathMapperScanner</span></code><code><span leaf="">    → 调用 scanner.<span class="code-snippet__title">scan</span>(<span class="code-snippet__params">basePackages</span>)</span></code><code><span leaf="">        ↓</span></code><code><span leaf="">    ClassPathMapperScanner.<span class="code-snippet__title">doScan</span>()</span></code><code><span leaf="">        → super.<span class="code-snippet__title">doScan</span>() → 父类扫描包，发现 Mapper 接口</span></code><code><span leaf="">        → <span class="code-snippet__title">processBeanDefinitions</span>()</span></code><code><span leaf="">            → 修改 BeanDefinition：beanClass = MapperFactoryBean</span></code><code><span leaf="">            → 添加构造参数：原始 Mapper 接口类型</span></code><code><span leaf="">        ↓</span></code><code><span leaf="">    MapperFactoryBean.getObject()</span></code><code><span leaf="">        → sqlSession.getMapper(mapperInterface)</span></code><code><span leaf="">            → MapperRegistry.getMapper()</span></code><code><span leaf="">                → MapperProxyFactory.newInstance()</span></code><code><span leaf="">                    → JDK 动态代理 → MapperProxy</span></code><code><span leaf="">        ↓</span></code><code><span leaf="">Spring 容器注入 MapperProxy 代理对象</span></code>
+启动类 @MapperScan("com.example.mapper")
+    ↓
+@Import(MapperScannerRegistrar.class)
+    ↓
+MapperScannerRegistrar.registerBeanDefinitions()
+    → 注册 MapperScannerConfigurer 的 BeanDefinition
+    ↓
+Spring refresh() → invokeBeanDefinitionRegistryPostProcessors
+    ↓
+MapperScannerConfigurer.postProcessBeanDefinitionRegistry()
+    → 创建 ClassPathMapperScanner
+    → 调用 scanner.scan(basePackages)
+        ↓
+    ClassPathMapperScanner.doScan()
+        → super.doScan() → 父类扫描包，发现 Mapper 接口
+        → processBeanDefinitions()
+            → 修改 BeanDefinition：beanClass = MapperFactoryBean
+            → 添加构造参数：原始 Mapper 接口类型
+        ↓
+    MapperFactoryBean.getObject()
+        → sqlSession.getMapper(mapperInterface)
+            → MapperRegistry.getMapper()
+                → MapperProxyFactory.newInstance()
+                    → JDK 动态代理 → MapperProxy
+        ↓
+Spring 容器注入 MapperProxy 代理对象
 ```
 
 

@@ -13,8 +13,8 @@
   {
     "title": "背包问题九讲 V2",
     "url": "https://github.com/tianyicui/pack/blob/master/V2.pdf",
-    "description": "崔添翼的动态规划经典材料，原文件标注 CC BY-NC-SA，适合作为 408 算法复习参考。",
-    "category": "算法与 408",
+    "description": "崔添翼的动态规划经典材料，原文件标注 CC BY-NC-SA，适合作为计算机基础中的算法学习参考。",
+    "category": "算法与计算机基础",
     "tags": [
       "动态规划",
       "背包问题",

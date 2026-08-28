@@ -140,7 +140,29 @@ Configuration.newExecutor()
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// Configuration</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__title">Executor</span> <span class="code-snippet__title">newExecutor</span>(<span class="code-snippet__params"><span class="code-snippet__title">Transaction</span></span><span class="code-snippet__params"> transaction, </span><span class="code-snippet__params"><span class="code-snippet__title">ExecutorType</span></span><span class="code-snippet__params"> executorType</span>) {</span></code><code><span leaf="">    executorType = executorType == <span class="code-snippet__literal">null</span> ? defaultExecutorType : executorType;</span></code><code><span leaf="">    <span class="code-snippet__title">Executor</span> executor;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 1. 根据类型创建基础执行器</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (<span class="code-snippet__title">ExecutorType</span>.<span class="code-snippet__property">BATCH</span> == executorType) {</span></code><code><span leaf="">        executor = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">BatchExecutor</span>(<span class="code-snippet__variable">this</span>, transaction);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">else</span> <span class="code-snippet__keyword">if</span> (<span class="code-snippet__title">ExecutorType</span>.<span class="code-snippet__property">REUSE</span> == executorType) {</span></code><code><span leaf="">        executor = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">ReuseExecutor</span>(<span class="code-snippet__variable">this</span>, transaction);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">        executor = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">SimpleExecutor</span>(<span class="code-snippet__variable">this</span>, transaction);</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 2. 如果开启二级缓存，用装饰器模式包装</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (cacheEnabled) {</span></code><code><span leaf="">        executor = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">CachingExecutor</span>(executor);</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 3. 执行插件链（责任链）</span></span></code><code><span leaf="">    executor = (<span class="code-snippet__title">Executor</span>) interceptorChain.<span class="code-snippet__title">pluginAll</span>(executor);</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> executor;</span></code><code><span leaf="">}</span></code>
+// Configuration
+public Executor newExecutor(Transaction transaction, ExecutorType executorType) {
+    executorType = executorType == null ? defaultExecutorType : executorType;
+    Executor executor;
+
+    // 1. 根据类型创建基础执行器
+    if (ExecutorType.BATCH == executorType) {
+        executor = new BatchExecutor(this, transaction);
+    } else if (ExecutorType.REUSE == executorType) {
+        executor = new ReuseExecutor(this, transaction);
+    } else {
+        executor = new SimpleExecutor(this, transaction);
+    }
+
+    // 2. 如果开启二级缓存，用装饰器模式包装
+    if (cacheEnabled) {
+        executor = new CachingExecutor(executor);
+    }
+
+    // 3. 执行插件链（责任链）
+    executor = (Executor) interceptorChain.pluginAll(executor);
+    return executor;
+}
 ```
 
 
@@ -198,7 +220,18 @@ BaseExecutor
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">abstract</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">BaseExecutor</span> <span class="code-snippet__keyword">implements</span> <span class="code-snippet__title">Executor</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> PerpetualCache localCache;  <span class="code-snippet__comment">// 一级缓存</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> PerpetualCache localOutputParameterCache; <span class="code-snippet__comment">// 存储过程输出参数缓存</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> Transaction transaction;</span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> <span class="code-snippet__type">boolean</span> closed;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">BaseExecutor</span><span class="code-snippet__params">(Configuration configuration, Transaction transaction)</span> {</span></code><code><span leaf="">        <span class="code-snippet__built_in">this</span>.transaction = transaction;</span></code><code><span leaf="">        <span class="code-snippet__built_in">this</span>.localCache = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">PerpetualCache</span>(<span class="code-snippet__string">"LocalCache"</span>);</span></code><code><span leaf="">        <span class="code-snippet__built_in">this</span>.localOutputParameterCache = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">PerpetualCache</span>(<span class="code-snippet__string">"LocalOutputParameterCache"</span>);</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+public abstract class BaseExecutor implements Executor {
+    protected PerpetualCache localCache;  // 一级缓存
+    protected PerpetualCache localOutputParameterCache; // 存储过程输出参数缓存
+    protected Transaction transaction;
+    protected boolean closed;
+
+    public BaseExecutor(Configuration configuration, Transaction transaction) {
+        this.transaction = transaction;
+        this.localCache = new PerpetualCache("LocalCache");
+        this.localOutputParameterCache = new PerpetualCache("LocalOutputParameterCache");
+    }
+}
 ```
 
 
@@ -206,7 +239,46 @@ BaseExecutor
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// BaseExecutor</span></span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <E> <span class="code-snippet__title">List</span><E> <span class="code-snippet__title">query</span>(<span class="code-snippet__params"><span class="code-snippet__title">MappedStatement</span></span><span class="code-snippet__params"> ms, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> parameter, </span><span class="code-snippet__params"><span class="code-snippet__title">RowBounds</span></span><span class="code-snippet__params"> rowBounds, </span></span></code><code><span leaf="">                         <span class="code-snippet__title">ResultHandler</span> resultHandler, <span class="code-snippet__title">CacheKey</span> key, <span class="code-snippet__title">BoundSql</span> boundSql) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (closed) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">ExecutorException</span>(<span class="code-snippet__string">"Executor was closed."</span>);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__comment">// 1. 清空本地缓存（若配置了 flushCache=true）</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (queryStack == <span class="code-snippet__number">0</span> && ms.<span class="code-snippet__title">isFlushCacheRequired</span>()) {</span></code><code><span leaf="">        <span class="code-snippet__title">clearLocalCache</span>();</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__title">List</span><E> list;</span></code><code><span leaf="">    <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">        queryStack++;</span></code><code><span leaf="">        <span class="code-snippet__comment">// 2. 从一级缓存获取</span></span></code><code><span leaf="">        list = resultHandler == <span class="code-snippet__literal">null</span> ? (<span class="code-snippet__title">List</span><E>) localCache.<span class="code-snippet__title">getObject</span>(key) : <span class="code-snippet__literal">null</span>;</span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (list != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 缓存命中，处理存储过程的输出参数</span></span></code><code><span leaf="">            <span class="code-snippet__title">handleLocallyCachedOutputParameters</span>(ms, key, parameter, boundSql);</span></code><code><span leaf="">        } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 3. 未命中，从数据库查询</span></span></code><code><span leaf="">            list = <span class="code-snippet__title">queryFromDatabase</span>(ms, parameter, rowBounds, resultHandler, key, boundSql);</span></code><code><span leaf="">        }</span></code><code><span leaf="">    } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">        queryStack--;</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> list;</span></code><code><span leaf="">}</span></code><code><span leaf=""><br  /></span></code><code><span leaf=""><span class="code-snippet__keyword">private</span> <E> <span class="code-snippet__title">List</span><E> <span class="code-snippet__title">queryFromDatabase</span>(<span class="code-snippet__params">...</span>) {</span></code><code><span leaf="">    <span class="code-snippet__title">List</span><E> list;</span></code><code><span leaf="">    localCache.<span class="code-snippet__title">putObject</span>(key, <span class="code-snippet__variable">EXECUTION_PLACEHOLDER</span>); <span class="code-snippet__comment">// 占位符，防止并发重复查询</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">        list = <span class="code-snippet__title">doQuery</span>(ms, parameter, rowBounds, resultHandler, boundSql);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">        localCache.<span class="code-snippet__title">removeObject</span>(key);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    localCache.<span class="code-snippet__title">putObject</span>(key, list);  <span class="code-snippet__comment">// 放入缓存</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> list;</span></code><code><span leaf="">}</span></code>
+// BaseExecutor
+@Override
+public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds,
+                         ResultHandler resultHandler, CacheKey key, BoundSql boundSql) {
+    if (closed) {
+        throw new ExecutorException("Executor was closed.");
+    }
+    // 1. 清空本地缓存（若配置了 flushCache=true）
+    if (queryStack == 0 && ms.isFlushCacheRequired()) {
+        clearLocalCache();
+    }
+    List<E> list;
+    try {
+        queryStack++;
+        // 2. 从一级缓存获取
+        list = resultHandler == null ? (List<E>) localCache.getObject(key) : null;
+        if (list != null) {
+            // 缓存命中，处理存储过程的输出参数
+            handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);
+        } else {
+            // 3. 未命中，从数据库查询
+            list = queryFromDatabase(ms, parameter, rowBounds, resultHandler, key, boundSql);
+        }
+    } finally {
+        queryStack--;
+    }
+    return list;
+}
+
+private <E> List<E> queryFromDatabase(...) {
+    List<E> list;
+    localCache.putObject(key, EXECUTION_PLACEHOLDER); // 占位符，防止并发重复查询
+    try {
+        list = doQuery(ms, parameter, rowBounds, resultHandler, boundSql);
+    } finally {
+        localCache.removeObject(key);
+    }
+    localCache.putObject(key, list);  // 放入缓存
+    return list;
+}
 ```
 
 
@@ -236,7 +308,15 @@ localCacheScope=STATEMENT
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// BaseExecutor</span></span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> int <span class="code-snippet__title">update</span>(<span class="code-snippet__params"><span class="code-snippet__title">MappedStatement</span></span><span class="code-snippet__params"> ms, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> parameter</span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (closed) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">ExecutorException</span>(<span class="code-snippet__string">"Executor was closed."</span>);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__title">clearLocalCache</span>();  <span class="code-snippet__comment">// 更新操作会清空一级缓存</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> <span class="code-snippet__title">doUpdate</span>(ms, parameter);</span></code><code><span leaf="">}</span></code>
+// BaseExecutor
+@Override
+public int update(MappedStatement ms, Object parameter) {
+    if (closed) {
+        throw new ExecutorException("Executor was closed.");
+    }
+    clearLocalCache();  // 更新操作会清空一级缓存
+    return doUpdate(ms, parameter);
+}
 ```
 
 
@@ -244,7 +324,59 @@ localCacheScope=STATEMENT
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// BaseExecutor</span></span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">void</span> <span class="code-snippet__title">commit</span><span class="code-snippet__params">(</span><span class="code-snippet__params"><span class="code-snippet__type">boolean</span></span><span class="code-snippet__params"> required)</span> <span class="code-snippet__keyword">throws</span> SQLException {</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (closed) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">ExecutorException</span>(<span class="code-snippet__string">"Cannot commit, transaction is already closed"</span>);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    clearLocalCache();  <span class="code-snippet__comment">// 提交前清空一级缓存</span></span></code><code><span leaf="">    flushStatements();  <span class="code-snippet__comment">// 刷新批处理语句（BatchExecutor 会用到）</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (required) {</span></code><code><span leaf="">        transaction.commit();  <span class="code-snippet__comment">// 提交事务</span></span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code><code><span leaf=""><br  /></span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">void</span> <span class="code-snippet__title">close</span><span class="code-snippet__params">(</span><span class="code-snippet__params"><span class="code-snippet__type">boolean</span></span><span class="code-snippet__params"> forceRollback)</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">        <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 1. 根据 forceRollback 决定提交还是回滚</span></span></code><code><span leaf="">            rollback(forceRollback);   <span class="code-snippet__comment">// 注意：这里调用的就是 rollback，不是 commit！</span></span></code><code><span leaf="">        } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 2. 关闭事务（释放数据库连接）</span></span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (transaction != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">                transaction.close();</span></code><code><span leaf="">            }</span></code><code><span leaf="">        }</span></code><code><span leaf="">    } <span class="code-snippet__keyword">catch</span> (SQLException e) {</span></code><code><span leaf="">        log.warn(<span class="code-snippet__string">"Unexpected exception on closing transaction.  Cause: "</span> + e);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 3. 清空所有缓存和引用，标记 closed = true</span></span></code><code><span leaf="">        transaction = <span class="code-snippet__literal">null</span>;</span></code><code><span leaf="">        deferredLoads = <span class="code-snippet__literal">null</span>;</span></code><code><span leaf="">        localCache = <span class="code-snippet__literal">null</span>;</span></code><code><span leaf="">        localOutputParameterCache = <span class="code-snippet__literal">null</span>;</span></code><code><span leaf="">        closed = <span class="code-snippet__literal">true</span>;</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code><code><span leaf=""><br  /></span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">void</span> <span class="code-snippet__title">rollback</span><span class="code-snippet__params">(</span><span class="code-snippet__params"><span class="code-snippet__type">boolean</span></span><span class="code-snippet__params"> required)</span> <span class="code-snippet__keyword">throws</span> SQLException {</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (!closed) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 清空一级缓存</span></span></code><code><span leaf="">            clearLocalCache();</span></code><code><span leaf="">            <span class="code-snippet__comment">// 刷新批处理语句（如果有）</span></span></code><code><span leaf="">            flushStatements(<span class="code-snippet__literal">true</span>);</span></code><code><span leaf="">        } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 如果 required=true 或者当前连接不是自动提交模式，则执行回滚</span></span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (required) {</span></code><code><span leaf="">                transaction.rollback();</span></code><code><span leaf="">            }</span></code><code><span leaf="">        }</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+// BaseExecutor
+@Override
+public void commit(boolean required) throws SQLException {
+    if (closed) {
+        throw new ExecutorException("Cannot commit, transaction is already closed");
+    }
+    clearLocalCache();  // 提交前清空一级缓存
+    flushStatements();  // 刷新批处理语句（BatchExecutor 会用到）
+    if (required) {
+        transaction.commit();  // 提交事务
+    }
+}
+
+@Override
+public void close(boolean forceRollback) {
+    try {
+        try {
+            // 1. 根据 forceRollback 决定提交还是回滚
+            rollback(forceRollback);   // 注意：这里调用的就是 rollback，不是 commit！
+        } finally {
+            // 2. 关闭事务（释放数据库连接）
+            if (transaction != null) {
+                transaction.close();
+            }
+        }
+    } catch (SQLException e) {
+        log.warn("Unexpected exception on closing transaction.  Cause: " + e);
+    } finally {
+        // 3. 清空所有缓存和引用，标记 closed = true
+        transaction = null;
+        deferredLoads = null;
+        localCache = null;
+        localOutputParameterCache = null;
+        closed = true;
+    }
+}
+
+@Override
+public void rollback(boolean required) throws SQLException {
+    if (!closed) {
+        try {
+            // 清空一级缓存
+            clearLocalCache();
+            // 刷新批处理语句（如果有）
+            flushStatements(true);
+        } finally {
+            // 如果 required=true 或者当前连接不是自动提交模式，则执行回滚
+            if (required) {
+                transaction.rollback();
+            }
+        }
+    }
+}
 ```
 
 
@@ -298,7 +430,32 @@ Statement
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// SimpleExecutor</span></span></code><code><span leaf=""><span class="code-snippet__meta">@Override</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <E> List<E> <span class="code-snippet__title">doQuery</span><span class="code-snippet__params">(MappedStatement ms, Object parameter, RowBounds rowBounds, </span></span></code><code><span leaf="">                           ResultHandler resultHandler, BoundSql boundSql) {</span></code><code><span leaf="">    <span class="code-snippet__type">Statement</span> <span class="code-snippet__variable">stmt</span> <span class="code-snippet__operator">=</span> <span class="code-snippet__literal">null</span>;</span></code><code><span leaf="">    <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">        <span class="code-snippet__type">Configuration</span> <span class="code-snippet__variable">configuration</span> <span class="code-snippet__operator">=</span> ms.getConfiguration();</span></code><code><span leaf="">        <span class="code-snippet__comment">// 1. 创建 StatementHandler</span></span></code><code><span leaf="">        <span class="code-snippet__type">StatementHandler</span> <span class="code-snippet__variable">handler</span> <span class="code-snippet__operator">=</span> configuration.newStatementHandler(<span class="code-snippet__built_in">this</span>, ms, parameter, </span></code><code><span leaf="">                                            rowBounds, resultHandler, boundSql);</span></code><code><span leaf="">        <span class="code-snippet__comment">// 2. 预编译 SQL</span></span></code><code><span leaf="">        stmt = prepareStatement(handler, ms.getStatementLog());</span></code><code><span leaf="">        <span class="code-snippet__comment">// 3. 执行查询并映射结果</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> handler.query(stmt, resultHandler);</span></code><code><span leaf="">    } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">        closeStatement(stmt);  <span class="code-snippet__comment">// 关闭 Statement</span></span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code><code><span leaf=""><br  /></span></code><code><span leaf=""><span class="code-snippet__keyword">private</span> Statement <span class="code-snippet__title">prepareStatement</span><span class="code-snippet__params">(StatementHandler handler, Log statementLog)</span> {</span></code><code><span leaf="">    Statement stmt;</span></code><code><span leaf="">    <span class="code-snippet__type">Connection</span> <span class="code-snippet__variable">connection</span> <span class="code-snippet__operator">=</span> getConnection(statementLog);</span></code><code><span leaf="">    stmt = handler.prepare(connection, transaction.getTimeout());</span></code><code><span leaf="">    handler.parameterize(stmt);</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> stmt;</span></code><code><span leaf="">}</span></code>
+// SimpleExecutor
+@Override
+public <E> List<E> doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds,
+                           ResultHandler resultHandler, BoundSql boundSql) {
+    Statement stmt = null;
+    try {
+        Configuration configuration = ms.getConfiguration();
+        // 1. 创建 StatementHandler
+        StatementHandler handler = configuration.newStatementHandler(this, ms, parameter,
+                                            rowBounds, resultHandler, boundSql);
+        // 2. 预编译 SQL
+        stmt = prepareStatement(handler, ms.getStatementLog());
+        // 3. 执行查询并映射结果
+        return handler.query(stmt, resultHandler);
+    } finally {
+        closeStatement(stmt);  // 关闭 Statement
+    }
+}
+
+private Statement prepareStatement(StatementHandler handler, Log statementLog) {
+    Statement stmt;
+    Connection connection = getConnection(statementLog);
+    stmt = handler.prepare(connection, transaction.getTimeout());
+    handler.parameterize(stmt);
+    return stmt;
+}
 ```
 
 
@@ -320,7 +477,36 @@ Map<String, Statement>
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">ReuseExecutor</span> <span class="code-snippet__keyword">extends</span> <span class="code-snippet__title">BaseExecutor</span> {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 核心缓存：SQL 字符串 -> Statement 对象</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">final</span> Map<String, Statement> statementMap = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">HashMap</span><>();</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <E> List<E> <span class="code-snippet__title">doQuery</span><span class="code-snippet__params">(MappedStatement ms, Object parameter, RowBounds rowBounds, </span></span></code><code><span leaf="">                               ResultHandler resultHandler, BoundSql boundSql) <span class="code-snippet__keyword">throws</span> SQLException {</span></code><code><span leaf="">        <span class="code-snippet__type">Configuration</span> <span class="code-snippet__variable">configuration</span> <span class="code-snippet__operator">=</span> ms.getConfiguration();</span></code><code><span leaf="">        <span class="code-snippet__type">StatementHandler</span> <span class="code-snippet__variable">handler</span> <span class="code-snippet__operator">=</span> configuration.newStatementHandler(wrapper, ms, parameter, rowBounds, resultHandler, boundSql);</span></code><code><span leaf="">        <span class="code-snippet__type">Statement</span> <span class="code-snippet__variable">stmt</span> <span class="code-snippet__operator">=</span> prepareStatement(handler, ms.getStatementLog());</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> handler.query(stmt, resultHandler);</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 核心复用逻辑在 prepareStatement 方法中</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> Statement <span class="code-snippet__title">prepareStatement</span><span class="code-snippet__params">(StatementHandler handler, Log statementLog)</span> <span class="code-snippet__keyword">throws</span> SQLException {</span></code><code><span leaf="">        Statement stmt;</span></code><code><span leaf="">        <span class="code-snippet__type">BoundSql</span> <span class="code-snippet__variable">boundSql</span> <span class="code-snippet__operator">=</span> handler.getBoundSql();</span></code><code><span leaf="">        <span class="code-snippet__type">String</span> <span class="code-snippet__variable">sql</span> <span class="code-snippet__operator">=</span> boundSql.getSql();               <span class="code-snippet__comment">// 获取 SQL 字符串作为缓存 key</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (hasStatementFor(sql)) {                  <span class="code-snippet__comment">// 检查缓存中是否有该 SQL 对应的 Statement</span></span></code><code><span leaf="">            stmt = getStatement(sql);                 <span class="code-snippet__comment">// 从缓存取</span></span></code><code><span leaf="">            applyTransactionTimeout(stmt);            <span class="code-snippet__comment">// 应用事务超时设置</span></span></code><code><span leaf="">        } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">            <span class="code-snippet__type">Connection</span> <span class="code-snippet__variable">connection</span> <span class="code-snippet__operator">=</span> getConnection(statementLog);</span></code><code><span leaf="">            stmt = handler.prepare(connection, transaction.getTimeout()); <span class="code-snippet__comment">// 创建新 Statement</span></span></code><code><span leaf="">            putStatement(sql, stmt);                  <span class="code-snippet__comment">// 放入缓存</span></span></code><code><span leaf="">        }</span></code><code><span leaf="">        handler.parameterize(stmt);                   <span class="code-snippet__comment">// 设置参数（每次都必须重新设参）</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> stmt;</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+public class ReuseExecutor extends BaseExecutor {
+    // 核心缓存：SQL 字符串 -> Statement 对象
+    private final Map<String, Statement> statementMap = new HashMap<>();
+
+    @Override
+    public <E> List<E> doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds,
+                               ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
+        Configuration configuration = ms.getConfiguration();
+        StatementHandler handler = configuration.newStatementHandler(wrapper, ms, parameter, rowBounds, resultHandler, boundSql);
+        Statement stmt = prepareStatement(handler, ms.getStatementLog());
+        return handler.query(stmt, resultHandler);
+    }
+
+    // 核心复用逻辑在 prepareStatement 方法中
+    private Statement prepareStatement(StatementHandler handler, Log statementLog) throws SQLException {
+        Statement stmt;
+        BoundSql boundSql = handler.getBoundSql();
+        String sql = boundSql.getSql();               // 获取 SQL 字符串作为缓存 key
+        if (hasStatementFor(sql)) {                  // 检查缓存中是否有该 SQL 对应的 Statement
+            stmt = getStatement(sql);                 // 从缓存取
+            applyTransactionTimeout(stmt);            // 应用事务超时设置
+        } else {
+            Connection connection = getConnection(statementLog);
+            stmt = handler.prepare(connection, transaction.getTimeout()); // 创建新 Statement
+            putStatement(sql, stmt);                  // 放入缓存
+        }
+        handler.parameterize(stmt);                   // 设置参数（每次都必须重新设参）
+        return stmt;
+    }
+}
 ```
 
 
@@ -340,7 +526,7 @@ SQL 字符串
 
 
 ```
-<code><span leaf=""><span class="code-snippet__title">String</span> sql = boundSql.<span class="code-snippet__title">getSql</span>();</span></code>
+String sql = boundSql.getSql();
 ```
 
 
@@ -378,7 +564,9 @@ PreparedStatement
 
 
 ```
-<code><span leaf="">stmt = <span class="code-snippet__title">getStatement</span>(sql);           <span class="code-snippet__comment">// 复用旧的 Statement</span></span></code><code><span leaf=""><span class="code-snippet__title">applyTransactionTimeout</span>(stmt);      <span class="code-snippet__comment">// 刷新超时设置</span></span></code><code><span leaf="">handler.<span class="code-snippet__title">parameterize</span>(stmt);         <span class="code-snippet__comment">// 重新设置参数（重要！）</span></span></code>
+stmt = getStatement(sql);           // 复用旧的 Statement
+applyTransactionTimeout(stmt);      // 刷新超时设置
+handler.parameterize(stmt);         // 重新设置参数（重要！）
 ```
 
 
@@ -492,7 +680,106 @@ commit/rollback/close 时清空缓存
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">BatchExecutor</span> <span class="code-snippet__keyword">extends</span> <span class="code-snippet__title">BaseExecutor</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">static</span> <span class="code-snippet__keyword">final</span> <span class="code-snippet__type">int</span> <span class="code-snippet__variable">BATCH_UPDATE_RETURN_VALUE</span> <span class="code-snippet__operator">=</span> Integer.MIN_VALUE + <span class="code-snippet__number">1002</span>;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">final</span> List<Statement> statementList = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">ArrayList</span><>();</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">final</span> List<BatchResult> batchResultList = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">ArrayList</span><>();</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> String currentSql;</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> MappedStatement currentStatement;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// doUpdate 核心逻辑</span></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__type">int</span> <span class="code-snippet__title">doUpdate</span><span class="code-snippet__params">(MappedStatement ms, Object parameterObject)</span> <span class="code-snippet__keyword">throws</span> SQLException {</span></code><code><span leaf="">        <span class="code-snippet__keyword">final</span> <span class="code-snippet__type">Configuration</span> <span class="code-snippet__variable">configuration</span> <span class="code-snippet__operator">=</span> ms.getConfiguration();</span></code><code><span leaf="">        <span class="code-snippet__keyword">final</span> <span class="code-snippet__type">StatementHandler</span> <span class="code-snippet__variable">handler</span> <span class="code-snippet__operator">=</span> configuration.newStatementHandler(<span class="code-snippet__built_in">this</span>, ms, parameterObject, RowBounds.DEFAULT, <span class="code-snippet__literal">null</span>, <span class="code-snippet__literal">null</span>);</span></code><code><span leaf="">        <span class="code-snippet__keyword">final</span> <span class="code-snippet__type">BoundSql</span> <span class="code-snippet__variable">boundSql</span> <span class="code-snippet__operator">=</span> handler.getBoundSql();</span></code><code><span leaf="">        <span class="code-snippet__keyword">final</span> <span class="code-snippet__type">String</span> <span class="code-snippet__variable">sql</span> <span class="code-snippet__operator">=</span> boundSql.getSql();</span></code><code><span leaf="">        <span class="code-snippet__keyword">final</span> Statement stmt;</span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (sql.equals(currentSql) && ms.equals(currentStatement)) {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 相同 SQL 和 MappedStatement：复用当前批次的最后一个 Statement</span></span></code><code><span leaf="">            <span class="code-snippet__type">int</span> <span class="code-snippet__variable">last</span> <span class="code-snippet__operator">=</span> statementList.size() - <span class="code-snippet__number">1</span>;</span></code><code><span leaf="">            stmt = statementList.get(last);</span></code><code><span leaf="">            applyTransactionTimeout(stmt);</span></code><code><span leaf="">            handler.parameterize(stmt);</span></code><code><span leaf="">            <span class="code-snippet__type">BatchResult</span> <span class="code-snippet__variable">batchResult</span> <span class="code-snippet__operator">=</span> batchResultList.get(last);</span></code><code><span leaf="">            batchResult.addParameterObject(parameterObject);</span></code><code><span leaf="">        } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 不同的 SQL 或 MappedStatement：创建新的 Statement，开始新批次</span></span></code><code><span leaf="">            <span class="code-snippet__type">Connection</span> <span class="code-snippet__variable">connection</span> <span class="code-snippet__operator">=</span> getConnection(ms.getStatementLog());</span></code><code><span leaf="">            stmt = handler.prepare(connection, transaction.getTimeout());</span></code><code><span leaf="">            handler.parameterize(stmt);</span></code><code><span leaf="">            currentSql = sql;</span></code><code><span leaf="">            currentStatement = ms;</span></code><code><span leaf="">            statementList.add(stmt);</span></code><code><span leaf="">            batchResultList.add(<span class="code-snippet__keyword">new</span> <span class="code-snippet__title">BatchResult</span>(ms, sql, parameterObject));</span></code><code><span leaf="">        }</span></code><code><span leaf="">        handler.batch(stmt);  <span class="code-snippet__comment">// 将当前参数添加到批处理中</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> BATCH_UPDATE_RETURN_VALUE; <span class="code-snippet__comment">// 占位返回值，实际影响行数在 flush 时获取</span></span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// doQuery 会先 flush 批次</span></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <E> List<E> <span class="code-snippet__title">doQuery</span><span class="code-snippet__params">(MappedStatement ms, Object parameterObject, RowBounds rowBounds,</span></span></code><code><span leaf="">      ResultHandler resultHandler, BoundSql boundSql) <span class="code-snippet__keyword">throws</span> SQLException {</span></code><code><span leaf="">        <span class="code-snippet__type">Statement</span> <span class="code-snippet__variable">stmt</span> <span class="code-snippet__operator">=</span> <span class="code-snippet__literal">null</span>;</span></code><code><span leaf="">        <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">            flushStatements();  <span class="code-snippet__comment">// 查询前必须执行已有批次</span></span></code><code><span leaf="">            <span class="code-snippet__type">Configuration</span> <span class="code-snippet__variable">configuration</span> <span class="code-snippet__operator">=</span> ms.getConfiguration();</span></code><code><span leaf="">            <span class="code-snippet__type">StatementHandler</span> <span class="code-snippet__variable">handler</span> <span class="code-snippet__operator">=</span> configuration.newStatementHandler(wrapper, ms, parameterObject, rowBounds, resultHandler, boundSql);</span></code><code><span leaf="">            <span class="code-snippet__type">Connection</span> <span class="code-snippet__variable">connection</span> <span class="code-snippet__operator">=</span> getConnection(ms.getStatementLog());</span></code><code><span leaf="">            stmt = handler.prepare(connection, transaction.getTimeout());</span></code><code><span leaf="">            handler.parameterize(stmt);</span></code><code><span leaf="">            <span class="code-snippet__keyword">return</span> handler.query(stmt, resultHandler);</span></code><code><span leaf="">        } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">            closeStatement(stmt);</span></code><code><span leaf="">        }</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 真正执行批次并返回结果</span></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> List<BatchResult> <span class="code-snippet__title">doFlushStatements</span><span class="code-snippet__params">(</span><span class="code-snippet__params"><span class="code-snippet__type">boolean</span></span><span class="code-snippet__params"> isRollback)</span> <span class="code-snippet__keyword">throws</span> SQLException {</span></code><code><span leaf="">        <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">            List<BatchResult> results = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">ArrayList</span><>();</span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (isRollback) {</span></code><code><span leaf="">                <span class="code-snippet__keyword">return</span> Collections.emptyList();  <span class="code-snippet__comment">// 回滚时不返回结果</span></span></code><code><span leaf="">            }</span></code><code><span leaf="">            <span class="code-snippet__keyword">for</span> (<span class="code-snippet__type">int</span> <span class="code-snippet__variable">i</span> <span class="code-snippet__operator">=</span> <span class="code-snippet__number">0</span>, n = statementList.size(); i < n; i++) {</span></code><code><span leaf="">                <span class="code-snippet__type">Statement</span> <span class="code-snippet__variable">stmt</span> <span class="code-snippet__operator">=</span> statementList.get(i);</span></code><code><span leaf="">                applyTransactionTimeout(stmt);</span></code><code><span leaf="">                <span class="code-snippet__type">BatchResult</span> <span class="code-snippet__variable">batchResult</span> <span class="code-snippet__operator">=</span> batchResultList.get(i);</span></code><code><span leaf="">                <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">                    batchResult.setUpdateCounts(stmt.executeBatch());  <span class="code-snippet__comment">// 执行批处理</span></span></code><code><span leaf="">                    <span class="code-snippet__comment">// 处理自增主键回填（Jdbc3KeyGenerator）</span></span></code><code><span leaf="">                    <span class="code-snippet__type">MappedStatement</span> <span class="code-snippet__variable">ms</span> <span class="code-snippet__operator">=</span> batchResult.getMappedStatement();</span></code><code><span leaf="">                    List<Object> parameterObjects = batchResult.getParameterObjects();</span></code><code><span leaf="">                    <span class="code-snippet__type">KeyGenerator</span> <span class="code-snippet__variable">keyGenerator</span> <span class="code-snippet__operator">=</span> ms.getKeyGenerator();</span></code><code><span leaf="">                    <span class="code-snippet__keyword">if</span> (Jdbc3KeyGenerator.class.equals(keyGenerator.getClass())) {</span></code><code><span leaf="">                        ((Jdbc3KeyGenerator) keyGenerator).processBatch(ms, stmt, parameterObjects);</span></code><code><span leaf="">                    } <span class="code-snippet__keyword">else</span> <span class="code-snippet__keyword">if</span> (!NoKeyGenerator.class.equals(keyGenerator.getClass())) {</span></code><code><span leaf="">                        <span class="code-snippet__keyword">for</span> (Object parameter : parameterObjects) {</span></code><code><span leaf="">                            keyGenerator.processAfter(<span class="code-snippet__built_in">this</span>, ms, stmt, parameter);</span></code><code><span leaf="">                        }</span></code><code><span leaf="">                    }</span></code><code><span leaf="">                    closeStatement(stmt);  <span class="code-snippet__comment">// 执行完毕后关闭 Statement</span></span></code><code><span leaf="">                } <span class="code-snippet__keyword">catch</span> (BatchUpdateException e) {</span></code><code><span leaf="">                    <span class="code-snippet__comment">// 异常处理：抛出 BatchExecutorException，携带已成功的结果</span></span></code><code><span leaf="">                    <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">BatchExecutorException</span>(..., e, results, batchResult);</span></code><code><span leaf="">                }</span></code><code><span leaf="">                results.add(batchResult);</span></code><code><span leaf="">            }</span></code><code><span leaf="">            <span class="code-snippet__keyword">return</span> results;</span></code><code><span leaf="">        } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 清理所有资源</span></span></code><code><span leaf="">            <span class="code-snippet__keyword">for</span> (Statement stmt : statementList) {</span></code><code><span leaf="">                closeStatement(stmt);</span></code><code><span leaf="">            }</span></code><code><span leaf="">            currentSql = <span class="code-snippet__literal">null</span>;</span></code><code><span leaf="">            statementList.clear();</span></code><code><span leaf="">            batchResultList.clear();</span></code><code><span leaf="">        }</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+public class BatchExecutor extends BaseExecutor {
+    public static final int BATCH_UPDATE_RETURN_VALUE = Integer.MIN_VALUE + 1002;
+
+    private final List<Statement> statementList = new ArrayList<>();
+    private final List<BatchResult> batchResultList = new ArrayList<>();
+    private String currentSql;
+    private MappedStatement currentStatement;
+
+    // doUpdate 核心逻辑
+    @Override
+    public int doUpdate(MappedStatement ms, Object parameterObject) throws SQLException {
+        final Configuration configuration = ms.getConfiguration();
+        final StatementHandler handler = configuration.newStatementHandler(this, ms, parameterObject, RowBounds.DEFAULT, null, null);
+        final BoundSql boundSql = handler.getBoundSql();
+        final String sql = boundSql.getSql();
+        final Statement stmt;
+        if (sql.equals(currentSql) && ms.equals(currentStatement)) {
+            // 相同 SQL 和 MappedStatement：复用当前批次的最后一个 Statement
+            int last = statementList.size() - 1;
+            stmt = statementList.get(last);
+            applyTransactionTimeout(stmt);
+            handler.parameterize(stmt);
+            BatchResult batchResult = batchResultList.get(last);
+            batchResult.addParameterObject(parameterObject);
+        } else {
+            // 不同的 SQL 或 MappedStatement：创建新的 Statement，开始新批次
+            Connection connection = getConnection(ms.getStatementLog());
+            stmt = handler.prepare(connection, transaction.getTimeout());
+            handler.parameterize(stmt);
+            currentSql = sql;
+            currentStatement = ms;
+            statementList.add(stmt);
+            batchResultList.add(new BatchResult(ms, sql, parameterObject));
+        }
+        handler.batch(stmt);  // 将当前参数添加到批处理中
+        return BATCH_UPDATE_RETURN_VALUE; // 占位返回值，实际影响行数在 flush 时获取
+    }
+
+    // doQuery 会先 flush 批次
+    @Override
+    public <E> List<E> doQuery(MappedStatement ms, Object parameterObject, RowBounds rowBounds,
+      ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
+        Statement stmt = null;
+        try {
+            flushStatements();  // 查询前必须执行已有批次
+            Configuration configuration = ms.getConfiguration();
+            StatementHandler handler = configuration.newStatementHandler(wrapper, ms, parameterObject, rowBounds, resultHandler, boundSql);
+            Connection connection = getConnection(ms.getStatementLog());
+            stmt = handler.prepare(connection, transaction.getTimeout());
+            handler.parameterize(stmt);
+            return handler.query(stmt, resultHandler);
+        } finally {
+            closeStatement(stmt);
+        }
+    }
+
+    // 真正执行批次并返回结果
+    @Override
+    public List<BatchResult> doFlushStatements(boolean isRollback) throws SQLException {
+        try {
+            List<BatchResult> results = new ArrayList<>();
+            if (isRollback) {
+                return Collections.emptyList();  // 回滚时不返回结果
+            }
+            for (int i = 0, n = statementList.size(); i < n; i++) {
+                Statement stmt = statementList.get(i);
+                applyTransactionTimeout(stmt);
+                BatchResult batchResult = batchResultList.get(i);
+                try {
+                    batchResult.setUpdateCounts(stmt.executeBatch());  // 执行批处理
+                    // 处理自增主键回填（Jdbc3KeyGenerator）
+                    MappedStatement ms = batchResult.getMappedStatement();
+                    List<Object> parameterObjects = batchResult.getParameterObjects();
+                    KeyGenerator keyGenerator = ms.getKeyGenerator();
+                    if (Jdbc3KeyGenerator.class.equals(keyGenerator.getClass())) {
+                        ((Jdbc3KeyGenerator) keyGenerator).processBatch(ms, stmt, parameterObjects);
+                    } else if (!NoKeyGenerator.class.equals(keyGenerator.getClass())) {
+                        for (Object parameter : parameterObjects) {
+                            keyGenerator.processAfter(this, ms, stmt, parameter);
+                        }
+                    }
+                    closeStatement(stmt);  // 执行完毕后关闭 Statement
+                } catch (BatchUpdateException e) {
+                    // 异常处理：抛出 BatchExecutorException，携带已成功的结果
+                    throw new BatchExecutorException(..., e, results, batchResult);
+                }
+                results.add(batchResult);
+            }
+            return results;
+        } finally {
+            // 清理所有资源
+            for (Statement stmt : statementList) {
+                closeStatement(stmt);
+            }
+            currentSql = null;
+            statementList.clear();
+            batchResultList.clear();
+        }
+    }
+}
 ```
 
 
@@ -520,7 +807,64 @@ CachingExecutor
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">CachingExecutor</span> <span class="code-snippet__keyword">implements</span> <span class="code-snippet__title">Executor</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">final</span> Executor delegate;                     <span class="code-snippet__comment">// 被装饰的执行器</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">final</span> <span class="code-snippet__type">TransactionalCacheManager</span> <span class="code-snippet__variable">tcm</span> <span class="code-snippet__operator">=</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">TransactionalCacheManager</span>();  <span class="code-snippet__comment">// 事务性缓存管理器</span></span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">CachingExecutor</span><span class="code-snippet__params">(Executor delegate)</span> {</span></code><code><span leaf="">        <span class="code-snippet__built_in">this</span>.delegate = delegate;</span></code><code><span leaf="">        delegate.setExecutorWrapper(<span class="code-snippet__built_in">this</span>);</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <E> List<E> <span class="code-snippet__title">query</span><span class="code-snippet__params">(MappedStatement ms, Object parameterObject, RowBounds rowBounds,</span></span></code><code><span leaf="">                             ResultHandler resultHandler, CacheKey key, BoundSql boundSql) <span class="code-snippet__keyword">throws</span> SQLException {</span></code><code><span leaf="">        <span class="code-snippet__type">Cache</span> <span class="code-snippet__variable">cache</span> <span class="code-snippet__operator">=</span> ms.getCache();                     <span class="code-snippet__comment">// 获取 Mapper 对应的二级缓存对象</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (cache != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">            flushCacheIfRequired(ms);                    <span class="code-snippet__comment">// 如果 <select> 配置了 flushCache=true，清空二级缓存</span></span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (ms.isUseCache() && resultHandler == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">                ensureNoOutParams(ms, boundSql);         <span class="code-snippet__comment">// 存储过程调用且包含 OUT 参数时不能使用缓存</span></span></code><code><span leaf="">                <span class="code-snippet__meta">@SuppressWarnings("unchecked")</span></span></code><code><span leaf="">                List<E> list = (List<E>) tcm.getObject(cache, key);   <span class="code-snippet__comment">// 从事务缓存中获取</span></span></code><code><span leaf="">                <span class="code-snippet__keyword">if</span> (list == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">                    list = delegate.query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);</span></code><code><span leaf="">                    tcm.putObject(cache, key, list);     <span class="code-snippet__comment">// 放入事务缓存（暂存，待 commit 时真正写入）</span></span></code><code><span leaf="">                }</span></code><code><span leaf="">                <span class="code-snippet__keyword">return</span> list;</span></code><code><span leaf="">            }</span></code><code><span leaf="">        }</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> delegate.query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__type">int</span> <span class="code-snippet__title">update</span><span class="code-snippet__params">(MappedStatement ms, Object parameterObject)</span> <span class="code-snippet__keyword">throws</span> SQLException {</span></code><code><span leaf="">        flushCacheIfRequired(ms);        <span class="code-snippet__comment">// 如果 <update|insert|delete> 配置了 flushCache=true，清空二级缓存</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> delegate.update(ms, parameterObject);</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">void</span> <span class="code-snippet__title">commit</span><span class="code-snippet__params">(</span><span class="code-snippet__params"><span class="code-snippet__type">boolean</span></span><span class="code-snippet__params"> required)</span> <span class="code-snippet__keyword">throws</span> SQLException {</span></code><code><span leaf="">        delegate.commit(required);</span></code><code><span leaf="">        tcm.commit();                    <span class="code-snippet__comment">// 提交事务时，将所有暂存的缓存项真正写入二级缓存</span></span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">void</span> <span class="code-snippet__title">rollback</span><span class="code-snippet__params">(</span><span class="code-snippet__params"><span class="code-snippet__type">boolean</span></span><span class="code-snippet__params"> required)</span> <span class="code-snippet__keyword">throws</span> SQLException {</span></code><code><span leaf="">        <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">            delegate.rollback(required);</span></code><code><span leaf="">        } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (required) {</span></code><code><span leaf="">                tcm.rollback();          <span class="code-snippet__comment">// 回滚时丢弃暂存的缓存项</span></span></code><code><span leaf="">            }</span></code><code><span leaf="">        }</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">void</span> <span class="code-snippet__title">flushCacheIfRequired</span><span class="code-snippet__params">(MappedStatement ms)</span> {</span></code><code><span leaf="">    <span class="code-snippet__type">Cache</span> <span class="code-snippet__variable">cache</span> <span class="code-snippet__operator">=</span> ms.getCache();</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (cache != <span class="code-snippet__literal">null</span> && ms.isFlushCacheRequired()) {</span></code><code><span leaf="">        tcm.clear(cache);   <span class="code-snippet__comment">// 清空该事务缓存（最终在 commit 时会同步清空底层 cache）</span></span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code><code><span leaf="">}</span></code>
+public class CachingExecutor implements Executor {
+    private final Executor delegate;                     // 被装饰的执行器
+    private final TransactionalCacheManager tcm = new TransactionalCacheManager();  // 事务性缓存管理器
+
+    public CachingExecutor(Executor delegate) {
+        this.delegate = delegate;
+        delegate.setExecutorWrapper(this);
+    }
+
+    @Override
+    public <E> List<E> query(MappedStatement ms, Object parameterObject, RowBounds rowBounds,
+                             ResultHandler resultHandler, CacheKey key, BoundSql boundSql) throws SQLException {
+        Cache cache = ms.getCache();                     // 获取 Mapper 对应的二级缓存对象
+        if (cache != null) {
+            flushCacheIfRequired(ms);                    // 如果 <select> 配置了 flushCache=true，清空二级缓存
+            if (ms.isUseCache() && resultHandler == null) {
+                ensureNoOutParams(ms, boundSql);         // 存储过程调用且包含 OUT 参数时不能使用缓存
+                @SuppressWarnings("unchecked")
+                List<E> list = (List<E>) tcm.getObject(cache, key);   // 从事务缓存中获取
+                if (list == null) {
+                    list = delegate.query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);
+                    tcm.putObject(cache, key, list);     // 放入事务缓存（暂存，待 commit 时真正写入）
+                }
+                return list;
+            }
+        }
+        return delegate.query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);
+    }
+
+    @Override
+    public int update(MappedStatement ms, Object parameterObject) throws SQLException {
+        flushCacheIfRequired(ms);        // 如果 <update|insert|delete> 配置了 flushCache=true，清空二级缓存
+        return delegate.update(ms, parameterObject);
+    }
+
+    @Override
+    public void commit(boolean required) throws SQLException {
+        delegate.commit(required);
+        tcm.commit();                    // 提交事务时，将所有暂存的缓存项真正写入二级缓存
+    }
+
+    @Override
+    public void rollback(boolean required) throws SQLException {
+        try {
+            delegate.rollback(required);
+        } finally {
+            if (required) {
+                tcm.rollback();          // 回滚时丢弃暂存的缓存项
+            }
+        }
+    }
+    private void flushCacheIfRequired(MappedStatement ms) {
+    Cache cache = ms.getCache();
+    if (cache != null && ms.isFlushCacheRequired()) {
+        tcm.clear(cache);   // 清空该事务缓存（最终在 commit 时会同步清空底层 cache）
+    }
+}
+}
 ```
 
 
@@ -716,7 +1060,9 @@ openSessionFromDataSource
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// DefaultSqlSessionFactory</span></span></code><code><span leaf=""><span class="code-snippet__type">Transaction</span> <span class="code-snippet__variable">tx</span> <span class="code-snippet__operator">=</span> transactionFactory.newTransaction(environment.getDataSource(), level, autoCommit);</span></code><code><span leaf=""><span class="code-snippet__type">Executor</span> <span class="code-snippet__variable">executor</span> <span class="code-snippet__operator">=</span> configuration.newExecutor(tx, executorType);</span></code>
+// DefaultSqlSessionFactory
+Transaction tx = transactionFactory.newTransaction(environment.getDataSource(), level, autoCommit);
+Executor executor = configuration.newExecutor(tx, executorType);
 ```
 
 
@@ -752,7 +1098,12 @@ transaction
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// BaseExecutor</span></span></code><code><span leaf=""><span class="code-snippet__keyword">protected</span> <span class="code-snippet__title">Connection</span> <span class="code-snippet__title">getConnection</span>(<span class="code-snippet__params"><span class="code-snippet__title">Log</span></span><span class="code-snippet__params"> statementLog</span>) {</span></code><code><span leaf="">    <span class="code-snippet__title">Connection</span> connection = transaction.<span class="code-snippet__title">getConnection</span>();</span></code><code><span leaf="">    <span class="code-snippet__comment">// 设置日志</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> connection;</span></code><code><span leaf="">}</span></code>
+// BaseExecutor
+protected Connection getConnection(Log statementLog) {
+    Connection connection = transaction.getConnection();
+    // 设置日志
+    return connection;
+}
 ```
 
 
@@ -762,7 +1113,17 @@ JdbcTransaction.getConnection()
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// JdbcTransaction</span></span></code><code><span leaf=""><span class="code-snippet__function"><span class="code-snippet__keyword">public</span></span><span class="code-snippet__function"> Connection </span><span class="code-snippet__function"><span class="code-snippet__title">getConnection</span></span><span class="code-snippet__function">()</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (connection == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">        connection = dataSource.getConnection();</span></code><code><span leaf="">        connection.setAutoCommit(autoCommit);</span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (level != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">            connection.setTransactionIsolation(level);</span></code><code><span leaf="">        }</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> connection;</span></code><code><span leaf="">}</span></code>
+// JdbcTransaction
+public Connection getConnection() {
+    if (connection == null) {
+        connection = dataSource.getConnection();
+        connection.setAutoCommit(autoCommit);
+        if (level != null) {
+            connection.setTransactionIsolation(level);
+        }
+    }
+    return connection;
+}
 ```
 
 

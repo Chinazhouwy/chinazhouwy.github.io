@@ -52,7 +52,10 @@ Configuration
 
 
 ```
-<code><span leaf=""><span class="code-snippet__type">String</span> <span class="code-snippet__variable">resource</span> <span class="code-snippet__operator">=</span> <span class="code-snippet__string">"mybatis-config.xml"</span>;</span></code><code><span leaf=""><span class="code-snippet__type">InputStream</span> <span class="code-snippet__variable">inputStream</span> <span class="code-snippet__operator">=</span> Resources.getResourceAsStream(resource);</span></code><code><span leaf=""><span class="code-snippet__type">SqlSessionFactory</span> <span class="code-snippet__variable">sqlSessionFactory</span> <span class="code-snippet__operator">=</span> </span></code><code><span leaf="">    <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">SqlSessionFactoryBuilder</span>().build(inputStream);</span></code>
+String resource = "mybatis-config.xml";
+InputStream inputStream = Resources.getResourceAsStream(resource);
+SqlSessionFactory sqlSessionFactory =
+    new SqlSessionFactoryBuilder().build(inputStream);
 ```
 
 
@@ -66,7 +69,12 @@ SqlSessionFactoryBuilder.build(inputStream)
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// SqlSessionFactoryBuilder</span></span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__title">SqlSessionFactory</span> <span class="code-snippet__title">build</span>(<span class="code-snippet__params"><span class="code-snippet__title">InputStream</span></span><span class="code-snippet__params"> inputStream, </span><span class="code-snippet__params"><span class="code-snippet__title">String</span></span><span class="code-snippet__params"> environment, </span><span class="code-snippet__params"><span class="code-snippet__title">Properties</span></span><span class="code-snippet__params"> properties</span>) {</span></code><code><span leaf="">    <span class="code-snippet__title">XMLConfigBuilder</span> parser = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">XMLConfigBuilder</span>(inputStream, environment, properties);</span></code><code><span leaf="">    <span class="code-snippet__comment">// ⭐ 核心解析方法   parser.parse()</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> <span class="code-snippet__title">build</span>(parser.<span class="code-snippet__title">parse</span>());</span></code><code><span leaf="">}</span></code>
+// SqlSessionFactoryBuilder
+public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
+    XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);
+    // ⭐ 核心解析方法   parser.parse()
+    return build(parser.parse());
+}
 ```
 
 
@@ -100,7 +108,16 @@ XMLConfigBuilder.parse()
 
 
 ```
-<code><span leaf=""><span class="code-snippet__comment">// XMLConfigBuilder</span></span></code><code><span leaf=""><span class="code-snippet__function"><span class="code-snippet__keyword">public</span></span><span class="code-snippet__function"> Configuration </span><span class="code-snippet__function"><span class="code-snippet__title">parse</span></span><span class="code-snippet__function">()</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (parsed) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> BuilderException(<span class="code-snippet__string">"Each XMLConfigBuilder can only be used once."</span>);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    parsed = <span class="code-snippet__literal">true</span>;</span></code><code><span leaf="">    <span class="code-snippet__comment">// 解析 XML 的根节点 <configuration></span></span></code><code><span leaf="">    parseConfiguration(parser.evalNode(<span class="code-snippet__string">"/configuration"</span>));</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> configuration;</span></code><code><span leaf="">}</span></code>
+// XMLConfigBuilder
+public Configuration parse() {
+    if (parsed) {
+        throw new BuilderException("Each XMLConfigBuilder can only be used once.");
+    }
+    parsed = true;
+    // 解析 XML 的根节点 <configuration>
+    parseConfiguration(parser.evalNode("/configuration"));
+    return configuration;
+}
 ```
 
 
@@ -120,7 +137,35 @@ parseConfiguration(XNode root)
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">private</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">parseConfiguration</span>(<span class="code-snippet__params"><span class="code-snippet__title">XNode</span></span><span class="code-snippet__params"> root</span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 按照 DTD 定义顺序，逐个解析子标签</span></span></code><code><span leaf="">        <span class="code-snippet__comment">// 1. properties</span></span></code><code><span leaf="">        <span class="code-snippet__title">propertiesElement</span>(root.<span class="code-snippet__title">evalNode</span>(<span class="code-snippet__string">"properties"</span>));    </span></code><code><span leaf="">        <span class="code-snippet__comment">// 2. settings</span></span></code><code><span leaf="">        <span class="code-snippet__title">Properties</span> settings = <span class="code-snippet__title">settingsAsProperties</span>(root.<span class="code-snippet__title">evalNode</span>(<span class="code-snippet__string">"settings"</span>)); </span></code><code><span leaf="">        <span class="code-snippet__title">loadCustomVfs</span>(settings);</span></code><code><span leaf="">        <span class="code-snippet__title">loadCustomLogImpl</span>(settings);</span></code><code><span leaf="">        <span class="code-snippet__comment">// 3. typeAliases</span></span></code><code><span leaf="">        <span class="code-snippet__title">typeAliasesElement</span>(root.<span class="code-snippet__title">evalNode</span>(<span class="code-snippet__string">"typeAliases"</span>));  </span></code><code><span leaf="">        <span class="code-snippet__comment">// 4. plugins</span></span></code><code><span leaf="">        <span class="code-snippet__title">pluginElement</span>(root.<span class="code-snippet__title">evalNode</span>(<span class="code-snippet__string">"plugins"</span>));           </span></code><code><span leaf="">        <span class="code-snippet__title">objectFactoryElement</span>(root.<span class="code-snippet__title">evalNode</span>(<span class="code-snippet__string">"objectFactory"</span>));</span></code><code><span leaf="">        <span class="code-snippet__title">objectWrapperFactoryElement</span>(root.<span class="code-snippet__title">evalNode</span>(<span class="code-snippet__string">"objectWrapperFactory"</span>));</span></code><code><span leaf="">        <span class="code-snippet__title">reflectorFactoryElement</span>(root.<span class="code-snippet__title">evalNode</span>(<span class="code-snippet__string">"reflectorFactory"</span>));</span></code><code><span leaf="">        <span class="code-snippet__comment">// 5. 把 settings 值设置到 Configuration</span></span></code><code><span leaf="">        <span class="code-snippet__title">settingsElement</span>(settings);                         </span></code><code><span leaf="">        <span class="code-snippet__comment">// 6. environments</span></span></code><code><span leaf="">        <span class="code-snippet__title">environmentsElement</span>(root.<span class="code-snippet__title">evalNode</span>(<span class="code-snippet__string">"environments"</span>));</span></code><code><span leaf="">        <span class="code-snippet__title">databaseIdProviderElement</span>(root.<span class="code-snippet__title">evalNode</span>(<span class="code-snippet__string">"databaseIdProvider"</span>));</span></code><code><span leaf="">        <span class="code-snippet__comment">// 7. typeHandlers</span></span></code><code><span leaf="">        <span class="code-snippet__title">typeHandlerElement</span>(root.<span class="code-snippet__title">evalNode</span>(<span class="code-snippet__string">"typeHandlers"</span>)); </span></code><code><span leaf="">        <span class="code-snippet__comment">// 8. mappers ⭐ 最复杂</span></span></code><code><span leaf="">        <span class="code-snippet__title">mapperElement</span>(root.<span class="code-snippet__title">evalNode</span>(<span class="code-snippet__string">"mappers"</span>));           </span></code><code><span leaf="">    } <span class="code-snippet__keyword">catch</span> (<span class="code-snippet__title">Exception</span> e) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">BuilderException</span>(<span class="code-snippet__string">"Error parsing SQL Mapper Configuration. Cause: "</span> + e, e);</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+private void parseConfiguration(XNode root) {
+    try {
+        // 按照 DTD 定义顺序，逐个解析子标签
+        // 1. properties
+        propertiesElement(root.evalNode("properties"));
+        // 2. settings
+        Properties settings = settingsAsProperties(root.evalNode("settings"));
+        loadCustomVfs(settings);
+        loadCustomLogImpl(settings);
+        // 3. typeAliases
+        typeAliasesElement(root.evalNode("typeAliases"));
+        // 4. plugins
+        pluginElement(root.evalNode("plugins"));
+        objectFactoryElement(root.evalNode("objectFactory"));
+        objectWrapperFactoryElement(root.evalNode("objectWrapperFactory"));
+        reflectorFactoryElement(root.evalNode("reflectorFactory"));
+        // 5. 把 settings 值设置到 Configuration
+        settingsElement(settings);
+        // 6. environments
+        environmentsElement(root.evalNode("environments"));
+        databaseIdProviderElement(root.evalNode("databaseIdProvider"));
+        // 7. typeHandlers
+        typeHandlerElement(root.evalNode("typeHandlers"));
+        // 8. mappers ⭐ 最复杂
+        mapperElement(root.evalNode("mappers"));
+    } catch (Exception e) {
+        throw new BuilderException("Error parsing SQL Mapper Configuration. Cause: " + e, e);
+    }
+}
 ```
 
 
@@ -138,7 +183,28 @@ Configuration
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">Configuration</span> {</span></code><code><span leaf="">    <span class="code-snippet__comment">// 环境（数据源、事务工厂）</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> <span class="code-snippet__title">Environment</span> environment;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 重要：所有 MappedStatement（每个 SQL 对应一个）</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> final <span class="code-snippet__title">Map</span><<span class="code-snippet__title">String</span>, <span class="code-snippet__title">MappedStatement</span>> mappedStatements = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">StrictMap</span><>(<span class="code-snippet__string">"Mapped Statements collection"</span>);</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 缓存：二级缓存 namespace -> Cache</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> final <span class="code-snippet__title">Map</span><<span class="code-snippet__title">String</span>, <span class="code-snippet__title">Cache</span>> caches = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">StrictMap</span><>(<span class="code-snippet__string">"Caches collection"</span>);</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 结果映射</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> final <span class="code-snippet__title">Map</span><<span class="code-snippet__title">String</span>, <span class="code-snippet__title">ResultMap</span>> resultMaps = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">StrictMap</span><>(<span class="code-snippet__string">"Result Maps collection"</span>);</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 参数映射</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> final <span class="code-snippet__title">Map</span><<span class="code-snippet__title">String</span>, <span class="code-snippet__title">ParameterMap</span>> parameterMaps = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">StrictMap</span><>(<span class="code-snippet__string">"Parameter Maps collection"</span>);</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__comment">// 全局设置 (settings 标签解析后的结果)</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> <span class="code-snippet__built_in">boolean</span> useGeneratedKeys = <span class="code-snippet__literal">false</span>;</span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> <span class="code-snippet__built_in">boolean</span> mapUnderscoreToCamelCase = <span class="code-snippet__literal">false</span>;</span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> <span class="code-snippet__title">ExecutorType</span> defaultExecutorType = <span class="code-snippet__title">ExecutorType</span>.<span class="code-snippet__property">SIMPLE</span>;</span></code><code><span leaf="">    <span class="code-snippet__comment">// ... 还有几十个</span></span></code><code><span leaf="">}</span></code>
+public class Configuration {
+    // 环境（数据源、事务工厂）
+    protected Environment environment;
+
+    // 重要：所有 MappedStatement（每个 SQL 对应一个）
+    protected final Map<String, MappedStatement> mappedStatements = new StrictMap<>("Mapped Statements collection");
+
+    // 缓存：二级缓存 namespace -> Cache
+    protected final Map<String, Cache> caches = new StrictMap<>("Caches collection");
+
+    // 结果映射
+    protected final Map<String, ResultMap> resultMaps = new StrictMap<>("Result Maps collection");
+
+    // 参数映射
+    protected final Map<String, ParameterMap> parameterMaps = new StrictMap<>("Parameter Maps collection");
+
+    // 全局设置 (settings 标签解析后的结果)
+    protected boolean useGeneratedKeys = false;
+    protected boolean mapUnderscoreToCamelCase = false;
+    protected ExecutorType defaultExecutorType = ExecutorType.SIMPLE;
+    // ... 还有几十个
+}
 ```
 
 
@@ -162,7 +228,28 @@ Configuration
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">void</span> <span class="code-snippet__title">propertiesElement</span><span class="code-snippet__params">(XNode context)</span> <span class="code-snippet__keyword">throws</span> Exception {</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (context != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 收集标签内子标签 <property name="key" value="value"/></span></span></code><code><span leaf="">        <span class="code-snippet__type">Properties</span> <span class="code-snippet__variable">defaults</span> <span class="code-snippet__operator">=</span> context.getChildrenAsProperties();</span></code><code><span leaf="">        <span class="code-snippet__type">String</span> <span class="code-snippet__variable">resource</span> <span class="code-snippet__operator">=</span> context.getStringAttribute(<span class="code-snippet__string">"resource"</span>);</span></code><code><span leaf="">        <span class="code-snippet__type">String</span> <span class="code-snippet__variable">url</span> <span class="code-snippet__operator">=</span> context.getStringAttribute(<span class="code-snippet__string">"url"</span>);</span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (resource != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 从类路径加载 .properties 文件</span></span></code><code><span leaf="">            defaults.putAll(Resources.getResourceAsProperties(resource));</span></code><code><span leaf="">        }</span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (url != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">            defaults.putAll(Resources.getUrlAsProperties(url));</span></code><code><span leaf="">        }</span></code><code><span leaf="">        <span class="code-snippet__type">Properties</span> <span class="code-snippet__variable">vars</span> <span class="code-snippet__operator">=</span> configuration.getVariables();</span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (vars != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">          defaults.putAll(vars);</span></code><code><span leaf="">        }</span></code><code><span leaf="">        parser.setVariables(defaults);</span></code><code><span leaf="">        <span class="code-snippet__comment">// 合并到 Configuration 的 variables 变量中</span></span></code><code><span leaf="">        configuration.setVariables(defaults);</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+private void propertiesElement(XNode context) throws Exception {
+    if (context != null) {
+        // 收集标签内子标签 <property name="key" value="value"/>
+        Properties defaults = context.getChildrenAsProperties();
+        String resource = context.getStringAttribute("resource");
+        String url = context.getStringAttribute("url");
+        if (resource != null) {
+            // 从类路径加载 .properties 文件
+            defaults.putAll(Resources.getResourceAsProperties(resource));
+        }
+        if (url != null) {
+            defaults.putAll(Resources.getUrlAsProperties(url));
+        }
+        Properties vars = configuration.getVariables();
+        if (vars != null) {
+          defaults.putAll(vars);
+        }
+        parser.setVariables(defaults);
+        // 合并到 Configuration 的 variables 变量中
+        configuration.setVariables(defaults);
+    }
+}
 ```
 
 
@@ -222,7 +309,18 @@ username
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">private</span> <span class="code-snippet__title">Properties</span> <span class="code-snippet__title">settingsAsProperties</span>(<span class="code-snippet__params"><span class="code-snippet__title">XNode</span></span><span class="code-snippet__params"> context</span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (context == <span class="code-snippet__literal">null</span>) <span class="code-snippet__keyword">return</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">Properties</span>();</span></code><code><span leaf="">    <span class="code-snippet__title">Properties</span> props = context.<span class="code-snippet__title">getChildrenAsProperties</span>();</span></code><code><span leaf="">    <span class="code-snippet__comment">// 校验每个属性名是否在 Configuration 中存在对应的 setter（反射校验）</span></span></code><code><span leaf="">    <span class="code-snippet__title">MetaClass</span> metaConfig = <span class="code-snippet__title">MetaClass</span>.<span class="code-snippet__title">forClass</span>(<span class="code-snippet__title">Configuration</span>.<span class="code-snippet__property">class</span>, reflectorFactory);</span></code><code><span leaf="">    <span class="code-snippet__keyword">for</span> (<span class="code-snippet__title">Object</span> key : props.<span class="code-snippet__title">keySet</span>()) {</span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (!metaConfig.<span class="code-snippet__title">hasSetter</span>(<span class="code-snippet__title">String</span>.<span class="code-snippet__title">valueOf</span>(key))) {</span></code><code><span leaf="">            <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">BuilderException</span>(<span class="code-snippet__string">"The setting "</span> + key + <span class="code-snippet__string">" is not known.  Make sure you spelled it correctly."</span>);</span></code><code><span leaf="">        }</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> props;</span></code><code><span leaf="">}</span></code>
+private Properties settingsAsProperties(XNode context) {
+    if (context == null) return new Properties();
+    Properties props = context.getChildrenAsProperties();
+    // 校验每个属性名是否在 Configuration 中存在对应的 setter（反射校验）
+    MetaClass metaConfig = MetaClass.forClass(Configuration.class, reflectorFactory);
+    for (Object key : props.keySet()) {
+        if (!metaConfig.hasSetter(String.valueOf(key))) {
+            throw new BuilderException("The setting " + key + " is not known.  Make sure you spelled it correctly.");
+        }
+    }
+    return props;
+}
 ```
 
 
@@ -238,7 +336,13 @@ Configuration
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">private</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">settingsElement</span>(<span class="code-snippet__params"><span class="code-snippet__title">Properties</span></span><span class="code-snippet__params"> props</span>) {</span></code><code><span leaf="">    configuration.<span class="code-snippet__title">setAutoMappingBehavior</span>(<span class="code-snippet__title">AutoMappingBehavior</span>.<span class="code-snippet__title">valueOf</span>(props.<span class="code-snippet__title">getProperty</span>(<span class="code-snippet__string">"autoMappingBehavior"</span>, <span class="code-snippet__string">"PARTIAL"</span>)));</span></code><code><span leaf="">    configuration.<span class="code-snippet__title">setCacheEnabled</span>(<span class="code-snippet__title">booleanValueOf</span>(props.<span class="code-snippet__title">getProperty</span>(<span class="code-snippet__string">"cacheEnabled"</span>), <span class="code-snippet__literal">true</span>));</span></code><code><span leaf="">    configuration.<span class="code-snippet__title">setLazyLoadingEnabled</span>(<span class="code-snippet__title">booleanValueOf</span>(props.<span class="code-snippet__title">getProperty</span>(<span class="code-snippet__string">"lazyLoadingEnabled"</span>), <span class="code-snippet__literal">false</span>));</span></code><code><span leaf="">    configuration.<span class="code-snippet__title">setMapUnderscoreToCamelCase</span>(<span class="code-snippet__title">booleanValueOf</span>(props.<span class="code-snippet__title">getProperty</span>(<span class="code-snippet__string">"mapUnderscoreToCamelCase"</span>), <span class="code-snippet__literal">false</span>));</span></code><code><span leaf="">    <span class="code-snippet__comment">// ... 省略几十行</span></span></code><code><span leaf="">}</span></code>
+private void settingsElement(Properties props) {
+    configuration.setAutoMappingBehavior(AutoMappingBehavior.valueOf(props.getProperty("autoMappingBehavior", "PARTIAL")));
+    configuration.setCacheEnabled(booleanValueOf(props.getProperty("cacheEnabled"), true));
+    configuration.setLazyLoadingEnabled(booleanValueOf(props.getProperty("lazyLoadingEnabled"), false));
+    configuration.setMapUnderscoreToCamelCase(booleanValueOf(props.getProperty("mapUnderscoreToCamelCase"), false));
+    // ... 省略几十行
+}
 ```
 
 
@@ -250,7 +354,30 @@ Configuration
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">private</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">typeAliasesElement</span>(<span class="code-snippet__params"><span class="code-snippet__title">XNode</span></span><span class="code-snippet__params"> context</span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (context == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">      <span class="code-snippet__keyword">return</span>;</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">for</span> (<span class="code-snippet__title">XNode</span> child : context.<span class="code-snippet__title">getChildren</span>()) {</span></code><code><span leaf="">      <span class="code-snippet__keyword">if</span> (<span class="code-snippet__string">"package"</span>.<span class="code-snippet__title">equals</span>(child.<span class="code-snippet__title">getName</span>())) {</span></code><code><span leaf="">        <span class="code-snippet__title">String</span> typeAliasPackage = child.<span class="code-snippet__title">getStringAttribute</span>(<span class="code-snippet__string">"name"</span>);</span></code><code><span leaf="">        configuration.<span class="code-snippet__title">getTypeAliasRegistry</span>().<span class="code-snippet__title">registerAliases</span>(typeAliasPackage);</span></code><code><span leaf="">      } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">        <span class="code-snippet__title">String</span> alias = child.<span class="code-snippet__title">getStringAttribute</span>(<span class="code-snippet__string">"alias"</span>);</span></code><code><span leaf="">        <span class="code-snippet__title">String</span> <span class="code-snippet__keyword">type</span> = child.<span class="code-snippet__title">getStringAttribute</span>(<span class="code-snippet__string">"type"</span>);</span></code><code><span leaf="">        <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">          <span class="code-snippet__title">Class</span><?> clazz = <span class="code-snippet__title">Resources</span>.<span class="code-snippet__title">classForName</span>(<span class="code-snippet__keyword">type</span>);</span></code><code><span leaf="">          <span class="code-snippet__keyword">if</span> (alias == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">            typeAliasRegistry.<span class="code-snippet__title">registerAlias</span>(clazz);</span></code><code><span leaf="">          } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">            typeAliasRegistry.<span class="code-snippet__title">registerAlias</span>(alias, clazz);</span></code><code><span leaf="">          }</span></code><code><span leaf="">        } <span class="code-snippet__keyword">catch</span> (<span class="code-snippet__title">ClassNotFoundException</span> e) {</span></code><code><span leaf="">          <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">BuilderException</span>(<span class="code-snippet__string">"Error registering typeAlias for '"</span> + alias + <span class="code-snippet__string">"'. Cause: "</span> + e, e);</span></code><code><span leaf="">        }</span></code><code><span leaf="">      }</span></code><code><span leaf="">    }</span></code><code><span leaf="">  }</span></code>
+private void typeAliasesElement(XNode context) {
+    if (context == null) {
+      return;
+    }
+    for (XNode child : context.getChildren()) {
+      if ("package".equals(child.getName())) {
+        String typeAliasPackage = child.getStringAttribute("name");
+        configuration.getTypeAliasRegistry().registerAliases(typeAliasPackage);
+      } else {
+        String alias = child.getStringAttribute("alias");
+        String type = child.getStringAttribute("type");
+        try {
+          Class<?> clazz = Resources.classForName(type);
+          if (alias == null) {
+            typeAliasRegistry.registerAlias(clazz);
+          } else {
+            typeAliasRegistry.registerAlias(alias, clazz);
+          }
+        } catch (ClassNotFoundException e) {
+          throw new BuilderException("Error registering typeAlias for '" + alias + "'. Cause: " + e, e);
+        }
+      }
+    }
+  }
 ```
 
 
@@ -270,7 +397,30 @@ Map<String, Class<?>>
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">void</span> <span class="code-snippet__title">environmentsElement</span><span class="code-snippet__params">(XNode context)</span> <span class="code-snippet__keyword">throws</span> Exception {</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (context == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">      <span class="code-snippet__keyword">return</span>;</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (environment == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">      environment = context.getStringAttribute(<span class="code-snippet__string">"default"</span>);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">for</span> (XNode child : context.getChildren()) {</span></code><code><span leaf="">      <span class="code-snippet__type">String</span> <span class="code-snippet__variable">id</span> <span class="code-snippet__operator">=</span> child.getStringAttribute(<span class="code-snippet__string">"id"</span>);</span></code><code><span leaf="">      <span class="code-snippet__comment">// 关键点：通过 isSpecifiedEnvironment 方法，精准匹配最终选中的 environment</span></span></code><code><span leaf="">      <span class="code-snippet__keyword">if</span> (isSpecifiedEnvironment(id)) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 解析 <transactionManager></span></span></code><code><span leaf="">        <span class="code-snippet__type">TransactionFactory</span> <span class="code-snippet__variable">txFactory</span> <span class="code-snippet__operator">=</span> transactionManagerElement(child.evalNode(<span class="code-snippet__string">"transactionManager"</span>));</span></code><code><span leaf="">        <span class="code-snippet__comment">// 解析 <dataSource></span></span></code><code><span leaf="">        <span class="code-snippet__type">DataSourceFactory</span> <span class="code-snippet__variable">dsFactory</span> <span class="code-snippet__operator">=</span> dataSourceElement(child.evalNode(<span class="code-snippet__string">"dataSource"</span>));</span></code><code><span leaf="">        <span class="code-snippet__type">DataSource</span> <span class="code-snippet__variable">dataSource</span> <span class="code-snippet__operator">=</span> dsFactory.getDataSource();</span></code><code><span leaf="">        <span class="code-snippet__comment">// 构建 Environment</span></span></code><code><span leaf="">        Environment.<span class="code-snippet__type">Builder</span> <span class="code-snippet__variable">environmentBuilder</span> <span class="code-snippet__operator">=</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">Environment</span>.Builder(id).transactionFactory(txFactory)</span></code><code><span leaf="">            .dataSource(dataSource);</span></code><code><span leaf="">        configuration.setEnvironment(environmentBuilder.build());</span></code><code><span leaf="">        <span class="code-snippet__keyword">break</span>;</span></code><code><span leaf="">      }</span></code><code><span leaf="">    }</span></code><code><span leaf="">  }</span></code>
+private void environmentsElement(XNode context) throws Exception {
+    if (context == null) {
+      return;
+    }
+    if (environment == null) {
+      environment = context.getStringAttribute("default");
+    }
+    for (XNode child : context.getChildren()) {
+      String id = child.getStringAttribute("id");
+      // 关键点：通过 isSpecifiedEnvironment 方法，精准匹配最终选中的 environment
+      if (isSpecifiedEnvironment(id)) {
+        // 解析 <transactionManager>
+        TransactionFactory txFactory = transactionManagerElement(child.evalNode("transactionManager"));
+        // 解析 <dataSource>
+        DataSourceFactory dsFactory = dataSourceElement(child.evalNode("dataSource"));
+        DataSource dataSource = dsFactory.getDataSource();
+        // 构建 Environment
+        Environment.Builder environmentBuilder = new Environment.Builder(id).transactionFactory(txFactory)
+            .dataSource(dataSource);
+        configuration.setEnvironment(environmentBuilder.build());
+        break;
+      }
+    }
+  }
 ```
 
 
@@ -294,7 +444,49 @@ SqlSession
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">void</span> <span class="code-snippet__title">mappersElement</span><span class="code-snippet__params">(XNode context)</span> <span class="code-snippet__keyword">throws</span> Exception {</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (context == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">      <span class="code-snippet__keyword">return</span>;</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">for</span> (XNode child : context.getChildren()) {</span></code><code><span leaf="">      <span class="code-snippet__keyword">if</span> (<span class="code-snippet__string">"package"</span>.equals(child.getName())) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 处理包扫描的方式</span></span></code><code><span leaf="">        <span class="code-snippet__type">String</span> <span class="code-snippet__variable">mapperPackage</span> <span class="code-snippet__operator">=</span> child.getStringAttribute(<span class="code-snippet__string">"name"</span>);</span></code><code><span leaf="">        configuration.addMappers(mapperPackage);</span></code><code><span leaf="">      } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 以下是处理单个 mapper 的三种方式</span></span></code><code><span leaf="">        <span class="code-snippet__type">String</span> <span class="code-snippet__variable">resource</span> <span class="code-snippet__operator">=</span> child.getStringAttribute(<span class="code-snippet__string">"resource"</span>);</span></code><code><span leaf="">        <span class="code-snippet__type">String</span> <span class="code-snippet__variable">url</span> <span class="code-snippet__operator">=</span> child.getStringAttribute(<span class="code-snippet__string">"url"</span>);</span></code><code><span leaf="">        <span class="code-snippet__type">String</span> <span class="code-snippet__variable">mapperClass</span> <span class="code-snippet__operator">=</span> child.getStringAttribute(<span class="code-snippet__string">"class"</span>);</span></code><code><span leaf="">        <span class="code-snippet__comment">// 分支1: 通过 resource 指定 XML 文件</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (resource != <span class="code-snippet__literal">null</span> && url == <span class="code-snippet__literal">null</span> && mapperClass == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">          ErrorContext.instance().resource(resource);</span></code><code><span leaf="">          <span class="code-snippet__keyword">try</span> (<span class="code-snippet__type">InputStream</span> <span class="code-snippet__variable">inputStream</span> <span class="code-snippet__operator">=</span> Resources.getResourceAsStream(resource)) {</span></code><code><span leaf="">            <span class="code-snippet__type">XMLMapperBuilder</span> <span class="code-snippet__variable">mapperParser</span> <span class="code-snippet__operator">=</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">XMLMapperBuilder</span>(inputStream, configuration, resource,</span></code><code><span leaf="">                configuration.getSqlFragments());</span></code><code><span leaf="">            mapperParser.parse();</span></code><code><span leaf="">          }</span></code><code><span leaf="">        }</span></code><code><span leaf="">        <span class="code-snippet__comment">// 分支2: 通过 url 指定 XML 文件</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">else</span> <span class="code-snippet__keyword">if</span> (resource == <span class="code-snippet__literal">null</span> && url != <span class="code-snippet__literal">null</span> && mapperClass == <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">          ErrorContext.instance().resource(url);</span></code><code><span leaf="">          <span class="code-snippet__keyword">try</span> (<span class="code-snippet__type">InputStream</span> <span class="code-snippet__variable">inputStream</span> <span class="code-snippet__operator">=</span> Resources.getUrlAsStream(url)) {</span></code><code><span leaf="">            <span class="code-snippet__type">XMLMapperBuilder</span> <span class="code-snippet__variable">mapperParser</span> <span class="code-snippet__operator">=</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">XMLMapperBuilder</span>(inputStream, configuration, url,</span></code><code><span leaf="">                configuration.getSqlFragments());</span></code><code><span leaf="">            mapperParser.parse();</span></code><code><span leaf="">          }</span></code><code><span leaf="">        }</span></code><code><span leaf="">        <span class="code-snippet__comment">// 分支3: 通过 class 属性指定 Mapper 接口类，这主要适用于纯注解的方式</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">else</span> <span class="code-snippet__keyword">if</span> (resource == <span class="code-snippet__literal">null</span> && url == <span class="code-snippet__literal">null</span> && mapperClass != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">          Class<?> mapperInterface = Resources.classForName(mapperClass);</span></code><code><span leaf="">          configuration.addMapper(mapperInterface);</span></code><code><span leaf="">        } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">          <span class="code-snippet__keyword">throw</span> <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">BuilderException</span>(</span></code><code><span leaf="">              <span class="code-snippet__string">"A mapper element may only specify a url, resource or class, but not more than one."</span>);</span></code><code><span leaf="">        }</span></code><code><span leaf="">      }</span></code><code><span leaf="">    }</span></code><code><span leaf="">  }</span></code>
+private void mappersElement(XNode context) throws Exception {
+    if (context == null) {
+      return;
+    }
+    for (XNode child : context.getChildren()) {
+      if ("package".equals(child.getName())) {
+        // 处理包扫描的方式
+        String mapperPackage = child.getStringAttribute("name");
+        configuration.addMappers(mapperPackage);
+      } else {
+        // 以下是处理单个 mapper 的三种方式
+        String resource = child.getStringAttribute("resource");
+        String url = child.getStringAttribute("url");
+        String mapperClass = child.getStringAttribute("class");
+        // 分支1: 通过 resource 指定 XML 文件
+        if (resource != null && url == null && mapperClass == null) {
+          ErrorContext.instance().resource(resource);
+          try (InputStream inputStream = Resources.getResourceAsStream(resource)) {
+            XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, resource,
+                configuration.getSqlFragments());
+            mapperParser.parse();
+          }
+        }
+        // 分支2: 通过 url 指定 XML 文件
+        else if (resource == null && url != null && mapperClass == null) {
+          ErrorContext.instance().resource(url);
+          try (InputStream inputStream = Resources.getUrlAsStream(url)) {
+            XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, url,
+                configuration.getSqlFragments());
+            mapperParser.parse();
+          }
+        }
+        // 分支3: 通过 class 属性指定 Mapper 接口类，这主要适用于纯注解的方式
+        else if (resource == null && url == null && mapperClass != null) {
+          Class<?> mapperInterface = Resources.classForName(mapperClass);
+          configuration.addMapper(mapperInterface);
+        } else {
+          throw new BuilderException(
+              "A mapper element may only specify a url, resource or class, but not more than one.");
+        }
+      }
+    }
+  }
 ```
 
 

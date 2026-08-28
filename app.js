@@ -522,10 +522,26 @@ function iconArrow() {
 
 function articleRow(article, options = {}) {
   const refPath = article.path || article.url;
+  const rowIndex = options.index || article.questionNumber || "";
+  const rowClasses = [
+    "article-row",
+    rowIndex ? "" : "article-row--no-index",
+    refPath ? "" : "article-row--static",
+  ].filter(Boolean).join(" ");
+  const rowIndexMarkup = rowIndex
+    ? `<span class="article-row-index">${escapeHtml(rowIndex)}</span>`
+    : "";
+  const rowMeta = [article.company, article.round, article.topic || article.module || article.area, article.date]
+    .filter(Boolean)
+    .map(escapeHtml)
+    .join(" · ") || "未分类";
+  const inlineActionMarkup = options.actionLabel
+    ? `<span class="article-row-action">${escapeHtml(options.actionLabel)}</span>`
+    : "";
   if (!refPath) {
     return `
-      <div class="article-row">
-        <span class="article-row-index">${options.index || article.questionNumber || "·"}</span>
+      <div class="${rowClasses}">
+        ${rowIndexMarkup}
         <span class="article-row-main">
           <strong>${escapeHtml(article.title)}</strong>
           <small>路径缺失</small>
@@ -534,20 +550,17 @@ function articleRow(article, options = {}) {
     `;
   }
   return `
-    <a class="article-row" href="${articleHref(refPath)}">
-      <span class="article-row-index">${options.index || article.questionNumber || "·"}</span>
+    <a class="${rowClasses}" href="${articleHref(refPath)}">
+      ${rowIndexMarkup}
       <span class="article-row-main">
         <strong>${escapeHtml(article.title)}</strong>
         <small>
-          ${[article.company, article.round, article.topic || article.module || article.area, article.date]
-            .filter(Boolean)
-            .map(escapeHtml)
-            .join(" · ") || "未分类"}
+          ${rowMeta}${inlineActionMarkup}
         </small>
       </span>
       ${
         options.actionLabel
-          ? `<span class="article-row-action">${escapeHtml(options.actionLabel)}</span>`
+          ? ""
           : article.score !== null && article.score !== undefined
           ? `<span class="score ${article.score < 4 ? "score-low" : ""}">${scoreText(article.score)}</span>`
           : iconArrow()
@@ -1095,19 +1108,16 @@ function renderTimeline() {
                               <span>${dateParts.weekday}</span>
                               <small>${dateParts.year}</small>
                             </time>
+                            <div class="timeline-day-summary">
+                              ${categoryCounts
+                                .map(
+                                  (item) =>
+                                    `<span data-category="${item.id}"><b>${item.label}</b><em>${item.count} 篇</em></span>`,
+                                )
+                                .join("")}
+                            </div>
                           </header>
                           <div class="timeline-day-content">
-                            <header>
-                              <div class="timeline-day-summary">
-                                ${categoryCounts
-                                  .map(
-                                    (item) =>
-                                      `<span data-category="${item.id}">${item.label} ${item.count}</span>`,
-                                  )
-                                  .join("")}
-                              </div>
-                              <strong>${articles.length} 项</strong>
-                            </header>
                             <div class="article-list">
                               ${visible
                                 .map((article, index) =>
@@ -1248,7 +1258,7 @@ function setLearningGroupExpanded(group, expanded) {
 
 const EXAM_NOTE_VISUALS = {
   "exam-math-map": {
-    kicker: "考研数学 / MAP",
+    kicker: "数学 / MAP",
     title: "三条主线，先找研究对象",
     question: "看到题目，先判断它在研究变化、空间还是随机性。",
     diagram: "math-map",
@@ -1311,13 +1321,13 @@ const EXAM_NOTE_VISUALS = {
     answer: "先说清状态含义，再写转移方程。",
   },
   "exam-408-map": {
-    kicker: "408 / MAP",
+    kicker: "计算机基础 / MAP",
     title: "四门课，其实是一条机器链",
     question: "数据如何组织、执行、被管理，最后穿过网络？",
     diagram: "computer-map",
     tone: "blue",
     blocks: [["数据结构", "组织数据"], ["组成原理", "执行指令"], ["操作系统", "管理资源"], ["计算机网络", "传递字节"]],
-    answer: "408 不是四本书，是一台机器的四个观察面。",
+    answer: "计算机基础不是四本书的并列背诵，而是一台机器的四个观察面。",
   },
   "exam-408-data-structure": {
     kicker: "数据结构 / GRAPH",
@@ -1356,7 +1366,7 @@ const EXAM_NOTE_VISUALS = {
     answer: "可靠性、流量控制、拥塞控制不是一个概念。",
   },
   "exam-408-program-to-packet": {
-    kicker: "408 / CROSSOVER",
+    kicker: "计算机基础 / CROSSOVER",
     title: "一次请求穿过四门课",
     question: "从用户态的一行代码，到网卡上的一个数据包，中间发生了什么？",
     diagram: "request",
@@ -1370,7 +1380,7 @@ function examNoteVisual(article) {
   const slug = (article.path || article.url || "").split("/").pop().replace(/\.md$/, "");
   const matched = Object.entries(EXAM_NOTE_VISUALS).find(([key]) => slug.includes(key));
   return matched?.[1] || {
-    kicker: `${article.area || "考研"} / NOTE`,
+    kicker: `${article.area || "学习"} / NOTE`,
     title: article.title,
     question: article.summary || "把一个知识点拆成对象、关系、方法和结论。",
     diagram: "computer-map",
@@ -1481,7 +1491,7 @@ function examNoteCard(article, index) {
       </article>
       <div class="exam-note-caption">
         <strong>${escapeHtml(article.title)}</strong>
-        <span>${escapeHtml(tags || article.module || "考研知识卡片")} <em>↗</em></span>
+        <span>${escapeHtml(tags || article.module || "学习卡片")} <em>↗</em></span>
       </div>
     </a>`;
 }
@@ -1494,7 +1504,7 @@ function examNoteStudio(groups) {
         <div class="exam-studio-avatar">WY</div>
         <div>
           <p class="exam-studio-kicker">PERSONAL STUDY NOTES / 2026</p>
-          <h2>考研数学 · 408</h2>
+          <h2>数学 · 计算机基础</h2>
           <span>把公式、结构和题型画成可以反复打开的笔记。</span>
         </div>
         <div class="exam-studio-stat"><strong>${total}</strong><span>张笔记</span></div>
@@ -1510,7 +1520,7 @@ function examNoteStudio(groups) {
 
 function renderLearning() {
   const items = filteredArticles("learning");
-  const noteAreas = new Set(["考研数学", "考研 408"]);
+  const noteAreas = new Set(["数学", "计算机基础"]);
   const areaOrder = new Map(state.learningAreas.map((area, index) => [area.name, index]));
   const groups = Object.entries(groupBy(items, "area", "综合")).sort(
     ([left], [right]) =>
@@ -1547,7 +1557,6 @@ function renderLearning() {
                   return `
                     <section class="learning-card learning-group reveal${collapsible ? " is-collapsed" : ""}" data-learning-group data-learning-area="${escapeHtml(area)}">
                       <header class="learning-card-header">
-                        <span class="learning-card-index">${String(index + 1).padStart(2, "0")}</span>
                         <div class="learning-card-title">
                           <p>LEARNING FIELD / ${String(index + 1).padStart(2, "0")}</p>
                           <h2>${escapeHtml(area)}</h2>
@@ -2311,7 +2320,7 @@ async function renderRoute() {
 
 }
 
-const BUILD_VERSION = "20260818-4";
+const BUILD_VERSION = "20260828-1";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy] = await Promise.all([

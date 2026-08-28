@@ -152,7 +152,12 @@ mybatis-config.xml
 
 
 ```
-<code><span leaf=""><span class="code-snippet__tag"><</span><span class="code-snippet__tag"><span class="code-snippet__name">plugins</span></span><span class="code-snippet__tag">></span></span></code><code><span leaf="">    <span class="code-snippet__tag"><</span><span class="code-snippet__tag"><span class="code-snippet__name">plugin</span></span><span class="code-snippet__tag"> </span><span class="code-snippet__tag"><span class="code-snippet__attr">interceptor</span></span><span class="code-snippet__tag">=</span><span class="code-snippet__tag"><span class="code-snippet__string">"com.example.MyPlugin"</span></span><span class="code-snippet__tag">></span></span></code><code><span leaf="">        <span class="code-snippet__tag"><</span><span class="code-snippet__tag"><span class="code-snippet__name">property</span></span><span class="code-snippet__tag"> </span><span class="code-snippet__tag"><span class="code-snippet__attr">name</span></span><span class="code-snippet__tag">=</span><span class="code-snippet__tag"><span class="code-snippet__string">"property1"</span></span><span class="code-snippet__tag"> </span><span class="code-snippet__tag"><span class="code-snippet__attr">value</span></span><span class="code-snippet__tag">=</span><span class="code-snippet__tag"><span class="code-snippet__string">"value1"</span></span><span class="code-snippet__tag">/></span></span></code><code><span leaf="">    <span class="code-snippet__tag"></</span><span class="code-snippet__tag"><span class="code-snippet__name">plugin</span></span><span class="code-snippet__tag">></span></span></code><code><span leaf="">    <span class="code-snippet__tag"><</span><span class="code-snippet__tag"><span class="code-snippet__name">plugin</span></span><span class="code-snippet__tag"> </span><span class="code-snippet__tag"><span class="code-snippet__attr">interceptor</span></span><span class="code-snippet__tag">=</span><span class="code-snippet__tag"><span class="code-snippet__string">"com.example.PageInterceptor"</span></span><span class="code-snippet__tag">/></span></span></code><code><span leaf=""><span class="code-snippet__tag"></</span><span class="code-snippet__tag"><span class="code-snippet__name">plugins</span></span><span class="code-snippet__tag">></span></span></code>
+<plugins>
+    <plugin interceptor="com.example.MyPlugin">
+        <property name="property1" value="value1"/>
+    </plugin>
+    <plugin interceptor="com.example.PageInterceptor"/>
+</plugins>
 ```
 
 
@@ -162,7 +167,18 @@ XMLConfigBuilder.pluginsElement
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">void</span> <span class="code-snippet__title">pluginsElement</span><span class="code-snippet__params">(XNode context)</span> <span class="code-snippet__keyword">throws</span> Exception {</span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (context != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">      <span class="code-snippet__keyword">for</span> (XNode child : context.getChildren()) {</span></code><code><span leaf="">        <span class="code-snippet__type">String</span> <span class="code-snippet__variable">interceptor</span> <span class="code-snippet__operator">=</span> child.getStringAttribute(<span class="code-snippet__string">"interceptor"</span>);</span></code><code><span leaf="">        <span class="code-snippet__type">Properties</span> <span class="code-snippet__variable">properties</span> <span class="code-snippet__operator">=</span> child.getChildrenAsProperties();</span></code><code><span leaf="">        <span class="code-snippet__type">Interceptor</span> <span class="code-snippet__variable">interceptorInstance</span> <span class="code-snippet__operator">=</span> (Interceptor) resolveClass(interceptor).getDeclaredConstructor()</span></code><code><span leaf="">            .newInstance();</span></code><code><span leaf="">        interceptorInstance.setProperties(properties);</span></code><code><span leaf="">        configuration.addInterceptor(interceptorInstance);</span></code><code><span leaf="">      }</span></code><code><span leaf="">    }</span></code><code><span leaf="">  }</span></code>
+private void pluginsElement(XNode context) throws Exception {
+    if (context != null) {
+      for (XNode child : context.getChildren()) {
+        String interceptor = child.getStringAttribute("interceptor");
+        Properties properties = child.getChildrenAsProperties();
+        Interceptor interceptorInstance = (Interceptor) resolveClass(interceptor).getDeclaredConstructor()
+            .newInstance();
+        interceptorInstance.setProperties(properties);
+        configuration.addInterceptor(interceptorInstance);
+      }
+    }
+  }
 ```
 
 
@@ -174,7 +190,17 @@ Configuration
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">Configuration</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">protected</span> final <span class="code-snippet__title">InterceptorChain</span> interceptorChain = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">InterceptorChain</span>();</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">addInterceptor</span>(<span class="code-snippet__params"><span class="code-snippet__title">Interceptor</span></span><span class="code-snippet__params"> interceptor</span>) {</span></code><code><span leaf="">        interceptorChain.<span class="code-snippet__title">addInterceptor</span>(interceptor);</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">List</span><<span class="code-snippet__title">Interceptor</span>> <span class="code-snippet__title">getInterceptors</span>() {</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> interceptorChain.<span class="code-snippet__title">getInterceptors</span>();</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+public class Configuration {
+    protected final InterceptorChain interceptorChain = new InterceptorChain();
+
+    public void addInterceptor(Interceptor interceptor) {
+        interceptorChain.addInterceptor(interceptor);
+    }
+
+    public List<Interceptor> getInterceptors() {
+        return interceptorChain.getInterceptors();
+    }
+}
 ```
 
 
@@ -212,7 +238,13 @@ Configuration.newExecutor
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__title">Executor</span> <span class="code-snippet__title">newExecutor</span>(<span class="code-snippet__params"><span class="code-snippet__title">Transaction</span></span><span class="code-snippet__params"> transaction, </span><span class="code-snippet__params"><span class="code-snippet__title">ExecutorType</span></span><span class="code-snippet__params"> executorType</span>) {</span></code><code><span leaf="">    <span class="code-snippet__comment">// ... 创建 SimpleExecutor/ReuseExecutor/BatchExecutor</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">if</span> (cacheEnabled) {</span></code><code><span leaf="">        executor = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">CachingExecutor</span>(executor);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> (<span class="code-snippet__title">Executor</span>) interceptorChain.<span class="code-snippet__title">pluginAll</span>(executor);</span></code><code><span leaf="">}</span></code>
+public Executor newExecutor(Transaction transaction, ExecutorType executorType) {
+    // ... 创建 SimpleExecutor/ReuseExecutor/BatchExecutor
+    if (cacheEnabled) {
+        executor = new CachingExecutor(executor);
+    }
+    return (Executor) interceptorChain.pluginAll(executor);
+}
 ```
 
 
@@ -228,7 +260,11 @@ Configuration.newStatementHandler
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__title">StatementHandler</span> <span class="code-snippet__title">newStatementHandler</span>(<span class="code-snippet__params"><span class="code-snippet__title">Executor</span></span><span class="code-snippet__params"> executor, </span><span class="code-snippet__params"><span class="code-snippet__title">MappedStatement</span></span><span class="code-snippet__params"> ms, </span></span></code><code><span leaf="">        <span class="code-snippet__title">Object</span> parameter, <span class="code-snippet__title">RowBounds</span> rowBounds, <span class="code-snippet__title">ResultHandler</span> resultHandler, <span class="code-snippet__title">BoundSql</span> boundSql) {</span></code><code><span leaf="">    <span class="code-snippet__title">StatementHandler</span> statementHandler = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">RoutingStatementHandler</span>(executor, ms, parameter, rowBounds, resultHandler, boundSql);</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> (<span class="code-snippet__title">StatementHandler</span>) interceptorChain.<span class="code-snippet__title">pluginAll</span>(statementHandler);</span></code><code><span leaf="">}</span></code>
+public StatementHandler newStatementHandler(Executor executor, MappedStatement ms,
+        Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
+    StatementHandler statementHandler = new RoutingStatementHandler(executor, ms, parameter, rowBounds, resultHandler, boundSql);
+    return (StatementHandler) interceptorChain.pluginAll(statementHandler);
+}
 ```
 
 
@@ -244,7 +280,10 @@ Configuration.newParameterHandler
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__title">ParameterHandler</span> <span class="code-snippet__title">newParameterHandler</span>(<span class="code-snippet__params"><span class="code-snippet__title">MappedStatement</span></span><span class="code-snippet__params"> ms, </span><span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> parameter, </span><span class="code-snippet__params"><span class="code-snippet__title">BoundSql</span></span><span class="code-snippet__params"> boundSql</span>) {</span></code><code><span leaf="">    <span class="code-snippet__title">ParameterHandler</span> parameterHandler = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">DefaultParameterHandler</span>(ms, parameter, boundSql);</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> (<span class="code-snippet__title">ParameterHandler</span>) interceptorChain.<span class="code-snippet__title">pluginAll</span>(parameterHandler);</span></code><code><span leaf="">}</span></code>
+public ParameterHandler newParameterHandler(MappedStatement ms, Object parameter, BoundSql boundSql) {
+    ParameterHandler parameterHandler = new DefaultParameterHandler(ms, parameter, boundSql);
+    return (ParameterHandler) interceptorChain.pluginAll(parameterHandler);
+}
 ```
 
 
@@ -260,7 +299,11 @@ Configuration.newResultSetHandler
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__title">ResultSetHandler</span> <span class="code-snippet__title">newResultSetHandler</span>(<span class="code-snippet__params"><span class="code-snippet__title">Executor</span></span><span class="code-snippet__params"> executor, </span><span class="code-snippet__params"><span class="code-snippet__title">MappedStatement</span></span><span class="code-snippet__params"> ms, </span></span></code><code><span leaf="">        <span class="code-snippet__title">RowBounds</span> rowBounds, <span class="code-snippet__title">ParameterHandler</span> parameterHandler, <span class="code-snippet__title">ResultHandler</span> resultHandler, <span class="code-snippet__title">BoundSql</span> boundSql) {</span></code><code><span leaf="">    <span class="code-snippet__title">ResultSetHandler</span> resultSetHandler = <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">DefaultResultSetHandler</span>(executor, ms, parameterHandler, resultHandler, boundSql, rowBounds);</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> (<span class="code-snippet__title">ResultSetHandler</span>) interceptorChain.<span class="code-snippet__title">pluginAll</span>(resultSetHandler);</span></code><code><span leaf="">}</span></code>
+public ResultSetHandler newResultSetHandler(Executor executor, MappedStatement ms,
+        RowBounds rowBounds, ParameterHandler parameterHandler, ResultHandler resultHandler, BoundSql boundSql) {
+    ResultSetHandler resultSetHandler = new DefaultResultSetHandler(executor, ms, parameterHandler, resultHandler, boundSql, rowBounds);
+    return (ResultSetHandler) interceptorChain.pluginAll(resultSetHandler);
+}
 ```
 
 
@@ -272,7 +315,12 @@ InterceptorChain.pluginAll
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__title">Object</span> <span class="code-snippet__title">pluginAll</span>(<span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> target</span>) {</span></code><code><span leaf="">    <span class="code-snippet__keyword">for</span> (<span class="code-snippet__title">Interceptor</span> interceptor : interceptors) {</span></code><code><span leaf="">        target = interceptor.<span class="code-snippet__title">plugin</span>(target);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__keyword">return</span> target;</span></code><code><span leaf="">}</span></code>
+public Object pluginAll(Object target) {
+    for (Interceptor interceptor : interceptors) {
+        target = interceptor.plugin(target);
+    }
+    return target;
+}
 ```
 
 
@@ -302,7 +350,44 @@ InvocationHandler
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">Plugin</span> <span class="code-snippet__keyword">implements</span> <span class="code-snippet__title">InvocationHandler</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> final <span class="code-snippet__title">Object</span> target;</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> final <span class="code-snippet__title">Interceptor</span> interceptor;</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> final <span class="code-snippet__title">Map</span><<span class="code-snippet__title">Class</span><?>, <span class="code-snippet__title">Set</span><<span class="code-snippet__title">Method</span>>> signatureMap;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__title">Plugin</span>(<span class="code-snippet__title">Object</span> target, <span class="code-snippet__title">Interceptor</span> interceptor, <span class="code-snippet__title">Map</span><<span class="code-snippet__title">Class</span><?>, <span class="code-snippet__title">Set</span><<span class="code-snippet__title">Method</span>>> signatureMap) {</span></code><code><span leaf="">        <span class="code-snippet__variable">this</span>.<span class="code-snippet__property">target</span> = target;</span></code><code><span leaf="">        <span class="code-snippet__variable">this</span>.<span class="code-snippet__property">interceptor</span> = interceptor;</span></code><code><span leaf="">        <span class="code-snippet__variable">this</span>.<span class="code-snippet__property">signatureMap</span> = signatureMap;</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">static</span> <span class="code-snippet__title">Object</span> <span class="code-snippet__title">wrap</span>(<span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> target, </span><span class="code-snippet__params"><span class="code-snippet__title">Interceptor</span></span><span class="code-snippet__params"> interceptor</span>) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 从 @Intercepts 和 @Signature 注解中提取要拦截的接口和方法</span></span></code><code><span leaf="">        <span class="code-snippet__title">Map</span><<span class="code-snippet__title">Class</span><?>, <span class="code-snippet__title">Set</span><<span class="code-snippet__title">Method</span>>> signatureMap = <span class="code-snippet__title">getSignatureMap</span>(interceptor);</span></code><code><span leaf="">        <span class="code-snippet__title">Class</span><?> <span class="code-snippet__keyword">type</span> = target.<span class="code-snippet__title">getClass</span>();</span></code><code><span leaf="">        <span class="code-snippet__title">Class</span><?>[] interfaces = <span class="code-snippet__title">getAllInterfaces</span>(<span class="code-snippet__keyword">type</span>, signatureMap);</span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (interfaces.<span class="code-snippet__property">length</span> > <span class="code-snippet__number">0</span>) {</span></code><code><span leaf="">            <span class="code-snippet__keyword">return</span> <span class="code-snippet__title">Proxy</span>.<span class="code-snippet__title">newProxyInstance</span>(<span class="code-snippet__keyword">type</span>.<span class="code-snippet__title">getClassLoader</span>(), interfaces, <span class="code-snippet__keyword">new</span> <span class="code-snippet__title">Plugin</span>(target, interceptor, signatureMap));</span></code><code><span leaf="">        }</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> target;</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">Object</span> <span class="code-snippet__title">invoke</span>(<span class="code-snippet__title">Object</span> proxy, <span class="code-snippet__title">Method</span> method, <span class="code-snippet__title">Object</span>[] args) throws <span class="code-snippet__title">Throwable</span> {</span></code><code><span leaf="">        <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">            <span class="code-snippet__comment">// 判断当前方法是否需要被拦截</span></span></code><code><span leaf="">            <span class="code-snippet__title">Set</span><<span class="code-snippet__title">Method</span>> methods = signatureMap.<span class="code-snippet__title">get</span>(method.<span class="code-snippet__title">getDeclaringClass</span>());</span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (methods != <span class="code-snippet__literal">null</span> && methods.<span class="code-snippet__title">contains</span>(method)) {</span></code><code><span leaf="">                <span class="code-snippet__comment">// 需要拦截，调用拦截器的 intercept 方法</span></span></code><code><span leaf="">                <span class="code-snippet__keyword">return</span> interceptor.<span class="code-snippet__title">intercept</span>(<span class="code-snippet__keyword">new</span> <span class="code-snippet__title">Invocation</span>(target, method, args));</span></code><code><span leaf="">            }</span></code><code><span leaf="">            <span class="code-snippet__comment">// 不需要拦截，直接调用目标对象的方法</span></span></code><code><span leaf="">            <span class="code-snippet__keyword">return</span> method.<span class="code-snippet__title">invoke</span>(target, args);</span></code><code><span leaf="">        } <span class="code-snippet__keyword">catch</span> (<span class="code-snippet__title">Exception</span> e) {</span></code><code><span leaf="">            <span class="code-snippet__keyword">throw</span> <span class="code-snippet__title">ExceptionUtil</span>.<span class="code-snippet__title">unwrapThrowable</span>(e);</span></code><code><span leaf="">        }</span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+public class Plugin implements InvocationHandler {
+    private final Object target;
+    private final Interceptor interceptor;
+    private final Map<Class<?>, Set<Method>> signatureMap;
+
+    private Plugin(Object target, Interceptor interceptor, Map<Class<?>, Set<Method>> signatureMap) {
+        this.target = target;
+        this.interceptor = interceptor;
+        this.signatureMap = signatureMap;
+    }
+
+    public static Object wrap(Object target, Interceptor interceptor) {
+        // 从 @Intercepts 和 @Signature 注解中提取要拦截的接口和方法
+        Map<Class<?>, Set<Method>> signatureMap = getSignatureMap(interceptor);
+        Class<?> type = target.getClass();
+        Class<?>[] interfaces = getAllInterfaces(type, signatureMap);
+        if (interfaces.length > 0) {
+            return Proxy.newProxyInstance(type.getClassLoader(), interfaces, new Plugin(target, interceptor, signatureMap));
+        }
+        return target;
+    }
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        try {
+            // 判断当前方法是否需要被拦截
+            Set<Method> methods = signatureMap.get(method.getDeclaringClass());
+            if (methods != null && methods.contains(method)) {
+                // 需要拦截，调用拦截器的 intercept 方法
+                return interceptor.intercept(new Invocation(target, method, args));
+            }
+            // 不需要拦截，直接调用目标对象的方法
+            return method.invoke(target, args);
+        } catch (Exception e) {
+            throw ExceptionUtil.unwrapThrowable(e);
+        }
+    }
+}
 ```
 
 
@@ -318,7 +403,16 @@ InvocationHandler
 
 
 ```
-<code><span leaf=""><span class="code-snippet__variable">@Intercepts</span>({</span></code><code><span leaf="">    <span class="code-snippet__variable">@Signature</span>(</span></code><code><span leaf="">        type = Executor.class,</span></code><code><span leaf="">        <span class="code-snippet__function"><span class="code-snippet__keyword">method</span></span><span class="code-snippet__function"> = "</span><span class="code-snippet__function"><span class="code-snippet__title">query</span></span><span class="code-snippet__function">",</span></span></code><code><span leaf="">        <span class="code-snippet__title">args</span> = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}</span></code><code><span leaf="">    )</span></code><code><span leaf="">})</span></code><code><span leaf="">public <span class="code-snippet__class"><span class="code-snippet__keyword">class</span></span><span class="code-snippet__class"> </span><span class="code-snippet__class"><span class="code-snippet__title">MyPlugin</span></span><span class="code-snippet__class"> </span><span class="code-snippet__class"><span class="code-snippet__title">implements</span></span><span class="code-snippet__class"> </span><span class="code-snippet__class"><span class="code-snippet__title">Interceptor</span></span><span class="code-snippet__class"> </span>{</span></code><code><span leaf="">    // ...</span></code><code><span leaf="">}</span></code>
+@Intercepts({
+    @Signature(
+        type = Executor.class,
+        method = "query",
+        args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}
+    )
+})
+public class MyPlugin implements Interceptor {
+    // ...
+}
 ```
 
 
@@ -382,7 +476,16 @@ Invocation
 
 
 ```
-<code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">Invocation</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">final</span> Object target;</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">final</span> Method method;</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__keyword">final</span> Object[] args;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__function"><span class="code-snippet__keyword">public</span></span><span class="code-snippet__function"> Object </span><span class="code-snippet__function"><span class="code-snippet__title">proceed</span></span><span class="code-snippet__function"><span class="code-snippet__params">()</span></span><span class="code-snippet__function"> throws InvocationTargetException, IllegalAccessException </span>{</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> method.<span class="code-snippet__built_in">invoke</span>(target, args);</span></code><code><span leaf="">    }</span></code><code><span leaf="">    <span class="code-snippet__comment">// getters...</span></span></code><code><span leaf="">}</span></code>
+public class Invocation {
+    private final Object target;
+    private final Method method;
+    private final Object[] args;
+
+    public Object proceed() throws InvocationTargetException, IllegalAccessException {
+        return method.invoke(target, args);
+    }
+    // getters...
+}
 ```
 
 
@@ -414,7 +517,98 @@ invocation.proceed()
 
 
 ```
-<code><span leaf=""><span class="code-snippet__meta">@Intercepts</span>(</span></code><code><span leaf="">    <span class="code-snippet__meta">@Signature</span>(<span class="code-snippet__keyword">type</span> = <span class="code-snippet__title">Executor</span>.<span class="code-snippet__property">class</span>, method = <span class="code-snippet__string">"query"</span>,</span></code><code><span leaf="">        args = {<span class="code-snippet__title">MappedStatement</span>.<span class="code-snippet__property">class</span>, <span class="code-snippet__title">Object</span>.<span class="code-snippet__property">class</span>, <span class="code-snippet__title">RowBounds</span>.<span class="code-snippet__property">class</span>, <span class="code-snippet__title">ResultHandler</span>.<span class="code-snippet__property">class</span>}</span></code><code><span leaf="">    )</span></code><code><span leaf="">)</span></code><code><span leaf=""><span class="code-snippet__keyword">public</span> <span class="code-snippet__keyword">class</span> <span class="code-snippet__title">PageInterceptor</span> <span class="code-snippet__keyword">implements</span> <span class="code-snippet__title">Interceptor</span> {</span></code><code><span leaf="">    <span class="code-snippet__keyword">private</span> <span class="code-snippet__title">Dialect</span> dialect;</span></code><code><span leaf="">    <span class="code-snippet__comment">// ... 其他字段</span></span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">Object</span> <span class="code-snippet__title">intercept</span>(<span class="code-snippet__title">Invocation</span> invocation) throws <span class="code-snippet__title">Throwable</span> {</span></code><code><span leaf="">        <span class="code-snippet__keyword">try</span> {</span></code><code><span leaf="">            <span class="code-snippet__title">Object</span>[] args = invocation.<span class="code-snippet__title">getArgs</span>();</span></code><code><span leaf="">            <span class="code-snippet__title">MappedStatement</span> ms = (<span class="code-snippet__title">MappedStatement</span>) args[<span class="code-snippet__number">0</span>];</span></code><code><span leaf="">            <span class="code-snippet__title">Object</span> parameter = args[<span class="code-snippet__number">1</span>];</span></code><code><span leaf="">            <span class="code-snippet__title">RowBounds</span> rowBounds = (<span class="code-snippet__title">RowBounds</span>) args[<span class="code-snippet__number">2</span>];</span></code><code><span leaf="">            <span class="code-snippet__title">ResultHandler</span> resultHandler = (<span class="code-snippet__title">ResultHandler</span>) args[<span class="code-snippet__number">3</span>];</span></code><code><span leaf="">            <span class="code-snippet__title">Executor</span> executor = (<span class="code-snippet__title">Executor</span>) invocation.<span class="code-snippet__title">getTarget</span>();</span></code><code><span leaf="">            <span class="code-snippet__title">CacheKey</span> cacheKey;</span></code><code><span leaf="">            <span class="code-snippet__title">BoundSql</span> boundSql;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">            <span class="code-snippet__comment">// 重要：query 方法有两种重载：4 参数和 6 参数（带 CacheKey 和 BoundSql）</span></span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (args.<span class="code-snippet__property">length</span> == <span class="code-snippet__number">4</span>) {</span></code><code><span leaf="">                <span class="code-snippet__comment">// 4 个参数时：动态创建 BoundSql 和 CacheKey</span></span></code><code><span leaf="">                boundSql = ms.<span class="code-snippet__title">getBoundSql</span>(parameter);</span></code><code><span leaf="">                cacheKey = executor.<span class="code-snippet__title">createCacheKey</span>(ms, parameter, rowBounds, boundSql);</span></code><code><span leaf="">            } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">                <span class="code-snippet__comment">// 6 个参数时：直接从参数中获取</span></span></code><code><span leaf="">                cacheKey = (<span class="code-snippet__title">CacheKey</span>) args[<span class="code-snippet__number">4</span>];</span></code><code><span leaf="">                boundSql = (<span class="code-snippet__title">BoundSql</span>) args[<span class="code-snippet__number">5</span>];</span></code><code><span leaf="">            }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">            <span class="code-snippet__title">checkDialectExists</span>();</span></code><code><span leaf="">            <span class="code-snippet__comment">// 如果 dialect 实现了 BoundSqlInterceptor 链，则处理 boundSql</span></span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (dialect <span class="code-snippet__keyword">instanceof</span> <span class="code-snippet__title">BoundSqlInterceptor</span>.<span class="code-snippet__property">Chain</span>) {</span></code><code><span leaf="">                boundSql = ((<span class="code-snippet__title">BoundSqlInterceptor</span>.<span class="code-snippet__property">Chain</span>) dialect).<span class="code-snippet__title">doBoundSql</span>(</span></code><code><span leaf="">                    <span class="code-snippet__title">BoundSqlInterceptor</span>.<span class="code-snippet__property">Type</span>.<span class="code-snippet__property">ORIGINAL</span>, boundSql, cacheKey);</span></code><code><span leaf="">            }</span></code><code><span leaf="">            <span class="code-snippet__title">List</span> resultList;</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">            <span class="code-snippet__comment">// 判断是否需要分页</span></span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (!dialect.<span class="code-snippet__title">skip</span>(ms, parameter, rowBounds)) {</span></code><code><span leaf="">                <span class="code-snippet__comment">// 调试堆栈日志（用于检查分页使用是否正确）</span></span></code><code><span leaf="">                <span class="code-snippet__title">debugStackTraceLog</span>();</span></code><code><span leaf="">                <span class="code-snippet__title">Future</span><<span class="code-snippet__title">Long</span>> countFuture = <span class="code-snippet__literal">null</span>;</span></code><code><span leaf="">                <span class="code-snippet__comment">// 是否需要执行 count 查询</span></span></code><code><span leaf="">                <span class="code-snippet__keyword">if</span> (dialect.<span class="code-snippet__title">beforeCount</span>(ms, parameter, rowBounds)) {</span></code><code><span leaf="">                    <span class="code-snippet__keyword">if</span> (dialect.<span class="code-snippet__title">isAsyncCount</span>()) {</span></code><code><span leaf="">                        <span class="code-snippet__comment">// 异步查询总数</span></span></code><code><span leaf="">                        countFuture = <span class="code-snippet__title">asyncCount</span>(ms, boundSql, parameter, rowBounds);</span></code><code><span leaf="">                    } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">                        <span class="code-snippet__comment">// 同步查询总数</span></span></code><code><span leaf="">                        <span class="code-snippet__title">Long</span> count = <span class="code-snippet__title">count</span>(executor, ms, parameter, rowBounds, <span class="code-snippet__literal">null</span>, boundSql);</span></code><code><span leaf="">                        <span class="code-snippet__keyword">if</span> (!dialect.<span class="code-snippet__title">afterCount</span>(count, parameter, rowBounds)) {</span></code><code><span leaf="">                            <span class="code-snippet__comment">// 总数为 0，直接返回空列表</span></span></code><code><span leaf="">                            <span class="code-snippet__keyword">return</span> dialect.<span class="code-snippet__title">afterPage</span>(<span class="code-snippet__keyword">new</span> <span class="code-snippet__title">ArrayList</span>(), parameter, rowBounds);</span></code><code><span leaf="">                        }</span></code><code><span leaf="">                    }</span></code><code><span leaf="">                }</span></code><code><span leaf="">                <span class="code-snippet__comment">// 执行分页查询</span></span></code><code><span leaf="">                resultList = <span class="code-snippet__title">ExecutorUtil</span>.<span class="code-snippet__title">pageQuery</span>(dialect, executor,</span></code><code><span leaf="">                        ms, parameter, rowBounds, resultHandler, boundSql, cacheKey);</span></code><code><span leaf="">                <span class="code-snippet__keyword">if</span> (countFuture != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">                    <span class="code-snippet__title">Long</span> count = countFuture.<span class="code-snippet__title">get</span>();</span></code><code><span leaf="">                    dialect.<span class="code-snippet__title">afterCount</span>(count, parameter, rowBounds);</span></code><code><span leaf="">                }</span></code><code><span leaf="">            } <span class="code-snippet__keyword">else</span> {</span></code><code><span leaf="">                <span class="code-snippet__comment">// 不需要分页，直接执行原始查询（但仍使用已有的 boundSql 和 cacheKey）</span></span></code><code><span leaf="">                resultList = executor.<span class="code-snippet__title">query</span>(ms, parameter, rowBounds, resultHandler, cacheKey, boundSql);</span></code><code><span leaf="">            }</span></code><code><span leaf="">            <span class="code-snippet__keyword">return</span> dialect.<span class="code-snippet__title">afterPage</span>(resultList, parameter, rowBounds);</span></code><code><span leaf="">        } <span class="code-snippet__keyword">finally</span> {</span></code><code><span leaf="">            <span class="code-snippet__keyword">if</span> (dialect != <span class="code-snippet__literal">null</span>) {</span></code><code><span leaf="">                dialect.<span class="code-snippet__title">afterAll</span>();  <span class="code-snippet__comment">// 清理 ThreadLocal 等资源</span></span></code><code><span leaf="">            }</span></code><code><span leaf="">        }</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__title">Object</span> <span class="code-snippet__title">plugin</span>(<span class="code-snippet__params"><span class="code-snippet__title">Object</span></span><span class="code-snippet__params"> target</span>) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 只对 Executor 类型的对象进行代理</span></span></code><code><span leaf="">        <span class="code-snippet__keyword">if</span> (target <span class="code-snippet__keyword">instanceof</span> <span class="code-snippet__title">Executor</span>) {</span></code><code><span leaf="">            <span class="code-snippet__keyword">return</span> <span class="code-snippet__title">Plugin</span>.<span class="code-snippet__title">wrap</span>(target, <span class="code-snippet__variable">this</span>);</span></code><code><span leaf="">        }</span></code><code><span leaf="">        <span class="code-snippet__keyword">return</span> target;</span></code><code><span leaf="">    }</span></code><code><span leaf=""><br  /></span></code><code><span leaf="">    <span class="code-snippet__meta">@Override</span></span></code><code><span leaf="">    <span class="code-snippet__keyword">public</span> <span class="code-snippet__built_in">void</span> <span class="code-snippet__title">setProperties</span>(<span class="code-snippet__params"><span class="code-snippet__title">Properties</span></span><span class="code-snippet__params"> properties</span>) {</span></code><code><span leaf="">        <span class="code-snippet__comment">// 初始化 dialect 等</span></span></code><code><span leaf="">    }</span></code><code><span leaf="">}</span></code>
+@Intercepts(
+    @Signature(type = Executor.class, method = "query",
+        args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}
+    )
+)
+public class PageInterceptor implements Interceptor {
+    private Dialect dialect;
+    // ... 其他字段
+
+    @Override
+    public Object intercept(Invocation invocation) throws Throwable {
+        try {
+            Object[] args = invocation.getArgs();
+            MappedStatement ms = (MappedStatement) args[0];
+            Object parameter = args[1];
+            RowBounds rowBounds = (RowBounds) args[2];
+            ResultHandler resultHandler = (ResultHandler) args[3];
+            Executor executor = (Executor) invocation.getTarget();
+            CacheKey cacheKey;
+            BoundSql boundSql;
+
+            // 重要：query 方法有两种重载：4 参数和 6 参数（带 CacheKey 和 BoundSql）
+            if (args.length == 4) {
+                // 4 个参数时：动态创建 BoundSql 和 CacheKey
+                boundSql = ms.getBoundSql(parameter);
+                cacheKey = executor.createCacheKey(ms, parameter, rowBounds, boundSql);
+            } else {
+                // 6 个参数时：直接从参数中获取
+                cacheKey = (CacheKey) args[4];
+                boundSql = (BoundSql) args[5];
+            }
+
+            checkDialectExists();
+            // 如果 dialect 实现了 BoundSqlInterceptor 链，则处理 boundSql
+            if (dialect instanceof BoundSqlInterceptor.Chain) {
+                boundSql = ((BoundSqlInterceptor.Chain) dialect).doBoundSql(
+                    BoundSqlInterceptor.Type.ORIGINAL, boundSql, cacheKey);
+            }
+            List resultList;
+
+            // 判断是否需要分页
+            if (!dialect.skip(ms, parameter, rowBounds)) {
+                // 调试堆栈日志（用于检查分页使用是否正确）
+                debugStackTraceLog();
+                Future<Long> countFuture = null;
+                // 是否需要执行 count 查询
+                if (dialect.beforeCount(ms, parameter, rowBounds)) {
+                    if (dialect.isAsyncCount()) {
+                        // 异步查询总数
+                        countFuture = asyncCount(ms, boundSql, parameter, rowBounds);
+                    } else {
+                        // 同步查询总数
+                        Long count = count(executor, ms, parameter, rowBounds, null, boundSql);
+                        if (!dialect.afterCount(count, parameter, rowBounds)) {
+                            // 总数为 0，直接返回空列表
+                            return dialect.afterPage(new ArrayList(), parameter, rowBounds);
+                        }
+                    }
+                }
+                // 执行分页查询
+                resultList = ExecutorUtil.pageQuery(dialect, executor,
+                        ms, parameter, rowBounds, resultHandler, boundSql, cacheKey);
+                if (countFuture != null) {
+                    Long count = countFuture.get();
+                    dialect.afterCount(count, parameter, rowBounds);
+                }
+            } else {
+                // 不需要分页，直接执行原始查询（但仍使用已有的 boundSql 和 cacheKey）
+                resultList = executor.query(ms, parameter, rowBounds, resultHandler, cacheKey, boundSql);
+            }
+            return dialect.afterPage(resultList, parameter, rowBounds);
+        } finally {
+            if (dialect != null) {
+                dialect.afterAll();  // 清理 ThreadLocal 等资源
+            }
+        }
+    }
+
+    @Override
+    public Object plugin(Object target) {
+        // 只对 Executor 类型的对象进行代理
+        if (target instanceof Executor) {
+            return Plugin.wrap(target, this);
+        }
+        return target;
+    }
+
+    @Override
+    public void setProperties(Properties properties) {
+        // 初始化 dialect 等
+    }
+}
 ```
 
 

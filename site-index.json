@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-27T00:00:00+08:00",
+  "generatedAt": "2026-08-28T00:00:00+08:00",
   "articles": [
     {
-      "title": "如果由你来实现 Stream，会怎么设计？——一次\\\"重新发明\\\"的思维之旅",
+      "title": "如果由你来实现 Stream，会怎么设计？——一次“重新发明”的思维之旅",
       "path": "content/learning/java/2026-08-24-stream-redesign-thinking.md",
       "url": "content/learning/java/2026-08-24-stream-redesign-thinking.md",
       "date": "2026-08-24",
@@ -68,7 +68,7 @@
       "question": ""
     },
     {
-      "title": "考研 408 组成原理：Cache 为什么有效，局部性如何变成速度",
+      "title": "计算机基础 · 组成原理：Cache 为什么有效，局部性如何变成速度",
       "path": "content/learning/exam-408/2026-08-18-exam-408-computer-organization-cache.md",
       "url": "content/learning/exam-408/2026-08-18-exam-408-computer-organization-cache.md",
       "date": "2026-08-18",
@@ -77,8 +77,8 @@
       "publishedAt": "",
       "importedAt": "",
       "domain": "学习",
-      "area": "考研 408",
-      "module": "考研 408 知识卡片",
+      "area": "计算机基础",
+      "module": "计算机基础知识卡片",
       "project": "",
       "type": "知识卡片",
       "status": "可复习",
@@ -87,14 +87,14 @@
       "visibility": "public",
       "summary": "从时间局部性、空间局部性和地址映射出发，理解 Cache 命中率、缺失代价与替换策略。",
       "tags": [
-        "考研 408",
+        "计算机基础",
         "组成原理",
         "Cache",
         "局部性",
         "存储系统"
       ],
       "section": "learning",
-      "topic": "考研 408 知识卡片",
+      "topic": "计算机基础知识卡片",
       "company": "",
       "round": "",
       "score": null,
@@ -102,7 +102,7 @@
       "question": ""
     },
     {
-      "title": "考研 408 数据结构：树与图，为什么先看关系再看遍历",
+      "title": "计算机基础 · 数据结构：树与图，为什么先看关系再看遍历",
       "path": "content/learning/exam-408/2026-08-18-exam-408-data-structure.md",
       "url": "content/learning/exam-408/2026-08-18-exam-408-data-structure.md",
       "date": "2026-08-18",
@@ -111,8 +111,8 @@
       "publishedAt": "",
       "importedAt": "",
       "domain": "学习",
-      "area": "考研 408",
-      "module": "考研 408 知识卡片",
+      "area": "计算机基础",
+      "module": "计算机基础知识卡片",
       "project": "",
       "type": "知识卡片",
       "status": "可复习",
@@ -121,14 +121,14 @@
       "visibility": "public",
       "summary": "从父子关系、邻接关系和遍历状态出发，统一理解树、图、搜索与复杂度题。",
       "tags": [
-        "考研 408",
+        "计算机基础",
         "数据结构",
         "树",
         "图",
         "遍历"
       ],
       "section": "learning",
-      "topic": "考研 408 知识卡片",
+      "topic": "计算机基础知识卡片",
       "company": "",
       "round": "",
       "score": null,
@@ -136,7 +136,7 @@
       "question": ""
     },
     {
-      "title": "考研 408：从一行代码到一个数据包的四科地图",
+      "title": "计算机基础：从一行代码到一个数据包的四科地图",
       "path": "content/learning/exam-408/2026-08-18-exam-408-map.md",
       "url": "content/learning/exam-408/2026-08-18-exam-408-map.md",
       "date": "2026-08-18",
@@ -145,8 +145,8 @@
       "publishedAt": "",
       "importedAt": "",
       "domain": "学习",
-      "area": "考研 408",
-      "module": "考研 408 知识卡片",
+      "area": "计算机基础",
+      "module": "计算机基础知识卡片",
       "project": "",
       "type": "路线图",
       "status": "可复习",
@@ -155,14 +155,14 @@
       "visibility": "public",
       "summary": "用数据、执行、资源和通信四条线串起数据结构、组成原理、操作系统与计算机网络。",
       "tags": [
-        "考研 408",
+        "计算机基础",
         "数据结构",
         "组成原理",
         "操作系统",
         "计算机网络"
       ],
       "section": "learning",
-      "topic": "考研 408 知识卡片",
+      "topic": "计算机基础知识卡片",
       "company": "",
       "round": "",
       "score": null,
@@ -170,7 +170,7 @@
       "question": ""
     },
     {
-      "title": "考研 408 计算机网络：TCP 可靠性，丢包后到底发生了什么",
+      "title": "计算机基础 · 计算机网络：TCP 可靠性，丢包后到底发生了什么",
       "path": "content/learning/exam-408/2026-08-18-exam-408-network-tcp.md",
       "url": "content/learning/exam-408/2026-08-18-exam-408-network-tcp.md",
       "date": "2026-08-18",
@@ -179,8 +179,8 @@
       "publishedAt": "",
       "importedAt": "",
       "domain": "学习",
-      "area": "考研 408",
-      "module": "考研 408 知识卡片",
+      "area": "计算机基础",
+      "module": "计算机基础知识卡片",
       "project": "",
       "type": "知识卡片",
       "status": "可复习",
@@ -189,14 +189,14 @@
       "visibility": "public",
       "summary": "沿着序号、确认、窗口和重传四条线理解 TCP，不把可靠性、流量控制和拥塞控制混成一个概念。",
       "tags": [
-        "考研 408",
+        "计算机基础",
         "计算机网络",
         "TCP",
         "拥塞控制",
         "流量控制"
       ],
       "section": "learning",
-      "topic": "考研 408 知识卡片",
+      "topic": "计算机基础知识卡片",
       "company": "",
       "round": "",
       "score": null,
@@ -204,7 +204,7 @@
       "question": ""
     },
     {
-      "title": "考研 408 操作系统：进程、线程与虚拟内存，谁在管理什么",
+      "title": "计算机基础 · 操作系统：进程、线程与虚拟内存，谁在管理什么",
       "path": "content/learning/exam-408/2026-08-18-exam-408-operating-system.md",
       "url": "content/learning/exam-408/2026-08-18-exam-408-operating-system.md",
       "date": "2026-08-18",
@@ -213,8 +213,8 @@
       "publishedAt": "",
       "importedAt": "",
       "domain": "学习",
-      "area": "考研 408",
-      "module": "考研 408 知识卡片",
+      "area": "计算机基础",
+      "module": "计算机基础知识卡片",
       "project": "",
       "type": "知识卡片",
       "status": "可复习",
@@ -223,14 +223,14 @@
       "visibility": "public",
       "summary": "把进程线程、上下文切换、地址空间和缺页处理放回资源管理主线，避免概念互相替代。",
       "tags": [
-        "考研 408",
+        "计算机基础",
         "操作系统",
         "进程",
         "线程",
         "虚拟内存"
       ],
       "section": "learning",
-      "topic": "考研 408 知识卡片",
+      "topic": "计算机基础知识卡片",
       "company": "",
       "round": "",
       "score": null,
@@ -238,7 +238,7 @@
       "question": ""
     },
     {
-      "title": "考研 408 综合卡：一次请求如何穿过四门课",
+      "title": "计算机基础 · 综合卡：一次请求如何穿过四门课",
       "path": "content/learning/exam-408/2026-08-18-exam-408-program-to-packet.md",
       "url": "content/learning/exam-408/2026-08-18-exam-408-program-to-packet.md",
       "date": "2026-08-18",
@@ -247,8 +247,8 @@
       "publishedAt": "",
       "importedAt": "",
       "domain": "学习",
-      "area": "考研 408",
-      "module": "考研 408 知识卡片",
+      "area": "计算机基础",
+      "module": "计算机基础知识卡片",
       "project": "",
       "type": "综合卡片",
       "status": "可复习",
@@ -257,14 +257,14 @@
       "visibility": "public",
       "summary": "用一次程序发起网络请求的路径，把数据结构、组成原理、操作系统和网络的边界串成一张图。",
       "tags": [
-        "考研 408",
+        "计算机基础",
         "综合题",
         "系统调用",
         "Socket",
         "协议栈"
       ],
       "section": "learning",
-      "topic": "考研 408 知识卡片",
+      "topic": "计算机基础知识卡片",
       "company": "",
       "round": "",
       "score": null,
@@ -281,7 +281,7 @@
       "publishedAt": "",
       "importedAt": "",
       "domain": "学习",
-      "area": "考研 408",
+      "area": "计算机基础",
       "module": "算法与动态规划",
       "project": "",
       "type": "参考资料",
@@ -291,7 +291,7 @@
       "visibility": "public",
       "summary": "归档崔添翼《背包问题九讲》V2，说明九类背包问题的学习顺序、动态规划状态设计和本站镜像来源。",
       "tags": [
-        "考研 408",
+        "计算机基础",
         "数据结构",
         "动态规划",
         "背包问题",
@@ -306,7 +306,7 @@
       "question": ""
     },
     {
-      "title": "考研数学：导数与中值定理，局部斜率怎样变成区间结论",
+      "title": "数学：导数与中值定理，局部斜率怎样变成区间结论",
       "path": "content/learning/exam-math/2026-08-18-exam-math-derivative-mean-value.md",
       "url": "content/learning/exam-math/2026-08-18-exam-math-derivative-mean-value.md",
       "date": "2026-08-18",
@@ -315,8 +315,8 @@
       "publishedAt": "",
       "importedAt": "",
       "domain": "学习",
-      "area": "考研数学",
-      "module": "考研数学知识卡片",
+      "area": "数学",
+      "module": "数学知识卡片",
       "project": "",
       "type": "知识卡片",
       "status": "可复习",
@@ -325,14 +325,14 @@
       "visibility": "public",
       "summary": "用斜率视角串起单调性、极值、凹凸性和三类中值定理，建立导数题的识别顺序。",
       "tags": [
-        "考研数学",
+        "数学",
         "导数",
         "中值定理",
         "单调性",
         "极值"
       ],
       "section": "learning",
-      "topic": "考研数学知识卡片",
+      "topic": "数学知识卡片",
       "company": "",
       "round": "",
       "score": null,
@@ -340,7 +340,7 @@
       "question": ""
     },
     {
-      "title": "考研数学：积分不是公式表，而是变化的累计器",
+      "title": "数学：积分不是公式表，而是变化的累计器",
       "path": "content/learning/exam-math/2026-08-18-exam-math-integral.md",
       "url": "content/learning/exam-math/2026-08-18-exam-math-integral.md",
       "date": "2026-08-18",
@@ -349,8 +349,8 @@
       "publishedAt": "",
       "importedAt": "",
       "domain": "学习",
-      "area": "考研数学",
-      "module": "考研数学知识卡片",
+      "area": "数学",
+      "module": "数学知识卡片",
       "project": "",
       "type": "知识卡片",
       "status": "可复习",
@@ -359,14 +359,14 @@
       "visibility": "public",
       "summary": "从累计量和几何意义出发，串起定积分、换元、分部积分、面积体积和微积分基本定理。",
       "tags": [
-        "考研数学",
+        "数学",
         "定积分",
         "换元法",
         "分部积分",
         "几何意义"
       ],
       "section": "learning",
-      "topic": "考研数学知识卡片",
+      "topic": "数学知识卡片",
       "company": "",
       "round": "",
       "score": null,
@@ -374,7 +374,7 @@
       "question": ""
     },
     {
-      "title": "考研数学：极限与连续，为什么先判对象再选方法",
+      "title": "数学：极限与连续，为什么先判对象再选方法",
       "path": "content/learning/exam-math/2026-08-18-exam-math-limit-continuity.md",
       "url": "content/learning/exam-math/2026-08-18-exam-math-limit-continuity.md",
       "date": "2026-08-18",
@@ -383,8 +383,8 @@
       "publishedAt": "",
       "importedAt": "",
       "domain": "学习",
-      "area": "考研数学",
-      "module": "考研数学知识卡片",
+      "area": "数学",
+      "module": "数学知识卡片",
       "project": "",
       "type": "知识卡片",
       "status": "可复习",
@@ -393,14 +393,14 @@
       "visibility": "public",
       "summary": "把极限题拆成对象、类型、等价替换和条件检查，避免一看到无穷小就机械套洛必达。",
       "tags": [
-        "考研数学",
+        "数学",
         "极限",
         "连续",
         "等价无穷小",
         "洛必达"
       ],
       "section": "learning",
-      "topic": "考研数学知识卡片",
+      "topic": "数学知识卡片",
       "company": "",
       "round": "",
       "score": null,
@@ -408,7 +408,7 @@
       "question": ""
     },
     {
-      "title": "考研数学：秩与方程组，矩阵到底丢掉了多少维信息",
+      "title": "数学：秩与方程组，矩阵到底丢掉了多少维信息",
       "path": "content/learning/exam-math/2026-08-18-exam-math-linear-algebra.md",
       "url": "content/learning/exam-math/2026-08-18-exam-math-linear-algebra.md",
       "date": "2026-08-18",
@@ -417,8 +417,8 @@
       "publishedAt": "",
       "importedAt": "",
       "domain": "学习",
-      "area": "考研数学",
-      "module": "考研数学知识卡片",
+      "area": "数学",
+      "module": "数学知识卡片",
       "project": "",
       "type": "知识卡片",
       "status": "可复习",
@@ -427,14 +427,14 @@
       "visibility": "public",
       "summary": "用秩统一理解方程组解的个数、向量相关性、矩阵可逆性和线性变换的维度损失。",
       "tags": [
-        "考研数学",
+        "数学",
         "线性代数",
         "秩",
         "方程组",
         "特征值"
       ],
       "section": "learning",
-      "topic": "考研数学知识卡片",
+      "topic": "数学知识卡片",
       "company": "",
       "round": "",
       "score": null,
@@ -442,7 +442,7 @@
       "question": ""
     },
     {
-      "title": "考研数学：从公式堆到问题地图",
+      "title": "数学：从公式堆到问题地图",
       "path": "content/learning/exam-math/2026-08-18-exam-math-map.md",
       "url": "content/learning/exam-math/2026-08-18-exam-math-map.md",
       "date": "2026-08-18",
@@ -451,8 +451,8 @@
       "publishedAt": "",
       "importedAt": "",
       "domain": "学习",
-      "area": "考研数学",
-      "module": "考研数学知识卡片",
+      "area": "数学",
+      "module": "数学知识卡片",
       "project": "",
       "type": "路线图",
       "status": "可复习",
@@ -461,14 +461,14 @@
       "visibility": "public",
       "summary": "把高等数学、线性代数、概率论拆成可以识别、推导和复盘的知识卡片。",
       "tags": [
-        "考研数学",
-        "数学一",
-        "数学二",
-        "数学三",
+        "数学",
+        "高等数学",
+        "线性代数",
+        "概率论",
         "知识地图"
       ],
       "section": "learning",
-      "topic": "考研数学知识卡片",
+      "topic": "数学知识卡片",
       "company": "",
       "round": "",
       "score": null,
@@ -476,7 +476,7 @@
       "question": ""
     },
     {
-      "title": "考研数学：概率分布到数字特征，随机变量怎样被压缩",
+      "title": "数学：概率分布到数字特征，随机变量怎样被压缩",
       "path": "content/learning/exam-math/2026-08-18-exam-math-probability.md",
       "url": "content/learning/exam-math/2026-08-18-exam-math-probability.md",
       "date": "2026-08-18",
@@ -485,8 +485,8 @@
       "publishedAt": "",
       "importedAt": "",
       "domain": "学习",
-      "area": "考研数学",
-      "module": "考研数学知识卡片",
+      "area": "数学",
+      "module": "数学知识卡片",
       "project": "",
       "type": "知识卡片",
       "status": "可复习",
@@ -495,14 +495,14 @@
       "visibility": "public",
       "summary": "按随机变量、分布、期望方差和联合关系建立概率题的识别顺序，标记数学一/三范围。",
       "tags": [
-        "考研数学",
+        "数学",
         "概率论",
         "随机变量",
         "期望",
         "方差"
       ],
       "section": "learning",
-      "topic": "考研数学知识卡片",
+      "topic": "数学知识卡片",
       "company": "",
       "round": "",
       "score": null,
@@ -2758,7 +2758,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-08-27",
+      "date": "2026-08-28",
       "count": 0,
       "averageScore": null
     },
@@ -2767,11 +2767,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-14",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-15",
         "count": 0,
@@ -2834,6 +2829,11 @@
       },
       {
         "date": "2026-08-27",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-08-28",
         "count": 0,
         "averageScore": null
       }
