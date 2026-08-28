@@ -6,7 +6,7 @@ const SECTION_LABELS = {
   opportunity: "机会",
   reading: "阅读",
   columns: "专栏",
-  links: "三方链接",
+  links: "资源导航",
   about: "关于我",
   questions: "能力复盘",
   companies: "机会记录",
@@ -387,16 +387,7 @@ function inferSectionByPath(path = "") {
 
 // ---- reading area normalization ----
 function normalizeReadingArea(article) {
-  const raw = String(article.area || article.category || article.folder || article.path || "").toLowerCase();
-
-  if (raw.includes("politics") || raw.includes("society") || raw.includes("policy") || raw.includes("world")) return "世界观察";
-  if (raw.includes("finance") || raw.includes("market") || raw.includes("industry") || raw.includes("business")) return "市场笔记";
-  if (raw.includes("history")) return "历史";
-  if (raw.includes("book") || raw.includes("books")) return "读书札记";
-  if (raw.includes("hobbies") || raw.includes("life") || raw.includes("personal") || raw.includes("chayanyuese")) return "生活审美";
-  if (raw.includes("clips") || raw.includes("clip")) return "剪藏箱";
-
-  return article.area || "剪藏箱";
+  return ContentTaxonomy.normalizeReadingCategory(article);
 }
 
 // ---- section-specific article getters ----
@@ -647,186 +638,197 @@ function lineChart(daily) {
   `;
 }
 
-const KNOWLEDGE_LANES = [
-  { id: "agent", code: "A", label: "AGENT / AI" },
-  { id: "systems", code: "S", label: "SYSTEMS / JAVA" },
-  { id: "interface", code: "I", label: "INTERFACE / WEB" },
-  { id: "security", code: "R", label: "SECURITY / RELIABILITY" },
-  { id: "reading", code: "L", label: "READING / LIFE" },
-];
+const { KNOWLEDGE_LANES, KNOWLEDGE_LANE_MAP, READING_CATEGORIES } = ContentTaxonomy;
 
 function knowledgeRecordDate(article) {
   return article.publishedAt || article.createdAt || article.practicedAt || article.date || "";
 }
 
-function knowledgeLane(article) {
+function inferKnowledgeLane(article) {
   const section = normalizeSection(getArticleSection(article));
-  const terms = [
-    article.area,
-    article.module,
-    article.topic,
-    article.title,
-    ...(article.tags || []),
-  ].join(" ").toLowerCase();
-
-  if (section === "reading") return KNOWLEDGE_LANES[4];
-  if (/security|secure|xss|csrf|攻击|安全|注入|越权|漏洞|可靠性|故障/.test(terms)) return KNOWLEDGE_LANES[3];
-  if (/agent|llm|claude|hermes|mcp|codex|openai|大模型|语言模型|智能体/.test(terms)) return KNOWLEDGE_LANES[0];
-  if (/frontend|html|css|vue|react|typescript|javascript|前端|浏览器/.test(terms)) return KNOWLEDGE_LANES[2];
-  return KNOWLEDGE_LANES[1];
+  return ContentTaxonomy.inferKnowledgeLane(article, section);
 }
 
-function stableHash(value = "") {
-  let hash = 17;
-  for (const character of String(value)) {
-    hash = (hash * 31 + character.codePointAt(0)) >>> 0;
+function knowledgeLane(article) {
+  if (article.lane && KNOWLEDGE_LANE_MAP[article.lane]) {
+    return KNOWLEDGE_LANE_MAP[article.lane];
   }
-  return hash;
+  return inferKnowledgeLane(article);
 }
 
-function renderKnowledgeMap(articles) {
+let knowledgeContributionDays = new Map();
+
+function contributionDateKey(date) {
+  return date.toISOString().slice(0, 10);
+}
+
+function parseContributionDate(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value || "")) return null;
+  const date = new Date(`${value}T00:00:00Z`);
+  return Number.isNaN(date.getTime()) || contributionDateKey(date) !== value ? null : date;
+}
+
+function addContributionDays(date, amount) {
+  return new Date(date.getTime() + amount * 86400000);
+}
+
+function contributionLevel(count, distinctCounts) {
+  if (!count) return 0;
+  if (distinctCounts.length === 1) return 2;
+  const rank = distinctCounts.indexOf(count) + 1;
+  return Math.max(1, Math.ceil((rank / distinctCounts.length) * 4));
+}
+
+function contributionLaneMarkup(records) {
+  const laneOrder = new Map(KNOWLEDGE_LANES.map((lane, index) => [lane.id, index]));
+  const lanes = [...new Map(records.map(({ lane }) => [lane.id, lane])).values()]
+    .sort((left, right) => laneOrder.get(left.id) - laneOrder.get(right.id));
+
+  return lanes
+    .map((lane) => `<span data-lane="${lane.id}">${escapeHtml(lane.label)}</span>`)
+    .join("");
+}
+
+function contributionArticleMarkup(records) {
+  return records
+    .map(
+      ({ article, lane }) => `
+        <a class="contribution-readout-item" href="${articleHref(article.path)}">
+          <span>${escapeHtml(lane.label)}</span>
+          <strong>${escapeHtml(article.title)}</strong>
+          ${iconArrow()}
+        </a>`,
+    )
+    .join("");
+}
+
+function renderContributionMap(articles) {
   const datedArticles = articles
-    .map((article) => ({ article, date: knowledgeRecordDate(article) }))
-    .filter(({ date }) => /^\d{4}-\d{2}-\d{2}$/.test(date))
-    .sort((left, right) => left.date.localeCompare(right.date));
+    .map((article) => ({ article, date: knowledgeRecordDate(article), lane: knowledgeLane(article) }))
+    .filter(({ date }) => parseContributionDate(date))
+    .sort((left, right) => left.date.localeCompare(right.date) || left.article.title.localeCompare(right.article.title, "zh-CN"));
 
   if (!datedArticles.length) {
-    return '<p class="nova-empty">还没有足够的日期数据来绘制星图。</p>';
+    knowledgeContributionDays = new Map();
+    return '<p class="nova-empty">还没有足够的日期数据来绘制贡献图。</p>';
   }
 
-  const day = 86400000;
-  const timestamps = datedArticles.map(({ date }) => Date.parse(`${date}T00:00:00Z`));
-  const minTime = Math.min(...timestamps);
-  const maxTime = Math.max(...timestamps);
-  const timeRange = Math.max(day, maxTime - minTime);
-  const xStart = 152;
-  const xEnd = 958;
-  const yStart = 66;
-  const laneStep = 76;
-  const initial = datedArticles.at(-1);
-  const initialLane = knowledgeLane(initial.article);
-  const middleDate = new Date(minTime + (maxTime - minTime) / 2).toISOString().slice(0, 10);
+  knowledgeContributionDays = new Map();
+  datedArticles.forEach((record) => {
+    if (!knowledgeContributionDays.has(record.date)) knowledgeContributionDays.set(record.date, []);
+    knowledgeContributionDays.get(record.date).push(record);
+  });
 
-  const laneGuides = KNOWLEDGE_LANES.map((lane, index) => {
-    const y = yStart + index * laneStep;
-    return `
-      <g class="knowledge-lane knowledge-lane--${lane.id}">
-        <text x="18" y="${y + 4}">${lane.code}</text>
-        <line x1="${xStart}" y1="${y}" x2="${xEnd}" y2="${y}"></line>
-      </g>`;
-  }).join("");
+  const firstArticleDate = parseContributionDate(datedArticles[0].date);
+  const lastArticleDate = parseContributionDate(datedArticles.at(-1).date);
+  const firstWeekday = (firstArticleDate.getUTCDay() + 6) % 7;
+  const lastWeekday = (lastArticleDate.getUTCDay() + 6) % 7;
+  const rangeStart = addContributionDays(firstArticleDate, -firstWeekday);
+  const rangeEnd = addContributionDays(lastArticleDate, 6 - lastWeekday);
+  const dayCount = Math.round((rangeEnd - rangeStart) / 86400000) + 1;
+  const days = Array.from({ length: dayCount }, (_, index) => addContributionDays(rangeStart, index));
+  const weekCount = dayCount / 7;
+  const distinctCounts = [...new Set([...knowledgeContributionDays.values()].map((records) => records.length))]
+    .sort((left, right) => left - right);
+  const latestDate = datedArticles.at(-1).date;
+  const initialRecords = knowledgeContributionDays.get(latestDate);
 
-  const timeGuides = [0, 0.25, 0.5, 0.75, 1]
-    .map((ratio) => {
-      const x = Math.round(xStart + (xEnd - xStart) * ratio);
-      return `<line x1="${x}" y1="38" x2="${x}" y2="386"></line>`;
+  const monthLabels = [{ week: 1, label: `${firstArticleDate.getUTCMonth() + 1}月` }];
+  days.forEach((date, index) => {
+    if (date <= firstArticleDate || date > lastArticleDate || date.getUTCDate() !== 1) return;
+    monthLabels.push({ week: Math.floor(index / 7) + 1, label: `${date.getUTCMonth() + 1}月` });
+  });
+
+  const cells = days
+    .map((date) => {
+      const dateKey = contributionDateKey(date);
+      const records = knowledgeContributionDays.get(dateKey) || [];
+      const count = records.length;
+      const level = contributionLevel(count, distinctCounts);
+      const description = `${dateKey}，${count} 篇公开文章`;
+
+      if (!count) {
+        return `<span class="contribution-day contribution-day--level-0" aria-label="${description}" title="${description}"></span>`;
+      }
+
+      const isSelected = dateKey === latestDate;
+      return `
+        <button
+          type="button"
+          class="contribution-day contribution-day--level-${level}${isSelected ? " is-selected" : ""}"
+          data-contribution-date="${dateKey}"
+          aria-label="${description}"
+          aria-pressed="${isSelected}"
+          title="${description}"
+        ></button>`;
     })
     .join("");
 
-  const laneByArticle = datedArticles.map(({ article }) => knowledgeLane(article));
-  const groupSizes = new Map();
-  datedArticles.forEach(({ date }, index) => {
-    const key = `${date}:${laneByArticle[index].id}`;
-    groupSizes.set(key, (groupSizes.get(key) || 0) + 1);
-  });
-  const groupPositions = new Map();
-
-  const nodes = datedArticles.map(({ article, date }, index) => {
-    const lane = laneByArticle[index];
-    const laneIndex = KNOWLEDGE_LANES.findIndex((item) => item.id === lane.id);
-    const timestamp = timestamps[index];
-    const hash = stableHash(article.path || article.title);
-    const groupKey = `${date}:${lane.id}`;
-    const groupSize = groupSizes.get(groupKey);
-    const groupPosition = groupPositions.get(groupKey) || 0;
-    const groupColumns = Math.ceil(groupSize / 5);
-    const groupRows = Math.min(groupSize, 5);
-    const xJitter = groupSize === 1
-      ? (hash % 7) - 3
-      : (Math.floor(groupPosition / 5) - (groupColumns - 1) / 2) * 10;
-    const yJitter = groupSize === 1
-      ? (Math.floor(hash / 11) % 13) - 6
-      : (groupPosition % 5 - (groupRows - 1) / 2) * 10;
-    groupPositions.set(groupKey, groupPosition + 1);
-    const x = Math.round(xStart + ((timestamp - minTime) / timeRange) * (xEnd - xStart) + xJitter);
-    const y = yStart + laneIndex * laneStep + yJitter;
-    const href = articleHref(article.path);
-    const isLatest = date === initial.date;
-
-    return `
-      <a
-        class="knowledge-node${isLatest ? " is-latest" : ""}"
-        href="${href}"
-        data-title="${escapeHtml(article.title)}"
-        data-date="${date}"
-        data-lane-label="${escapeHtml(lane.label)}"
-        data-lane="${lane.id}"
-        data-href="${href}"
-        aria-label="${escapeHtml(`${date}，${lane.label}，${article.title}`)}"
-        style="--node-order: ${index % 18}"
-      >
-        <circle class="knowledge-node-hit" cx="${x}" cy="${y}" r="14"></circle>
-        <circle class="knowledge-node-dot" cx="${x}" cy="${y}" r="${isLatest ? 6.5 : 4.8}"></circle>
-        <title>${escapeHtml(`${date} · ${lane.label} · ${article.title}`)}</title>
-      </a>`;
-  }).join("");
-
   return `
-    <div class="knowledge-map-shell">
-      <div class="knowledge-map-panel">
-        <div class="knowledge-map-legend" aria-label="知识星域图例">
-          ${KNOWLEDGE_LANES.map((lane) => `<span data-lane="${lane.id}"><i></i>${escapeHtml(lane.label)}</span>`).join("")}
+    <div class="knowledge-map-shell contribution-map-shell" data-contribution-map>
+      <div class="knowledge-map-panel contribution-map-panel">
+        <div class="knowledge-map-scroll contribution-scroll" tabindex="0" aria-label="公开文章贡献图，手机端可横向滑动">
+          <div class="contribution-chart" style="--contribution-weeks: ${weekCount}">
+            <div class="contribution-months" aria-hidden="true">
+              ${monthLabels.map(({ week, label }) => `<span style="grid-column: ${week}">${label}</span>`).join("")}
+            </div>
+            <div class="contribution-weekdays" aria-hidden="true">
+              ${["一", "二", "三", "四", "五", "六", "日"].map((weekday) => `<span>${weekday}</span>`).join("")}
+            </div>
+            <div class="contribution-grid" aria-label="按周排列的每日公开文章数量">${cells}</div>
+          </div>
         </div>
-        <div class="knowledge-map-scroll" tabindex="0" aria-label="知识坐标图，手机端可横向滑动">
-          <svg class="knowledge-map" data-knowledge-map viewBox="0 0 1000 430" role="img" aria-labelledby="knowledge-map-title knowledge-map-description">
-            <title id="knowledge-map-title">公开文章星域坐标图</title>
-            <desc id="knowledge-map-description">横轴为时间轨道，纵轴为知识星域，每个光点可打开对应记录。</desc>
-            <g class="knowledge-time-guides">${timeGuides}</g>
-            <g class="knowledge-lanes">${laneGuides}</g>
-            <g class="knowledge-nodes">${nodes}</g>
-            <g class="knowledge-date-labels">
-              <text x="${xStart}" y="414" text-anchor="start">${datedArticles[0].date.replaceAll("-", ".")}</text>
-              <text x="${(xStart + xEnd) / 2}" y="414" text-anchor="middle">${middleDate.replaceAll("-", ".")}</text>
-              <text x="${xEnd}" y="414" text-anchor="end">${initial.date.replaceAll("-", ".")}</text>
-              <text class="knowledge-axis-name" x="${xEnd}" y="26" text-anchor="end">TIME / t</text>
-            </g>
-          </svg>
+        <div class="contribution-scale" aria-label="文章数量颜色图例">
+          <span>少</span>
+          ${[0, 1, 2, 3, 4].map((level) => `<i class="contribution-day contribution-day--level-${level}"></i>`).join("")}
+          <span>多</span>
         </div>
       </div>
       <aside class="knowledge-readout" aria-live="polite">
-        <span>SELECTED SIGNAL</span>
-        <p><time data-map-date>${initial.date}</time><b data-map-lane>${escapeHtml(initialLane.label)}</b></p>
-        <h3 data-map-title>${escapeHtml(initial.article.title)}</h3>
-        <a data-map-link href="${articleHref(initial.article.path)}">打开这篇记录 ${iconArrow()}</a>
-        <small>移动鼠标或使用 Tab 选择星体</small>
+        <span>当前日期</span>
+        <p><time data-contribution-date-value>${latestDate}</time><b data-contribution-count>${initialRecords.length} 篇</b></p>
+        <div class="contribution-readout-lanes" data-contribution-lanes>${contributionLaneMarkup(initialRecords)}</div>
+        <div class="contribution-readout-list" data-contribution-list>${contributionArticleMarkup(initialRecords)}</div>
+        <small>悬停、点击或使用 Tab 选择日期；点击标题打开文章</small>
       </aside>
     </div>`;
 }
 
-function bindKnowledgeMap() {
-  const map = ui.app.querySelector("[data-knowledge-map]");
+function bindContributionMap() {
+  const map = ui.app.querySelector("[data-contribution-map]");
   if (!map) return;
 
-  const updateReadout = (node) => {
-    const title = ui.app.querySelector("[data-map-title]");
-    const date = ui.app.querySelector("[data-map-date]");
-    const lane = ui.app.querySelector("[data-map-lane]");
-    const link = ui.app.querySelector("[data-map-link]");
-    if (!title || !date || !lane || !link) return;
+  const updateReadout = (button) => {
+    const dateValue = button.dataset.contributionDate;
+    const records = knowledgeContributionDays.get(dateValue) || [];
+    const date = map.querySelector("[data-contribution-date-value]");
+    const count = map.querySelector("[data-contribution-count]");
+    const lanes = map.querySelector("[data-contribution-lanes]");
+    const list = map.querySelector("[data-contribution-list]");
+    if (!date || !count || !lanes || !list || !records.length) return;
 
-    title.textContent = node.dataset.title;
-    date.textContent = node.dataset.date;
-    lane.textContent = node.dataset.laneLabel;
-    link.href = node.dataset.href;
+    map.querySelectorAll("[data-contribution-date]").forEach((day) => {
+      const isSelected = day === button;
+      day.classList.toggle("is-selected", isSelected);
+      day.setAttribute("aria-pressed", String(isSelected));
+    });
+    date.textContent = dateValue;
+    count.textContent = `${records.length} 篇`;
+    lanes.innerHTML = contributionLaneMarkup(records);
+    list.innerHTML = contributionArticleMarkup(records);
   };
 
-  const selectNode = (event) => {
-    const node = event.target.closest?.("[data-title]");
-    if (node) updateReadout(node);
+  const selectDay = (event) => {
+    const button = event.target.closest?.("[data-contribution-date]");
+    if (button) updateReadout(button);
   };
 
-  map.addEventListener("pointerover", selectNode);
-  map.addEventListener("focusin", selectNode);
+  map.addEventListener("pointerover", selectDay);
+  map.addEventListener("focusin", selectDay);
+  map.addEventListener("click", selectDay);
+
+  const scroller = map.querySelector(".contribution-scroll");
+  if (scroller) scroller.scrollLeft = scroller.scrollWidth;
 }
 
 function renderOverview() {
@@ -894,10 +896,10 @@ function renderOverview() {
       <div class="nova-dashboard">
         <section class="nova-panel nova-panel--map reveal delay-1">
           <header class="nova-panel-heading">
-            <div><span>01 / STARFIELD</span><h2>公开记录的星域坐标</h2></div>
-            <p>time = 轨道 · field = 知识星域 · point = 记录</p>
+            <div><span>01 / CONTRIBUTION GRID</span><h2>公开文章贡献图</h2></div>
+            <p>每格 = 1 天 · 颜色越深 = 当天公开文章越多</p>
           </header>
-          <div class="nova-panel-body">${renderKnowledgeMap(mapArticles)}</div>
+          <div class="nova-panel-body">${renderContributionMap(mapArticles)}</div>
         </section>
 
         <aside class="nova-panel nova-panel--now reveal delay-1">
@@ -912,7 +914,7 @@ function renderOverview() {
                   <p>${escapeHtml(knowledgeLane(featuredArticle).label)} · ${escapeHtml(knowledgeRecordDate(featuredArticle) || "持续更新")}</p>
                   <h3>${escapeHtml(featuredArticle.title)}</h3>
                   <em>${escapeHtml(featuredArticle.summary || "打开阅读全文")}</em>
-                  <a href="${articleHref(featuredArticle.path)}">READ SIGNAL ${iconArrow()}</a>`
+                  <a href="${articleHref(featuredArticle.path)}">阅读全文 ${iconArrow()}</a>`
                 : `<span>SIGNAL</span><h3>下一条信号正在生成。</h3>`
             }
           </div>
@@ -977,7 +979,7 @@ function renderOverview() {
         <section class="nova-panel nova-panel--references reveal">
           <header class="nova-panel-heading">
             <div><span>05 / REFERENCES</span><h2>阅读与参考</h2></div>
-            <a href="#/reading">进入阅读专栏 ${iconArrow()}</a>
+            <a href="#/reading">进入阅读 ${iconArrow()}</a>
           </header>
           <div class="nova-reference-strip">
             ${
@@ -1000,13 +1002,13 @@ function renderOverview() {
 
       <footer class="nova-closing reveal">
         <span>END / CURRENT SIGNAL</span>
-        <p>索引会随记录更新，星图也会随之改变。</p>
+        <p>索引会随记录更新，贡献图也会随之改变。</p>
         <a href="#/timeline">继续查看全部记录 ${iconArrow()}</a>
       </footer>
     </section>
   `;
 
-  bindKnowledgeMap();
+  bindContributionMap();
 }
 
 function renderTimeline() {
@@ -1659,6 +1661,9 @@ function renderQuickLinks() {
 
 function renderReading() {
   const items = filteredArticles("reading");
+  const categoryOrder = new Map(
+    READING_CATEGORIES.map((category, index) => [category.label, index]),
+  );
   const groups = Object.entries(
     items.reduce((acc, item) => {
       const key = normalizeReadingArea(item);
@@ -1666,7 +1671,10 @@ function renderReading() {
       acc[key].push(item);
       return acc;
     }, {}),
-  );
+  ).sort((left, right) => {
+    return (categoryOrder.get(left[0]) ?? Number.MAX_SAFE_INTEGER) -
+      (categoryOrder.get(right[0]) ?? Number.MAX_SAFE_INTEGER);
+  });
 
   ui.app.innerHTML = `
     <section class="directory-page reading-directory-page">
@@ -1699,7 +1707,7 @@ function renderThirdPartyLinks() {
 
   ui.app.innerHTML = `
     <section class="directory-page third-party-page">
-      ${sectionIntro("THIRD-PARTY LINKS", "三方链接", "值得长期收藏的外部项目、在线书籍、原典数据库与开放知识资源。链接会跳转到第三方网站。", totalLinks)}
+      ${sectionIntro("RESOURCE DIRECTORY", "资源导航", "值得长期收藏的外部项目、在线书籍、原典数据库与开放知识资源。链接会跳转到第三方网站。", totalLinks)}
       <div class="third-party-grid">
         ${
           links.length
@@ -1720,7 +1728,7 @@ function renderThirdPartyLinks() {
                     </a>`,
                 )
                 .join("")
-            : '<p class="empty-copy">等待添加第一个三方链接。</p>'
+            : '<p class="empty-copy">等待添加第一个外部资源。</p>'
         }
       </div>
       ${renderQuickLinks()}
@@ -2320,7 +2328,7 @@ async function renderRoute() {
 
 }
 
-const BUILD_VERSION = "20260828-1";
+const BUILD_VERSION = "20260828-3";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy] = await Promise.all([
