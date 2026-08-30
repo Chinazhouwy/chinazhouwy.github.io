@@ -2,6 +2,39 @@
   "generatedAt": "2026-08-30T00:00:00+08:00",
   "articles": [
     {
+      "title": "AQS 源码深度解析：CLH 队列、独占/共享模式与 Condition",
+      "path": "content/learning/java/2026-08-30-aqs-source-code.md",
+      "url": "content/learning/java/2026-08-30-aqs-source-code.md",
+      "date": "2026-08-30",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "Java 后端",
+      "module": "",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "从架构到源码：state+CLH变体队列+CAS三核心、Node设计、独占/共享获取释放、Condition等待通知、取消清理、以及为什么是CLH不是MCS。",
+      "tags": [
+        "Java",
+        "并发",
+        "AQS",
+        "JUC"
+      ],
+      "section": "learning",
+      "topic": "Java 后端",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "CompletableFuture 实战全解：状态机、编排、异常与超时",
       "path": "content/learning/java/2026-08-30-completablefuture-practice.md",
       "url": "content/learning/java/2026-08-30-completablefuture-practice.md",
@@ -2811,13 +2844,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 78,
+    "学习": 79,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 78,
+    "learning": 79,
     "about": 1,
     "reading": 7,
     "projects": 2
