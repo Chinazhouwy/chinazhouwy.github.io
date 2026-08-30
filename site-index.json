@@ -1,6 +1,39 @@
 {
-  "generatedAt": "2026-08-30T00:00:00+08:00",
+  "generatedAt": "2026-08-31T00:00:00+08:00",
   "articles": [
+    {
+      "title": "毛著作考点时间线：四个时期标志性文章与核心论断",
+      "path": "content/learning/exam-politics/2026-08-30-exam-politics-mao-articles-timeline.md",
+      "url": "content/learning/exam-politics/2026-08-30-exam-politics-mao-articles-timeline.md",
+      "date": "2026-08-30",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "政治",
+      "module": "毛著作考点",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "按大革命、土地革命、抗战三个时期梳理毛泽东标志性文章的核心考点：首次提出、标志意义、易混对比，附实事求是思想路线四阶段发展时间线。",
+      "tags": [
+        "政治",
+        "史纲",
+        "毛中特",
+        "考点整理"
+      ],
+      "section": "learning",
+      "topic": "毛著作考点",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
     {
       "title": "AQS 源码深度解析：CLH 队列、独占/共享模式与 Condition",
       "path": "content/learning/java/2026-08-30-aqs-source-code.md",
@@ -2844,13 +2877,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 79,
+    "学习": 80,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 79,
+    "learning": 80,
     "about": 1,
     "reading": 7,
     "projects": 2
@@ -2895,7 +2928,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-08-30",
+      "date": "2026-08-31",
       "count": 0,
       "averageScore": null
     },
@@ -2904,11 +2937,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-17",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-18",
         "count": 0,
@@ -2971,6 +2999,11 @@
       },
       {
         "date": "2026-08-30",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-08-31",
         "count": 0,
         "averageScore": null
       }
