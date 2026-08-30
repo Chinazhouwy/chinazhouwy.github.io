@@ -36,6 +36,40 @@
       "question": ""
     },
     {
+      "title": "synchronized 锁升级全过程：偏向锁→轻量级锁→重量级锁的 JVM 级细节",
+      "path": "content/learning/java/2026-08-28-synchronized-lock-escalation-jvm.md",
+      "url": "content/learning/java/2026-08-28-synchronized-lock-escalation-jvm.md",
+      "date": "2026-08-28",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "Java 后端",
+      "module": "",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "synchronized 锁升级的 JVM 级解析：对象头 Mark Word 位布局、偏向锁撤销机制、轻量级锁 CAS 自旋、ObjectMonitor 膨胀与 wait/notify，附 HotSpot 源码、调优参数与实战验证方法。",
+      "tags": [
+        "Java",
+        "JVM",
+        "并发",
+        "synchronized",
+        "锁升级"
+      ],
+      "section": "learning",
+      "topic": "Java 后端",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "如果由你来实现 Stream，会怎么设计？——一次“重新发明”的思维之旅",
       "path": "content/learning/java/2026-08-24-stream-redesign-thinking.md",
       "url": "content/learning/java/2026-08-24-stream-redesign-thinking.md",
@@ -2744,13 +2778,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 76,
+    "学习": 77,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 76,
+    "learning": 77,
     "about": 1,
     "reading": 7,
     "projects": 2
