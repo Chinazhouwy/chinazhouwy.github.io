@@ -1,5 +1,5 @@
 ---
-title: "英语图表作文写作方法 + 预制菜真题词句范文（一篇搞定）"
+title: "英语图表作文写作方法 + 预制菜真题表达范文（一篇搞定）"
 date: "2026-08-28"
 domain: "学习"
 area: "英语"
@@ -10,7 +10,7 @@ status: "可复习"
 priority: "P1"
 energy: "medium"
 visibility: "public"
-summary: "图表作文完整方法（主题词三法、描述三档句式、两段模板）+ 预制菜预测题完整范文：全部关键词组逐一验证出自 1998-2026 历年真题，附逐条出处对照表。"
+summary: "图表作文完整方法与一篇 147 词范文：36 个核心表达在 46 份单年真题中精确命中，10 个长表达明确标为组合，并附可复核证据。"
 tags:
   - 英语
   - 写作
@@ -24,9 +24,10 @@ tags:
 > 来源：微信公众号（顾不得）文章
 > 链接：<https://mp.weixin.qq.com/s/KB2LMnHXaoCWWwIcOM9MUw>
 > 整理时间：2026-08-28
-> 真题语料来源：<https://github.com/Fantasia1999/kaoyanzhenti>（1998-2026 共 49 份真题全文，范文词句逐条验证出处）
+> 真题语料来源：<https://github.com/Fantasia1999/kaoyanzhenti>，固定提交 `6da0983f832dcf32bba90a4472b11f0891f9c2fc`
+> 核验口径：只统计 1998-2026 的 46 份单年试卷，排除 3 份多年合订本；36 个核心表达为完整精确命中，10 个长表达仅为组合
 
-图表作文题型对应英语二大作文（Directions 固定为 "Write an essay based on the chart below... describe and interpret the chart, and give your comments"）。考场上看到这样的题目，第一步是思考主题词的英文怎么写。
+图表作文常见要求是 "Write an essay based on the chart below... describe and interpret the chart, and give your comments"。考场上看到这样的题目，第一步是思考主题词的英文怎么写。
 
 ## 一、写英文主题词（三法）
 
@@ -92,7 +93,7 @@ tags:
 
 ---
 
-# 完整范文（预制菜饼图，约 150 词，词句全部出自真题）
+# 完整范文（预制菜饼图，147 词，核心表达经过真题核验）
 
 ## 预测题
 
@@ -118,37 +119,58 @@ The chart reflects the changes in people's lifestyles. With the accelerating pac
 
 In my view, prepared dishes are convenient, but we should not overlook the potential risks. On the one hand, the government should strengthen the supervision of the food industry to protect people's health. On the other hand, we should develop healthy eating habits. In conclusion, while enjoying the convenience, we should also keep a healthy diet.
 
-## 真题词句出处对照表
+## 真题表达核验
 
-| 范文词句 | 真题出处（语料检索验证） |
+这里核验的是值得复用的核心表达，不是把范文的每个普通单词都算一次。机器报告位于
+`data/exam-english/prepared-dishes-phrase-report.json`，配置位于
+`data/exam-english/prepared-dishes-phrases.json`。
+
+### 完整精确命中
+
+下列反引号中的表达都在同一份单年试卷里连续出现；表中只列代表性出处，完整命中文档列表见机器报告。
+
+| 核心表达 | 代表性真题出处 |
 |---|---|
-| According to the chart | "according to" 出现于 1998-2026 全部 49 份真题 |
-| the top reason | 2018 英语一真题 |
-| local residents | "local"（28 份）+ "resident"（30 份），1999/2001/2003 英语真题等 |
-| accounting for 32% | "accounting for" 2016/2021/2026 英语二真题 |
-| make up 20%, 18%, 16% and 14% respectively | "make up"（12 份，2014 英语二等）；"respectively"（2023 英语一等 7 份） |
-| reflects the changes | "reflects the" 2025 英语二真题 |
-| lifestyles | "lifestyles" 2014/2016 英语二、2015/2021 英语一等 |
-| With the accelerating pace of life | "accelerating"（2014/2017/2022 英语二）+ "pace of"（2016/2018 英语二） |
-| a growing number of | "a growing number of" 2013/2023 英语一真题 |
-| too busy to cook at home | "too busy" 2016 英语二 + "at home"（2010 英语一等 17 份） |
-| plays a significant role | 2026 英语二翻译题原文："plays a significant role in shaping our self-perception" |
-| convenience | 2024 英语一、2025 英语二、2026 英语二真题 |
-| contributes to | "contributes to" 2017 英语一、2022 英语二真题 |
-| growing popularity | "growing"（30 份）+ "popularity"（1999/2001/2003 英语真题等 19 份） |
-| In my view | 2014 英语一真题 |
-| potential risks | "potential risks" 2013 英语一真题 |
-| On the one hand ... On the other hand | 2018 英语一真题（2001-2003 通用真题亦出现） |
-| strengthen the supervision | "strengthen"（19 份）+ "supervision"（2020 英语二等 9 份） |
-| food industry | "food industry" 2011 英语二真题 |
-| protect people's health | "protect"（32 份）+ "health"（1999/2002 英语真题等 38 份） |
-| healthy eating habits | "healthy"（16 份）+ "eating habits" 2022 英语二真题 |
-| In conclusion | 2016 英语二、2024 英语一真题 |
-| while enjoying the convenience | "while"（47 份）+ "enjoy"（1998/2000 英语真题等 29 份）+ "convenience"（2024-2026 三连真题） |
-| keep a healthy diet | "keep"（43 份）+ "healthy"（16 份）+ "diet"（2000/2008/2011 英语真题等 13 份） |
+| `according to`、`the chart` | `according to` 在 46/46 份单年试卷中出现；`the chart` 见 2010 英语二等 |
+| `the top reason` | 2018 英语一 |
+| `local residents` | 2020 英语二、2024 英语一 |
+| `accounting for` | 2016、2021、2026 英语二 |
+| `make up`、`respectively` | 1998 通用卷、2010 英语二等 |
+| `reflects the`、`lifestyles` | 2025 英语二；2014、2016 英语二等 |
+| `accelerating`、`pace of life` | 2014/2017/2022 英语二；2016 英语二 |
+| `a growing number of` | 2013、2023 英语一 |
+| `too busy`、`at home` | 2016 英语二；2010 英语一等 |
+| `plays a significant role` | 2026 英语二 |
+| `convenience`、`contributes to` | 2024 英语一、2025/2026 英语二；2017 英语一、2022 英语二 |
+| `In my view`、`potential risks` | 2014 英语一；2013 英语一 |
+| `On the one hand`、`On the other hand` | 2007 通用卷、2018 英语一等 |
+| `food industry`、`people's health` | 2011 英语二；2025 英语二 |
+| `eating habits`、`healthy diet` | 2022 英语二；2011 英语二 |
+| `In conclusion`、`reasonable prices` | 2016 英语二、2024 英语一；2025 英语二 |
+
+另外，`growing`、`popularity`、`strengthen`、`supervision`、`protect`、`healthy`、`while`、`enjoy` 和 `keep` 也分别精确命中，但单个普通词只作为组合证据，不包装成“真题固定搭配”。
+
+### 组合表达（不是整句命中）
+
+以下长表达本身没有在语料中连续出现，只能说明组成部分分别有真题依据。它们是本范文的正常组句，不能写成“整句出自真题”。
+
+| 范文中的组合表达 | 已精确命中的组成部分 |
+|---|---|
+| `According to the chart` | `according to` + `the chart` |
+| `reflects the changes in people's lifestyles` | `reflects the` + `lifestyles` |
+| `With the accelerating pace of life` | `accelerating` + `pace of life` |
+| `too busy to cook at home` | `too busy` + `at home` |
+| `growing popularity` | `growing` + `popularity` |
+| `strengthen the supervision` | `strengthen` + `supervision` |
+| `protect people's health` | `protect` + `people's health` |
+| `healthy eating habits` | `healthy` + `eating habits` |
+| `while enjoying the convenience` | `while` + `enjoy` + `convenience` |
+| `keep a healthy diet` | `keep` + `healthy diet` |
+
+`prepared dishes`、`pre-cooked meals`、`fast service`、`consistent food quality` 和 `wide variety of dishes` 是本题主题词，来自原始公众号材料，不在历史真题语料中，因而单独标明来源而不冒充真题表达。
 
 ## 使用说明
 
 1. **背诵优先段落 2、3**：段 1 描述数据随题变化，段 2、3 是"万金油"句式，可套任意图表作文
 2. **替换数据即可复用**：把 32%/20%/18%/16%/14% 换成实际图表比例，第一段即成
-3. **对照表价值**：每个词组都有真题原文背书，背的时候知道出处，考场写出来更踏实；也符合"用真题语言写作文"的阅卷偏好
+3. **对照表价值**：优先背“完整精确命中”的通用表达；组合表达用于理解组句方式，不把语料出现误解成阅卷加分保证
