@@ -2,6 +2,39 @@
   "generatedAt": "2026-08-30T00:00:00+08:00",
   "articles": [
     {
+      "title": "CompletableFuture 实战全解：状态机、编排、异常与超时",
+      "path": "content/learning/java/2026-08-30-completablefuture-practice.md",
+      "url": "content/learning/java/2026-08-30-completablefuture-practice.md",
+      "date": "2026-08-30",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "Java 后端",
+      "module": "",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "从底层状态机到生产避坑：4种创建方式、链式编排、多任务组合、异常兜底、超时控制、性能优化案例与9条最佳实践。",
+      "tags": [
+        "Java",
+        "并发",
+        "CompletableFuture",
+        "异步编程"
+      ],
+      "section": "learning",
+      "topic": "Java 后端",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "英语图表作文写作方法 + 预制菜真题表达范文（一篇搞定）",
       "path": "content/learning/exam-english/2026-08-28-exam-english-writing-prepared-dishes.md",
       "url": "content/learning/exam-english/2026-08-28-exam-english-writing-prepared-dishes.md",
@@ -2778,13 +2811,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 77,
+    "学习": 78,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 77,
+    "learning": 78,
     "about": 1,
     "reading": 7,
     "projects": 2
