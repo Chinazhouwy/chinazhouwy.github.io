@@ -1,6 +1,73 @@
 {
-  "generatedAt": "2026-08-28T00:00:00+08:00",
+  "generatedAt": "2026-08-30T00:00:00+08:00",
   "articles": [
+    {
+      "title": "英语写作范文：预制菜饼图图表作文（词句全部出自历年真题）",
+      "path": "content/learning/exam-english/2026-08-28-exam-english-sample-essay-prepared-dishes.md",
+      "url": "content/learning/exam-english/2026-08-28-exam-english-sample-essay-prepared-dishes.md",
+      "date": "2026-08-28",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "英语",
+      "module": "英语写作",
+      "project": "",
+      "type": "范文",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "预制菜主题图表作文范文（约150词，英语二格式），每处关键词组均逐一验证出自1998-2026历年真题原文，附完整出处对照表，可直接背诵。",
+      "tags": [
+        "英语",
+        "写作",
+        "范文",
+        "图表作文",
+        "预制菜"
+      ],
+      "section": "learning",
+      "topic": "英语写作",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
+      "title": "英语图表作文写作方法：预制菜主题（主题词三法 + 描述三档 + 三段模板）",
+      "path": "content/learning/exam-english/2026-08-28-exam-english-writing-prepared-dishes.md",
+      "url": "content/learning/exam-english/2026-08-28-exam-english-writing-prepared-dishes.md",
+      "date": "2026-08-28",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "英语",
+      "module": "英语写作",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "图表作文完整方法：预制菜主题词三种写法（直接法/形容词+名词/过去分词），图表描述初级到高级三档句式，第二段记叙文与议论文两种模板，第三段总结句式。",
+      "tags": [
+        "英语",
+        "写作",
+        "图表作文",
+        "预制菜"
+      ],
+      "section": "learning",
+      "topic": "英语写作",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
     {
       "title": "如果由你来实现 Stream，会怎么设计？——一次“重新发明”的思维之旅",
       "path": "content/learning/java/2026-08-24-stream-redesign-thinking.md",
@@ -2710,13 +2777,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 75,
+    "学习": 77,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 75,
+    "learning": 77,
     "about": 1,
     "reading": 7,
     "projects": 2
@@ -2761,7 +2828,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-08-28",
+      "date": "2026-08-30",
       "count": 0,
       "averageScore": null
     },
@@ -2770,16 +2837,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-15",
-        "count": 0,
-        "averageScore": null
-      },
-      {
-        "date": "2026-08-16",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-17",
         "count": 0,
@@ -2837,6 +2894,16 @@
       },
       {
         "date": "2026-08-28",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-08-29",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-08-30",
         "count": 0,
         "averageScore": null
       }
