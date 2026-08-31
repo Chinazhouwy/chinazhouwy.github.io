@@ -73,6 +73,39 @@
       "question": ""
     },
     {
+      "title": "Spring Bean 生命周期全解：四阶段与 16 个扩展点",
+      "path": "content/learning/java/2026-08-31-spring-bean-lifecycle-16-extensions.md",
+      "url": "content/learning/java/2026-08-31-spring-bean-lifecycle-16-extensions.md",
+      "date": "2026-08-31",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "Java 后端",
+      "module": "",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "Bean 从实例化到销毁的四阶段 16 个扩展点逐一拆解，含 Aware 家族、BeanPostProcessor、初始化/销毁回调的官方标准顺序，以及原文勘误与三个高频坑。",
+      "tags": [
+        "Spring",
+        "Bean生命周期",
+        "IOC",
+        "AOP"
+      ],
+      "section": "learning",
+      "topic": "Java 后端",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "毛著作考点时间线：四个时期标志性文章与核心论断",
       "path": "content/learning/exam-politics/2026-08-30-exam-politics-mao-articles-timeline.md",
       "url": "content/learning/exam-politics/2026-08-30-exam-politics-mao-articles-timeline.md",
@@ -2983,13 +3016,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 83,
+    "学习": 84,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 83,
+    "learning": 84,
     "about": 1,
     "reading": 7,
     "projects": 2
