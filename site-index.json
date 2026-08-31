@@ -2,6 +2,44 @@
   "generatedAt": "2026-08-31T00:00:00+08:00",
   "articles": [
     {
+      "title": "Hermes Agent 官方文档全景研读：从 429 个源码文档到可扩展运行时",
+      "path": "content/learning/ai-agent/2026-08-31-hermes-agent-official-docs-study-extension-map.md",
+      "url": "content/learning/ai-agent/2026-08-31-hermes-agent-official-docs-study-extension-map.md",
+      "date": "2026-08-31",
+      "createdAt": "2026-08-31",
+      "practicedAt": "",
+      "publishedAt": "2026-08-31",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "AI Agent",
+      "lane": "agent",
+      "module": "Hermes Agent",
+      "project": "工程源码研究",
+      "type": "技术笔记",
+      "status": "可复习",
+      "priority": "P0",
+      "energy": "high",
+      "visibility": "public",
+      "summary": "基于 Hermes Agent 官方文档、中文翻译树、用户故事和固定源码提交，梳理运行时架构、状态边界、Skills/MCP/Hooks/Plugins 扩展层级，并给出适合 Java 开发者的源码阅读与实战路线。",
+      "tags": [
+        "Hermes Agent",
+        "Agent",
+        "源码阅读",
+        "Plugins",
+        "Hooks",
+        "Skills",
+        "MCP",
+        "Java"
+      ],
+      "section": "learning",
+      "topic": "Hermes Agent",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "毛著作考点时间线：四个时期标志性文章与核心论断",
       "path": "content/learning/exam-politics/2026-08-30-exam-politics-mao-articles-timeline.md",
       "url": "content/learning/exam-politics/2026-08-30-exam-politics-mao-articles-timeline.md",
@@ -2912,13 +2950,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 81,
+    "学习": 82,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 81,
+    "learning": 82,
     "about": 1,
     "reading": 7,
     "projects": 2
