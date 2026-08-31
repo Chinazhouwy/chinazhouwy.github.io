@@ -40,6 +40,41 @@
       "question": ""
     },
     {
+      "title": "线性代数合集系列：60篇数学学习目录与路线",
+      "path": "content/learning/exam-math/2026-08-31-linear-algebra-series-index.md",
+      "url": "content/learning/exam-math/2026-08-31-linear-algebra-series-index.md",
+      "date": "2026-08-31",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "数学",
+      "module": "线性代数与数学基础合集",
+      "project": "",
+      "type": "索引",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "整理微信公众号‘线性代数合集系列’的完整目录与学习路线：从向量空间、矩阵、行列式、特征分解到奇异值分解，并收录合集中的微积分、傅里叶、概率与最小二乘拓展。",
+      "tags": [
+        "线性代数",
+        "数学基础",
+        "向量空间",
+        "矩阵",
+        "特征值",
+        "奇异值分解"
+      ],
+      "section": "learning",
+      "topic": "线性代数与数学基础合集",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "CountDownLatch、CyclicBarrier、Semaphore：三种等待语义与选型",
       "path": "content/learning/java/2026-08-31-countdownlatch-cyclicbarrier-semaphore.md",
       "url": "content/learning/java/2026-08-31-countdownlatch-cyclicbarrier-semaphore.md",
@@ -3016,13 +3051,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 84,
+    "学习": 85,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 84,
+    "learning": 85,
     "about": 1,
     "reading": 7,
     "projects": 2
