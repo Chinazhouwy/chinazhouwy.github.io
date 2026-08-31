@@ -1,6 +1,39 @@
 {
-  "generatedAt": "2026-08-31T00:00:00+08:00",
+  "generatedAt": "2026-09-01T00:00:00+08:00",
   "articles": [
+    {
+      "title": "Java Lambda 原理拆解：动态生成类与调用流程",
+      "path": "content/learning/java/2026-09-01-java-lambda-internals.md",
+      "url": "content/learning/java/2026-09-01-java-lambda-internals.md",
+      "date": "2026-09-01",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "Java 后端",
+      "module": "",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "lambda 不是匿名内部类的语法糖：javac 把方法体编译成宿主类私有静态合成方法，调用点是一条 invokedynamic，由 LambdaMetafactory 运行期生成 $$Lambda 类。含非捕获单例、捕获字段、SerializedLambda 序列化元信息与 MyBatis-Plus 取字段名原理。",
+      "tags": [
+        "Java",
+        "JVM",
+        "Lambda",
+        "函数式接口"
+      ],
+      "section": "learning",
+      "topic": "Java 后端",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
     {
       "title": "Hermes Agent 官方文档全景研读：从 429 个源码文档到可扩展运行时",
       "path": "content/learning/ai-agent/2026-08-31-hermes-agent-official-docs-study-extension-map.md",
@@ -3051,13 +3084,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 85,
+    "学习": 86,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 85,
+    "learning": 86,
     "about": 1,
     "reading": 7,
     "projects": 2
@@ -3102,7 +3135,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-08-31",
+      "date": "2026-09-01",
       "count": 0,
       "averageScore": null
     },
@@ -3111,11 +3144,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-18",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-19",
         "count": 0,
@@ -3178,6 +3206,11 @@
       },
       {
         "date": "2026-08-31",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-01",
         "count": 0,
         "averageScore": null
       }
