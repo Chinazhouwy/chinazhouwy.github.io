@@ -1,6 +1,8 @@
 ---
 title: "面试知识库 RAG 系统设计方案"
 date: "2026-07-06"
+createdAt: "2026-06-06"
+importedAt: "2026-07-06"
 domain: "项目"
 area: "自研项目"
 module: ""

@@ -1,6 +1,8 @@
 ---
 title: "Agentium MCP 工具执行机制解析"
 date: "2026-07-06"
+createdAt: "2026-06-06"
+importedAt: "2026-07-06"
 domain: "学习"
 area: "AI Agent"
 module: ""

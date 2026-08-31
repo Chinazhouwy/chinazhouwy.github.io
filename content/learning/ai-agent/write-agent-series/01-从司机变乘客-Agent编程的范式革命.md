@@ -1,6 +1,8 @@
 ---
 title: "从司机变乘客：这就是 Agent 编程的范式革命"
 date: "2026-07-06"
+createdAt: "2026-06-09"
+importedAt: "2026-07-06"
 domain: "学习"
 area: "AI Agent"
 module: ""

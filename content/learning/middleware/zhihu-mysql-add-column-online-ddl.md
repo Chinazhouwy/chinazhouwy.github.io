@@ -1,6 +1,8 @@
 ---
 title: "知乎：MySQL千万级订单表新增字段怎么弄？"
 date: "2026-07-06"
+createdAt: "2026-05-28"
+importedAt: "2026-07-06"
 domain: "学习"
 area: "数据与中间件"
 module: ""

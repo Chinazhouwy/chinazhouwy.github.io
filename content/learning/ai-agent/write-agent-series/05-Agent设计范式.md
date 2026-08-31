@@ -1,6 +1,8 @@
 ---
 title: "从零开始写 Agent（五）：聊聊 Agent 的设计范式"
 date: "2026-07-06"
+createdAt: "2026-06-09"
+importedAt: "2026-07-06"
 domain: "学习"
 area: "AI Agent"
 module: ""

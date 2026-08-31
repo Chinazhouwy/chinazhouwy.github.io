@@ -1,6 +1,8 @@
 ---
 title: "为什么 Claude Code 用 grep 不用 RAG 检索代码？"
 date: "2026-07-06"
+createdAt: "2026-05-27"
+importedAt: "2026-07-06"
 domain: "学习"
 area: "AI Agent"
 module: ""

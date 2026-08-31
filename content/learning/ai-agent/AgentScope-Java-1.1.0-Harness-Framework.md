@@ -1,6 +1,8 @@
 ---
 title: "AgentScope Java 1.1.0 Harness Framework 深度解析"
 date: "2026-07-06"
+createdAt: "2026-05-16"
+importedAt: "2026-07-06"
 domain: "学习"
 area: "AI Agent"
 module: ""

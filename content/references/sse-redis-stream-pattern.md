@@ -1,6 +1,8 @@
 ---
 title: "SSE + Redis Stream：基于事件 ID 的断线续传方案"
 date: "2026-07-06"
+createdAt: "2026-06-28"
+importedAt: "2026-07-06"
 domain: "学习"
 area: "工程与架构"
 module: "参考资料"

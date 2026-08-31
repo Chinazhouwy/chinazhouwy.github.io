@@ -1,6 +1,8 @@
 ---
 title: "高级Java工程师3道灵魂面试题"
 date: "2026-07-06"
+createdAt: "2026-05-12"
+importedAt: "2026-07-06"
 domain: "学习"
 area: "Java 后端"
 module: ""

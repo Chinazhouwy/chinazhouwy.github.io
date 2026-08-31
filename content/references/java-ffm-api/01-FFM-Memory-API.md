@@ -1,6 +1,8 @@
 ---
 title: "Java FFM API：Memory API 与堆外内存管理"
 date: "2026-07-06"
+createdAt: "2026-06-27"
+importedAt: "2026-07-06"
 domain: "学习"
 area: "Java 后端"
 module: "参考资料"

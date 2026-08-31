@@ -1,6 +1,8 @@
 ---
 title: "我们是如何让 DeepSeek 超越 Opus 4.7 的？"
 date: "2026-07-06"
+createdAt: "2026-05-20"
+importedAt: "2026-07-06"
 domain: "学习"
 area: "AI Agent"
 module: ""

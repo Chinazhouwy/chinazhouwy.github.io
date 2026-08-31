@@ -1,6 +1,8 @@
 ---
 title: "How LLMs Actually Work — LLM 内部机制长文"
 date: "2026-07-06"
+createdAt: "2026-06-27"
+importedAt: "2026-07-06"
 domain: "学习"
 area: "AI Agent"
 module: "参考资料"

@@ -1,6 +1,8 @@
 ---
 title: "程序员出海/远程工作资料"
 date: "2026-07-06"
+createdAt: "2026-05-30"
+importedAt: "2026-07-06"
 domain: "阅读"
 area: "personal-notes"
 module: ""

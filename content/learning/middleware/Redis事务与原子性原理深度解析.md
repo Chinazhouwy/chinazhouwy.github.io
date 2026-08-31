@@ -1,6 +1,8 @@
 ---
 title: "Redis事务与原子性原理深度解析"
 date: "2026-07-06"
+createdAt: "2026-01-22"
+importedAt: "2026-07-06"
 domain: "学习"
 area: "数据与中间件"
 module: ""

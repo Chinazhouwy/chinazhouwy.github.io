@@ -1,6 +1,8 @@
 ---
 title: "codex gpt 修复点"
 date: "2026-07-06"
+createdAt: "2026-06-07"
+importedAt: "2026-07-06"
 domain: "项目"
 area: "自研项目"
 module: ""
