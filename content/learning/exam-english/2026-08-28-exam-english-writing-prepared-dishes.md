@@ -1,5 +1,5 @@
 ---
-title: "英语图表作文写作方法 + 预制菜真题表达范文（一篇搞定）"
+title: "英语图表作文写作方法 + 预制菜范文（一篇搞定）"
 date: "2026-08-28"
 domain: "学习"
 area: "英语"
@@ -10,7 +10,7 @@ status: "可复习"
 priority: "P1"
 energy: "medium"
 visibility: "public"
-summary: "图表作文完整方法与一篇 147 词范文：36 个核心表达在 46 份单年真题中精确命中，10 个长表达明确标为组合，并附可复核证据。"
+summary: "图表作文完整方法与一篇约 150 词范文，优先复用历年真题中出现过的自然表达，并附少量值得背诵的出处。"
 tags:
   - 英语
   - 写作
@@ -24,8 +24,7 @@ tags:
 > 来源：微信公众号（顾不得）文章
 > 链接：<https://mp.weixin.qq.com/s/KB2LMnHXaoCWWwIcOM9MUw>
 > 整理时间：2026-08-28
-> 真题语料来源：<https://github.com/Fantasia1999/kaoyanzhenti>，固定提交 `6da0983f832dcf32bba90a4472b11f0891f9c2fc`
-> 核验口径：只统计 1998-2026 的 46 份单年试卷，排除 3 份多年合订本；36 个核心表达为完整精确命中，10 个长表达仅为组合
+> 真题表达参考：<https://github.com/Fantasia1999/kaoyanzhenti>
 
 图表作文常见要求是 "Write an essay based on the chart below... describe and interpret the chart, and give your comments"。考场上看到这样的题目，第一步是思考主题词的英文怎么写。
 
@@ -93,7 +92,7 @@ tags:
 
 ---
 
-# 完整范文（预制菜饼图，147 词，核心表达经过真题核验）
+# 完整范文（预制菜饼图，约 150 词）
 
 ## 预测题
 
@@ -113,64 +112,33 @@ According to the chart, "Fast Service" is the top reason for local residents to 
 
 **Paragraph 2 — 解读含义**
 
-The chart reflects the changes in people's lifestyles. With the accelerating pace of life, a growing number of people are too busy to cook at home. Therefore, convenience plays a significant role in their choice of meals. Moreover, the improved quality of prepared dishes contributes to their growing popularity.
+The chart reflects changes in people's lifestyles. As the pace of life accelerates, a growing number of people are too busy to cook at home. Convenience therefore plays a significant role in their choice of meals. Moreover, improvements in food quality contribute to the growing popularity of prepared dishes.
 
 **Paragraph 3 — 发表评论**
 
-In my view, prepared dishes are convenient, but we should not overlook the potential risks. On the one hand, the government should strengthen the supervision of the food industry to protect people's health. On the other hand, we should develop healthy eating habits. In conclusion, while enjoying the convenience, we should also keep a healthy diet.
+In my view, prepared dishes are convenient, but we should not overlook the potential risks. On the one hand, the government should regulate the food industry more effectively to protect public health. On the other hand, consumers should develop healthy eating habits. In conclusion, convenience should not come at the expense of a healthy diet.
 
-## 真题表达核验
+## 值得借用的真题表达
 
-这里核验的是值得复用的核心表达，不是把范文的每个普通单词都算一次。机器报告位于
-`data/exam-english/prepared-dishes-phrase-report.json`，配置位于
-`data/exam-english/prepared-dishes-phrases.json`。
+这篇范文优先复用了历年真题中完整出现过、放进本文也自然的表达。下面只列真正值得背的几组，不做命中率统计：
 
-### 完整精确命中
-
-下列反引号中的表达都在同一份单年试卷里连续出现；表中只列代表性出处，完整命中文档列表见机器报告。
-
-| 核心表达 | 代表性真题出处 |
+| 表达 | 真题出处示例 |
 |---|---|
-| `according to`、`the chart` | `according to` 在 46/46 份单年试卷中出现；`the chart` 见 2010 英语二等 |
 | `the top reason` | 2018 英语一 |
-| `local residents` | 2020 英语二、2024 英语一 |
 | `accounting for` | 2016、2021、2026 英语二 |
-| `make up`、`respectively` | 1998 通用卷、2010 英语二等 |
-| `reflects the`、`lifestyles` | 2025 英语二；2014、2016 英语二等 |
-| `accelerating`、`pace of life` | 2014/2017/2022 英语二；2016 英语二 |
 | `a growing number of` | 2013、2023 英语一 |
-| `too busy`、`at home` | 2016 英语二；2010 英语一等 |
 | `plays a significant role` | 2026 英语二 |
-| `convenience`、`contributes to` | 2024 英语一、2025/2026 英语二；2017 英语一、2022 英语二 |
-| `In my view`、`potential risks` | 2014 英语一；2013 英语一 |
-| `On the one hand`、`On the other hand` | 2007 通用卷、2018 英语一等 |
-| `food industry`、`people's health` | 2011 英语二；2025 英语二 |
-| `eating habits`、`healthy diet` | 2022 英语二；2011 英语二 |
-| `In conclusion`、`reasonable prices` | 2016 英语二、2024 英语一；2025 英语二 |
+| `contributes to` | 2017 英语一、2022 英语二 |
+| `potential risks` | 2013 英语一 |
+| `On the one hand ... On the other hand` | 2007 通用卷、2018 英语一 |
+| `food industry` | 2011 英语二 |
+| `eating habits` | 2022 英语二 |
+| `In conclusion` | 2016 英语二、2024 英语一 |
 
-另外，`growing`、`popularity`、`strengthen`、`supervision`、`protect`、`healthy`、`while`、`enjoy` 和 `keep` 也分别精确命中，但单个普通词只作为组合证据，不包装成“真题固定搭配”。
-
-### 组合表达（不是整句命中）
-
-以下长表达本身没有在语料中连续出现，只能说明组成部分分别有真题依据。它们是本范文的正常组句，不能写成“整句出自真题”。
-
-| 范文中的组合表达 | 已精确命中的组成部分 |
-|---|---|
-| `According to the chart` | `according to` + `the chart` |
-| `reflects the changes in people's lifestyles` | `reflects the` + `lifestyles` |
-| `With the accelerating pace of life` | `accelerating` + `pace of life` |
-| `too busy to cook at home` | `too busy` + `at home` |
-| `growing popularity` | `growing` + `popularity` |
-| `strengthen the supervision` | `strengthen` + `supervision` |
-| `protect people's health` | `protect` + `people's health` |
-| `healthy eating habits` | `healthy` + `eating habits` |
-| `while enjoying the convenience` | `while` + `enjoy` + `convenience` |
-| `keep a healthy diet` | `keep` + `healthy diet` |
-
-`prepared dishes`、`pre-cooked meals`、`fast service`、`consistent food quality` 和 `wide variety of dishes` 是本题主题词，来自原始公众号材料，不在历史真题语料中，因而单独标明来源而不冒充真题表达。
+`prepared dishes` 等主题词来自本次题目材料。真题语料负责提供自然的通用表达，不需要硬把每个主题词都从旧题里找出来。
 
 ## 使用说明
 
 1. **背诵优先段落 2、3**：段 1 描述数据随题变化，段 2、3 是"万金油"句式，可套任意图表作文
 2. **替换数据即可复用**：把 32%/20%/18%/16%/14% 换成实际图表比例，第一段即成
-3. **对照表价值**：优先背“完整精确命中”的通用表达；组合表达用于理解组句方式，不把语料出现误解成阅卷加分保证
+3. **表达表的用法**：优先记住可以迁移到其他作文里的通用表达，主题词则根据实际题目替换
