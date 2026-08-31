@@ -40,6 +40,39 @@
       "question": ""
     },
     {
+      "title": "CountDownLatch、CyclicBarrier、Semaphore：三种等待语义与选型",
+      "path": "content/learning/java/2026-08-31-countdownlatch-cyclicbarrier-semaphore.md",
+      "url": "content/learning/java/2026-08-31-countdownlatch-cyclicbarrier-semaphore.md",
+      "date": "2026-08-31",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "Java 后端",
+      "module": "",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "三个工具都会让线程等一等，但等的东西完全不同：Latch 等事情做完、Barrier 等队友到齐、Semaphore 等名额空出。含代码演示、4 个坑、面试四步回答法与 AQS 加分点。",
+      "tags": [
+        "Java",
+        "并发",
+        "JUC",
+        "线程同步"
+      ],
+      "section": "learning",
+      "topic": "Java 后端",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "毛著作考点时间线：四个时期标志性文章与核心论断",
       "path": "content/learning/exam-politics/2026-08-30-exam-politics-mao-articles-timeline.md",
       "url": "content/learning/exam-politics/2026-08-30-exam-politics-mao-articles-timeline.md",
@@ -2950,13 +2983,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 82,
+    "学习": 83,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 82,
+    "learning": 83,
     "about": 1,
     "reading": 7,
     "projects": 2
