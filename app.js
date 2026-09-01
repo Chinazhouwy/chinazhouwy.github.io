@@ -131,7 +131,26 @@ const state = {
   timelineVisibleDays: 12,
 };
 
+const SYNTAX_HIGHLIGHTER_URL = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/highlight.min.js";
+const CODE_LANGUAGE_ALIASES = Object.freeze({
+  conf: "ini",
+  dotenv: "ini",
+  env: "ini",
+  html: "xml",
+  mermaid: "plaintext",
+  plain: "plaintext",
+  properties: "ini",
+  redis: "plaintext",
+  sh: "bash",
+  shell: "bash",
+  text: "plaintext",
+  ts: "typescript",
+  txt: "plaintext",
+  vue: "xml",
+});
+
 let markdownLibrariesPromise = null;
+let syntaxHighlighterPromise = null;
 
 function loadExternalScript(src, globalName) {
   if (window[globalName]) return Promise.resolve(window[globalName]);
@@ -179,6 +198,53 @@ function ensureMarkdownLibraries() {
   }
 
   return markdownLibrariesPromise;
+}
+
+function ensureSyntaxHighlighter() {
+  if (window.hljs) return Promise.resolve(window.hljs);
+
+  if (!syntaxHighlighterPromise) {
+    syntaxHighlighterPromise = loadExternalScript(SYNTAX_HIGHLIGHTER_URL, "hljs")
+      .then(() => window.hljs || null)
+      .catch(() => {
+        syntaxHighlighterPromise = null;
+        return null;
+      });
+  }
+
+  return syntaxHighlighterPromise;
+}
+
+function codeLanguage(code, highlighter) {
+  const languageClass = Array.from(code.classList).find((name) => name.startsWith("language-"));
+  const requested = languageClass ? languageClass.slice("language-".length).toLowerCase() : "plaintext";
+  const normalized = CODE_LANGUAGE_ALIASES[requested] || requested;
+  return highlighter.getLanguage(normalized) ? normalized : "plaintext";
+}
+
+function highlightCodeBlocks(root) {
+  const blocks = Array.from(root?.querySelectorAll("pre code") || []);
+  if (!blocks.length) return Promise.resolve();
+
+  return ensureSyntaxHighlighter().then((highlighter) => {
+    if (!highlighter || !root.isConnected) return;
+
+    blocks.forEach((code) => {
+      if (code.dataset.highlighted === "yes") return;
+
+      const languageClass = Array.from(code.classList).find((name) => name.startsWith("language-"));
+      const requested = languageClass ? languageClass.slice("language-".length).toLowerCase() : "plaintext";
+      const language = codeLanguage(code, highlighter);
+      if (languageClass && requested !== language) code.classList.remove(languageClass);
+      code.classList.add(`language-${language}`);
+
+      try {
+        highlighter.highlightElement(code);
+      } catch {
+        code.classList.add("hljs");
+      }
+    });
+  });
 }
 
 function escapeHtml(value = "") {
@@ -2115,6 +2181,7 @@ async function renderAbout() {
         <article class="article-body about-body">${rendered}</article>
       </section>
     `;
+    void highlightCodeBlocks(document.querySelector(".about-body"));
     document.title = "关于 WY · 星云档案";
   } catch (error) {
     renderError("个人介绍加载失败", `${error.message}。请检查文件权限或稍后重试。`, true);
@@ -2229,7 +2296,9 @@ async function renderArticle(rawPath, requestedSection = "") {
         </main>
       </section>
     `;
-    const toc = createToc(document.getElementById("article-body"), articleRoute);
+    const articleBody = document.getElementById("article-body");
+    void highlightCodeBlocks(articleBody);
+    const toc = createToc(articleBody, articleRoute);
     const desktopToc = document.getElementById("article-toc");
     const mobileToc = document.getElementById("mobile-article-toc");
     desktopToc.innerHTML = toc.html;
@@ -2328,7 +2397,7 @@ async function renderRoute() {
 
 }
 
-const BUILD_VERSION = "20260830-1";
+const BUILD_VERSION = "20260901-1";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy] = await Promise.all([
