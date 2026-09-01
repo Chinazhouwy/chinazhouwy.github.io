@@ -2397,7 +2397,7 @@ async function renderRoute() {
 
 }
 
-const BUILD_VERSION = "20260901-1";
+const BUILD_VERSION = "20260901-2";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy] = await Promise.all([

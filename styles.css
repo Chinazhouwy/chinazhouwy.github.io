@@ -12775,6 +12775,15 @@ html[data-theme] .directory-group {
   gap: 28px;
 }
 
+/* Align each directory heading with the first article title, not the list border. */
+html[data-theme] .directory-group:not(.reading-group) > header {
+  padding-top: 12px;
+}
+
+html[data-theme] .reading-directory-page .reading-group-code {
+  margin-bottom: 2px;
+}
+
 html[data-theme] .article-row.article-row--no-index {
   grid-template-columns: minmax(0, 1fr);
   gap: 0;
@@ -13029,6 +13038,10 @@ html[data-theme] .timeline-page .timeline-day .arrow-icon {
 
   html[data-theme] .directory-group > header {
     margin-bottom: 12px;
+  }
+
+  html[data-theme] .directory-group:not(.reading-group) > header {
+    padding-top: 0;
   }
 
   html[data-theme] .article-row.article-row--no-index {
