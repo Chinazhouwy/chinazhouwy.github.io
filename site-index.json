@@ -20,7 +20,7 @@
       "priority": "P1",
       "energy": "medium",
       "visibility": "public",
-      "summary": "用可运行的 Java、最低限度 C 语法、手工推演和 Debug，把统考数据结构从背诵对象变成可验证的程序模型。",
+      "summary": "用可运行的 Java、强制 C 双写、手工推演和 Debug，把数据结构 Coding、复杂度计算与计算机基础统考考法连成闭环。",
       "tags": [
         "计算机学科专业基础",
         "数据结构",

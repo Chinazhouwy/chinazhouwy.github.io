@@ -11,7 +11,7 @@ priority: "P1"
 energy: "medium"
 visibility: "public"
 lane: theory
-summary: "用可运行的 Java、最低限度 C 语法、手工推演和 Debug，把统考数据结构从背诵对象变成可验证的程序模型。"
+summary: "用可运行的 Java、强制 C 双写、手工推演和 Debug，把数据结构 Coding、复杂度计算与计算机基础统考考法连成闭环。"
 tags:
   - 计算机学科专业基础
   - 数据结构
@@ -26,7 +26,7 @@ tags:
 
 ## 先确定边界：这篇文章学什么，不学什么
 
-截至 2026-09-01，教育部公开的研究生招生规定仍将“计算机学科专业基础”列为全国统一命题科目。高等教育出版社公开的考纲解析目录中，数据结构部分的主干仍是：基本概念、线性表、栈队列与数组、树、图、查找、字符串模式匹配和排序。本文据此组织内容，并以当年正式出版的考试大纲为最终准绳。
+截至 2026-09-01，教育部公开的研究生招生规定仍将“计算机学科专业基础”列为全国统一命题科目。高等教育出版社公开的考纲解析目录中，数据结构部分的主干仍是：基本概念、线性表、栈队列与数组、树、图、查找、字符串模式匹配和排序，其中外部排序是正式小节。本文据此组织内容，并以当年正式出版的考试大纲为最终准绳。
 
 本文覆盖计算机学科专业基础考试的数据结构主线，但不向 ACM、LeetCode 竞赛技巧、Spring、并发或分布式系统扩展。各知识点不平均用力：
 
@@ -36,7 +36,7 @@ tags:
 | A：能补全与推演 | 看懂代码，补关键语句，手算过程 | AVL、Prim、Kruskal、Floyd、拓扑排序、关键路径、Hash |
 | B：理解结构与性质 | 会画图、比较、判断，不追求完整工程实现 | 红黑树、B/B+ 树、线索树、外部排序 |
 
-参考范围：[高教社《计算机学科专业基础考试大纲解析》目录](https://xuanshu.hep.com.cn/front/book/findBookDetails?bookId=66be3cd574ce561611bda4db)、[研招网公开的计算机学科考试大纲](https://yz.chsi.com.cn/kyzx/zyk/201209/20120917/343200917.html)、[教育部 2026 年硕士研究生招生工作管理规定](https://www.moe.gov.cn/srcsite/A15/moe_778/s3261/202509/t20250918_1413836.html)。
+参考范围：[高教社《计算机学科专业基础考试大纲解析》目录](https://xuanshu.hep.com.cn/front/h5Mobile/bookDetails?bookId=68b8764ae119ac9729e8a8bc)、[高教社配套习题目录](https://xuanshu.hep.com.cn/front/h5Mobile/bookDetails?bookId=6852f178e119ac9729287abb)、[高教社《数据结构——用 C 语言描述（第 3 版）》](https://xuanshu.hep.com.cn/front/book/findBookDetails?bookId=6052fbafadb85dae6a2f3dab)、[研招网公开的计算机学科考试大纲](https://yz.chsi.com.cn/kyzx/zyk/201209/20120917/343200917.html)、[教育部 2026 年硕士研究生招生工作管理规定](https://www.moe.gov.cn/srcsite/A15/moe_778/s3261/202509/t20250918_1413836.html)。
 
 ## 一套适合碎片时间的闭环
 
@@ -73,7 +73,8 @@ data-structure-algorithm-lab/
 │   ├── tree/         # 遍历、BST、AVL、Huffman、并查集
 │   ├── graph/        # 存储、遍历、MST、最短路、AOE
 │   ├── search/       # 折半、分块、Hash
-│   └── sort/         # 八类内部排序
+│   └── sort/         # 内部排序与多路归并模拟
+├── c/                # 14 个 S 级算法的 C 双写版本
 ├── cases/            # 每个算法的输入与期望输出
 └── notes/            # 手算过程、复杂度、C 写法、错题
 ```
@@ -131,6 +132,57 @@ static Node pushFront(Node head, int value) {
 
 必须分清三种参数效果：值传递不会改调用方变量；传指针可以改指针指向的数据；传二级指针可以改调用方保存的指针。Java 永远是值传递，只是对象引用这个“值”让你可以改对象字段，不能直接把调用方的 `head` 变量换掉。
 
+## 第零站：基本概念，先分清“关系”和“实现”
+
+高教社公开的解析目录把“数据结构的基本概念”和“算法与算法评价”单列为第一章。这部分 Coding 量很小，却决定选择题中的术语和复杂度判断是否稳定。
+
+### 一组不能混用的词
+
+| 概念 | 含义 | 例子 |
+| --- | --- | --- |
+| 数据 | 能被计算机识别和处理的符号集合 | 整数、字符、图像像素、订单记录 |
+| 数据元素 | 讨论中的基本单位 | 一名学生、一条边、一个数组元素 |
+| 数据项 | 构成数据元素的不可分割字段 | 学号、边权、关键字 |
+| 数据对象 | 性质相同的数据元素集合 | 全部学生记录、图中的顶点集合 |
+
+数据结构要同时回答三件事：元素之间是什么关系，关系如何存进内存，允许对它做什么操作。
+
+```text
+数据结构 = 逻辑结构 + 存储结构 + 数据运算
+```
+
+| 维度 | 分类 | 只问什么 |
+| --- | --- | --- |
+| 逻辑结构 | 集合、线性、树形、图状 | 元素之间的抽象关系 |
+| 存储结构 | 顺序、链式、索引、散列 | 这种关系怎样落到内存 |
+
+Java 中最直接的类比是“接口与实现”：
+
+```java
+interface IntList {                 // ADT：声明逻辑和操作
+    int get(int index);
+    void add(int index, int value);
+    int remove(int index);
+}
+
+// 同一个线性表 ADT，可以有两种物理实现：
+// SeqList          -> 连续数组，顺序存储
+// SinglyLinkedList -> 节点引用，链式存储
+```
+
+ADT 只规定数据对象、关系和操作语义，不规定字段布局。`List` 是逻辑上的线性表，`ArrayList` 与 `LinkedList` 才是不同存储实现；不能把“线性结构”等同于“数组”。
+
+### 算法评价先固定输入规模
+
+算法通常要求有穷性、确定性、可行性，可以有零个或多个输入，但至少有一个输出。评价复杂度时先定义输入规模 `n`，再数基本操作执行次数；忽略常数、低阶项和不影响增长阶的系数。
+
+```text
+T(n) = 3n² + 5n + 8  -> O(n²)
+S(n) = 2n + 32       -> O(n)
+```
+
+必须分清最好、平均和最坏情况，也要把递归栈、临时数组、队列等辅助空间算进去。原地算法通常指辅助空间为 `O(1)`，不是“完全不使用任何变量”。遇到代码题先写清 `n` 代表数组长度、节点数还是顶点数，后面的复杂度结论才有意义。
+
 ## 第一站：线性表，把引用翻译成指针
 
 ### 顺序表：重点是搬移，不是 `ArrayList`
@@ -177,6 +229,72 @@ public final class SeqList {
 ```
 
 随机访问是 `O(1)`；按位置插入、删除平均和最坏都是 `O(n)`，因为要搬元素。动态扩容的单次成本是 `O(n)`，连续尾插通常讨论均摊 `O(1)`。试题经常区分“某次操作”和“连续操作”，不要把两者混为一谈。
+
+### 静态链表：用数组下标模拟指针
+
+静态链表把节点放进固定数组，`next` 保存的不是 `Node` 引用，而是下一个节点的数组下标。`-1` 相当于 `NULL`。它适合没有指针或不允许动态分配内存的环境，也经常用于比较顺序表、普通链表和游标实现。
+
+```java
+static final class StaticLinkedList {
+    private static final int NIL = -1;
+
+    static final class Cell {
+        int data;
+        int next;
+    }
+
+    private final Cell[] cells;
+    private int head = NIL;
+    private int freeHead;
+
+    StaticLinkedList(int capacity) {
+        cells = new Cell[capacity];
+        for (int i = 0; i < capacity; i++) {
+            cells[i] = new Cell();
+            cells[i].next = i + 1 < capacity ? i + 1 : NIL;
+        }
+        freeHead = capacity == 0 ? NIL : 0;
+    }
+
+    private int allocate(int value) {
+        if (freeHead == NIL) throw new IllegalStateException("full");
+        int index = freeHead;
+        freeHead = cells[index].next;
+        cells[index].data = value;
+        cells[index].next = NIL;
+        return index;
+    }
+
+    private void release(int index) {
+        cells[index].next = freeHead;
+        freeHead = index;
+    }
+
+    int insertAfter(int previous, int value) {
+        int node = allocate(value);
+        if (previous == NIL) {
+            cells[node].next = head;
+            head = node;
+        } else {
+            cells[node].next = cells[previous].next;
+            cells[previous].next = node;
+        }
+        return node;
+    }
+
+    int removeAfter(int previous) {
+        int target = previous == NIL ? head : cells[previous].next;
+        if (target == NIL) throw new IllegalStateException("nothing to remove");
+        if (previous == NIL) head = cells[target].next;
+        else cells[previous].next = cells[target].next;
+        int value = cells[target].data;
+        release(target);
+        return value;
+    }
+}
+```
+
+这里同时维护两条链：`head` 串起已使用节点，`freeHead` 串起空闲槽位。已知前驱下标时插删为 `O(1)`，按值查找仍为 `O(n)`；容量固定、不能直接按逻辑位置随机访问。亲手写一次分配、回收和首节点插删就够了，不值得扩成通用容器。
 
 ### 单链表：所有算法都先问“谁会丢”
 
@@ -436,6 +554,28 @@ static void postorderIterative(TreeNode root) {
 | 含 `n` 个节点的完全二叉树高度 | `floor(log2 n) + 1` |
 | 0 下标完全二叉树 | 左孩子 `2i+1`，右孩子 `2i+2`，父节点 `(i-1)/2` |
 
+### 树的计算题与卡特兰数
+
+树中有 `n` 个节点就有 `n-1` 条边，因此所有节点的度数之和也是 `n-1`。很多公式不必死背：画出“节点数、边数、各度节点数”的关系再列方程，更不容易混用二叉树和普通树的结论。
+
+卡特兰数解决的是一类“左右有序、递归地拆成左右两部分”的计数问题：
+
+```text
+C0 = 1
+Cn = 1 / (n + 1) * C(2n, n)
+Cn = Σ Ci * C(n - 1 - i)，其中 i = 0..n-1
+
+C0, C1, C2, C3, C4 = 1, 1, 2, 5, 14
+```
+
+计算机基础数据结构中常见三个入口：
+
+1. `n` 个节点只计左右有序形态时，不同二叉树形态数为 `Cn`。
+2. `1..n` 依次入栈时，合法出栈序列数为 `Cn`。
+3. `n` 个互异关键字的中序次序固定时，不同二叉排序树形态数为 `Cn`。
+
+“节点互异”不能直接推出答案是 `Cn`。如果普通二叉树的 `n` 个节点标签还能任意排列，总数是 `n! * Cn`；只有形态计数，或二叉排序树已经由关键字大小固定中序次序时，才直接使用卡特兰数。它属于手算知识，不需要为了公式再写一个 Java 工程。
+
 线索二叉树利用空的左右指针保存遍历前驱和后继，并用 `ltag/rtag` 区分“孩子边”和“线索边”。它的重点是画线索、找前驱后继，不是默写一套大型 Java 类。
 
 树/森林转二叉树使用“左孩子、右兄弟”：树节点的第一个孩子变成左孩子，下一个兄弟变成右孩子。口诀只是入口，必须画一棵至少有三兄弟、某个孩子还有孩子的树验证。
@@ -520,6 +660,40 @@ final class UnionFind {
 ## 第六站：图，先固定存储再谈算法
 
 邻接矩阵 `matrix[u][v]` 查边 `O(1)`，空间 `O(V²)`，适合稠密图；邻接表空间 `O(V+E)`，遍历某顶点邻边更自然，适合稀疏图。无向图每条边在邻接表中出现两次，计算度数和边数时别重复。
+
+### 十字链表与邻接多重表：只认边节点字段
+
+这两种结构的价值是让一条边只保存一次，同时仍能沿某个顶点找到相关边。它们属于结构识别题，不进入 Java 必写清单。
+
+```text
+有向图：十字链表
+
+顶点节点 Vertex
+├── firstOut  -> 第一条以该点为弧尾的弧
+└── firstIn   -> 第一条以该点为弧头的弧
+
+弧节点 Arc
+├── tail      -> 弧尾顶点下标
+├── head      -> 弧头顶点下标
+├── tailLink  -> 下一条弧尾相同的弧
+└── headLink  -> 下一条弧头相同的弧
+```
+
+十字链表把邻接表和逆邻接表交叉在同一批弧节点上，适合同时求出度、入度和删除有向边。
+
+```text
+无向图：邻接多重表
+
+顶点节点 Vertex
+└── firstEdge -> 第一条与该点关联的边
+
+边节点 Edge
+├── iVertex / jVertex -> 边的两个端点
+├── iLink             -> 下一条与 iVertex 关联的边
+└── jLink             -> 下一条与 jVertex 关联的边
+```
+
+看到边节点时，先根据当前顶点等于 `iVertex` 还是 `jVertex`，决定沿 `iLink` 还是 `jLink` 继续。会画一张包含三条边的结构图、解释为何便于删边即可，不必手写完整实现。
 
 ### BFS 与 DFS
 
@@ -874,6 +1048,73 @@ static void mergeSort(int[] a, int left, int right, int[] temp) {
 
 时间始终是 `O(n log n)`，辅助数组 `O(n)`，递归栈 `O(log n)`。`a[i] <= a[j]` 时先拿左段元素，保住相等元素原有顺序，因此稳定。外部排序以归并为核心，是因为每次只需顺序读取若干归并段，不要求所有数据进入内存。
 
+## 外部排序：优化对象是磁盘 I/O，不是 CPU 比较次数
+
+内部排序假设数据能放进内存；外部排序面对的是数据量大于可用内存的情况。基本流程只有两步：先分批读入内存并生成若干个内部有序的初始归并段，再反复做多路归并，直到只剩一个有序文件。
+
+```text
+原始文件
+  ↓ 每次读入内存可容纳的一批记录
+内部排序
+  ↓
+初始归并段 R1, R2, ..., Rr
+  ↓ k 路归并若干趟
+有序文件
+```
+
+若共有 `N` 条记录，内存一次容纳 `M` 条，固定分块生成的初始归并段数约为：
+
+```text
+r = ceil(N / M)
+```
+
+每次最多归并 `k` 段时，平衡归并需要的趟数为：
+
+```text
+passes = ceil(log_k r)
+```
+
+每一趟都要顺序读完并写回全部记录，所以合并阶段的记录传输量近似 `2N * passes`。例如 `N=10000`、`M=1000`，初始有 10 段：二路归并需要 4 趟，五路归并只需 2 趟。增加 `k` 可以减少趟数，但至少需要 `k` 个输入缓冲区和 1 个输出缓冲区，不能无限增大。
+
+### 用数组模拟一次多路归并
+
+下面不碰文件系统，只把每个已排序数组看成一个归并段。它刻意使用线性扫描选择当前最小值，让过程容易单步；真正的大规模归并会用败者树把选最小值从 `O(k)` 降到 `O(log k)`。
+
+```java
+static int[] mergeSortedRuns(int[][] runs) {
+    int total = 0;
+    for (int[] run : runs) total += run.length;
+    int[] position = new int[runs.length];
+    int[] output = new int[total];
+
+    for (int out = 0; out < total; out++) {
+        int winner = -1;
+        for (int r = 0; r < runs.length; r++) {
+            if (position[r] >= runs[r].length) continue;
+            if (winner == -1 || runs[r][position[r]] < runs[winner][position[winner]]) {
+                winner = r;
+            }
+        }
+        output[out] = runs[winner][position[winner]++];
+    }
+    return output;
+}
+```
+
+用 `[[2,9,18], [1,7,20], [3,4,15]]` 调试时，只盯 `position`、`winner` 和输出区。全部记录只写一次，但每次选胜者要扫描 `k` 段，总比较成本为 `O(Nk)`；败者树或小根堆可降为 `O(N log k)`。
+
+### 败者树、置换选择与最佳归并树各解决什么
+
+| 技术 | 解决的问题 | 必须记住的动作 |
+| --- | --- | --- |
+| 败者树 | `k` 路归并时反复选最小记录 | 内部节点保存比较中的败者，胜者向上；输出一个记录后只重赛该叶到根的路径 |
+| 置换选择 | 固定内存下生成更长的初始归并段 | 小根堆输出当前最小值；新读记录若小于本段最后输出值，就冻结到下一段 |
+| 最佳归并树 | 各归并段长度不同时减少总读写量 | 把段长当权值，按 Huffman 思想优先合并较短归并段 |
+
+置换选择生成的段长不再被 `M` 严格限制，可能明显长于内存容量，但输入次序极差时也可能很短。`k` 路最佳归并树若不满足 `(r - 1) mod (k - 1) = 0`，要补权值为 0 的虚段，使每个内部节点都能按 `k` 路合并，再按 Huffman 思想计算最小带权路径长度。
+
+外部排序的高频考法不是让你实现磁盘系统，而是：根据内存容量算初始段数，根据 `k` 算归并趟数与 I/O，根据段长画最佳归并树，或解释败者树与置换选择分别减少了哪一部分成本。
+
 ## 从代码反推复杂度
 
 | 代码形态 | 识别方法 | 复杂度 |
@@ -930,24 +1171,80 @@ while (cur != NULL) {
 head = prev;
 ```
 
-算法控制流完全相同，只有对象访问方式不同。考试书写遵循四条：先写结构约定；变量名体现角色；关键边界不省略；写完补时间和空间复杂度。不要把 Java API 名字机械翻译成 C，而要翻译数据结构本身。
+算法控制流完全相同，变化的是数据载体、长度传递方式和内存责任。链表代表“指针 + 节点”这一类迁移；数组算法则通常只需要把 `a.length` 改成显式参数。
+
+下面的 C 快排与前文 Java 版保持同一种填坑式分区，控制流可以逐行对应：
+
+```c
+static int partition(int a[], int low, int high) {
+    int pivot = a[low];
+    while (low < high) {
+        while (low < high && a[high] >= pivot) high--;
+        a[low] = a[high];
+        while (low < high && a[low] <= pivot) low++;
+        a[high] = a[low];
+    }
+    a[low] = pivot;
+    return low;
+}
+
+void quick_sort(int a[], int low, int high) {
+    if (low >= high) return;
+    int pivot = partition(a, low, high);
+    quick_sort(a, low, pivot - 1);
+    quick_sort(a, pivot + 1, high);
+}
+```
+
+### 14 个 S 级算法强制双写一次
+
+不是每个算法都长期维护两份，而是以下 14 个算法至少完成一次 Java → C 的独立转写。表中的函数签名本身就是纸面训练入口。
+
+| 双写项 | C 入口建议 | 迁移时必须处理 |
+| --- | --- | --- |
+| 顺序表插删 | `int seq_insert(int a[], int *n, int capacity, int index, int value)` | 数组不带长度，修改逻辑长度要传 `int *n` |
+| 单链表插删与逆置 | `Node *list_reverse(Node *head)` | `.` 变 `->`，首节点变化时返回新头或传 `Node **` |
+| 循环队列 | `int enqueue(Queue *q, int value)` | `front/rear` 约定、判满公式、结构体地址 |
+| 二叉树遍历 | `void preorder(const TreeNode *root)` | 空指针、递归返回条件、节点生命周期 |
+| BST 插入与删除 | `TreeNode *bst_delete(TreeNode *root, int key)` | 子树新根必须通过返回值接回父节点 |
+| KMP | `int kmp(const char text[], const char pattern[], const int next[])` | 字符串结尾、数组长度、下标定义一致 |
+| BFS | `void bfs(int n, int graph[MAX_V][MAX_V], int start)` | 手写数组队列与 `visited`，二维数组第二维固定 |
+| DFS | `void dfs(int n, int graph[MAX_V][MAX_V], int u, int visited[])` | 递归边界与非连通图的外层循环 |
+| Dijkstra | `void dijkstra(int n, int graph[MAX_V][MAX_V], int source, int dist[])` | 无穷大、防溢出、固定集合与距离数组 |
+| 折半查找 | `int binary_search(const int a[], int n, int target)` | 显式长度、闭区间边界、`low <= high` |
+| QuickSort | `void quick_sort(int a[], int low, int high)` | 分区模板不能混用，递归区间排除枢轴 |
+| HeapSort | `void heap_sort(int a[], int n)` | 0/1 下标统一，已排序区不能再入堆 |
+| MergeSort | `void merge_sort(int a[], int left, int right, int temp[])` | 辅助数组由调用方提供，合并边界完整 |
+| Hash 开放定址 | `int hash_search(const int table[], const unsigned char state[], int m, int key)` | 空槽与已删除槽分开，探测最多 `m` 次 |
+
+### 双写的验收不是“翻译完能编译”
+
+每一对实现使用同一组输入和中间状态断言。C 版至少用严格警告和运行时检查编译一次：
+
+```bash
+cc -std=c11 -Wall -Wextra -Werror \
+  -fsanitize=address,undefined -g quick_sort.c -o quick_sort
+./quick_sort
+```
+
+验收顺序固定为：先让 Java 输出关键中间状态，再让 C 输出完全相同的状态；随后测空结构、单元素、重复值、逆序和越界；使用 `malloc` 的实验必须释放内存；最后在纸上重写一次核心函数签名和循环。考试书写仍遵循四条：先写结构约定；变量名体现角色；关键边界不省略；写完补时间和空间复杂度。不要把 Java API 名字机械翻译成 C，而要翻译数据结构本身。
 
 ## 12 周线性 Coding 路线
 
 | 周 | 主线 | 当周验收 |
 | --- | --- | --- |
-| 1 | 顺序表、单链表 | 独立写插删查、逆置、合并 |
-| 2 | 双/循环链表、栈、循环队列 | 画清头节点与 front/rear |
-| 3 | 特殊矩阵、BF、KMP | 手算 next/nextval，代码可单步 |
-| 4 | 二叉树递归遍历与性质 | 从遍历序列还原访问过程 |
+| 1 | 基本概念、顺序表、静态链表、单链表 | 分清逻辑/存储结构，完成顺序表与单链表 C 双写 |
+| 2 | 双/循环链表、栈、循环队列 | 画清头节点与 `front/rear`，完成循环队列 C 双写 |
+| 3 | 特殊矩阵、BF、KMP | 手算 `next/nextval`，完成 KMP C 双写 |
+| 4 | 二叉树递归遍历、性质、卡特兰数 | 会列树计算方程，完成遍历 C 双写 |
 | 5 | 非递归遍历、线索树、树森林转换 | 能画显式栈与线索 |
-| 6 | BST、AVL、Huffman、并查集 | 删除、旋转、WPL、路径压缩 |
-| 7 | 图存储、BFS、DFS | 矩阵/邻接表复杂度不混 |
-| 8 | Prim、Kruskal、Dijkstra、Floyd | 会选算法并手算数组 |
+| 6 | BST、AVL、Huffman、并查集 | 删除、旋转、WPL、路径压缩，完成 BST C 双写 |
+| 7 | 四种图存储、BFS、DFS | 能识别边节点字段，完成 BFS/DFS C 双写 |
+| 8 | Prim、Kruskal、Dijkstra、Floyd | 会选算法并手算数组，完成 Dijkstra C 双写 |
 | 9 | 拓扑排序、关键路径 | 完整计算 `ve/vl/ee/el` |
-| 10 | 顺序、折半、分块、Hash、B/B+ 树 | 会算 ASL、画分裂合并 |
-| 11 | 插入、冒泡、选择、快排 | 同一数组逐趟推演 |
-| 12 | 堆排、归并、基数、外部排序 | 总表对比 + 综合题限时双写 |
+| 10 | 顺序、折半、分块、Hash、B/B+ 树 | 会算 ASL、画分裂合并，完成折半与 Hash C 双写 |
+| 11 | 插入、冒泡、选择、快排 | 同一数组逐趟推演，完成 QuickSort C 双写 |
+| 12 | 堆排、归并、基数、外部排序 | 会算归并趟数与 I/O，完成 HeapSort/MergeSort C 双写 |
 
 工作日只做 30 分钟闭环；周末选一个算法做 Java/C 双写和纸面限时。某周中断时，不“补课到凌晨”，下一次从该周验收项继续。
 
@@ -955,13 +1252,16 @@ head = prev;
 
 | 知识点 | Java 必须实现 | C/C++ 必须会写 | 是否需要默写 | 考试重要度 | 建议 Coding 次数 |
 | --- | --- | --- | --- | --- | --- |
+| 基本概念、ADT、算法评价 | 小型接口实验 | 会判断术语 | 性质与复杂度 | 高 | 1 |
 | 顺序表插删查 | 是 | 是 | 是 | 高 | 3 |
+| 静态链表 | 游标实验一次 | 会读游标 | 否 | 中 | 1 |
 | 单链表插删、逆置、合并 | 是 | 是 | 是 | 极高 | 5 |
 | 双链表、循环链表 | 核心操作 | 核心指针 | 补全 | 中 | 2 |
 | 栈与循环队列 | 是 | 是 | 是 | 高 | 4 |
 | 特殊矩阵映射 | 小实验 | 会写公式 | 是 | 中 | 2 |
 | BF、KMP、next/nextval | 是 | 会写核心循环 | 是 | 高 | 5 |
 | 二叉树递归/非递归遍历 | 是 | 是 | 是 | 极高 | 5 |
+| 树的计算、卡特兰数 | 否 | 会列式 | 公式与边界 | 中 | 2 |
 | 线索树、树森林转换 | 可选 | 会画会补 | 否 | 中 | 2 |
 | BST 查插删 | 是 | 是 | 是 | 高 | 4 |
 | AVL 旋转 | 是 | 会补全 | 旋转模板 | 高 | 4 |
@@ -969,6 +1269,7 @@ head = prev;
 | Huffman | 是 | 会构造 | 核心过程 | 中 | 2 |
 | 并查集 | 是 | 是 | 是 | 高 | 3 |
 | 图矩阵/邻接表 | 是 | 会定义 | 核心结构 | 高 | 3 |
+| 十字链表/邻接多重表 | 否 | 会认字段 | 否 | 中 | 1 |
 | BFS/DFS | 是 | 是 | 是 | 极高 | 5 |
 | Prim/Kruskal | 是 | 会补全 | 核心循环 | 高 | 3 |
 | Dijkstra/Floyd | 是 | 会补全 | 核心循环 | 极高 | 4 |
@@ -980,38 +1281,41 @@ head = prev;
 | 快速排序 | 是 | 是 | 是 | 极高 | 5 |
 | 堆排序 | 是 | 是 | 是 | 极高 | 5 |
 | 归并排序 | 是 | 是 | 是 | 高 | 4 |
-| Shell/基数/外部排序 | 可选 | 会推演 | 否 | 中 | 2 |
+| Shell/基数排序 | 可选 | 会推演 | 否 | 中 | 2 |
+| 外部排序 | 多路归并数组模拟 | 会算趟数与 I/O | 否 | 中 | 1 |
 
-## 最值得亲手完成的 28 个程序
+## 最值得亲手完成的 30 个实验
 
 1. `SeqList`：动态扩容、插入、删除、查找。
-2. `SinglyLinkedList`：带头节点与不带头节点两版。
-3. `LinkedListReverse`：迭代逆置与递归逆置。
-4. `LinkedListMergeAndDeduplicate`：有序合并和去重。
-5. `DoublyCircularList`：双链、循环边界。
-6. `ArrayStack`：括号匹配和表达式求值入口。
-7. `CircularQueue`：牺牲一个位置的实现。
-8. `MatrixCompression`：对称、三对角矩阵映射。
-9. `BruteForceMatch`：与 KMP 做比较次数对照。
-10. `KmpMatch`：`next`、`nextval`、完整匹配。
-11. `TreeTraversalRecursive`：先中后序。
-12. `TreeTraversalIterative`：栈与 `lastVisited`。
-13. `TreeLevelOrderAndProperties`：层序、深度、节点计数。
-14. `BinarySearchTree`：查找、插入、三类删除。
-15. `AvlTree`：四类旋转和高度校验。
-16. `HuffmanTree`：构造、编码、WPL。
-17. `UnionFind`：路径压缩、按大小合并。
-18. `GraphRepresentations`：矩阵与邻接表互转。
-19. `GraphTraversal`：连通与非连通图的 BFS/DFS。
-20. `PrimMst`：记录 `lowCost` 和父节点。
-21. `KruskalMst`：边排序与并查集。
-22. `DijkstraShortestPath`：距离与前驱数组。
-23. `FloydAllPairs`：距离矩阵和路径恢复。
-24. `TopoAndCriticalPath`：拓扑序与 `ve/vl`。
-25. `BinaryAndBlockSearch`：查找过程与 ASL。
-26. `OpenAddressHashTable`：插入、查找、删除标记。
-27. `QuickAndHeapSort`：逐趟打印分区与堆。
-28. `MergeAndRadixSort`：稳定性与辅助空间实验。
+2. `StaticLinkedListCursor`：空闲链、已用链、游标插删。
+3. `SinglyLinkedList`：带头节点与不带头节点两版。
+4. `LinkedListReverse`：迭代逆置与递归逆置。
+5. `LinkedListMergeAndDeduplicate`：有序合并和去重。
+6. `DoublyCircularList`：双链、循环边界。
+7. `ArrayStack`：括号匹配和表达式求值入口。
+8. `CircularQueue`：牺牲一个位置的实现。
+9. `MatrixCompression`：对称、三对角矩阵映射。
+10. `BruteForceMatch`：与 KMP 做比较次数对照。
+11. `KmpMatch`：`next`、`nextval`、完整匹配。
+12. `TreeTraversalRecursive`：先中后序。
+13. `TreeTraversalIterative`：栈与 `lastVisited`。
+14. `TreeLevelOrderAndProperties`：层序、深度、节点计数。
+15. `BinarySearchTree`：查找、插入、三类删除。
+16. `AvlTree`：四类旋转和高度校验。
+17. `HuffmanTree`：构造、编码、WPL。
+18. `UnionFind`：路径压缩、按大小合并。
+19. `GraphRepresentations`：矩阵与邻接表互转。
+20. `GraphTraversal`：连通与非连通图的 BFS/DFS。
+21. `PrimMst`：记录 `lowCost` 和父节点。
+22. `KruskalMst`：边排序与并查集。
+23. `DijkstraShortestPath`：距离与前驱数组。
+24. `FloydAllPairs`：距离矩阵和路径恢复。
+25. `TopoAndCriticalPath`：拓扑序与 `ve/vl`。
+26. `BinaryAndBlockSearch`：查找过程与 ASL。
+27. `OpenAddressHashTable`：插入、查找、删除标记。
+28. `QuickAndHeapSort`：逐趟打印分区与堆。
+29. `MergeAndRadixSort`：稳定性与辅助空间实验。
+30. `ExternalMergeSimulation`：多路归并、趟数和 I/O 计算，不接真实磁盘。
 
 ## 最后的验收，不是“刷了多少题”
 
