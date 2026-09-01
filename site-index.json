@@ -2,6 +2,41 @@
   "generatedAt": "2026-09-01T00:00:00+08:00",
   "articles": [
     {
+      "title": "在职 Java 程序员的数据结构 Coding 路线",
+      "path": "content/learning/exam-408/2026-09-01-java-coding-408-data-structures-guide.md",
+      "url": "content/learning/exam-408/2026-09-01-java-coding-408-data-structures-guide.md",
+      "date": "2026-09-01",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "计算机基础",
+      "lane": "theory",
+      "module": "数据结构与算法",
+      "project": "data-structure-algorithm-lab",
+      "type": "实战指南",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "用可运行的 Java、最低限度 C 语法、手工推演和 Debug，把统考数据结构从背诵对象变成可验证的程序模型。",
+      "tags": [
+        "计算机学科专业基础",
+        "数据结构",
+        "Java",
+        "C",
+        "算法"
+      ],
+      "section": "learning",
+      "topic": "数据结构与算法",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "Java Lambda 原理拆解：动态生成类与调用流程",
       "path": "content/learning/java/2026-09-01-java-lambda-internals.md",
       "url": "content/learning/java/2026-09-01-java-lambda-internals.md",
@@ -3084,13 +3119,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 86,
+    "学习": 87,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 86,
+    "learning": 87,
     "about": 1,
     "reading": 7,
     "projects": 2
