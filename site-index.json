@@ -72,6 +72,39 @@
       "question": ""
     },
     {
+      "title": "单位圆视角下的三角函数公式",
+      "path": "content/learning/exam-math/2026-09-01-unit-circle-trigonometric-formulas.md",
+      "url": "content/learning/exam-math/2026-09-01-unit-circle-trigonometric-formulas.md",
+      "date": "2026-09-01",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "数学",
+      "module": "",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "用单位圆中一个点的坐标、旋转与对称，统一理解平方关系、诱导公式、和角、倍角与半角公式。",
+      "tags": [
+        "三角函数",
+        "单位圆",
+        "解析几何",
+        "旋转"
+      ],
+      "section": "learning",
+      "topic": "数学",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "梯度、散度旋度",
       "path": "content/learning/exam-math/la-series/01-梯度-散度旋度.md",
       "url": "content/learning/exam-math/la-series/01-梯度-散度旋度.md",
@@ -4687,6 +4720,40 @@
       "question": ""
     },
     {
+      "title": "CompletableFuture 进阶：组合、超时与线程池避坑",
+      "path": "content/learning/java/2026-07-05-completablefuture-composition-timeout-thread-pool-pitfalls.md",
+      "url": "content/learning/java/2026-07-05-completablefuture-composition-timeout-thread-pool-pitfalls.md",
+      "date": "2026-07-05",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "Java 后端",
+      "module": "",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "围绕 CompletableFuture 的线程池污染、异步链执行、超时、allOf 结果聚合和异常传播，整理生产环境中最常见的使用陷阱与修正方式。",
+      "tags": [
+        "Java",
+        "并发",
+        "CompletableFuture",
+        "线程池",
+        "异步编程"
+      ],
+      "section": "learning",
+      "topic": "Java 后端",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "JVM 垃圾回收核心概念：GC Roots、并发标记、浮动垃圾、写屏障、SATB vs Incremental Update",
       "path": "content/learning/middleware/2026-07-05-jvm-gc-concepts-gc-roots-cms-g1-zgc.md",
       "url": "content/learning/middleware/2026-07-05-jvm-gc-concepts-gc-roots-cms-g1-zgc.md",
@@ -5114,13 +5181,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 148,
+    "学习": 150,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 148,
+    "learning": 150,
     "about": 1,
     "reading": 7,
     "projects": 2
