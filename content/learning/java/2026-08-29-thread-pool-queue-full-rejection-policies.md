@@ -135,7 +135,13 @@ public class CustomRejectedPolicy implements RejectedExecutionHandler {
 
 ## 五、高频误区
 
-### 1. `maximumPoolSize` 配了不一定生效——无界队列会让它形同虚设
+### 1. `execute()` 的扩容逻辑不等于日志输出顺序
+
+“核心线程 → 入队 → 非核心线程 → 拒绝”描述的是任务提交时的决策路径，不代表控制台日志一定严格按任务编号打印。线程启动、任务开始执行和提交方法返回之间都存在调度竞争；示例中的任务 1～6 是为了说明容量路径，真实日志可能交错。
+
+`submit()` 也遵循同一套线程池扩容逻辑，只是它会先把任务包装成 `FutureTask`，再交给 `execute()`；因此提交返回的 `Future` 还要结合任务异常、取消和拒绝异常一起处理。
+
+### 2. `maximumPoolSize` 配了不一定生效——无界队列会让它形同虚设
 
 `LinkedBlockingQueue` 不指定容量时默认 `Integer.MAX_VALUE`，队列永远不会满，流程永远停在第二步（入队），`maximumPoolSize` 永远不会被触发：
 

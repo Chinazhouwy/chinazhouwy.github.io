@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T00:00:00+08:00",
+  "generatedAt": "2026-09-03T00:00:00+08:00",
   "articles": [
     {
       "title": "Stanford 链表经典教程：Java 程序员的中文实战版",
@@ -5301,7 +5301,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-02",
+      "date": "2026-09-03",
       "count": 0,
       "averageScore": null
     },
@@ -5310,11 +5310,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-20",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-21",
         "count": 0,
@@ -5377,6 +5372,11 @@
       },
       {
         "date": "2026-09-02",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-03",
         "count": 0,
         "averageScore": null
       }
