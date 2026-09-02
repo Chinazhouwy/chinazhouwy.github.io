@@ -2,6 +2,41 @@
   "generatedAt": "2026-09-02T00:00:00+08:00",
   "articles": [
     {
+      "title": "Stanford 链表经典教程：Java 程序员的中文实战版",
+      "path": "content/learning/exam-408/stanford-linked-list-java-c-guide.md",
+      "url": "content/learning/exam-408/stanford-linked-list-java-c-guide.md",
+      "date": "2026-09-02",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "计算机基础",
+      "lane": "theory",
+      "module": "数据结构与算法",
+      "project": "data-structure-algorithm-lab",
+      "type": "实战指南",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "把 Stanford 两份经典链表讲义重组为 Java 主线、C 指针桥接、内存图推演和统考取舍明确的中文实战教程。",
+      "tags": [
+        "Stanford CS Education Library",
+        "链表",
+        "Java",
+        "C",
+        "指针"
+      ],
+      "section": "learning",
+      "topic": "数据结构与算法",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "在职 Java 工程师的数据结构统考 Coding 实战指南",
       "path": "content/learning/exam-408/2026-09-01-java-coding-408-data-structures-guide.md",
       "url": "content/learning/exam-408/2026-09-01-java-coding-408-data-structures-guide.md",
@@ -5079,13 +5114,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 147,
+    "学习": 148,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 147,
+    "learning": 148,
     "about": 1,
     "reading": 7,
     "projects": 2
