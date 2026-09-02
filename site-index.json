@@ -2371,6 +2371,40 @@
       "question": ""
     },
     {
+      "title": "线程池队列满了会怎样：从拒绝策略看 ThreadPoolExecutor 扩容顺序",
+      "path": "content/learning/java/2026-08-29-thread-pool-queue-full-rejection-policies.md",
+      "url": "content/learning/java/2026-08-29-thread-pool-queue-full-rejection-policies.md",
+      "date": "2026-08-29",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "Java 后端",
+      "module": "",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "从 execute() 源码拆解 ThreadPoolExecutor 的扩容顺序：核心线程、入队、非核心线程、拒绝策略，并整理四种拒绝策略与生产配置。",
+      "tags": [
+        "Java",
+        "并发",
+        "线程池",
+        "ThreadPoolExecutor",
+        "拒绝策略"
+      ],
+      "section": "learning",
+      "topic": "Java 后端",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "英语图表作文写作方法 + 预制菜范文（一篇搞定）",
       "path": "content/learning/exam-english/2026-08-28-exam-english-writing-prepared-dishes.md",
       "url": "content/learning/exam-english/2026-08-28-exam-english-writing-prepared-dishes.md",
@@ -5216,13 +5250,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 151,
+    "学习": 152,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 151,
+    "learning": 152,
     "about": 1,
     "reading": 7,
     "projects": 2
