@@ -2,6 +2,40 @@
   "generatedAt": "2026-09-03T00:00:00+08:00",
   "articles": [
     {
+      "title": "git worktree 实战：一边修 bug 一边写需求",
+      "path": "content/learning/engineering/2026-09-02-git-worktree-parallel-development.md",
+      "url": "content/learning/engineering/2026-09-02-git-worktree-parallel-development.md",
+      "date": "2026-09-02",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "工程与架构",
+      "module": "",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "low",
+      "visibility": "public",
+      "summary": "用 git worktree 在同一仓库并行维护多个工作目录，解决半成品代码没地方搁、切分支靠 stash 来回折腾的问题。",
+      "tags": [
+        "Git",
+        "worktree",
+        "stash",
+        "开发工作流",
+        "工程效能"
+      ],
+      "section": "learning",
+      "topic": "工程与架构",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "Stanford 链表经典教程：Java 程序员的中文实战版",
       "path": "content/learning/exam-408/stanford-linked-list-java-c-guide.md",
       "url": "content/learning/exam-408/stanford-linked-list-java-c-guide.md",
@@ -5250,13 +5284,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 152,
+    "学习": 153,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 152,
+    "learning": 153,
     "about": 1,
     "reading": 7,
     "projects": 2
