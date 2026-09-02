@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-01T00:00:00+08:00",
+  "generatedAt": "2026-09-02T00:00:00+08:00",
   "articles": [
     {
-      "title": "在职 Java 程序员的数据结构 Coding 路线",
+      "title": "在职 Java 工程师的数据结构统考 Coding 实战指南",
       "path": "content/learning/exam-408/2026-09-01-java-coding-408-data-structures-guide.md",
       "url": "content/learning/exam-408/2026-09-01-java-coding-408-data-structures-guide.md",
       "date": "2026-09-01",
@@ -20,7 +20,7 @@
       "priority": "P1",
       "energy": "medium",
       "visibility": "public",
-      "summary": "用可运行的 Java、强制 C 双写、手工推演和 Debug，把数据结构 Coding、复杂度计算与计算机基础统考考法连成闭环。",
+      "summary": "面向在职 Java 工程师，用可运行代码、C 对照、手工推演和 Debug 系统掌握全国统考数据结构。",
       "tags": [
         "计算机学科专业基础",
         "数据结构",
@@ -5130,7 +5130,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-01",
+      "date": "2026-09-02",
       "count": 0,
       "averageScore": null
     },
@@ -5139,11 +5139,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-19",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-20",
         "count": 0,
@@ -5206,6 +5201,11 @@
       },
       {
         "date": "2026-09-01",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-02",
         "count": 0,
         "averageScore": null
       }
