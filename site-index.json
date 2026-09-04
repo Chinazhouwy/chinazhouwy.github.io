@@ -105,6 +105,43 @@
       "question": ""
     },
     {
+      "title": "一张单位圆，推完最常用的40个三角函数公式",
+      "path": "content/learning/exam-math/2026-09-02-unit-circle-40-trig-formulas.md",
+      "url": "content/learning/exam-math/2026-09-02-unit-circle-40-trig-formulas.md",
+      "date": "2026-09-02",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "数学",
+      "module": "数学知识卡片",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "从单位圆的三条树根出发，把诱导、和差角、倍角、半角、积化和差、和差化积共40条公式重新推一遍，附考场重建公式的三步法。",
+      "tags": [
+        "三角函数",
+        "单位圆",
+        "诱导公式",
+        "和差角",
+        "倍角",
+        "半角",
+        "积化和差",
+        "和差化积"
+      ],
+      "section": "learning",
+      "topic": "数学知识卡片",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "Java数据结构和算法汇集",
       "path": "content/learning/exam-408/2026-09-01-java-coding-408-data-structures-guide.md",
       "url": "content/learning/exam-408/2026-09-01-java-coding-408-data-structures-guide.md",
@@ -5318,13 +5355,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 154,
+    "学习": 155,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 154,
+    "learning": 155,
     "about": 1,
     "reading": 7,
     "projects": 2
