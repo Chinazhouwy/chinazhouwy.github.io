@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T00:00:00+08:00",
+  "generatedAt": "2026-09-04T00:00:00+08:00",
   "articles": [
     {
       "title": "git worktree 实战：一边修 bug 一边写需求",
@@ -71,7 +71,7 @@
       "question": ""
     },
     {
-      "title": "在职 Java 工程师的数据结构统考 Coding 实战指南",
+      "title": "Java数据结构和算法汇集",
       "path": "content/learning/exam-408/2026-09-01-java-coding-408-data-structures-guide.md",
       "url": "content/learning/exam-408/2026-09-01-java-coding-408-data-structures-guide.md",
       "date": "2026-09-01",
@@ -89,7 +89,7 @@
       "priority": "P1",
       "energy": "medium",
       "visibility": "public",
-      "summary": "面向在职 Java 工程师，用可运行代码、C 对照、手工推演和 Debug 系统掌握全国统考数据结构。",
+      "summary": "按线性结构、串、树、图、查找和排序汇集 Java 实现，配套复杂度、边界条件、手工推演与 C 语言对照。",
       "tags": [
         "计算机学科专业基础",
         "数据结构",
@@ -5335,7 +5335,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-03",
+      "date": "2026-09-04",
       "count": 0,
       "averageScore": null
     },
@@ -5344,11 +5344,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-21",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-22",
         "count": 0,
@@ -5411,6 +5406,11 @@
       },
       {
         "date": "2026-09-03",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-04",
         "count": 0,
         "averageScore": null
       }

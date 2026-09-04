@@ -1,5 +1,5 @@
 ---
-title: "在职 Java 工程师的数据结构统考 Coding 实战指南"
+title: "Java数据结构和算法汇集"
 date: "2026-09-01"
 domain: "学习"
 area: "计算机基础"
@@ -11,7 +11,7 @@ priority: "P1"
 energy: "medium"
 visibility: "public"
 lane: theory
-summary: "面向在职 Java 工程师，用可运行代码、C 对照、手工推演和 Debug 系统掌握全国统考数据结构。"
+summary: "按线性结构、串、树、图、查找和排序汇集 Java 实现，配套复杂度、边界条件、手工推演与 C 语言对照。"
 tags:
   - 计算机学科专业基础
   - 数据结构
@@ -20,15 +20,17 @@ tags:
   - 算法
 ---
 
-# 在职 Java 工程师的数据结构统考 Coding 实战指南
+# Java数据结构和算法汇集
 
-> 这不是算法竞赛路线，也不是 Java 集合框架使用手册。目标是把统考试卷中的结构、性质、C 代码和手算过程，转换成可以在公司电脑上运行、暂停、观察和改写的最小实验。
+> 这是一份持续补充的 Java 数据结构与算法实现合集，不是集合框架 API 清单。按结构定位代码，先看输入约定和不变量，再运行、打断点、改边界。手算、C 对照和统考训练路线保留为可选学习路径，不再作为本文唯一用途。
+
+2026-09-04 更新：补齐原先只有说明或伪代码的主要算法，并补上 `visit`、`swap` 等辅助方法。原文件路径保持不变，已有收藏、搜索链接和评论映射继续有效。
 
 ## 一、范围、依据与使用方式
 
-### 1. 内容审计依据
+### 1. 内容来源与边界
 
-本文于 2026-09-02 重新核验公开资料。截至核验日，没有在教育部、研招网或高等教育出版社公开页面检索到标明下一年度的正式计算机科目大纲。当前可公开核验的最近正式出版资料，是高等教育出版社 2025 年印次、出版日期为 2025-10-15 的《全国硕士研究生招生考试计算机学科专业基础考试大纲解析》。其数据结构部分仍按七章组织：
+本文以经典数据结构的知识依赖组织内容。早期版本于 2026-09-02 对照高教社《全国硕士研究生招生考试计算机学科专业基础考试大纲解析》的公开目录，采用了以下七条主线；这是历史内容来源，不表示本文认证了最新年度的考试范围：
 
 1. 基本概念。
 2. 线性表。
@@ -38,7 +40,7 @@ tags:
 6. 查找，其中包含字符串模式匹配。
 7. 排序，其中包含外部排序。
 
-本文按这套公开目录逐项补齐，但正式应试范围始终以报考年度正式发布的大纲为最高依据。本文不会把辅导机构目录、个人经验或工程常识冒充正式范围。
+现在阅读时可以直接跳到所需结构，不必按备试路线通读。若用于应试，范围仍以报考年度正式发布的大纲为准。本文的 Java 教学实现不等于生产级容器：并发、持久化、序列化和通用泛型接口不在实现范围内。
 
 参考资料：
 
@@ -54,7 +56,7 @@ tags:
 | --- | --- | --- |
 | 结构视角 | 元素之间是什么关系，内存里怎样表示 | 把线性表等同于数组，把树等同于二叉链表 |
 | 算法视角 | 不变量是什么，哪个变量推进，何时终止 | 只背代码，不知道循环为何正确 |
-| 试题视角 | 会考性质、手算、补代码还是复杂度 | 会调用 API，却不会画中间状态 |
+| 验证视角 | 输出是否正确，性质是否保持，边界是否覆盖 | 会调用 API，却不会画中间状态 |
 
 工程类比只用于帮助理解，会明确标为“工程延伸”。它不能替代教材定义，也不能据此删减考试知识。
 
@@ -100,6 +102,10 @@ tags:
 
 ## 二、零依赖实验室
 
+代码以 **Java 17 或更新版本**为基线，使用 `record` 承载简单结果；组件引用不可重新赋值，不代表内部数组也不可变。完整类按类名保存；单独列出的 `static` 方法放进自己的实验类。同一节的节点定义和辅助方法要一起放入，`import` 放在源文件顶部，不能直接把方法粘在类外。
+
+后文未写全限定名的集合类型统一来自 `java.util`。集合只用于辅助栈、队列、结果列表或优先队列；当章节本身讲栈、队列、堆、树或 Hash 的内部结构时，核心操作仍然手写。数组、字符串参数默认非 `null`；不满足有序、无环等算法前提时，不保证结果。
+
 ```text
 data-structure-algorithm-lab/
 ├── src/
@@ -120,6 +126,12 @@ data-structure-algorithm-lab/
 ```bash
 javac -d out src/linear/SeqList.java
 java -cp out linear.SeqList
+```
+
+上面命令展示目录约定；`SeqList` 本身没有 `main`，运行前须在实验类中添加测试入口。仓库还提供正文代码校验器，会提取 Java 代码块、组合依赖并执行边界与随机对照测试：
+
+```bash
+node scripts/check-java-data-structures-guide.js
 ```
 
 “能编译”只证明语法成立，“一个样例通过”也不证明算法正确。每个实验至少保留：
@@ -258,6 +270,13 @@ public final class SeqList {
         return data[index];
     }
 
+    public int set(int index, int value) {
+        checkElementIndex(index);
+        int previous = data[index];
+        data[index] = value;
+        return previous;
+    }
+
     public int remove(int index) {
         checkElementIndex(index);
         int removed = data[index];
@@ -363,6 +382,14 @@ public final class SinglyLinkedList {
         return nodeBefore(index).next.value;
     }
 
+    public int set(int index, int value) {
+        checkElementIndex(index);
+        Node node = nodeBefore(index).next;
+        int previous = node.value;
+        node.value = value;
+        return previous;
+    }
+
     public int remove(int index) {
         checkElementIndex(index);
         Node previous = nodeBefore(index);
@@ -408,7 +435,15 @@ public final class SinglyLinkedList {
 
 > 链表操作原则：修改某个 `next` 前，先判断旧引用是否还需要；如果需要，先保存，否则可能断链。
 
+以下算法接收**不带哨兵的首元节点**，使用独立实验类中的这个 `Node`，不要把上一节封装类的 `dummy` 当作实参。除判环和找入口外，输入须为无环链表；原地合并要求两条链不共享节点。
+
 ```java
+static final class Node {
+    int value;
+    Node next;
+    Node(int value) { this.value = value; }
+}
+
 static Node reverse(Node head) {
     Node previous = null;
     Node current = head;
@@ -479,7 +514,41 @@ static Node kthFromEnd(Node head, int k) {
 }
 ```
 
-快慢指针还可用于找中点和判环。判环时 `slow` 每次一步、`fast` 每次两步；若相遇则有环。不要把“相遇节点”误认为“环入口”，寻找入口还需要额外阶段。
+快慢指针还可用于找中点和判环。下面约定偶数长度返回**后一个中点**；`cycleEntry` 先找相遇点，再让一个指针回到头部，同速前进找到入口。它并不修改链表。
+
+```java
+static Node middleNode(Node head) {
+    Node slow = head;
+    Node fast = head;
+    while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    return slow;
+}
+
+static Node cycleEntry(Node head) {
+    Node slow = head;
+    Node fast = head;
+    do {
+        if (fast == null || fast.next == null) return null;
+        slow = slow.next;
+        fast = fast.next.next;
+    } while (slow != fast);
+    Node fromHead = head;
+    while (fromHead != slow) {
+        fromHead = fromHead.next;
+        slow = slow.next;
+    }
+    return fromHead;
+}
+
+static boolean hasCycle(Node head) {
+    return cycleEntry(head) != null;
+}
+```
+
+三者均为 `O(n)` 时间、`O(1)` 辅助空间。测试空链、两节点链、自环和入口不在头部的环。不要把快慢指针首次相遇的位置误当成入口。
 
 | 算法 | 不变量 | 时间 | 辅助空间 |
 | --- | --- | --- | --- |
@@ -533,7 +602,30 @@ static final class DoublyList {
         tail.previous = head;
     }
 
-    void insertBefore(Node next, int value) {
+    void add(int index, int value) {
+        if (index < 0 || index > size) throw new IndexOutOfBoundsException(index);
+        insertBefore(index == size ? tail : nodeAt(index), value);
+    }
+
+    int get(int index) { return nodeAt(index).value; }
+
+    int set(int index, int value) {
+        Node node = nodeAt(index);
+        int previous = node.value;
+        node.value = value;
+        return previous;
+    }
+
+    int remove(int index) { return remove(nodeAt(index)); }
+
+    private Node nodeAt(int index) {
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException(index);
+        Node node = head.next;
+        for (int i = 0; i < index; i++) node = node.next;
+        return node;
+    }
+
+    private void insertBefore(Node next, int value) {
         Node node = new Node(value);
         Node previous = next.previous;
         node.previous = previous;
@@ -543,10 +635,12 @@ static final class DoublyList {
         size++;
     }
 
-    int remove(Node node) {
+    private int remove(Node node) {
         if (node == head || node == tail) throw new IllegalArgumentException("sentinel");
         node.previous.next = node.next;
         node.next.previous = node.previous;
+        node.previous = null;
+        node.next = null;
         size--;
         return node.value;
     }
@@ -573,6 +667,64 @@ current.next.previous == current
 
 若只保存尾指针 `tail`，首元节点是 `tail.next`，头插和尾插都可在 `O(1)` 内完成。典型应用是轮转调度和约瑟夫问题。
 
+```java
+static final class CircularList {
+    private Node tail;
+    private int size;
+
+    void addFirst(int value) {
+        Node node = new Node(value);
+        if (tail == null) {
+            node.next = node;
+            tail = node;
+        } else {
+            node.next = tail.next;
+            tail.next = node;
+        }
+        size++;
+    }
+
+    void addLast(int value) {
+        addFirst(value);
+        tail = tail.next;
+    }
+
+    int removeFirst() {
+        if (tail == null) throw new IllegalStateException("empty");
+        Node first = tail.next;
+        if (first == tail) tail = null;
+        else tail.next = first.next;
+        first.next = null;
+        size--;
+        return first.value;
+    }
+
+    int[] toArray() {
+        int[] values = new int[size];
+        Node current = tail == null ? null : tail.next;
+        for (int i = 0; i < size; i++, current = current.next) {
+            values[i] = current.value;
+        }
+        return values;
+    }
+}
+
+static int[] josephusOrder(int n, int step) {
+    if (n < 0 || step <= 0) throw new IllegalArgumentException("n/step");
+    CircularList circle = new CircularList();
+    for (int i = 0; i < n; i++) circle.addLast(i + 1);
+    int[] order = new int[n];
+    for (int i = 0; i < n; i++) {
+        int moves = (step - 1) % circle.size;
+        while (moves-- > 0) circle.tail = circle.tail.next;
+        order[i] = circle.removeFirst();
+    }
+    return order;
+}
+```
+
+`josephusOrder(5, 2)` 得到 `[2,4,1,5,3]`，编号从 1 开始，当前首元节点报 1。模拟需 `O(n * min(n, step))` 时间，链节点与输出为 `O(n)` 空间；不要把这种逐人报数模拟误写成 `O(n)`。
+
 > Debug 观察：从任意节点出发最多走 `size` 步应回到起点。把普通链表的 `current != null` 搬过来会形成死循环。
 
 **优先级：A。** 独立练首插、尾插、删除首元节点和单节点边界。
@@ -591,6 +743,71 @@ current.next.previous == current
 若 `head = 0`，逻辑顺序是 `12 -> 18 -> 25`。已知前驱下标时插删为 `O(1)`，按逻辑位置或值查找仍为 `O(n)`，容量固定且不能随机访问第 k 个逻辑元素。
 
 维护 `freeHead` 把空闲槽位串成另一条链，属于工程延伸。第一轮只需会读游标、修改一条已用链；不必把空闲链写成通用内存分配器。
+
+下面给出固定容量教学版。`head` 串已用槽，`freeHead` 串空闲槽；一个槽只能属于其中一条链。
+
+```java
+static final class StaticLinkedList {
+    private final int[] values;
+    private final int[] next;
+    private int head = -1;
+    private int freeHead;
+    private int size;
+
+    StaticLinkedList(int capacity) {
+        if (capacity < 0) throw new IllegalArgumentException("capacity");
+        values = new int[capacity];
+        next = new int[capacity];
+        for (int i = 0; i < capacity; i++) next[i] = i + 1;
+        if (capacity > 0) next[capacity - 1] = -1;
+        freeHead = capacity == 0 ? -1 : 0;
+    }
+
+    void add(int index, int value) {
+        if (index < 0 || index > size) throw new IndexOutOfBoundsException(index);
+        if (freeHead == -1) throw new IllegalStateException("full");
+        int previous = index == 0 ? -1 : slotAt(index - 1);
+        int slot = freeHead;
+        freeHead = next[slot];
+        values[slot] = value;
+        next[slot] = previous == -1 ? head : next[previous];
+        if (previous == -1) head = slot;
+        else next[previous] = slot;
+        size++;
+    }
+
+    int get(int index) { return values[slotAt(index)]; }
+
+    int set(int index, int value) {
+        int slot = slotAt(index);
+        int previous = values[slot];
+        values[slot] = value;
+        return previous;
+    }
+
+    int remove(int index) {
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException(index);
+        int previous = index == 0 ? -1 : slotAt(index - 1);
+        int slot = previous == -1 ? head : next[previous];
+        if (previous == -1) head = next[slot];
+        else next[previous] = next[slot];
+        int removed = values[slot];
+        next[slot] = freeHead;
+        freeHead = slot;
+        size--;
+        return removed;
+    }
+
+    private int slotAt(int index) {
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException(index);
+        int slot = head;
+        for (int i = 0; i < index; i++) slot = next[slot];
+        return slot;
+    }
+}
+```
+
+按逻辑下标操作为 `O(n)`，取得槽位后改链为 `O(1)`。重点测试“装满、删除、重新插入”，确认删除的槽确实能被复用。
 
 **优先级：B。** 会读表、画链和完成一次游标插删。
 
@@ -695,6 +912,105 @@ final class LinkedStack {
 | 中缀转后缀 | 尚未输出的运算符 | 遇右括号弹到左括号 |
 | 递归转迭代 | 返回位置、局部状态 | 入栈顺序决定恢复顺序 |
 | DFS | 待继续访问的节点 | 访问标记何时设置 |
+
+#### 1.3 括号匹配、中缀转后缀与求值
+
+括号匹配忽略非括号字符。表达式示例则明确限定为**非负十进制整数、二元 `+ - * /` 和小括号**，可以含空白，但不支持一元负号、小数或隐式乘法。减法的结果可以为负；除法遵循 Java 整数除法。超出 `int` 范围时报错，不静默回绕。
+
+```java
+static boolean bracketsMatch(String text) {
+    java.util.Deque<Character> stack = new java.util.ArrayDeque<>();
+    for (char ch : text.toCharArray()) {
+        if (ch == '(' || ch == '[' || ch == '{') stack.push(ch);
+        else if (ch == ')' || ch == ']' || ch == '}') {
+            if (stack.isEmpty()) return false;
+            char expected = ch == ')' ? '(' : ch == ']' ? '[' : '{';
+            if (stack.pop() != expected) return false;
+        }
+    }
+    return stack.isEmpty();
+}
+
+static int precedence(char operator) {
+    return switch (operator) {
+        case '+', '-' -> 1;
+        case '*', '/' -> 2;
+        default -> 0;
+    };
+}
+
+static java.util.List<String> infixToPostfix(String expression) {
+    java.util.List<String> output = new java.util.ArrayList<>();
+    java.util.Deque<Character> operators = new java.util.ArrayDeque<>();
+    boolean needOperand = true;
+    for (int i = 0; i < expression.length();) {
+        char ch = expression.charAt(i);
+        if (Character.isWhitespace(ch)) { i++; continue; }
+        if (ch >= '0' && ch <= '9') {
+            if (!needOperand) throw new IllegalArgumentException("missing operator");
+            int start = i++;
+            while (i < expression.length() && expression.charAt(i) >= '0'
+                    && expression.charAt(i) <= '9') i++;
+            output.add(expression.substring(start, i));
+            needOperand = false;
+            continue;
+        }
+        if (ch == '(') {
+            if (!needOperand) throw new IllegalArgumentException("missing operator");
+            operators.push(ch);
+        } else if (ch == ')') {
+            if (needOperand) throw new IllegalArgumentException("missing operand");
+            while (!operators.isEmpty() && operators.peek() != '(') {
+                output.add(String.valueOf(operators.pop()));
+            }
+            if (operators.isEmpty()) throw new IllegalArgumentException("unmatched )");
+            operators.pop();
+        } else if (precedence(ch) != 0) {
+            if (needOperand) throw new IllegalArgumentException("binary operator expected");
+            while (!operators.isEmpty() && precedence(operators.peek()) >= precedence(ch)) {
+                output.add(String.valueOf(operators.pop()));
+            }
+            operators.push(ch);
+            needOperand = true;
+        } else {
+            throw new IllegalArgumentException("unsupported character");
+        }
+        i++;
+    }
+    if (needOperand) throw new IllegalArgumentException("incomplete expression");
+    while (!operators.isEmpty()) {
+        char operator = operators.pop();
+        if (operator == '(') throw new IllegalArgumentException("unmatched (");
+        output.add(String.valueOf(operator));
+    }
+    return output;
+}
+
+static int evaluatePostfix(java.util.List<String> tokens) {
+    java.util.Deque<Integer> values = new java.util.ArrayDeque<>();
+    for (String token : tokens) {
+        if (token.length() == 1 && precedence(token.charAt(0)) != 0) {
+            if (values.size() < 2) throw new IllegalArgumentException("missing operand");
+            int right = values.pop();
+            int left = values.pop();
+            int result = switch (token.charAt(0)) {
+                case '+' -> Math.addExact(left, right);
+                case '-' -> Math.subtractExact(left, right);
+                case '*' -> Math.multiplyExact(left, right);
+                case '/' -> Math.toIntExact((long) left / right);
+                default -> throw new IllegalArgumentException("operator");
+            };
+            values.push(result);
+        } else {
+            values.push(Integer.parseInt(token));
+        }
+    }
+    if (values.size() != 1) throw new IllegalArgumentException("invalid postfix");
+    return values.pop();
+}
+```
+
+`12 + 3 * (4 - 2)` 转为 `12 3 4 2 - * +`，结果为 `18`。计算减法和除法时，先弹出的是右操作数。三个算法都只让每个字符或 token 有限次入栈出栈，时间、辅助空间均为 `O(n)`。
 
 > Debug 观察：`top` 是元素下标还是下一可写位置。两套定义都成立，但判空、判满和取栈顶公式必须统一。
 
@@ -859,7 +1175,44 @@ k = i*(2*n-i+1)/2 + (j-i)
 k = 2*i + j
 ```
 
-越界位置通常视为常量 0，不进入压缩数组。使用公式前要确认题目是否采用 1 下标，否则会整体偏移。
+矩阵范围内、但在三对角带宽之外的位置视为常量 0，不进入压缩数组；真正的行列下标越界则是错误。使用公式前要确认题目是否采用 1 下标，否则会整体偏移。
+
+```java
+static void checkCell(int n, int row, int column) {
+    if (n < 0 || row < 0 || row >= n || column < 0 || column >= n) {
+        throw new IndexOutOfBoundsException("matrix coordinate");
+    }
+}
+
+static int symmetricIndex(int n, int row, int column) {
+    checkCell(n, row, column);
+    int larger = Math.max(row, column);
+    int smaller = Math.min(row, column);
+    return Math.toIntExact((long) larger * (larger + 1L) / 2 + smaller);
+}
+
+static int lowerTriangleIndex(int n, int row, int column) {
+    checkCell(n, row, column);
+    long index = row >= column ? (long) row * (row + 1L) / 2 + column
+            : (long) n * (n + 1L) / 2;
+    return Math.toIntExact(index);
+}
+
+static int upperTriangleIndex(int n, int row, int column) {
+    checkCell(n, row, column);
+    long index = row <= column ? (long) row * (2L * n - row + 1) / 2 + column - row
+            : (long) n * (n + 1L) / 2;
+    return Math.toIntExact(index);
+}
+
+static int tridiagonalIndex(int n, int row, int column) {
+    checkCell(n, row, column);
+    if (Math.abs(row - column) > 1) return -1;
+    return Math.toIntExact(2L * row + column);
+}
+```
+
+每次映射都是 `O(1)`。三角矩阵把公共常量存于最后一格；三对角返回 `-1` 表示结构性零，调用方不能把 `-1` 当数组下标。下标中间计算使用 `long`，超过 Java 数组下标范围会显式报错。
 
 #### 3.3 稀疏矩阵
 
@@ -870,6 +1223,43 @@ k = 2*i + j
 - 十字链表：每个非零元同时进入所在行链和列链。
 
 三元组按坐标查找通常为 `O(t)`，其中 `t` 是非零元数；十字链表适合按行、列插删，但节点指针更多。
+
+三元组快速转置先统计每列数量，再把每列映射到输出中的连续区间。输入须按 `(row,column)` 排序、坐标唯一且只保存非零值；输出同样按行列有序。
+
+```java
+record Triple(int row, int column, int value) {}
+
+static Triple[] fastTranspose(int rows, int columns, Triple[] entries) {
+    if (rows < 0 || columns < 0) throw new IllegalArgumentException("shape");
+    int[] counts = new int[columns];
+    Triple previousEntry = null;
+    for (Triple entry : entries) {
+        if (entry.row() < 0 || entry.row() >= rows || entry.column() < 0
+                || entry.column() >= columns || entry.value() == 0) {
+            throw new IllegalArgumentException("invalid triple");
+        }
+        if (previousEntry != null && (entry.row() < previousEntry.row()
+                || entry.row() == previousEntry.row()
+                && entry.column() <= previousEntry.column())) {
+            throw new IllegalArgumentException("triples must be ordered and unique");
+        }
+        counts[entry.column()]++;
+        previousEntry = entry;
+    }
+    int[] nextPosition = new int[columns];
+    for (int col = 1; col < columns; col++) {
+        nextPosition[col] = nextPosition[col - 1] + counts[col - 1];
+    }
+    Triple[] output = new Triple[entries.length];
+    for (Triple entry : entries) {
+        output[nextPosition[entry.column()]++] =
+                new Triple(entry.column(), entry.row(), entry.value());
+    }
+    return output;
+}
+```
+
+时间 `O(columns+t)`，计数和位置数组为 `O(columns)`，输出为 `O(t)`。空矩阵、某列没有非零元、连续多项属于同一列，都应单独测试。
 
 | 内容 | 手算重点 | 优先级 |
 | --- | --- | --- |
@@ -958,6 +1348,40 @@ nextval   -1  0 -1  0 -1  3
 
 `nextval` 在回退位置字符仍与当前字符相同时继续回退，用于跳过必然再次失配的比较。不同教材还可能使用 1 下标、前缀函数 `pi`、`next[0]=0` 或整体右移的表；这些定义都可以自洽，但数值不能与本文代码混用。
 
+```java
+static int[] buildNextVal(String pattern) {
+    if (pattern.isEmpty()) return new int[0];
+    int[] fallback = new int[pattern.length()];
+    fallback[0] = -1;
+    int j = 0;
+    int candidate = -1;
+    while (j < pattern.length() - 1) {
+        if (candidate == -1 || pattern.charAt(j) == pattern.charAt(candidate)) {
+            j++;
+            candidate++;
+            fallback[j] = pattern.charAt(j) == pattern.charAt(candidate)
+                    ? fallback[candidate] : candidate;
+        } else {
+            candidate = fallback[candidate];
+        }
+    }
+    return fallback;
+}
+
+static int kmpNextVal(String text, String pattern) {
+    int[] fallback = buildNextVal(pattern);
+    int i = 0;
+    int j = 0;
+    while (i < text.length() && j < pattern.length()) {
+        if (j == -1 || text.charAt(i) == pattern.charAt(j)) { i++; j++; }
+        else j = fallback[j];
+    }
+    return j == pattern.length() ? i - j : -1;
+}
+```
+
+两种 KMP 返回值应与 `String.indexOf` 一致，包括空模式串返回 `0`；用重复字符模式更容易测出回退错误。
+
 > Debug 观察：失配时只看 `i/j/next[j]`。若 `i` 回退，或 `j` 在同一位置反复跳转，说明定义和代码混用了。
 
 > 手算方法：先写模式下标和字符，再逐位求“失配后可复用的最长相等真前后缀”，最后按本文的失配下标定义转换，不要背孤立数组。
@@ -1031,6 +1455,41 @@ right -> 下一个兄弟
 - 树或森林的后根遍历，等价于对应二叉树的中序遍历。
 - 层序遍历没有这样简单的一一对应。
 
+以下转换为每个节点创建副本，不修改原森林。输入必须是没有环和共享孩子的合法森林。
+
+```java
+static final class GeneralTreeNode {
+    final int value;
+    final java.util.List<GeneralTreeNode> children = new java.util.ArrayList<>();
+    GeneralTreeNode(int value) { this.value = value; }
+}
+
+static TreeNode forestToBinary(java.util.List<GeneralTreeNode> roots) {
+    TreeNode first = null;
+    TreeNode last = null;
+    for (GeneralTreeNode root : roots) {
+        TreeNode node = new TreeNode(root.value);
+        node.left = forestToBinary(root.children);
+        if (first == null) first = node;
+        else last.right = node;
+        last = node;
+    }
+    return first;
+}
+
+static java.util.List<GeneralTreeNode> binaryToForest(TreeNode first) {
+    java.util.List<GeneralTreeNode> roots = new java.util.ArrayList<>();
+    for (TreeNode current = first; current != null; current = current.right) {
+        GeneralTreeNode root = new GeneralTreeNode(current.value);
+        root.children.addAll(binaryToForest(current.left));
+        roots.add(root);
+    }
+    return roots;
+}
+```
+
+时间和副本空间为 `O(n)`，递归栈为原森林高度 `O(h)`。逆转换时，`right` 必须解释为兄弟而非孩子。
+
 ### 3. 二叉树性质
 
 | 性质 | 公式或结论 |
@@ -1058,6 +1517,10 @@ n = n0 + n1 + n2
 #### 4.1 递归遍历
 
 ```java
+static void visit(TreeNode node) {
+    System.out.print(node.value + " ");
+}
+
 static void preorder(TreeNode root) {
     if (root == null) return;
     visit(root);
@@ -1087,6 +1550,18 @@ static void postorder(TreeNode root) {
 ```java
 import java.util.ArrayDeque;
 import java.util.Deque;
+
+static void preorderIterative(TreeNode root) {
+    if (root == null) return;
+    Deque<TreeNode> stack = new ArrayDeque<>();
+    stack.push(root);
+    while (!stack.isEmpty()) {
+        TreeNode node = stack.pop();
+        visit(node);
+        if (node.right != null) stack.push(node.right);
+        if (node.left != null) stack.push(node.left);
+    }
+}
 
 static void inorderIterative(TreeNode root) {
     Deque<TreeNode> stack = new ArrayDeque<>();
@@ -1145,6 +1620,23 @@ static void levelOrder(TreeNode root) {
 
 **优先级：S。** 递归先、中、后序，非递归中序、后序和层序要分别推演。
 
+#### 4.4 求高度与叶节点数
+
+```java
+static int treeHeight(TreeNode root) {
+    if (root == null) return 0;
+    return 1 + Math.max(treeHeight(root.left), treeHeight(root.right));
+}
+
+static int leafCount(TreeNode root) {
+    if (root == null) return 0;
+    if (root.left == null && root.right == null) return 1;
+    return leafCount(root.left) + leafCount(root.right);
+}
+```
+
+空树高度为 `0`，单节点树高度为 `1`，均为 `O(n)` 时间、`O(h)` 调用栈。这两个递归是“后序汇总子问题结果”的最小例子。
+
 ### 5. 线索二叉树
 
 二叉链表中空指针很多。线索化用空的左指针保存遍历前驱，用空的右指针保存遍历后继：
@@ -1192,6 +1684,26 @@ private static void threadInorder(ThreadNode node) {
 ```
 
 这段代码假设输入尚未线索化，`leftThread/rightThread` 初始为 `false`。中序遍历线索树时，先走到最左的孩子；若 `rightThread` 为真，右指针就是后继，否则进入右子树后再找最左节点。
+
+```java
+static ThreadNode firstInorder(ThreadNode node) {
+    if (node == null) return null;
+    while (!node.leftThread && node.left != null) node = node.left;
+    return node;
+}
+
+static java.util.List<Integer> threadedInorder(ThreadNode root) {
+    java.util.List<Integer> values = new java.util.ArrayList<>();
+    ThreadNode current = firstInorder(root);
+    while (current != null) {
+        values.add(current.value);
+        current = current.rightThread ? current.right : firstInorder(current.right);
+    }
+    return values;
+}
+```
+
+遍历时间 `O(n)`，除返回列表外只需 `O(1)` 辅助空间；不能再用普通二叉树递归无条件追随线索指针。构造器中的静态 `previous` 仅供单线程实验，不能并发线索化两棵树。
 
 > 手算检查：先写出原树中序序列，再只在线索化前为空的指针上填前驱或后继。孩子指针不能被覆盖。
 
@@ -1253,6 +1765,95 @@ AVL 要求任一节点左右子树高度差绝对值不超过 1。插入或删�
 
 旋转后必须重新接回父节点，并按“先低后高”更新高度。查找、插入和删除保持 `O(log n)`。
 
+下面是整数集合版 AVL，重复插入不增加节点，删除不存在的值不改变树。删除后的平衡判断依据**孩子的平衡因子**，不能照搬插入时“比较新关键字”的分支。
+
+```java
+static final class AvlTree {
+    private static final class AvlNode {
+        int key;
+        int height = 1;
+        AvlNode left;
+        AvlNode right;
+        AvlNode(int key) { this.key = key; }
+    }
+
+    private AvlNode root;
+
+    void add(int key) { root = insert(root, key); }
+    void remove(int key) { root = delete(root, key); }
+
+    boolean contains(int key) {
+        AvlNode current = root;
+        while (current != null && current.key != key) {
+            current = key < current.key ? current.left : current.right;
+        }
+        return current != null;
+    }
+
+    private static int height(AvlNode node) { return node == null ? 0 : node.height; }
+    private static int factor(AvlNode node) { return height(node.left) - height(node.right); }
+    private static void refresh(AvlNode node) {
+        node.height = 1 + Math.max(height(node.left), height(node.right));
+    }
+
+    private static AvlNode rotateRight(AvlNode oldRoot) {
+        AvlNode newRoot = oldRoot.left;
+        oldRoot.left = newRoot.right;
+        newRoot.right = oldRoot;
+        refresh(oldRoot);
+        refresh(newRoot);
+        return newRoot;
+    }
+
+    private static AvlNode rotateLeft(AvlNode oldRoot) {
+        AvlNode newRoot = oldRoot.right;
+        oldRoot.right = newRoot.left;
+        newRoot.left = oldRoot;
+        refresh(oldRoot);
+        refresh(newRoot);
+        return newRoot;
+    }
+
+    private static AvlNode rebalance(AvlNode node) {
+        refresh(node);
+        if (factor(node) > 1) {
+            if (factor(node.left) < 0) node.left = rotateLeft(node.left);
+            return rotateRight(node);
+        }
+        if (factor(node) < -1) {
+            if (factor(node.right) > 0) node.right = rotateRight(node.right);
+            return rotateLeft(node);
+        }
+        return node;
+    }
+
+    private static AvlNode insert(AvlNode node, int key) {
+        if (node == null) return new AvlNode(key);
+        if (key < node.key) node.left = insert(node.left, key);
+        else if (key > node.key) node.right = insert(node.right, key);
+        else return node;
+        return rebalance(node);
+    }
+
+    private static AvlNode delete(AvlNode node, int key) {
+        if (node == null) return null;
+        if (key < node.key) node.left = delete(node.left, key);
+        else if (key > node.key) node.right = delete(node.right, key);
+        else {
+            if (node.left == null) return node.right;
+            if (node.right == null) return node.left;
+            AvlNode successor = node.right;
+            while (successor.left != null) successor = successor.left;
+            node.key = successor.key;
+            node.right = delete(node.right, successor.key);
+        }
+        return rebalance(node);
+    }
+}
+```
+
+分别插入 `[3,2,1]`、`[1,2,3]`、`[3,1,2]`、`[1,3,2]`，四种情形都应得到根 `2`。随机增删时不只比查找结果，还要逐节点检查缓存高度和 `|左高-右高| <= 1`。
+
 #### 6.3 红黑树
 
 红黑树是近似平衡 BST，核心约束是：
@@ -1264,6 +1865,130 @@ AVL 要求任一节点左右子树高度差绝对值不超过 1。插入或删�
 5. 从任一节点到其后代空叶的路径包含相同数量黑节点。
 
 这些约束保证树高为 `O(log n)`。考试重点是性质、插入删除后的变色与旋转判断，以及与 AVL 的比较，不要求重写完整 `TreeMap`。
+
+为了能够运行观察，下面给出**左倾红黑树 LLRB 的整数集合版**。红链接向左倾是这一变体的附加约定，不是所有红黑树的通用性质；它也不是 JDK `TreeMap` 的源码复刻。算法背景可对照 [Princeton 的左倾红黑树说明与实现](https://algs4.cs.princeton.edu/33balanced/RedBlackBST.java.html)。
+
+```java
+static final class RedBlackTree {
+    private static final class RedNode {
+        int key;
+        boolean red = true;
+        RedNode left;
+        RedNode right;
+        RedNode(int key) { this.key = key; }
+    }
+
+    private RedNode root;
+
+    boolean contains(int key) {
+        RedNode node = root;
+        while (node != null && node.key != key) {
+            node = key < node.key ? node.left : node.right;
+        }
+        return node != null;
+    }
+
+    void add(int key) {
+        root = insert(root, key);
+        root.red = false;
+    }
+
+    void remove(int key) {
+        if (!contains(key)) return;
+        if (!isRed(root.left) && !isRed(root.right)) root.red = true;
+        root = delete(root, key);
+        if (root != null) root.red = false;
+    }
+
+    private static boolean isRed(RedNode node) { return node != null && node.red; }
+
+    private static RedNode rotateLeft(RedNode node) {
+        RedNode promoted = node.right;
+        node.right = promoted.left;
+        promoted.left = node;
+        promoted.red = node.red;
+        node.red = true;
+        return promoted;
+    }
+
+    private static RedNode rotateRight(RedNode node) {
+        RedNode promoted = node.left;
+        node.left = promoted.right;
+        promoted.right = node;
+        promoted.red = node.red;
+        node.red = true;
+        return promoted;
+    }
+
+    private static void flipColors(RedNode node) {
+        node.red = !node.red;
+        node.left.red = !node.left.red;
+        node.right.red = !node.right.red;
+    }
+
+    private static RedNode repair(RedNode node) {
+        if (isRed(node.right)) node = rotateLeft(node);
+        if (isRed(node.left) && isRed(node.left.left)) node = rotateRight(node);
+        if (isRed(node.left) && isRed(node.right)) flipColors(node);
+        return node;
+    }
+
+    private static RedNode insert(RedNode node, int key) {
+        if (node == null) return new RedNode(key);
+        if (key < node.key) node.left = insert(node.left, key);
+        else if (key > node.key) node.right = insert(node.right, key);
+        return repair(node);
+    }
+
+    private static RedNode moveRedLeft(RedNode node) {
+        flipColors(node);
+        if (isRed(node.right.left)) {
+            node.right = rotateRight(node.right);
+            node = rotateLeft(node);
+            flipColors(node);
+        }
+        return node;
+    }
+
+    private static RedNode moveRedRight(RedNode node) {
+        flipColors(node);
+        if (isRed(node.left.left)) {
+            node = rotateRight(node);
+            flipColors(node);
+        }
+        return node;
+    }
+
+    private static RedNode removeMinimum(RedNode node) {
+        if (node.left == null) return null;
+        if (!isRed(node.left) && !isRed(node.left.left)) node = moveRedLeft(node);
+        node.left = removeMinimum(node.left);
+        return repair(node);
+    }
+
+    private static RedNode delete(RedNode node, int key) {
+        if (key < node.key) {
+            if (!isRed(node.left) && !isRed(node.left.left)) node = moveRedLeft(node);
+            node.left = delete(node.left, key);
+        } else {
+            if (isRed(node.left)) node = rotateRight(node);
+            if (key == node.key && node.right == null) return null;
+            if (!isRed(node.right) && !isRed(node.right.left)) node = moveRedRight(node);
+            if (key == node.key) {
+                RedNode successor = node.right;
+                while (successor.left != null) successor = successor.left;
+                node.key = successor.key;
+                node.right = removeMinimum(node.right);
+            } else {
+                node.right = delete(node.right, key);
+            }
+        }
+        return repair(node);
+    }
+}
+```
+
+删除前先确认关键字存在，这是内部删除过程可以沿路径安全访问孩子的前提。查找、增删均为 `O(log n)`，递归辅助空间 `O(log n)`。验收同时检查有序性、黑根、无连续红节点、各路径黑高相同，以及本实现特有的“无右红链接”。
 
 | 结构 | 平衡强度 | 更新特点 | 优先级 |
 | --- | --- | --- | --- |
@@ -1282,6 +2007,63 @@ WPL = sum(叶节点权值 * 根到该叶的边数)
 ```
 
 构造时每轮取权值最小的两棵树合并，新节点权值为两者之和，直到只剩一棵树。含 `n` 个叶节点的 Huffman 树共有 `2n-1` 个节点，没有度为 1 的节点。左边写 0、右边写 1 只是编码约定，不影响 WPL。
+
+输入数组下标作为符号编号，允许零权但不允许负权。空输入返回空树，单符号约定编码为 `0`。构造、编码和 WPL 分开实现，便于分别验证。
+
+```java
+static final class HuffmanNode {
+    final long weight;
+    final int symbol;
+    final HuffmanNode left;
+    final HuffmanNode right;
+    HuffmanNode(long weight, int symbol, HuffmanNode left, HuffmanNode right) {
+        this.weight = weight;
+        this.symbol = symbol;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+static HuffmanNode buildHuffman(long[] weights) {
+    java.util.PriorityQueue<HuffmanNode> queue = new java.util.PriorityQueue<>(
+            java.util.Comparator.comparingLong((HuffmanNode node) -> node.weight));
+    for (int i = 0; i < weights.length; i++) {
+        if (weights[i] < 0) throw new IllegalArgumentException("negative weight");
+        queue.add(new HuffmanNode(weights[i], i, null, null));
+    }
+    while (queue.size() > 1) {
+        HuffmanNode left = queue.remove();
+        HuffmanNode right = queue.remove();
+        queue.add(new HuffmanNode(Math.addExact(left.weight, right.weight), -1, left, right));
+    }
+    return queue.poll();
+}
+
+static java.util.Map<Integer, String> huffmanCodes(HuffmanNode root) {
+    java.util.Map<Integer, String> codes = new java.util.LinkedHashMap<>();
+    collectCodes(root, "", codes);
+    return codes;
+}
+
+private static void collectCodes(HuffmanNode node, String prefix,
+        java.util.Map<Integer, String> codes) {
+    if (node == null) return;
+    if (node.symbol >= 0) {
+        codes.put(node.symbol, prefix.isEmpty() ? "0" : prefix);
+        return;
+    }
+    collectCodes(node.left, prefix + "0", codes);
+    collectCodes(node.right, prefix + "1", codes);
+}
+
+static long huffmanWpl(HuffmanNode root, int depth) {
+    if (root == null) return 0;
+    if (root.symbol >= 0) return Math.multiplyExact(root.weight, depth);
+    return Math.addExact(huffmanWpl(root.left, depth + 1), huffmanWpl(root.right, depth + 1));
+}
+```
+
+`[2,3,7,9]` 的 WPL 为 `38`。单符号树的结构 WPL 为 `0`，与为便于输出而指定的一位编码不同，不能混算。构造为 `O(n log n)`，WPL 遍历为 `O(n)`；生成全部码字还需计入总码长和字符串复制成本。合并最小子树的依据可对照 [Princeton Huffman 教学实现](https://algs4.cs.princeton.edu/55compression/Huffman.java.html)。
 
 #### 7.2 并查集
 
@@ -1469,6 +2251,69 @@ vertexI, vertexJ, linkI, linkJ, weight
 
 前者服务有向图，后者服务无向图。识别题先看同一条边进入几条链，不要只背字段名。
 
+后续算法统一使用顶点编号 `[0,n)`。下面的工厂补齐邻接表初始化与加边，以及带权矩阵构造；无向图加边时同时维护两个方向。矩阵遇到平行边取较小权值，邻接表保留输入顺序。
+
+```java
+record WeightedEdge(int from, int to, long weight) {}
+
+static void checkVertex(int vertex, int n) {
+    if (vertex < 0 || vertex >= n) throw new IndexOutOfBoundsException(vertex);
+}
+
+@SuppressWarnings("unchecked")
+static java.util.List<Integer>[] newAdjacencyList(int n) {
+    if (n < 0) throw new IllegalArgumentException("vertex count");
+    java.util.List<Integer>[] graph = (java.util.List<Integer>[]) new java.util.List<?>[n];
+    for (int i = 0; i < n; i++) graph[i] = new java.util.ArrayList<>();
+    return graph;
+}
+
+static void addEdge(java.util.List<Integer>[] graph, int from, int to, boolean directed) {
+    checkVertex(from, graph.length);
+    checkVertex(to, graph.length);
+    graph[from].add(to);
+    if (!directed && from != to) graph[to].add(from);
+}
+
+static long[][] weightMatrix(int n, java.util.List<WeightedEdge> edges, boolean directed) {
+    if (n < 0) throw new IllegalArgumentException("vertex count");
+    long[][] matrix = new long[n][n];
+    for (int i = 0; i < n; i++) {
+        java.util.Arrays.fill(matrix[i], INF);
+        matrix[i][i] = 0;
+    }
+    for (WeightedEdge edge : edges) {
+        checkVertex(edge.from(), n);
+        checkVertex(edge.to(), n);
+        long limit = (INF - 1) / Math.max(1, n);
+        if (edge.weight() < -limit || edge.weight() > limit) {
+            throw new IllegalArgumentException("finite weight too large");
+        }
+        matrix[edge.from()][edge.to()] = Math.min(matrix[edge.from()][edge.to()], edge.weight());
+        if (!directed) {
+            matrix[edge.to()][edge.from()] = Math.min(matrix[edge.to()][edge.from()], edge.weight());
+        }
+    }
+    checkWeightMatrix(matrix);
+    return matrix;
+}
+
+static void checkWeightMatrix(long[][] matrix) {
+    int n = matrix.length;
+    long limit = (INF - 1) / Math.max(1, n);
+    for (long[] row : matrix) {
+        if (row.length != n) throw new IllegalArgumentException("matrix must be square");
+        for (long weight : row) {
+            if (weight != INF && (weight < -limit || weight > limit)) {
+                throw new IllegalArgumentException("finite weight too large");
+            }
+        }
+    }
+}
+```
+
+`INF` 定义见 Prim 小节，组合使用时只声明一次。有限边权绝对值限制为 `(INF-1)/max(1,n)`，使简单路径长度与“不可达”保持可区分；非法端点和非方阵直接报错。十字链表、邻接多重表在本文仍是存储表示对照，不声称给出了完整增删容器。
+
 ### 3. BFS 与 DFS
 
 下面使用邻接表，所以“有没有边”由列表成员关系决定，不受边权是否为 0 影响：
@@ -1476,6 +2321,10 @@ vertexI, vertexJ, linkI, linkJ, weight
 ```java
 import java.util.ArrayDeque;
 import java.util.List;
+
+static void visit(int vertex) {
+    System.out.print(vertex + " ");
+}
 
 static void bfsAll(List<Integer>[] graph) {
     boolean[] visited = new boolean[graph.length];
@@ -1521,6 +2370,30 @@ private static void dfs(List<Integer>[] graph, int vertex, boolean[] visited) {
 
 **优先级：S。** BFS 和 DFS 必须作为两个独立算法实现。
 
+无权最短路需要在首次发现邻接点时记录距离，而不是只打印访问顺序：
+
+```java
+static int[] unweightedDistances(List<Integer>[] graph, int source) {
+    checkVertex(source, graph.length);
+    int[] distance = new int[graph.length];
+    java.util.Arrays.fill(distance, -1);
+    ArrayDeque<Integer> queue = new ArrayDeque<>();
+    distance[source] = 0;
+    queue.add(source);
+    while (!queue.isEmpty()) {
+        int vertex = queue.remove();
+        for (int next : graph[vertex]) {
+            if (distance[next] != -1) continue;
+            distance[next] = distance[vertex] + 1;
+            queue.add(next);
+        }
+    }
+    return distance;
+}
+```
+
+不可达顶点保留 `-1`，源点距离为 `0`，时间 `O(V+E)`、辅助空间 `O(V)`。
+
 ### 4. 最小生成树
 
 最小生成树适用于连通、无向、带权图。若图不连通，得到的是最小生成森林，不能声称得到一棵生成树。
@@ -1533,8 +2406,14 @@ Prim 每轮把一个新顶点并入当前树，适合邻接矩阵和稠密图：
 static final long INF = Long.MAX_VALUE / 4;
 
 static long prim(long[][] weight) {
+    checkWeightMatrix(weight);
     int n = weight.length;
     if (n == 0) return 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (weight[i][j] != weight[j][i]) throw new IllegalArgumentException("undirected graph required");
+        }
+    }
     boolean[] inTree = new boolean[n];
     long[] lowCost = new long[n];
     java.util.Arrays.fill(lowCost, INF);
@@ -1552,7 +2431,7 @@ static long prim(long[][] weight) {
             throw new IllegalArgumentException("disconnected graph");
         }
         inTree[vertex] = true;
-        total += lowCost[vertex];
+        total = Math.addExact(total, lowCost[vertex]);
 
         for (int next = 0; next < n; next++) {
             if (!inTree[next] && weight[vertex][next] < lowCost[next]) {
@@ -1570,14 +2449,35 @@ static long prim(long[][] weight) {
 
 Kruskal 按边权从小到大扫描，若边的两个端点属于不同集合就加入，并用并查集合并。排序成本主导为 `O(E log E)`，适合边表和稀疏图。
 
-```text
-sort edges by weight
-for each (u, v, w):
-    if find(u) != find(v):
-        choose edge
-        union(u, v)
-    stop after choosing V-1 edges
+```java
+record MstResult(long weight, java.util.List<WeightedEdge> edges) {}
+
+static MstResult kruskal(int n, java.util.List<WeightedEdge> input) {
+    if (n < 0) throw new IllegalArgumentException("vertex count");
+    java.util.List<WeightedEdge> edges = new java.util.ArrayList<>(input);
+    for (WeightedEdge edge : edges) {
+        checkVertex(edge.from(), n);
+        checkVertex(edge.to(), n);
+    }
+    edges.sort(java.util.Comparator.comparingLong(WeightedEdge::weight));
+    UnionFind sets = new UnionFind(n);
+    java.util.List<WeightedEdge> chosen = new java.util.ArrayList<>();
+    long total = 0;
+    for (WeightedEdge edge : edges) {
+        if (sets.union(edge.from(), edge.to())) {
+            chosen.add(edge);
+            total = Math.addExact(total, edge.weight());
+        }
+        if (chosen.size() == n - 1) break;
+    }
+    if (chosen.size() != Math.max(0, n - 1)) {
+        throw new IllegalArgumentException("disconnected graph");
+    }
+    return new MstResult(total, java.util.List.copyOf(chosen));
+}
 ```
+
+复用第八章的 `UnionFind`，不原地重排调用方的边表。自环不会入选，重复边和负权边允许；不连通时明确拒绝，而不是把森林当成一棵树返回。空图约定总权值为 `0`。实现思路可对照 [Princeton Kruskal 说明](https://algs4.cs.princeton.edu/43mst/KruskalMST.java.html)，但这里选择的是“必须连通”的接口契约。
 
 边权互不相同时最小生成树一定唯一，但“存在相同边权”不等于“一定不唯一”。唯一性要看是否存在可替换的同权边。
 
@@ -1597,7 +2497,9 @@ for each (u, v, w):
 
 ```java
 static long[] dijkstra(long[][] weight, int source) {
+    checkWeightMatrix(weight);
     int n = weight.length;
+    checkVertex(source, n);
     for (long[] row : weight) {
         for (long edge : row) {
             if (edge != INF && edge < 0) {
@@ -1641,21 +2543,26 @@ Dijkstra 一旦把顶点加入 `fixed`，就认为最短距离已确定，因此
 
 ```java
 static void floyd(long[][] distance) {
+    checkWeightMatrix(distance);
     int n = distance.length;
+    for (int i = 0; i < n; i++) distance[i][i] = Math.min(distance[i][i], 0);
     for (int k = 0; k < n; k++) {
         for (int i = 0; i < n; i++) {
             if (distance[i][k] == INF) continue;
             for (int j = 0; j < n; j++) {
                 if (distance[k][j] == INF) continue;
-                long candidate = distance[i][k] + distance[k][j];
+                long candidate = Math.addExact(distance[i][k], distance[k][j]);
                 if (candidate < distance[i][j]) distance[i][j] = candidate;
             }
         }
     }
+    for (int i = 0; i < n; i++) {
+        if (distance[i][i] < 0) throw new IllegalArgumentException("negative cycle");
+    }
 }
 ```
 
-这里先排除 `INF` 再相加，且 `INF` 取 `Long.MAX_VALUE/4`，避免把“不可达 + 不可达”溢出成负数。时间 `O(V^3)`，额外空间取决于是否原地更新。
+这里先排除 `INF` 再相加，使用边权范围校验和精确加法，不能仅凭一个较小的 `INF` 就宣称任意输入都不会溢出。计算后通过对角线检测负环；一旦抛错，原地工作矩阵不得继续当作有效最短路结果使用。时间 `O(V^3)`，额外空间 `O(1)`，调用方若要保留原图需自行复制。
 
 > Debug 观察：Dijkstra 看 `fixed/distance/vertex`；Floyd 看第 `k` 轮前后矩阵。若零权边消失、负边进入 Dijkstra，或 `INF` 参与加法，模型已经错误。
 
@@ -1669,6 +2576,7 @@ static void floyd(long[][] distance) {
 
 ```java
 static int[] topologicalOrder(List<Integer>[] graph, int[] originalIndegree) {
+    if (originalIndegree.length != graph.length) throw new IllegalArgumentException("indegree length");
     int[] indegree = java.util.Arrays.copyOf(originalIndegree, originalIndegree.length);
     ArrayDeque<Integer> queue = new ArrayDeque<>();
     for (int i = 0; i < indegree.length; i++) {
@@ -1689,7 +2597,7 @@ static int[] topologicalOrder(List<Integer>[] graph, int[] originalIndegree) {
 }
 ```
 
-邻接表实现为 `O(V+E)`。若每一步都只有一个入度为 0 的候选顶点，则拓扑序唯一；某一步候选不止一个，至少存在不同选择顺序。
+调用方传入的入度数组必须与图一致；函数复制它，不修改调用方数据。邻接表实现为 `O(V+E)`。若每一步都只有一个入度为 0 的候选顶点，则拓扑序唯一；某一步候选不止一个，至少存在不同选择顺序。
 
 #### 6.2 AOE 网与关键路径
 
@@ -1705,6 +2613,63 @@ AOE 网是带权 DAG，边表示活动、权值表示持续时间。计算顺序
 ve[v] = max(ve[v], ve[u] + w)
 vl[u] = min(vl[u], vl[v] - w)
 ```
+
+下面返回总工期、`ve/vl` 和关键活动。支持多个源/汇点：所有源事件可在时刻 0 启动，所有汇事件共享全局完工期限，等价于添加零时长的超级源点与汇点。这一约定比“随便取最后一个顶点的 `ve`”更明确。DAG 最长路径与工期的关系可参考 [Princeton CPM 说明](https://algs4.cs.princeton.edu/44sp/CPM.java.html)。
+
+```java
+record CriticalPathResult(long duration, long[] earliest, long[] latest,
+        java.util.List<WeightedEdge> activities) {}
+
+static CriticalPathResult criticalPath(int n, java.util.List<WeightedEdge> activities) {
+    if (n < 0) throw new IllegalArgumentException("vertex count");
+    java.util.List<java.util.List<WeightedEdge>> graph = new java.util.ArrayList<>();
+    for (int i = 0; i < n; i++) graph.add(new java.util.ArrayList<>());
+    int[] indegree = new int[n];
+    for (WeightedEdge activity : activities) {
+        checkVertex(activity.from(), n);
+        checkVertex(activity.to(), n);
+        if (activity.weight() < 0) throw new IllegalArgumentException("negative duration");
+        graph.get(activity.from()).add(activity);
+        indegree[activity.to()]++;
+    }
+    ArrayDeque<Integer> ready = new ArrayDeque<>();
+    for (int i = 0; i < n; i++) if (indegree[i] == 0) ready.add(i);
+    int[] order = new int[n];
+    int count = 0;
+    long[] earliest = new long[n];
+    while (!ready.isEmpty()) {
+        int vertex = ready.remove();
+        order[count++] = vertex;
+        for (WeightedEdge activity : graph.get(vertex)) {
+            int next = activity.to();
+            earliest[next] = Math.max(earliest[next],
+                    Math.addExact(earliest[vertex], activity.weight()));
+            if (--indegree[next] == 0) ready.add(next);
+        }
+    }
+    if (count != n) throw new IllegalArgumentException("cycle");
+    long duration = 0;
+    for (long time : earliest) duration = Math.max(duration, time);
+    long[] latest = new long[n];
+    java.util.Arrays.fill(latest, duration);
+    for (int i = n - 1; i >= 0; i--) {
+        int vertex = order[i];
+        for (WeightedEdge activity : graph.get(vertex)) {
+            latest[vertex] = Math.min(latest[vertex],
+                    Math.subtractExact(latest[activity.to()], activity.weight()));
+        }
+    }
+    java.util.List<WeightedEdge> critical = new java.util.ArrayList<>();
+    for (WeightedEdge activity : activities) {
+        if (earliest[activity.from()] == latest[activity.to()] - activity.weight()) {
+            critical.add(activity);
+        }
+    }
+    return new CriticalPathResult(duration, earliest, latest, java.util.List.copyOf(critical));
+}
+```
+
+例如活动 `0->1(3), 0->2(2), 1->3(2), 2->3(4)`，总工期为 `6`，关键活动为 `0->2` 和 `2->3`。空图工期为 `0`；负时长、有向环或 `long` 溢出显式报错。时间、存储图与结果所需空间均为 `O(V+E)`。
 
 关键路径可能不唯一。缩短某一条关键活动不一定缩短总工期，因为可能还存在另一条同长关键路径；只有缩短所有当前控制工期的路径才可能生效。
 
@@ -1750,6 +2715,31 @@ vl[u] = min(vl[u], vl[v] - w)
 
 普通顺序查找适用于有序或无序线性表，时间为 `O(n)`。带哨兵写法把目标临时放在边界位置，可减少循环中的越界判断，但要说明是否会覆盖原数据以及如何恢复。
 
+```java
+static int sequentialSearch(int[] values, int target) {
+    for (int i = 0; i < values.length; i++) {
+        if (values[i] == target) return i;
+    }
+    return -1;
+}
+
+static int sentinelSearch(int[] values, int target) {
+    if (values.length == 0) return -1;
+    int last = values.length - 1;
+    int saved = values[last];
+    int index = 0;
+    try {
+        values[last] = target;
+        while (values[index] != target) index++;
+    } finally {
+        values[last] = saved;
+    }
+    return index < last || saved == target ? index : -1;
+}
+```
+
+两者返回首次出现位置或 `-1`，辅助空间 `O(1)`。哨兵版调用期间暂时修改数组，不能与其他线程共享读写；函数返回后原数组必须完全恢复。
+
 #### 2.2 折半查找
 
 折半查找要求顺序存储且按关键字有序：
@@ -1781,6 +2771,50 @@ static int binarySearch(int[] values, int target) {
 
 若有 `b` 块、每块约 `s` 个元素，顺序查索引的平均量级为 `O(b+s)`；在均匀条件下取 `b`、`s` 约为 `sqrt(n)` 可得到 `O(sqrt(n))` 量级。若索引表折半查找，则还要单独计算索引比较与块内比较。
 
+下面把“建索引”与“查索引”分开。`buildBlocks` 校验前一块最大值不大于后一块最小值；块内任意顺序均可。索引生成后若修改数组，须重新建立索引。
+
+```java
+record SearchBlock(int maximum, int start, int endExclusive) {}
+
+static SearchBlock[] buildBlocks(int[] values, int blockSize) {
+    if (blockSize <= 0) throw new IllegalArgumentException("block size");
+    java.util.List<SearchBlock> blocks = new java.util.ArrayList<>();
+    long previousMaximum = Long.MIN_VALUE;
+    for (int start = 0; start < values.length;) {
+        int end = (int) Math.min(values.length, (long) start + blockSize);
+        int minimum = values[start];
+        int maximum = values[start];
+        for (int i = start + 1; i < end; i++) {
+            minimum = Math.min(minimum, values[i]);
+            maximum = Math.max(maximum, values[i]);
+        }
+        if (minimum < previousMaximum) throw new IllegalArgumentException("unordered blocks");
+        blocks.add(new SearchBlock(maximum, start, end));
+        previousMaximum = maximum;
+        start = end;
+    }
+    return blocks.toArray(SearchBlock[]::new);
+}
+
+static int blockSearch(int[] values, SearchBlock[] blocks, int target) {
+    int low = 0;
+    int high = blocks.length;
+    while (low < high) {
+        int middle = low + (high - low) / 2;
+        if (blocks[middle].maximum() < target) low = middle + 1;
+        else high = middle;
+    }
+    if (low == blocks.length) return -1;
+    SearchBlock block = blocks[low];
+    for (int i = block.start(); i < block.endExclusive(); i++) {
+        if (values[i] == target) return i;
+    }
+    return -1;
+}
+```
+
+建索引一次 `O(n)`，随后单次查询 `O(log b+s)`，索引空间 `O(b)`；不能把每次重新建索引的版本也标为次线性查找。
+
 > Debug 观察：折半看 `low/middle/high`；分块查找看索引命中的块边界。最常见错误是把块内也误认为必须有序。
 
 **优先级：顺序 A，折半 S，分块 A。**
@@ -1807,7 +2841,7 @@ BST、AVL 和红黑树已在树章节给出。此处从查找角度对比：
 - 除根外，非叶节点至少有 `ceil(m/2)` 个孩子，即至少 `ceil(m/2)-1` 个关键字。
 - 根若不是叶节点，至少有两个孩子。
 - 所有叶节点在同一层。
-- 含 `k` 个关键字的节点有 `k+1` 个孩子。
+- 含 `k` 个关键字的内部节点有 `k+1` 个孩子，叶节点没有孩子。
 
 不同教材可能把“最小度数”作为参数，操作前先确认阶数定义。
 
@@ -1833,6 +2867,171 @@ BST、AVL 和红黑树已在树章节给出。此处从查找角度对比：
 
 内部节点删除通常用前驱或后继替换，再把问题转到子节点。若根删除后没有关键字，唯一孩子成为新根，树高减一。
 
+下面固定为 **4 阶 B 树，即最小度数 `t=2` 的 2-3-4 树**。整数关键字不重复，支持查找、插入和删除。采用自顶向下预分裂/预借位，因此中间形状可能与上面的“先溢出再分裂”手算不同，但阶数约束相同。
+
+```java
+static final class BTreeSet {
+    private static final class Page {
+        int count;
+        boolean leaf = true;
+        final int[] keys = new int[3];
+        final Page[] children = new Page[4];
+    }
+
+    private Page root = new Page();
+
+    boolean contains(int key) {
+        Page page = root;
+        while (true) {
+            int index = position(page, key);
+            if (index < page.count && page.keys[index] == key) return true;
+            if (page.leaf) return false;
+            page = page.children[index];
+        }
+    }
+
+    void add(int key) {
+        if (contains(key)) return;
+        if (root.count == 3) {
+            Page parent = new Page();
+            parent.leaf = false;
+            parent.children[0] = root;
+            splitChild(parent, 0);
+            root = parent;
+        }
+        insertNonFull(root, key);
+    }
+
+    void remove(int key) {
+        if (!contains(key)) return;
+        delete(root, key);
+        if (root.count == 0 && !root.leaf) root = root.children[0];
+    }
+
+    private static int position(Page page, int key) {
+        int index = 0;
+        while (index < page.count && page.keys[index] < key) index++;
+        return index;
+    }
+
+    private static void splitChild(Page parent, int index) {
+        Page left = parent.children[index];
+        Page right = new Page();
+        right.leaf = left.leaf;
+        right.keys[0] = left.keys[2];
+        right.count = 1;
+        if (!left.leaf) {
+            right.children[0] = left.children[2];
+            right.children[1] = left.children[3];
+            left.children[2] = left.children[3] = null;
+        }
+        for (int i = parent.count; i > index; i--) parent.children[i + 1] = parent.children[i];
+        for (int i = parent.count; i > index; i--) parent.keys[i] = parent.keys[i - 1];
+        parent.keys[index] = left.keys[1];
+        parent.children[index + 1] = right;
+        parent.count++;
+        left.count = 1;
+    }
+
+    private static void insertNonFull(Page page, int key) {
+        int index = position(page, key);
+        if (page.leaf) {
+            for (int i = page.count; i > index; i--) page.keys[i] = page.keys[i - 1];
+            page.keys[index] = key;
+            page.count++;
+        } else {
+            if (page.children[index].count == 3) {
+                splitChild(page, index);
+                if (key > page.keys[index]) index++;
+            }
+            insertNonFull(page.children[index], key);
+        }
+    }
+
+    private static void delete(Page page, int key) {
+        int index = position(page, key);
+        if (index < page.count && page.keys[index] == key) {
+            if (page.leaf) {
+                for (int i = index; i < page.count - 1; i++) page.keys[i] = page.keys[i + 1];
+                page.count--;
+            } else if (page.children[index].count >= 2) {
+                Page predecessor = page.children[index];
+                while (!predecessor.leaf) predecessor = predecessor.children[predecessor.count];
+                page.keys[index] = predecessor.keys[predecessor.count - 1];
+                delete(page.children[index], page.keys[index]);
+            } else if (page.children[index + 1].count >= 2) {
+                Page successor = page.children[index + 1];
+                while (!successor.leaf) successor = successor.children[0];
+                page.keys[index] = successor.keys[0];
+                delete(page.children[index + 1], page.keys[index]);
+            } else {
+                mergeChildren(page, index);
+                delete(page.children[index], key);
+            }
+            return;
+        }
+        if (page.leaf) return;
+        if (page.children[index].count == 1) {
+            if (index > 0 && page.children[index - 1].count >= 2) borrowLeft(page, index);
+            else if (index < page.count && page.children[index + 1].count >= 2) borrowRight(page, index);
+            else {
+                if (index == page.count) index--;
+                mergeChildren(page, index);
+            }
+        }
+        delete(page.children[index], key);
+    }
+
+    private static void borrowLeft(Page parent, int index) {
+        Page child = parent.children[index];
+        Page sibling = parent.children[index - 1];
+        for (int i = child.count; i > 0; i--) child.keys[i] = child.keys[i - 1];
+        if (!child.leaf) {
+            for (int i = child.count + 1; i > 0; i--) child.children[i] = child.children[i - 1];
+            child.children[0] = sibling.children[sibling.count];
+            sibling.children[sibling.count] = null;
+        }
+        child.keys[0] = parent.keys[index - 1];
+        parent.keys[index - 1] = sibling.keys[sibling.count - 1];
+        sibling.count--;
+        child.count++;
+    }
+
+    private static void borrowRight(Page parent, int index) {
+        Page child = parent.children[index];
+        Page sibling = parent.children[index + 1];
+        child.keys[child.count] = parent.keys[index];
+        if (!child.leaf) {
+            child.children[child.count + 1] = sibling.children[0];
+            for (int i = 0; i < sibling.count; i++) sibling.children[i] = sibling.children[i + 1];
+            sibling.children[sibling.count] = null;
+        }
+        parent.keys[index] = sibling.keys[0];
+        for (int i = 0; i < sibling.count - 1; i++) sibling.keys[i] = sibling.keys[i + 1];
+        sibling.count--;
+        child.count++;
+    }
+
+    private static void mergeChildren(Page parent, int index) {
+        Page left = parent.children[index];
+        Page right = parent.children[index + 1];
+        int offset = left.count + 1;
+        left.keys[left.count] = parent.keys[index];
+        for (int i = 0; i < right.count; i++) left.keys[offset + i] = right.keys[i];
+        if (!left.leaf) {
+            for (int i = 0; i <= right.count; i++) left.children[offset + i] = right.children[i];
+        }
+        left.count += right.count + 1;
+        for (int i = index; i < parent.count - 1; i++) parent.keys[i] = parent.keys[i + 1];
+        for (int i = index + 1; i < parent.count; i++) parent.children[i] = parent.children[i + 1];
+        parent.children[parent.count] = null;
+        parent.count--;
+    }
+}
+```
+
+固定阶数时查找与增删都是 `O(log n)`，递归辅助空间 `O(log n)`，节点总空间 `O(n)`。不要将数组容量直接改成另一数字后就宣称支持任意阶数：分裂中点、最少关键字和借位条件也必须一起推导。
+
 #### 4.3 B+ 树
 
 | 对比 | B 树 | B+ 树 |
@@ -1844,6 +3043,157 @@ BST、AVL 和红黑树已在树章节给出。此处从查找角度对比：
 | 范围查找 | 需中序式遍历 | 定位首叶后沿链扫描 |
 
 工程延伸：数据库索引常使用 B+ 树，是因为高扇出降低树高，叶链适合范围扫描。这个类比只帮助理解，不替代阶数、最少关键字和分裂合并手算。
+
+下面给出内存中的整数集合版 B+ 树，内部节点只保存分隔键，实际关键字只在叶节点中。明确约定：内部节点最多 4 个孩子，非根至少 2 个；叶最多 3 个关键字，非根至少 2 个。分隔键等于**右孩子子树的最小关键字**，相等时必须向右走。代码覆盖分裂、借位、合并、根收缩和叶链范围扫描，不实现磁盘页或并发事务。
+
+```java
+static final class BPlusTreeSet {
+    private static final class Page {
+        final boolean leaf;
+        final java.util.List<Integer> keys = new java.util.ArrayList<>();
+        final java.util.List<Page> children = new java.util.ArrayList<>();
+        Page next;
+        int minimum;
+        Page(boolean leaf) { this.leaf = leaf; }
+    }
+
+    private Page root = new Page(true);
+
+    boolean contains(int key) {
+        Page leaf = findLeaf(key);
+        return java.util.Collections.binarySearch(leaf.keys, key) >= 0;
+    }
+
+    void add(int key) {
+        if (contains(key)) return;
+        Page right = insert(root, key);
+        if (right != null) {
+            Page parent = new Page(false);
+            parent.children.add(root);
+            parent.children.add(right);
+            refresh(parent);
+            root = parent;
+        }
+    }
+
+    void remove(int key) {
+        if (!contains(key)) return;
+        delete(root, key);
+        if (!root.leaf && root.children.size() == 1) root = root.children.get(0);
+    }
+
+    java.util.List<Integer> range(int fromInclusive, int toInclusive) {
+        java.util.List<Integer> output = new java.util.ArrayList<>();
+        if (fromInclusive > toInclusive) return output;
+        Page leaf = findLeaf(fromInclusive);
+        while (leaf != null) {
+            for (int key : leaf.keys) {
+                if (key > toInclusive) return output;
+                if (key >= fromInclusive) output.add(key);
+            }
+            leaf = leaf.next;
+        }
+        return output;
+    }
+
+    private Page findLeaf(int key) {
+        Page page = root;
+        while (!page.leaf) page = page.children.get(childIndex(page, key));
+        return page;
+    }
+
+    private static int childIndex(Page page, int key) {
+        int index = 0;
+        while (index < page.keys.size() && key >= page.keys.get(index)) index++;
+        return index;
+    }
+
+    private static void refresh(Page page) {
+        if (page.leaf) {
+            page.minimum = page.keys.isEmpty() ? 0 : page.keys.get(0);
+        } else {
+            page.keys.clear();
+            page.minimum = page.children.get(0).minimum;
+            for (int i = 1; i < page.children.size(); i++) page.keys.add(page.children.get(i).minimum);
+        }
+    }
+
+    private static Page insert(Page page, int key) {
+        if (page.leaf) {
+            int index = -java.util.Collections.binarySearch(page.keys, key) - 1;
+            page.keys.add(index, key);
+        } else {
+            int index = childIndex(page, key);
+            Page right = insert(page.children.get(index), key);
+            if (right != null) page.children.add(index + 1, right);
+        }
+        refresh(page);
+        if (page.keys.size() <= 3) return null;
+        Page right = new Page(page.leaf);
+        if (page.leaf) {
+            right.keys.addAll(page.keys.subList(2, page.keys.size()));
+            page.keys.subList(2, page.keys.size()).clear();
+            right.next = page.next;
+            page.next = right;
+        } else {
+            right.children.addAll(page.children.subList(3, page.children.size()));
+            page.children.subList(3, page.children.size()).clear();
+        }
+        refresh(page);
+        refresh(right);
+        return right;
+    }
+
+    private static int occupancy(Page page) {
+        return page.leaf ? page.keys.size() : page.children.size();
+    }
+
+    private static void delete(Page page, int key) {
+        if (page.leaf) {
+            page.keys.remove(java.util.Collections.binarySearch(page.keys, key));
+            refresh(page);
+            return;
+        }
+        int index = childIndex(page, key);
+        Page child = page.children.get(index);
+        delete(child, key);
+        if (occupancy(child) < 2) {
+            Page left = index == 0 ? null : page.children.get(index - 1);
+            Page right = index + 1 == page.children.size() ? null : page.children.get(index + 1);
+            if (left != null && occupancy(left) > 2) {
+                if (child.leaf) child.keys.add(0, left.keys.remove(left.keys.size() - 1));
+                else child.children.add(0, left.children.remove(left.children.size() - 1));
+                refresh(left);
+                refresh(child);
+            } else if (right != null && occupancy(right) > 2) {
+                if (child.leaf) child.keys.add(right.keys.remove(0));
+                else child.children.add(right.children.remove(0));
+                refresh(right);
+                refresh(child);
+            } else if (left != null) {
+                merge(left, child);
+                page.children.remove(index);
+            } else {
+                merge(child, right);
+                page.children.remove(index + 1);
+            }
+        }
+        refresh(page);
+    }
+
+    private static void merge(Page left, Page right) {
+        if (left.leaf) {
+            left.keys.addAll(right.keys);
+            left.next = right.next;
+        } else {
+            left.children.addAll(right.children);
+        }
+        refresh(left);
+    }
+}
+```
+
+固定扇出下，查找/增删为 `O(log n)`；范围输出 `r` 个元素为 `O(log n+r)`，输出空间 `O(r)`。测试不能只看单点查找：删除后还要检查叶链是否漏页、分隔键是否更新、所有叶深度是否相同。
 
 **优先级：B 树 A，B+ 树 B。** 不要求完整工程实现，但必须能按指定阶数画插入分裂、删除借位与合并。
 
@@ -1925,6 +3275,75 @@ final class OpenAddressHash {
 
 装填因子较低且散列均匀时，平均查找接近 `O(1)`；最坏仍为 `O(n)`。线性探测易产生一次聚集，平方探测与双散列用于改善探测分布。ASL 手算必须逐个写探测序列，包括回绕和失败停止位置。
 
+下面补齐拉链法，仍采用整数集合语义。负关键字用 `floorMod`，删除链首和链中节点走同一条前驱逻辑。
+
+```java
+static final class ChainedHashSet {
+    private static final class Entry {
+        final int key;
+        Entry next;
+        Entry(int key, Entry next) { this.key = key; this.next = next; }
+    }
+
+    private final Entry[] buckets;
+
+    ChainedHashSet(int capacity) {
+        if (capacity <= 0) throw new IllegalArgumentException("capacity");
+        buckets = new Entry[capacity];
+    }
+
+    boolean contains(int key) {
+        for (Entry entry = buckets[Math.floorMod(key, buckets.length)]; entry != null; entry = entry.next) {
+            if (entry.key == key) return true;
+        }
+        return false;
+    }
+
+    boolean add(int key) {
+        if (contains(key)) return false;
+        int slot = Math.floorMod(key, buckets.length);
+        buckets[slot] = new Entry(key, buckets[slot]);
+        return true;
+    }
+
+    boolean remove(int key) {
+        int slot = Math.floorMod(key, buckets.length);
+        Entry previousEntry = null;
+        Entry current = buckets[slot];
+        while (current != null && current.key != key) {
+            previousEntry = current;
+            current = current.next;
+        }
+        if (current == null) return false;
+        if (previousEntry == null) buckets[slot] = current.next;
+        else previousEntry.next = current.next;
+        return true;
+    }
+}
+```
+
+均匀散列时预期操作时间 `O(1+alpha)`，最坏 `O(n)`；本版固定桶数，不声称在无限增长后仍保持常数查找。平方探测与双散列在这里是策略对照，下面只给探测位置公式，不能直接替换线性探测并沿用相同的“必遍历所有槽”假设：
+
+```java
+static int quadraticProbe(int key, int step, int capacity) {
+    if (capacity <= 0 || step < 0) throw new IllegalArgumentException("probe parameters");
+    return (int) ((Math.floorMod(key, capacity) + (long) step * step) % capacity);
+}
+
+static int doubleHashProbe(int key, int step, int capacity, int stride) {
+    if (capacity <= 1 || step < 0 || stride <= 0 || stride >= capacity) {
+        throw new IllegalArgumentException("probe parameters");
+    }
+    int a = capacity;
+    int b = stride;
+    while (b != 0) { int remainder = a % b; a = b; b = remainder; }
+    if (a != 1) throw new IllegalArgumentException("stride must be coprime with capacity");
+    return (int) ((Math.floorMod(key, capacity) + (long) step * stride) % capacity);
+}
+```
+
+双散列中步长必须与表长互素；生产实现会为一个关键字计算并校验一次步长，而不是每次探测都重复做欧几里得算法。
+
 > Debug 观察：`start/step/index/state/firstDeleted`。探测最多进行表长次，必须有上界。
 
 **优先级：S。** 至少独立实现开放定址的查找、插入、墓碑删除，并手算成功与失败 ASL。
@@ -1942,6 +3361,16 @@ final class OpenAddressHash {
 稳定性只讨论关键字相等的记录：排序后它们的相对次序不变，算法才稳定。稳定与正确、快慢没有直接等价关系。
 
 比较次数和记录移动次数必须分开。本文把一次交换视为三次记录赋值；若题目把暂存到 `temp`、循环最后写回也计入移动，精确数值会相应变化，必须服从题目口径。
+
+冒泡、选择和堆排序会调用以下辅助方法，不能省略定义：
+
+```java
+static void swap(int[] values, int first, int second) {
+    int temporary = values[first];
+    values[first] = values[second];
+    values[second] = temporary;
+}
+```
 
 | 算法 | 最好时间 | 平均时间 | 最坏时间 | 辅助空间 | 稳定 | 比较与移动特征 |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -2244,6 +3673,32 @@ static int[] mergeSortedRuns(int[][] runs) {
 
 线性扫描选胜者的时间为 `O(Nk)`；败者树或小根堆可把它降为 `O(N log k)`。
 
+小根堆版只保存每个非空段的当前元素，同值时按段号决定先后。输入段必须各自有序；这里只模拟选路，不读取真实磁盘文件。
+
+```java
+record RunHead(int value, int run, int index) {}
+
+static int[] mergeRunsWithHeap(int[][] runs) {
+    java.util.PriorityQueue<RunHead> queue = new java.util.PriorityQueue<>(
+            java.util.Comparator.comparingInt(RunHead::value).thenComparingInt(RunHead::run));
+    int total = 0;
+    for (int i = 0; i < runs.length; i++) {
+        total = Math.addExact(total, runs[i].length);
+        if (runs[i].length != 0) queue.add(new RunHead(runs[i][0], i, 0));
+    }
+    int[] output = new int[total];
+    for (int i = 0; i < total; i++) {
+        RunHead head = queue.remove();
+        output[i] = head.value();
+        int next = head.index() + 1;
+        if (next < runs[head.run()].length) {
+            queue.add(new RunHead(runs[head.run()][next], head.run(), next));
+        }
+    }
+    return output;
+}
+```
+
 #### 8.2 三个容易混淆的优化
 
 | 技术 | 优化对象 | 核心动作 |
@@ -2265,6 +3720,142 @@ u = (r-1) mod (k-1)
 ```
 
 个权值为 0 的虚段，再按 Huffman 思想合并。仅写“补一些虚段”无法保证形成严格的 `k` 叉归并树。
+
+#### 8.3 败者树：只重赛当前胜者的路径
+
+内部节点保存该场比赛的败者段号，总胜者单独保存。初始化时向上传递胜者并记录败者；每输出一次，只修改原胜者的段首，然后与路径上的旧败者重赛。耗尽通过位置判断，不用 `Integer.MAX_VALUE` 当哨兵，因此输入允许完整 `int` 值域。
+
+```java
+static final class LoserTree {
+    private final int[][] runs;
+    private final int[] positions;
+    private final int[] losers;
+    private final int leafBase;
+    private int winner;
+
+    LoserTree(int[][] runs) {
+        this.runs = runs;
+        positions = new int[runs.length];
+        int base = 1;
+        while (base < runs.length) base = Math.multiplyExact(base, 2);
+        leafBase = base;
+        losers = new int[base];
+        winner = build(1);
+    }
+
+    boolean isEmpty() { return !active(winner); }
+
+    int pop() {
+        if (isEmpty()) throw new IllegalStateException("empty");
+        int changedRun = winner;
+        int value = runs[changedRun][positions[changedRun]++];
+        int contender = changedRun;
+        for (int node = (leafBase + changedRun) / 2; node > 0; node /= 2) {
+            int opponent = losers[node];
+            if (before(opponent, contender)) {
+                losers[node] = contender;
+                contender = opponent;
+            }
+        }
+        winner = contender;
+        return value;
+    }
+
+    private int build(int node) {
+        if (node >= leafBase) return node - leafBase;
+        int leftWinner = build(node * 2);
+        int rightWinner = build(node * 2 + 1);
+        boolean leftFirst = before(leftWinner, rightWinner);
+        losers[node] = leftFirst ? rightWinner : leftWinner;
+        return leftFirst ? leftWinner : rightWinner;
+    }
+
+    private boolean active(int run) {
+        return run < runs.length && positions[run] < runs[run].length;
+    }
+
+    private boolean before(int first, int second) {
+        boolean firstActive = active(first);
+        boolean secondActive = active(second);
+        if (firstActive != secondActive) return firstActive;
+        if (!firstActive) return first < second;
+        int comparison = Integer.compare(runs[first][positions[first]], runs[second][positions[second]]);
+        return comparison < 0 || comparison == 0 && first < second;
+    }
+}
+
+static int[] mergeRunsWithLoserTree(int[][] runs) {
+    int total = 0;
+    for (int[] run : runs) total = Math.addExact(total, run.length);
+    LoserTree tree = new LoserTree(runs);
+    int[] output = new int[total];
+    for (int i = 0; i < total; i++) output[i] = tree.pop();
+    return output;
+}
+```
+
+初始化 `O(k)`，每次输出 `O(log k)`；含初始化的总时间为 `O(k+N log(k+1))`，辅助空间 `O(k)`，输出另计 `O(N)`。空段、全部耗尽、单路和非 2 的幂路数都要测。
+
+#### 8.4 置换选择：生成更长的初始归并段
+
+`active` 保存可继续进入本段的元素，`frozen` 保存必须推迟到下一段的元素。二者总元素数始终不超过 `memorySize`。一段结束后交换两个堆，不能把冻结元素提前拿出来。
+
+```java
+static java.util.List<int[]> replacementSelection(int[] input, int memorySize) {
+    if (memorySize <= 0) throw new IllegalArgumentException("memory size");
+    java.util.PriorityQueue<Integer> active = new java.util.PriorityQueue<>();
+    java.util.PriorityQueue<Integer> frozen = new java.util.PriorityQueue<>();
+    int read = 0;
+    while (read < input.length && active.size() < memorySize) active.add(input[read++]);
+    java.util.List<int[]> runs = new java.util.ArrayList<>();
+    while (!active.isEmpty()) {
+        java.util.List<Integer> current = new java.util.ArrayList<>();
+        while (!active.isEmpty()) {
+            int value = active.remove();
+            current.add(value);
+            if (read < input.length) {
+                int incoming = input[read++];
+                if (incoming >= value) active.add(incoming);
+                else frozen.add(incoming);
+            }
+        }
+        runs.add(current.stream().mapToInt(Integer::intValue).toArray());
+        java.util.PriorityQueue<Integer> empty = active;
+        active = frozen;
+        frozen = empty;
+    }
+    return runs;
+}
+```
+
+时间 `O(N log(M+1))`，候选堆占 `O(min(N,M))`；教学代码把所有输出段存在内存，输出占 `O(N)`，所以它不是“真实只用 M 个单元”的外排程序。实际文件版应将本段连续写入外存。顺序输入可产生一个长段，逆序输入会频繁冻结，不能保证每段都比内存容量长。
+
+#### 8.5 k 路最佳归并代价
+
+```java
+static long optimalMergeCost(long[] runLengths, int ways) {
+    if (ways < 2) throw new IllegalArgumentException("ways must be at least two");
+    java.util.PriorityQueue<Long> lengths = new java.util.PriorityQueue<>();
+    for (long length : runLengths) {
+        if (length < 0) throw new IllegalArgumentException("negative run length");
+        lengths.add(length);
+    }
+    if (lengths.size() <= 1) return 0;
+    int remainder = (lengths.size() - 1) % (ways - 1);
+    int padding = remainder == 0 ? 0 : ways - 1 - remainder;
+    for (int i = 0; i < padding; i++) lengths.add(0L);
+    long cost = 0;
+    while (lengths.size() > 1) {
+        long merged = 0;
+        for (int i = 0; i < ways; i++) merged = Math.addExact(merged, lengths.remove());
+        cost = Math.addExact(cost, merged);
+        lengths.add(merged);
+    }
+    return cost;
+}
+```
+
+`optimalMergeCost([2,3,7,9],2)` 为 `38`，与相同权值 Huffman 的 WPL 一致；它是每轮被合并记录数之和，若每轮都读一次写一次，记录传输量是 `2*38=76`，不包括生成初始段。补零后的段数为 `r'`，堆算法约为 `O(r' log r')` 时间、`O(r')` 空间；很大的归并路数还会带来补零和缓冲区成本。
 
 > 手算验收：给出 `N/M/k` 后，依次算 `r`、归并趟数、合并阶段 I/O、缓冲区数量和虚段数；给出不等长归并段时再画最佳归并树。
 
@@ -2384,7 +3975,7 @@ cc -std=c11 -Wall -Wextra -Werror \
 | A | 补全核心代码 + 完整过程表 | 双/循环链表；数组矩阵；AVL；Huffman；四种图存储；Prim；Kruskal；Dijkstra；Floyd；拓扑；关键路径；分块；B 树；折半插入；Shell；选择；基数 |
 | B | 画结构 + 判性质 + 会解释操作 | 静态链表；线索树；红黑树；B+ 树；外部排序及三种优化 |
 
-第一轮先打通全部 S，再用 A 连接综合题，最后用 B 补选择题和结构判断。B 级不是“不学”，而是暂不投入完整工程实现成本。
+第一轮先打通全部 S，再用 A 连接综合题，最后用 B 补选择题和结构判断。示例代码已经给出，B 级不是“没有代码”，而是暂不要求从零默写完整结构。
 
 ## 十七、核心 20 个实验与可选 10 个实验
 
@@ -2430,7 +4021,23 @@ cc -std=c11 -Wall -Wextra -Werror \
 
 ## 十八、范围覆盖审计表
 
-| 正式主线 | 逐项内容 | 本文位置 | 覆盖状态 |
+### 1. Java 实现覆盖与简化边界
+
+| 范围 | 已给出的 Java 实现 | 明确边界 |
+| --- | --- | --- |
+| 线性结构 | 顺序/单链/双链/循环/静态链、增删改查与常见链表算法 | 循环链表给首尾插与首删，不是通用并发容器 |
+| 栈、队列与矩阵 | 顺序/链式栈队列、括号、表达式、压缩下标、三元组快速转置 | 双端队列和稀疏矩阵十字链表保留概念对照；表达式语法受限 |
+| 串 | BF、KMP、`next` 与 `nextval` | 按 Java UTF-16 字符单元匹配，不做自然语言分词 |
+| 树 | 递归/迭代/层序、森林转换、线索化与遍历、BST、AVL、LLRB、Huffman、并查集、堆 | 线索化只对未线索化树执行一次；递归深度受 JVM 栈限制 |
+| 图 | 建表/建矩阵、BFS/DFS、无权距离、Prim/Kruskal、Dijkstra/Floyd、拓扑与关键路径 | 十字链表和邻接多重表只说明表示；没有实现完整可变顶点图容器 |
+| 查找 | 顺序/哨兵/折半/分块、4 阶 B 树与 B+ 树、开放定址/拉链 Hash、探测公式 | B/B+ 是固定阶内存集合；平方/双散列公式不是独立 Hash 容器 |
+| 排序 | 九种内部排序、扫描/堆/败者树归并、置换选择、最佳归并代价 | 外排给内存模拟，不包含文件 I/O、缓存管理和故障恢复 |
+
+“结构概念已覆盖”与“任意生产功能都有代码”不是一回事。下面的主题表保留知识范围核对功能，上表才说明本版代码实际做到哪里。
+
+### 2. 知识主题核对
+
+| 知识主线 | 逐项内容 | 本文位置 | 覆盖状态 |
 | --- | --- | --- | --- |
 | 基本概念 | 数据、逻辑/存储结构、ADT | 第四章 | 已覆盖 |
 | 算法评价 | 时间、空间、最好/平均/最坏、均摊 | 第四、十二章 | 已覆盖 |
