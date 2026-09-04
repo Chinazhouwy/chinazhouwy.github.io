@@ -2,6 +2,40 @@
   "generatedAt": "2026-09-04T00:00:00+08:00",
   "articles": [
     {
+      "title": "Spring Batch 入门到实战：从定时循环到可恢复的批处理系统",
+      "path": "content/learning/java/2026-09-04-spring-batch-guide.md",
+      "url": "content/learning/java/2026-09-04-spring-batch-guide.md",
+      "date": "2026-09-04",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "2026-09-04",
+      "domain": "学习",
+      "area": "Java 后端",
+      "module": "Spring 生态",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "Spring Batch 核心领域模型、chunk 处理、skip/retry/restart 失败分类、测试与可观测性的完整学习笔记。",
+      "tags": [
+        "Spring Batch",
+        "批处理",
+        "Spring Boot",
+        "幂等",
+        "事务"
+      ],
+      "section": "learning",
+      "topic": "Spring 生态",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "git worktree 实战：一边修 bug 一边写需求",
       "path": "content/learning/engineering/2026-09-02-git-worktree-parallel-development.md",
       "url": "content/learning/engineering/2026-09-02-git-worktree-parallel-development.md",
@@ -5284,13 +5318,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 153,
+    "学习": 154,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 153,
+    "learning": 154,
     "about": 1,
     "reading": 7,
     "projects": 2
