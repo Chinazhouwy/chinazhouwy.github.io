@@ -119,6 +119,7 @@ const state = {
   dashboard: {},
   columns: [],
   projects: [],
+  githubProfile: null,
   quickLinks: [],
   thirdPartyLinks: [],
   learningAreas: [],
@@ -897,6 +898,56 @@ function bindContributionMap() {
   if (scroller) scroller.scrollLeft = scroller.scrollWidth;
 }
 
+function githubUpdatedLabel(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "近期更新";
+  return new Intl.DateTimeFormat("zh-CN", { month: "short", day: "numeric" }).format(date);
+}
+
+function renderGithubPulse(profile) {
+  if (!profile?.profileUrl || !profile?.username) return "";
+  const repositories = Array.isArray(profile.repositories) ? profile.repositories.slice(0, 3) : [];
+  const profileBio = /^https?:\/\//i.test(profile.bio || "")
+    ? "公开代码与持续构建"
+    : profile.bio || "公开代码与持续构建";
+
+  return `
+    <section class="nova-panel nova-panel--github reveal">
+      <header class="nova-panel-heading">
+        <div><span>02 / GITHUB PULSE</span><h2>GitHub 最近在做什么</h2></div>
+        <a href="${escapeHtml(profile.profileUrl)}" target="_blank" rel="noreferrer">打开 GitHub ${iconArrow()}</a>
+      </header>
+      <div class="github-pulse">
+        <a class="github-profile-card" href="${escapeHtml(profile.profileUrl)}" target="_blank" rel="noreferrer">
+          <img src="${escapeHtml(profile.avatarUrl)}" alt="${escapeHtml(profile.username)} 的 GitHub 头像" loading="lazy" />
+          <div>
+            <p>GITHUB / @${escapeHtml(profile.username)}</p>
+            <h3>${escapeHtml(profile.displayName || profile.username)}</h3>
+            <span>${escapeHtml(profileBio)}</span>
+          </div>
+          ${iconArrow()}
+        </a>
+        <dl class="github-metrics" aria-label="GitHub 公开资料">
+          <div><dt>REPOS</dt><dd>${Number(profile.publicRepos) || 0}</dd></div>
+          <div><dt>FOLLOWERS</dt><dd>${Number(profile.followers) || 0}</dd></div>
+          <div><dt>FOLLOWING</dt><dd>${Number(profile.following) || 0}</dd></div>
+        </dl>
+        <div class="github-repository-list">
+          ${repositories.length
+            ? repositories.map((repository) => `
+                <a href="${escapeHtml(repository.url)}" target="_blank" rel="noreferrer">
+                  <span>${escapeHtml(repository.language || "CODE")}</span>
+                  <strong>${escapeHtml(repository.name)}</strong>
+                  <small>${escapeHtml(repository.description || "公开仓库")}</small>
+                  <time>UPDATED ${escapeHtml(githubUpdatedLabel(repository.updatedAt)).toUpperCase()}</time>
+                </a>`).join("")
+            : '<p class="nova-empty">最近的公开仓库正在同步。</p>'}
+        </div>
+      </div>
+      <p class="github-sync-note">公开快照 · ${escapeHtml(githubUpdatedLabel(profile.fetchedAt))} 同步</p>
+    </section>`;
+}
+
 function renderOverview() {
   const newestFirst = (left, right) => knowledgeRecordDate(right).localeCompare(knowledgeRecordDate(left));
   const publicArticles = state.articles.filter(canShowOnHome).filter(matchesSearch).sort(newestFirst);
@@ -968,21 +1019,29 @@ function renderOverview() {
           <div class="nova-panel-body">${renderContributionMap(mapArticles)}</div>
         </section>
 
+        ${renderGithubPulse(state.githubProfile)}
+
         <aside class="nova-panel nova-panel--now reveal delay-1">
           <header class="nova-panel-heading">
-            <div><span>02 / LIVE SIGNAL</span><h2>最新信号</h2></div>
+            <div><span>03 / LIVE SIGNAL</span><h2>最新信号</h2></div>
             <a href="${featuredArticle ? articleHref(featuredArticle.path) : "#/timeline"}">打开 ${iconArrow()}</a>
           </header>
-          <div class="nova-now-card">
-            ${
-              featuredArticle
-                ? `
-                  <p>${escapeHtml(knowledgeLane(featuredArticle).label)} · ${escapeHtml(knowledgeRecordDate(featuredArticle) || "持续更新")}</p>
-                  <h3>${escapeHtml(featuredArticle.title)}</h3>
-                  <em>${escapeHtml(featuredArticle.summary || "打开阅读全文")}</em>
-                  <a href="${articleHref(featuredArticle.path)}">阅读全文 ${iconArrow()}</a>`
-                : `<span>SIGNAL</span><h3>下一条信号正在生成。</h3>`
-            }
+          <div class="nova-now-layout">
+            <div class="nova-now-card">
+              ${
+                featuredArticle
+                  ? `
+                    <p>${escapeHtml(knowledgeLane(featuredArticle).label)} · ${escapeHtml(knowledgeRecordDate(featuredArticle) || "持续更新")}</p>
+                    <h3>${escapeHtml(featuredArticle.title)}</h3>
+                    <em>${escapeHtml(featuredArticle.summary || "打开阅读全文")}</em>
+                    <a href="${articleHref(featuredArticle.path)}">阅读全文 ${iconArrow()}</a>`
+                  : `<span>SIGNAL</span><h3>下一条信号正在生成。</h3>`
+              }
+            </div>
+            <figure class="nova-now-image">
+              <img src="./assets/home/cat-and-guitar.jpg?v=${BUILD_VERSION}" alt="蓝眼睛猫咪与红色吉他" loading="lazy" />
+              <figcaption>FIELD NOTE / 日常一隅</figcaption>
+            </figure>
           </div>
           <dl class="nova-mini-metrics">
             <div><dt>LAST SEEN</dt><dd>${(datedValues.at(-1) || "—").replaceAll("-", ".")}</dd></div>
@@ -993,7 +1052,7 @@ function renderOverview() {
 
         <section class="nova-panel nova-panel--orbits reveal">
           <header class="nova-panel-heading">
-            <div><span>03 / ACTIVE ORBITS</span><h2>正在推进的轨道</h2></div>
+            <div><span>04 / ACTIVE ORBITS</span><h2>正在推进的轨道</h2></div>
             <a href="#/projects">全部项目 ${iconArrow()}</a>
           </header>
           <div class="nova-orbit-list">
@@ -1019,32 +1078,46 @@ function renderOverview() {
 
         <section class="nova-panel nova-panel--signals reveal">
           <header class="nova-panel-heading">
-            <div><span>04 / SIGNAL STREAM</span><h2>最近信号</h2></div>
+            <div><span>05 / SIGNAL STREAM</span><h2>最近信号</h2></div>
             <a href="#/timeline">完整时光轴 ${iconArrow()}</a>
           </header>
-          <div class="nova-signal-grid">
-            ${
-              writingList.length
-                ? writingList
-                    .map(
-                      (article, index) => `
-                        <a class="nova-signal-card" href="${articleHref(article.path)}">
-                          <span>${String(index + 2).padStart(3, "0")}</span>
-                          <p>${escapeHtml(knowledgeLane(article).label)} · ${escapeHtml(knowledgeRecordDate(article) || "持续更新")}</p>
-                          <h3>${escapeHtml(article.title)}</h3>
-                          <em>${escapeHtml(article.summary || "打开阅读全文")}</em>
-                          ${iconArrow()}
-                        </a>`,
-                    )
-                    .join("")
-                : '<p class="nova-empty">更多信号正在整理。</p>'
-            }
+          <div class="nova-signals-layout">
+            <div class="nova-signal-grid">
+              ${
+                writingList.length
+                  ? writingList
+                      .map(
+                        (article, index) => `
+                          <a class="nova-signal-card" href="${articleHref(article.path)}">
+                            <span>${String(index + 2).padStart(3, "0")}</span>
+                            <p>${escapeHtml(knowledgeLane(article).label)} · ${escapeHtml(knowledgeRecordDate(article) || "持续更新")}</p>
+                            <h3>${escapeHtml(article.title)}</h3>
+                            <em>${escapeHtml(article.summary || "打开阅读全文")}</em>
+                            ${iconArrow()}
+                          </a>`,
+                      )
+                      .join("")
+                  : '<p class="nova-empty">更多信号正在整理。</p>'
+              }
+            </div>
+            <aside class="nova-image-notes" aria-label="博客图像札记">
+              <div><span>VISUAL NOTES</span><strong>博客图像札记</strong></div>
+              <figure class="nova-image-note nova-image-note--dragon">
+                <img src="./assets/home/blue-dragon.jpg?v=${BUILD_VERSION}" alt="戴蓝色头巾的龙形插画" loading="lazy" />
+              </figure>
+              <figure class="nova-image-note nova-image-note--pig">
+                <img src="./assets/home/pearl-pig.jpg?v=${BUILD_VERSION}" alt="戴蓝色头巾的小猪插画" loading="lazy" />
+              </figure>
+              <figure class="nova-image-note nova-image-note--portrait">
+                <img src="./assets/home/pearl-portrait.jpg?v=${BUILD_VERSION}" alt="戴珍珠耳环的趣味肖像" loading="lazy" />
+              </figure>
+            </aside>
           </div>
         </section>
 
         <section class="nova-panel nova-panel--references reveal">
           <header class="nova-panel-heading">
-            <div><span>05 / REFERENCES</span><h2>阅读与参考</h2></div>
+            <div><span>06 / REFERENCES</span><h2>阅读与参考</h2></div>
             <a href="#/reading">进入阅读 ${iconArrow()}</a>
           </header>
           <div class="nova-reference-strip">
@@ -2397,10 +2470,10 @@ async function renderRoute() {
 
 }
 
-const BUILD_VERSION = "20260901-3";
+const BUILD_VERSION = "20260903-5";
 
 async function loadSite() {
-  const [response, quickLinks, thirdPartyLinks, learningTaxonomy] = await Promise.all([
+  const [response, quickLinks, thirdPartyLinks, learningTaxonomy, githubProfile] = await Promise.all([
     fetch(`./site-index.json?v=${BUILD_VERSION}`),
     fetch(`./data/quick-links.json?v=${BUILD_VERSION}`)
       .then((result) => (result.ok ? result.json() : []))
@@ -2411,6 +2484,9 @@ async function loadSite() {
     fetch(`./data/learning-taxonomy.json?v=${BUILD_VERSION}`)
       .then((result) => (result.ok ? result.json() : {}))
       .catch(() => ({})),
+    fetch(`./data/github-profile.json?v=${BUILD_VERSION}`)
+      .then((result) => (result.ok ? result.json() : null))
+      .catch(() => null),
   ]);
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const payload = await response.json();
@@ -2418,6 +2494,7 @@ async function loadSite() {
   state.dashboard = payload.dashboard || {};
   state.columns = payload.columns || [];
   state.projects = payload.projects || [];
+  state.githubProfile = githubProfile;
   state.quickLinks = Array.isArray(quickLinks) ? quickLinks : [];
   state.thirdPartyLinks = Array.isArray(thirdPartyLinks) ? thirdPartyLinks : [];
   state.learningAreas = Array.isArray(learningTaxonomy.areas) ? learningTaxonomy.areas : [];

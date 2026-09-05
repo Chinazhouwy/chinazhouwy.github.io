@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T00:00:00+08:00",
+  "generatedAt": "2026-09-05T00:00:00+08:00",
   "articles": [
     {
       "title": "Spring Batch 入门到实战：从定时循环到可恢复的批处理系统",
@@ -5406,7 +5406,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-04",
+      "date": "2026-09-05",
       "count": 0,
       "averageScore": null
     },
@@ -5415,11 +5415,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-22",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-23",
         "count": 0,
@@ -5482,6 +5477,11 @@
       },
       {
         "date": "2026-09-04",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-05",
         "count": 0,
         "averageScore": null
       }
