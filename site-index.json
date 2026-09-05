@@ -1608,6 +1608,41 @@
       "question": ""
     },
     {
+      "title": "多数据源上下文在异步线程中不会自动传播：CompletableFuture 查错库排查记录",
+      "path": "content/learning/java/2026-07-27-dynamic-datasource-async-context-propagation.md",
+      "url": "content/learning/java/2026-07-27-dynamic-datasource-async-context-propagation.md",
+      "date": "2026-07-27",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "Java 后端",
+      "module": "",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "动态多数据源基于线程上下文路由；CompletableFuture.supplyAsync() 无参调用切到 ForkJoinPool 后上下文丢失，查询回落 primary 库。整理现象、根因、验证方法与四种修复方案，并延伸到异步事务的线程边界问题。",
+      "tags": [
+        "Java",
+        "并发",
+        "CompletableFuture",
+        "ThreadLocal",
+        "动态数据源",
+        "Spring"
+      ],
+      "section": "learning",
+      "topic": "Java 后端",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "MyBatis 源码深度拆解（八）：二级缓存机制详解",
       "path": "content/learning/source-reading/mybatis-source-08-second-level-cache.md",
       "url": "content/learning/source-reading/mybatis-source-08-second-level-cache.md",
@@ -3360,13 +3395,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 94,
+    "学习": 95,
     "机会": 0,
     "阅读": 7,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 94,
+    "learning": 95,
     "about": 1,
     "reading": 7,
     "projects": 2
