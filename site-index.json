@@ -2,6 +2,42 @@
   "generatedAt": "2026-09-05T00:00:00+08:00",
   "articles": [
     {
+      "title": "第43届全国中学生物理竞赛初赛试题及解析：小红书图片存档",
+      "path": "content/references/physics/2026-09-05-43rd-physics-olympiad-preliminary.md",
+      "url": "content/references/physics/2026-09-05-43rd-physics-olympiad-preliminary.md",
+      "date": "2026-09-05",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "参考资料",
+      "area": "物理",
+      "lane": "theory",
+      "module": "中学生物理竞赛",
+      "project": "",
+      "type": "资料卡",
+      "status": "可复习",
+      "priority": "P2",
+      "energy": "low",
+      "visibility": "public",
+      "summary": "保存小红书用户 momoDa 分享的第43届全国中学生物理竞赛初赛/预赛试题图片，并整理页面元数据、可确认的题面范围与 OCR 边界；原贴正文没有文字版解析。",
+      "tags": [
+        "物理竞赛",
+        "中学生物理竞赛",
+        "光学",
+        "核物理",
+        "流体力学",
+        "试题资料"
+      ],
+      "section": "learning",
+      "topic": "中学生物理竞赛",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "Spring Batch 入门到实战：从定时循环到可恢复的批处理系统",
       "path": "content/learning/java/2026-09-04-spring-batch-guide.md",
       "url": "content/learning/java/2026-09-04-spring-batch-guide.md",
@@ -3401,7 +3437,7 @@
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 95,
+    "learning": 96,
     "about": 1,
     "reading": 7,
     "projects": 2
