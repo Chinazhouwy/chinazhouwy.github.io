@@ -3,7 +3,7 @@ title: "线程池队列满了会怎样：从拒绝策略看 ThreadPoolExecutor �
 date: "2026-08-29"
 domain: "学习"
 area: "Java 后端"
-module: ""
+module: "Java 并发与异步"
 project: ""
 type: "文章"
 status: "可复习"

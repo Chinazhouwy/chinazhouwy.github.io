@@ -129,6 +129,10 @@ const state = {
   searchIndexPromise: null,
   query: "",
   timelineFilter: "all",
+  learningGroupBy: "area",
+  pointsIndex: [],
+  learningPointSel: null,
+  pointPageSel: null,
   timelineVisibleDays: 12,
 };
 
@@ -1662,33 +1666,41 @@ function examNoteStudio(groups) {
 function renderLearning() {
   const items = filteredArticles("learning");
   const noteAreas = new Set(["数学", "计算机基础"]);
+  const groupMode = ["module", "points"].includes(state.learningGroupBy) ? state.learningGroupBy : "area";
   const areaOrder = new Map(state.learningAreas.map((area, index) => [area.name, index]));
-  const groups = Object.entries(groupBy(items, "area", "综合")).sort(
-    ([left], [right]) =>
-      (areaOrder.get(left) ?? Number.MAX_SAFE_INTEGER) -
-        (areaOrder.get(right) ?? Number.MAX_SAFE_INTEGER) ||
-      left.localeCompare(right, "zh-CN"),
-  );
-  const noteGroups = groups.filter(([area]) => noteAreas.has(area));
-  const standardGroups = groups.filter(([area]) => !noteAreas.has(area));
+  const groups =
+    groupMode === "module"
+      ? Object.entries(groupBy(items, "module", "待归类专题")).sort(
+          ([leftName, leftItems], [rightName, rightItems]) =>
+            rightItems.length - leftItems.length || leftName.localeCompare(rightName, "zh-CN"),
+        )
+      : Object.entries(groupBy(items, "area", "综合")).sort(
+          ([left], [right]) =>
+            (areaOrder.get(left) ?? Number.MAX_SAFE_INTEGER) -
+              (areaOrder.get(right) ?? Number.MAX_SAFE_INTEGER) ||
+            left.localeCompare(right, "zh-CN"),
+        );
+  const noteGroups = groupMode === "area" ? groups.filter(([area]) => noteAreas.has(area)) : [];
+  const standardGroups = groupMode === "area" ? groups.filter(([area]) => !noteAreas.has(area)) : groups;
   const compactGroupCount = standardGroups.filter(([, articles]) => articles.length > LEARNING_PREVIEW_COUNT).length;
 
   ui.app.innerHTML = `
     <section class="directory-page learning-page">
       ${sectionIntro("LEARNING", "学习", "技术知识、源码笔记与可复习内容。", items.length)}
+      <div class="learning-directory-tools reveal delay-1">
+        ${groupMode !== "points" && compactGroupCount ? `<p><strong>${compactGroupCount}</strong> 个长主题默认展示最近 ${LEARNING_PREVIEW_COUNT} 篇</p>` : ""}
+        <div class="learning-directory-actions" role="group" aria-label="学习分组与显示方式">
+          <button type="button" data-learning-view="area"${groupMode === "area" ? ' class="is-active"' : ""}>按领域</button>
+          <button type="button" data-learning-view="module"${groupMode === "module" ? ' class="is-active"' : ""}>按专题</button>
+          <button type="button" data-learning-view="points"${groupMode === "points" ? ' class="is-active"' : ""}>按知识点</button>
+          ${groupMode !== "points" && compactGroupCount ? `<button type="button" data-learning-action="expand">全部展开</button><button type="button" data-learning-action="collapse">全部收起</button>` : ""}
+        </div>
+      </div>
       ${noteGroups.length ? examNoteStudio(noteGroups) : ""}
       ${
-        compactGroupCount
-          ? `<div class="learning-directory-tools reveal delay-1">
-              <p><strong>${compactGroupCount}</strong> 个长主题默认展示最近 ${LEARNING_PREVIEW_COUNT} 篇</p>
-              <div class="learning-directory-actions" role="group" aria-label="学习主题显示方式">
-                <button type="button" data-learning-action="expand">全部展开</button>
-                <button type="button" data-learning-action="collapse">全部收起</button>
-              </div>
-            </div>`
-          : ""
-      }
-      <div class="learning-board">
+        groupMode === "points"
+          ? renderPointsView(items)
+          : `<div class="learning-board">
         ${
           standardGroups.length
             ? standardGroups
@@ -1725,7 +1737,7 @@ function renderLearning() {
                 .join("")
             : '<p class="empty-copy">栏目已建立，等待内容沉淀。</p>'
         }
-      </div>
+      </div>`}
     </section>`;
 
   ui.app.querySelectorAll("[data-learning-toggle]").forEach((toggle) => {
@@ -1741,6 +1753,160 @@ function renderLearning() {
       ui.app
         .querySelectorAll("[data-learning-group]")
         .forEach((group) => setLearningGroupExpanded(group, expanded));
+    });
+  });
+
+  ui.app.querySelectorAll("[data-point-sel]").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (state.learningPointSel === button.dataset.pointSel) return;
+      state.learningPointSel = button.dataset.pointSel;
+      renderLearning();
+    });
+  });
+
+  ui.app.querySelectorAll("[data-learning-view]").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (state.learningGroupBy === button.dataset.learningView) return;
+      state.learningGroupBy = button.dataset.learningView;
+      renderLearning();
+    });
+  });
+}
+
+function renderPointsView(items) {
+  const hitPoints = state.pointsIndex
+    .filter((point) => point.count > 0)
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, "zh-CN"));
+  if (!hitPoints.length) return '<p class="empty-copy">暂无知识点数据，等待重新构建索引。</p>';
+  const sel = state.learningPointSel && hitPoints.some((p) => p.name === state.learningPointSel)
+    ? state.learningPointSel
+    : hitPoints[0].name;
+  const topics = [];
+  hitPoints.forEach((point) => {
+    let bucket = topics.find(([topic]) => topic === point.topic);
+    if (!bucket) { bucket = [point.topic, []]; topics.push(bucket); }
+    bucket[1].push(point);
+  });
+  const selectedItems = items.filter((article) => Array.isArray(article.points) && article.points.includes(sel));
+  return `
+    <div class="points-board reveal delay-1">
+      ${topics.map(([topic, points]) => `
+        <div class="points-topic">
+          <p class="points-topic-label">${escapeHtml(topic)}</p>
+          <div class="points-chips" role="group" aria-label="${escapeHtml(topic)}知识点">
+            ${points.map((point) => `
+              <button type="button" data-point-sel="${escapeHtml(point.name)}"${point.name === sel ? ' class="is-active"' : ""}>
+                ${escapeHtml(point.name)}<em>${point.count}</em>
+              </button>`).join("")}
+          </div>
+        </div>`).join("")}
+    </div>
+    <div class="learning-board">
+      <section class="learning-card learning-group">
+        <header class="learning-card-header">
+          <div class="learning-card-title">
+            <p>KNOWLEDGE POINT</p>
+            <h2>${escapeHtml(sel)}</h2>
+            <span>${selectedItems.length} 篇相关内容</span>
+          </div>
+        </header>
+        <div class="article-list">${selectedItems.map((article) => articleRow(article)).join("")}</div>
+      </section>
+    </div>`;
+}
+
+function masteryLevel(point) {
+  if (!point.avgScore) return point.practice ? "unrated" : "new";
+  if (point.avgScore >= 7) return "good";
+  if (point.avgScore >= 5) return "mid";
+  return "weak";
+}
+
+function pointDetailCard(label, items) {
+  if (!items.length) return "";
+  return `
+    <section class="learning-card learning-group">
+      <header class="learning-card-header">
+        <div class="learning-card-title">
+          <p>KNOWLEDGE POINT / ${escapeHtml(label)}</p>
+          <h2>${escapeHtml(label)} · ${items.length}</h2>
+        </div>
+      </header>
+      <div class="article-list">${items.map((article) => articleRow(article)).join("")}</div>
+    </section>`;
+}
+
+function renderPointsPage(params) {
+  const requested = params ? params.get("point") : null;
+  if (requested) state.pointPageSel = requested;
+  const hitPoints = state.pointsIndex
+    .filter((point) => point.count + point.interview + point.practice > 0)
+    .sort(
+      (a, b) =>
+        b.count + b.interview + b.practice - (a.count + a.interview + a.practice) ||
+          a.name.localeCompare(b.name, "zh-CN"),
+    );
+  if (!hitPoints.length) {
+    ui.app.innerHTML = `
+      <section class="directory-page">
+        ${sectionIntro("KNOWLEDGE MAP", "知识点", "按细节知识点聚合学习文章、面经实录与练习台账。", 0)}
+        <p class="empty-copy">知识点索引尚未生成，等待构建。</p>
+      </section>`;
+    return;
+  }
+  const sel = state.pointPageSel && hitPoints.some((point) => point.name === state.pointPageSel)
+    ? state.pointPageSel
+    : hitPoints[0].name;
+  if (requested === null) history.replaceState(null, "", "#/points?point=" + encodeURIComponent(sel));
+  const topics = [];
+  hitPoints.forEach((point) => {
+    let bucket = topics.find(([topic]) => topic === point.topic);
+    if (!bucket) { bucket = [point.topic, []]; topics.push(bucket); }
+    bucket[1].push(point);
+  });
+  const related = state.articles.filter(
+    (article) => !isHidden(article) && Array.isArray(article.points) && article.points.includes(sel),
+  );
+  const learningItems = related.filter((article) => article.path.includes("/learning/"));
+  const interviewItems = related.filter((article) => article.path.includes("/companies/"));
+  const practiceItems = related.filter((article) => article.path.includes("/practice/"));
+  ui.app.innerHTML = `
+    <section class="directory-page points-page">
+      ${sectionIntro("KNOWLEDGE MAP", "知识点", "按细节知识点聚合学习文章、面经实录与练习台账。", hitPoints.length)}
+      <div class="points-board reveal delay-1">
+        ${topics.map(([topic, points]) => `
+          <div class="points-topic">
+            <p class="points-topic-label">${escapeHtml(topic)}</p>
+            <div class="points-chips" role="group" aria-label="${escapeHtml(topic)}知识点">
+              ${points.map((point) => {
+                const total = point.count + point.interview + point.practice;
+                const mastery = masteryLevel(point);
+                return `<button type="button" data-point-page-sel="${escapeHtml(point.name)}"${point.name === sel ? ' class="is-active"' : ""}>
+                  <i class="mastery-dot mastery-${mastery}" aria-hidden="true"></i>${escapeHtml(point.name)}<em>${total}${point.gap ? " ⚠" : ""}</em>
+                </button>`;
+              }).join("")}
+            </div>
+          </div>`).join("")}
+      </div>
+      ${hitPoints.find((point) => point.name === sel)?.gap
+        ? `<div class="point-gap-callout reveal delay-1">⚠ 该知识点面经里被问过 <strong>${hitPoints.find((point) => point.name === sel).interview}</strong> 次，但练习台账还是 0 题——该练了。</div>`
+        : ""}
+      <div class="point-summary reveal delay-1">
+        <p class="point-summary-label">AI 速览</p>
+        <p>${escapeHtml(hitPoints.find((point) => point.name === sel)?.summary || "该知识点的总结待补充。")}</p>
+      </div>
+      <div class="learning-board">
+        ${pointDetailCard("面试题 · 练习台账", practiceItems)}
+        ${pointDetailCard("整理文章", learningItems)}
+        ${pointDetailCard("面经实录", interviewItems)}
+      </div>
+    </section>`;
+  ui.app.querySelectorAll("[data-point-page-sel]").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (state.pointPageSel === button.dataset.pointPageSel) return;
+      state.pointPageSel = button.dataset.pointPageSel;
+      history.replaceState(null, "", "#/points?point=" + encodeURIComponent(state.pointPageSel));
+      renderPointsPage(new URLSearchParams({ point: state.pointPageSel }));
     });
   });
 }
@@ -2451,6 +2617,7 @@ async function renderRoute() {
     tasks: () => renderDomain("tasks", "任务", "今日行动摘要与待复盘项。"),
     projects: renderProjects,
     learning: renderLearning,
+    points: () => renderPointsPage(parseRoute().params),
     opportunity: renderOpportunity,
     reading: renderReading,
     columns: renderColumns,
@@ -2470,7 +2637,7 @@ async function renderRoute() {
 
 }
 
-const BUILD_VERSION = "20260903-5";
+const BUILD_VERSION = "20260905-7";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy, githubProfile] = await Promise.all([
@@ -2498,6 +2665,7 @@ async function loadSite() {
   state.quickLinks = Array.isArray(quickLinks) ? quickLinks : [];
   state.thirdPartyLinks = Array.isArray(thirdPartyLinks) ? thirdPartyLinks : [];
   state.learningAreas = Array.isArray(learningTaxonomy.areas) ? learningTaxonomy.areas : [];
+  state.pointsIndex = Array.isArray(payload.pointsIndex) ? payload.pointsIndex : [];
   state.aliases = payload.aliases || {};
   await renderRoute();
 }

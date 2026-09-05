@@ -3,7 +3,7 @@ title: "CountDownLatch、CyclicBarrier、Semaphore：三种等待语义与选型
 date: "2026-08-31"
 domain: "学习"
 area: "Java 后端"
-module: ""
+module: "Java 并发与异步"
 project: ""
 type: "文章"
 status: "可复习"

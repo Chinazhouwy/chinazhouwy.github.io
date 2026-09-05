@@ -1304,6 +1304,12 @@ a {
   padding: 8px 13px;
 }
 
+.learning-directory-actions button.is-active {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
 .learning-directory-actions button:hover,
 .learning-group-toggle:hover {
   border-color: var(--green);
@@ -13919,4 +13925,124 @@ html[data-theme="light"] .nova-image-notes {
   .nova-image-note img {
     transition: none;
   }
+}
+
+.points-board {
+  display: grid;
+  gap: 14px;
+  margin: 18px 0 26px;
+}
+
+.points-topic-label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted, #7c8a7e);
+  margin: 0 0 6px;
+}
+
+.points-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.points-chips button {
+  border: 1px solid var(--line, #d9e2d6);
+  background: rgba(248, 250, 246, 0.55);
+  color: var(--green, #3e5f46);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
+}
+
+.points-chips button em {
+  font-style: normal;
+  margin-left: 6px;
+  opacity: 0.65;
+  font-size: 11px;
+}
+
+.points-chips button.is-active {
+  background: var(--green, #3e5f46);
+  border-color: var(--green, #3e5f46);
+  color: #fff;
+}
+
+.points-chips button.is-active em {
+  opacity: 0.85;
+}
+
+.point-summary {
+  border: 1px solid var(--line, #d9e2d6);
+  border-left: 3px solid var(--green, #3e5f46);
+  background: rgba(248, 250, 246, 0.72);
+  padding: 14px 18px;
+  margin: 0 0 22px;
+  border-radius: 8px;
+}
+
+.point-summary-label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green, #3e5f46);
+  margin: 0 0 6px;
+  font-weight: 600;
+}
+
+.point-summary p + p {
+  margin: 0;
+  line-height: 1.75;
+  font-size: 14px;
+}
+
+/* 学习卡片内的题号徽标：自适应宽度的胶囊，避免三位数溢出装饰底块 */
+.learning-card .article-row-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-width: 36px;
+  height: auto;
+  padding: 4px 9px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+  justify-self: start;
+}
+
+.learning-card .article-row-index::before,
+.learning-card .article-row-index::after {
+  content: none !important;
+}
+
+.mastery-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: 1px;
+}
+
+.mastery-good { background: #3f9d63; }
+.mastery-mid { background: #d9930d; }
+.mastery-weak { background: #d9534f; }
+.mastery-new { background: transparent; border: 1px solid currentColor; opacity: 0.5; }
+.mastery-unrated { background: transparent; border: 1px dashed currentColor; opacity: 0.6; }
+
+.point-gap-callout {
+  border: 1px solid rgba(217, 83, 79, 0.35);
+  background: rgba(217, 83, 79, 0.08);
+  color: #b3423e;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin: 0 0 14px;
+  font-size: 13px;
 }

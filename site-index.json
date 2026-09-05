@@ -10,7 +10,7 @@
       "practicedAt": "",
       "publishedAt": "",
       "importedAt": "",
-      "domain": "参考资料",
+      "domain": "阅读",
       "area": "物理",
       "lane": "theory",
       "module": "中学生物理竞赛",
@@ -29,7 +29,8 @@
         "流体力学",
         "试题资料"
       ],
-      "section": "learning",
+      "points": [],
+      "section": "reading",
       "topic": "中学生物理竞赛",
       "company": "",
       "round": "",
@@ -63,6 +64,11 @@
         "幂等",
         "事务"
       ],
+      "points": [
+        "消息可靠性",
+        "Spring Boot 自动装配",
+        "HTTP/HTTPS"
+      ],
       "section": "learning",
       "topic": "Spring 生态",
       "company": "",
@@ -82,7 +88,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "工程与架构",
-      "module": "",
+      "module": "工程与架构",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -96,6 +102,9 @@
         "stash",
         "开发工作流",
         "工程效能"
+      ],
+      "points": [
+        "Git 与工作流"
       ],
       "section": "learning",
       "topic": "工程与架构",
@@ -131,6 +140,14 @@
         "Java",
         "C",
         "指针"
+      ],
+      "points": [
+        "链表",
+        "复杂度分析",
+        "排序算法",
+        "二叉树",
+        "集合框架",
+        "JVM 内存区域"
       ],
       "section": "learning",
       "topic": "数据结构与算法",
@@ -169,6 +186,9 @@
         "积化和差",
         "和差化积"
       ],
+      "points": [
+        "三角函数"
+      ],
       "section": "learning",
       "topic": "数学知识卡片",
       "company": "",
@@ -204,6 +224,14 @@
         "C",
         "算法"
       ],
+      "points": [
+        "二叉树",
+        "集合框架",
+        "矩阵与线性方程组",
+        "链表",
+        "排序算法",
+        "索引原理"
+      ],
       "section": "learning",
       "topic": "数据结构与算法",
       "company": "",
@@ -223,7 +251,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "数学",
-      "module": "",
+      "module": "数学知识卡片",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -237,8 +265,13 @@
         "解析几何",
         "旋转"
       ],
+      "points": [
+        "三角函数",
+        "极限与连续",
+        "矩阵与线性方程组"
+      ],
       "section": "learning",
-      "topic": "数学",
+      "topic": "数学知识卡片",
       "company": "",
       "round": "",
       "score": null,
@@ -256,7 +289,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "Java 后端",
-      "module": "",
+      "module": "Java 函数式与 Stream",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -270,8 +303,12 @@
         "Lambda",
         "函数式接口"
       ],
+      "points": [
+        "设计模式",
+        "MyBatis 源码"
+      ],
       "section": "learning",
-      "topic": "Java 后端",
+      "topic": "Java 函数式与 Stream",
       "company": "",
       "round": "",
       "score": null,
@@ -308,6 +345,14 @@
         "MCP",
         "Java"
       ],
+      "points": [
+        "HTTP/HTTPS",
+        "MCP 协议",
+        "Prompt 工程",
+        "进程与调度",
+        "注册中心与网关",
+        "消息可靠性"
+      ],
       "section": "learning",
       "topic": "Hermes Agent",
       "company": "",
@@ -327,7 +372,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "Java 后端",
-      "module": "",
+      "module": "Java 并发与异步",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -341,8 +386,13 @@
         "JUC",
         "线程同步"
       ],
+      "points": [
+        "AQS 与同步器",
+        "限流熔断降级",
+        "线程池"
+      ],
       "section": "learning",
-      "topic": "Java 后端",
+      "topic": "Java 并发与异步",
       "company": "",
       "round": "",
       "score": null,
@@ -360,7 +410,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "Java 后端",
-      "module": "",
+      "module": "Spring 生态",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -374,8 +424,13 @@
         "IOC",
         "AOP"
       ],
+      "points": [
+        "AOP 与代理",
+        "IOC 与 Bean 生命周期",
+        "类加载机制"
+      ],
       "section": "learning",
-      "topic": "Java 后端",
+      "topic": "Spring 生态",
       "company": "",
       "round": "",
       "score": null,
@@ -407,6 +462,7 @@
         "毛中特",
         "考点整理"
       ],
+      "points": [],
       "section": "learning",
       "topic": "毛著作考点",
       "company": "",
@@ -426,7 +482,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "Java 后端",
-      "module": "",
+      "module": "Java 并发与异步",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -440,8 +496,14 @@
         "AQS",
         "JUC"
       ],
+      "points": [
+        "AQS 与同步器",
+        "synchronized 与 Lock",
+        "volatile 与 JMM",
+        "设计模式"
+      ],
       "section": "learning",
-      "topic": "Java 后端",
+      "topic": "Java 并发与异步",
       "company": "",
       "round": "",
       "score": null,
@@ -459,7 +521,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "Java 后端",
-      "module": "",
+      "module": "Java 并发与异步",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -473,8 +535,12 @@
         "CompletableFuture",
         "异步编程"
       ],
+      "points": [
+        "CompletableFuture",
+        "线程池"
+      ],
       "section": "learning",
-      "topic": "Java 后端",
+      "topic": "Java 并发与异步",
       "company": "",
       "round": "",
       "score": null,
@@ -492,7 +558,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "工程与架构",
-      "module": "",
+      "module": "源码阅读",
       "project": "工程源码研究",
       "type": "技术笔记",
       "status": "可复习",
@@ -508,8 +574,14 @@
         "交易系统",
         "分布式系统"
       ],
+      "points": [
+        "一致性协议",
+        "HTTP/HTTPS",
+        "SSE 与流式",
+        "进程与调度"
+      ],
       "section": "learning",
-      "topic": "工程与架构",
+      "topic": "源码阅读",
       "company": "",
       "round": "",
       "score": null,
@@ -527,7 +599,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "Java 后端",
-      "module": "",
+      "module": "Java 并发与异步",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -542,8 +614,16 @@
         "ThreadPoolExecutor",
         "拒绝策略"
       ],
+      "points": [
+        "线程池",
+        "HashMap 原理",
+        "并发容器",
+        "持久化 RDB/AOF",
+        "HTTP/HTTPS",
+        "JVM 调优与排查"
+      ],
       "section": "learning",
-      "topic": "Java 后端",
+      "topic": "Java 并发与异步",
       "company": "",
       "round": "",
       "score": null,
@@ -576,6 +656,7 @@
         "图表作文",
         "预制菜"
       ],
+      "points": [],
       "section": "learning",
       "topic": "英语写作",
       "company": "",
@@ -595,7 +676,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "Java 后端",
-      "module": "",
+      "module": "Java 并发与异步",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -610,8 +691,14 @@
         "synchronized",
         "锁升级"
       ],
+      "points": [
+        "synchronized 与 Lock",
+        "限流熔断降级",
+        "中断与系统调用",
+        "AQS 与同步器"
+      ],
       "section": "learning",
-      "topic": "Java 后端",
+      "topic": "Java 并发与异步",
       "company": "",
       "round": "",
       "score": null,
@@ -642,6 +729,10 @@
         "Stream",
         "设计思想"
       ],
+      "points": [
+        "二叉树",
+        "设计模式"
+      ],
       "section": "learning",
       "topic": "Stream 设计系列",
       "company": "",
@@ -661,7 +752,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -676,8 +767,11 @@
         "大模型",
         "学习资源"
       ],
+      "points": [
+        "NLP 与 Transformer"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -709,6 +803,9 @@
         "Cache",
         "局部性",
         "存储系统"
+      ],
+      "points": [
+        "Cache 与局部性"
       ],
       "section": "learning",
       "topic": "计算机基础知识卡片",
@@ -744,6 +841,11 @@
         "图",
         "遍历"
       ],
+      "points": [
+        "二叉树",
+        "图与搜索",
+        "复杂度分析"
+      ],
       "section": "learning",
       "topic": "计算机基础知识卡片",
       "company": "",
@@ -777,6 +879,10 @@
         "组成原理",
         "操作系统",
         "计算机网络"
+      ],
+      "points": [
+        "进程与调度",
+        "TCP 协议"
       ],
       "section": "learning",
       "topic": "计算机基础知识卡片",
@@ -812,6 +918,9 @@
         "拥塞控制",
         "流量控制"
       ],
+      "points": [
+        "TCP 协议"
+      ],
       "section": "learning",
       "topic": "计算机基础知识卡片",
       "company": "",
@@ -845,6 +954,11 @@
         "进程",
         "线程",
         "虚拟内存"
+      ],
+      "points": [
+        "进程与调度",
+        "内存管理",
+        "死锁"
       ],
       "section": "learning",
       "topic": "计算机基础知识卡片",
@@ -880,6 +994,12 @@
         "Socket",
         "协议栈"
       ],
+      "points": [
+        "中断与系统调用",
+        "TCP 协议",
+        "进程与调度",
+        "HTTP/HTTPS"
+      ],
       "section": "learning",
       "topic": "计算机基础知识卡片",
       "company": "",
@@ -913,6 +1033,10 @@
         "动态规划",
         "背包问题",
         "参考资料"
+      ],
+      "points": [
+        "动态规划",
+        "HTTP/HTTPS"
       ],
       "section": "learning",
       "topic": "算法与动态规划",
@@ -948,6 +1072,9 @@
         "单调性",
         "极值"
       ],
+      "points": [
+        "导数与中值定理"
+      ],
       "section": "learning",
       "topic": "数学知识卡片",
       "company": "",
@@ -981,6 +1108,9 @@
         "换元法",
         "分部积分",
         "几何意义"
+      ],
+      "points": [
+        "积分"
       ],
       "section": "learning",
       "topic": "数学知识卡片",
@@ -1016,6 +1146,10 @@
         "等价无穷小",
         "洛必达"
       ],
+      "points": [
+        "极限与连续",
+        "导数与中值定理"
+      ],
       "section": "learning",
       "topic": "数学知识卡片",
       "company": "",
@@ -1049,6 +1183,11 @@
         "秩",
         "方程组",
         "特征值"
+      ],
+      "points": [
+        "矩阵与线性方程组",
+        "特征值与对角化",
+        "RAG 与向量检索"
       ],
       "section": "learning",
       "topic": "数学知识卡片",
@@ -1085,6 +1224,14 @@
         "概率论",
         "知识地图"
       ],
+      "points": [
+        "概率统计",
+        "积分",
+        "极限与连续",
+        "导数与中值定理",
+        "矩阵与线性方程组",
+        "RAG 与向量检索"
+      ],
       "section": "learning",
       "topic": "数学知识卡片",
       "company": "",
@@ -1119,6 +1266,9 @@
         "期望",
         "方差"
       ],
+      "points": [
+        "概率统计"
+      ],
       "section": "learning",
       "topic": "数学知识卡片",
       "company": "",
@@ -1138,7 +1288,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -1153,8 +1303,15 @@
         "AI Agent",
         "学习资源"
       ],
+      "points": [
+        "HTTP/HTTPS",
+        "DeepSeek",
+        "上下文工程",
+        "Claude Code",
+        "Prompt 工程"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -1172,7 +1329,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "Java 后端",
-      "module": "",
+      "module": "Spring 生态",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -1188,8 +1345,14 @@
         "AOP",
         "@Transactional"
       ],
+      "points": [
+        "Spring 事务",
+        "HTTP/HTTPS",
+        "Spring Boot 自动装配",
+        "AOP 与代理"
+      ],
       "section": "learning",
-      "topic": "Java 后端",
+      "topic": "Spring 生态",
       "company": "",
       "round": "",
       "score": null,
@@ -1207,7 +1370,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -1222,8 +1385,13 @@
         "网络排障",
         "OpenAI"
       ],
+      "points": [
+        "Codex",
+        "进程与调度",
+        "HTTP/HTTPS"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -1256,6 +1424,10 @@
         "表格",
         "前端"
       ],
+      "points": [
+        "CSS 与布局",
+        "HTTP/HTTPS"
+      ],
       "section": "learning",
       "topic": "HTML/CSS 基础",
       "company": "",
@@ -1275,7 +1447,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "前端",
-      "module": "",
+      "module": "前端",
       "project": "",
       "type": "笔记",
       "status": "可复习",
@@ -1289,6 +1461,10 @@
         "表单",
         "多媒体",
         "前端"
+      ],
+      "points": [
+        "HTTP/HTTPS",
+        "CSS 与布局"
       ],
       "section": "learning",
       "topic": "前端",
@@ -1325,6 +1501,9 @@
         "定位",
         "前端"
       ],
+      "points": [
+        "CSS 与布局"
+      ],
       "section": "learning",
       "topic": "HTML/CSS 基础",
       "company": "",
@@ -1360,6 +1539,10 @@
         "响应式",
         "前端"
       ],
+      "points": [
+        "CSS 与布局",
+        "HTTP/HTTPS"
+      ],
       "section": "learning",
       "topic": "HTML/CSS 基础",
       "company": "",
@@ -1379,7 +1562,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "工程与架构",
-      "module": "",
+      "module": "工程与架构",
       "project": "机会雷达",
       "type": "深度文章",
       "status": "可复习",
@@ -1393,6 +1576,13 @@
         "熔断",
         "降级",
         "稳定性治理"
+      ],
+      "points": [
+        "限流熔断降级",
+        "Redis 高可用",
+        "持久化 RDB/AOF",
+        "注册中心与网关",
+        "线程池"
       ],
       "section": "learning",
       "topic": "工程与架构",
@@ -1424,6 +1614,13 @@
       "tags": [
         "MyBatis",
         "源码分析"
+      ],
+      "points": [
+        "MyBatis 源码",
+        "内存管理",
+        "AOP 与代理",
+        "设计模式",
+        "ThreadLocal"
       ],
       "section": "learning",
       "topic": "MyBatis 源码拆解",
@@ -1458,6 +1655,12 @@
         "前端",
         "类型系统",
         "尚硅谷"
+      ],
+      "points": [
+        "TypeScript",
+        "Vue",
+        "HTTP/HTTPS",
+        "索引原理"
       ],
       "section": "learning",
       "topic": "Vue 3 + TypeScript",
@@ -1494,6 +1697,12 @@
         "响应式",
         "尚硅谷"
       ],
+      "points": [
+        "TypeScript",
+        "Vue",
+        "HTTP/HTTPS",
+        "一致性协议"
+      ],
       "section": "learning",
       "topic": "Vue 3 + TypeScript",
       "company": "",
@@ -1529,6 +1738,14 @@
         "组件通信",
         "尚硅谷"
       ],
+      "points": [
+        "TypeScript",
+        "Vue",
+        "HTTP/HTTPS",
+        "内存管理",
+        "持久化 RDB/AOF",
+        "一致性协议"
+      ],
       "section": "learning",
       "topic": "Vue 3 + TypeScript",
       "company": "",
@@ -1563,6 +1780,12 @@
         "前端工程化",
         "前端安全",
         "尚硅谷"
+      ],
+      "points": [
+        "TypeScript",
+        "Vue",
+        "HTTP/HTTPS",
+        "CSS 与布局"
       ],
       "section": "learning",
       "topic": "Vue 3 + TypeScript",
@@ -1600,6 +1823,14 @@
         "MCP",
         "生产实践"
       ],
+      "points": [
+        "Spring AI",
+        "Prompt 工程",
+        "Agent 架构模式",
+        "工具调用",
+        "MCP 协议",
+        "虚拟线程"
+      ],
       "section": "learning",
       "topic": "Java Agent",
       "company": "",
@@ -1634,6 +1865,11 @@
         "Supabase",
         "Vercel",
         "全栈"
+      ],
+      "points": [
+        "HTTP/HTTPS",
+        "CSS 与布局",
+        "Claude Code"
       ],
       "section": "learning",
       "topic": "工程与架构",
@@ -1670,6 +1906,13 @@
         "动态数据源",
         "Spring"
       ],
+      "points": [
+        "CompletableFuture",
+        "ThreadLocal",
+        "线程池",
+        "Spring 事务",
+        "HTTP/HTTPS"
+      ],
       "section": "learning",
       "topic": "Java 后端",
       "company": "",
@@ -1700,6 +1943,10 @@
       "tags": [
         "MyBatis",
         "源码分析"
+      ],
+      "points": [
+        "MyBatis 源码",
+        "Spring 事务"
       ],
       "section": "learning",
       "topic": "MyBatis 源码拆解",
@@ -1734,6 +1981,11 @@
         "OceanBase",
         "AI Agent"
       ],
+      "points": [
+        "Agent 评测与 Harness",
+        "HTTP/HTTPS",
+        "工具调用"
+      ],
       "section": "about",
       "topic": "关于我",
       "company": "",
@@ -1766,6 +2018,12 @@
         "AI",
         "组织管理",
         "投资者交流"
+      ],
+      "points": [
+        "一致性协议",
+        "DeepSeek",
+        "概率统计",
+        "级数与傅里叶"
       ],
       "section": "reading",
       "topic": "社会",
@@ -1806,6 +2064,13 @@
         "流式系统",
         "故障排查"
       ],
+      "points": [
+        "SSE 与流式",
+        "注册中心与网关",
+        "HTTP/HTTPS",
+        "TCP 协议",
+        "中断与系统调用"
+      ],
       "section": "learning",
       "topic": "SSE",
       "company": "",
@@ -1841,6 +2106,7 @@
         "风险管理",
         "战略"
       ],
+      "points": [],
       "section": "reading",
       "topic": "history",
       "company": "",
@@ -1875,6 +2141,9 @@
         "道德经",
         "养生",
         "修身"
+      ],
+      "points": [
+        "HTTP/HTTPS"
       ],
       "section": "reading",
       "topic": "health",
@@ -1912,6 +2181,7 @@
         "肌肉",
         "压力"
       ],
+      "points": [],
       "section": "reading",
       "topic": "health",
       "company": "",
@@ -1943,6 +2213,11 @@
         "MyBatis",
         "源码分析"
       ],
+      "points": [
+        "MyBatis 源码",
+        "HashMap 原理",
+        "Spring 事务"
+      ],
       "section": "learning",
       "topic": "MyBatis 源码拆解",
       "company": "",
@@ -1962,7 +2237,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -1971,8 +2246,13 @@
       "visibility": "public",
       "summary": "Agentium MCP 工具执行机制解析",
       "tags": [],
+      "points": [
+        "MCP 协议",
+        "Agent 评测与 Harness",
+        "进程与调度"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -1990,7 +2270,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -1999,8 +2279,16 @@
       "visibility": "public",
       "summary": "AgentScope Java 1.1.0 Harness Framework 深度解析",
       "tags": [],
+      "points": [
+        "Agent 评测与 Harness",
+        "AgentScope",
+        "Agent 架构模式",
+        "HTTP/HTTPS",
+        "持久化 RDB/AOF",
+        "Agent 记忆"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2018,7 +2306,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2027,8 +2315,16 @@
       "visibility": "public",
       "summary": "AI Coding Agent 技术参考文档",
       "tags": [],
+      "points": [
+        "工具调用",
+        "Agent 评测与 Harness",
+        "DeepSeek",
+        "限流熔断降级",
+        "Claude Code",
+        "MCP 协议"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2046,7 +2342,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "Java 后端",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2055,8 +2351,12 @@
       "visibility": "public",
       "summary": "阿里笔试 · 字符串填充组合计数（动态规划）",
       "tags": [],
+      "points": [
+        "动态规划",
+        "复杂度分析"
+      ],
       "section": "learning",
-      "topic": "Java 后端",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2074,7 +2374,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2083,8 +2383,13 @@
       "visibility": "public",
       "summary": "为什么 Claude Code 用 grep 不用 RAG 检索代码？",
       "tags": [],
+      "points": [
+        "RAG 与向量检索",
+        "Claude Code",
+        "索引原理"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2102,7 +2407,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2111,8 +2416,12 @@
       "visibility": "public",
       "summary": "我们是如何让 DeepSeek 超越 Opus 4.7 的？",
       "tags": [],
+      "points": [
+        "DeepSeek",
+        "工具调用"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2130,7 +2439,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2139,8 +2448,13 @@
       "visibility": "public",
       "summary": "RAG混合检索：MeiliSearch vs Milvus（技术文章整理）",
       "tags": [],
+      "points": [
+        "RAG 与向量检索",
+        "索引原理",
+        "HashMap 原理"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2158,7 +2472,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2167,8 +2481,12 @@
       "visibility": "public",
       "summary": "从零开始写 Agent 系列（11篇）",
       "tags": [],
+      "points": [
+        "Agent 架构模式",
+        "上下文工程"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2186,7 +2504,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2195,8 +2513,11 @@
       "visibility": "public",
       "summary": "从司机变乘客：这就是 Agent 编程的范式革命",
       "tags": [],
+      "points": [
+        "Agent 架构模式"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2214,7 +2535,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2223,8 +2544,12 @@
       "visibility": "public",
       "summary": "从零开始写Agent(二) - 让模型调用工具",
       "tags": [],
+      "points": [
+        "工具调用",
+        "Prompt 工程"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2242,7 +2567,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2251,8 +2576,11 @@
       "visibility": "public",
       "summary": "从零开始写 Agent(三) - Agent Loop",
       "tags": [],
+      "points": [
+        "工具调用"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2270,7 +2598,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2279,8 +2607,12 @@
       "visibility": "public",
       "summary": "从零开始写 Agent（四）：用两步做一个财报研报 Agent",
       "tags": [],
+      "points": [
+        "工具调用",
+        "Prompt 工程"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2298,7 +2630,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2307,8 +2639,11 @@
       "visibility": "public",
       "summary": "从零开始写 Agent（五）：聊聊 Agent 的设计范式",
       "tags": [],
+      "points": [
+        "Agent 架构模式"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2326,7 +2661,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2335,8 +2670,12 @@
       "visibility": "public",
       "summary": "从零开始写 Agent（六）：记忆系统",
       "tags": [],
+      "points": [
+        "持久化 RDB/AOF",
+        "Agent 架构模式"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2354,7 +2693,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2363,8 +2702,14 @@
       "visibility": "public",
       "summary": "从零开始写 Agent（七）：上下文工程",
       "tags": [],
+      "points": [
+        "上下文工程",
+        "Prompt 工程",
+        "工具调用",
+        "限流熔断降级"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2382,7 +2727,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2391,8 +2736,11 @@
       "visibility": "public",
       "summary": "从零开始写 Agent 之八：外接知识库",
       "tags": [],
+      "points": [
+        "RAG 与向量检索"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2410,7 +2758,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2419,8 +2767,11 @@
       "visibility": "public",
       "summary": "从零开始写 Agent 之九 - 浏览器自动化",
       "tags": [],
+      "points": [
+        "Agent 评测与 Harness"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2438,7 +2789,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2447,8 +2798,11 @@
       "visibility": "public",
       "summary": "从零开始写 Agent ：给 Agent 加上 Skills 系统",
       "tags": [],
+      "points": [
+        "Prompt 工程"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2466,7 +2820,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2475,8 +2829,16 @@
       "visibility": "public",
       "summary": "从零开始写 Agent 终篇：如何设计一个生产级 Agent 系统",
       "tags": [],
+      "points": [
+        "Agent 架构模式",
+        "复杂度分析",
+        "RAG 与向量检索",
+        "工具调用",
+        "限流熔断降级",
+        "一致性协议"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2494,7 +2856,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2503,8 +2865,16 @@
       "visibility": "public",
       "summary": "后端开发转Agent开发学习路线",
       "tags": [],
+      "points": [
+        "Agent 评测与 Harness",
+        "HTTP/HTTPS",
+        "RAG 与向量检索",
+        "Claude Code",
+        "上下文工程",
+        "Codex"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -2522,7 +2892,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "Java 后端",
-      "module": "",
+      "module": "Java 并发与异步",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2531,8 +2901,14 @@
       "visibility": "public",
       "summary": "Java 并发优化 5 个实战技巧",
       "tags": [],
+      "points": [
+        "虚拟线程",
+        "线程池",
+        "CompletableFuture",
+        "并发容器"
+      ],
       "section": "learning",
-      "topic": "Java 后端",
+      "topic": "Java 并发与异步",
       "company": "",
       "round": "",
       "score": null,
@@ -2550,7 +2926,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "Java 后端",
-      "module": "",
+      "module": "Spring 生态",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2559,8 +2935,15 @@
       "visibility": "public",
       "summary": "Spring Boot @Async 实战4种模式",
       "tags": [],
+      "points": [
+        "Spring Boot 自动装配",
+        "线程池",
+        "CompletableFuture",
+        "Spring 事务",
+        "IOC 与 Bean 生命周期"
+      ],
       "section": "learning",
-      "topic": "Java 后端",
+      "topic": "Spring 生态",
       "company": "",
       "round": "",
       "score": null,
@@ -2578,7 +2961,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "Java 后端",
-      "module": "",
+      "module": "Spring 生态",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2587,8 +2970,15 @@
       "visibility": "public",
       "summary": "Spring 三级缓存解决循环依赖 —— 完整讨论记录",
       "tags": [],
+      "points": [
+        "IOC 与 Bean 生命周期",
+        "Spring 事务",
+        "AOP 与代理",
+        "JVM 内存区域",
+        "Spring Boot 自动装配"
+      ],
       "section": "learning",
-      "topic": "Java 后端",
+      "topic": "Spring 生态",
       "company": "",
       "round": "",
       "score": null,
@@ -2606,7 +2996,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "Java 后端",
-      "module": "",
+      "module": "Spring 生态",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2615,8 +3005,15 @@
       "visibility": "public",
       "summary": "Spring 三级缓存源码逐行注释",
       "tags": [],
+      "points": [
+        "HashMap 原理",
+        "IOC 与 Bean 生命周期",
+        "并发容器",
+        "AOP 与代理",
+        "synchronized 与 Lock"
+      ],
       "section": "learning",
-      "topic": "Java 后端",
+      "topic": "Spring 生态",
       "company": "",
       "round": "",
       "score": null,
@@ -2634,7 +3031,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "数据与中间件",
-      "module": "",
+      "module": "Spring 生态",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2643,8 +3040,14 @@
       "visibility": "public",
       "summary": "Redis事务与原子性原理深度解析",
       "tags": [],
+      "points": [
+        "持久化 RDB/AOF",
+        "事务与 MVCC",
+        "秒杀与库存",
+        "Redis 分布式锁"
+      ],
       "section": "learning",
-      "topic": "数据与中间件",
+      "topic": "Spring 生态",
       "company": "",
       "round": "",
       "score": null,
@@ -2662,7 +3065,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "数据与中间件",
-      "module": "",
+      "module": "Spring 生态",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2671,8 +3074,15 @@
       "visibility": "public",
       "summary": "RocketMQ vs Kafka：事务、原子写入、有序性",
       "tags": [],
+      "points": [
+        "Kafka",
+        "RocketMQ",
+        "消息可靠性",
+        "Spring 事务",
+        "分布式事务"
+      ],
       "section": "learning",
-      "topic": "数据与中间件",
+      "topic": "Spring 生态",
       "company": "",
       "round": "",
       "score": null,
@@ -2699,6 +3109,14 @@
       "visibility": "public",
       "summary": "高级Java工程师3道灵魂面试题",
       "tags": [],
+      "points": [
+        "限流熔断降级",
+        "秒杀与库存",
+        "GC 与垃圾回收",
+        "JVM 调优与排查",
+        "CompletableFuture",
+        "Redis 分布式锁"
+      ],
       "section": "learning",
       "topic": "Java 后端",
       "company": "",
@@ -2718,7 +3136,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "数据与中间件",
-      "module": "",
+      "module": "MySQL 与存储",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2727,8 +3145,11 @@
       "visibility": "public",
       "summary": "知乎：MySQL千万级订单表新增字段怎么弄？",
       "tags": [],
+      "points": [
+        "SQL 优化"
+      ],
       "section": "learning",
-      "topic": "数据与中间件",
+      "topic": "MySQL 与存储",
       "company": "",
       "round": "",
       "score": null,
@@ -2746,7 +3167,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "数据与中间件",
-      "module": "",
+      "module": "MySQL 与存储",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2755,8 +3176,11 @@
       "visibility": "public",
       "summary": "大厂面试SQL高频题 第2期",
       "tags": [],
+      "points": [
+        "SQL 优化"
+      ],
       "section": "learning",
-      "topic": "数据与中间件",
+      "topic": "MySQL 与存储",
       "company": "",
       "round": "",
       "score": null,
@@ -2783,6 +3207,13 @@
       "visibility": "public",
       "summary": "面试知识库 RAG 系统设计方案",
       "tags": [],
+      "points": [
+        "RAG 与向量检索",
+        "索引原理",
+        "DeepSeek",
+        "NLP 与 Transformer",
+        "Prompt 工程"
+      ],
       "section": "projects",
       "topic": "自研项目",
       "company": "",
@@ -2811,6 +3242,14 @@
       "visibility": "public",
       "summary": "codex gpt 修复点",
       "tags": [],
+      "points": [
+        "Codex",
+        "Agent 评测与 Harness",
+        "工具调用",
+        "索引原理",
+        "Redis 分布式锁",
+        "事务与 MVCC"
+      ],
       "section": "projects",
       "topic": "自研项目",
       "company": "",
@@ -2839,6 +3278,7 @@
       "visibility": "public",
       "summary": "程序员出海/远程工作资料",
       "tags": [],
+      "points": [],
       "section": "reading",
       "topic": "personal-notes",
       "company": "",
@@ -2867,6 +3307,9 @@
       "visibility": "public",
       "summary": "AI 记忆标签体系设计 — 双维度标签解决 consolidation 混乱",
       "tags": [],
+      "points": [
+        "Agent 架构模式"
+      ],
       "section": "learning",
       "topic": "参考资料",
       "company": "",
@@ -2895,6 +3338,14 @@
       "visibility": "public",
       "summary": "How LLMs Actually Work — LLM 内部机制长文",
       "tags": [],
+      "points": [
+        "NLP 与 Transformer",
+        "RAG 与向量检索",
+        "HTTP/HTTPS",
+        "Prompt 工程",
+        "矩阵与线性方程组",
+        "概率统计"
+      ],
       "section": "learning",
       "topic": "参考资料",
       "company": "",
@@ -2927,6 +3378,14 @@
         "FFM API",
         "MemorySegment",
         "堆外内存"
+      ],
+      "points": [
+        "GC 与垃圾回收",
+        "CSS 与布局",
+        "进程与调度",
+        "ThreadLocal",
+        "HTTP/HTTPS",
+        "JVM 调优与排查"
       ],
       "section": "learning",
       "topic": "参考资料",
@@ -2961,6 +3420,10 @@
         "断线重连",
         "Spring Boot"
       ],
+      "points": [
+        "SSE 与流式",
+        "Kafka"
+      ],
       "section": "learning",
       "topic": "参考资料",
       "company": "",
@@ -2980,7 +3443,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "Java 后端",
-      "module": "",
+      "module": "Java 并发与异步",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -2995,8 +3458,15 @@
         "线程池",
         "异步编程"
       ],
+      "points": [
+        "线程池",
+        "CompletableFuture",
+        "限流熔断降级",
+        "虚拟线程",
+        "HTTP/HTTPS"
+      ],
       "section": "learning",
-      "topic": "Java 后端",
+      "topic": "Java 并发与异步",
       "company": "",
       "round": "",
       "score": null,
@@ -3014,7 +3484,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "Java 后端",
-      "module": "",
+      "module": "Java 并发与异步",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -3032,8 +3502,11 @@
         "WriteBarrier",
         "写屏障"
       ],
+      "points": [
+        "GC 与垃圾回收"
+      ],
       "section": "learning",
-      "topic": "Java 后端",
+      "topic": "Java 并发与异步",
       "company": "",
       "round": "",
       "score": null,
@@ -3063,6 +3536,9 @@
         "MyBatis",
         "源码分析"
       ],
+      "points": [
+        "MyBatis 源码"
+      ],
       "section": "learning",
       "topic": "MyBatis 源码拆解",
       "company": "",
@@ -3082,7 +3558,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "源码阅读",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -3096,8 +3572,12 @@
         "知识图谱",
         "向量检索"
       ],
+      "points": [
+        "RAG 与向量检索",
+        "HTTP/HTTPS"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "源码阅读",
       "company": "",
       "round": "",
       "score": null,
@@ -3126,6 +3606,12 @@
       "tags": [
         "MyBatis",
         "源码分析"
+      ],
+      "points": [
+        "MyBatis 源码",
+        "Spring 事务",
+        "集合框架",
+        "设计模式"
       ],
       "section": "learning",
       "topic": "MyBatis 源码拆解",
@@ -3158,6 +3644,9 @@
         "MyBatis",
         "源码分析"
       ],
+      "points": [
+        "MyBatis 源码"
+      ],
       "section": "learning",
       "topic": "MyBatis 源码拆解",
       "company": "",
@@ -3189,6 +3678,11 @@
         "MyBatis",
         "源码分析"
       ],
+      "points": [
+        "MyBatis 源码",
+        "AOP 与代理",
+        "类加载机制"
+      ],
       "section": "learning",
       "topic": "MyBatis 源码拆解",
       "company": "",
@@ -3219,6 +3713,10 @@
       "tags": [
         "MyBatis",
         "源码分析"
+      ],
+      "points": [
+        "MyBatis 源码",
+        "Agent 评测与 Harness"
       ],
       "section": "learning",
       "topic": "MyBatis 源码拆解",
@@ -3253,6 +3751,7 @@
         "CPO",
         "AI 算力"
       ],
+      "points": [],
       "section": "reading",
       "topic": "finance",
       "company": "",
@@ -3272,7 +3771,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "AI Agent",
-      "module": "",
+      "module": "Agent 工程与源码",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -3281,8 +3780,16 @@
       "visibility": "public",
       "summary": "Spring AI 2.0 Multi-Agent 实战：构建智能协作系统",
       "tags": [],
+      "points": [
+        "Spring AI",
+        "虚拟线程",
+        "MCP 协议",
+        "限流熔断降级",
+        "Agent 架构模式",
+        "AOP 与代理"
+      ],
       "section": "learning",
-      "topic": "AI Agent",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -3300,7 +3807,7 @@
       "importedAt": "",
       "domain": "学习",
       "area": "Java 后端",
-      "module": "",
+      "module": "JVM 与性能",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -3309,8 +3816,16 @@
       "visibility": "public",
       "summary": "JVM 核心原理与线上排查",
       "tags": [],
+      "points": [
+        "JVM 调优与排查",
+        "类加载机制",
+        "GC 与垃圾回收",
+        "JVM 内存区域",
+        "volatile 与 JMM",
+        "synchronized 与 Lock"
+      ],
       "section": "learning",
-      "topic": "Java 后端",
+      "topic": "JVM 与性能",
       "company": "",
       "round": "",
       "score": null,
@@ -3339,6 +3854,10 @@
       "tags": [
         "MyBatis",
         "源码分析"
+      ],
+      "points": [
+        "MyBatis 源码",
+        "AOP 与代理"
       ],
       "section": "learning",
       "topic": "MyBatis 源码拆解",
@@ -3374,6 +3893,7 @@
         "不等式",
         "书籍推荐"
       ],
+      "points": [],
       "section": "reading",
       "topic": "personal-notes",
       "company": "",
@@ -3381,6 +3901,858 @@
       "score": null,
       "questionNumber": null,
       "question": ""
+    }
+  ],
+  "pointsIndex": [
+    {
+      "name": "Agent 架构模式",
+      "topic": "Agent 工程与源码",
+      "summary": "ReAct 以思考-行动-观察循环驱动工具使用，Planning/Reflection/Multi-Agent 是主要扩展方向；高频考题是与 Workflow 的边界：确定性流程用 Workflow，开放任务用 Agent。",
+      "count": 7,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "Agent 记忆",
+      "topic": "Agent 工程与源码",
+      "summary": "短期记忆等于会话上下文，长期记忆靠外置存储（向量库/结构化）；要点是写入策略、检索相关性与遗忘固化机制。",
+      "count": 1,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "Agent 评测与 Harness",
+      "topic": "Agent 工程与源码",
+      "summary": "评测 = 任务集 + 评分器（规则/模型/人工）；Harness 负责沙箱执行、轨迹记录与回归对比，是 Agent 从演示走向工程化的分水岭。",
+      "count": 6,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "AgentScope",
+      "topic": "Agent 工程与源码",
+      "summary": "AgentScope 以显式消息传递与 Pipeline 编排多智能体，消息契约清晰，便于分布式部署与容错。",
+      "count": 1,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "Claude Code",
+      "topic": "Agent 工程与源码",
+      "summary": "核心机制是 CLAUDE.md 上下文注入、工具权限管控与 subagent 编排；Skills 与 hooks 的工程化设计最值得借鉴。",
+      "count": 4,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "Codex",
+      "topic": "Agent 工程与源码",
+      "summary": "Codex CLI 以沙箱执行 + 可配置审批实现编码代理；config 配置体系、MCP 集成与定时自动化任务是主要扩展点。",
+      "count": 2,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "DeepSeek",
+      "topic": "Agent 工程与源码",
+      "summary": "以低成本高性价比著称，MoE 架构与开源策略是讨论重点；接入时注意上下文长度与函数调用的行为差异。",
+      "count": 3,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "LangChain/LangGraph",
+      "topic": "Agent 工程与源码",
+      "summary": "LangChain 组件化封装 LLM 应用；LangGraph 用状态图编排循环与分支，支持 checkpoint 持久化与人机协同节点。",
+      "count": 0,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "MCP 协议",
+      "topic": "Agent 工程与源码",
+      "summary": "MCP 把工具、资源与提示标准化为 JSON-RPC 服务，Host-Client-Server 三角色；与 function calling 的本质区别是生态级解耦——工具实现一次处处可用。",
+      "count": 4,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "NLP 与 Transformer",
+      "topic": "Agent 工程与源码",
+      "summary": "自注意力并行建模长程依赖，位置编码、多头机制与 KV cache 是推理优化核心；分词器决定 token 成本。",
+      "count": 1,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "Prompt 工程",
+      "topic": "Agent 工程与源码",
+      "summary": "系统提示定义角色与约束，Few-shot 控制格式，CoT 引导推理；工程化关注版本管理、回归评测与提示注入防护。",
+      "count": 6,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "RAG 与向量检索",
+      "topic": "Agent 工程与源码",
+      "summary": "离线切分-向量化-入库，在线召回-重排-生成；优化围绕分块策略、混合检索（BM25+向量）、rerank 与引用溯源展开。",
+      "count": 8,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "上下文工程",
+      "topic": "Agent 工程与源码",
+      "summary": "上下文是 Agent 的稀缺资源：系统提示、历史压缩（compaction）、检索注入与工具结果裁剪共同决定效果；长任务必须显式管理记忆与摘要。",
+      "count": 4,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "工具调用",
+      "topic": "Agent 工程与源码",
+      "summary": "模型按 schema 生成参数、运行时执行并把结果回填给模型；难点在工具粒度设计、错误反馈方式与并行调用编排。",
+      "count": 7,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "GC 与垃圾回收",
+      "topic": "JVM 与性能",
+      "summary": "可达性分析判活，收集器沿 Serial→Parallel→CMS→G1→ZGC 演进，核心权衡是吞吐与停顿；G1 按 Region 划分、按停顿目标优先回收收益最高的区域。",
+      "count": 3,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "JVM 内存区域",
+      "topic": "JVM 与性能",
+      "summary": "线程共享堆与元空间，线程私有虚拟机栈、程序计数器与本地方法栈；对象在 Eden 分配、Survivor 晋升，TLAB 私有缓冲减少竞争。",
+      "count": 3,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "JVM 调优与排查",
+      "topic": "JVM 与性能",
+      "summary": "调优主线：内存泄漏看堆直方图与 GC 日志，CPU 飙高先定位线程栈（top -Hp + arthas），参数围绕堆大小、收集器与元空间。",
+      "count": 3,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "类加载机制",
+      "topic": "JVM 与性能",
+      "summary": "加载-验证-准备-解析-初始化五阶段；双亲委派保证核心类唯一，打破场景是 SPI、OSGi 与热部署。",
+      "count": 3,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "AQS 与同步器",
+      "topic": "Java 并发与异步",
+      "summary": "AQS 用 volatile state + CLH 双向队列提供独占/共享两种模式，是 ReentrantLock、Semaphore、CountDownLatch 的公共骨架；掌握 state 语义与入队唤醒即可举一反三。",
+      "count": 3,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "CompletableFuture",
+      "topic": "Java 并发与异步",
+      "summary": "以回调链组织异步任务：supplyAsync 提交、thenApply/thenCompose 串并行编排、exceptionally/whenComplete 兜底。面试重点：默认用 ForkJoinPool 的坑、orTimeout 超时控制与线程池隔离。",
+      "count": 6,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "HashMap 原理",
+      "topic": "Java 并发与异步",
+      "summary": "数组 + 链表/红黑树：桶内超过 8 且数组长度 ≥64 才树化，扩容 2 倍并按 hash 高位拆链。JDK7 并发扩容成环是经典题，JDK8 改尾插修复。",
+      "count": 4,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "ThreadLocal",
+      "topic": "Java 并发与异步",
+      "summary": "每个 Thread 持有 ThreadLocalMap，键为弱引用、值为强引用，线程池场景必须 remove，否则内存泄漏且可能串值。",
+      "count": 2,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "synchronized 与 Lock",
+      "topic": "Java 并发与异步",
+      "summary": "synchronized 走对象头锁升级（偏向→轻量→重量），Lock 依赖 AQS 提供可中断、超时与公平获取。对比题考释放时机、条件队列与性能边界。",
+      "count": 4,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "volatile 与 JMM",
+      "topic": "Java 并发与异步",
+      "summary": "volatile 保证可见性并禁止指令重排，靠内存屏障实现，但不保证原子性；JMM 用 happens-before 规则定义多线程读写的可见边界。",
+      "count": 2,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "并发容器",
+      "topic": "Java 并发与异步",
+      "summary": "ConcurrentHashMap 从 JDK7 分段锁演进到 JDK8 CAS+synchronized 桶级锁，size 用 CounterCell 分散计数；CopyOnWrite 写时复制适合读多写少。",
+      "count": 3,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "线程池",
+      "topic": "Java 并发与异步",
+      "summary": "ThreadPoolExecutor 七参数决定行为：核心数、队列与拒绝策略共同决定任务流向。面试围绕参数取舍、队列选型、拒绝策略与动态调参展开。",
+      "count": 8,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "虚拟线程",
+      "topic": "Java 并发与异步",
+      "summary": "虚拟线程由 JVM 调度、阻塞时挂起而不占载体线程，适合高阻塞 IO；痛点是 synchronized 长段与 native 调用会 pin 住载体。",
+      "count": 3,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "集合框架",
+      "topic": "Java 并发与异步",
+      "summary": "ArrayList 基于数组、扩容 1.5 倍，LinkedList 双向链表；fail-fast 靠 modCount 实现，遍历中结构修改要特别注意。",
+      "count": 3,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "SQL 优化",
+      "topic": "MySQL 与存储",
+      "summary": "定位慢查询后用 explain 看 type/key/rows/Extra；高频手段是索引补齐、深分页游标化、大事务拆小与覆盖索引。",
+      "count": 2,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "主从与日志",
+      "topic": "MySQL 与存储",
+      "summary": "主从靠 binlog 复制（异步/半同步），延迟带来读到旧数据；读写分离要在业务层处理复制滞后敏感的请求。",
+      "count": 0,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "事务与 MVCC",
+      "topic": "MySQL 与存储",
+      "summary": "undo log 支持回滚与多版本，redo 保证崩溃恢复，binlog 服务复制与归档；MVCC 靠 ReadView + 版本链实现 RC/RR 的快照读。",
+      "count": 1,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "分库分表",
+      "topic": "MySQL 与存储",
+      "summary": "垂直拆业务、水平拆数据量；分片键选最常用的查询维度，代价是跨片查询、分布式 ID 与扩容迁移三类新问题。",
+      "count": 0,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "索引原理",
+      "topic": "MySQL 与存储",
+      "summary": "B+ 树矮胖、叶子成链利于范围扫描；聚簇索引叶子存整行，二级索引要回表；联合索引遵循最左前缀，覆盖索引可免回表。",
+      "count": 4,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "Redis 分布式锁",
+      "topic": "Redis 与缓存",
+      "summary": "SET NX PX + 唯一值 + Lua 脚本释放保证原子性；RedLock 的争议在时钟假设，生产更常用 Redisson 看门狗续期。",
+      "count": 2,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "Redis 数据结构",
+      "topic": "Redis 与缓存",
+      "summary": "SDS 动态字符串、listpack 压缩小对象、skiplist 支撑 zset 的排序与排名；对象编码随数据大小自动转换是高频细节。",
+      "count": 0,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "Redis 高可用",
+      "topic": "Redis 与缓存",
+      "summary": "主从复制增量+全量同步，哨兵负责故障转移，Cluster 把数据分到 16384 个 slot 去中心化路由；集群模式多键操作受 slot 限制。",
+      "count": 1,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "持久化 RDB/AOF",
+      "topic": "Redis 与缓存",
+      "summary": "RDB 快照恢复快但可能丢数据，AOF 追加日志更安全并定期重写压缩；4.0 后的混合持久化兼取两者。",
+      "count": 6,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "缓存三大问题",
+      "topic": "Redis 与缓存",
+      "summary": "穿透查不存在的 key（布隆/空值缓存）、击穿热 key 失效（互斥/逻辑过期）、雪崩同时失效（错峰+多级缓存）；一致性主流方案是先更新库再删缓存 + 延迟双删。",
+      "count": 0,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "AOP 与代理",
+      "topic": "Spring 生态",
+      "summary": "默认 JDK 动态代理（有接口）/CGLIB（纯类），织入发生在 BeanPostProcessor 阶段；自调用不经过代理是高频坑。",
+      "count": 8,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "IOC 与 Bean 生命周期",
+      "topic": "Spring 生态",
+      "summary": "实例化→属性填充→Aware→BeanPostProcessor 前置→初始化→后置；循环依赖靠三级缓存提前暴露早期引用，构造器注入无解。",
+      "count": 4,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "MyBatis 源码",
+      "topic": "Spring 生态",
+      "summary": "SqlSession→Executor→StatementHandler 三层执行链，Mapper 接口是动态代理；一二级缓存、插件拦截与 #{} 占位符处理是源码三大件。",
+      "count": 10,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "Spring AI",
+      "topic": "Spring 生态",
+      "summary": "Spring AI 统一 Chat、Embedding 与 VectorStore 抽象，Advisor 链拦截对话流程，适合把模型能力以普通 Bean 的形式融入 Spring 应用。",
+      "count": 1,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "Spring Boot 自动装配",
+      "topic": "Spring 生态",
+      "summary": "@EnableAutoConfiguration 读取自动配置登记文件注册条件化配置类，@ConditionalOn 系列控制生效；starter = 依赖 + 自动配置的打包。",
+      "count": 4,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "Spring 事务",
+      "topic": "Spring 生态",
+      "summary": "@Transactional 基于 AOP 绑定线程连接；失效场景考自调用、非 public、异常被吞与传播行为，REQUIRES_NEW 会挂起当前事务另起新连接。",
+      "count": 8,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "CSS 与布局",
+      "topic": "前端",
+      "summary": "盒模型与 BFC 决定布局行为，Flex/Grid 是现代布局方案；层叠上下文与选择器优先级解释样式覆盖问题。",
+      "count": 5,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "TypeScript",
+      "topic": "前端",
+      "summary": "结构类型系统 + 泛型/联合/字面量类型构成表达力；重点考 keyof/extends/in 的类型体操与类型收窄。",
+      "count": 4,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "Vue",
+      "topic": "前端",
+      "summary": "响应式（Proxy 依赖收集）+ 组件树 + 虚拟 DOM diff；组合式 API 解决逻辑复用，keep-alive 与 v-model 的实现机制是常考细节。",
+      "count": 4,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "Git 与工作流",
+      "topic": "工程与架构",
+      "summary": "worktree 支持一仓库多工作树并行开发，互不干扰又共享对象库；分支策略（trunk/flow）与 rebase vs merge 的历史整洁之争是工程效能基本功。",
+      "count": 1,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "SSE 与流式",
+      "topic": "工程与架构",
+      "summary": "SSE 单向服务器推送、纯文本流、自动重连，是 LLM 流式输出的默认选择；WebSocket 双向全双工，适合聊天室与协作场景。",
+      "count": 2,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "一致性协议",
+      "topic": "工程与架构",
+      "summary": "CAP 说明分区发生时只能取 C 或 A，BASE 是工程折中；Raft 用任期 + 多数派完成选主与日志复制，成为分布式系统默认共识方案。",
+      "count": 4,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "分布式 ID",
+      "topic": "工程与架构",
+      "summary": "UUID 无序不适合做主键；雪花 = 时间戳+机器号+序列，要点是时钟回拨与 workerId 分配；号段模式从 DB 批量取号。",
+      "count": 0,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "分布式事务",
+      "topic": "工程与架构",
+      "summary": "2PC 强一致但阻塞，TCC 业务补偿化，Saga 长事务逆序补偿，本地消息表/事务消息是互联网主流；选型核心是一致性强度 vs 侵入度。",
+      "count": 1,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "分布式锁",
+      "topic": "工程与架构",
+      "summary": "DB、Redis、ZooKeeper 三条路线：Redis 性能高但要处理续期与 fencing token，ZK 临时顺序节点可靠但吞吐低。",
+      "count": 0,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "注册中心与网关",
+      "topic": "工程与架构",
+      "summary": "注册中心解决寻址与健康检查（AP 型 Nacos/Eureka，CP 型 ZK/Consul）；网关统一路由、鉴权与限流，是南北向流量的总入口。",
+      "count": 3,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "秒杀与库存",
+      "topic": "工程与架构",
+      "summary": "核心是削峰与防超卖：前端限流、Redis 预扣减、MQ 异步下单、DB 乐观锁兜底；热点 key 分片与库存分段是扩容手段。",
+      "count": 2,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "设计模式",
+      "topic": "工程与架构",
+      "summary": "常考单例（双检锁/枚举）、工厂、策略消除 if-else、责任链（拦截器/Filter）、观察者（事件驱动）；结合 Spring 场景谈应用是加分项。",
+      "count": 5,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "限流熔断降级",
+      "topic": "工程与架构",
+      "summary": "限流算法有计数器、漏桶、令牌桶与滑动窗口；熔断三态（关闭-打开-半开）防止雪崩，降级保核心链路；Sentinel 用槽链实现并支持热点与系统自适应。",
+      "count": 9,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "三角函数",
+      "topic": "数学知识卡片",
+      "summary": "单位圆定义六类三角函数，诱导公式与和差化积是化简主线；Asin(ωx+φ) 的振幅、频率、相位对应图像变换。",
+      "count": 2,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "二次型",
+      "topic": "数学知识卡片",
+      "summary": "对称矩阵对应二次型，正定性由顺序主子式或特征值判定；主轴定理把二次曲面标准化。",
+      "count": 0,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "向量与空间",
+      "topic": "数学知识卡片",
+      "summary": "线性组合与张成定义空间语言，基与坐标把几何代数化；内积引入长度与投影，梯度/散度/旋度是多元微分的空间化表达。",
+      "count": 0,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "导数与中值定理",
+      "topic": "数学知识卡片",
+      "summary": "导数是局部线性化；罗尔/拉格朗日/柯西中值定理把函数值差转化为导数关系，是证明题的桥梁。",
+      "count": 3,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "极限与连续",
+      "topic": "数学知识卡片",
+      "summary": "极限的 ε-δ 定义、两个重要极限与等价无穷小替换是工具箱；连续 = 极限存在且等于该点函数值。",
+      "count": 3,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "概率统计",
+      "topic": "数学知识卡片",
+      "summary": "条件概率与全概率/贝叶斯公式是推理基础，分布函数与期望方差是描述工具；大数定律与中心极限定理解释频率的稳定性。",
+      "count": 2,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "特征值与对角化",
+      "topic": "数学知识卡片",
+      "summary": "Av=λv 寻找变换的不变方向，可对角化等价于有 n 个无关特征向量；SVD 把任意矩阵分解为旋转-缩放-旋转。",
+      "count": 1,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "矩阵与线性方程组",
+      "topic": "数学知识卡片",
+      "summary": "高斯消元与秩是主线：有解看增广矩阵秩，齐次解空间维数 = n - r；行列式为零即线性相关。",
+      "count": 4,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "积分",
+      "topic": "数学知识卡片",
+      "summary": "定积分是分割-求和-取极限，牛顿-莱布尼茨公式连接微分与积分；换元与分部积分是两大基本手法。",
+      "count": 2,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "级数与傅里叶",
+      "topic": "数学知识卡片",
+      "summary": "级数先判收敛（比较/比值/根值判别法），泰勒级数用多项式局部逼近函数；傅里叶级数把周期函数分解为正弦叠加。",
+      "count": 0,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "二叉树",
+      "topic": "数据结构与算法",
+      "summary": "先中后序与层序遍历是基本功，递归改迭代靠栈和队列；BST、平衡树与红黑树解决有序性与查询效率问题。",
+      "count": 4,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "动态规划",
+      "topic": "数据结构与算法",
+      "summary": "定义状态→转移方程→初始化→遍历顺序四步法；入门是爬楼梯/打家劫舍，进阶是背包与子序列问题。",
+      "count": 2,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "图与搜索",
+      "topic": "数据结构与算法",
+      "summary": "BFS 求无权最短路，DFS 适合连通性与拓扑排序，并查集处理动态连通；建图方式（邻接表）决定整体复杂度。",
+      "count": 1,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "堆与 TopK",
+      "topic": "数据结构与算法",
+      "summary": "堆是完全二叉树配上浮下沉；TopK 用大小为 K 的堆做到 O(nlogK)，海量数据换分桶 + 堆或快速选择。",
+      "count": 0,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "复杂度分析",
+      "topic": "数据结构与算法",
+      "summary": "大 O 关注量级与最坏路径，均摊分析解释动态扩容；面试要求对每个解法现场给出时间与空间复杂度。",
+      "count": 4,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "排序算法",
+      "topic": "数据结构与算法",
+      "summary": "快排（分治+分区）、归并（稳定 O(nlogn)）、堆排（原地）三大件；考稳定性、最坏退化与手写实现。",
+      "count": 2,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "栈与队列",
+      "topic": "数据结构与算法",
+      "summary": "单调栈解决下一个更大元素类问题，两栈模拟队列要做均摊分析；括号匹配是最小应用模型。",
+      "count": 0,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "链表",
+      "topic": "数据结构与算法",
+      "summary": "单/双/循环链表与哑结点技巧；高频题是反转、快慢指针找中点判环、K 组反转，边界条件是空表与尾结点。",
+      "count": 2,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "Kafka",
+      "topic": "消息队列",
+      "summary": "topic 分区多副本，ISR 机制权衡可靠与可用；消费者组 rebalance 期间停止消费，分配策略从 range 演进到 sticky/协作式。",
+      "count": 1,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "RocketMQ",
+      "topic": "消息队列",
+      "summary": "NameServer 无状态路由、Broker 主从；事务消息靠半消息+回查实现最终一致，延迟消息用固定等级或时间轮实现。",
+      "count": 1,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "消息可靠性",
+      "topic": "消息队列",
+      "summary": "三段保证：生产确认（acks/重试）、Broker 持久化与副本、消费手动 ack + 幂等表；死信队列兜底反复失败的消息。",
+      "count": 3,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "Cache 与局部性",
+      "topic": "计算机基础",
+      "summary": "时间与空间局部性决定命中率，Cache line 对齐与伪共享直接影响程序性能，是从硬件视角理解代码性能的入口。",
+      "count": 1,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "HTTP/HTTPS",
+      "topic": "计算机基础",
+      "summary": "HTTP1.1 队头阻塞 → 2 多路复用 → 3 QUIC；HTTPS = TLS 握手协商对称密钥 + 证书链校验，混合加密同时保证机密性与完整性。",
+      "count": 22,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "TCP 协议",
+      "topic": "计算机基础",
+      "summary": "三次握手同步初始序号，四次挥手伴随 TIME_WAIT；可靠传输靠序号确认、滑动窗口与拥塞控制（慢启动、拥塞避免、快重传快恢复）。",
+      "count": 4,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "中断与系统调用",
+      "topic": "计算机基础",
+      "summary": "系统调用经软中断陷入内核完成态切换，中断分上下半部处理；切换成本是高性能 IO 设计（io_uring 等）的动因。",
+      "count": 3,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "内存管理",
+      "topic": "计算机基础",
+      "summary": "虚拟内存给进程独立地址空间，页表 + MMU 完成地址翻译，TLB 加速查表；页面置换有 LRU/Clock，零拷贝避免内核与用户态往返拷贝。",
+      "count": 3,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "死锁",
+      "topic": "计算机基础",
+      "summary": "四个必要条件：互斥、持有等待、不可剥夺、循环等待；破坏任意一个即可预防，定位手段是资源分配图或线程 dump。",
+      "count": 1,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
+    },
+    {
+      "name": "进程与调度",
+      "topic": "计算机基础",
+      "summary": "进程是资源分配单位、线程是调度单位；调度算法围绕吞吐与响应权衡，上下文切换成本主要来自缓存与 TLB 失效。",
+      "count": 7,
+      "interview": 0,
+      "practice": 0,
+      "avgScore": null,
+      "gap": false
     }
   ],
   "aliases": {
@@ -3433,13 +4805,13 @@
     "项目": 2,
     "学习": 95,
     "机会": 0,
-    "阅读": 7,
+    "阅读": 8,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 96,
+    "reading": 8,
+    "learning": 95,
     "about": 1,
-    "reading": 7,
     "projects": 2
   },
   "projects": [

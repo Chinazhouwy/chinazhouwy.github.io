@@ -3,7 +3,7 @@ title: "synchronized 锁升级全过程：偏向锁→轻量级锁→重量级�
 date: "2026-08-28"
 domain: "学习"
 area: "Java 后端"
-module: ""
+module: "Java 并发与异步"
 project: ""
 type: "文章"
 status: "可复习"

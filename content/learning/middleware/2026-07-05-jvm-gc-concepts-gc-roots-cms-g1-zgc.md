@@ -3,7 +3,7 @@ title: "JVM 垃圾回收核心概念：GC Roots、并发标记、浮动垃圾、
 date: "2026-07-05"
 domain: "学习"
 area: "Java 后端"
-module: ""
+module: "Java 并发与异步"
 project: ""
 type: "文章"
 status: "可复习"

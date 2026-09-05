@@ -45,6 +45,97 @@
   "rules": {
     "reuse_existing_first": true,
     "new_area_requires_user_confirmation": true,
-    "module_is_for_recurring_series": true
-  }
+    "module_is_for_recurring_series": true,
+    "module_must_be_listed_topic": true
+  },
+  "topics": [
+    {
+      "name": "Agent 工程与源码",
+      "description": "Agent 框架、Harness、上下文工程、RAG 与大模型应用源码笔记。"
+    },
+    {
+      "name": "Java 并发与异步",
+      "description": "线程池、锁、JUC、CompletableFuture 与异步编程。"
+    },
+    {
+      "name": "Spring 生态",
+      "description": "Spring/SpringBoot、IOC、AOP 与事务。"
+    },
+    {
+      "name": "MyBatis 源码拆解",
+      "description": "MyBatis 源码逐层拆解系列。"
+    },
+    {
+      "name": "源码阅读",
+      "description": "通用源码阅读笔记。"
+    },
+    {
+      "name": "数学知识卡片",
+      "description": "数学概念卡片与考点整理。"
+    },
+    {
+      "name": "计算机基础知识卡片",
+      "description": "组成原理/网络/OS 综合卡片系列。"
+    },
+    {
+      "name": "Vue 3 + TypeScript",
+      "description": "Vue 3 与 TypeScript 实践系列。"
+    },
+    {
+      "name": "MySQL 与存储",
+      "description": "MySQL、索引、事务与数据存储。"
+    },
+    {
+      "name": "HTML/CSS 基础",
+      "description": "HTML 与 CSS 基础笔记。"
+    },
+    {
+      "name": "数据结构与算法",
+      "description": "数据结构、算法与刷题笔记。"
+    },
+    {
+      "name": "JVM 与性能",
+      "description": "JVM 内存模型、GC 与调优。"
+    },
+    {
+      "name": "工程与架构",
+      "description": "系统设计、限流熔断与工程实践。"
+    },
+    {
+      "name": "算法与动态规划",
+      "description": "算法题型与动态规划专题。"
+    },
+    {
+      "name": "Redis 与缓存",
+      "description": "Redis、缓存模式与高可用。"
+    },
+    {
+      "name": "SSE",
+      "description": "Server-Sent Events 流式通信。"
+    },
+    {
+      "name": "前端",
+      "description": "Vue、TypeScript 与前端工程。"
+    },
+    {
+      "name": "Stream 设计系列",
+      "description": "Java Stream API 设计源码系列。"
+    },
+    {
+      "name": "Java 函数式与 Stream",
+      "description": "Lambda、Stream 与函数式编程。"
+    },
+    {
+      "name": "毛著作考点",
+      "description": "毛著作与政治考点整理。"
+    },
+    {
+      "name": "英语写作",
+      "description": "英语写作模板与范文积累。"
+    },
+    {
+      "name": "Hermes Agent",
+      "description": "Hermes Agent 使用与配置。"
+    }
+  ]
 }

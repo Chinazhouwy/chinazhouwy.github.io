@@ -3,7 +3,7 @@ title: "HTML5 核心新特性笔记：语义化标签、表单、多媒体与全
 date: "2026-08-09"
 domain: "学习"
 area: "前端"
-module: ""
+module: "前端"
 project: ""
 type: "笔记"
 status: "可复习"

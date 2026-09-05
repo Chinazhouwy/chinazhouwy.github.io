@@ -3,7 +3,7 @@ title: "Sentinel 限流熔断实战指南：接入、规则、持久化与生产
 date: "2026-08-07"
 domain: "学习"
 area: "工程与架构"
-module: ""
+module: "工程与架构"
 project: "机会雷达"
 type: "深度文章"
 status: "可复习"

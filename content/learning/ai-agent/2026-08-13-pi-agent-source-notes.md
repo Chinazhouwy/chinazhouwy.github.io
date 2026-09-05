@@ -3,7 +3,7 @@ title: "Pi-Agent 源码精读笔记（冬瓜）：10 章拆解生产级 Agent SD
 date: "2026-08-13"
 domain: "学习"
 area: "AI Agent"
-module: ""
+module: "Agent 工程与源码"
 project: ""
 type: "文章"
 status: "可复习"
