@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T00:00:00+08:00",
+  "generatedAt": "2026-09-06T00:00:00+08:00",
   "articles": [
     {
       "title": "第43届全国中学生物理竞赛初赛试题及解析：小红书图片存档",
@@ -4854,7 +4854,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-05",
+      "date": "2026-09-06",
       "count": 0,
       "averageScore": null
     },
@@ -4863,11 +4863,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-23",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-24",
         "count": 0,
@@ -4930,6 +4925,11 @@
       },
       {
         "date": "2026-09-05",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-06",
         "count": 0,
         "averageScore": null
       }
