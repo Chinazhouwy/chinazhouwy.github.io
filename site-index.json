@@ -1,6 +1,54 @@
 {
-  "generatedAt": "2026-09-06T00:00:00+08:00",
+  "generatedAt": "2026-09-07T00:00:00+08:00",
   "articles": [
+    {
+      "title": "从一次 LLM 调用到完整 Harness：Agent 系统如何长出运行时",
+      "path": "content/learning/ai-agent/2026-09-07-agent-harness-evolution.md",
+      "url": "content/learning/ai-agent/2026-09-07-agent-harness-evolution.md",
+      "date": "2026-09-07",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "AI Agent",
+      "lane": "agent",
+      "module": "Agent 工程与源码",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "用 Harness 视角梳理 Agent 从单次模型调用走向上下文、循环、工具、记忆、权限、会话和多 Agent 的演化，并区分可核验的工程结构与待验证的评测数字。",
+      "tags": [
+        "Agent",
+        "Harness",
+        "Agent Runtime",
+        "Tool Calling",
+        "Memory",
+        "MCP",
+        "Codex",
+        "Hermes",
+        "Multi-Agent",
+        "评测"
+      ],
+      "points": [
+        "Agent 评测与 Harness",
+        "Agent 架构模式",
+        "Codex",
+        "HTTP/HTTPS",
+        "MCP 协议",
+        "持久化 RDB/AOF"
+      ],
+      "section": "learning",
+      "topic": "Agent 工程与源码",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
     {
       "title": "G1 回收器：如何把 GC 停顿变得可预测",
       "path": "content/learning/middleware/2026-09-06-g1-predictable-gc-pauses.md",
@@ -3950,7 +3998,7 @@
       "name": "Agent 架构模式",
       "topic": "Agent 工程与源码",
       "summary": "ReAct 以思考-行动-观察循环驱动工具使用，Planning/Reflection/Multi-Agent 是主要扩展方向；高频考题是与 Workflow 的边界：确定性流程用 Workflow，开放任务用 Agent。",
-      "count": 7,
+      "count": 8,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -3970,7 +4018,7 @@
       "name": "Agent 评测与 Harness",
       "topic": "Agent 工程与源码",
       "summary": "评测 = 任务集 + 评分器（规则/模型/人工）；Harness 负责沙箱执行、轨迹记录与回归对比，是 Agent 从演示走向工程化的分水岭。",
-      "count": 6,
+      "count": 7,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -4000,7 +4048,7 @@
       "name": "Codex",
       "topic": "Agent 工程与源码",
       "summary": "Codex CLI 以沙箱执行 + 可配置审批实现编码代理；config 配置体系、MCP 集成与定时自动化任务是主要扩展点。",
-      "count": 2,
+      "count": 3,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -4030,7 +4078,7 @@
       "name": "MCP 协议",
       "topic": "Agent 工程与源码",
       "summary": "MCP 把工具、资源与提示标准化为 JSON-RPC 服务，Host-Client-Server 三角色；与 function calling 的本质区别是生态级解耦——工具实现一次处处可用。",
-      "count": 4,
+      "count": 5,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -4310,7 +4358,7 @@
       "name": "持久化 RDB/AOF",
       "topic": "Redis 与缓存",
       "summary": "RDB 快照恢复快但可能丢数据，AOF 追加日志更安全并定期重写压缩；4.0 后的混合持久化兼取两者。",
-      "count": 6,
+      "count": 7,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -4740,7 +4788,7 @@
       "name": "HTTP/HTTPS",
       "topic": "计算机基础",
       "summary": "HTTP1.1 队头阻塞 → 2 多路复用 → 3 QUIC；HTTPS = TLS 握手协商对称密钥 + 证书链校验，混合加密同时保证机密性与完整性。",
-      "count": 23,
+      "count": 24,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -4845,13 +4893,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 96,
+    "学习": 97,
     "机会": 0,
     "阅读": 8,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 96,
+    "learning": 97,
     "reading": 8,
     "about": 1,
     "projects": 2
@@ -4896,7 +4944,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-06",
+      "date": "2026-09-07",
       "count": 0,
       "averageScore": null
     },
@@ -4905,11 +4953,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-24",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-25",
         "count": 0,
@@ -4972,6 +5015,11 @@
       },
       {
         "date": "2026-09-06",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-07",
         "count": 0,
         "averageScore": null
       }
