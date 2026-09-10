@@ -1,6 +1,50 @@
 {
-  "generatedAt": "2026-09-09T00:00:00+08:00",
+  "generatedAt": "2026-09-10T00:00:00+08:00",
   "articles": [
+    {
+      "title": "Spring Boot 已过时的 10 个模式：迁移清单与版本边界",
+      "path": "content/learning/java/2026-09-10-spring-boot-obsolete-patterns.md",
+      "url": "content/learning/java/2026-09-10-spring-boot-obsolete-patterns.md",
+      "date": "2026-09-10",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "Java 后端",
+      "module": "Spring 生态",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "整理一篇 Spring Boot 旧模式迁移清单，逐条区分真正移除、已不推荐、仍可使用与需要版本边界的做法，并补充官方资料核验。",
+      "tags": [
+        "Java",
+        "Spring",
+        "Spring Boot",
+        "Spring Security",
+        "Spring MVC",
+        "Spring Cloud",
+        "Jakarta",
+        "虚拟线程",
+        "迁移"
+      ],
+      "points": [
+        "Spring Boot 自动装配",
+        "事务与 MVCC",
+        "HTTP/HTTPS",
+        "虚拟线程"
+      ],
+      "section": "learning",
+      "topic": "Spring 生态",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
     {
       "title": "从一次 LLM 调用到完整 Harness：Agent 系统如何长出运行时",
       "path": "content/learning/ai-agent/2026-09-07-agent-harness-evolution.md",
@@ -4345,7 +4389,7 @@
       "name": "虚拟线程",
       "topic": "Java 并发与异步",
       "summary": "虚拟线程由 JVM 调度、阻塞时挂起而不占载体线程，适合高阻塞 IO；痛点是 synchronized 长段与 native 调用会 pin 住载体。",
-      "count": 3,
+      "count": 4,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -4385,7 +4429,7 @@
       "name": "事务与 MVCC",
       "topic": "MySQL 与存储",
       "summary": "undo log 支持回滚与多版本，redo 保证崩溃恢复，binlog 服务复制与归档；MVCC 靠 ReadView + 版本链实现 RC/RR 的快照读。",
-      "count": 1,
+      "count": 2,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -4505,7 +4549,7 @@
       "name": "Spring Boot 自动装配",
       "topic": "Spring 生态",
       "summary": "@EnableAutoConfiguration 读取自动配置登记文件注册条件化配置类，@ConditionalOn 系列控制生效；starter = 依赖 + 自动配置的打包。",
-      "count": 4,
+      "count": 5,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -4875,7 +4919,7 @@
       "name": "HTTP/HTTPS",
       "topic": "计算机基础",
       "summary": "HTTP1.1 队头阻塞 → 2 多路复用 → 3 QUIC；HTTPS = TLS 握手协商对称密钥 + 证书链校验，混合加密同时保证机密性与完整性。",
-      "count": 25,
+      "count": 26,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -4980,13 +5024,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 99,
+    "学习": 100,
     "机会": 0,
     "阅读": 8,
     "专栏": 0
   },
   "sectionCounts": {
-    "learning": 99,
+    "learning": 100,
     "reading": 8,
     "about": 1,
     "projects": 2
@@ -5031,7 +5075,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-09",
+      "date": "2026-09-10",
       "count": 0,
       "averageScore": null
     },
@@ -5040,11 +5084,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-27",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-28",
         "count": 0,
@@ -5107,6 +5146,11 @@
       },
       {
         "date": "2026-09-09",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-10",
         "count": 0,
         "averageScore": null
       }
