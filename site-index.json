@@ -2,6 +2,86 @@
   "generatedAt": "2026-09-11T00:00:00+08:00",
   "articles": [
     {
+      "title": "GPT 资深 Java 面试 200 题：自测与已有答案对照",
+      "path": "content/opportunity/practice/gpt-resume-200-self-test.md",
+      "url": "content/opportunity/practice/gpt-resume-200-self-test.md",
+      "date": "2026-09-11",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "机会",
+      "area": "机会雷达",
+      "module": "Java 后端",
+      "project": "面试准备",
+      "type": "自测题单",
+      "status": "待自测",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "保留 GPT 给出的 200 道面试题和原始提示，逐题定位已有题库答案，区分部分覆盖、资料缺口与个人经历题。",
+      "tags": [
+        "Java",
+        "自测",
+        "面试准备"
+      ],
+      "points": [
+        "分布式事务",
+        "分布式锁",
+        "缓存三大问题",
+        "内存管理",
+        "索引原理",
+        "线程池"
+      ],
+      "section": "plans",
+      "topic": "Java 后端",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
+      "title": "GPT 资深 Java 面试 200 题：原始出题材料",
+      "path": "content/sources/gpt-resume-interview-200-original.md",
+      "url": "content/sources/gpt-resume-interview-200-original.md",
+      "date": "2026-09-11",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "机会",
+      "area": "机会雷达",
+      "module": "Java 后端",
+      "project": "面试准备",
+      "type": "来源资料",
+      "status": "待自测",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "用户于 2026-09-10 提供的 GPT 面试题与回答提示，作为独立自测来源保留。",
+      "tags": [
+        "Java",
+        "自测",
+        "面试准备"
+      ],
+      "points": [
+        "分布式事务",
+        "索引原理",
+        "线程池",
+        "限流熔断降级",
+        "消息可靠性",
+        "GC 与垃圾回收"
+      ],
+      "section": "opportunity",
+      "topic": "Java 后端",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "Spring Boot 已过时的 10 个模式：迁移清单与版本边界",
       "path": "content/learning/java/2026-09-10-spring-boot-obsolete-patterns.md",
       "url": "content/learning/java/2026-09-10-spring-boot-obsolete-patterns.md",
@@ -4381,8 +4461,8 @@
       "summary": "ThreadPoolExecutor 七参数决定行为：核心数、队列与拒绝策略共同决定任务流向。面试围绕参数取舍、队列选型、拒绝策略与动态调参展开。",
       "count": 8,
       "interview": 0,
-      "practice": 0,
-      "avgScore": null,
+      "practice": 1,
+      "avgScore": 0,
       "gap": false
     },
     {
@@ -4451,8 +4531,8 @@
       "summary": "B+ 树矮胖、叶子成链利于范围扫描；聚簇索引叶子存整行，二级索引要回表；联合索引遵循最左前缀，覆盖索引可免回表。",
       "count": 5,
       "interview": 0,
-      "practice": 0,
-      "avgScore": null,
+      "practice": 1,
+      "avgScore": 0,
       "gap": false
     },
     {
@@ -4501,8 +4581,8 @@
       "summary": "穿透查不存在的 key（布隆/空值缓存）、击穿热 key 失效（互斥/逻辑过期）、雪崩同时失效（错峰+多级缓存）；一致性主流方案是先更新库再删缓存 + 延迟双删。",
       "count": 0,
       "interview": 0,
-      "practice": 0,
-      "avgScore": null,
+      "practice": 1,
+      "avgScore": 0,
       "gap": false
     },
     {
@@ -4641,8 +4721,8 @@
       "summary": "2PC 强一致但阻塞，TCC 业务补偿化，Saga 长事务逆序补偿，本地消息表/事务消息是互联网主流；选型核心是一致性强度 vs 侵入度。",
       "count": 1,
       "interview": 0,
-      "practice": 0,
-      "avgScore": null,
+      "practice": 1,
+      "avgScore": 0,
       "gap": false
     },
     {
@@ -4651,8 +4731,8 @@
       "summary": "DB、Redis、ZooKeeper 三条路线：Redis 性能高但要处理续期与 fencing token，ZK 临时顺序节点可靠但吞吐低。",
       "count": 0,
       "interview": 0,
-      "practice": 0,
-      "avgScore": null,
+      "practice": 1,
+      "avgScore": 0,
       "gap": false
     },
     {
@@ -4951,8 +5031,8 @@
       "summary": "虚拟内存给进程独立地址空间，页表 + MMU 完成地址翻译，TLB 加速查表；页面置换有 LRU/Clock，零拷贝避免内核与用户态往返拷贝。",
       "count": 3,
       "interview": 0,
-      "practice": 0,
-      "avgScore": null,
+      "practice": 1,
+      "avgScore": 0,
       "gap": false
     },
     {
@@ -5025,11 +5105,13 @@
     "任务": 0,
     "项目": 2,
     "学习": 100,
-    "机会": 0,
+    "机会": 2,
     "阅读": 8,
     "专栏": 0
   },
   "sectionCounts": {
+    "plans": 1,
+    "opportunity": 1,
     "learning": 100,
     "reading": 8,
     "about": 1,
@@ -5076,13 +5158,13 @@
   "dashboard": {
     "today": {
       "date": "2026-09-11",
-      "count": 0,
+      "count": 1,
       "averageScore": null
     },
-    "totalQuestions": 0,
+    "totalQuestions": 1,
     "scoredQuestions": 0,
     "averageScore": null,
-    "streakDays": 0,
+    "streakDays": 1,
     "daily": [
       {
         "date": "2026-08-29",
@@ -5151,7 +5233,7 @@
       },
       {
         "date": "2026-09-11",
-        "count": 0,
+        "count": 1,
         "averageScore": null
       }
     ],
