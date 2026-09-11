@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T00:00:00+08:00",
+  "generatedAt": "2026-09-11T00:00:00+08:00",
   "articles": [
     {
       "title": "Spring Boot 已过时的 10 个模式：迁移清单与版本边界",
@@ -5075,7 +5075,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-10",
+      "date": "2026-09-11",
       "count": 0,
       "averageScore": null
     },
@@ -5084,11 +5084,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-28",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-29",
         "count": 0,
@@ -5151,6 +5146,11 @@
       },
       {
         "date": "2026-09-10",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-11",
         "count": 0,
         "averageScore": null
       }
