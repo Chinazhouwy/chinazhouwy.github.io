@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T00:00:00+08:00",
+  "generatedAt": "2026-09-13T00:00:00+08:00",
   "articles": [
     {
       "title": "GPT 资深 Java 面试 200 题：自测与已有答案对照",
@@ -5157,20 +5157,15 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-12",
+      "date": "2026-09-13",
       "count": 0,
       "averageScore": null
     },
     "totalQuestions": 1,
     "scoredQuestions": 0,
     "averageScore": null,
-    "streakDays": 1,
+    "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-30",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-08-31",
         "count": 0,
@@ -5233,6 +5228,11 @@
       },
       {
         "date": "2026-09-12",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-13",
         "count": 0,
         "averageScore": null
       }
