@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T00:00:00+08:00",
+  "generatedAt": "2026-09-14T00:00:00+08:00",
   "articles": [
     {
       "title": "GPT 资深 Java 面试 200 题：自测与已有答案对照",
@@ -2251,6 +2251,49 @@
       "question": ""
     },
     {
+      "title": "RAG 检索范式演进：向量RAG、BM25混合检索、GraphRAG、SAG 与 PageIndex",
+      "path": "content/learning/ai-agent/2026-07-23-rag-paradigms-vector-bm25-graphrag-sag-pageindex.md",
+      "url": "content/learning/ai-agent/2026-07-23-rag-paradigms-vector-bm25-graphrag-sag-pageindex.md",
+      "date": "2026-07-23",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "AI Agent",
+      "module": "Agent 工程与源码",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "按检索能力演进整理五种 RAG 范式：向量RAG 的语义召回与三大短板、BM25 混合检索、GraphRAG 的多跳推理与构建成本、SAG 用 SQL 事件-实体表替代全局图、PageIndex 无向量不切片的目录树推理，并逐条核验论文与官方仓库口径。",
+      "tags": [
+        "RAG",
+        "向量检索",
+        "BM25",
+        "混合检索",
+        "GraphRAG",
+        "知识图谱",
+        "SAG",
+        "PageIndex"
+      ],
+      "points": [
+        "RAG 与向量检索",
+        "索引原理",
+        "HTTP/HTTPS",
+        "Redis 高可用"
+      ],
+      "section": "learning",
+      "topic": "Agent 工程与源码",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "梁文锋投资者交流会-录音转文本",
       "path": "content/reading/society/梁文锋投资人会议实录.md",
       "url": "content/reading/society/梁文锋投资人会议实录.md",
@@ -4361,7 +4404,7 @@
       "name": "RAG 与向量检索",
       "topic": "Agent 工程与源码",
       "summary": "离线切分-向量化-入库，在线召回-重排-生成；优化围绕分块策略、混合检索（BM25+向量）、rerank 与引用溯源展开。",
-      "count": 8,
+      "count": 9,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -4571,7 +4614,7 @@
       "name": "索引原理",
       "topic": "MySQL 与存储",
       "summary": "B+ 树矮胖、叶子成链利于范围扫描；聚簇索引叶子存整行，二级索引要回表；联合索引遵循最左前缀，覆盖索引可免回表。",
-      "count": 5,
+      "count": 6,
       "interview": 0,
       "practice": 1,
       "avgScore": 0,
@@ -4601,7 +4644,7 @@
       "name": "Redis 高可用",
       "topic": "Redis 与缓存",
       "summary": "主从复制增量+全量同步，哨兵负责故障转移，Cluster 把数据分到 16384 个 slot 去中心化路由；集群模式多键操作受 slot 限制。",
-      "count": 1,
+      "count": 2,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5041,7 +5084,7 @@
       "name": "HTTP/HTTPS",
       "topic": "计算机基础",
       "summary": "HTTP1.1 队头阻塞 → 2 多路复用 → 3 QUIC；HTTPS = TLS 握手协商对称密钥 + 证书链校验，混合加密同时保证机密性与完整性。",
-      "count": 27,
+      "count": 28,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5146,7 +5189,7 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 101,
+    "学习": 102,
     "机会": 2,
     "阅读": 8,
     "专栏": 0
@@ -5154,7 +5197,7 @@
   "sectionCounts": {
     "plans": 1,
     "opportunity": 1,
-    "learning": 101,
+    "learning": 102,
     "reading": 8,
     "about": 1,
     "projects": 2
@@ -5199,7 +5242,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-13",
+      "date": "2026-09-14",
       "count": 0,
       "averageScore": null
     },
@@ -5208,11 +5251,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-08-31",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-09-01",
         "count": 0,
@@ -5275,6 +5313,11 @@
       },
       {
         "date": "2026-09-13",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-14",
         "count": 0,
         "averageScore": null
       }
