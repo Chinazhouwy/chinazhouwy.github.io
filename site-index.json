@@ -2,6 +2,44 @@
   "generatedAt": "2026-09-15T00:00:00+08:00",
   "articles": [
     {
+      "title": "Filter 与 Interceptor 执行顺序：一次说清（附本机实测 trace）",
+      "path": "content/learning/java/2026-09-13-filter-interceptor-execution-order.md",
+      "url": "content/learning/java/2026-09-13-filter-interceptor-execution-order.md",
+      "date": "2026-09-13",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "Java 后端",
+      "module": "Spring 生态",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "Filter/Interceptor 的出身差异、完整执行链、注册顺序控制与四个高频陷阱，全部结论带本机 trace 实测或官方 Javadoc 证据",
+      "tags": [
+        "spring-mvc",
+        "servlet",
+        "filter",
+        "interceptor",
+        "执行顺序"
+      ],
+      "points": [
+        "HTTP/HTTPS",
+        "Spring Boot 自动装配"
+      ],
+      "section": "learning",
+      "topic": "Spring 生态",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "GPT 资深 Java 面试 200 题：自测与已有答案对照",
       "path": "content/opportunity/practice/gpt-resume-200-self-test.md",
       "url": "content/opportunity/practice/gpt-resume-200-self-test.md",
@@ -4758,7 +4796,7 @@
       "name": "Spring Boot 自动装配",
       "topic": "Spring 生态",
       "summary": "@EnableAutoConfiguration 读取自动配置登记文件注册条件化配置类，@ConditionalOn 系列控制生效；starter = 依赖 + 自动配置的打包。",
-      "count": 5,
+      "count": 6,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5128,7 +5166,7 @@
       "name": "HTTP/HTTPS",
       "topic": "计算机基础",
       "summary": "HTTP1.1 队头阻塞 → 2 多路复用 → 3 QUIC；HTTPS = TLS 握手协商对称密钥 + 证书链校验，混合加密同时保证机密性与完整性。",
-      "count": 28,
+      "count": 29,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5233,15 +5271,15 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 103,
+    "学习": 104,
     "机会": 2,
     "阅读": 8,
     "专栏": 0
   },
   "sectionCounts": {
+    "learning": 104,
     "plans": 1,
     "opportunity": 1,
-    "learning": 103,
     "reading": 8,
     "about": 1,
     "projects": 2
