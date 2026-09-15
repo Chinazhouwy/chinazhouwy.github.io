@@ -2,6 +2,47 @@
   "generatedAt": "2026-09-15T00:00:00+08:00",
   "articles": [
     {
+      "title": "从 Cordis 到 Java：动态加载与动态流程的架构设计",
+      "path": "content/columns/cordis-java-dynamic-architecture.md",
+      "url": "content/columns/cordis-java-dynamic-architecture.md",
+      "date": "2026-09-15",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "专栏",
+      "area": "技术",
+      "module": "架构设计",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "以 Cordis 的时空可组合性思想为蓝本，把「可逆效应」与「反应式依赖」两个运行时原语落到 Java：给出动态加载与动态流程（流程=可组合数据）的架构设计、代码走读与 10 个场景的实测输出。",
+      "tags": [
+        "Java",
+        "架构设计",
+        "Cordis",
+        "插件系统",
+        "动态加载"
+      ],
+      "points": [
+        "注册中心与网关",
+        "进程与调度",
+        "类加载机制",
+        "消息可靠性",
+        "DeepSeek"
+      ],
+      "section": "columns",
+      "topic": "架构设计",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "Filter 与 Interceptor 执行顺序：一次说清（附本机实测 trace）",
       "path": "content/learning/java/2026-09-13-filter-interceptor-execution-order.md",
       "url": "content/learning/java/2026-09-13-filter-interceptor-execution-order.md",
@@ -5274,9 +5315,10 @@
     "学习": 104,
     "机会": 2,
     "阅读": 8,
-    "专栏": 0
+    "专栏": 1
   },
   "sectionCounts": {
+    "columns": 1,
     "learning": 104,
     "plans": 1,
     "opportunity": 1,
