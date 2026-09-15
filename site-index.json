@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T00:00:00+08:00",
+  "generatedAt": "2026-09-15T00:00:00+08:00",
   "articles": [
     {
       "title": "GPT 资深 Java 面试 200 题：自测与已有答案对照",
@@ -1028,6 +1028,50 @@
       ],
       "section": "learning",
       "topic": "Agent 工程与源码",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
+      "title": "本地消息表实战整理：机制、落地与生产边界",
+      "path": "content/learning/middleware/2026-08-19-local-message-table-in-practice.md",
+      "url": "content/learning/middleware/2026-08-19-local-message-table-in-practice.md",
+      "date": "2026-08-19",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "数据与中间件",
+      "module": "",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "整理一篇本地消息表实战文：业务与消息同事务落库、轮询补发、消费端幂等的完整链路，并补上原文口号之外的生产边界（重试策略、并发扫描、数据清理、对账兜底）与逐条勘误。",
+      "tags": [
+        "分布式事务",
+        "最终一致性",
+        "本地消息表",
+        "Outbox",
+        "消息队列",
+        "幂等",
+        "微服务"
+      ],
+      "points": [
+        "消息可靠性",
+        "RocketMQ",
+        "索引原理",
+        "限流熔断降级",
+        "分布式事务",
+        "Kafka"
+      ],
+      "section": "learning",
+      "topic": "数据与中间件",
       "company": "",
       "round": "",
       "score": null,
@@ -4614,7 +4658,7 @@
       "name": "索引原理",
       "topic": "MySQL 与存储",
       "summary": "B+ 树矮胖、叶子成链利于范围扫描；聚簇索引叶子存整行，二级索引要回表；联合索引遵循最左前缀，覆盖索引可免回表。",
-      "count": 6,
+      "count": 7,
       "interview": 0,
       "practice": 1,
       "avgScore": 0,
@@ -4804,7 +4848,7 @@
       "name": "分布式事务",
       "topic": "工程与架构",
       "summary": "2PC 强一致但阻塞，TCC 业务补偿化，Saga 长事务逆序补偿，本地消息表/事务消息是互联网主流；选型核心是一致性强度 vs 侵入度。",
-      "count": 1,
+      "count": 2,
       "interview": 0,
       "practice": 1,
       "avgScore": 0,
@@ -4854,7 +4898,7 @@
       "name": "限流熔断降级",
       "topic": "工程与架构",
       "summary": "限流算法有计数器、漏桶、令牌桶与滑动窗口；熔断三态（关闭-打开-半开）防止雪崩，降级保核心链路；Sentinel 用槽链实现并支持热点与系统自适应。",
-      "count": 10,
+      "count": 11,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5044,7 +5088,7 @@
       "name": "Kafka",
       "topic": "消息队列",
       "summary": "topic 分区多副本，ISR 机制权衡可靠与可用；消费者组 rebalance 期间停止消费，分配策略从 range 演进到 sticky/协作式。",
-      "count": 1,
+      "count": 2,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5054,7 +5098,7 @@
       "name": "RocketMQ",
       "topic": "消息队列",
       "summary": "NameServer 无状态路由、Broker 主从；事务消息靠半消息+回查实现最终一致，延迟消息用固定等级或时间轮实现。",
-      "count": 1,
+      "count": 2,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5064,7 +5108,7 @@
       "name": "消息可靠性",
       "topic": "消息队列",
       "summary": "三段保证：生产确认（acks/重试）、Broker 持久化与副本、消费手动 ack + 幂等表；死信队列兜底反复失败的消息。",
-      "count": 3,
+      "count": 4,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5189,7 +5233,7 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 102,
+    "学习": 103,
     "机会": 2,
     "阅读": 8,
     "专栏": 0
@@ -5197,7 +5241,7 @@
   "sectionCounts": {
     "plans": 1,
     "opportunity": 1,
-    "learning": 102,
+    "learning": 103,
     "reading": 8,
     "about": 1,
     "projects": 2
@@ -5242,7 +5286,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-14",
+      "date": "2026-09-15",
       "count": 0,
       "averageScore": null
     },
@@ -5251,11 +5295,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-09-01",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-09-02",
         "count": 0,
@@ -5318,6 +5357,11 @@
       },
       {
         "date": "2026-09-14",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-15",
         "count": 0,
         "averageScore": null
       }
