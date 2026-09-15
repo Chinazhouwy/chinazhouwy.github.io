@@ -1,6 +1,46 @@
 {
-  "generatedAt": "2026-09-15T00:00:00+08:00",
+  "generatedAt": "2026-09-16T00:00:00+08:00",
   "articles": [
+    {
+      "title": "Redis Streams：有确认、能回溯的消息队列",
+      "path": "content/learning/middleware/2026-09-16-redis-streams-idempotent-consumer-groups.md",
+      "url": "content/learning/middleware/2026-09-16-redis-streams-idempotent-consumer-groups.md",
+      "date": "2026-09-16",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "数据与中间件",
+      "module": "Redis 与缓存",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "整理 Redis Streams 的追加日志、消费者组、PEL、故障转移与 Redis 8.6 生产端幂等投递机制。",
+      "tags": [
+        "Redis",
+        "Streams",
+        "消息队列",
+        "消费者组",
+        "幂等"
+      ],
+      "points": [
+        "消息可靠性",
+        "Kafka",
+        "HTTP/HTTPS",
+        "RocketMQ"
+      ],
+      "section": "learning",
+      "topic": "Redis 与缓存",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
     {
       "title": "从 Cordis 到 Java：动态加载与动态流程的架构设计",
       "path": "content/columns/cordis-java-dynamic-architecture.md",
@@ -5167,7 +5207,7 @@
       "name": "Kafka",
       "topic": "消息队列",
       "summary": "topic 分区多副本，ISR 机制权衡可靠与可用；消费者组 rebalance 期间停止消费，分配策略从 range 演进到 sticky/协作式。",
-      "count": 2,
+      "count": 3,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5177,7 +5217,7 @@
       "name": "RocketMQ",
       "topic": "消息队列",
       "summary": "NameServer 无状态路由、Broker 主从；事务消息靠半消息+回查实现最终一致，延迟消息用固定等级或时间轮实现。",
-      "count": 2,
+      "count": 3,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5187,7 +5227,7 @@
       "name": "消息可靠性",
       "topic": "消息队列",
       "summary": "三段保证：生产确认（acks/重试）、Broker 持久化与副本、消费手动 ack + 幂等表；死信队列兜底反复失败的消息。",
-      "count": 4,
+      "count": 5,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5207,7 +5247,7 @@
       "name": "HTTP/HTTPS",
       "topic": "计算机基础",
       "summary": "HTTP1.1 队头阻塞 → 2 多路复用 → 3 QUIC；HTTPS = TLS 握手协商对称密钥 + 证书链校验，混合加密同时保证机密性与完整性。",
-      "count": 29,
+      "count": 30,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5312,14 +5352,14 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 104,
+    "学习": 105,
     "机会": 2,
     "阅读": 8,
     "专栏": 1
   },
   "sectionCounts": {
+    "learning": 105,
     "columns": 1,
-    "learning": 104,
     "plans": 1,
     "opportunity": 1,
     "reading": 8,
@@ -5366,7 +5406,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-15",
+      "date": "2026-09-16",
       "count": 0,
       "averageScore": null
     },
@@ -5375,11 +5415,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-09-02",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-09-03",
         "count": 0,
@@ -5442,6 +5477,11 @@
       },
       {
         "date": "2026-09-15",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-16",
         "count": 0,
         "averageScore": null
       }
