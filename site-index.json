@@ -100,7 +100,7 @@
       "priority": "P1",
       "energy": "medium",
       "visibility": "public",
-      "summary": "以 Cordis 的时空可组合性思想为蓝本，把「可逆效应」与「反应式依赖」两个运行时原语落到 Java：给出动态加载与动态流程（流程=可组合数据）的架构设计、代码走读与 10 个场景的实测输出。",
+      "summary": "以一个可运行的 Java 17 原型为主线，完整展示 ServiceKey、Component、EffectContext、Fiber、CtxRuntime 与订单管线代码，演示依赖激活、插件卸载回退和流程动态重排。",
       "tags": [
         "Java",
         "架构设计",
@@ -109,11 +109,12 @@
         "动态加载"
       ],
       "points": [
+        "集合框架",
         "注册中心与网关",
-        "进程与调度",
-        "类加载机制",
-        "消息可靠性",
-        "DeepSeek"
+        "synchronized 与 Lock",
+        "Agent 评测与 Harness",
+        "HashMap 原理",
+        "并发容器"
       ],
       "section": "columns",
       "topic": "架构设计",
