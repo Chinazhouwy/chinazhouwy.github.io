@@ -2,6 +2,47 @@
   "generatedAt": "2026-09-16T00:00:00+08:00",
   "articles": [
     {
+      "title": "从微信分享关系到 Neo4j 最短人脉路径：Cypher 与 GDS 实战",
+      "path": "content/columns/neo4j-wechat-shortest-path.md",
+      "url": "content/columns/neo4j-wechat-shortest-path.md",
+      "date": "2026-09-16",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "专栏",
+      "area": "技术",
+      "module": "图数据库与图算法",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "high",
+      "visibility": "public",
+      "summary": "以微信分享链路为例，从 Neo4j/Cypher 建模、幂等初始化和 shortestPath 查询出发，进一步说明参数化、约束与 GDS 加权最短路径的演进边界。",
+      "tags": [
+        "Neo4j",
+        "Cypher",
+        "图数据库",
+        "最短路径",
+        "GDS",
+        "系统设计"
+      ],
+      "points": [
+        "图与搜索",
+        "排序算法",
+        "HTTP/HTTPS",
+        "消息可靠性"
+      ],
+      "section": "columns",
+      "topic": "图数据库与图算法",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "Redis Streams：有确认、能回溯的消息队列",
       "path": "content/learning/middleware/2026-09-16-redis-streams-idempotent-consumer-groups.md",
       "url": "content/learning/middleware/2026-09-16-redis-streams-idempotent-consumer-groups.md",
@@ -5399,11 +5440,11 @@
     "学习": 106,
     "机会": 2,
     "阅读": 8,
-    "专栏": 1
+    "专栏": 2
   },
   "sectionCounts": {
+    "columns": 2,
     "learning": 106,
-    "columns": 1,
     "plans": 1,
     "opportunity": 1,
     "reading": 8,
