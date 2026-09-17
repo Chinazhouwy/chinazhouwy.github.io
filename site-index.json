@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T00:00:00+08:00",
+  "generatedAt": "2026-09-17T00:00:00+08:00",
   "articles": [
     {
       "title": "从微信分享关系到 Neo4j 最短人脉路径：Cypher 与 GDS 实战",
@@ -100,7 +100,7 @@
       "priority": "P1",
       "energy": "medium",
       "visibility": "public",
-      "summary": "以一个可运行的 Java 17 原型为主线，完整展示 ServiceKey、Component、EffectContext、Fiber、CtxRuntime 与订单管线代码，演示依赖激活、插件卸载回退和流程动态重排。",
+      "summary": "从普通 Java 订单流程出发，用一个 150 行以内的 MiniCordisDemo 解释 Cordis 的两个核心思想：动态副作用返回 undo，组件声明依赖并由 Runtime 自动启停。",
       "tags": [
         "Java",
         "架构设计",
@@ -109,12 +109,11 @@
         "动态加载"
       ],
       "points": [
+        "事务与 MVCC",
         "集合框架",
-        "注册中心与网关",
-        "synchronized 与 Lock",
         "Agent 评测与 Harness",
-        "HashMap 原理",
-        "并发容器"
+        "DeepSeek",
+        "HTTP/HTTPS"
       ],
       "section": "columns",
       "topic": "架构设计",
@@ -5492,7 +5491,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "count": 0,
       "averageScore": null
     },
@@ -5501,11 +5500,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-09-03",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-09-04",
         "count": 0,
@@ -5568,6 +5562,11 @@
       },
       {
         "date": "2026-09-16",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-17",
         "count": 0,
         "averageScore": null
       }
