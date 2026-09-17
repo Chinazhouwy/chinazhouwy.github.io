@@ -83,7 +83,7 @@
       "question": ""
     },
     {
-      "title": "从 Cordis 到 Java：动态加载与动态流程的架构设计",
+      "title": "Spring 都有 IoC 了，Cordis 还多了什么？",
       "path": "content/columns/cordis-java-dynamic-architecture.md",
       "url": "content/columns/cordis-java-dynamic-architecture.md",
       "date": "2026-09-15",
@@ -100,20 +100,22 @@
       "priority": "P1",
       "energy": "medium",
       "visibility": "public",
-      "summary": "从普通 Java 订单流程出发，用一个 150 行以内的 MiniCordisDemo 解释 Cordis 的两个核心思想：动态副作用返回 undo，组件声明依赖并由 Runtime 自动启停。",
+      "summary": "以 Spring 容器和插件子 ApplicationContext 为底座，展示如何补上 Cordis 的动态依赖生命周期：payment 上线激活 VipPlugin，下线关闭子容器并触发 destroy，重新上线再次激活。",
       "tags": [
         "Java",
+        "Spring",
         "架构设计",
         "Cordis",
         "插件系统",
         "动态加载"
       ],
       "points": [
-        "事务与 MVCC",
+        "IOC 与 Bean 生命周期",
+        "HTTP/HTTPS",
         "集合框架",
         "Agent 评测与 Harness",
         "DeepSeek",
-        "HTTP/HTTPS"
+        "HashMap 原理"
       ],
       "section": "columns",
       "topic": "架构设计",

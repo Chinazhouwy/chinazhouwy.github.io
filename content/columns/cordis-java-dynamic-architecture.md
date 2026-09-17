@@ -1,5 +1,5 @@
 ---
-title: "从 Cordis 到 Java：动态加载与动态流程的架构设计"
+title: "Spring 都有 IoC 了，Cordis 还多了什么？"
 date: "2026-09-15"
 domain: "专栏"
 area: "技术"
@@ -10,101 +10,184 @@ status: "可复习"
 priority: "P1"
 energy: "medium"
 visibility: "public"
-summary: "从普通 Java 订单流程出发，用一个 150 行以内的 MiniCordisDemo 解释 Cordis 的两个核心思想：动态副作用返回 undo，组件声明依赖并由 Runtime 自动启停。"
+summary: "以 Spring 容器和插件子 ApplicationContext 为底座，展示如何补上 Cordis 的动态依赖生命周期：payment 上线激活 VipPlugin，下线关闭子容器并触发 destroy，重新上线再次激活。"
 tags:
   - Java
+  - Spring
   - 架构设计
   - Cordis
   - 插件系统
   - 动态加载
 ---
 
-# 从 Cordis 到 Java：动态加载与动态流程的架构设计
+# Spring 都有 IoC 了，Cordis 还多了什么？
 
-> 这篇文章不尝试用 Java 手搓完整 Cordis Runtime，而是做一件更实用的事：**把 Cordis 翻译成 Java 程序员熟悉的几个小接口**。
+> 这篇不再自己造一个完整运行时，而是回答 Java 开发者真正会问的问题：**Spring 已经有 IoC、Bean、依赖注入和生命周期了，Cordis 到底还多了什么？**
 >
-> 你只需要先看懂两个动作：动态注册时返回一个 undo；组件声明自己需要哪些服务，Runtime 根据服务是否存在决定它什么时候启动和停止。
+> Cordis 论文把动态组合概括为两个问题：组件被移除后，副作用能否撤销；依赖变化后，组件能否反应式地激活和去激活。[1] Spring 已经提供了容器、依赖注入、Bean 生命周期和程序化注册能力；官方文档把 `ApplicationContext` / `GenericApplicationContext` 作为容器和程序化注册的重要入口。[4][5]
 >
-> Cordis 论文把动态组合概括为两个问题：组件移除后，副作用能否完整撤销；依赖变化后，组件能否反应式地激活和去激活。[1] 官方教程也把生命周期、副作用、服务依赖和组合热重载串成一条学习路径。[3] 本文的 Java 代码是一个独立的教学 Demo，不是 Cordis 官方 Java 实现；官方仓库明确提示其 API 仍在活跃开发中。[2]
+> Spring 7 还提供了更正式的 `BeanRegistrar` / `BeanRegistry` API。[6]
+>
+> 所以本文只在 Spring 上补一层很薄的东西：**运行中的依赖变化管理器**。Demo 使用 Spring `6.2.19`，不是 Cordis 官方 Java 实现；Cordis 官方仓库本身也提示 API 仍在活跃开发、可能变化。[2]
 
-## 1. 普通 Java 动态流程为什么麻烦
+## 1. 普通 Spring 已经解决了一半
 
-一个普通订单流程可能先这样写：`pipeline.add(new CheckStockStep())`、`pipeline.add(new DiscountStep())`、`pipeline.add(new PayStep())`。
-
-现在来了一个 VIP 插件，代码也许只需要再加一个步骤，但真正的问题马上出现：
-
-- 插件卸载时，怎么把它注册的步骤删掉？
-- 插件依赖的支付服务不存在时，要不要启动？
-- 支付服务后来上线，插件要不要自动恢复？
-- 插件除了步骤，还注册了监听器、定时任务、路由，怎么保证全部清理？
-
-普通 Java 当然能解决这些问题，但通常靠开发者自己维护一堆 `start()`、`stop()`、`unregister()` 和条件判断，很容易出现“注册成功了，卸载漏了一处”的问题。
-
-Cordis 值得借鉴的地方，不是某个神秘 API，而是它把这两类运行时问题变成了约束：
-
-- 动态副作用：做一件事时，同时记住怎么撤销。
-- 动态依赖：声明我需要什么，由 Runtime 决定我何时可运行。
-
-## 2. 先把 Cordis 翻译成 Java
-
-| Cordis 的概念 | Java 程序员先这样理解 |
-|---|---|
-| Context | `Context` / 运行时容器 |
-| Service | `Context` 里的一个服务名和值 |
-| `inject` | `requires()`：我需要哪些服务 |
-| `effect` | 执行注册动作，同时返回 undo |
-| `dispose` | `Runnable`、`close()` 或 `unregister()` |
-| Plugin | 一个可动态启动和停止的组件 |
-| reactive | 服务变化后重新检查并自动启停 |
-
-这不是严格的一一对应，而是为了让 Java 开发者先抓住主线：**插件不是被代码硬调用，而是被 Runtime 根据环境状态管理。**
-
-## 3. 第一个思想：注册动作必须能撤销
-
-先看最小的 Java 形式：`pipeline.register(step)` 做正向注册，同时返回 `Runnable` 作为撤销动作。
-
-在 Demo 中，注册的正向动作是把步骤加入 `steps`；返回的逆动作是 `steps.remove(step)`。这两个动作必须放在一起，不能一个写在插件启动处、另一个散落在别的清理逻辑里。
-
-如果一个插件有多个动态副作用，可以把它们交给一个作用域保存。Demo 里的 `EffectScope` 保存多个 undo，并在关闭时倒序执行：后注册的先撤销。
-
-```text
-启动插件：注册步骤、注册监听器、创建定时任务
-卸载插件：倒序执行步骤注销、监听器注销、定时任务取消
-```
-
-这样，“卸载插件”不需要知道插件内部注册过什么，只需要关闭它的作用域。
-
-## 4. 第二个思想：组件声明自己需要什么
-
-Demo 中的 `Plugin` 只有四个关心点：名称、依赖、启动和停止。
-
-`VipPlugin.requires()` 返回 `payment`，所以它不需要自己查找支付实现，也不需要自己决定启动顺序。Runtime 每次服务变化后调用 `refresh()`：
-
-```text
-requires 全部满足 → start(context, scope)
-依赖缺失         → scope.close() + stop()
-依赖恢复         → 再次 start()
-```
-
-这和传统 Java 常见的“我自己找依赖然后启动”不同，更接近：**我声明依赖，运行时决定我什么时候可以活着。**
-
-## 5. 完整 Demo：动态订单流程
-
-下面是完整的单文件 Demo，共 150 行，不依赖 Spring 或第三方库，使用 JDK 17 即可运行。
+普通 Spring 写一个依赖支付服务的插件，大概是这样：
 
 ```java
+@Component
+class VipPlugin {
+    private final PaymentService paymentService;
+
+    VipPlugin(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
+}
+```
+
+这段代码表达得很清楚：`VipPlugin` 依赖 `PaymentService`。Spring 负责创建对象、解析构造器依赖，并在容器销毁时调用 Bean 的销毁回调。[4]
+
+但它默认假设：
+
+```text
+应用启动
+  → Bean 创建
+  → 依赖图建立
+  → 应用持续运行
+```
+
+如果运行中发生：
+
+```text
+PaymentService 被移除
+```
+
+Spring 不会仅因为某个 Bean 的依赖对象消失，就自动替你完成：
+
+```text
+找到所有消费者
+  → 按依赖顺序停止消费者
+  → 移除服务
+  → 服务回来后重新创建消费者
+```
+
+这不是 Spring 的容器能力“不够”，而是它默认面向 bootstrap/configuration；这里缺的是一层**动态依赖生命周期协调**。
+
+## 2. 文章的核心切口：启动期依赖图 vs 运行期依赖图
+
+先建立一组不严格、但对 Java 开发者很有用的映射：
+
+| Spring | Cordis 直觉 |
+|---|---|
+| Bean | Component / Service |
+| 构造器注入、`@Autowired` | `inject` / dependency |
+| `ApplicationContext` / `BeanFactory` | `Context` / `Registry` |
+| `InitializingBean` / `DisposableBean` | `start` / `dispose` |
+| 子 `ApplicationContext.close()` | 动态插件卸载 |
+
+这不是说 Spring 和 Cordis 完全等价，而是借用 Spring 已经熟悉的词汇，先把问题说清楚。
+
+再看两种模型的差异：
+
+| | 普通 Spring | 加上本文的薄层 |
+|---|---|---|
+| 依赖图什么时候建立 | 容器启动 / refresh 时 | 服务上线、下线时反复检查 |
+| 插件依赖表达 | 构造器注入 | `PluginDefinition.requires` + Spring 构造器注入 |
+| 插件启动 | Bean 创建时 | 依赖满足后打开插件子容器 |
+| 插件停止 | 容器销毁时 | 依赖消失后关闭插件子容器 |
+| 副作用清理 | Bean destroy 生命周期 | `DisposableBean.destroy()` / `AutoCloseable` |
+| 动态服务 | 需要额外管理 | `GenericApplicationContext.registerBean` + 管理器 |
+
+架构只有两层：
+
+```text
+Root ApplicationContext
+├── Pipeline                 普通公共 Bean
+└── PaymentService           动态注册的服务
+
+Plugin ApplicationContext
+└── VipPlugin                依赖 PaymentService 的动态 Bean
+```
+
+根容器负责公共 Bean；一个动态插件对应一个子容器。插件启动就是创建并 `refresh()` 子容器，插件停止就是 `close()` 子容器。
+
+Spring 官方文档明确展示了 `GenericApplicationContext` 的程序化容器用法和 `refresh()` 流程。[5] 本文用的就是这个思路，只是把“什么时候创建/关闭子容器”交给自己的 `DynamicComponentManager`。
+
+## 3. Effect 在 Spring 里就是“注册 + 销毁回调”
+
+不用再造一套 effect runtime。在 Java / Spring 里，最直观的对应关系就是：
+
+- `afterPropertiesSet()`：Bean 创建完成后，把步骤注册进 `Pipeline`；
+- `destroy()`：把步骤注销；
+- 子容器 `close()`：触发所有 Bean 的销毁生命周期。
+
+`VipPlugin` 的关键逻辑是：它注册步骤时保存 `Runnable unregister`；销毁时执行它。于是：
+
+```text
+正向：pipeline.register(step)
+逆向：unregister.run()
+触发：pluginContext.close()
+```
+
+这就是 Cordis 的可撤销副作用，用 Spring 已经提供的生命周期机制表达出来。
+
+## 4. 动态依赖只需要一个很薄的 Manager
+
+`DynamicComponentManager` 只做三件事：
+
+1. 保存插件定义和它需要的服务类型；
+2. 服务满足时创建插件子容器；
+3. 服务消失时先关闭依赖它的子容器，再从根容器移除服务。
+
+Spring 仍然负责：
+
+- 调用 `VipPlugin(PaymentService, Pipeline)` 构造器注入；
+- 执行 `afterPropertiesSet()`；
+- 子容器关闭时执行 `destroy()`；
+- 管理 Bean 定义和实例。
+
+下面是完整可运行 Demo，共 166 行，只有一个 Spring 依赖。为了让示例能直接编译，Maven 配置至少需要 Java 17、`spring-context` 和编译器插件：
+
+```xml
+<properties>
+    <maven.compiler.release>17</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+</properties>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context</artifactId>
+    <version>6.2.19</version>
+</dependency>
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.13.0</version>
+    <configuration>
+        <release>17</release>
+    </configuration>
+</plugin>
+```
+
+```java
+package demo;
+
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
+
 import java.util.*;
 
-public class MiniCordisDemo {
+public class SpringCordisDemo {
     record Order(String id) {}
+    record PaymentService(String channel) {}
 
     interface OrderStep {
         void execute(Order order);
     }
 
-    interface Effect {
-        Runnable apply();
-    }
     static final class Pipeline {
         private final List<OrderStep> steps = new ArrayList<>();
 
@@ -120,179 +203,244 @@ public class MiniCordisDemo {
         int size() { return steps.size(); }
     }
 
-    static final class EffectScope implements AutoCloseable {
-        private final List<Runnable> disposers = new ArrayList<>();
+    static final class VipPlugin implements InitializingBean, DisposableBean {
+        private final PaymentService payment;
+        private final Pipeline pipeline;
+        private Runnable unregister;
 
-        void add(Effect effect) { disposers.add(effect.apply()); }
+        VipPlugin(PaymentService payment, Pipeline pipeline) {
+            this.payment = payment;
+            this.pipeline = pipeline;
+        }
 
         @Override
-        public void close() {
-            for (int i = disposers.size() - 1; i >= 0; i--) {
-                disposers.get(i).run();
-            }
-            disposers.clear();
-        }
-    }
-
-    interface Plugin {
-        String name();
-        Set<String> requires();
-        void start(Context context, EffectScope scope);
-        void stop();
-    }
-
-    static final class Context {
-        private final Map<String, Object> services = new HashMap<>();
-        private final Pipeline pipeline = new Pipeline();
-
-        void putService(String name, Object service) { services.put(name, service); }
-
-        void removeService(String name) { services.remove(name); }
-
-        boolean hasAll(Set<String> names) {
-            return services.keySet().containsAll(names);
-        }
-
-        @SuppressWarnings("unchecked")
-        <T> T service(String name) {
-            return (T) services.get(name);
-        }
-
-        Pipeline pipeline() { return pipeline; }
-    }
-
-    static final class Runtime {
-        private final Context context = new Context();
-        private final List<Plugin> plugins = new ArrayList<>();
-        private final Map<Plugin, EffectScope> active = new LinkedHashMap<>();
-
-        void add(Plugin plugin) {
-            plugins.add(plugin);
-            System.out.println("加载插件: " + plugin.name());
-            refresh();
-        }
-
-        void loadService(String name, Object service) {
-            context.putService(name, service);
-            System.out.println("上线服务: " + name);
-            refresh();
-        }
-
-        void unloadService(String name) {
-            context.removeService(name);
-            System.out.println("下线服务: " + name);
-            refresh();
-        }
-
-        private void refresh() {
-            for (Plugin plugin : plugins) {
-                boolean ready = context.hasAll(plugin.requires());
-                if (ready && !active.containsKey(plugin)) {
-                    EffectScope scope = new EffectScope();
-                    plugin.start(context, scope);
-                    active.put(plugin, scope);
-                } else if (!ready && active.containsKey(plugin)) {
-                    active.remove(plugin).close();
-                    plugin.stop();
-                }
-            }
-        }
-
-        Context context() {
-            return context;
-        }
-    }
-
-    record Payment(String channel) {}
-
-    static final class VipPlugin implements Plugin {
-        public String name() {
-            return "vip-discount";
-        }
-
-        public Set<String> requires() {
-            return Set.of("payment");
-        }
-
-        public void start(Context context, EffectScope scope) {
-            Payment payment = context.service("payment");
+        public void afterPropertiesSet() {
             OrderStep step = order -> System.out.println(
                 payment.channel() + " VIP 折扣: " + order.id());
-            scope.add(() -> context.pipeline().register(step));
+            unregister = pipeline.register(step);
             System.out.println("VIP 插件启动，使用 " + payment.channel());
         }
 
-        public void stop() {
+        @Override
+        public void destroy() {
+            if (unregister != null) {
+                unregister.run();
+                unregister = null;
+            }
             System.out.println("VIP 插件停止");
         }
     }
 
+    record PluginDefinition(String name, Set<Class<?>> requires,
+                            Class<?> beanType) {}
+
+    static final class DynamicComponentManager implements AutoCloseable {
+        private final GenericApplicationContext root = new GenericApplicationContext();
+        private final Map<String, PluginDefinition> definitions = new LinkedHashMap<>();
+        private final Map<String, ConfigurableApplicationContext> active = new LinkedHashMap<>();
+        private final Map<Class<?>, String> serviceNames = new LinkedHashMap<>();
+
+        DynamicComponentManager() {
+            root.registerBean(Pipeline.class);
+            root.refresh();
+        }
+
+        void addPlugin(PluginDefinition definition) {
+            definitions.put(definition.name(), definition);
+            refresh();
+        }
+
+        <T> void registerService(String beanName, Class<T> type, T value) {
+            if (serviceNames.containsKey(type)) {
+                unregisterService(type);
+            }
+            root.registerBean(beanName, type, () -> value);
+            serviceNames.put(type, beanName);
+            System.out.println("上线服务: " + beanName);
+            refresh();
+        }
+
+        void unregisterService(Class<?> type) {
+            String beanName = serviceNames.remove(type);
+            if (beanName == null) return;
+            definitions.values().stream()
+                .filter(d -> d.requires().contains(type))
+                .forEach(d -> deactivate(d.name()));
+            DefaultListableBeanFactory factory = root.getDefaultListableBeanFactory();
+            factory.destroySingleton(beanName);
+            factory.removeBeanDefinition(beanName);
+            System.out.println("下线服务: " + beanName);
+            refresh();
+        }
+
+        private void refresh() {
+            for (PluginDefinition definition : definitions.values()) {
+                boolean ready = definition.requires().stream()
+                    .allMatch(type -> !root.getBeansOfType(type).isEmpty());
+                if (ready && !active.containsKey(definition.name())) {
+                    activate(definition);
+                } else if (!ready && active.containsKey(definition.name())) {
+                    deactivate(definition.name());
+                }
+            }
+        }
+
+        private void activate(PluginDefinition definition) {
+            AnnotationConfigApplicationContext child =
+                new AnnotationConfigApplicationContext();
+            child.setParent(root);
+            child.registerBean(definition.beanType());
+            child.refresh();
+            active.put(definition.name(), child);
+        }
+
+        private void deactivate(String name) {
+            ConfigurableApplicationContext child = active.remove(name);
+            if (child != null) child.close();
+        }
+
+        void dump() {
+            System.out.println("active=" + active.keySet()
+                + ", steps=" + root.getBean(Pipeline.class).size());
+        }
+
+        void run(Order order) {
+            root.getBean(Pipeline.class).run(order);
+        }
+
+        @Override
+        public void close() {
+            new ArrayList<>(active.keySet()).forEach(this::deactivate);
+            root.close();
+        }
+    }
+
     public static void main(String[] args) {
-        Runtime runtime = new Runtime();
-        runtime.add(new VipPlugin());
-        System.out.println("流程步骤数: " + runtime.context().pipeline().size());
+        try (DynamicComponentManager manager = new DynamicComponentManager()) {
+            manager.addPlugin(new PluginDefinition(
+                "vip", Set.of(PaymentService.class), VipPlugin.class));
+            manager.dump();
 
-        runtime.loadService("payment", new Payment("支付宝"));
-        System.out.println("流程步骤数: " + runtime.context().pipeline().size());
-        runtime.context().pipeline().run(new Order("SO-001"));
+            manager.registerService("payment", PaymentService.class,
+                new PaymentService("支付宝"));
+            manager.dump();
+            manager.run(new Order("SO-001"));
 
-        runtime.unloadService("payment");
-        System.out.println("流程步骤数: " + runtime.context().pipeline().size());
+            manager.unregisterService(PaymentService.class);
+            manager.dump();
 
-        runtime.loadService("payment", new Payment("微信支付"));
-        runtime.context().pipeline().run(new Order("SO-002"));
+            manager.registerService("payment", PaymentService.class,
+                new PaymentService("微信支付"));
+            manager.run(new Order("SO-002"));
+        }
     }
 }
 ```
 
-### 代码只看 5 个位置
+### 代码只看 6 个位置
 
-1. **`Pipeline.register`**：加入步骤后返回 `steps.remove(step)`，这就是最小 undo。
-2. **`Effect`**：`apply()` 不返回业务结果，而是返回撤销动作。
-3. **`EffectScope.close`**：倒序执行所有撤销动作。
-4. **`Plugin.requires`**：VIP 插件声明需要 `payment`，不负责自己查找依赖。
-5. **`Runtime.refresh`**：服务出现就启动插件，服务消失就关闭作用域并停止插件。
+1. **根容器初始化**：`root.registerBean(Pipeline.class)` 后 `root.refresh()`。
+2. **动态服务注册**：`root.registerBean(beanName, type, () -> value)`。
+3. **依赖判断**：`requires().stream().allMatch(...)`。
+4. **插件激活**：创建子 `AnnotationConfigApplicationContext`，设置 `root` 为 parent，注册 `VipPlugin` 后 `refresh()`。
+5. **插件卸载**：`child.close()`，Spring 自动调用 `VipPlugin.destroy()`。
+6. **卸载顺序**：先 `deactivate()` 依赖者，再 `destroySingleton()` / `removeBeanDefinition()` 移除服务。
 
-注意 `VipPlugin.start()` 里的这一行：`scope.add(() -> context.pipeline().register(step))`。
+最关键的不是 Manager 有多少代码，而是这个顺序：
 
-它表达的是：
+```text
+unregisterService(PaymentService.class)
+  → close VipPlugin 子容器
+  → VipPlugin.destroy()
+  → unregister.run()
+  → 移除 PaymentService Bean
+```
 
-执行 `Effect.apply()`，把步骤注册进 `Pipeline`，得到一个 `Runnable undo`，最后由 `EffectScope` 保存。
+如果反过来先删除 `PaymentService`，再关闭 `VipPlugin`，销毁回调执行时就可能读不到自己的依赖。
 
-## 6. 运行
+## 5. 运行过程
 
-把代码保存为 `MiniCordisDemo.java` 后，执行 `mkdir -p build && javac -encoding UTF-8 -d build MiniCordisDemo.java && java -Dfile.encoding=UTF-8 -cp build MiniCordisDemo`。
+Demo 的主流程是：
 
-这段代码的实际运行结果是：先输出步骤数 `0`，上线支付宝后输出 `VIP 插件启动，使用 支付宝` 和步骤数 `1`；下线支付服务后输出 `VIP 插件停止` 和步骤数 `0`；重新上线微信支付后输出 `VIP 插件启动，使用 微信支付`，订单使用微信支付执行。
+```text
+addPlugin(vip)
+  → payment 不存在，VipPlugin 不创建
 
-把输出按过程读一遍：
+registerService(payment, 支付宝)
+  → 依赖满足，创建子容器
+  → Spring 注入 PaymentService
+  → afterPropertiesSet 注册 VIP 步骤
 
-| 时机 | 结果 |
+unregisterService(payment)
+  → 关闭子容器
+  → destroy 注销 VIP 步骤
+  → 移除 payment Bean
+
+registerService(payment, 微信支付)
+  → 再次创建子容器
+  → VipPlugin 使用新的微信支付实例
+```
+
+实际运行时观察到的关键结果：
+
+| 操作 | 结果 |
 |---|---|
-| 加载 `vip-discount` | `payment` 不存在，插件没有启动，流程步骤数为 0 |
-| 上线支付宝服务 | 依赖满足，VIP 插件启动并注册 1 个步骤 |
-| 执行订单 | 使用支付宝配置执行 VIP 折扣 |
-| 下线 `payment` | 作用域关闭，步骤被移除，插件停止，流程步骤数回到 0 |
-| 上线微信支付 | 依赖再次满足，插件重新启动并注册步骤 |
-| 执行订单 | 同一个插件使用新的微信支付服务 |
+| 加载插件 | `active=[]`, `steps=0`，插件等待 payment |
+| 上线支付宝 | `VIP 插件启动，使用 支付宝`，步骤数变为 1 |
+| 执行订单 | 输出 `支付宝 VIP 折扣: SO-001` |
+| 下线 payment | Spring 关闭子容器，输出 `VIP 插件停止`，步骤数回到 0 |
+| 上线微信支付 | 插件重新启动，输出 `VIP 插件启动，使用 微信支付` |
+| 执行订单 | 输出 `微信支付 VIP 折扣: SO-002` |
 
-## 7. 这个 Demo 故意没有做什么
+本地实际使用 JDK 17 和 Maven 编译运行通过：`mvn compile dependency:build-classpath`，随后执行 `demo.SpringCordisDemo`。
 
-这是“通过 Java 理解 Cordis”的第一篇，不是 Cordis 源码复刻，也不是生产插件框架。
+## 6. Spring 7 的 `BeanRegistrar` 放在哪里
 
-它故意没有展开：
+Spring 7 的 `BeanRegistrar` / `BeanRegistry` 更适合把程序化 Bean 注册写成配置模块，例如按配置、环境或循环批量注册 Bean；官方文档把它定义为一等的程序化注册支持。[6]
 
-- JAR / `ClassLoader` 级别的热加载；
-- 配置文件 Loader 和 HMR；
-- 事件系统、权限隔离、持久化；
-- 并发下的插件启停和失败恢复；
-- 多版本服务、循环依赖和复杂依赖传播。
+但它不会自动替代本文的动态生命周期管理：
 
-真实 Cordis 还有更完整的运行时机制，后续再单独看。第一篇先记住这句话就够了：
+```text
+BeanRegistrar / BeanRegistry
+  解决：如何声明、批量、程序化注册 Bean
 
-> **动态组件产生的副作用要能撤销；组件要声明依赖，并随着依赖出现和消失自动启停。**
+DynamicComponentManager
+  解决：运行中谁现在应该激活、谁应该停止
+```
 
-看懂这个 Mini Demo，就已经理解了 Cordis 最值得迁移到 Java 架构里的核心思想。
+因此生产代码可以把两者组合起来：启动期注册和配置使用 `BeanRegistrar`，运行期依赖变化仍由 Manager 协调插件子容器的创建和关闭。本文为了兼容 Spring 6.2，也直接使用 `GenericApplicationContext.registerBean`。
+
+## 7. 这个方案和真正的 Cordis 还差什么
+
+本文只实现了最容易理解、也最适合 Java 开发者迁移的两点：
+
+- **动态依赖**：服务存在，插件子容器创建；服务消失，插件子容器关闭；
+- **可逆生命周期**：步骤注册和注销绑定在 Spring Bean 的创建/销毁生命周期里。
+
+它没有实现：
+
+- Cordis 自己的完整运行时语义；
+- JAR / `ClassLoader` 级别热替换；
+- 复杂依赖图、循环依赖、多版本服务；
+- 插件权限隔离、沙箱和跨线程资源治理。
+
+子容器也不是魔法：它提供了很自然的插件边界，但根服务的移除顺序、插件之间的依赖关系和并发访问，仍然要由 Manager 负责。真实 Cordis 还有更完整的依赖传播和运行时机制，放到后续文章再展开。[1][3]
+
+## 8. 最后只记住一句话
+
+> **Spring 已经提供了 Bean、依赖注入和生命周期；Cordis 值得借鉴的，是把依赖图从“启动时确定”推进到“运行时可以变化”，并让动态注册的副作用能够随组件一起撤销。**
+
+所以这篇不是“用 Java 重写 Cordis”，而是：
+
+```text
+Spring ApplicationContext
+        +
+DynamicComponentManager
+        +
+Plugin Child ApplicationContext
+        =
+一个 Java 程序员容易理解的 Cordis 思路 Demo
+```
 
 ## Sources
 
@@ -302,3 +450,12 @@ public class MiniCordisDemo {
     > "Cordis is under active development. The API is not yet stable and may change without notice."
 [3] https://deepseek-harness.github.io/deepseek-harness/develop/cordis-tutorial — DeepSeek Harness Cordis tutorial
     > "生命周期与 effect ：由 Cordis 管理的注册会在所属插件卸载时撤销。 服务 ：在 ctx 上公开一项能力，并通过 inject 依赖它。"
+[4] https://docs.spring.io/spring-framework/reference/7.1/core/beans/beanfactory.html — The BeanFactory API
+    > "programmatically registering bean definitions and annotated classes, and (as of 5.0) registering functional bean definitions."
+    > "DisposableBean ) are important integration points for other framework components."
+[5] https://docs.spring.io/spring-framework/reference/6.2/core/beans/basics.html — Container Overview
+    > "The most flexible variant is  GenericApplicationContext  in combination with reader delegates"
+    > "GenericApplicationContext context = new GenericApplicationContext();"
+    > "The org.springframework.context.ApplicationContext interface represents the Spring IoC container and is responsible for instantiating, configuring, and assembling the beans."
+[6] https://docs.spring.io/spring-framework/reference/7.1/core/beans/java/programmatic-bean-registration.html — Programmatic Bean Registration
+    > "As of Spring Framework 7, a first-class support for programmatic bean registration is provided via the BeanRegistrar interface"
