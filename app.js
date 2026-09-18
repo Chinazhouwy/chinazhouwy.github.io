@@ -135,6 +135,23 @@ const state = {
   pointPageSel: null,
   timelineVisibleDays: 12,
 };
+let readHistory;
+
+function decorateReadLinks() {
+  if (!readHistory) return;
+  ui.app.querySelectorAll('a[href^="#/article/"]').forEach((link) => {
+    const path = link.getAttribute("href").slice(10).split("?")[0];
+    let decoded;
+    try { decoded = decodeURIComponent(path); } catch { return; }
+    if (!readHistory.has(decoded) || link.querySelector(".read-badge")) return;
+    const badge = document.createElement("span");
+    badge.className = "read-badge";
+    badge.textContent = "✓ 已读";
+    badge.title = "这台设备已读";
+    const label = link.querySelector(".article-row-main small, .exam-note-caption span, .roadmap-item small, .nova-signal-card > p, .contribution-readout-item > span") || link.querySelector("time, small, p, h3") || link;
+    label.prepend(badge);
+  });
+}
 
 const SYNTAX_HIGHLIGHTER_URL = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/highlight.min.js";
 const CODE_LANGUAGE_ALIASES = Object.freeze({
@@ -2208,6 +2225,7 @@ function renderSearch() {
 async function renderSearchRoute() {
   if (!state.query) {
     renderSearch();
+    decorateReadLinks();
     return;
   }
 
@@ -2217,6 +2235,7 @@ async function renderSearchRoute() {
     await ensureSearchIndex();
     if (parseRoute().view !== "search" || state.query !== requestedQuery) return;
     renderSearch();
+    decorateReadLinks();
   } catch (error) {
     if (parseRoute().view !== "search" || state.query !== requestedQuery) return;
     renderError("搜索索引加载失败", `${error.message}。请稍后重试。`, true);
@@ -2553,6 +2572,7 @@ async function renderArticle(rawPath, requestedSection = "") {
       document.getElementById("comments-section").scrollIntoView({ behavior: "smooth", block: "start" });
     });
     bindReadingProgress();
+    readHistory?.mark(fetchPath);
     rememberGiscusArticleRoute(fetchPath);
     mountComments(fetchPath);
     document.title = `${displayTitle} · WY`;
@@ -2605,6 +2625,7 @@ async function renderRoute() {
     state.query = (route.params.get("q") || "").trim().toLowerCase();
     ui.search.value = route.params.get("q") || "";
     await renderSearchRoute();
+    decorateReadLinks();
     window.scrollTo({ top: 0, behavior: "instant" });
     return;
   } else {
@@ -2633,11 +2654,12 @@ async function renderRoute() {
     // Search
   };
   (renderers[route.view] || renderOverview)();
+  decorateReadLinks();
   window.scrollTo({ top: 0, behavior: "instant" });
 
 }
 
-const BUILD_VERSION = "20260905-7";
+const BUILD_VERSION = "20260918-1";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy, githubProfile] = await Promise.all([
@@ -2667,6 +2689,9 @@ async function loadSite() {
   state.learningAreas = Array.isArray(learningTaxonomy.areas) ? learningTaxonomy.areas : [];
   state.pointsIndex = Array.isArray(payload.pointsIndex) ? payload.pointsIndex : [];
   state.aliases = payload.aliases || {};
+  let storage = null;
+  try { storage = window.localStorage; } catch { /* Browsing still works without storage. */ }
+  readHistory = ReadHistory.createReadHistory(storage, state.aliases);
   await renderRoute();
 }
 
