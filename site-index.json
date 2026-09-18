@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T00:00:00+08:00",
+  "generatedAt": "2026-09-18T00:00:00+08:00",
   "articles": [
     {
       "title": "从微信分享关系到 Neo4j 最短人脉路径：Cypher 与 GDS 实战",
@@ -5493,7 +5493,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-17",
+      "date": "2026-09-18",
       "count": 0,
       "averageScore": null
     },
@@ -5502,11 +5502,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-09-04",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-09-05",
         "count": 0,
@@ -5569,6 +5564,11 @@
       },
       {
         "date": "2026-09-17",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-18",
         "count": 0,
         "averageScore": null
       }
