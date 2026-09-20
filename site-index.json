@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-18T00:00:00+08:00",
+  "generatedAt": "2026-09-20T00:00:00+08:00",
   "articles": [
     {
       "title": "从微信分享关系到 Neo4j 最短人脉路径：Cypher 与 GDS 实战",
@@ -1777,6 +1777,52 @@
       ],
       "section": "learning",
       "topic": "数学知识卡片",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
+      "title": "DSH：DeepSeek Harness 架构解析",
+      "path": "content/learning/ai-agent/2026-08-14-dsh-deepseek-harness-architecture.md",
+      "url": "content/learning/ai-agent/2026-08-14-dsh-deepseek-harness-architecture.md",
+      "date": "2026-08-14",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "AI Agent",
+      "lane": "agent",
+      "module": "Agent 工程与源码",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "以运行时插件图和追加式 Session 事件流为主线，整理 DeepSeek Harness 如何用 Cordis 组合模型、工具、会话、沙箱和 Agent loop，并区分原文源码分析、官方资料与尚未独立复现的结论。",
+      "tags": [
+        "Agent",
+        "Harness",
+        "DeepSeek",
+        "Cordis",
+        "Agent Runtime",
+        "Session",
+        "Tool Calling",
+        "插件系统"
+      ],
+      "points": [
+        "Agent 评测与 Harness",
+        "DeepSeek",
+        "进程与调度",
+        "HTTP/HTTPS",
+        "Prompt 工程",
+        "向量与空间"
+      ],
+      "section": "learning",
+      "topic": "Agent 工程与源码",
       "company": "",
       "round": "",
       "score": null,
@@ -4564,7 +4610,7 @@
       "name": "Agent 评测与 Harness",
       "topic": "Agent 工程与源码",
       "summary": "评测 = 任务集 + 评分器（规则/模型/人工）；Harness 负责沙箱执行、轨迹记录与回归对比，是 Agent 从演示走向工程化的分水岭。",
-      "count": 7,
+      "count": 8,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -4604,7 +4650,7 @@
       "name": "DeepSeek",
       "topic": "Agent 工程与源码",
       "summary": "以低成本高性价比著称，MoE 架构与开源策略是讨论重点；接入时注意上下文长度与函数调用的行为差异。",
-      "count": 3,
+      "count": 4,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -4644,7 +4690,7 @@
       "name": "Prompt 工程",
       "topic": "Agent 工程与源码",
       "summary": "系统提示定义角色与约束，Few-shot 控制格式，CoT 引导推理；工程化关注版本管理、回归评测与提示注入防护。",
-      "count": 6,
+      "count": 7,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5134,7 +5180,7 @@
       "name": "向量与空间",
       "topic": "数学知识卡片",
       "summary": "线性组合与张成定义空间语言，基与坐标把几何代数化；内积引入长度与投影，梯度/散度/旋度是多元微分的空间化表达。",
-      "count": 0,
+      "count": 1,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5334,7 +5380,7 @@
       "name": "HTTP/HTTPS",
       "topic": "计算机基础",
       "summary": "HTTP1.1 队头阻塞 → 2 多路复用 → 3 QUIC；HTTPS = TLS 握手协商对称密钥 + 证书链校验，混合加密同时保证机密性与完整性。",
-      "count": 31,
+      "count": 32,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5384,7 +5430,7 @@
       "name": "进程与调度",
       "topic": "计算机基础",
       "summary": "进程是资源分配单位、线程是调度单位；调度算法围绕吞吐与响应权衡，上下文切换成本主要来自缓存与 TLB 失效。",
-      "count": 8,
+      "count": 9,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5439,14 +5485,14 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 106,
+    "学习": 107,
     "机会": 2,
     "阅读": 8,
     "专栏": 2
   },
   "sectionCounts": {
     "columns": 2,
-    "learning": 106,
+    "learning": 107,
     "plans": 1,
     "opportunity": 1,
     "reading": 8,
@@ -5493,7 +5539,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-18",
+      "date": "2026-09-20",
       "count": 0,
       "averageScore": null
     },
@@ -5502,16 +5548,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-09-05",
-        "count": 0,
-        "averageScore": null
-      },
-      {
-        "date": "2026-09-06",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-09-07",
         "count": 0,
@@ -5569,6 +5605,16 @@
       },
       {
         "date": "2026-09-18",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-19",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-20",
         "count": 0,
         "averageScore": null
       }
