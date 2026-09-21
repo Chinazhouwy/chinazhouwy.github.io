@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-20T00:00:00+08:00",
+  "generatedAt": "2026-09-21T00:00:00+08:00",
   "articles": [
     {
       "title": "从微信分享关系到 Neo4j 最短人脉路径：Cypher 与 GDS 实战",
@@ -778,7 +778,7 @@
       "question": ""
     },
     {
-      "title": "Hermes Agent 官方文档全景研读：从 429 个源码文档到可扩展运行时",
+      "title": "Hermes Agent 实践入门：Dashboard、记忆、Skill 与多 Agent 协作",
       "path": "content/learning/ai-agent/2026-08-31-hermes-agent-official-docs-study-extension-map.md",
       "url": "content/learning/ai-agent/2026-08-31-hermes-agent-official-docs-study-extension-map.md",
       "date": "2026-08-31",
@@ -796,24 +796,24 @@
       "priority": "P0",
       "energy": "high",
       "visibility": "public",
-      "summary": "基于 Hermes Agent 官方文档、中文翻译树、用户故事和固定源码提交，梳理运行时架构、状态边界、Skills/MCP/Hooks/Plugins 扩展层级，并给出适合 Java 开发者的源码阅读与实战路线。",
+      "summary": "从 Dashboard 开始体验 Hermes 的工具、经验积累、多 Agent 分工与持续任务，再用简短流程说明 Java、MCP 和插件接在哪里。",
       "tags": [
         "Hermes Agent",
         "Agent",
-        "源码阅读",
-        "Plugins",
-        "Hooks",
-        "Skills",
+        "Dashboard",
+        "Multi-Agent",
+        "Memory",
+        "Java",
         "MCP",
-        "Java"
+        "Skills",
+        "Hooks",
+        "Plugins"
       ],
       "points": [
         "HTTP/HTTPS",
         "MCP 协议",
-        "Prompt 工程",
-        "进程与调度",
-        "注册中心与网关",
-        "消息可靠性"
+        "工具调用",
+        "进程与调度"
       ],
       "section": "learning",
       "topic": "Hermes Agent",
@@ -4690,7 +4690,7 @@
       "name": "Prompt 工程",
       "topic": "Agent 工程与源码",
       "summary": "系统提示定义角色与约束，Few-shot 控制格式，CoT 引导推理；工程化关注版本管理、回归评测与提示注入防护。",
-      "count": 7,
+      "count": 6,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -4720,7 +4720,7 @@
       "name": "工具调用",
       "topic": "Agent 工程与源码",
       "summary": "模型按 schema 生成参数、运行时执行并把结果回填给模型；难点在工具粒度设计、错误反馈方式与并行调用编排。",
-      "count": 7,
+      "count": 8,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5120,7 +5120,7 @@
       "name": "注册中心与网关",
       "topic": "工程与架构",
       "summary": "注册中心解决寻址与健康检查（AP 型 Nacos/Eureka，CP 型 ZK/Consul）；网关统一路由、鉴权与限流，是南北向流量的总入口。",
-      "count": 4,
+      "count": 3,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5360,7 +5360,7 @@
       "name": "消息可靠性",
       "topic": "消息队列",
       "summary": "三段保证：生产确认（acks/重试）、Broker 持久化与副本、消费手动 ack + 幂等表；死信队列兜底反复失败的消息。",
-      "count": 6,
+      "count": 5,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5539,7 +5539,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-20",
+      "date": "2026-09-21",
       "count": 0,
       "averageScore": null
     },
@@ -5548,11 +5548,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-09-07",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-09-08",
         "count": 0,
@@ -5615,6 +5610,11 @@
       },
       {
         "date": "2026-09-20",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-21",
         "count": 0,
         "averageScore": null
       }
