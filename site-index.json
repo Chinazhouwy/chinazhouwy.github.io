@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-21T00:00:00+08:00",
+  "generatedAt": "2026-09-23T00:00:00+08:00",
   "articles": [
     {
       "title": "从微信分享关系到 Neo4j 最短人脉路径：Cypher 与 GDS 实战",
@@ -323,6 +323,45 @@
       ],
       "section": "learning",
       "topic": "Spring 生态",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
+      "title": "再见了EasyExcel，我决定用Apache Fesod",
+      "path": "content/learning/java/2026-09-08-easyexcel-to-apache-fesod.md",
+      "url": "content/learning/java/2026-09-08-easyexcel-to-apache-fesod.md",
+      "date": "2026-09-08",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "Java 后端",
+      "module": "",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "记录 EasyExcel 停更归档、FastExcel 承接与更名 Apache Fesod 的演进过程，对比主流 Excel 技术方案并给出迁移步骤与选型建议。",
+      "tags": [
+        "EasyExcel",
+        "FastExcel",
+        "Apache Fesod",
+        "Apache POI",
+        "Excel",
+        "Java"
+      ],
+      "points": [
+        "GC 与垃圾回收",
+        "JVM 调优与排查"
+      ],
+      "section": "learning",
+      "topic": "Java 后端",
       "company": "",
       "round": "",
       "score": null,
@@ -4730,7 +4769,7 @@
       "name": "GC 与垃圾回收",
       "topic": "JVM 与性能",
       "summary": "可达性分析判活，收集器沿 Serial→Parallel→CMS→G1→ZGC 演进，核心权衡是吞吐与停顿；G1 按 Region 划分、按停顿目标优先回收收益最高的区域。",
-      "count": 4,
+      "count": 5,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -4750,7 +4789,7 @@
       "name": "JVM 调优与排查",
       "topic": "JVM 与性能",
       "summary": "调优主线：内存泄漏看堆直方图与 GC 日志，CPU 飙高先定位线程栈（top -Hp + arthas），参数围绕堆大小、收集器与元空间。",
-      "count": 3,
+      "count": 4,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5485,14 +5524,14 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 107,
+    "学习": 108,
     "机会": 2,
     "阅读": 8,
     "专栏": 2
   },
   "sectionCounts": {
     "columns": 2,
-    "learning": 107,
+    "learning": 108,
     "plans": 1,
     "opportunity": 1,
     "reading": 8,
@@ -5539,7 +5578,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-21",
+      "date": "2026-09-23",
       "count": 0,
       "averageScore": null
     },
@@ -5548,16 +5587,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-09-08",
-        "count": 0,
-        "averageScore": null
-      },
-      {
-        "date": "2026-09-09",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-09-10",
         "count": 0,
@@ -5615,6 +5644,16 @@
       },
       {
         "date": "2026-09-21",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-22",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-23",
         "count": 0,
         "averageScore": null
       }
