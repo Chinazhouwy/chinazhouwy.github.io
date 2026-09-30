@@ -1,6 +1,46 @@
 {
-  "generatedAt": "2026-09-27T00:00:00+08:00",
+  "generatedAt": "2026-09-30T00:00:00+08:00",
   "articles": [
+    {
+      "title": "小红书推荐系统的 Agentic 发布：跨昼夜任务 Harness 实践",
+      "path": "content/learning/ai-agent/2026-09-30-xiaohongshu-agentic-release-harness.md",
+      "url": "content/learning/ai-agent/2026-09-30-xiaohongshu-agentic-release-harness.md",
+      "date": "2026-09-30",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "AI Agent",
+      "lane": "agent",
+      "module": "Agent 工程与源码",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "以小红书推荐系统一次跨十几个部署组、持续十余小时的发布为例，说明长程任务 Harness 如何用独立任务状态、声明式模板和推进引擎，让 Agent 跨昼夜可靠推进发布并根据真实效果继续。",
+      "tags": [
+        "Agent",
+        "Harness",
+        "发布系统",
+        "长程任务",
+        "Agentic"
+      ],
+      "points": [
+        "Agent 评测与 Harness",
+        "进程与调度",
+        "中断与系统调用"
+      ],
+      "section": "learning",
+      "topic": "Agent 工程与源码",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
     {
       "title": "SQL窗口函数，看这一篇就够啦",
       "path": "content/learning/middleware/2026-09-20-sql-window-functions.md",
@@ -4682,7 +4722,7 @@
       "name": "Agent 评测与 Harness",
       "topic": "Agent 工程与源码",
       "summary": "评测 = 任务集 + 评分器（规则/模型/人工）；Harness 负责沙箱执行、轨迹记录与回归对比，是 Agent 从演示走向工程化的分水岭。",
-      "count": 8,
+      "count": 9,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5472,7 +5512,7 @@
       "name": "中断与系统调用",
       "topic": "计算机基础",
       "summary": "系统调用经软中断陷入内核完成态切换，中断分上下半部处理；切换成本是高性能 IO 设计（io_uring 等）的动因。",
-      "count": 3,
+      "count": 4,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5502,7 +5542,7 @@
       "name": "进程与调度",
       "topic": "计算机基础",
       "summary": "进程是资源分配单位、线程是调度单位；调度算法围绕吞吐与响应权衡，上下文切换成本主要来自缓存与 TLB 失效。",
-      "count": 9,
+      "count": 10,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5557,13 +5597,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 109,
+    "学习": 110,
     "机会": 2,
     "阅读": 8,
     "专栏": 2
   },
   "sectionCounts": {
-    "learning": 109,
+    "learning": 110,
     "columns": 2,
     "plans": 1,
     "opportunity": 1,
@@ -5611,7 +5651,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-27",
+      "date": "2026-09-30",
       "count": 0,
       "averageScore": null
     },
@@ -5620,21 +5660,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-09-14",
-        "count": 0,
-        "averageScore": null
-      },
-      {
-        "date": "2026-09-15",
-        "count": 0,
-        "averageScore": null
-      },
-      {
-        "date": "2026-09-16",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-09-17",
         "count": 0,
@@ -5687,6 +5712,21 @@
       },
       {
         "date": "2026-09-27",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-28",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-29",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-09-30",
         "count": 0,
         "averageScore": null
       }
