@@ -1,6 +1,46 @@
 {
-  "generatedAt": "2026-09-30T00:00:00+08:00",
+  "generatedAt": "2026-10-06T00:00:00+08:00",
   "articles": [
+    {
+      "title": "LangGraph 基础：智能体架构、核心组件、控制流与工具调用",
+      "path": "content/learning/ai-agent/2026-09-30-langgraph-basics.md",
+      "url": "content/learning/ai-agent/2026-09-30-langgraph-basics.md",
+      "date": "2026-09-30",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "AI Agent",
+      "lane": "agent",
+      "module": "Agent 工程与源码",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "以第一章梳理 LangGraph 基础：智能体架构分类、LangChain 与 LangGraph 的分工、Graph/State/Node/Edge 四要素、四类控制流，以及 invoke/stream 两种执行方式与工具调用流程。",
+      "tags": [
+        "LangGraph",
+        "LangChain",
+        "Agent",
+        "工作流",
+        "流式输出",
+        "Tool Calling"
+      ],
+      "points": [
+        "LangChain/LangGraph",
+        "工具调用"
+      ],
+      "section": "learning",
+      "topic": "Agent 工程与源码",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
     {
       "title": "小红书推荐系统的 Agentic 发布：跨昼夜任务 Harness 实践",
       "path": "content/learning/ai-agent/2026-09-30-xiaohongshu-agentic-release-harness.md",
@@ -4772,7 +4812,7 @@
       "name": "LangChain/LangGraph",
       "topic": "Agent 工程与源码",
       "summary": "LangChain 组件化封装 LLM 应用；LangGraph 用状态图编排循环与分支，支持 checkpoint 持久化与人机协同节点。",
-      "count": 0,
+      "count": 1,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -4832,7 +4872,7 @@
       "name": "工具调用",
       "topic": "Agent 工程与源码",
       "summary": "模型按 schema 生成参数、运行时执行并把结果回填给模型；难点在工具粒度设计、错误反馈方式与并行调用编排。",
-      "count": 8,
+      "count": 9,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5597,13 +5637,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 110,
+    "学习": 111,
     "机会": 2,
     "阅读": 8,
     "专栏": 2
   },
   "sectionCounts": {
-    "learning": 110,
+    "learning": 111,
     "columns": 2,
     "plans": 1,
     "opportunity": 1,
@@ -5651,7 +5691,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-09-30",
+      "date": "2026-10-06",
       "count": 0,
       "averageScore": null
     },
@@ -5660,36 +5700,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-09-17",
-        "count": 0,
-        "averageScore": null
-      },
-      {
-        "date": "2026-09-18",
-        "count": 0,
-        "averageScore": null
-      },
-      {
-        "date": "2026-09-19",
-        "count": 0,
-        "averageScore": null
-      },
-      {
-        "date": "2026-09-20",
-        "count": 0,
-        "averageScore": null
-      },
-      {
-        "date": "2026-09-21",
-        "count": 0,
-        "averageScore": null
-      },
-      {
-        "date": "2026-09-22",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-09-23",
         "count": 0,
@@ -5727,6 +5737,36 @@
       },
       {
         "date": "2026-09-30",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-10-01",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-10-02",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-10-03",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-10-04",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-10-05",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-10-06",
         "count": 0,
         "averageScore": null
       }
