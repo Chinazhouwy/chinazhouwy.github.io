@@ -2,6 +2,45 @@
   "generatedAt": "2026-10-06T00:00:00+08:00",
   "articles": [
     {
+      "title": "LangGraph 记忆：线程内、跨线程记忆与裁剪总结",
+      "path": "content/learning/ai-agent/2026-10-02-langgraph-memory.md",
+      "url": "content/learning/ai-agent/2026-10-02-langgraph-memory.md",
+      "date": "2026-10-02",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "",
+      "domain": "学习",
+      "area": "AI Agent",
+      "lane": "agent",
+      "module": "Agent 工程与源码",
+      "project": "",
+      "type": "文章",
+      "status": "可复习",
+      "priority": "P1",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "第二章梳理 LangGraph 的记忆机制：从无记忆多轮对话的问题出发，用绑定 thread_id 的线程内记忆与按 user_id 隔离的跨线程记忆解决，并以 trim_messages 裁剪与总结链压缩历史消息来管理上下文。",
+      "tags": [
+        "LangGraph",
+        "记忆机制",
+        "Agent",
+        "多轮对话",
+        "Checkpointer",
+        "上下文管理"
+      ],
+      "points": [
+        "LangChain/LangGraph"
+      ],
+      "section": "learning",
+      "topic": "Agent 工程与源码",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": ""
+    },
+    {
       "title": "LangGraph 基础：智能体架构、核心组件、控制流与工具调用",
       "path": "content/learning/ai-agent/2026-09-30-langgraph-basics.md",
       "url": "content/learning/ai-agent/2026-09-30-langgraph-basics.md",
@@ -4812,7 +4851,7 @@
       "name": "LangChain/LangGraph",
       "topic": "Agent 工程与源码",
       "summary": "LangChain 组件化封装 LLM 应用；LangGraph 用状态图编排循环与分支，支持 checkpoint 持久化与人机协同节点。",
-      "count": 1,
+      "count": 2,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -5637,13 +5676,13 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 111,
+    "学习": 112,
     "机会": 2,
     "阅读": 8,
     "专栏": 2
   },
   "sectionCounts": {
-    "learning": 111,
+    "learning": 112,
     "columns": 2,
     "plans": 1,
     "opportunity": 1,
