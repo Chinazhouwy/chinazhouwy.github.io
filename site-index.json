@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-06T00:00:00+08:00",
+  "generatedAt": "2026-10-07T00:00:00+08:00",
   "articles": [
     {
-      "title": "面试手册深挖 01 · String 不可变与版本差异（Q14）",
-      "path": "content/columns/interview-deepdive-14-string.md",
-      "url": "content/columns/interview-deepdive-14-string.md",
+      "title": "面试深挖",
+      "path": "content/columns/interview-deep-dive.md",
+      "url": "content/columns/interview-deep-dive.md",
       "date": "2026-10-06",
       "createdAt": "",
       "practicedAt": "",
@@ -12,245 +12,30 @@
       "importedAt": "",
       "domain": "专栏",
       "area": "技术",
-      "module": "面试手册深挖",
+      "module": "面试深挖",
       "project": "",
       "type": "文章",
       "status": "可复习",
       "priority": "P1",
       "energy": "medium",
       "visibility": "public",
-      "summary": "《Java × Agent 四天面试手册》Q14 解释版原文 + 会话深挖：存储编码与字符计数分层、Compact Strings 位级走查、补码与 & 0xff、intern 与 String Dedup 的两层冗余消除。",
+      "summary": "把面试手册里讲过的题逐题深挖：解释版原文完整收录，会话推导笔记合并，跨题连线成网。当前收录 Q14/Q15/Q17/Q18/Q21/Q22 与三个延伸专题。",
       "tags": [
         "Java",
-        "String",
-        "编码",
+        "集合",
+        "并发",
         "JVM"
       ],
       "points": [
-        "GC 与垃圾回收"
-      ],
-      "section": "columns",
-      "topic": "面试手册深挖",
-      "company": "",
-      "round": "",
-      "score": null,
-      "questionNumber": null,
-      "question": ""
-    },
-    {
-      "title": "面试手册深挖 02 · Builder、Integer、BigDecimal 的坑（Q15）",
-      "path": "content/columns/interview-deepdive-15-builder.md",
-      "url": "content/columns/interview-deepdive-15-builder.md",
-      "date": "2026-10-06",
-      "createdAt": "",
-      "practicedAt": "",
-      "publishedAt": "",
-      "importedAt": "",
-      "domain": "专栏",
-      "area": "技术",
-      "module": "面试手册深挖",
-      "project": "",
-      "type": "文章",
-      "status": "可复习",
-      "priority": "P1",
-      "energy": "medium",
-      "visibility": "public",
-      "summary": "《Java × Agent 四天面试手册》Q15 解释版原文 + 会话深挖：StringBuilder 无原子性、StringBuffer 单方法同步护不住复合动作、JDK 原子性的两档分法与三条出路。",
-      "tags": [
-        "Java",
-        "StringBuilder",
-        "线程安全"
-      ],
-      "points": [
-        "HashMap 原理",
-        "synchronized 与 Lock"
-      ],
-      "section": "columns",
-      "topic": "面试手册深挖",
-      "company": "",
-      "round": "",
-      "score": null,
-      "questionNumber": null,
-      "question": ""
-    },
-    {
-      "title": "面试手册深挖 03 · subList、迭代器、fail-fast（Q17）",
-      "path": "content/columns/interview-deepdive-17-sublist-failfast.md",
-      "url": "content/columns/interview-deepdive-17-sublist-failfast.md",
-      "date": "2026-10-06",
-      "createdAt": "",
-      "practicedAt": "",
-      "publishedAt": "",
-      "importedAt": "",
-      "domain": "专栏",
-      "area": "技术",
-      "module": "面试手册深挖",
-      "project": "",
-      "type": "文章",
-      "status": "可复习",
-      "priority": "P1",
-      "energy": "medium",
-      "visibility": "public",
-      "summary": "《Java × Agent 四天面试手册》Q17 解释版原文 + 会话深挖：modCount 回绕上限、SubList 账本+抄本+对账的源码机制（JDK 25 行号）、三种\"不可变\"的区分。",
-      "tags": [
-        "Java",
-        "集合",
-        "fail-fast"
-      ],
-      "points": [
         "集合框架",
-        "概率统计",
         "HashMap 原理",
-        "二叉树"
-      ],
-      "section": "columns",
-      "topic": "面试手册深挖",
-      "company": "",
-      "round": "",
-      "score": null,
-      "questionNumber": null,
-      "question": ""
-    },
-    {
-      "title": "面试手册深挖 04 · HashMap put/get、扩容（Q18）",
-      "path": "content/columns/interview-deepdive-18-hashmap.md",
-      "url": "content/columns/interview-deepdive-18-hashmap.md",
-      "date": "2026-10-06",
-      "createdAt": "",
-      "practicedAt": "",
-      "publishedAt": "",
-      "importedAt": "",
-      "domain": "专栏",
-      "area": "技术",
-      "module": "面试手册深挖",
-      "project": "",
-      "type": "文章",
-      "status": "可复习",
-      "priority": "P0",
-      "energy": "medium",
-      "visibility": "public",
-      "summary": "《Java × Agent 四天面试手册》Q18 解释版原文 + 会话深挖：扰动与掩码的位级走查、capacity/size/threshold 分工、扩容只查一位的推导、JDK 7 环链的正确说法。",
-      "tags": [
-        "Java",
-        "HashMap",
-        "集合"
-      ],
-      "points": [
-        "HashMap 原理"
-      ],
-      "section": "columns",
-      "topic": "面试手册深挖",
-      "company": "",
-      "round": "",
-      "score": null,
-      "questionNumber": null,
-      "question": ""
-    },
-    {
-      "title": "面试手册深挖 05 · ConcurrentHashMap 读写、扩容（Q21）",
-      "path": "content/columns/interview-deepdive-21-chm.md",
-      "url": "content/columns/interview-deepdive-21-chm.md",
-      "date": "2026-10-06",
-      "createdAt": "",
-      "practicedAt": "",
-      "publishedAt": "",
-      "importedAt": "",
-      "domain": "专栏",
-      "area": "技术",
-      "module": "面试手册深挖",
-      "project": "",
-      "type": "文章",
-      "status": "可复习",
-      "priority": "P0",
-      "energy": "medium",
-      "visibility": "public",
-      "summary": "《Java × Agent 四天面试手册》Q21 解释版原文 + 会话深挖：compute/computeIfAbsent 家族的执行流程与分支矩阵、ForwardingNode 哨兵节点、扩容协助。",
-      "tags": [
-        "Java",
-        "ConcurrentHashMap",
-        "并发"
-      ],
-      "points": [
-        "HashMap 原理",
-        "并发容器",
-        "volatile 与 JMM",
-        "二叉树"
-      ],
-      "section": "columns",
-      "topic": "面试手册深挖",
-      "company": "",
-      "round": "",
-      "score": null,
-      "questionNumber": null,
-      "question": ""
-    },
-    {
-      "title": "面试手册深挖 06 · CHM 能替代业务事务吗（Q22）",
-      "path": "content/columns/interview-deepdive-22-chm-transaction.md",
-      "url": "content/columns/interview-deepdive-22-chm-transaction.md",
-      "date": "2026-10-06",
-      "createdAt": "",
-      "practicedAt": "",
-      "publishedAt": "",
-      "importedAt": "",
-      "domain": "专栏",
-      "area": "技术",
-      "module": "面试手册深挖",
-      "project": "",
-      "type": "文章",
-      "status": "可复习",
-      "priority": "P1",
-      "energy": "medium",
-      "visibility": "public",
-      "summary": "《Java × Agent 四天面试手册》Q22 解释版原文 + 会话深挖：CHM 与事务为什么会被放在一起比较、转账反例、结合保险金融背景的答题路径。",
-      "tags": [
-        "Java",
-        "ConcurrentHashMap",
-        "事务"
-      ],
-      "points": [
-        "HashMap 原理"
-      ],
-      "section": "columns",
-      "topic": "面试手册深挖",
-      "company": "",
-      "round": "",
-      "score": null,
-      "questionNumber": null,
-      "question": ""
-    },
-    {
-      "title": "面试手册深挖 07 · 延伸专题：synchronizedXxx、RandomAccess、协变与擦除",
-      "path": "content/columns/interview-deepdive-30-jdk-design-notes.md",
-      "url": "content/columns/interview-deepdive-30-jdk-design-notes.md",
-      "date": "2026-10-06",
-      "createdAt": "",
-      "practicedAt": "",
-      "publishedAt": "",
-      "importedAt": "",
-      "domain": "专栏",
-      "area": "技术",
-      "module": "面试手册深挖",
-      "project": "",
-      "type": "文章",
-      "status": "可复习",
-      "priority": "P2",
-      "energy": "medium",
-      "visibility": "public",
-      "summary": "Q17/Q18 讨论引申出的三个延伸专题：Collections.synchronizedXxx 的装饰器实现、RandomAccess 标记接口、数组协变与泛型不变的推导，以及泛型擦除的经典问题清单。",
-      "tags": [
-        "Java",
-        "集合",
-        "泛型",
-        "设计模式"
-      ],
-      "points": [
         "synchronized 与 Lock",
-        "集合框架",
-        "链表"
+        "二叉树",
+        "volatile 与 JMM",
+        "并发容器"
       ],
       "section": "columns",
-      "topic": "面试手册深挖",
+      "topic": "面试深挖",
       "company": "",
       "round": "",
       "score": null,
@@ -5935,10 +5720,10 @@
     "学习": 112,
     "机会": 2,
     "阅读": 8,
-    "专栏": 9
+    "专栏": 3
   },
   "sectionCounts": {
-    "columns": 9,
+    "columns": 3,
     "learning": 112,
     "plans": 1,
     "opportunity": 1,
@@ -5986,7 +5771,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-10-06",
+      "date": "2026-10-07",
       "count": 0,
       "averageScore": null
     },
@@ -5995,11 +5780,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-09-23",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-09-24",
         "count": 0,
@@ -6062,6 +5842,11 @@
       },
       {
         "date": "2026-10-06",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-10-07",
         "count": 0,
         "averageScore": null
       }
