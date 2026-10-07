@@ -794,6 +794,202 @@ javap 反编译桥方法，就两步：`checkcast Integer` + `invokevirtual set(
 
 一句话：**桥方法 = 编译器为"泛型擦除导致覆写签名不一致"打的补丁——用擦除后的签名保住多态分派，方法体转调类型化的真方法。**
 
+**问 7｜"桥接方法看下来是生成了一个同名方法，只是入参是 Object？还是有点不懂。"**
+
+对一半，但"同名"这个词要小心：JVM 认方法靠**完整签名（方法名 + 参数类型）**，同名不同参就是两个完全独立的方法。准确说法是：编译器在子类里生成了一个**全新的独立方法** `set(Object)`，它和你写的 `set(Integer)` 毫无继承关系，唯一联系是方法体只有两步——强转，然后转调。
+
+为什么非有它不可？先跑一个"假如编译器不补桥"的实验（手工模拟擦除后的世界，不用泛型，签名直接写死）：
+
+```java
+static class Node {
+    public void set(Object o) { System.out.println("父类 set(Object) 执行了"); }
+}
+static class MyNode extends Node {
+    public void set(Integer i) { System.out.println("子类 set(Integer) 执行了"); }
+}
+Node n = new MyNode();
+n.set(42);
+// 输出：父类 set(Object) 执行了   ← 你的覆写被完全绕过
+```
+
+不报错、不警告，程序安静地执行了父类代码。这就是没有桥方法的世界。
+
+再看真实泛型编译后的字节码，三个关键位置：
+
+```
+== main 里的调用指令 ==
+14: invokevirtual NodeG.set:(Ljava/lang/Object;)V     ← 编译期定死：按 set(Object) 发起调用
+
+== MyNodeG 身上的桥方法（bridge=true）==
+2: checkcast     Integer                              ← 第 1 步：参数强转
+5: invokevirtual set:(Ljava/lang/Integer;)V           ← 第 2 步：转调你写的方法
+
+== set(java.lang.Integer) ==                            ← 你亲手写的，正常编译
+```
+
+把桥方法翻译回 Java 源码，它就等价于这两行：
+
+```java
+public void set(Object o) {       // 编译器偷偷写的，源码里永远不出现
+    Integer i = (Integer) o;
+    this.set(i);
+}
+```
+
+完整调用链：`g.set(42)` 按父类签名 `set(Object)` 发起 → 虚分派命中桥 → 桥强转后转调你写的 `set(Integer)`。桥不是你方法的副本，是挂在你方法上面的转发线。
+
+**问 8｜"为啥要这么做？"**
+
+直接动机：覆写关系断了，不补桥多态就废，编译器只剩两个选择——
+
+- 承认"这不是覆写"：多态调用静默跑父类实现（上面的实验），泛型继承全部失效，没人能接受这个语义。
+- 在子类补一个签名匹配的 `set(Object)`，方法体转调你的实现：语言层面"覆写成立"保住，兼容问题由编译器在暗处修掉。
+
+编译器选了后者。在"签名必须精确匹配"这条 JVM 铁律下，这是唯一能保住多态的办法。
+
+再往底层问：为什么要擦除，把签名搞断？因为 2004 年 Java 5 引入泛型时生态里已有海量存量代码，Java 选择让 `List<String>` 和 `List` 在运行期是**同一个类**——老 jar 包不重新编译就能和泛型代码混用，这就是擦除的全部目的：向后兼容。如果泛型信息运行期保留（C# 那样），父类方法本来就是 `set(Integer)`，覆写签名天然一致，桥方法根本不需要存在。
+
+桥方法还是真实存在的执行路径，raw 类型实验能证明——同时能看到它的 checkcast 站运行期类型防线这班岗：
+
+```java
+NodeG raw = new MyNodeG();      // raw 类型：绕过编译期泛型检查（只给警告）
+raw.set("我不是Integer");       // 编译能过，运行期拦截
+// Exception in thread "main" java.lang.ClassCastException:
+//   String cannot be cast to Integer
+//   at MyNodeG.set(MyNodeG.java:5)   ← 栈轨迹指向的就是桥方法
+//                                     （源码里不存在，行号落在类声明行上）
+```
+
+调用链：`raw.set(...)` 按 `set(Object)` 签名发起 → 命中桥 → `checkcast Integer` 拦下 String。呼应前面泛型那节说的"raw 类型是编译期的漏洞、运行期有兜底"——兜底动作的具体位置就是桥方法里的 checkcast。
+
+四步链条：擦除（为向后兼容）→ 覆写签名断裂 → 不修则多态失效 → 补桥保多态，checkcast 顺带兜底类型安全。
+
+**问 9｜"父类和子类包括方法你都写下呢？我要看 Java 原始代码。"**
+
+源码就这三个文件，全部内容：
+
+```java
+// NodeG.java —— 父类
+public class NodeG<T> {
+    public void set(T t) {
+        System.out.println("父类版本，参数=" + t);
+    }
+}
+
+// MyNodeG.java —— 子类，继承时把 T 定成 Integer
+public class MyNodeG extends NodeG<Integer> {
+    @Override
+    public void set(Integer i) {
+        System.out.println("子类版本，参数=" + i);
+    }
+}
+
+// Main.java —— 调用
+public class Main {
+    public static void main(String[] args) {
+        NodeG<Integer> g = new MyNodeG();
+        g.set(42);   // 打印：子类版本，参数=42
+    }
+}
+```
+
+源码里看不到桥方法——它只在 class 文件里，编译器生成，不归源码管。
+
+**问 10｜"'覆写关系断裂'这个是为啥来的？"**
+
+因为 JVM 判断覆写只有一条标准：**方法名和参数类型一模一样**。`set(Object)` 和 `set(Integer)` 参数不一样，就是两个不相干的方法（重载），不是覆写。
+
+这条标准严到非泛型场景下手写会被直接拒绝：
+
+```
+$ javac OverrideCheck.java
+OverrideCheck.java:6: 错误: 方法不会覆盖或实现超类型的方法
+        @Override
+        ^
+```
+
+那泛型版本为什么 `@Override` 能编译通过？因为存在两个裁判：
+
+- **编译器（懂泛型）**：看到 `extends NodeG<Integer>`，T 已定为 Integer，你写的 `set(Integer)` 恰好匹配 `set(T)` 的形状——按泛型规则覆写成立，放行。
+- **JVM（只认签名）**：class 文件里 T 已不存在，只剩 `set(Object)` 和 `set(Integer)` 两个签名，按"一模一样才算覆写"比对——不成立。
+
+同一个 `@Override`，两个裁判给出相反判罚，而运行期说了算的是 JVM 那个。JVM 为什么这么死板？虚分派必须高效：运行期拿着签名直接查方法表，签名是它唯一认识的 key，差一个字都查不到。
+
+**问 11｜"应该是叫重载和重写吧？怎么理解来得及？"**
+
+对。区分只看一条：
+
+- **重载（overload）**：方法名相同、**参数不同**。编译期按参数类型定死调哪个。
+- **重写（override，覆盖）**：方法名相同、**参数完全相同**，子类替换父类实现。运行期按实际对象是谁来调。
+
+口诀：**重载看参数，重写看对象**。
+
+```java
+class MyNode extends Node {
+    public void set(Integer i) { }   // 参数不同 → 重载（两个独立方法）
+    @Override
+    public void set(Object o) { }    // 参数完全相同 → 重写（替换父类实现）
+}
+```
+
+桥方法一句话就通了：**擦除把你以为的"重写"降级成了"重载"**——你写 `set(Integer)` 时自我感觉在重写，但擦除后名字同参数不同，正是重载的定义；重载不参与多态，所以调用落到父类实现。桥方法干的就是上面第二个方法的事：编译器替你补一个参数完全相同的重写。
+
+面试串联答法：被问"重载和重写的区别"，答完定义补一句"泛型擦除会让子类的重写在字节码层面退化成重载，编译器生成桥方法把它补回来"——一题带出擦除和桥方法两个考点。
+
+**问 12｜"还是有点懵，没看出来有啥问题。"**
+
+因为你默认了"程序调用 set 时会聪明地找到该调的那个方法"。它不聪明。把调用拆成两步：
+
+1. **编译期（定死）**：编译器只看声明类型 `NodeG`，擦除后它身上只有 `set(Object)`——所以 `g.set(42)` 生成的指令就是"调 set(Object)"，传 42 也一样，运行期改不了。
+2. **运行期（按名字找人）**：JVM 拿着 `set(Object)` 这张单子去实际对象 `MyNodeG` 身上找。你写的是 `set(Integer)`，名字一样参数不同，不是同一个人；家里没有 `set(Object)`，JVM 上父类找，父类实现签收执行。
+
+快递类比：调用指令是张快递单，收件人印死 `set(Object)`，JVM 只认单子上的名字。你家只有 `set(Integer)`，快递员不认，扭头上父类家投递了。
+
+"看不出问题"是因为这套走法程序照常运行。来一个后果可见的（手工模拟无桥世界，计数器）：
+
+```java
+static class Counter {
+    int count = 0;
+    public void add(Object v) { count++; }        // 父类逻辑：计次数
+}
+static class MyCounter extends Counter {
+    public void add(Integer v) { count += v; }    // 你的"覆写"：累加数值
+}
+Counter c = new MyCounter();
+c.add(10);
+c.add(20);
+System.out.println("实际 count = " + c.count);
+// 实际 count = 2    ← 父类的 count++ 跑了两次
+// 你期待的 30（累加）从来没出现，且全程无报错
+```
+
+"覆写断裂"的全部含义就这一句：**多态调用时，你的重写代码永远轮不到执行，父类旧逻辑继续跑，业务结果安静地错**。
+
+**问 13｜"类的定义和实现呢？"**
+
+换个角度看：每个方法的**实现体挂在方法名下**，两个名字各挂各的实现——
+
+```
+MyCounter 对象身上实际挂着：
+add(Object)    ← 继承来的，实现体是父类的 count++
+add(Integer)   ← 自己定义的，实现体是你的 count += v
+```
+
+覆写本来应该干的事：把 `add(Object)` 名下那份父类实现**替换掉**。但替换有前提——你必须在子类里定义一个参数完全相同的 `add(Object)`，你的实现体才会挂到这个名字下面。你定义的是 `add(Integer)`，参数不同，另一个名字，你的 `count += v` 只挂在自己名字下面，`add(Object)` 名下纹丝没动，还是父类旧实现。调用按名字找人，找到的自然是旧实现。
+
+**不是你的实现丢了，是你的实现挂错了名字下面，而调用是按名字找的。**
+
+桥方法 = 编译器在子类定义里替你补一个 `add(Object)`，实现体是强转加转调——这一补，`add(Object)` 名下挂的才从"父类的 count++"变成"通往你的 count += v 的转发"。
+
+**问 14｜"所以这个的学术名叫啥？"**
+
+- 现象/机制：**桥方法（Bridge Method）**——JLS 和 JVM 规范的正式术语。JVM 给它打两个标志位：**ACC_BRIDGE** + **ACC_SYNTHETIC**（表示"源码中不存在、编译器合成"），合起来定义为"编译器为维持泛型多态而合成的转发方法"。反射里 `Method.isBridge()` 查询。
+- 根因：**类型擦除（Type Erasure）**。
+
+加分点：桥方法还有个同胞场景——**协变返回类型**（子类覆写时把返回类型改成更具体的子类型，Java 5 引入）也靠它实现，同一机制的两个用途。
+
+面试答法：被问"泛型擦除带来什么问题"，答"擦除让覆写签名在字节码层面不一致，编译器生成桥方法（ACC_BRIDGE + ACC_SYNTHETIC）维持多态，方法体是强转加转调"——重载重写、擦除、反射三个考点全串起来。
+
 ### 与其他题的连线
 
 Q17：synchronizedXxx 的"单方法原子、迭代自己同步"与 fail-fast 同属一条边界线。Q18/Q21：RandomAccess 分支选壳出现在 synchronizedList 工厂里。Q14：Dedup 敢共享 byte[] 的前提是不可变——和通配符"焊死危险门"同一种思路。
