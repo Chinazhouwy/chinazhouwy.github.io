@@ -19,7 +19,7 @@
       "priority": "P1",
       "energy": "medium",
       "visibility": "public",
-      "summary": "把面试手册里讲过的题逐题深挖：解释版原文完整收录，会话推导笔记合并，跨题连线成网。当前收录 Q14/Q15/Q17/Q18/Q21/Q22 与三个延伸专题。",
+      "summary": "以真实提问驱动的面试手册深挖：每章先放手册解释版原文，再按「你的提问 → 解答」还原整个推导过程。收录 Q14/Q15/Q17/Q18/Q21/Q22、跳表与 ConcurrentSkipListMap、以及 synchronizedXxx/RandomAccess/泛型擦除三个延伸专题。",
       "tags": [
         "Java",
         "集合",
@@ -27,12 +27,12 @@
         "JVM"
       ],
       "points": [
+        "并发容器",
+        "二叉树",
         "集合框架",
         "HashMap 原理",
         "synchronized 与 Lock",
-        "二叉树",
-        "volatile 与 JMM",
-        "并发容器"
+        "概率统计"
       ],
       "section": "columns",
       "topic": "面试深挖",
