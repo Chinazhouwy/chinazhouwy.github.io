@@ -1,0 +1,18 @@
+/* WY 工作台 · giscus 自定义主题（暗色，配深空 nova 主题） */
+@import url("https://giscus.app/themes/noborder_dark.css");
+
+/* 整体放大：Tailwind 基于 rem，调根字号同步放大字号与间距 */
+html {
+  font-size: 17px;
+}
+
+/* 区块之间留出呼吸空间 */
+main > * + * {
+  margin-top: 18px;
+}
+
+/* 根容器微调内边距 */
+main.giscus,
+.giscus {
+  padding: 4px 2px 0;
+}
