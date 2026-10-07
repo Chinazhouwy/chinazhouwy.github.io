@@ -19,7 +19,7 @@
       "priority": "P1",
       "energy": "medium",
       "visibility": "public",
-      "summary": "以真实提问驱动的面试手册深挖：每章先放手册解释版原文，再按「你的提问 → 解答」还原整个推导过程。收录 Q14/Q15/Q17/Q18/Q21/Q22、跳表与 ConcurrentSkipListMap、以及 synchronizedXxx/RandomAccess/泛型擦除三个延伸专题。",
+      "summary": "以真实提问驱动的面试手册深挖：每章先放手册解释版原文，再按「你的提问 → 解答」还原推导过程。收录 Q14/Q15/Q17/Q18/Q21/Q22、跳表与 ConcurrentSkipListMap、动态代理（JDK/CGLIB）、序列化与 RMI、红黑树与 408 真题、synchronizedXxx/RandomAccess/泛型擦除延伸专题。",
       "tags": [
         "Java",
         "集合",
@@ -29,10 +29,10 @@
       "points": [
         "并发容器",
         "二叉树",
+        "概率统计",
         "集合框架",
-        "HashMap 原理",
-        "synchronized 与 Lock",
-        "概率统计"
+        "链表",
+        "AOP 与代理"
       ],
       "section": "columns",
       "topic": "面试深挖",

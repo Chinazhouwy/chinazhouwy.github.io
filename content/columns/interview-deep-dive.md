@@ -11,7 +11,7 @@ status: "可复习"
 priority: "P1"
 energy: "medium"
 visibility: "public"
-summary: "以真实提问驱动的面试手册深挖：每章先放手册解释版原文，再按「你的提问 → 解答」还原整个推导过程。收录 Q14/Q15/Q17/Q18/Q21/Q22、跳表与 ConcurrentSkipListMap、以及 synchronizedXxx/RandomAccess/泛型擦除三个延伸专题。"
+summary: "以真实提问驱动的面试手册深挖：每章先放手册解释版原文，再按「你的提问 → 解答」还原推导过程。收录 Q14/Q15/Q17/Q18/Q21/Q22、跳表与 ConcurrentSkipListMap、动态代理（JDK/CGLIB）、序列化与 RMI、红黑树与 408 真题、synchronizedXxx/RandomAccess/泛型擦除延伸专题。"
 tags:
   - Java
   - 集合
@@ -760,6 +760,309 @@ static class SynchronizedCollection<E> implements Collection<E>, Serializable {
 
 普遍规律：**只读（生产者）→ 协变安全；只写（消费者）→ 逆变安全；可读可写 → 必须不变**。List 是读写双门接口，所以不变。通配符是"按方向开门"：`? extends Number`（读门开、写门焊死）、`? super Integer`（写门开、读按 Object）——相当于数组的协变去掉了 ArrayStoreException 版本，运行时检查被前移成编译错误（PECS 的由来）。
 
+**问 6｜"桥接方法解决什么？'子类泛型重写擦除后签名可能不同，桥接方法维持多态调用关系'这个是啥？"**
+
+先看问题怎么产生。泛型擦除后，父类方法签名变了：
+
+```java
+class Node<T> { public void set(T data) }              // 擦除后签名：set(Object)
+class MyNode extends Node<Integer> {
+    public void set(Integer data)                      // 子类覆写的签名：set(Integer)
+}
+```
+
+擦除前它们是同一个方法（覆写成立）；擦除后**签名不同了**——`Node<Integer> n = new MyNode(); n.set(42);` 编译成 `invokevirtual Node.set(Object)`，运行时到 MyNode 里找 `set(Object)`，子类只有 `set(Integer)`，找不到 → **覆写关系断裂，多态失效**。
+
+编译器的解法：在 MyNode 里自动生成一个**桥方法**（本机 JDK 25 实测）：
+
+```
+== MyNode 反射可见的方法 ==
+  public void MyNode.set(java.lang.Integer)   isBridge=false
+  public void MyNode.set(java.lang.Object)    isBridge=true    ← 编译器合成的桥
+
+== 多态：父类引用调用 n.set(42) ==
+  [MyNode.set(Integer)] data=42      ← 分派先进桥方法
+  [Node.set(T)]         data=42      ← 桥转调真方法
+
+== 反射按父类擦除签名调用 ==
+  Node.class.getMethod("set", Object.class).invoke(n, 42) ✓ 也能走通
+```
+
+javap 反编译桥方法，就两步：`checkcast Integer` + `invokevirtual set(Integer)`——纯转调。
+
+**桥方法的代价（AOP 的坑）**：子类里现在有两个 set——Spring AOP/CGLIB 拦截时可能把桥方法和真方法**都当切点**（同一调用进两次），且注解（@Transactional 等）标在真方法上、桥方法上没有，可能注解读取失败。框架的通用防御：`method.isBridge()` 过滤。
+
+一句话：**桥方法 = 编译器为"泛型擦除导致覆写签名不一致"打的补丁——用擦除后的签名保住多态分派，方法体转调类型化的真方法。**
+
 ### 与其他题的连线
 
 Q17：synchronizedXxx 的"单方法原子、迭代自己同步"与 fail-fast 同属一条边界线。Q18/Q21：RandomAccess 分支选壳出现在 synchronizedList 工厂里。Q14：Dedup 敢共享 byte[] 的前提是不可变——和通配符"焊死危险门"同一种思路。
+
+---
+
+## 09 · 动态代理：JDK 动态代理 vs CGLIB（延伸）
+
+> 三段代码全部在本机 JDK 25 实测运行，输出为真实结果。
+
+### 会话问答
+
+**问 1｜"JDK 动态代理怎么写、怎么工作？"**
+
+```java
+interface UserService {
+    String getUser(int id);
+    void save(String name);
+}
+
+UserService proxy = (UserService) Proxy.newProxyInstance(
+    JdkProxyDemo.class.getClassLoader(),
+    new Class<?>[]{ UserService.class },            // 要代理的接口
+    (p, method, mArgs) -> {                          // InvocationHandler：所有方法的统一入口
+        System.out.println("[前置] " + method.getName());
+        Object r = method.invoke(target, mArgs);     // 反射调真实对象
+        System.out.println("[后置]");
+        return r;
+    });
+
+System.out.println(proxy.getClass());   // class $Proxy0 —— 运行时生成的类
+proxy.getUser(7);
+```
+
+实测输出：
+
+```
+代理对象的类: class $Proxy0
+它实现的接口: [interface UserService]
+    [前置] getUser[7]
+    [后置] 已返回: user-7
+调用 getUser(7) → user-7
+```
+
+工作机制：`newProxyInstance` **运行时生成字节码并 defineClass**，产出一个 `$Proxy0 extends Proxy implements UserService` 的类——它的每个方法都只有一行：转发给 InvocationHandler.invoke。增强逻辑（日志/事务/权限）全写在 handler 里。**硬约束：只能代理接口**——$Proxy0 已经继承了 Proxy，Java 单继承，没法再继承目标类。
+
+**问 2｜"CGLIB 呢？"**
+
+CGLIB 走另一条路：**生成目标类的子类**（字节码增强），不需要接口：
+
+```java
+class UserService {                        // 没有任何接口
+    public String getUser(int id) { return "user-" + id; }
+    public final String version() { return "1.0"; }     // 故意演示边界
+}
+
+Enhancer enhancer = new Enhancer();
+enhancer.setSuperclass(UserService.class);             // 生成"子类"
+enhancer.setCallback((MethodInterceptor) (obj, method, mArgs, proxy) -> {
+    System.out.println("[前置] " + method.getName());
+    Object r = proxy.invokeSuper(obj, mArgs);           // 调父类原方法
+    System.out.println("[后置]");
+    return r;
+});
+UserService proxy = (UserService) enhancer.create();
+```
+
+实测输出（cglib 3.3.0 + JDK 25 + `--add-opens java.base/java.lang=ALL-UNNAMED`）：
+
+```
+代理对象的类: UserService$$EnhancerByCGLIB$$a10dad56    ← 生成的是子类
+它是 UserService 的子类吗: true
+    [前置] getUser
+    [真实对象] getUser(7)
+    [后置]
+调用 getUser(7) → user-7
+    [真实对象] version() —— final 方法                  ← 没有前置/后置！
+调用 version() → 1.0
+```
+
+注意 version()：**final 方法无法被子类覆写**，调用直接穿透到原方法，拦截器完全没参与——这是 CGLIB 的能力边界（final 方法、private 方法、final 类都代理不了，且是静默穿透，增强丢失不报错）。
+
+另一个实测踩到的现实问题：cglib 3.3.0 在 JDK 25 上抛 `InaccessibleObjectException`——它用反射调 `ClassLoader.defineClass`，被 JDK 16+ 的模块强封装挡住，必须加 `--add-opens`。Spring 6 的解法是把 cglib 内嵌进 spring-core 自己维护，改用 `Lookup.defineClass` 等新机制。
+
+**问 3｜"两者区别与选型？"**
+
+| | JDK 动态代理 | CGLIB |
+|---|---|---|
+| 前提 | 目标必须实现**接口** | 目标是**类**即可（不能是 final 类） |
+| 机制 | 运行时生成接口实现类 $Proxy0 | 运行时生成目标类的**子类**（字节码增强） |
+| 统一入口 | InvocationHandler.invoke | MethodInterceptor.intercept |
+| 不能代理 | 没有接口的类 | final 方法 / private 方法 / final 类 |
+| 依赖 | JDK 内置（reflect.Proxy） | 第三方库（Spring 内嵌重写版） |
+| 性能 | 反射调用（JDK 有优化） | 生成方法体直调 + FastClass 避免反射 |
+
+Spring 的选择：目标有接口默认 JDK 代理，`proxyTargetClass=true` 或无接口时用 CGLIB（Spring Boot 2.x 起 AOP 默认 CGLIB）。**坑**：CGLIB 代理 final 方法会静默穿透（增强丢失不报错）；桥方法会让 AOP 对同一调用双重拦截（见第 08 章问 6）。
+
+---
+
+## 10 · 序列化的本质：对象图 vs DTO，以及 RMI（延伸）
+
+### 会话问答
+
+**问 1｜"序列化是啥？transient 在哪一步进行过滤的？"**
+
+序列化 = 把内存里的对象变成一串字节（存文件/走网络）；反序列化 = 字节流还原成对象。Java 三行：类实现 `Serializable`（标记接口，无方法）→ `ObjectOutputStream.writeObject(obj)` 写出 → `ObjectInputStream.readObject()` 读回。本机实测（JDK 25）：
+
+```java
+static class Person implements Serializable {
+    String name;                   // 进流
+    int age;                       // 进流
+    transient int cache = 99;      // 被过滤
+    static String country = "CN";  // 永远不进流（属于类不属于对象）
+}
+```
+
+序列化产物是 82 字节的二进制文件，解码开头：
+
+```
+aced 0005                     魔数 + 版本号
+73 72                         TC_OBJECT + TC_CLASSDESC：一个对象 + 类描述符
+"SerDemo$Person"              类名
+<serialVersionUID>            版本号
+02 00 02                      标志 + 【字段数 = 2】★
+49 0003 "age"                 字段表：int 类型，名叫 age
+4c 0004 "name" String         字段表：对象类型，名叫 name
+... 之后才是数据：name="张三"、age=18
+```
+
+**transient 的过滤发生在"构建类元数据（ObjectStreamClass）"这一步**：序列化一个类的第一件事是反射遍历它的字段、把 transient 和 static 剔除、剩下的组成字段表并缓存。之后写数据按字段表来——transient 字段连"被跳过"的机会都没有，它根本不在名单上。读回验证：cache=0（int 默认值，transient 字段反序列化后不恢复）；static 同理（属于类不属于对象）。
+
+**问 2｜"transient 只是标记？COW 的 writeObject/readObject 是怎么处理这个字段的？"**
+
+transient = 默认序列化机制（defaultWriteObject/defaultReadObject）的**排除名单**；它和手写的 writeObject/readObject 是配合关系——transient 圈出"默认机制不许碰、我手写接管"的地盘。反事实：array 不标 transient，defaultWriteObject 会把整个数组（含容量空洞）先写进流，手写部分再写一遍 → 流里两份数据，脏且膨胀。
+
+COW 的处理（:1007/:1028）：
+
+```java
+private void writeObject(java.io.ObjectOutputStream s) {
+    s.defaultWriteObject();              // 字段表为空 → 实际啥也不写
+    Object[] es = getArray();            // 一次 volatile 读 = 不可变快照
+    s.writeInt(es.length);
+    for (Object e : es) s.writeObject(e);
+}                                        // ★ 全程没加锁：并发写换新数组，不影响快照
+                                         //   对照 ArrayList 要 expectedModCount 对账
+
+private void readObject(java.io.ObjectInputStream s) {
+    s.defaultReadObject();
+    resetLock();                         // ★ bind to new lock —— 见问 3
+    int len = s.readInt();
+    Object[] es = new Object[len];
+    for (int i = 0; i < len; i++) es[i] = s.readObject();
+    setArray(es);                        // 重建 + volatile 发布
+}
+```
+
+**问 3｜"transient final 的 lock 反序列化后是啥？resetLock 是干嘛的？"**
+
+大坑现场：**反序列化不运行构造器和字段初始化器**——`final transient Object lock = new Object()` 的初始化器在 <init> 里，不跑 → lock 反序列化后是 **null**。不处理的话，反序列化出的列表第一次写操作就 NPE。
+
+JDK 25 的解法（:2097）：readObject 里调 resetLock()，内部用 **Unsafe.putReference 强行给 final 字段重新赋值**（JDK 内部类的特权；业务代码的 Unsafe 写 final 受限）：
+
+```java
+private void resetLock() {
+    final Unsafe U = Unsafe.getUnsafe();
+    U.putReference(this,
+        U.objectFieldOffset(CopyOnWriteArrayList.class, "lock"),
+        new Object());
+}
+```
+
+业务代码踩这个坑的解法：字段去掉 final 在 readObject 里重建，或用 readResolve 重建整个对象。对照 ArrayList 的 writeObject：它需要 expectedModCount 对账（序列化中途被并发修改会 CME）——Q17 的知识直接复用。
+
+**问 4｜"为啥不表示成一个 JSON 的字符串？也算是序列化，还不用这么麻烦。"**
+
+你的判断在今天是对的——业界默认 JSON/Protobuf，Java 原生序列化公认是设计失误（安全漏洞重灾区）。但两者有一个根本差异：**序列化的对象不同**。
+
+- Java 原生序列化：**对象图**。引用关系保真（handle 机制：同一对象第二次出现只写引用号），类型完整，循环引用可处理。
+- JSON：**数据**。对象图拍平成树，同一对象出现两次写两份，反序列化是两个新对象，引用关系丢失。
+
+本机 demo 验证：Team 里 leader 字段和 members[0] 指向同一个 Person → 序列化往返后 `leader == members[0]` 为 **true**，改 members[0].age，leader.age 跟着变（同一对象）；流里第二次出现"张三"只写了 `71 007e0006`（TC_REFERENCE + 句柄号 6），不是再写一遍对象。
+
+| | Java 原生序列化 | JSON |
+|---|---|---|
+| 序列化内容 | 对象图（引用保留） | 数据（拍平） |
+| 类型信息 | 完整，直接得原类型 | 无类型，靠约定/注解 |
+| 跨语言 | ❌ 只有 JVM | ✅ 任何语言 |
+| 体积 | 二进制小 | 文本大（Protobuf 更小更快） |
+| 安全 | 重灾区（反序列化 RCE） | 相对安全 |
+
+**问 5｜"RMI 为啥要对象引用？对象引用咋表示？大概是什么样子？"**
+
+RMI（Remote Method Invocation，JDK 1.1，1997）的愿景：**在 A 机器的代码里调用 B 机器上对象的方法，写法和本地调用一样**：
+
+```java
+// 服务端
+public interface Hello extends Remote {
+    String sayHi(String name) throws RemoteException;
+}
+public class HelloImpl extends UnicastRemoteObject implements Hello {
+    public String sayHi(String name) { return "Hi, " + name; }
+    public static void main(String[] a) throws Exception {
+        LocateRegistry.createRegistry(1099).rebind("hello", new HelloImpl());
+    }
+}
+// 客户端
+Hello h = (Hello) Naming.lookup("rmi://B机器:1099/hello");
+h.sayHi("张三");                          // 写法是本地调用，实际走网络
+```
+
+客户端手里的 h 是 **stub（桩）**——不是真实对象，是"主机+端口+对象ID"打包成的远程引用代理；调用时 stub 序列化方法名和参数发到服务端，服务端调用真实对象，结果序列化传回。
+
+"对象引用"在 RMI 语境有两层（别混）：**序列化流里的 handle**——复杂参数对象图传过去不变形（同一对象只存一份，demo 里的 TC_REFERENCE）；**stub 远程引用**——远端对象的代理，本身可序列化（内容=定位信息）。
+
+RMI 的赌注"网络调用伪装成本地调用"后来被证伪（Waldo 1994 经典论文：本地和远程的失败模式、延迟、内存语义本质不同，伪装是错的）。业界转向显式传 DTO：Dubbo/gRPC/REST——接口+代理的结构和 RMI 一脉相承，但传的是数据。RMI 现在只剩 EJB 时代遗留系统在用，新项目别用；Java 原生序列化的安全红线也因此写成：**永远不用它接收不可信数据**。
+
+---
+
+## 11 · 红黑树与 408 真题（Q19）【P1】
+
+### 手册原文（解释版）
+
+**① 阈值必须和实际分支一起解释。** JDK 8 有树化阈值 8、最小树化容量 64，但普通 put 的链表追加路径，常在加入第九个节点时进入 treeifyBin 判断；不能把常量名直接读成"第八个节点必变树"。即使到了该路径，数组容量小于 64 时也优先扩容，因为碰撞可能只是桶太少，扩容比维护树更合适。
+
+**② 红黑树如何限制高度。** 红黑树以颜色、红节点不能有红孩子、各到叶端路径黑节点数一致等约束，避免树退化成一条链。修复使用重新染色和局部旋转。左旋小树：原来 10 的右孩子是 20，20 的左孩子是 15；左旋 10 后，20 接替 10 的父链接，10 成为 20 的左孩子，15 从 20 的左边转到 10 的右边。中序仍是 10、15、20，键的有序关系未变。右旋正好反向。
+
+**③ 树化不代表永不退化或绝对对数查找。** 扩容把树桶分成两侧时，节点较少的一侧可退回链表；删除还可能根据结构判断退化。面对散列相同又无法建立有效可比较顺序的键，查找可能探索两侧分支，不能无条件承诺每次严格 O(log n)。
+
+### 会话问答
+
+**问 1｜"到 8 个节点就树化吗？——就是既要看节点个数，也要看总数？"**
+
+对，两个条件缺一不可。**条件一：桶内第 9 个节点插入时触发判断**——往有 m 个节点的桶插入时 binCount = m−1，判断 `m−1 >= 7` 即 m ≥ 8，所以"满 8 就树化"是误读，实际是"已有 8 个、插入第 9 个时"。**条件二：表容量 ≥ 64**（MIN_TREEIFY_CAPACITY），否则 treeifyBin 转成 resize()——小表长链大概率是桶太少，扩容摊开元素治本，树化只治标。对称阈值：退化 ≤ 6（UNTREEIFY_THRESHOLD），8/6 隔离带防抖动。8 来自泊松分布：负载 0.75 下每桶平均 0.5 个，P(8) ≈ 6×10⁻⁸——树是坏 hash 的保险丝，不是常态；TreeNode 内存约普通 Node 的 2 倍。
+
+**问 2｜"按 408 的考试难度和要求讲解红黑树。"**
+
+408 只考选择题。范围与要点：
+
+**五性质**：①每结点非红即黑 ②根黑 ③叶结点（**外部结点 nil**——最大陷阱）是黑 ④红结点的孩子必黑（无连续红）⑤任一结点到所有后代叶的路径黑结点数相同（黑高 bh）。
+
+**可推导结论**：最长路 ≤ 2×最短路；n 个内部结点 h ≤ 2log₂(n+1)；红结点 ≤ n/2。推导核心：黑高 k 的树至少 2^k − 1 个结点（根必黑 → 两棵子树黑高都是 k−1 → 归纳；全黑满树取到下界）。常见猜想"黑高 k 的最少结点是（k−1 层满树）+1"错在：**加红不涨黑高**（加了还是 k−1），**加黑必须每条路径都加**（性质 5 是对所有路径的要求）——恰好就是全黑满树。验证：bh=2 最少 3 结点（根+两黑孩子），2 个结点的树黑高只有 1。
+
+**插入四型**（新结点一律染红，只可能违反"无连续红"）：父黑→完；父红看叔叔——**叔红：变色上溯（0 旋转）；叔黑：LL/RR 单旋（父黑祖红）或 LR/RL 双旋（z 黑父祖红）**，最多 2 次旋转。不对称的染色是选择题最爱。
+
+**删除双黑框架**（最多 3 次旋转）：删红结点直接结束；删黑结点产生双黑——兄弟红（旋 1 次转成兄弟黑）、红侄（旋 1~2 次结束）、双黑侄（兄弟变红、双黑上移，0 旋转）、到根结束。
+
+**AVL 对比**：AVL 严格平衡（|bf|≤1）查找略快、维护贵；红黑树松平衡（最长 ≤ 2×最短）换"删除最多 3 次旋转"——增删频繁场景的工程选择。
+
+**问 3｜"旋转的目的是啥？我看旋转后的黑高也不一样啊。"**
+
+修复前后黑高**一分不变**——变的只是"黑结点由谁扮演"（G 的黑挪给了 P/z）。"黑高不一样"的错觉来自图里把叔叔 u 画成叶子——u 是子树根，它内部每条路径的黑数与 β 子树相同（修复前性质 5 保证），把 u 展开数，每条路径严格相等。旋转的两个不变量：**中序不变**（BST 保住）+ **黑高不变**；旋转的目的 = 在这两个约束下重摆结构，让"连续红"变成可分离的形状。对比：AVL 旋转是为了降高度；红黑树旋转是在黑高不动的前提下消除颜色违规。
+
+**问 4｜"红黑树和 AVL 的考研真题罗列一下。"（含"你从网上搜啊"的考证过程）**
+
+考证方法：逐年抓取 csgraduates.com 的 408 真题页（2022–2026 的数据结构选择题 1–11 清单 + 2026 大题），此前凭记忆的回答里"2022 年考过一道红黑树"是**搜索摘要的幻觉**，抓原题页后推翻。
+
+**AVL 真题六道（原文已核实）**：
+
+- **2010T4**：插入 48 后 RL 双旋，新树中 37 结点的左右孩子 → C（24, 53）
+- **2012T4**：高度 6、所有非叶结点平衡因子均为 1 → B（20），递推 N(h)=N(h−1)+N(h−2)+1
+- **2013T3**：BST 删结点 v 再插回，T1 与 T3 的关系 → D（结点数必同；中序序列也不变，形态可变）
+- **2015T4**：中序遍历为降序序列的 AVL → D（最大元素必无左子树）
+- **2019T4**：AVL 删 v 再插 v 的组合判断 → A（仅Ⅰ；注意流传解析"删叶必不失衡"不严谨——删叶也可能触发旋转）
+- **2026T8**：高度 4 的 AVL，根的左右子树结点数之差最多 → D（5 = 满树 7 − 最小 2）
+
+**红黑树：2022 年入大纲后，2022–2026 五年零真题**（逐年核对选择题清单；2026 大题 41 是 BST 算法设计、42 是栈出栈序列+卡特兰数）。此前"2022 年考过一道"的说法是搜索摘要的幻觉。**记忆中的"红黑树选择题"来自王道习题/八套卷**（王道八套卷确有黑高辨析题），2026T8 的 AVL 题也可能被记串。
+
+备考策略：红黑树无真题可参考 → 按三种模拟题型准备：性质辨析（如"高度上限少乘 2"的选项）、黑高/最少结点计算（黑高 4 → 最少 15 个结点、最大高度 8）、插入调整判断（LR 双旋 z 变黑）。2027 届首考概率在积累，值得重点防一手。
+
+### 与其他题的连线
+
+Q18：树化桶的 lo/hi 拆分与 HashMap 扩容同源，某侧 ≤6 退回链表。Q21：CHM 的 TreeBin 是红黑树的并发包装（读侧有类似读锁的协调）。Q19 的"树化几乎不发生"（泊松）与 Q17 的"fail-fast 尽力而为"：JDK 在非常用路径上普遍选择"便宜 + 兜底"而不是"昂贵 + 精确"。
