@@ -67,7 +67,8 @@ function themeName(theme) {
 }
 
 function giscusTheme(theme) {
-  return theme === "nova" ? "noborder_dark" : "light";
+  const base = "https://zhouwy.top/assets/giscus/";
+  return theme === "nova" ? base + "wy-dark.css" : base + "wy-light.css";
 }
 
 function applyTheme(theme, { persist = false } = {}) {

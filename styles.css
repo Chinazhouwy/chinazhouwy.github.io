@@ -1880,7 +1880,7 @@ a {
 }
 
 .comments-section {
-  padding: 42px 0 20px;
+  padding: 56px 0 32px;
   border-top: 1px solid var(--line);
 }
 
@@ -1909,8 +1909,8 @@ a {
 .comment-steps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  margin: 0 0 24px;
+  gap: 14px;
+  margin: 0 0 32px;
   padding: 0;
   list-style: none;
 }
@@ -1918,8 +1918,8 @@ a {
 .comment-steps li {
   display: flex;
   align-items: center;
-  gap: 9px;
-  padding: 11px 12px;
+  gap: 11px;
+  padding: 14px 16px;
   border: 1px solid var(--line-soft);
   color: var(--muted);
   font-size: 11px;
