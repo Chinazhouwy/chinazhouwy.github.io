@@ -296,11 +296,11 @@ List<String> sub = list.subList(1, 3);
 sub.set(0, "X");
 System.out.println(list);        // [A, X, C, D] ← 父列表被改了
 list.remove(0);                  // 视图外动父结构
-sub.get(0);                      // 💥 ConcurrentModificationException —— 视图作废
+sub.get(0);                      // → ConcurrentModificationException —— 视图作废
 
 // ② 遍历中直接删
 for (String s : list) {
-    if (s.equals("B")) list.remove(s);   // 💥 后续 next() 抛 CME
+    if (s.equals("B")) list.remove(s);   // → 后续 next() 抛 CME
 }
 // 正确姿势：iterator.remove()（同步更新期望计数）或 list.removeIf(...)
 
@@ -709,13 +709,13 @@ if (list instanceof RandomAccess || list.size() < BINARYSEARCH_THRESHOLD) {
 `String[] strs; Object[] objs = strs;` 被允许——"装 String 的数组"可以冒充"装 Object 的数组"。此刻同一箱子上有了两个名字，两个承诺矛盾。事故路径：
 
 ```java
-objs[0] = 42;              // 编译通过，运行时当场 ArrayStoreException —— 炸在写入点
+objs[0] = 42;              // 编译通过，运行时立即抛出 ArrayStoreException —— 在写入点被拦截
 List<Object> objs = strs;  // 若 List 也允许协变（实际不允许）：
 objs.add(42);              // 编译通过
-String s = strs.get(0);    // 💥 ClassCastException —— 炸在无辜的读取点
+String s = strs.get(0);    // ClassCastException —— 在无辜的读取点抛出
 ```
 
-差别在**炸的位置**：数组每次写入有运行时核对（数组对象的类自带组件类型 `[Ljava.lang.String;`），错误停在作案点；泛型擦除后无检查可做，错误延迟到受害者。所以泛型唯一安全的选择是**不变**——把错误摁死在编译期。
+差别在**异常抛出的位置**：数组每次写入有运行时核对（数组对象的类自带组件类型 `[Ljava.lang.String;`），错误在写入点被拦截；泛型擦除后无检查可做，错误延迟到无辜的读取点。所以泛型唯一安全的选择是**不变**——把错误拦在编译期。
 
 #### 3.2 普遍规律与通配符
 
@@ -732,7 +732,7 @@ List<? super Integer>  write = listOfNumbers; // 逆变视图：写门开，读�
 
 证明擦除的最短代码：`new ArrayList<String>().getClass() == new ArrayList<Integer>().getClass()` → true。
 
-编译期禁止五件事：`instanceof List<String>`；`new T()` / `new T[]`；泛型数组（数组协变+运行时检查的组合在擦除后无法实现，会留堆污染炸弹）；静态成员用类的 T；泛型类 extends Throwable / catch 泛型类型；`f(List<String>)` 与 `f(List<Integer>)` 重载撞车。运行期两个经典坑：反射破坏泛型后错误延迟到读取点（`List.class.getMethod("add", Object.class).invoke(list, "hello")` 打印正常、get 时才 CCE）；覆写泛型父类方法生成桥方法，反射/AOP 会看到两个签名。
+编译期禁止五件事：`instanceof List<String>`；`new T()` / `new T[]`；泛型数组（数组协变+运行时检查的组合在擦除后无法实现，会留下堆污染隐患）；静态成员用类的 T；泛型类 extends Throwable / catch 泛型类型；`f(List<String>)` 与 `f(List<Integer>)` 重载撞车。运行期两个经典易错点：反射破坏泛型后错误延迟到读取点（`List.class.getMethod("add", Object.class).invoke(list, "hello")` 打印正常、get 时才 CCE）；覆写泛型父类方法生成桥方法，反射/AOP 会看到两个签名。
 
 **高级精确点**：擦除丢的是"实例的类型参数"——不是"对象不知道自己的类"（对象头 klass 指针永远精确指向真实类），也不是"声明处泛型没了"（字节码 Signature 属性里留着，所以 Jackson 的 `new TypeReference<List<User>>(){}` 能经 `getGenericSuperclass()` 读到——匿名子类是真实存在的类）。**擦除抹掉的是"某次实例化的实参"，它从未在运行时存在过。** 为什么这么设计：JDK 5 时代的迁移兼容——raw 集合代码不重编译就能混用。
 
