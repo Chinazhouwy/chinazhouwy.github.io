@@ -141,6 +141,7 @@ let readHistory;
 function decorateReadLinks() {
   if (!readHistory) return;
   ui.app.querySelectorAll('a[href^="#/article/"]').forEach((link) => {
+    if (link.dataset.readingBadge === "off") return;
     const path = link.getAttribute("href").slice(10).split("?")[0];
     let decoded;
     try { decoded = decodeURIComponent(path); } catch { return; }
@@ -2321,30 +2322,120 @@ function renderOpportunity() {
   `;
 }
 
+const ENGLISH_COLLECTION_PATH = "content/columns/english-reads.md";
+const ENGLISH_PASSAGE_PREFIX = "content/columns/english-reads/";
+
+function englishReadings() {
+  return state.articles
+    .filter((article) => article.path?.startsWith(ENGLISH_PASSAGE_PREFIX) && article.visibility === "public")
+    .sort((a, b) => {
+      const editionA = a.path.slice(ENGLISH_PASSAGE_PREFIX.length, ENGLISH_PASSAGE_PREFIX.length + 4);
+      const editionB = b.path.slice(ENGLISH_PASSAGE_PREFIX.length, ENGLISH_PASSAGE_PREFIX.length + 4);
+      return editionB.localeCompare(editionA) || a.path.localeCompare(b.path);
+    });
+}
+
+function englishTopics(article) {
+  return (article.tags || []).filter((tag) => tag !== "English Reading");
+}
+
 function renderColumns() {
   const items = filteredArticles("columns");
-  const groups = Object.entries(groupBy(items, "area", "未分类"));
-
+  const collection = items.find((article) => article.path === ENGLISH_COLLECTION_PATH);
+  const technical = items.filter((article) => article.path !== ENGLISH_COLLECTION_PATH && !article.path.startsWith(ENGLISH_PASSAGE_PREFIX));
+  const readingCount = englishReadings().length;
+  const columnCount = technical.length + (collection ? 1 : 0);
   ui.app.innerHTML = `
-    <section class="directory-page column-page">
-      ${sectionIntro("COLUMNS", "专栏", "围绕长期主题持续整理的系列文章。", items.length)}
-      <div class="directory-groups">
-        ${
-          groups.length
-            ? groups
-                .map(
-                  ([area, articles]) => `
-                    <section class="directory-group reveal">
-                      <header><h2>${escapeHtml(area)}</h2><span>${articles.length} 篇</span></header>
-                      <div class="article-list">${articles.map((article) => articleRow(article)).join("")}</div>
-                    </section>`,
-                )
-                .join("")
-            : '<p class="empty-copy">专栏已建立，等待第一篇系列文章。</p>'
-        }
-      </div>
-    </section>
-  `;
+    <section class="columns-overview">
+      <header class="columns-heading">
+        <p class="mono-label">COLUMNS</p>
+        <h1>专栏</h1>
+        <p>选择一个主题，慢慢读下去。<span>${columnCount} 个专栏</span></p>
+      </header>
+      ${collection ? `
+        <a class="collection-card" data-reading-badge="off" href="${articleHref(ENGLISH_COLLECTION_PATH)}">
+          <div><span class="collection-eyebrow">ENGLISH / READING COLLECTION</span><h2>English Reads</h2>
+            <p>从科技与教育，到社会、环境与日常生活。<br>以一篇短文，打开一个话题。</p>
+            <span class="collection-topics">Technology · Society · Environment · Life</span>
+          </div>
+          <div class="collection-entry"><span><strong>${readingCount}</strong> 篇英文阅读</span><span class="collection-open">进入专栏 ${iconArrow()}</span></div>
+        </a>` : ""}
+      ${technical.length ? `<section class="technical-columns"><h2>技术专栏</h2><div class="technical-column-grid">
+        ${technical.map((article) => `<a class="technical-column-card" data-reading-badge="off" href="${articleHref(article.path)}">
+          <span class="collection-eyebrow">${escapeHtml(article.module || article.area || "TECHNOLOGY")}</span>
+          <h3>${escapeHtml(article.title)}</h3><p>${escapeHtml(article.summary || "打开专栏，浏览完整内容。")}</p><span class="collection-open">打开专栏 ${iconArrow()}</span>
+        </a>`).join("")}</div></section>` : ""}
+    </section>`;
+  document.title = "专栏 · WY";
+}
+
+function renderEnglishReads() {
+  const articles = englishReadings();
+  const topics = [...new Set(articles.flatMap(englishTopics))].sort();
+  const years = [...new Set(articles.map((article) => article.path.slice(ENGLISH_PASSAGE_PREFIX.length, ENGLISH_PASSAGE_PREFIX.length + 4)))].sort().reverse();
+  const params = parseRoute().params || new URLSearchParams();
+  const previous = state.englishReadingFilters || {};
+  const filters = {
+    query: params.get("q") ?? previous.query ?? "",
+    topic: params.get("topic") ?? previous.topic ?? "",
+    year: params.get("year") ?? previous.year ?? "",
+  };
+  if (!topics.includes(filters.topic)) filters.topic = "";
+  if (!years.includes(filters.year)) filters.year = "";
+  ui.app.innerHTML = `
+    <section class="english-collection">
+      <a class="collection-back" href="#/columns">← 全部专栏</a>
+      <header class="english-collection-heading">
+        <div><p class="mono-label">A COLLECTION OF SHORT READINGS</p><h1 lang="en">English Reads</h1>
+          <p lang="en" class="english-collection-lede">Ideas for a changing world.</p>
+          <p class="english-collection-description">科技、社会、教育与生活，在短篇阅读中发现新的视角。</p></div>
+        <span class="collection-total">${articles.length} <small>篇文章</small></span>
+      </header>
+      <form class="english-filters" role="search" aria-label="筛选英文文章">
+        <label class="english-search"><span>搜索文章</span><input id="english-query" type="search" value="${escapeHtml(filters.query)}" placeholder="搜索标题、主题或关键词" autocomplete="off"></label>
+        <label><span>主题</span><select id="english-topic"><option value="">全部主题</option>${topics.map((topic) => `<option value="${escapeHtml(topic)}"${topic === filters.topic ? " selected" : ""}>${escapeHtml(topic)}</option>`).join("")}</select></label>
+        <label><span>年份</span><select id="english-year"><option value="">全部年份</option>${years.map((year) => `<option value="${year}"${year === filters.year ? " selected" : ""}>${year}</option>`).join("")}</select></label>
+        <button id="english-reset" type="button">重置</button>
+      </form>
+      <div class="english-results-heading"><p id="english-result-count" role="status" aria-live="polite"></p><span>选择标题，开始阅读</span></div>
+      <div id="english-reading-list" class="english-reading-grid"></div>
+    </section>`;
+  const queryInput = document.getElementById("english-query");
+  const topicInput = document.getElementById("english-topic");
+  const yearInput = document.getElementById("english-year");
+  const update = (persist = false) => {
+    const query = queryInput.value.trim().toLowerCase();
+    const topic = topicInput.value;
+    const year = yearInput.value;
+    const matching = articles.filter((article) => {
+      const text = `${article.title} ${article.summary || ""} ${englishTopics(article).join(" ")}`.toLowerCase();
+      return (!query || text.includes(query)) && (!topic || englishTopics(article).includes(topic)) && (!year || article.path.startsWith(ENGLISH_PASSAGE_PREFIX + year + "-"));
+    });
+    state.englishReadingFilters = { query: queryInput.value, topic, year };
+    document.getElementById("english-result-count").textContent = `${matching.length} 篇文章${matching.length !== articles.length ? ` / 共 ${articles.length} 篇` : ""}`;
+    document.getElementById("english-reading-list").innerHTML = matching.length ? matching.map((article) => `
+      <a class="english-reading-card" data-reading-badge="off" href="${articleHref(article.path)}">
+        <span class="english-card-topics">${englishTopics(article).slice(0, 2).map(escapeHtml).join(" / ")}</span>
+        <h2 lang="en">${escapeHtml(article.title)}</h2><p>${escapeHtml(article.summary || "")}</p>
+        <span class="english-card-open">Read article <span aria-hidden="true">↗</span></span>
+      </a>`).join("") : '<p class="english-empty">没有找到匹配的文章，试试其他关键词或重置筛选。</p>';
+    if (persist) {
+      const next = new URLSearchParams();
+      if (queryInput.value.trim()) next.set("q", queryInput.value.trim());
+      if (topic) next.set("topic", topic);
+      if (year) next.set("year", year);
+      history.replaceState(null, "", articleHref(ENGLISH_COLLECTION_PATH) + (next.size ? `?${next}` : ""));
+    }
+  };
+  document.querySelector(".english-filters").addEventListener("submit", (event) => event.preventDefault());
+  queryInput.addEventListener("input", () => update(true));
+  topicInput.addEventListener("change", () => update(true));
+  yearInput.addEventListener("change", () => update(true));
+  document.getElementById("english-reset").addEventListener("click", () => {
+    queryInput.value = ""; topicInput.value = ""; yearInput.value = ""; update(true);
+  });
+  update();
+  document.title = "English Reads · WY";
 }
 
 function createToc(container, routeHash) {
@@ -2468,6 +2559,8 @@ async function renderArticle(rawPath, requestedSection = "") {
   // Resolve aliases
   const resolvedPath = state.aliases[rawPath] || rawPath;
 
+  if (resolvedPath === ENGLISH_COLLECTION_PATH) return renderEnglishReads();
+
   // Find article in index - try multiple matching strategies
   const article =
     state.articles.find((item) => item.path === resolvedPath || item.url === resolvedPath) ||
@@ -2493,7 +2586,9 @@ async function renderArticle(rawPath, requestedSection = "") {
     const sanitized = window.DOMPurify.sanitize(window.marked.parse(content));
 
     const backSection = article ? getArticleSection(article) : "learning";
-    const backLabel = SECTION_LABELS[backSection] || "学习";
+    const isEnglishReading = fetchPath.startsWith(ENGLISH_PASSAGE_PREFIX);
+    const backLabel = isEnglishReading ? "English Reads" : SECTION_LABELS[backSection] || "学习";
+    const backHref = isEnglishReading ? articleHref(ENGLISH_COLLECTION_PATH) : `#/${backSection}`;
     const displayTitle = article?.title || fetchPath.split("/").pop() || "文章详情";
     const rendered = stripDuplicateLeadingTitle(sanitized, displayTitle);
     const headerTrail = uniqueTextParts([
@@ -2505,9 +2600,9 @@ async function renderArticle(rawPath, requestedSection = "") {
     const articleRoute = articleHref(fetchPath);
 
     ui.app.innerHTML = `
-      <section class="reader">
+      <section class="reader${isEnglishReading ? " english-reader" : ""}">
         <aside class="reader-rail">
-          <a class="back-link" href="#/${backSection}">← 返回${backLabel}</a>
+          <a class="back-link" href="${backHref}">← 返回${backLabel}</a>
           <p class="mono-label">ON THIS ORBIT</p>
           <nav id="article-toc"></nav>
           <small class="reader-rail-hint">TOC / ${fetchPath.split("/").pop() || "ARTICLE"}</small>
@@ -2515,14 +2610,14 @@ async function renderArticle(rawPath, requestedSection = "") {
         <main class="reader-main">
           <div class="reading-progress" aria-hidden="true"><span id="reading-progress-bar"></span></div>
           <header class="reader-context">
-            <a class="back-link reader-context-back" href="#/${backSection}">← ${backLabel}</a>
+            <a class="back-link reader-context-back" href="${backHref}">← ${backLabel}</a>
             <span><i></i>READING SIGNAL</span>
           </header>
           <header class="reader-header">
             <p class="mono-label">${escapeHtml(headerTrail.join(" / ") || "文章")}</p>
             <h1>${escapeHtml(displayTitle)}</h1>
             <div>
-              ${article?.date ? `<time>${escapeHtml(article.date)}</time>` : ""}
+              ${article?.date && !isEnglishReading ? `<time>${escapeHtml(article.date)}</time>` : ""}
               ${article?.company ? `<span>${escapeHtml(article.company)}</span>` : ""}
               ${article?.round ? `<span>${escapeHtml(article.round)}</span>` : ""}
               ${article?.score !== null && article?.score !== undefined ? `<span class="score">${scoreText(article.score)}</span>` : ""}
@@ -2660,7 +2755,7 @@ async function renderRoute() {
 
 }
 
-const BUILD_VERSION = "20261014-english-reads-1";
+const BUILD_VERSION = "20261014-2";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy, githubProfile] = await Promise.all([

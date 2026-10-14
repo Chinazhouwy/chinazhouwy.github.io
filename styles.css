@@ -14070,3 +14070,105 @@ html[data-theme="nova"] .read-badge {
   background: rgba(85, 240, 255, 0.11);
   color: #8bf5ff;
 }
+
+
+/* Columns are collections; the English collection owns its article directory. */
+html[data-theme] .columns-overview,
+html[data-theme] .english-collection { max-width: 1080px; margin: 0 auto; padding: 18px 0 72px; }
+html[data-theme] .columns-heading { margin: 0 0 32px; }
+html[data-theme] .columns-heading h1 { margin: 10px 0 12px; font: 700 clamp(34px, 4vw, 48px)/1.2 var(--serif); letter-spacing: -.035em; }
+html[data-theme] .columns-heading > p:last-child { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.8; }
+html[data-theme] .columns-heading > p:last-child span { margin-left: 16px; font-size: 13px; }
+html[data-theme] .collection-card { display: flex; align-items: center; justify-content: space-between; gap: 36px; padding: 34px 38px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-solid); text-decoration: none; transition: border-color .2s; }
+html[data-theme] .collection-card:hover { border-color: var(--day-blue, var(--green)); }
+html[data-theme] .collection-eyebrow { display: block; color: var(--day-blue-strong, var(--green)); font: 500 11px/1.6 var(--mono); letter-spacing: .08em; }
+html[data-theme] .collection-card h2 { margin: 12px 0; font: 700 clamp(28px, 3.2vw, 38px)/1.2 Georgia, serif; letter-spacing: -.025em; }
+html[data-theme] .collection-card p { margin: 0 0 18px; color: var(--muted); font-size: 15px; line-height: 1.85; }
+html[data-theme] .collection-topics { color: var(--muted); font: 400 12px/1.8 var(--sans); }
+html[data-theme] .collection-entry { display: grid; align-content: center; gap: 22px; flex: 0 0 auto; }
+html[data-theme] .collection-entry > span:first-child { color: var(--muted); font-size: 13px; }
+html[data-theme] .collection-entry strong { margin-right: 4px; color: var(--ink); font: 500 27px/1 var(--sans); }
+html[data-theme] .collection-open { display: inline-flex; align-items: center; gap: 14px; color: var(--day-blue-strong, var(--green)); font-size: 13px; }
+html[data-theme] .collection-open .arrow-icon { width: 18px; height: 18px; }
+html[data-theme] .technical-columns { margin-top: 38px; }
+html[data-theme] .technical-columns > h2 { margin: 0 0 16px; font-size: 17px; font-weight: 600; }
+html[data-theme] .technical-column-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+html[data-theme] .technical-column-card { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; min-width: 0; padding: 24px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-solid); text-decoration: none; }
+html[data-theme] .technical-column-card:hover { border-color: var(--day-blue, var(--green)); }
+html[data-theme] .technical-column-card h3 { margin: 0; font: 600 21px/1.55 var(--serif); }
+html[data-theme] .technical-column-card > p { display: -webkit-box; overflow: hidden; -webkit-line-clamp: 3; -webkit-box-orient: vertical; margin: 0 0 12px; color: var(--muted); font-size: 13px; line-height: 1.9; }
+html[data-theme] .technical-column-card .collection-open { margin-top: auto; }
+html[data-theme] .collection-back { display: inline-block; margin-bottom: 28px; color: var(--muted); text-decoration: none; font-size: 13px; }
+html[data-theme] .english-collection-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-bottom: 32px; border-bottom: 1px solid var(--line); }
+html[data-theme] .english-collection-heading h1 { margin: 12px 0; font: 700 clamp(38px, 4.5vw, 58px)/1.15 Georgia, serif; letter-spacing: -.035em; }
+html[data-theme] .english-collection-lede { margin: 0 0 10px; font: 400 21px/1.5 Georgia, serif; color: var(--ink); }
+html[data-theme] .english-collection-description { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.8; }
+html[data-theme] .collection-total { flex: 0 0 auto; color: var(--ink); font: 400 32px/1 var(--sans); }
+html[data-theme] .collection-total small { display: block; margin-top: 10px; color: var(--muted); font: 400 12px/1.5 var(--sans); }
+html[data-theme] .english-filters { display: grid; grid-template-columns: minmax(0, 1fr) 180px 130px auto; align-items: end; gap: 14px; margin: 28px 0 24px; }
+html[data-theme] .english-filters label { display: grid; gap: 8px; min-width: 0; }
+html[data-theme] .english-filters label > span { color: var(--muted); font-size: 12px; }
+html[data-theme] .english-filters input,
+html[data-theme] .english-filters select { box-sizing: border-box; width: 100%; min-width: 0; height: 44px; padding: 0 12px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface-solid); color: var(--ink); font: 400 14px/1.5 var(--sans); }
+html[data-theme] .english-filters input:focus,
+html[data-theme] .english-filters select:focus { outline: 2px solid var(--day-blue, var(--green)); outline-offset: 2px; }
+html[data-theme] .english-filters button { height: 44px; padding: 0 14px; border: 1px solid var(--line); border-radius: 7px; background: transparent; color: var(--muted); font: 400 13px/1 var(--sans); cursor: pointer; }
+html[data-theme] .english-filters button:hover { color: var(--ink); border-color: var(--muted); }
+html[data-theme] .english-results-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 0 0 14px; color: var(--muted); font-size: 12px; }
+html[data-theme] .english-results-heading p { margin: 0; }
+html[data-theme] .english-reading-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+html[data-theme] .english-reading-card { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; min-height: 220px; padding: 26px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface-solid); text-decoration: none; transition: border-color .15s, background-color .15s; }
+html[data-theme] .english-reading-card:hover { border-color: var(--day-blue, var(--green)); }
+html[data-theme] .english-card-topics { color: var(--day-blue-strong, var(--green)); font: 500 10px/1.6 var(--mono); letter-spacing: .055em; text-transform: uppercase; }
+html[data-theme] .english-reading-card h2 { margin: 12px 0; color: var(--ink); font: 600 25px/1.3 Georgia, serif; letter-spacing: -.015em; overflow-wrap: break-word; }
+html[data-theme] .english-reading-card > p { margin: 0 0 20px; color: var(--muted); font: 400 13px/1.9 var(--sans); }
+html[data-theme] .english-card-open { display: inline-flex; width: 100%; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; color: var(--day-blue-strong, var(--green)); font: 400 12px/1.5 var(--sans); }
+html[data-theme] .english-card-open > span { font-size: 18px; }
+html[data-theme] .english-empty { grid-column: 1/-1; padding: 34px 0; color: var(--muted); font-size: 15px; }
+html[data-theme] .english-reader { display: block; max-width: 780px; margin: 0 auto; padding-top: 16px; }
+html[data-theme] .english-reader .reader-rail,
+html[data-theme] .english-reader .mobile-toc,
+html[data-theme] .english-reader .comment-jump { display: none; }
+html[data-theme] .english-reader .reader-context { margin-bottom: 28px; padding: 14px 0; border-radius: 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; }
+html[data-theme] .english-reader .reader-header { margin-bottom: 30px; padding-bottom: 28px; }
+html[data-theme] .english-reader .reader-header h1 { margin: 12px 0 0; font: 700 clamp(32px, 4vw, 46px)/1.2 Georgia, serif; letter-spacing: -.025em; }
+html[data-theme] .english-reader .reader-header > div:empty { display: none; }
+html[data-theme] .english-reader .article-body { font: 400 19px/1.9 Georgia, "Times New Roman", serif; }
+html[data-theme] .english-reader .article-body > p { margin-bottom: 1.3em; }
+html[data-theme] .english-reader .article-body > p:last-child { color: var(--muted); font: 400 13px/1.8 var(--sans); }
+@media (max-width: 760px) {
+  html[data-theme] .technical-column-grid { grid-template-columns: 1fr; }
+  html[data-theme] .english-filters { position: relative; grid-template-columns: minmax(0, 1fr) 110px; }
+  html[data-theme] .english-search { grid-column: 1/-1; }
+  html[data-theme] .english-filters label:nth-child(2) { grid-column: 1; }
+  html[data-theme] .english-filters label:nth-child(3) { grid-column: 2; }
+  html[data-theme] .english-filters button { position: absolute; right: 0; bottom: -52px; height: 28px; padding: 0 10px; }
+  html[data-theme] .english-results-heading { min-height: 28px; }
+  html[data-theme] .english-results-heading > span { display: none; }
+  html[data-theme] .english-filters input, html[data-theme] .english-filters select { font-size: 16px; }
+  html[data-theme] .english-reading-grid { grid-template-columns: 1fr; gap: 14px; }
+  html[data-theme] .english-reading-card { min-height: 0; padding: 22px; }
+  html[data-theme] .english-reading-card h2 { font-size: 25px; }
+}
+@media (max-width: 480px) {
+  html[data-theme] .columns-overview,
+  html[data-theme] .english-collection { padding-top: 8px; }
+  html[data-theme] .collection-card { display: block; padding: 26px 24px; }
+  html[data-theme] .collection-entry { display: flex; align-items: center; justify-content: space-between; margin-top: 26px; }
+  html[data-theme] .collection-entry strong { font-size: 23px; }
+  html[data-theme] .english-collection-heading { gap: 12px; padding-bottom: 24px; }
+  html[data-theme] .english-collection-heading h1 { font-size: 38px; }
+  html[data-theme] .english-collection-lede { font-size: 19px; }
+  html[data-theme] .english-collection-description { max-width: 26ch; font-size: 13px; }
+  html[data-theme] .collection-total { font-size: 26px; }
+  html[data-theme] .english-collection-heading .mono-label { font-size: 9px; letter-spacing: .04em; }
+  html[data-theme] .english-results-heading > span { display: none; }
+  html[data-theme] .english-reader .article-body { font-size: 18px; line-height: 1.85; }
+}
+
+html[data-theme="nova"] .collection-card,
+html[data-theme="nova"] .technical-column-card,
+html[data-theme="nova"] .english-reading-card { background: #101727; border-color: rgba(156, 180, 220, .24); }
+html[data-theme="nova"] .collection-card:hover,
+html[data-theme="nova"] .technical-column-card:hover,
+html[data-theme="nova"] .english-reading-card:hover { border-color: var(--green); }
