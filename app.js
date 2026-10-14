@@ -2536,7 +2536,7 @@ async function renderArticle(rawPath, requestedSection = "") {
             <summary><span>文章目录</span><strong id="mobile-toc-count"></strong></summary>
             <nav id="mobile-article-toc"></nav>
           </details>
-          <article id="article-body" class="article-body">${rendered}</article>
+          <article id="article-body" class="article-body" lang="${fetchPath.startsWith("content/columns/english-reads/") ? "en" : "zh-CN"}">${rendered}</article>
           <section id="comments-section" class="comments-section" aria-labelledby="comments-title">
             <header>
               <div>
@@ -2660,7 +2660,7 @@ async function renderRoute() {
 
 }
 
-const BUILD_VERSION = "20260918-1";
+const BUILD_VERSION = "20261014-english-reads-1";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy, githubProfile] = await Promise.all([
