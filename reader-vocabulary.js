@@ -1,4 +1,4 @@
-/* English reading dictionary and device-local wordbook. Dictionary: ECDICT (MIT). */
+/* English reading dictionary and private server-synced wordbook with an offline cache. Dictionary: ECDICT (MIT). */
 (function (root, factory) {
   const api = factory();
   if (typeof module === "object" && module.exports) module.exports = api;
@@ -75,6 +75,7 @@
       add: (entry) => save(mergeEntries(words, [entry])),
       remove: (word) => save(words.filter((entry) => entry.word !== normalizeTerm(word))),
       import: (text) => save(mergeEntries(words, parseImport(text))),
+      replace: (entries) => save(mergeEntries([], entries)),
       export: () => JSON.stringify({ schemaVersion: 1, exportedAt: new Date().toISOString(), words }, null, 2)
     };
   }
@@ -88,6 +89,46 @@
       store = createStore(storage);
     }
     return store;
+  }
+  let cloud, redrawBook;
+  async function cloudRequest(url, options={}) {
+    const headers={};
+    if(options.body)headers["Content-Type"]="application/json";
+    if(options.csrf)headers["X-CSRF-Token"]=options.csrf;
+    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);
+    let response;
+    try{response=await fetch(url,{method:options.method||"GET",credentials:"same-origin",cache:"no-store",headers,body:options.body?JSON.stringify(options.body):undefined,signal:controller.signal});}finally{clearTimeout(timer);}
+    const result=await response.json().catch(()=>({error:"同步服务暂不可用"}));
+    if(!response.ok){const error=new Error(result.error||"同步请求失败");error.status=response.status;throw error;}
+    return result;
+  }
+  function getCloud(){
+    if(!cloud){
+      let storage;try{storage=localStorage;}catch{storage={getItem:()=>null,setItem:()=>{throw new Error("Storage disabled");}};}
+      cloud=WordbookSync.createSync({local:getStore(),storage,request:cloudRequest,enabled:["zhouwy.top","localhost","127.0.0.1"].includes(location.hostname),onChange:()=>{notifyCounts();refreshCloudUI();redrawBook?.();}});
+    }
+    return cloud;
+  }
+  function refreshCloudUI(){
+    if(!cloud)return;
+    const s=cloud.status();
+    const text={local:"本机收藏 · 等待服务器同步",syncing:"正在同步到服务器…",synced:"已同步到服务器 · 其他设备登录后可查看",login:"本机收藏 · 登录后同步到服务器",offline:"本机收藏 · 有待同步内容",mirror:"当前为镜像站 · 云端生词本请在主站使用"}[s.kind];
+    document.querySelectorAll(".rv-sync-state").forEach(e=>e.textContent=[text,s.message,s.warning,s.pending?`${s.pending} 条变更待同步`:""].filter(Boolean).join("；"));
+    document.querySelectorAll(".rv-cloud-hint").forEach(e=>e.textContent=text);
+  }
+  function syncPanel(){
+    const panel=element("section","rv-sync-panel"),status=element("p","rv-sync-state");status.setAttribute("role","status");panel.append(status);
+    const actions=element("div","rv-sync-actions");
+    if(!["zhouwy.top","localhost","127.0.0.1"].includes(location.hostname)){
+      const link=element("a","rv-button","前往主站生词本");link.href="https://zhouwy.top/#/reading";
+      actions.append(link);panel.append(actions,element("p","rv-muted","本镜像已有收藏可先导出，再到主站导入合并。"));return panel;
+    }
+    const form=element("form","rv-sync-login");form.hidden=true;
+    const password=element("input");password.type="password";password.autocomplete="current-password";password.placeholder="管理工作台密码";password.setAttribute("aria-label","管理工作台密码");password.required=true;
+    const submit=element("button","rv-button","登录并同步");submit.type="submit";form.append(password,submit);
+    actions.append(button("立即同步",()=>void getCloud().sync()),button("登录服务器",()=>{form.hidden=!form.hidden;if(!form.hidden)password.focus();}));
+    form.addEventListener("submit",async e=>{e.preventDefault();submit.disabled=true;try{const value=password.value;password.value="";const ok=await getCloud().login(value);if(ok)form.hidden=true;}catch(error){status.textContent=error.message;}finally{submit.disabled=false;}});
+    panel.append(actions,form);return panel;
   }
   let dictionaryPromise, popup, dialog, selected, anchor, anchorRect, selectionTools, lookupId = 0, cleanupReader;
   function hideSelectionTools() { selectionTools?.remove(); selectionTools = null; }
@@ -123,7 +164,7 @@
   }
   async function dictionary() {
     if (!dictionaryPromise) {
-      dictionaryPromise = fetch("./assets/english-vocabulary/lexicon.json?v=20261015-6")
+      dictionaryPromise = fetch("./assets/english-vocabulary/lexicon.json?v=20261016-1")
         .then((response) => { if (!response.ok) throw new Error("词典加载失败"); return response.json(); })
         .catch((error) => { dictionaryPromise = null; throw error; });
     }
@@ -177,8 +218,8 @@
     const actions = element("div", "rv-popup-actions");
     const save = button(getStore().has(word) ? "已收藏" : "＋ 加入生词本", () => {
       try {
-        const status = getStore().add({ word, lemma: entry?.lemma || word, meaning: entry?.meaning || "", phonetic: entry?.phonetic || "", ...context });
-        save.textContent = "已收藏"; save.disabled = true; notice.textContent = status.warning || "已保存到此设备的生词本"; notifyCounts();
+        const status = getCloud().add({ word, lemma: entry?.lemma || word, meaning: entry?.meaning || "", phonetic: entry?.phonetic || "", ...context });
+        save.textContent = "已收藏"; save.disabled = true; notice.textContent = status.warning || "已收藏；登录后自动同步到服务器"; notifyCounts();
       } catch (error) { notice.textContent = error.message; }
     }); save.disabled = getStore().has(word);
     actions.append(save, button("查看生词本", openBook)); result.append(actions);
@@ -193,7 +234,7 @@
     dialog = element("dialog", "rv-book"); dialog.setAttribute("aria-labelledby", "rv-book-title");
     const header = element("header", "rv-book-header");
     const heading = element("div"); const title = element("h2", "", "我的生词本"); title.id = "rv-book-title";
-    heading.append(title, element("p", "rv-muted", "保存在此设备的当前浏览器中，可导出备份；不自动跨设备同步。"));
+    heading.append(title, element("p", "rv-muted", "登录后保存到你的服务器；未登录或断网时先保存在本机。单词、词组和原句一并保留。"));
     header.append(heading, button("关闭 ×", () => dialog.close(), "rv-close"));
     const tools = element("div", "rv-book-tools");
     const search = element("input"); search.type = "search"; search.placeholder = "搜索单词、词组或释义"; search.setAttribute("aria-label", "搜索生词本");
@@ -214,7 +255,7 @@
       for (const entry of words) {
         const row = element("article", "rv-book-entry"); const top = element("div", "rv-entry-top");
         const label = element("h3", "", entry.word); label.lang = "en";
-        top.append(label, button("移除", () => { const saved = getStore().remove(entry.word); status.textContent = saved.warning || `已移除 ${entry.word}`; draw(); notifyCounts(); }, "rv-remove"));
+        top.append(label, button("移除", () => { const saved = getCloud().remove(entry.word); status.textContent = saved.warning || `已移除 ${entry.word}`; draw(); notifyCounts(); }, "rv-remove"));
         row.append(top);
         if (entry.phonetic) row.append(element("p", "rv-phonetic", `/${entry.phonetic}/`));
         row.append(element("p", "rv-meaning", entry.meaning || "暂无释义"));
@@ -228,25 +269,26 @@
       const selectedFile = file.files[0]; if (!selectedFile) return;
       try {
         if (selectedFile.size > 32 * 1024 * 1024) throw new Error("文件超过 32 MB，无法导入。");
-        const saved = getStore().import(await selectedFile.text()); status.textContent = saved.warning || `导入完成，共 ${saved.count} 个词条；重复词条已合并。`; draw(); notifyCounts();
+        const saved = getCloud().import(await selectedFile.text()); status.textContent = saved.warning || `导入完成，共 ${saved.count} 个词条；重复词条已合并。`; draw(); notifyCounts();
       } catch (error) { status.textContent = error.message; }
       file.value = "";
     });
-    dialog.append(header, tools, status, count, list);
+    dialog.append(header, syncPanel(), tools, status, count, list);
+    redrawBook=draw;dialog.addEventListener("close",()=>{redrawBook=null;});
     dialog.addEventListener("click", (event) => { if (event.target === dialog) { const box = dialog.getBoundingClientRect(); if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) dialog.close(); } });
-    document.body.append(dialog); draw(); dialog.showModal();
+    document.body.append(dialog); draw(); dialog.showModal(); refreshCloudUI(); void getCloud().sync();
   }
   function bookButton() { return button(`生词本（${getStore().entries().length}）`, openBook, "rv-button rv-book-trigger"); }
   function mountCollection(root) {
     if (!root || root.querySelector(".rv-collection-tools")) return;
-    const toolbar = element("div", "rv-collection-tools"); toolbar.append(bookButton()); const heading = root.querySelector(".english-collection-heading"); if (heading) heading.after(toolbar); else root.append(toolbar);
+    const toolbar = element("div", "rv-collection-tools"); toolbar.append(bookButton(),element("span","rv-cloud-hint")); const heading = root.querySelector(".english-collection-heading"); if (heading) heading.after(toolbar); else root.append(toolbar); void getCloud().sync();
   }
   function mountReader(body, article) {
     if (!body || body.dataset.vocabularyMounted) return;
     body.dataset.vocabularyMounted = "true";
     const toolbar = element("div", "rv-toolbar");
     const manual = button("手动查词", () => openLookup("", manual), "rv-button rv-lookup-trigger");
-    toolbar.append(element("span", "rv-hint", "点单词 / 划选词组 · 收藏保留原文语境"), manual, bookButton()); body.before(toolbar);
+    toolbar.append(element("span", "rv-hint", "点单词 / 划选词组 · 收藏保留原文语境"), manual, bookButton()); body.before(toolbar); void getCloud().sync();
     const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, { acceptNode(node) {
       return node.parentElement.closest("a, pre, code, button, script, style, .rv-word") || !/[A-Za-z]/.test(node.textContent) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
     } });
@@ -299,8 +341,10 @@
   function detach() { hideSelectionTools(); closePopup(); cleanupReader?.(); cleanupReader = null; if (dialog?.open) dialog.close(); }
   document.addEventListener("pointerdown", (event) => { if (popup && !popup.contains(event.target) && !event.target.closest(".rv-word, .rv-lookup-trigger, .rv-selection-tools")) closePopup(); });
   document.addEventListener("keydown", (event) => { if (event.key === "Escape") { hideSelectionTools(); if (popup) { closePopup(true); event.preventDefault(); } } });
-  window.addEventListener("storage", (event) => { if (event.key === STORAGE_KEY) { store = null; notifyCounts(); } });
+  window.addEventListener("storage", (event) => { if (event.key === STORAGE_KEY) { store = createStore(window.localStorage); cloud = null; notifyCounts(); redrawBook?.(); } });
   window.addEventListener("resize", () => { hideSelectionTools(); placePopup(); });
   window.addEventListener("scroll", () => { hideSelectionTools(); if (popup && window.innerWidth > 600) closePopup(); }, { passive: true });
+  window.addEventListener("online",()=>{if(cloud)void cloud.sync();});
+  window.addEventListener("focus",()=>{if(cloud)void cloud.sync();});
   return { mountReader, mountCollection, detach };
 });

@@ -620,3 +620,23 @@ html[data-theme="nova"] .english-card-topics { color:#bad4ce; }
 
 /* Override the former dashboard spacing on the new content column. */
 .nova-home > .home-editorial { margin:0; }
+
+/* Every desktop destination lives in the scrollable sidebar, without a flyout. */
+.nav-section-label { align-self:center; color:var(--muted); font-size:11px; white-space:nowrap; }
+@media(min-width:1180px) {
+ .site-header { overflow-y:auto; overscroll-behavior:contain; }
+ .desktop-nav { flex:1 1 auto; min-height:0; overflow-x:hidden; overflow-y:auto; margin-bottom:18px; scrollbar-width:thin; }
+ .desktop-nav a { flex:0 0 auto; }
+ .desktop-nav .nav-section-label { align-self:stretch; padding:20px 14px 8px; }
+ .theme-toggle { flex-shrink:0; margin-top:0; }
+ .site-header-note { flex-shrink:0; }
+}
+.rv-sync-panel { margin:14px 0; padding:14px; border:1px solid var(--line); border-radius:8px; background:var(--paper); }
+.rv-sync-state { margin:0 0 10px; font-size:13px; color:var(--muted); }
+.rv-sync-actions { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+.rv-sync-login { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+.rv-sync-login input { min-width:0; flex:1 1 180px; padding:9px 12px; border:1px solid var(--line); border-radius:6px; }
+.rv-sync-login button { flex:0 0 auto; }
+.rv-sync-login[hidden] { display:none; }
+.rv-cloud-hint { font-size:12px; color:var(--muted); }
+.rv-book-header .rv-muted { max-width:60ch; }
