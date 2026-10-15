@@ -499,3 +499,8 @@ html[data-theme="nova"] .english-card-topics { color:#bad4ce; }
   .studio-book--code strong, .studio-book--practice strong { white-space:nowrap; flex-shrink:0; font-size:18px; line-height:1.2; }
   .global-search:focus-within { position:fixed; left:14px; right:auto; top:72px; width:calc(100vw - 28px); max-width:none; transition:none; translate:none; }
 }
+/* Closing mobile search must never compress the site name. */
+.brand { flex-shrink:0; }
+.brand strong, .brand small { white-space:nowrap; }
+.header-actions { flex-shrink:0; }
+.global-search, .global-search input { transition:none; }
