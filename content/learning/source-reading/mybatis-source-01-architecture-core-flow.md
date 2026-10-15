@@ -1,5 +1,5 @@
 ---
-title: "MyBatis 源码深度拆解（一）：整体架构 &amp; 核心执行全流程"
+title: "MyBatis 源码深度拆解（一）：整体架构 & 核心执行全流程"
 date: "2026-05-30"
 domain: "学习"
 area: "Java 后端"
@@ -16,7 +16,7 @@ tags:
   - "源码分析"
 ---
 
-# MyBatis 源码深度拆解（一）：整体架构 &amp; 核心执行全流程
+# MyBatis 源码深度拆解（一）：整体架构 & 核心执行全流程
 
 > 来源：微信公众号（MyBatis 源码深度拆解系列）
 > 链接：[http://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484005&idx=1&sn=ff1e94a3958cdc33c3bb2109f12cbf59&chksm=c2b8103af5cf992c240c863424df2fcadd8e76d03d01dec3fe5d59bdaf38cbaefb2b0aaf5df2](http://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484005&idx=1&sn=ff1e94a3958cdc33c3bb2109f12cbf59&chksm=c2b8103af5cf992c240c863424df2fcadd8e76d03d01dec3fe5d59bdaf38cbaefb2b0aaf5df2)
@@ -774,39 +774,3 @@ XMLConfigBuilder
 XPathParser
 
 等源码级的细节。
-
-如果觉得有帮助，欢迎点赞、在看、转发支持！
-
-系列持续更新中，关注不走丢 
-
-👇
-
-          
-
-            var first_sceen__time = (+new Date());
-            if ("" == 1 && document.getElementById('js_content')) {
-              document.getElementById('js_content').addEventListener("selectstart",function(e){ e.preventDefault(); });
-            }
-          
-
-        
-
-                
-
-       
-       
-        if ("0" == 1) {
-          document.addEventListener("keydown",function(e){
-            if ((e.metaKey || e.ctrlKey) && (e.key === 'c' || e.key === 'C' || e.key === 'x' || e.key === 'X' || e.key === 'a' || e.key === 'A')) {
-              if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') { return; }
-              e.preventDefault();
-            }
-          });
-          document.addEventListener("copy",function(e){
-            var sel = window.getSelection();
-            var content = document.getElementById('js_content');
-            if (sel && sel.rangeCount > 0 && content && content.contains(sel.getRangeAt(0).commonAncestorContainer)) {
-              e.preventDefault();
-            }
-          });
-        }

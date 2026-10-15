@@ -123,7 +123,7 @@
   }
   async function dictionary() {
     if (!dictionaryPromise) {
-      dictionaryPromise = fetch("./assets/english-vocabulary/lexicon.json?v=20261015-4")
+      dictionaryPromise = fetch("./assets/english-vocabulary/lexicon.json?v=20261015-6")
         .then((response) => { if (!response.ok) throw new Error("词典加载失败"); return response.json(); })
         .catch((error) => { dictionaryPromise = null; throw error; });
     }
@@ -239,7 +239,7 @@
   function bookButton() { return button(`生词本（${getStore().entries().length}）`, openBook, "rv-button rv-book-trigger"); }
   function mountCollection(root) {
     if (!root || root.querySelector(".rv-collection-tools")) return;
-    const toolbar = element("div", "rv-collection-tools"); toolbar.append(bookButton()); root.querySelector(".english-collection-heading")?.after(toolbar);
+    const toolbar = element("div", "rv-collection-tools"); toolbar.append(bookButton()); const heading = root.querySelector(".english-collection-heading"); if (heading) heading.after(toolbar); else root.append(toolbar);
   }
   function mountReader(body, article) {
     if (!body || body.dataset.vocabularyMounted) return;

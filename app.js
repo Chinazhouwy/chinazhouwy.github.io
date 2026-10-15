@@ -2,10 +2,10 @@ const SECTION_LABELS = {
   tasks: "行动摘要",
   timeline: "时光轴",
   projects: "项目",
-  learning: "学习",
+  learning: "知识库",
   opportunity: "机会",
   reading: "阅读",
-  columns: "专栏",
+  columns: "系列与专题",
   links: "资源导航",
   about: "关于我",
   questions: "能力复盘",
@@ -148,8 +148,8 @@ function decorateReadLinks() {
     if (!readHistory.has(decoded) || link.querySelector(".read-badge")) return;
     const badge = document.createElement("span");
     badge.className = "read-badge";
-    badge.textContent = "✓ 已读";
-    badge.title = "这台设备已读";
+    badge.textContent = "已访问";
+    badge.title = "这台设备曾打开，不代表已经读完或掌握";
     const label = link.querySelector(".article-row-main small, .exam-note-caption span, .roadmap-item small, .nova-signal-card > p, .contribution-readout-item > span") || link.querySelector("time, small, p, h3") || link;
     label.prepend(badge);
   });
@@ -348,6 +348,7 @@ function timelineCategory(article) {
   if (["questions", "interviews", "plans"].includes(section)) return "questions";
   if (["projects", "tasks"].includes(section)) return "projects";
   if (["opportunity", "companies"].includes(section)) return "opportunity";
+  if (article.path?.includes("english-reads")) return "reading";
   if (section === "columns") return "learning";
   if (["learning", "reading"].includes(section)) return section;
   return "";
@@ -612,7 +613,7 @@ function articleRow(article, options = {}) {
   const rowIndexMarkup = rowIndex
     ? `<span class="article-row-index">${escapeHtml(rowIndex)}</span>`
     : "";
-  const rowMeta = [article.company, article.round, article.topic || article.module || article.area, article.date]
+  const rowMeta = [article.company, article.round, article.readingTopic || article.topic || article.module || article.area, article.contentKind, article.date]
     .filter(Boolean)
     .map(escapeHtml)
     .join(" · ") || "未分类";
@@ -971,199 +972,48 @@ function renderGithubPulse(profile) {
     </section>`;
 }
 
-function renderOverview() {
-  const newestFirst = (left, right) => knowledgeRecordDate(right).localeCompare(knowledgeRecordDate(left));
-  const publicArticles = state.articles.filter(canShowOnHome).filter(matchesSearch).sort(newestFirst);
-  const latestWriting = publicArticles
-    .filter((article) => !["about", "reading", "questions", "companies", "interviews", "plans"].includes(getArticleSection(article)))
-    .slice(0, 7);
-  const readingItems = publicArticles
-    .filter((article) => normalizeSection(getArticleSection(article)) === "reading")
-    .slice(0, 3);
-  const featuredArticle = latestWriting[0];
-  const writingList = latestWriting.slice(1);
-  const projectRoute = (project) => ({
-    "opportunity-radar": "#/opportunity",
-    "source-code-research": "#/learning",
-    "reading-life": "#/reading",
-  })[project.id] || "#/projects";
-  const datedValues = publicArticles
-    .map(knowledgeRecordDate)
-    .filter((date) => /^\d{4}-\d{2}-\d{2}$/.test(date))
-    .sort();
-  const dateSpan = datedValues.length
-    ? Math.max(1, Math.round((Date.parse(`${datedValues.at(-1)}T00:00:00Z`) - Date.parse(`${datedValues[0]}T00:00:00Z`)) / 86400000) + 1)
-    : 0;
-  const mapArticles = publicArticles.filter((article) => normalizeSection(getArticleSection(article)) !== "about");
-  const activeLanes = new Set(mapArticles.map((article) => knowledgeLane(article).id));
-
-  ui.app.innerHTML = `
-    <section class="nova-home">
-      <header class="nova-masthead reveal">
-        <div class="studio-home-hero">
-          <div>
-            <p class="studio-home-kicker">个人知识库</p>
-            <h1>星云档案</h1>
-            <p class="studio-intro">项目中的思考，源码里的线索，阅读时留下的问题。<br>把分散的记录，连成自己的知识脉络。</p>
-            <div class="studio-home-actions">
-              <a href="#/timeline">沿时间回看 ${iconArrow()}</a>
-              <a href="#/learning">浏览学习笔记</a>
-            </div>
-          </div>
-          <nav class="studio-bookshelf" aria-label="从书架进入内容">
-            <a class="studio-book studio-book--english" href="${articleHref(ENGLISH_COLLECTION_PATH)}" data-reading-badge="off"><strong lang="en">English<br>Reads</strong><span>${englishReadings().length} 篇短文</span></a>
-            <a class="studio-book studio-book--code" href="#/learning"><strong>源码研读</strong><span>学习与思考</span></a>
-            <a class="studio-book studio-book--practice" href="#/projects"><strong>项目实践</strong><span>持续构建</span></a>
-          </nav>
-        </div>
-
-        <dl class="nova-stats" aria-label="公开知识库概览">
-          <div><dt>公开记录</dt><dd>${publicArticles.length}</dd></div>
-          <div><dt>知识域</dt><dd>${activeLanes.size}</dd></div>
-          <div><dt>记录跨度 / 天</dt><dd>${dateSpan}</dd></div>
-          <div><dt>长期项目</dt><dd>${state.projects.length}</dd></div>
-        </dl>
-      </header>
-
-      <div class="nova-dashboard">
-        <section class="nova-panel nova-panel--map reveal delay-1">
-          <header class="nova-panel-heading">
-            <div><span>公开写作</span><h2>公开文章贡献图</h2></div>
-            <p>每格 = 1 天 · 颜色越深 = 当天公开文章越多</p>
-          </header>
-          <div class="nova-panel-body">${renderContributionMap(mapArticles)}</div>
-        </section>
-
-        ${renderGithubPulse(state.githubProfile)}
-
-        <aside class="nova-panel nova-panel--now reveal delay-1">
-          <header class="nova-panel-heading">
-            <div><span>最近更新</span><h2>最近更新</h2></div>
-            <a href="${featuredArticle ? articleHref(featuredArticle.path) : "#/timeline"}">打开 ${iconArrow()}</a>
-          </header>
-          <div class="nova-now-layout">
-            <div class="nova-now-card">
-              ${
-                featuredArticle
-                  ? `
-                    <p>${escapeHtml(knowledgeLane(featuredArticle).label)} · ${escapeHtml(knowledgeRecordDate(featuredArticle) || "持续更新")}</p>
-                    <h3>${escapeHtml(featuredArticle.title)}</h3>
-                    <em>${escapeHtml(featuredArticle.summary || "打开阅读全文")}</em>
-                    <a href="${articleHref(featuredArticle.path)}">阅读全文 ${iconArrow()}</a>`
-                  : `<span>SIGNAL</span><h3>下一条信号正在生成。</h3>`
-              }
-            </div>
-            <figure class="nova-now-image">
-              <img src="./assets/home/cat-and-guitar.jpg?v=${BUILD_VERSION}" alt="蓝眼睛猫咪与红色吉他" loading="lazy" />
-              <figcaption>FIELD NOTE / 日常一隅</figcaption>
-            </figure>
-          </div>
-          <dl class="nova-mini-metrics">
-            <div><dt>LAST SEEN</dt><dd>${(datedValues.at(-1) || "—").replaceAll("-", ".")}</dd></div>
-            <div><dt>READING</dt><dd>${readingItems.length}</dd></div>
-            <div><dt>ACTIVE LANES</dt><dd>${activeLanes.size}</dd></div>
-          </dl>
-        </aside>
-
-        <section class="nova-panel nova-panel--orbits reveal">
-          <header class="nova-panel-heading">
-            <div><span>项目</span><h2>持续推进的项目</h2></div>
-            <a href="#/projects">全部项目 ${iconArrow()}</a>
-          </header>
-          <div class="nova-orbit-list">
-            ${state.projects
-              .map(
-                (project, index) => `
-                  <a class="nova-orbit-row" href="${projectRoute(project)}">
-                    <span class="nova-orbit-index">${String(index + 1).padStart(2, "0")}</span>
-                    <div>
-                      <h3>${escapeHtml(project.name)}</h3>
-                      <p>${escapeHtml(project.summary || "持续建设")}</p>
-                    </div>
-                    <dl>
-                      <div><dt>priority</dt><dd>${escapeHtml(project.priority || "P1")}</dd></div>
-                      <div><dt>state</dt><dd>${escapeHtml(project.status || "进行中")}</dd></div>
-                    </dl>
-                    ${iconArrow()}
-                  </a>`,
-              )
-              .join("") || '<p class="nova-empty">项目轨道等待补充。</p>'}
-          </div>
-        </section>
-
-        <section class="nova-panel nova-panel--signals reveal">
-          <header class="nova-panel-heading">
-            <div><span>笔记</span><h2>最近的笔记</h2></div>
-            <a href="#/timeline">完整时光轴 ${iconArrow()}</a>
-          </header>
-          <div class="nova-signals-layout">
-            <div class="nova-signal-grid">
-              ${
-                writingList.length
-                  ? writingList
-                      .map(
-                        (article, index) => `
-                          <a class="nova-signal-card" href="${articleHref(article.path)}">
-                            <span>${String(index + 2).padStart(3, "0")}</span>
-                            <p>${escapeHtml(knowledgeLane(article).label)} · ${escapeHtml(knowledgeRecordDate(article) || "持续更新")}</p>
-                            <h3>${escapeHtml(article.title)}</h3>
-                            <em>${escapeHtml(article.summary || "打开阅读全文")}</em>
-                            ${iconArrow()}
-                          </a>`,
-                      )
-                      .join("")
-                  : '<p class="nova-empty">更多信号正在整理。</p>'
-              }
-            </div>
-            <aside class="nova-image-notes" aria-label="博客图像札记">
-              <div><span>VISUAL NOTES</span><strong>博客图像札记</strong></div>
-              <figure class="nova-image-note nova-image-note--dragon">
-                <img src="./assets/home/blue-dragon.jpg?v=${BUILD_VERSION}" alt="戴蓝色头巾的龙形插画" loading="lazy" />
-              </figure>
-              <figure class="nova-image-note nova-image-note--pig">
-                <img src="./assets/home/pearl-pig.jpg?v=${BUILD_VERSION}" alt="戴蓝色头巾的小猪插画" loading="lazy" />
-              </figure>
-              <figure class="nova-image-note nova-image-note--portrait">
-                <img src="./assets/home/pearl-portrait.jpg?v=${BUILD_VERSION}" alt="戴珍珠耳环的趣味肖像" loading="lazy" />
-              </figure>
-            </aside>
-          </div>
-        </section>
-
-        <section class="nova-panel nova-panel--references reveal">
-          <header class="nova-panel-heading">
-            <div><span>阅读</span><h2>阅读与参考</h2></div>
-            <a href="#/reading">进入阅读 ${iconArrow()}</a>
-          </header>
-          <div class="nova-reference-strip">
-            ${
-              readingItems.length
-                ? readingItems
-                    .map(
-                      (article, index) => `
-                        <a href="${articleHref(article.path)}">
-                          <span>[R${index + 1}]</span>
-                          <div><h3>${escapeHtml(article.title)}</h3><p>${escapeHtml(article.summary || "阅读沉淀")}</p></div>
-                          <time>${escapeHtml(knowledgeRecordDate(article) || "持续更新")}</time>
-                        </a>`,
-                    )
-                    .join("")
-                : '<p class="nova-empty">阅读星域已建立，等待第一篇沉淀。</p>'
-            }
-          </div>
-        </section>
-      </div>
-
-      <footer class="nova-closing reveal">
-        <span>END / CURRENT RECORD</span>
-        <p>索引会随记录更新，贡献图也会随之改变。</p>
-        <a href="#/timeline">继续查看全部记录 ${iconArrow()}</a>
-      </footer>
-    </section>
-  `;
-
-  bindContributionMap();
+function collectionCards(collections) {
+  return `<div class="collection-directory">${collections.map(c=>`<a class="collection-directory-card" href="#/collection/${encodeURIComponent(c.id)}" data-reading-badge="off"><span>${escapeHtml(c.area)} · ${c.articles.length} 篇${c.ordered===false?" · 按问题选读":" · 按顺序阅读"}</span><h3>${escapeHtml(c.title)}</h3><p>${escapeHtml(c.description)}</p></a>`).join("")}</div>`;
 }
+function renderCollection(id) {
+  const c=ContentOrganization.collections(state.articles).find(c=>c.id===id);
+  if(!c){renderError("没有找到这个专题","可以从专题目录重新选择。");return;}
+  updateActiveNav("learning");
+  ui.app.innerHTML=`<section class="directory-page collection-detail"><a class="back-link" href="#/columns">← 全部专题</a>${sectionIntro("",c.title,c.description,c.articles.length)}<p class="directory-guidance">${c.ordered===false?"按关心的问题选读。":"从第一篇开始，也可以直接进入需要的章节。"}</p><${c.ordered===false?"ul":"ol"} class="series-chapters">${c.articles.map((a,i)=>`<li><a href="${articleHref(a.path)}">${c.ordered!==false?`<span>${i+1}</span>`:""}<div><h2>${escapeHtml(a.title)}</h2><p>${escapeHtml(a.summary)}</p><small>${escapeHtml(a.contentKind||a.type||"文章")}</small></div></a></li>`).join("")}</${c.ordered===false?"ul":"ol"}></section>`;
+  document.title=`${c.title} · 观澜`;
+}
+function seriesNavigation(article) {
+  if(!article)return "";
+  const groups=article.path.startsWith(ENGLISH_PASSAGE_PREFIX)?[{id:"english",title:"English Reads",ordered:true,articles:englishReadings()}]:ContentOrganization.collectionFor(article.path,state.articles);
+  if(!groups.length)return "";
+  return groups.map(c=>{
+    const i=c.articles.findIndex(a=>a.path===article.path),previous=c.articles[i-1],next=c.articles[i+1];
+    const href=c.id==="english"?articleHref(ENGLISH_COLLECTION_PATH):`#/collection/${c.id}`;
+    return `<nav class="series-navigation" aria-label="${escapeHtml(c.title)}续读"><header><a href="${href}">${escapeHtml(c.title)} · 查看目录</a><span>${i+1} / ${c.articles.length}</span></header>${c.ordered!==false?`<div>${previous?`<a href="${articleHref(previous.path)}"><small>上一篇</small><strong>${escapeHtml(previous.title)}</strong></a>`:"<span></span>"}${next?`<a href="${articleHref(next.path)}"><small>下一篇</small><strong>${escapeHtml(next.title)}</strong></a>`:`<a href="${href}"><small>已到本系列最后一篇</small><strong>返回目录，选择其他内容</strong></a>`}</div>`:""}</nav>`;
+  }).join("");
+}
+
+function renderOverview() {
+ const articles=state.articles.filter(canShowOnHome).filter(matchesSearch);
+ const recent=ContentOrganization.updates(articles,7);
+ const collections=ContentOrganization.collections(articles);
+ const visited=(readHistory?.recent?.()||[]).map(path=>articles.find(a=>a.path===path)).filter(a=>a&&a.path!==ENGLISH_COLLECTION_PATH).slice(0,3);
+ const reading=articles.filter(a=>a.section==="reading"&&!a.path.startsWith(ENGLISH_PASSAGE_PREFIX)&&a.path!==ENGLISH_COLLECTION_PATH).slice(0,3);
+ const mapArticles=articles.filter(a=>a.section!=="about");
+ ui.app.innerHTML=`<section class="nova-home">
+ <header class="nova-masthead"><div class="studio-home-hero"><div><p class="studio-home-kicker">WY 的读书与实践</p><h1>观澜</h1><blockquote class="studio-motto"><p>观水有术，必观其澜。</p><cite><a href="https://ctext.org/mengzi/jin-xin-i/zh" target="_blank" rel="noopener noreferrer">《孟子·尽心上》</a></cite></blockquote><div class="studio-home-actions"><a href="#/learning">浏览知识库 ${iconArrow()}</a><a href="#/reading">开始阅读</a></div></div>
+ <nav class="studio-bookshelf" aria-label="从书架进入内容"><a class="studio-book studio-book--english" href="${articleHref(ENGLISH_COLLECTION_PATH)}" data-reading-badge="off"><strong lang="en">English<br>Reads</strong><span>${englishReadings().length} 篇短文</span></a><a class="studio-book studio-book--code" href="#/columns"><strong>专题研读</strong><span>从目录开始</span></a><a class="studio-book studio-book--practice" href="#/projects"><strong>项目实践</strong><span>方案与记录</span></a></nav></div></header>
+ <div class="home-editorial">
+ ${visited.length?`<section class="home-section"><header><h2>最近访问</h2><span>本浏览器的阅读足迹</span></header><div class="recent-visits">${visited.map(a=>`<a href="${articleHref(a.path)}" data-reading-badge="off">${escapeHtml(a.title)}</a>`).join("")}</div></section>`:""}
+ <section class="home-section"><header><h2>沿一个主题读下去</h2><a href="#/columns">全部专题 ${iconArrow()}</a></header>${collectionCards(collections.slice(0,4))}</section>
+ <section class="home-section"><header><h2>近期更新</h2><a href="#/timeline">全部记录 ${iconArrow()}</a></header><div class="update-list">${recent.map(a=>`<a href="${a.collectionLink||articleHref(a.path)}" data-reading-badge="off"><div><small>${escapeHtml(a.updateLabel)}</small><h3>${escapeHtml(a.title)}</h3><p>${escapeHtml(a.summary)}</p></div><time>${escapeHtml(a.date)}</time></a>`).join("")}</div></section>
+ <section class="home-section"><header><h2>项目与实践</h2><a href="#/projects">查看项目 ${iconArrow()}</a></header><div class="project-records">${articles.filter(a=>a.section==="projects").map(a=>`<a href="${articleHref(a.path)}"><small>${escapeHtml(a.contentKind)}</small><h3>${escapeHtml(a.title)}</h3><p>${escapeHtml(a.summary)}</p></a>`).join("")}</div></section>
+ <section class="nova-panel nova-panel--references"><header class="nova-panel-heading"><h2>阅读与参考</h2><a href="#/reading">进入阅读 ${iconArrow()}</a></header><div class="nova-reference-strip">${reading.map(a=>`<a href="${articleHref(a.path)}"><div><h3>${escapeHtml(a.title)}</h3><p>${escapeHtml(a.summary)}</p></div><time>${escapeHtml(a.date)}</time></a>`).join("")}</div></section>
+ <details class="archive-details"><summary>公开档案与代码近况 <span>${articles.length} 条公开记录</span></summary><p>包含文章、资料与集合入口；收录数量不代表写作量或学习完成量。</p><div class="nova-dashboard"><section class="nova-panel nova-panel--map"><header class="nova-panel-heading"><h2>公开内容收录记录</h2><a href="#/timeline">按时间回看</a></header><p>按记录日期展示；同批导入的内容会集中出现。</p>${renderContributionMap(mapArticles)}</section>${renderGithubPulse(state.githubProfile)}</div></details>
+ </div></section>`;
+ bindContributionMap();
+}
+
 
 function renderTimeline() {
   const datedArticles = state.articles
@@ -1338,40 +1188,10 @@ function renderTimeline() {
 }
 
 function renderProjects() {
-  const articles = filteredArticles("projects");
-  ui.app.innerHTML = `
-    <section class="directory-page project-directory-page">
-      ${sectionIntro("PROJECTS", "项目", "自研项目、工程源码研究和长期建设。", state.projects.length)}
-      <div class="project-signal-grid reveal delay-1">
-        ${state.projects
-          .map((project, index) => {
-            const priority = String(project.priority || "P2").toLowerCase();
-            return `
-              <article class="project-signal-card" data-priority="${escapeHtml(priority)}">
-                <header>
-                  <span class="project-signal-index">PRJ / ${String(index + 1).padStart(2, "0")}</span>
-                  <em class="project-signal-state"><i aria-hidden="true"></i>${escapeHtml(project.status || "进行中")}</em>
-                </header>
-                <div class="project-signal-body">
-                  <small>${escapeHtml(project.priority || "P2")} · ACTIVE ORBIT</small>
-                  <h2>${escapeHtml(project.name)}</h2>
-                  <p>${escapeHtml(project.summary || "等待补充项目说明。")}</p>
-                </div>
-                <footer>
-                  <span>NEXT SIGNAL</span>
-                  <strong>${escapeHtml(project.next_public_step || "继续建设")}</strong>
-                </footer>
-              </article>`;
-          })
-          .join("") || '<p class="empty-copy">项目清单等待补充。</p>'}
-      </div>
-      ${
-        articles.length
-          ? `<section class="directory-group reveal"><header><h2>项目记录</h2><span>${articles.length} 篇</span></header><div class="article-list">${articles.map((article) => articleRow(article)).join("")}</div></section>`
-          : ""
-      }
-    </section>`;
+ const articles=filteredArticles("projects");
+ ui.app.innerHTML=`<section class="directory-page project-directory-page">${sectionIntro("","项目","具体方案、实践记录，以及长期关注的方向。",articles.length)}<section class="home-section"><header><h2>方案与实践记录</h2></header><div class="project-records">${articles.map(a=>`<a href="${articleHref(a.path)}"><small>${escapeHtml(a.contentKind||"实践记录")}</small><h2>${escapeHtml(a.title)}</h2><p>${escapeHtml(a.summary)}</p><time>${escapeHtml(a.date)}</time></a>`).join("")}</div></section><section class="home-section"><header><h2>长期方向</h2><span>持续关注的领域</span></header><div class="direction-list">${state.projects.map(a=>`<div><h3>${escapeHtml(a.name)}</h3><p>${escapeHtml(a.summary)}</p></div>`).join("")}</div></section></section>`;
 }
+
 
 function renderDomain(section, title, description, { groupKey } = {}) {
   const items = filteredArticles(section);
@@ -1539,7 +1359,7 @@ function examNoteVisual(article) {
     kicker: `${article.area || "学习"} / NOTE`,
     title: article.title,
     question: article.summary || "把一个知识点拆成对象、关系、方法和结论。",
-    diagram: "computer-map",
+    diagram: "",
     tone: "blue",
     blocks: [["识别", "先找题目对象"], ["推导", "再找不变量"], ["复盘", "最后记录易错点"]],
     answer: "先看结构，再做计算。",
@@ -1635,7 +1455,7 @@ function examNoteCard(article, index) {
         </header>
         <h3>${escapeHtml(visual.title)}</h3>
         <p class="exam-note-question">${escapeHtml(visual.question)}</p>
-        ${examNoteDiagram(visual.diagram)}
+        ${visual.diagram ? examNoteDiagram(visual.diagram) : ""}
         <div class="exam-note-blocks">
           ${visual.blocks.map(([label, value], blockIndex) => `
             <div class="exam-note-block">
@@ -1675,114 +1495,22 @@ function examNoteStudio(groups) {
 }
 
 function renderLearning() {
-  const items = filteredArticles("learning");
-  const noteAreas = new Set(["数学", "计算机基础"]);
-  const groupMode = ["module", "points"].includes(state.learningGroupBy) ? state.learningGroupBy : "area";
-  const areaOrder = new Map(state.learningAreas.map((area, index) => [area.name, index]));
-  const groups =
-    groupMode === "module"
-      ? Object.entries(groupBy(items, "module", "待归类专题")).sort(
-          ([leftName, leftItems], [rightName, rightItems]) =>
-            rightItems.length - leftItems.length || leftName.localeCompare(rightName, "zh-CN"),
-        )
-      : Object.entries(groupBy(items, "area", "综合")).sort(
-          ([left], [right]) =>
-            (areaOrder.get(left) ?? Number.MAX_SAFE_INTEGER) -
-              (areaOrder.get(right) ?? Number.MAX_SAFE_INTEGER) ||
-            left.localeCompare(right, "zh-CN"),
-        );
-  const noteGroups = groupMode === "area" ? groups.filter(([area]) => noteAreas.has(area)) : [];
-  const standardGroups = groupMode === "area" ? groups.filter(([area]) => !noteAreas.has(area)) : groups;
-  const compactGroupCount = standardGroups.filter(([, articles]) => articles.length > LEARNING_PREVIEW_COUNT).length;
-
-  ui.app.innerHTML = `
-    <section class="directory-page learning-page">
-      ${sectionIntro("LEARNING", "学习", "技术知识、源码笔记与可复习内容。", items.length)}
-      <div class="learning-directory-tools reveal delay-1">
-        ${groupMode !== "points" && compactGroupCount ? `<p><strong>${compactGroupCount}</strong> 个长主题默认展示最近 ${LEARNING_PREVIEW_COUNT} 篇</p>` : ""}
-        <div class="learning-directory-actions" role="group" aria-label="学习分组与显示方式">
-          <button type="button" data-learning-view="area"${groupMode === "area" ? ' class="is-active"' : ""}>按领域</button>
-          <button type="button" data-learning-view="module"${groupMode === "module" ? ' class="is-active"' : ""}>按专题</button>
-          <button type="button" data-learning-view="points"${groupMode === "points" ? ' class="is-active"' : ""}>按知识点</button>
-          ${groupMode !== "points" && compactGroupCount ? `<button type="button" data-learning-action="expand">全部展开</button><button type="button" data-learning-action="collapse">全部收起</button>` : ""}
-        </div>
-      </div>
-      ${noteGroups.length ? examNoteStudio(noteGroups) : ""}
-      ${
-        groupMode === "points"
-          ? renderPointsView(items)
-          : `<div class="learning-board">
-        ${
-          standardGroups.length
-            ? standardGroups
-                .map(([area, articles], index) => {
-                  const collapsible = articles.length > LEARNING_PREVIEW_COUNT;
-                  const listId = `learning-topic-${index}`;
-                  return `
-                    <section class="learning-card learning-group reveal${collapsible ? " is-collapsed" : ""}" data-learning-group data-learning-area="${escapeHtml(area)}">
-                      <header class="learning-card-header">
-                        <div class="learning-card-title">
-                          <p>LEARNING FIELD / ${String(index + 1).padStart(2, "0")}</p>
-                          <h2>${escapeHtml(area)}</h2>
-                          <span>${articles.length} 篇记录</span>
-                        </div>
-                        ${
-                          collapsible
-                            ? `<button
-                                class="learning-group-toggle"
-                                type="button"
-                                data-learning-toggle
-                                data-total="${articles.length}"
-                                aria-expanded="false"
-                                aria-controls="${listId}"
-                              >
-                                <span data-learning-toggle-label>展开全部 ${articles.length} 篇</span>
-                                <i class="learning-group-toggle-icon" aria-hidden="true"></i>
-                              </button>`
-                            : ""
-                        }
-                      </header>
-                      <div class="article-list" id="${listId}">${articles.map((article) => articleRow(article)).join("")}</div>
-                    </section>`;
-                })
-                .join("")
-            : '<p class="empty-copy">栏目已建立，等待内容沉淀。</p>'
-        }
-      </div>`}
-    </section>`;
-
-  ui.app.querySelectorAll("[data-learning-toggle]").forEach((toggle) => {
-    toggle.addEventListener("click", () => {
-      const group = toggle.closest("[data-learning-group]");
-      setLearningGroupExpanded(group, toggle.getAttribute("aria-expanded") !== "true");
-    });
-  });
-
-  ui.app.querySelectorAll("[data-learning-action]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const expanded = button.dataset.learningAction === "expand";
-      ui.app
-        .querySelectorAll("[data-learning-group]")
-        .forEach((group) => setLearningGroupExpanded(group, expanded));
-    });
-  });
-
-  ui.app.querySelectorAll("[data-point-sel]").forEach((button) => {
-    button.addEventListener("click", () => {
-      if (state.learningPointSel === button.dataset.pointSel) return;
-      state.learningPointSel = button.dataset.pointSel;
-      renderLearning();
-    });
-  });
-
-  ui.app.querySelectorAll("[data-learning-view]").forEach((button) => {
-    button.addEventListener("click", () => {
-      if (state.learningGroupBy === button.dataset.learningView) return;
-      state.learningGroupBy = button.dataset.learningView;
-      renderLearning();
-    });
-  });
+ const items=filteredArticles("learning"),params=parseRoute().params||new URLSearchParams();
+ const order=["AI Agent","Java 后端","数据与中间件","工程与架构","前端","安全","计算机基础","数学","物理","英语","政治"];
+ const groups=Object.entries(groupBy(items,"area","待归类")).sort(([a],[b])=>(order.indexOf(a)<0?99:order.indexOf(a))-(order.indexOf(b)<0?99:order.indexOf(b)));
+ const selected=params.get("area"),group=groups.find(([name])=>name===selected),mode=params.get("view");
+ const collections=ContentOrganization.collections(state.articles);
+ let body="";
+ if(mode==="series")body=collectionCards(collections);
+ else if(group){
+  const modules=[...new Set(group[1].map(a=>a.module).filter(Boolean))];
+  const module=params.get("module"),list=module?group[1].filter(a=>a.module===module):group[1];
+  body=`<a class="back-link" href="#/learning">← 全部领域</a><h2 class="field-title">${escapeHtml(group[0])}</h2>${collectionCards(collections.filter(c=>c.area===selected))}<label class="field-filter">细分主题 <select id="library-module"><option value="">全部内容（${group[1].length}）</option>${modules.map(m=>`<option value="${escapeHtml(m)}"${m===module?' selected':''}>${escapeHtml(m)}</option>`).join("")}</select></label><div class="article-list library-articles">${list.map(a=>articleRow(a)).join("")||'<p>这个领域没有匹配内容。</p>'}</div>`;
+ }else body=`<div class="knowledge-fields">${groups.map(([name,list])=>`<a href="#/learning?area=${encodeURIComponent(name)}"><h2>${escapeHtml(name)}</h2><p>${escapeHtml(state.learningAreas.find(a=>a.name===name)?.description||"概念、方法与参考资料")}</p><span>${list.length} 篇内容</span></a>`).join("")}</div>`;
+ ui.app.innerHTML=`<section class="directory-page learning-page">${sectionIntro("","知识库","先选领域，再按主题查找；连续内容可以从专题目录开始。",items.length)}<nav class="library-views" aria-label="知识库浏览方式"><a href="#/learning"${mode!=="series"?' class="active"':''}>按领域</a><a href="#/learning?view=series"${mode==="series"?' class="active"':''}>系列与专题</a><a href="#/points">查知识点</a></nav>${body}</section>`;
+ document.getElementById("library-module")?.addEventListener("change",e=>{location.hash=`#/learning?area=${encodeURIComponent(selected)}${e.target.value?'&module='+encodeURIComponent(e.target.value):''}`;});
 }
+
 
 function renderPointsView(items) {
   const hitPoints = state.pointsIndex
@@ -1878,7 +1606,7 @@ function renderPointsPage(params) {
   const related = state.articles.filter(
     (article) => !isHidden(article) && Array.isArray(article.points) && article.points.includes(sel),
   );
-  const learningItems = related.filter((article) => article.path.includes("/learning/"));
+  const learningItems = related.filter((article) => getArticleSection(article) === "learning");
   const interviewItems = related.filter((article) => article.path.includes("/companies/"));
   const practiceItems = related.filter((article) => article.path.includes("/practice/"));
   ui.app.innerHTML = `
@@ -1976,46 +1704,12 @@ function renderQuickLinks() {
 }
 
 function renderReading() {
-  const items = filteredArticles("reading");
-  const categoryOrder = new Map(
-    READING_CATEGORIES.map((category, index) => [category.label, index]),
-  );
-  const groups = Object.entries(
-    items.reduce((acc, item) => {
-      const key = normalizeReadingArea(item);
-      acc[key] ||= [];
-      acc[key].push(item);
-      return acc;
-    }, {}),
-  ).sort((left, right) => {
-    return (categoryOrder.get(left[0]) ?? Number.MAX_SAFE_INTEGER) -
-      (categoryOrder.get(right[0]) ?? Number.MAX_SAFE_INTEGER);
-  });
-
-  ui.app.innerHTML = `
-    <section class="directory-page reading-directory-page">
-      ${sectionIntro("READING", "阅读", "闲暇输入、网页剪藏、读书札记和个人观察。这里不追求每篇都成体系，先保留思考痕迹。", items.length)}
-      <div class="directory-groups">
-        ${
-          groups.length
-            ? groups
-                .map(
-                  ([area, articles], index) => `
-                    <section class="directory-group reading-group reveal" style="--delay:${index * 45}ms">
-                      <header>
-                        <small class="reading-group-code">FIELD / ${String(index + 1).padStart(2, "0")}</small>
-                        <h2>${escapeHtml(area)}</h2>
-                        <span>${articles.length} 篇记录</span>
-                      </header>
-                      <div class="article-list">${articles.map((article) => articleRow(article, { actionLabel: "阅读全文 / 留言" })).join("")}</div>
-                    </section>`,
-                )
-                .join("")
-            : '<p class="empty-copy">栏目已建立，等待内容沉淀。</p>'
-        }
-      </div>
-    </section>`;
+ const items=filteredArticles("reading").filter(a=>!a.path.startsWith(ENGLISH_PASSAGE_PREFIX)&&a.path!==ENGLISH_COLLECTION_PATH);
+ const groups=Object.entries(groupBy(items,"readingTopic","其他阅读"));
+ ui.app.innerHTML=`<section class="directory-page reading-directory-page">${sectionIntro("","阅读","英文短文、中文长文，以及读书时留下的记录。",items.length+englishReadings().length)}<section class="reading-entrances"><a class="reading-english-entry" href="${articleHref(ENGLISH_COLLECTION_PATH)}" data-reading-badge="off"><span>${englishReadings().length} 篇 · 划词与词组查询</span><h2>English Reads</h2><p>按主题选一篇英文短文，边读边积累。</p><strong>进入英文阅读 ${iconArrow()}</strong></a><div class="reading-tools"><h2>生词本</h2><p>保存阅读中遇到的单词和词组，随时查阅。</p><div id="reading-vocabulary"></div></div></section><header class="home-section-heading"><h2>中文阅读</h2></header><div class="directory-groups">${groups.map(([name,list])=>`<section class="directory-group reading-group"><header><h2>${escapeHtml(name)}</h2><span>${list.length} 篇</span></header><div class="article-list">${list.map(a=>articleRow(a)).join("")}</div></section>`).join("")}</div></section>`;
+ window.ReaderVocabulary?.mountCollection(document.getElementById("reading-vocabulary"));
 }
+
 
 function renderThirdPartyLinks() {
   const links = state.thirdPartyLinks;
@@ -2312,6 +2006,9 @@ function renderOpportunity() {
       </section>
     </section>
   `;
+  document.querySelectorAll(".opportunity-grid > article").forEach(card=>{if(parseInt(card.querySelector("small")?.textContent||"0",10)===0)card.remove();});
+  if (!questionsCount && !interviewsCount) document.querySelector(".practice-pulse")?.remove();
+
 }
 
 const ENGLISH_COLLECTION_PATH = "content/columns/english-reads.md";
@@ -2332,39 +2029,16 @@ function englishTopics(article) {
 }
 
 function renderColumns() {
-  const items = filteredArticles("columns");
-  const collection = items.find((article) => article.path === ENGLISH_COLLECTION_PATH);
-  const technical = items.filter((article) => article.path !== ENGLISH_COLLECTION_PATH && !article.path.startsWith(ENGLISH_PASSAGE_PREFIX));
-  const readingCount = englishReadings().length;
-  const columnCount = technical.length + (collection ? 1 : 0);
-  ui.app.innerHTML = `
-    <section class="columns-overview">
-      <header class="columns-heading">
-        <p class="mono-label">专栏</p>
-        <h1>专栏</h1>
-        <p>选择一个主题，慢慢读下去。<span>${columnCount} 个专栏</span></p>
-      </header>
-      ${collection ? `
-        <a class="collection-card" data-reading-badge="off" href="${articleHref(ENGLISH_COLLECTION_PATH)}">
-          <div><span class="collection-eyebrow">英文阅读专栏</span><h2>English Reads</h2>
-            <p>从科技与教育，到社会、环境与日常生活。<br>以一篇短文，打开一个话题。</p>
-            <span class="collection-topics">Technology · Society · Environment · Life</span>
-          </div>
-          <div class="collection-entry"><span><strong>${readingCount}</strong> 篇英文阅读</span><span class="collection-open">进入专栏 ${iconArrow()}</span></div>
-        </a>` : ""}
-      ${technical.length ? `<section class="technical-columns"><h2>技术专栏</h2><div class="technical-column-grid">
-        ${technical.map((article) => `<a class="technical-column-card" data-reading-badge="off" href="${articleHref(article.path)}">
-          <span class="collection-eyebrow">${escapeHtml(article.module || article.area || "TECHNOLOGY")}</span>
-          <h3>${escapeHtml(article.title)}</h3><p>${escapeHtml(article.summary || "打开专栏，浏览完整内容。")}</p><span class="collection-open">打开专栏 ${iconArrow()}</span>
-        </a>`).join("")}</div></section>` : ""}
-    </section>`;
-  document.title = "专栏 · WY";
+ const collections=ContentOrganization.collections(state.articles);
+ ui.app.innerHTML=`<section class="columns-overview"><header class="columns-heading"><h1>系列与专题</h1><p>有顺序的内容从第一篇开始，主题阅读按问题选读。</p></header>${collectionCards(collections)}<a class="collection-card" href="${articleHref(ENGLISH_COLLECTION_PATH)}" data-reading-badge="off"><div><span class="collection-eyebrow">英文阅读集合</span><h2>English Reads</h2><p>${englishReadings().length} 篇短文，按主题与年份选读。</p></div><span>进入阅读 ${iconArrow()}</span></a></section>`;
+ document.title="系列与专题 · 观澜";
 }
 
+
 function renderEnglishReads() {
-  updateActiveNav("columns");
+  updateActiveNav("reading");
   const articles = englishReadings();
-  const topics = [...new Set(articles.flatMap(englishTopics))].sort();
+  const topics = ContentOrganization.ENGLISH_TOPICS.map(t=>t.label);
   const years = [...new Set(articles.map((article) => article.path.slice(ENGLISH_PASSAGE_PREFIX.length, ENGLISH_PASSAGE_PREFIX.length + 4)))].sort().reverse();
   const params = parseRoute().params || new URLSearchParams();
   const previous = state.englishReadingFilters || {};
@@ -2373,11 +2047,11 @@ function renderEnglishReads() {
     topic: params.get("topic") ?? previous.topic ?? "",
     year: params.get("year") ?? previous.year ?? "",
   };
-  if (!topics.includes(filters.topic)) filters.topic = "";
+  if (!topics.includes(filters.topic)) filters.topic = ContentOrganization.ENGLISH_TOPICS.find(g=>g.tags.includes(filters.topic))?.label || "";
   if (!years.includes(filters.year)) filters.year = "";
   ui.app.innerHTML = `
     <section class="english-collection">
-      <a class="collection-back" href="#/columns">← 全部专栏</a>
+      <a class="collection-back" href="#/reading">← 阅读</a>
       <header class="english-collection-heading">
         <div><p class="mono-label">短篇英文阅读</p><h1 lang="en">English Reads</h1>
           <p lang="en" class="english-collection-lede">Ideas for a changing world.</p>
@@ -2387,7 +2061,7 @@ function renderEnglishReads() {
       <form class="english-filters" role="search" aria-label="筛选英文文章">
         <label class="english-search"><span>搜索文章</span><input id="english-query" type="search" value="${escapeHtml(filters.query)}" placeholder="搜索标题、主题或关键词" autocomplete="off"></label>
         <label><span>主题</span><select id="english-topic"><option value="">全部主题</option>${topics.map((topic) => `<option value="${escapeHtml(topic)}"${topic === filters.topic ? " selected" : ""}>${escapeHtml(topic)}</option>`).join("")}</select></label>
-        <label><span>年份</span><select id="english-year"><option value="">全部年份</option>${years.map((year) => `<option value="${year}"${year === filters.year ? " selected" : ""}>${year}</option>`).join("")}</select></label>
+        <label><span>收录来源年份</span><select id="english-year"><option value="">全部年份</option>${years.map((year) => `<option value="${year}"${year === filters.year ? " selected" : ""}>${year}</option>`).join("")}</select></label>
         <button id="english-reset" type="button">重置</button>
       </form>
       <div class="english-results-heading"><p id="english-result-count" role="status" aria-live="polite"></p><span>选择标题，开始阅读</span></div>
@@ -2402,7 +2076,7 @@ function renderEnglishReads() {
     const year = yearInput.value;
     const matching = articles.filter((article) => {
       const text = `${article.title} ${article.summary || ""} ${englishTopics(article).join(" ")}`.toLowerCase();
-      return (!query || text.includes(query)) && (!topic || englishTopics(article).includes(topic)) && (!year || article.path.startsWith(ENGLISH_PASSAGE_PREFIX + year + "-"));
+      return (!query || text.includes(query)) && (!topic || ContentOrganization.englishTopic(article)?.label === topic) && (!year || article.path.startsWith(ENGLISH_PASSAGE_PREFIX + year + "-"));
     });
     state.englishReadingFilters = { query: queryInput.value, topic, year };
     document.getElementById("english-result-count").textContent = `${matching.length} 篇文章${matching.length !== articles.length ? ` / 共 ${articles.length} 篇` : ""}`;
@@ -2429,7 +2103,7 @@ function renderEnglishReads() {
   });
   update();
   window.ReaderVocabulary?.mountCollection(ui.app.querySelector(".english-collection"));
-  document.title = "English Reads · WY";
+  document.title = "English Reads · 观澜";
 }
 
 function createToc(container, routeHash) {
@@ -2526,7 +2200,7 @@ async function renderAbout() {
       </section>
     `;
     void highlightCodeBlocks(document.querySelector(".about-body"));
-    document.title = "关于 WY · 星云档案";
+    document.title = "关于 WY · 观澜";
   } catch (error) {
     renderError("个人介绍加载失败", `${error.message}。请检查文件权限或稍后重试。`, true);
   }
@@ -2621,11 +2295,13 @@ async function renderArticle(rawPath, requestedSection = "") {
               跳到文章评论区 ↓
             </button>
           </header>
+          <p class="reader-provenance">${escapeHtml(article?.contentKind || article?.type || "文章")}${article?.status === "待核验" ? " · 待核验" : ""}${article?.sourceTitle ? ` · 来源：${escapeHtml(article.sourceTitle)}` : ""}${article?.sourceUrl && /^https?:\/\//.test(article.sourceUrl) ? ` · <a href="${escapeHtml(article.sourceUrl)}" target="_blank" rel="noopener noreferrer">原始出处</a>` : ""}${article?.importedAt ? ` · 收录于 ${escapeHtml(article.importedAt)}` : ""}${article?.sourcePublishedAt ? ` · 原文发布 ${escapeHtml(String(article.sourcePublishedAt).slice(0,10))}` : ""}</p>
           <details class="mobile-toc">
             <summary><span>文章目录</span><strong id="mobile-toc-count"></strong></summary>
             <nav id="mobile-article-toc"></nav>
           </details>
           <article id="article-body" class="article-body" lang="${fetchPath.startsWith("content/columns/english-reads/") ? "en" : "zh-CN"}">${rendered}</article>
+          ${seriesNavigation(article)}
           <section id="comments-section" class="comments-section" aria-labelledby="comments-title">
             <header>
               <div>
@@ -2644,7 +2320,7 @@ async function renderArticle(rawPath, requestedSection = "") {
         </main>
       </section>
     `;
-    updateActiveNav(isEnglishReading || fetchPath === ENGLISH_COLLECTION_PATH ? "columns" : backSection);
+    updateActiveNav(isEnglishReading || fetchPath === ENGLISH_COLLECTION_PATH ? "reading" : backSection);
     const articleBody = document.getElementById("article-body");
     if (isEnglishReading) window.ReaderVocabulary?.mountReader(articleBody, { path: fetchPath, title: displayTitle });
     void highlightCodeBlocks(articleBody);
@@ -2667,7 +2343,7 @@ async function renderArticle(rawPath, requestedSection = "") {
     readHistory?.mark(fetchPath);
     rememberGiscusArticleRoute(fetchPath);
     mountComments(fetchPath);
-    document.title = `${displayTitle} · WY`;
+    document.title = `${displayTitle} · 观澜`;
     window.scrollTo({ top: 0, behavior: "instant" });
     if (requestedSection) {
       window.requestAnimationFrame(() => {
@@ -2703,7 +2379,8 @@ function parseRoute() {
 }
 
 function updateActiveNav(view) {
-  ui.navLinks.forEach((link) => link.classList.toggle("active", link.dataset.view === view));
+  const primary = ["columns","points"].includes(view)||view.startsWith("collection/") ? "learning" : view;
+  ui.navLinks.forEach((link) => link.classList.toggle("active", link.dataset.view === primary));
 }
 
 async function renderRoute() {
@@ -2715,7 +2392,7 @@ async function renderRoute() {
   }
   document.body.dataset.view = route.view;
   updateActiveNav(route.view);
-  document.title = "WY · 星云档案 / Nebula Archive";
+  document.title = "观澜 · WY 的读书与实践";
   if (route.view === "article") {
     return renderArticle(route.path, route.params.get("section") || "");
   }
@@ -2730,6 +2407,7 @@ async function renderRoute() {
     state.query = "";
     ui.search.value = "";
   }
+  if (route.view.startsWith("collection/")) { renderCollection(decodeURIComponent(route.view.slice(11))); decorateReadLinks(); window.scrollTo({top:0,behavior:"instant"}); return; }
   const renderers = {
     overview: renderOverview,
     timeline: renderTimeline,
@@ -2757,7 +2435,7 @@ async function renderRoute() {
 
 }
 
-const BUILD_VERSION = "20261015-4";
+const BUILD_VERSION = "20261015-6";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy, githubProfile] = await Promise.all([
@@ -2777,7 +2455,7 @@ async function loadSite() {
   ]);
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const payload = await response.json();
-  state.articles = Array.isArray(payload) ? payload : payload.articles || [];
+  state.articles = (Array.isArray(payload) ? payload : payload.articles || []).map(ContentOrganization.organizeArticle);
   state.dashboard = payload.dashboard || {};
   state.columns = payload.columns || [];
   state.projects = payload.projects || [];

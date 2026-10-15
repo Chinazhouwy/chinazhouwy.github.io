@@ -16,10 +16,12 @@
     const paths = new Set(saved);
     const canonical = (path) => aliases[path] || path;
     return {
+      recent() { return [...paths].reverse(); },
       has(path) { return paths.has(canonical(path)); },
       mark(path) {
         const resolved = canonical(path);
         if (!resolved) return;
+        paths.delete(resolved);
         paths.add(resolved);
         try { storage?.setItem(key, JSON.stringify([...paths])); } catch { /* Session-only fallback. */ }
       },

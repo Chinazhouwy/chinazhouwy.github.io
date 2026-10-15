@@ -40,6 +40,10 @@
     {
       "name": "政治",
       "description": "马克思主义基本原理、中国近现代史纲要与思想道德修养的考点整理。"
+    },
+    {
+      "name": "物理",
+      "description": "物理概念、经典教材与参考资料。"
     }
   ],
   "rules": {
@@ -136,6 +140,14 @@
     {
       "name": "Hermes Agent",
       "description": "Hermes Agent 使用与配置。"
+    },
+    {
+      "name": "图数据库与图算法",
+      "description": "图数据库建模、路径查询与图算法。"
+    },
+    {
+      "name": "插件与生命周期",
+      "description": "插件框架、依赖注入与生命周期管理。"
     }
   ]
 }

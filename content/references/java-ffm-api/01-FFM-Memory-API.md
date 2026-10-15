@@ -2213,10 +2213,3 @@ StructLayout（内存布局）
 Netty ByteBuf
 
  在高性能计算领域的优势，还通过 JVM 原生支持，消除了三方库在序列化和类型安全上的痛点，是 Java 走向底层高性能编程的必然选择
-
-          
-
-            var first_sceen__time = (+new Date());
-            if ("" == 1 && document.getElementById('js_content')) {
-              document.getElementById('js_content').addEventListener("selectstart",function(e){ e.preventDefault(); });
-            }

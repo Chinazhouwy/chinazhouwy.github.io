@@ -16,7 +16,8 @@
     Object.freeze({ id: "interface", code: "I", label: "INTERFACE / WEB" }),
     Object.freeze({ id: "security", code: "R", label: "SECURITY / RELIABILITY" }),
     Object.freeze({ id: "theory", code: "T", label: "THEORY / MATH" }),
-    Object.freeze({ id: "reading", code: "L", label: "READING / LIFE" }),
+    Object.freeze({ id: "reading", code: "L", label: "阅读与生活" }),
+    Object.freeze({ id: "unclassified", code: "?", label: "待归类" }),
   ]);
   const KNOWLEDGE_LANE_MAP = Object.freeze(
     Object.fromEntries(KNOWLEDGE_LANES.map((lane) => [lane.id, lane])),
@@ -123,7 +124,7 @@
       article.tags,
     ]);
 
-    if (normalizedSection === "reading" || terms.includes("content/reading/")) {
+    if (normalizedSection === "reading" || terms.includes("content/reading/") || terms.includes("english-reads")) {
       return KNOWLEDGE_LANE_MAP.reading;
     }
     if (/security|secure|xss|csrf|攻击|安全|注入|越权|漏洞|可靠性|故障/.test(terms)) {
@@ -138,7 +139,8 @@
     if (/frontend|html|css|vue|react|typescript|javascript|前端|浏览器/.test(terms)) {
       return KNOWLEDGE_LANE_MAP.interface;
     }
-    return KNOWLEDGE_LANE_MAP.systems;
+    if (/java|jvm|spring|redis|mysql|sql|middleware|工程|后端|中间件|架构/.test(terms)) return KNOWLEDGE_LANE_MAP.systems;
+    return KNOWLEDGE_LANE_MAP.unclassified;
   }
 
   function resolveKnowledgeLane(article = {}, section = "") {

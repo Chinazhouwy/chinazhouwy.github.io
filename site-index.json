@@ -25,13 +25,19 @@
         "Essays"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "Coding Before College",
@@ -58,13 +64,19 @@
         "Technology"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "The Prairie Bird at a Crossroads",
@@ -91,13 +103,19 @@
         "Conservation"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "Finding Time to Read",
@@ -124,13 +142,19 @@
         "Habits"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "A New Map to Success",
@@ -157,13 +181,19 @@
         "Society"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "The Saturday Run That Welcomes Everyone",
@@ -190,13 +220,19 @@
         "Sports"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "When Parents Look at Their Screens",
@@ -223,13 +259,19 @@
         "Technology"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "A Year Before University",
@@ -256,13 +298,19 @@
         "Youth"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "The National Cost of Wildfires",
@@ -289,13 +337,19 @@
         "Public Policy"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "A School Built Around Real-World Learning",
@@ -322,13 +376,19 @@
         "Learning"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "The Price of the Energy Transition",
@@ -355,13 +415,19 @@
         "Economics"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "Life Inside the Platform Economy",
@@ -388,13 +454,19 @@
         "Business"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "Making Space for Deep Work",
@@ -421,13 +493,19 @@
         "Productivity"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "The Social Roots of Guilt",
@@ -454,13 +532,19 @@
         "Child Development"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "Forests, Carbon, and Climate Policy",
@@ -487,13 +571,19 @@
         "Climate"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "Who Will Pick America's Food?",
@@ -520,13 +610,19 @@
         "Labor"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "Beyond the War on Plastic",
@@ -553,13 +649,19 @@
         "Consumer Culture"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "What Rats Know About Social Signals",
@@ -586,13 +688,19 @@
         "Animal Behavior"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "The Case Against Excessive CEO Pay",
@@ -619,13 +727,19 @@
         "Work"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "Madrid's Clean-Air Experiment",
@@ -652,13 +766,19 @@
         "Environment"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "The Generation Shaping the Future of Work",
@@ -685,13 +805,19 @@
         "Youth"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "Reskilling for a Changing Economy",
@@ -718,13 +844,19 @@
         "Education"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "Can Britain Feed Itself?",
@@ -751,13 +883,19 @@
         "Public Policy"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "The Trouble with Tech Acquisitions",
@@ -784,13 +922,19 @@
         "Business"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "Why First Impressions Can Be Misleading",
@@ -817,13 +961,19 @@
         "Decision Making"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "A Greener Future for Eggs",
@@ -850,13 +1000,19 @@
         "Environment"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "Working Beyond Retirement",
@@ -883,13 +1039,19 @@
         "Aging"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "The Tricks That Keep You Subscribed",
@@ -916,13 +1078,19 @@
         "Consumer Rights"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "Can Ethics Lessons Change Our Actions?",
@@ -949,13 +1117,19 @@
         "Psychology"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "The Environmental Cost of Perfect Lawns",
@@ -982,13 +1156,19 @@
         "Design"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "Who Pays for America's National Parks?",
@@ -1015,13 +1195,19 @@
         "Environment"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "What the Internet Changes About Memory",
@@ -1048,13 +1234,19 @@
         "Technology"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "The Paradox of Adolescence",
@@ -1081,13 +1273,19 @@
         "Youth"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "Measuring the Digital Economy",
@@ -1114,13 +1312,19 @@
         "Technology"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "A Shortage of Timber Begins with Too Few Trees",
@@ -1147,13 +1351,19 @@
         "Industry"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "The Difficult Conversation About Older Drivers",
@@ -1180,13 +1390,19 @@
         "Transportation"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "What Health Apps Know About You",
@@ -1213,13 +1429,19 @@
         "Privacy"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "The New Rules of Tipping",
@@ -1246,13 +1468,19 @@
         "Business"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "A New Mission for the NHS",
@@ -1279,13 +1507,19 @@
         "Public Policy"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "Preparing for India's Extreme Heat",
@@ -1312,13 +1546,19 @@
         "Public Health"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "The Paths People Choose",
@@ -1345,13 +1585,19 @@
         "Design"
       ],
       "points": [],
-      "section": "columns",
+      "section": "reading",
       "topic": "English Reads",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "reading",
+      "contentKind": "阅读原文",
+      "collectionId": "english"
     },
     {
       "title": "面试深挖",
@@ -1363,7 +1609,7 @@
       "publishedAt": "",
       "importedAt": "",
       "domain": "专栏",
-      "area": "技术",
+      "area": "Java 后端",
       "module": "面试深挖",
       "project": "",
       "type": "文章",
@@ -1381,18 +1627,22 @@
       "points": [
         "并发容器",
         "二叉树",
-        "概率统计",
         "集合框架",
         "链表",
-        "AOP 与代理"
+        "AOP 与代理",
+        "HashMap 原理"
       ],
-      "section": "columns",
+      "section": "learning",
       "topic": "面试深挖",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "LangGraph 记忆：线程内、跨线程记忆与裁剪总结",
@@ -1423,7 +1673,8 @@
         "上下文管理"
       ],
       "points": [
-        "LangChain/LangGraph"
+        "LangChain/LangGraph",
+        "Agent 记忆"
       ],
       "section": "learning",
       "topic": "Agent 工程与源码",
@@ -1431,7 +1682,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「Stellula」",
+      "sourceUrl": "https://mp.weixin.qq.com/s?__biz=MzY4MTQxOTkyMQ==&mid=2247484070&idx=1&sn=fee4c1e4ef862c87446183fcff26088b&chksm=f350b758c4273e4e7613d98f51f6cd69343782ebb036a0fb809c7ab4a3116e34d6afb6c50c29",
+      "sourcePublishedAt": "2026-10-02 17:36:02 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "LangGraph 基础：智能体架构、核心组件、控制流与工具调用",
@@ -1463,7 +1718,8 @@
       ],
       "points": [
         "LangChain/LangGraph",
-        "工具调用"
+        "工具调用",
+        "SSE 与流式"
       ],
       "section": "learning",
       "topic": "Agent 工程与源码",
@@ -1471,7 +1727,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「Stellula」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/4rnIU7rd2v8khTWVE5gszg",
+      "sourcePublishedAt": "2026-09-30 11:46:08 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "小红书推荐系统的 Agentic 发布：跨昼夜任务 Harness 实践",
@@ -1511,7 +1771,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「小红书技术REDtech」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/GsVimos8OtvgzbIdm4ppow",
+      "sourcePublishedAt": "2026-09-30 17:59:00 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "SQL窗口函数，看这一篇就够啦",
@@ -1544,7 +1808,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「数据分析看Jason」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/iTpohSM1wb45jjXKUC5WKg",
+      "sourcePublishedAt": "2026-09-20 11:03:46 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "从微信分享关系到 Neo4j 最短人脉路径：Cypher 与 GDS 实战",
@@ -1556,7 +1824,7 @@
       "publishedAt": "",
       "importedAt": "",
       "domain": "专栏",
-      "area": "技术",
+      "area": "数据与中间件",
       "module": "图数据库与图算法",
       "project": "",
       "type": "文章",
@@ -1576,16 +1844,19 @@
       "points": [
         "图与搜索",
         "排序算法",
-        "HTTP/HTTPS",
         "消息可靠性"
       ],
-      "section": "columns",
+      "section": "learning",
       "topic": "图数据库与图算法",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "用户提供的 Neo4j 微信分享关系 Demo 文档",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Redis Streams：有确认、能回溯的消息队列",
@@ -1616,7 +1887,6 @@
       "points": [
         "消息可靠性",
         "Kafka",
-        "HTTP/HTTPS",
         "RocketMQ"
       ],
       "section": "learning",
@@ -1625,7 +1895,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「苏渡苇」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/aEHlslURczLvp1pTC6SWNA",
+      "sourcePublishedAt": "2026-09-16 06:50:00+08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Spring 都有 IoC 了，Cordis 还多了什么？",
@@ -1637,8 +1911,8 @@
       "publishedAt": "",
       "importedAt": "",
       "domain": "专栏",
-      "area": "技术",
-      "module": "架构设计",
+      "area": "工程与架构",
+      "module": "插件与生命周期",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -1656,19 +1930,20 @@
       ],
       "points": [
         "IOC 与 Bean 生命周期",
-        "HTTP/HTTPS",
         "集合框架",
-        "Agent 评测与 Harness",
-        "DeepSeek",
         "HashMap 原理"
       ],
-      "section": "columns",
-      "topic": "架构设计",
+      "section": "learning",
+      "topic": "插件与生命周期",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Filter 与 Interceptor 执行顺序：一次说清（附本机实测 trace）",
@@ -1697,8 +1972,8 @@
         "执行顺序"
       ],
       "points": [
-        "HTTP/HTTPS",
-        "Spring Boot 自动装配"
+        "Spring Boot 自动装配",
+        "HTTP/HTTPS"
       ],
       "section": "learning",
       "topic": "Spring 生态",
@@ -1706,7 +1981,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「话喵师」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/WNUh4vlGQxaVByDXT_sLiw",
+      "sourcePublishedAt": "2026-09-13 10:23 (北京时间)",
+      "contentKind": "知识笔记"
     },
     {
       "title": "GPT 资深 Java 面试 200 题：自测与已有答案对照",
@@ -1746,7 +2025,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "自测题单"
     },
     {
       "title": "GPT 资深 Java 面试 200 题：原始出题材料",
@@ -1786,7 +2069,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "参考资料"
     },
     {
       "title": "灰度发布体系设计：策略维度、双层切流与全链路标签透传",
@@ -1816,10 +2103,9 @@
         "发布策略"
       ],
       "points": [
-        "注册中心与网关",
         "ThreadLocal",
+        "注册中心与网关",
         "线程池",
-        "HTTP/HTTPS",
         "限流熔断降级"
       ],
       "section": "learning",
@@ -1828,7 +2114,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「Java技术实战」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/z5h92vwE599-GeGwP8IuTg",
+      "sourcePublishedAt": "2026-09-10 10:32:00 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Spring Boot 已过时的 10 个模式：迁移清单与版本边界",
@@ -1862,9 +2152,9 @@
       ],
       "points": [
         "Spring Boot 自动装配",
+        "虚拟线程",
         "事务与 MVCC",
-        "HTTP/HTTPS",
-        "虚拟线程"
+        "HTTP/HTTPS"
       ],
       "section": "learning",
       "topic": "Spring 生态",
@@ -1872,7 +2162,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「Spring全家桶实战案例」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/DBi6yAIbUTvq5uQfm0XJTA",
+      "sourcePublishedAt": "2026-09-10 12:00:00 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "再见了EasyExcel，我决定用Apache Fesod",
@@ -1911,7 +2205,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "掘金「苏三说技术」",
+      "sourceUrl": "https://juejin.cn/post/7682698191628632107",
+      "sourcePublishedAt": "2026-09-08 11:51:38 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "从一次 LLM 调用到完整 Harness：Agent 系统如何长出运行时",
@@ -1947,11 +2245,11 @@
       ],
       "points": [
         "Agent 评测与 Harness",
-        "Agent 架构模式",
         "Codex",
-        "HTTP/HTTPS",
         "MCP 协议",
-        "持久化 RDB/AOF"
+        "Agent 架构模式",
+        "持久化 RDB/AOF",
+        "上下文工程"
       ],
       "section": "learning",
       "topic": "Agent 工程与源码",
@@ -1959,7 +2257,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「腾讯技术工程」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/kZZac-VBgnQIZeookE9Y8g",
+      "sourcePublishedAt": "2026-09-07 17:36:00 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "架构设计｜积分系统",
@@ -1990,12 +2292,12 @@
         "对账"
       ],
       "points": [
-        "积分",
         "消息可靠性",
         "Redis 高可用",
         "缓存三大问题",
-        "HTTP/HTTPS",
-        "索引原理"
+        "索引原理",
+        "限流熔断降级",
+        "注册中心与网关"
       ],
       "section": "learning",
       "topic": "工程与架构",
@@ -2003,7 +2305,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「剑桥摩方笔记」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/-o5i4O-fJItMXZO3vnv4AQ",
+      "sourcePublishedAt": "2026-09-07 14:22:03 +0800",
+      "contentKind": "知识笔记"
     },
     {
       "title": "G1 回收器：如何把 GC 停顿变得可预测",
@@ -2035,9 +2341,7 @@
         "性能排查"
       ],
       "points": [
-        "GC 与垃圾回收",
-        "HTTP/HTTPS",
-        "极限与连续"
+        "GC 与垃圾回收"
       ],
       "section": "learning",
       "topic": "JVM 与性能调优",
@@ -2045,7 +2349,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「栏天百云」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/RVAj9Nh-iFlsueWadl2Cdw",
+      "sourcePublishedAt": "2026-09-06 16:13:16 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "第43届全国中学生物理竞赛初赛试题及解析：小红书图片存档",
@@ -2076,13 +2384,17 @@
         "试题资料"
       ],
       "points": [],
-      "section": "reading",
+      "section": "learning",
       "topic": "中学生物理竞赛",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "小红书用户 momoDa",
+      "sourceUrl": "https://www.xiaohongshu.com/discovery/item/6a9ba01c000000002802d7a5?source=webshare&xhsshare=pc_web&xsec_token=AB5dD3hHGF1Ep3eYaAAYe6hDGTKfE4HP-IKEq5aCug0VI=&xsec_source=pc_share",
+      "sourcePublishedAt": "2026-09-05 12:52:44 +08:00",
+      "contentKind": "参考资料"
     },
     {
       "title": "Spring Batch 入门到实战：从定时循环到可恢复的批处理系统",
@@ -2112,8 +2424,7 @@
       ],
       "points": [
         "消息可靠性",
-        "Spring Boot 自动装配",
-        "HTTP/HTTPS"
+        "Spring Boot 自动装配"
       ],
       "section": "learning",
       "topic": "Spring 生态",
@@ -2121,7 +2432,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "git worktree 实战：一边修 bug 一边写需求",
@@ -2158,7 +2473,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「左羊公社」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/JqZEvGB5MzGgg1S-Heu_OQ",
+      "sourcePublishedAt": "2026-09-02 22:33:15 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Stanford 链表经典教程：Java 程序员的中文实战版",
@@ -2201,7 +2520,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "实践记录"
     },
     {
       "title": "一张单位圆，推完最常用的40个三角函数公式",
@@ -2241,7 +2564,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「起什么好3211」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/h942K0gdwOtlg_st5lyw-g",
+      "sourcePublishedAt": "2026-09-02 08:30:00 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Java数据结构和算法汇集",
@@ -2273,10 +2600,10 @@
       "points": [
         "二叉树",
         "集合框架",
-        "矩阵与线性方程组",
         "链表",
         "排序算法",
-        "索引原理"
+        "索引原理",
+        "图与搜索"
       ],
       "section": "learning",
       "topic": "数据结构与算法",
@@ -2284,7 +2611,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "实践记录"
     },
     {
       "title": "单位圆视角下的三角函数公式",
@@ -2322,7 +2653,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「曹古拉斯大魔王」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/dQLsiwxdomaYwm4qge7UKg",
+      "sourcePublishedAt": "2026-09-01 18:51:17 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Java Lambda 原理拆解：动态生成类与调用流程",
@@ -2359,7 +2694,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "https://mp.weixin.qq.com/s/stUbw9thrV24qxlfIgwzww",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Hermes Agent 实践入门：Dashboard、记忆、Skill 与多 Agent 协作",
@@ -2394,9 +2733,9 @@
         "Plugins"
       ],
       "points": [
-        "HTTP/HTTPS",
         "MCP 协议",
         "工具调用",
+        "HTTP/HTTPS",
         "进程与调度"
       ],
       "section": "learning",
@@ -2405,7 +2744,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "CountDownLatch、CyclicBarrier、Semaphore：三种等待语义与选型",
@@ -2443,7 +2786,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "https://mp.weixin.qq.com/s/uBy_-E83PhDa-0dY5UKjcA",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Spring Bean 生命周期全解：四阶段与 16 个扩展点",
@@ -2481,7 +2828,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "https://mp.weixin.qq.com/s/0WeiAxuReGFuPEG_l2ZvvQ",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "毛著作考点时间线：四个时期标志性文章与核心论断",
@@ -2515,7 +2866,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "AQS 源码深度解析：CLH 队列、独占/共享模式与 Condition",
@@ -2554,7 +2909,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "CompletableFuture 实战全解：状态机、编排、异常与超时",
@@ -2591,7 +2950,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Javaer 看永续合约、区块链与 Hyperliquid：把链上交易所拆成熟悉的工程系统",
@@ -2632,7 +2995,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "线程池队列满了会怎样：从拒绝策略看 ThreadPoolExecutor 扩容顺序",
@@ -2665,7 +3032,6 @@
         "HashMap 原理",
         "并发容器",
         "持久化 RDB/AOF",
-        "HTTP/HTTPS",
         "JVM 调优与排查"
       ],
       "section": "learning",
@@ -2674,7 +3040,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「Java技术工坊」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/DzBfVkWw3faI2GYX5mIwCg",
+      "sourcePublishedAt": "2026-08-29 09:00:00 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "英语图表作文写作方法 + 预制菜范文（一篇搞定）",
@@ -2709,7 +3079,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "synchronized 锁升级全过程：偏向锁→轻量级锁→重量级锁的 JVM 级细节",
@@ -2749,7 +3123,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "如果由你来实现 Stream，会怎么设计？——一次“重新发明”的思维之旅",
@@ -2785,7 +3163,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "LLM 主流分词算法：BPE 分词原理与实战",
@@ -2822,7 +3204,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "本地消息表实战整理：机制、落地与生产边界",
@@ -2854,11 +3240,11 @@
       ],
       "points": [
         "消息可靠性",
-        "RocketMQ",
+        "分布式事务",
         "索引原理",
         "限流熔断降级",
-        "分布式事务",
-        "Kafka"
+        "RocketMQ",
+        "Redis 高可用"
       ],
       "section": "learning",
       "topic": "数据与中间件",
@@ -2866,7 +3252,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「互联网后端架构栈」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/_KKtOk07TPjRnc_SB-wWzQ",
+      "sourcePublishedAt": "2026-08-19 14:10:11 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "计算机基础 · 组成原理：Cache 为什么有效，局部性如何变成速度",
@@ -2903,7 +3293,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "计算机基础 · 数据结构：树与图，为什么先看关系再看遍历",
@@ -2942,7 +3336,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "计算机基础：从一行代码到一个数据包的四科地图",
@@ -2980,7 +3378,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "路线图"
     },
     {
       "title": "计算机基础 · 计算机网络：TCP 可靠性，丢包后到底发生了什么",
@@ -3017,7 +3419,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "计算机基础 · 操作系统：进程、线程与虚拟内存，谁在管理什么",
@@ -3056,7 +3462,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "计算机基础 · 综合卡：一次请求如何穿过四门课",
@@ -3096,7 +3506,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "《背包问题九讲》V2：动态规划经典材料",
@@ -3125,8 +3539,7 @@
         "参考资料"
       ],
       "points": [
-        "动态规划",
-        "HTTP/HTTPS"
+        "动态规划"
       ],
       "section": "learning",
       "topic": "算法与动态规划",
@@ -3134,7 +3547,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "https://github.com/tianyicui/pack/blob/master/V2.pdf",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "参考资料"
     },
     {
       "title": "数学：导数与中值定理，局部斜率怎样变成区间结论",
@@ -3171,7 +3588,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "数学：积分不是公式表，而是变化的累计器",
@@ -3208,7 +3629,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "数学：极限与连续，为什么先判对象再选方法",
@@ -3246,7 +3671,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "数学：秩与方程组，矩阵到底丢掉了多少维信息",
@@ -3285,7 +3714,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "数学：从公式堆到问题地图",
@@ -3328,7 +3761,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "路线图"
     },
     {
       "title": "数学：概率分布到数字特征，随机变量怎样被压缩",
@@ -3365,7 +3802,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "DSH：DeepSeek Harness 架构解析",
@@ -3401,9 +3842,9 @@
         "Agent 评测与 Harness",
         "DeepSeek",
         "进程与调度",
-        "HTTP/HTTPS",
         "Prompt 工程",
-        "向量与空间"
+        "持久化 RDB/AOF",
+        "图与搜索"
       ],
       "section": "learning",
       "topic": "Agent 工程与源码",
@@ -3411,7 +3852,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「浮之静」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/Kf87hcNdSmY4ODWI4UZ8cg",
+      "sourcePublishedAt": "2026-08-14 11:09:44 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Pi-Agent 源码精读笔记（冬瓜）：10 章拆解生产级 Agent SDK",
@@ -3440,7 +3885,6 @@
         "学习资源"
       ],
       "points": [
-        "HTTP/HTTPS",
         "DeepSeek",
         "上下文工程",
         "Claude Code",
@@ -3452,7 +3896,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Spring @Transactional 失效的 7 个场景：从代理到事务边界",
@@ -3483,7 +3931,6 @@
       ],
       "points": [
         "Spring 事务",
-        "HTTP/HTTPS",
         "Spring Boot 自动装配",
         "AOP 与代理"
       ],
@@ -3493,7 +3940,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「程序员代码随笔」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/MA5CQgET-1pGWJyXqAifbA",
+      "sourcePublishedAt": "2026-08-11 12:28:56 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "手机 Codex App 远程连接打通记：代理排障与 systemd 加固",
@@ -3532,7 +3983,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "HTML 基础笔记：标签、排版、图片、超链接、列表、表格与表单",
@@ -3570,7 +4025,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "HTML5 核心新特性笔记：语义化标签、表单、多媒体与全局属性",
@@ -3599,7 +4058,6 @@
         "前端"
       ],
       "points": [
-        "HTTP/HTTPS",
         "CSS 与布局"
       ],
       "section": "learning",
@@ -3608,7 +4066,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "CSS2 核心笔记：选择器、三大特性、盒子模型、浮动与定位",
@@ -3646,7 +4108,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "CSS3 新特性笔记：变换、过渡动画、flex 布局、渐变与响应式",
@@ -3676,8 +4142,7 @@
         "前端"
       ],
       "points": [
-        "CSS 与布局",
-        "HTTP/HTTPS"
+        "CSS 与布局"
       ],
       "section": "learning",
       "topic": "HTML/CSS 基础",
@@ -3685,7 +4150,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Sentinel 限流熔断实战指南：接入、规则、持久化与生产实践",
@@ -3726,7 +4195,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "MyBatis 源码深度拆解（九）：插件 Plugin 拦截器底层原理",
@@ -3764,7 +4237,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "TypeScript 极速梳理：Vue 3 开发所需的类型基础",
@@ -3795,7 +4272,6 @@
       "points": [
         "TypeScript",
         "Vue",
-        "HTTP/HTTPS",
         "索引原理"
       ],
       "section": "learning",
@@ -3804,7 +4280,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "教程"
     },
     {
       "title": "Vue 3 + TypeScript 快速上手（上）：Vite、Composition API 与响应式",
@@ -3836,7 +4316,6 @@
       "points": [
         "TypeScript",
         "Vue",
-        "HTTP/HTTPS",
         "一致性协议"
       ],
       "section": "learning",
@@ -3845,7 +4324,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "教程"
     },
     {
       "title": "Vue 3 + TypeScript 快速上手（中）：Router、Pinia 与组件通信",
@@ -3877,7 +4360,6 @@
       "points": [
         "TypeScript",
         "Vue",
-        "HTTP/HTTPS",
         "内存管理",
         "持久化 RDB/AOF",
         "一致性协议"
@@ -3888,7 +4370,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "教程"
     },
     {
       "title": "Vue 3 + TypeScript 快速上手（下）：高级响应式与工程化",
@@ -3920,7 +4406,6 @@
       "points": [
         "TypeScript",
         "Vue",
-        "HTTP/HTTPS",
         "CSS 与布局"
       ],
       "section": "learning",
@@ -3929,7 +4414,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "教程"
     },
     {
       "title": "携程生产级 Java Agent 框架实践 — Spring-Ai-Trip 深度解析",
@@ -3961,10 +4450,10 @@
       ],
       "points": [
         "Spring AI",
+        "MCP 协议",
         "Prompt 工程",
         "Agent 架构模式",
         "工具调用",
-        "MCP 协议",
         "虚拟线程"
       ],
       "section": "learning",
@@ -3973,7 +4462,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "小红书",
+      "sourceUrl": "http://xhslink.cn/o/5iep26m9Bt",
+      "sourcePublishedAt": "",
+      "contentKind": "参考资料"
     },
     {
       "title": "独立开发技术栈（2026）— 工具详解与选型分析",
@@ -4003,7 +4496,6 @@
         "全栈"
       ],
       "points": [
-        "HTTP/HTTPS",
         "CSS 与布局",
         "Claude Code"
       ],
@@ -4013,7 +4505,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "小红书",
+      "sourceUrl": "http://xhslink.cn/o/7UPlWburYkt",
+      "sourcePublishedAt": "",
+      "contentKind": "参考资料"
     },
     {
       "title": "多数据源上下文在异步线程中不会自动传播：CompletableFuture 查错库排查记录",
@@ -4046,8 +4542,7 @@
         "CompletableFuture",
         "ThreadLocal",
         "线程池",
-        "Spring 事务",
-        "HTTP/HTTPS"
+        "Spring 事务"
       ],
       "section": "learning",
       "topic": "Java 后端",
@@ -4055,7 +4550,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「进阶的小名」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/nRvJOiJ8Kl5by6gLWbsY6w",
+      "sourcePublishedAt": "2026-07-27 08:50:00 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "MyBatis 源码深度拆解（八）：二级缓存机制详解",
@@ -4090,7 +4589,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "WY｜资深 Java 后端工程师与 AI Agent 实践者",
@@ -4119,7 +4622,6 @@
       ],
       "points": [
         "Agent 评测与 Harness",
-        "HTTP/HTTPS",
         "工具调用"
       ],
       "section": "about",
@@ -4128,7 +4630,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "RAG 检索范式演进：向量RAG、BM25混合检索、GraphRAG、SAG 与 PageIndex",
@@ -4162,7 +4668,6 @@
       "points": [
         "RAG 与向量检索",
         "索引原理",
-        "HTTP/HTTPS",
         "Redis 高可用"
       ],
       "section": "learning",
@@ -4171,7 +4676,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「小码AI笔记」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/NQcwdB4JKbPj8c29N1UU_Q",
+      "sourcePublishedAt": "2026-07-23 11:45:12 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "梁文锋投资者交流会-录音转文本",
@@ -4198,19 +4707,19 @@
         "组织管理",
         "投资者交流"
       ],
-      "points": [
-        "一致性协议",
-        "DeepSeek",
-        "概率统计",
-        "级数与傅里叶"
-      ],
+      "points": [],
       "section": "reading",
       "topic": "社会",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "readingTopic": "市场与商业",
+      "contentKind": "阅读摘录"
     },
     {
       "title": "SSE 跨层流式系统：从 Spring flush 到浏览器渲染",
@@ -4244,10 +4753,10 @@
         "故障排查"
       ],
       "points": [
-        "SSE 与流式",
-        "注册中心与网关",
         "HTTP/HTTPS",
+        "SSE 与流式",
         "TCP 协议",
+        "注册中心与网关",
         "中断与系统调用"
       ],
       "section": "learning",
@@ -4256,7 +4765,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "从赵括争议看统帅任命：组织政治、项目失控与风险管理",
@@ -4292,7 +4805,12 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "知乎",
+      "sourceUrl": "https://www.zhihu.com/question/564561492/answer/2052304662359959190",
+      "sourcePublishedAt": "",
+      "readingTopic": "历史与文明",
+      "contentKind": "知识笔记"
     },
     {
       "title": "闲暇养生阅读清单：黄帝内经、周易、道德经",
@@ -4321,16 +4839,19 @@
         "养生",
         "修身"
       ],
-      "points": [
-        "HTTP/HTTPS"
-      ],
+      "points": [],
       "section": "reading",
       "topic": "health",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "readingTopic": "生活与职业",
+      "contentKind": "知识笔记"
     },
     {
       "title": "普通人长寿手册：压住炎症，稳住血糖，留住肌肉",
@@ -4367,7 +4888,12 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "https://x.com/430Yang/status/2078414411111264375",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "readingTopic": "生活与职业",
+      "contentKind": "知识笔记"
     },
     {
       "title": "MyBatis 源码深度拆解（七）：一级缓存底层彻底拆解",
@@ -4403,7 +4929,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "用小说语境背考研英语词汇：一周刷完 8000 词的方法与边界",
@@ -4433,16 +4963,18 @@
         "真题阅读",
         "学习方法"
       ],
-      "points": [
-        "极限与连续"
-      ],
+      "points": [],
       "section": "learning",
       "topic": "英语",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "小红书用户「慢慢来会发光」",
+      "sourceUrl": "https://xhslink.cn/o/728SpskOqQP",
+      "sourcePublishedAt": "2026-07-15 08:40:20 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "SQLite 深度实战：从类型、索引与 WAL 到工程边界",
@@ -4478,11 +5010,9 @@
       ],
       "points": [
         "索引原理",
-        "HTTP/HTTPS",
         "进程与调度",
         "SQL 优化",
-        "排序算法",
-        "矩阵与线性方程组"
+        "排序算法"
       ],
       "section": "learning",
       "topic": "数据与中间件",
@@ -4490,7 +5020,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「网优小兵玩Python」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/uhMm0vZpDwf76Nh4Z5A0iA",
+      "sourcePublishedAt": "2026-07-12 08:42:14 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Agentium MCP 工具执行机制解析",
@@ -4523,7 +5057,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "AgentScope Java 1.1.0 Harness Framework 深度解析",
@@ -4549,7 +5087,6 @@
         "Agent 评测与 Harness",
         "AgentScope",
         "Agent 架构模式",
-        "HTTP/HTTPS",
         "持久化 RDB/AOF",
         "Agent 记忆"
       ],
@@ -4559,7 +5096,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "AI Coding Agent 技术参考文档",
@@ -4595,7 +5136,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "阿里笔试 · 字符串填充组合计数（动态规划）",
@@ -4627,7 +5172,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "为什么 Claude Code 用 grep 不用 RAG 检索代码？",
@@ -4660,7 +5209,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "我们是如何让 DeepSeek 超越 Opus 4.7 的？",
@@ -4692,7 +5245,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "RAG混合检索：MeiliSearch vs Milvus（技术文章整理）",
@@ -4725,7 +5282,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "从零开始写 Agent 系列（11篇）",
@@ -4748,8 +5309,7 @@
       "summary": "从零开始写 Agent 系列（11篇）",
       "tags": [],
       "points": [
-        "Agent 架构模式",
-        "上下文工程"
+        "Agent 架构模式"
       ],
       "section": "learning",
       "topic": "Agent 工程与源码",
@@ -4757,7 +5317,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "从司机变乘客：这就是 Agent 编程的范式革命",
@@ -4788,7 +5352,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "从零开始写Agent(二) - 让模型调用工具",
@@ -4820,7 +5388,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "从零开始写 Agent(三) - Agent Loop",
@@ -4851,7 +5423,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "从零开始写 Agent（四）：用两步做一个财报研报 Agent",
@@ -4883,7 +5459,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "从零开始写 Agent（五）：聊聊 Agent 的设计范式",
@@ -4914,7 +5494,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "从零开始写 Agent（六）：记忆系统",
@@ -4946,7 +5530,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "从零开始写 Agent（七）：上下文工程",
@@ -4980,7 +5568,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "从零开始写 Agent 之八：外接知识库",
@@ -5011,7 +5603,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "从零开始写 Agent 之九 - 浏览器自动化",
@@ -5042,7 +5638,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "从零开始写 Agent ：给 Agent 加上 Skills 系统",
@@ -5073,7 +5673,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "从零开始写 Agent 终篇：如何设计一个生产级 Agent 系统",
@@ -5109,7 +5713,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "后端开发转Agent开发学习路线",
@@ -5133,9 +5741,9 @@
       "tags": [],
       "points": [
         "Agent 评测与 Harness",
-        "HTTP/HTTPS",
         "RAG 与向量检索",
         "Claude Code",
+        "NLP 与 Transformer",
         "上下文工程",
         "Codex"
       ],
@@ -5145,7 +5753,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Java 并发优化 5 个实战技巧",
@@ -5179,7 +5791,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Spring Boot @Async 实战4种模式",
@@ -5214,7 +5830,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Spring 三级缓存解决循环依赖 —— 完整讨论记录",
@@ -5249,7 +5869,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Spring 三级缓存源码逐行注释",
@@ -5284,7 +5908,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "Redis事务与原子性原理深度解析",
@@ -5297,7 +5925,7 @@
       "importedAt": "2026-07-06",
       "domain": "学习",
       "area": "数据与中间件",
-      "module": "Spring 生态",
+      "module": "Redis 与缓存",
       "project": "",
       "type": "文章",
       "status": "可复习",
@@ -5313,12 +5941,16 @@
         "Redis 分布式锁"
       ],
       "section": "learning",
-      "topic": "Spring 生态",
+      "topic": "Redis 与缓存",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "RocketMQ vs Kafka：事务、原子写入、有序性",
@@ -5353,7 +5985,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "高级Java工程师3道灵魂面试题",
@@ -5389,7 +6025,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "知乎：MySQL千万级订单表新增字段怎么弄？",
@@ -5420,7 +6060,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "大厂面试SQL高频题 第2期",
@@ -5451,7 +6095,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "面试知识库 RAG 系统设计方案",
@@ -5486,7 +6134,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "设计方案"
     },
     {
       "title": "codex gpt 修复点",
@@ -5522,7 +6174,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "实践记录"
     },
     {
       "title": "程序员出海/远程工作资料",
@@ -5551,7 +6207,12 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "readingTopic": "生活与职业",
+      "contentKind": "阅读摘录"
     },
     {
       "title": "AI 记忆标签体系设计 — 双维度标签解决 consolidation 混乱",
@@ -5582,7 +6243,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "参考资料"
     },
     {
       "title": "How LLMs Actually Work — LLM 内部机制长文",
@@ -5607,10 +6272,7 @@
       "points": [
         "NLP 与 Transformer",
         "RAG 与向量检索",
-        "HTTP/HTTPS",
-        "Prompt 工程",
-        "矩阵与线性方程组",
-        "概率统计"
+        "Prompt 工程"
       ],
       "section": "learning",
       "topic": "参考资料",
@@ -5618,7 +6280,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "参考资料"
     },
     {
       "title": "Java FFM API：Memory API 与堆外内存管理",
@@ -5650,7 +6316,6 @@
         "CSS 与布局",
         "进程与调度",
         "ThreadLocal",
-        "HTTP/HTTPS",
         "JVM 调优与排查"
       ],
       "section": "learning",
@@ -5659,7 +6324,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "参考资料"
     },
     {
       "title": "SSE + Redis Stream：基于事件 ID 的断线续传方案",
@@ -5688,6 +6357,7 @@
       ],
       "points": [
         "SSE 与流式",
+        "Spring Boot 自动装配",
         "Kafka"
       ],
       "section": "learning",
@@ -5696,7 +6366,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "参考资料"
     },
     {
       "title": "CompletableFuture 进阶：组合、超时与线程池避坑",
@@ -5737,7 +6411,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "微信公众号「码农程序员」",
+      "sourceUrl": "https://mp.weixin.qq.com/s/Vvqchp7cma5XIP9SwQcXBw",
+      "sourcePublishedAt": "2026-07-05 07:10:00 +08:00",
+      "contentKind": "知识笔记"
     },
     {
       "title": "JVM 垃圾回收核心概念：GC Roots、并发标记、浮动垃圾、写屏障、SATB vs Incremental Update",
@@ -5777,10 +6455,14 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
-      "title": "MyBatis 源码深度拆解（六）：#{} 与 ${} 底层解析 &amp; SQL 预编译",
+      "title": "MyBatis 源码深度拆解（六）：#{} 与 ${} 底层解析 & SQL 预编译",
       "path": "content/learning/source-reading/mybatis-source-06-param-binding-prepared-statement.md",
       "url": "content/learning/source-reading/mybatis-source-06-param-binding-prepared-statement.md",
       "date": "2026-07-05",
@@ -5811,7 +6493,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "🎬 赛博吴同学：开源AI Agent记忆平台cognee",
@@ -5839,8 +6525,7 @@
         "向量检索"
       ],
       "points": [
-        "RAG 与向量检索",
-        "HTTP/HTTPS"
+        "RAG 与向量检索"
       ],
       "section": "learning",
       "topic": "源码阅读",
@@ -5848,7 +6533,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "MyBatis 源码深度拆解（五）：Executor 执行器设计与实现",
@@ -5885,7 +6574,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "MyBatis 源码深度拆解（四）：SqlSession 体系深度拆解",
@@ -5919,7 +6612,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "MyBatis 源码深度拆解（三）：Mapper 接口动态代理底层原理",
@@ -5955,7 +6652,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "MyBatis 源码深度拆解（二）：核心配置加载原理",
@@ -5990,7 +6691,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "🎬 晖哥说投资：科技基金得涨到啥时候啊",
@@ -6024,7 +6729,12 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "readingTopic": "市场与商业",
+      "contentKind": "阅读摘录"
     },
     {
       "title": "Spring AI 2.0 Multi-Agent 实战：构建智能协作系统",
@@ -6060,7 +6770,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "JVM 核心原理与线上排查",
@@ -6096,10 +6810,14 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
-      "title": "MyBatis 源码深度拆解（一）：整体架构 &amp; 核心执行全流程",
+      "title": "MyBatis 源码深度拆解（一）：整体架构 & 核心执行全流程",
       "path": "content/learning/source-reading/mybatis-source-01-architecture-core-flow.md",
       "url": "content/learning/source-reading/mybatis-source-01-architecture-core-flow.md",
       "date": "2026-05-30",
@@ -6131,7 +6849,11 @@
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "contentKind": "知识笔记"
     },
     {
       "title": "《从初等到高等 不等式大全》",
@@ -6143,7 +6865,7 @@
       "publishedAt": "",
       "importedAt": "",
       "domain": "阅读",
-      "area": "personal-notes",
+      "area": "数学",
       "category": "数学书籍推荐",
       "readingCategory": "books",
       "module": "",
@@ -6160,13 +6882,18 @@
         "书籍推荐"
       ],
       "points": [],
-      "section": "reading",
-      "topic": "personal-notes",
+      "section": "learning",
+      "topic": "数学",
       "company": "",
       "round": "",
       "score": null,
       "questionNumber": null,
-      "question": ""
+      "question": "",
+      "sourceTitle": "https://www.xiaohongshu.com/explore/6a18f41100000000080324bc",
+      "sourceUrl": "",
+      "sourcePublishedAt": "",
+      "lane": "theory",
+      "contentKind": "参考资料"
     }
   ],
   "pointsIndex": [
@@ -6174,7 +6901,7 @@
       "name": "Agent 架构模式",
       "topic": "Agent 工程与源码",
       "summary": "ReAct 以思考-行动-观察循环驱动工具使用，Planning/Reflection/Multi-Agent 是主要扩展方向；高频考题是与 Workflow 的边界：确定性流程用 Workflow，开放任务用 Agent。",
-      "count": 8,
+      "count": 10,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6184,7 +6911,7 @@
       "name": "Agent 记忆",
       "topic": "Agent 工程与源码",
       "summary": "短期记忆等于会话上下文，长期记忆靠外置存储（向量库/结构化）；要点是写入策略、检索相关性与遗忘固化机制。",
-      "count": 1,
+      "count": 2,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6214,7 +6941,7 @@
       "name": "Claude Code",
       "topic": "Agent 工程与源码",
       "summary": "核心机制是 CLAUDE.md 上下文注入、工具权限管控与 subagent 编排；Skills 与 hooks 的工程化设计最值得借鉴。",
-      "count": 4,
+      "count": 5,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6254,7 +6981,7 @@
       "name": "MCP 协议",
       "topic": "Agent 工程与源码",
       "summary": "MCP 把工具、资源与提示标准化为 JSON-RPC 服务，Host-Client-Server 三角色；与 function calling 的本质区别是生态级解耦——工具实现一次处处可用。",
-      "count": 5,
+      "count": 6,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6264,7 +6991,7 @@
       "name": "NLP 与 Transformer",
       "topic": "Agent 工程与源码",
       "summary": "自注意力并行建模长程依赖，位置编码、多头机制与 KV cache 是推理优化核心；分词器决定 token 成本。",
-      "count": 1,
+      "count": 3,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6274,7 +7001,7 @@
       "name": "Prompt 工程",
       "topic": "Agent 工程与源码",
       "summary": "系统提示定义角色与约束，Few-shot 控制格式，CoT 引导推理；工程化关注版本管理、回归评测与提示注入防护。",
-      "count": 6,
+      "count": 8,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6284,7 +7011,7 @@
       "name": "RAG 与向量检索",
       "topic": "Agent 工程与源码",
       "summary": "离线切分-向量化-入库，在线召回-重排-生成；优化围绕分块策略、混合检索（BM25+向量）、rerank 与引用溯源展开。",
-      "count": 9,
+      "count": 10,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6304,7 +7031,7 @@
       "name": "工具调用",
       "topic": "Agent 工程与源码",
       "summary": "模型按 schema 生成参数、运行时执行并把结果回填给模型；难点在工具粒度设计、错误反馈方式与并行调用编排。",
-      "count": 9,
+      "count": 10,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6314,7 +7041,7 @@
       "name": "GC 与垃圾回收",
       "topic": "JVM 与性能",
       "summary": "可达性分析判活，收集器沿 Serial→Parallel→CMS→G1→ZGC 演进，核心权衡是吞吐与停顿；G1 按 Region 划分、按停顿目标优先回收收益最高的区域。",
-      "count": 5,
+      "count": 6,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6334,7 +7061,7 @@
       "name": "JVM 调优与排查",
       "topic": "JVM 与性能",
       "summary": "调优主线：内存泄漏看堆直方图与 GC 日志，CPU 飙高先定位线程栈（top -Hp + arthas），参数围绕堆大小、收集器与元空间。",
-      "count": 4,
+      "count": 5,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6374,7 +7101,7 @@
       "name": "HashMap 原理",
       "topic": "Java 并发与异步",
       "summary": "数组 + 链表/红黑树：桶内超过 8 且数组长度 ≥64 才树化，扩容 2 倍并按 hash 高位拆链。JDK7 并发扩容成环是经典题，JDK8 改尾插修复。",
-      "count": 4,
+      "count": 6,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6384,7 +7111,7 @@
       "name": "ThreadLocal",
       "topic": "Java 并发与异步",
       "summary": "每个 Thread 持有 ThreadLocalMap，键为弱引用、值为强引用，线程池场景必须 remove，否则内存泄漏且可能串值。",
-      "count": 3,
+      "count": 4,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6414,7 +7141,7 @@
       "name": "并发容器",
       "topic": "Java 并发与异步",
       "summary": "ConcurrentHashMap 从 JDK7 分段锁演进到 JDK8 CAS+synchronized 桶级锁，size 用 CounterCell 分散计数；CopyOnWrite 写时复制适合读多写少。",
-      "count": 3,
+      "count": 4,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6434,7 +7161,7 @@
       "name": "虚拟线程",
       "topic": "Java 并发与异步",
       "summary": "虚拟线程由 JVM 调度、阻塞时挂起而不占载体线程，适合高阻塞 IO；痛点是 synchronized 长段与 native 调用会 pin 住载体。",
-      "count": 4,
+      "count": 5,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6444,7 +7171,7 @@
       "name": "集合框架",
       "topic": "Java 并发与异步",
       "summary": "ArrayList 基于数组、扩容 1.5 倍，LinkedList 双向链表；fail-fast 靠 modCount 实现，遍历中结构修改要特别注意。",
-      "count": 3,
+      "count": 5,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6524,7 +7251,7 @@
       "name": "Redis 高可用",
       "topic": "Redis 与缓存",
       "summary": "主从复制增量+全量同步，哨兵负责故障转移，Cluster 把数据分到 16384 个 slot 去中心化路由；集群模式多键操作受 slot 限制。",
-      "count": 3,
+      "count": 4,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6534,7 +7261,7 @@
       "name": "持久化 RDB/AOF",
       "topic": "Redis 与缓存",
       "summary": "RDB 快照恢复快但可能丢数据，AOF 追加日志更安全并定期重写压缩；4.0 后的混合持久化兼取两者。",
-      "count": 7,
+      "count": 8,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6554,7 +7281,7 @@
       "name": "AOP 与代理",
       "topic": "Spring 生态",
       "summary": "默认 JDK 动态代理（有接口）/CGLIB（纯类），织入发生在 BeanPostProcessor 阶段；自调用不经过代理是高频坑。",
-      "count": 8,
+      "count": 9,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6564,7 +7291,7 @@
       "name": "IOC 与 Bean 生命周期",
       "topic": "Spring 生态",
       "summary": "实例化→属性填充→Aware→BeanPostProcessor 前置→初始化→后置；循环依赖靠三级缓存提前暴露早期引用，构造器注入无解。",
-      "count": 4,
+      "count": 5,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6584,7 +7311,7 @@
       "name": "Spring AI",
       "topic": "Spring 生态",
       "summary": "Spring AI 统一 Chat、Embedding 与 VectorStore 抽象，Advisor 链拦截对话流程，适合把模型能力以普通 Bean 的形式融入 Spring 应用。",
-      "count": 1,
+      "count": 2,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6594,7 +7321,7 @@
       "name": "Spring Boot 自动装配",
       "topic": "Spring 生态",
       "summary": "@EnableAutoConfiguration 读取自动配置登记文件注册条件化配置类，@ConditionalOn 系列控制生效；starter = 依赖 + 自动配置的打包。",
-      "count": 6,
+      "count": 7,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6614,7 +7341,7 @@
       "name": "CSS 与布局",
       "topic": "前端",
       "summary": "盒模型与 BFC 决定布局行为，Flex/Grid 是现代布局方案；层叠上下文与选择器优先级解释样式覆盖问题。",
-      "count": 5,
+      "count": 7,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6654,7 +7381,7 @@
       "name": "SSE 与流式",
       "topic": "工程与架构",
       "summary": "SSE 单向服务器推送、纯文本流、自动重连，是 LLM 流式输出的默认选择；WebSocket 双向全双工，适合聊天室与协作场景。",
-      "count": 2,
+      "count": 4,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6704,7 +7431,7 @@
       "name": "注册中心与网关",
       "topic": "工程与架构",
       "summary": "注册中心解决寻址与健康检查（AP 型 Nacos/Eureka，CP 型 ZK/Consul）；网关统一路由、鉴权与限流，是南北向流量的总入口。",
-      "count": 3,
+      "count": 4,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6734,7 +7461,7 @@
       "name": "限流熔断降级",
       "topic": "工程与架构",
       "summary": "限流算法有计数器、漏桶、令牌桶与滑动窗口；熔断三态（关闭-打开-半开）防止雪崩，降级保核心链路；Sentinel 用槽链实现并支持热点与系统自适应。",
-      "count": 11,
+      "count": 12,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6764,7 +7491,7 @@
       "name": "向量与空间",
       "topic": "数学知识卡片",
       "summary": "线性组合与张成定义空间语言，基与坐标把几何代数化；内积引入长度与投影，梯度/散度/旋度是多元微分的空间化表达。",
-      "count": 1,
+      "count": 0,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6784,7 +7511,7 @@
       "name": "极限与连续",
       "topic": "数学知识卡片",
       "summary": "极限的 ε-δ 定义、两个重要极限与等价无穷小替换是工具箱；连续 = 极限存在且等于该点函数值。",
-      "count": 5,
+      "count": 3,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6814,7 +7541,7 @@
       "name": "矩阵与线性方程组",
       "topic": "数学知识卡片",
       "summary": "高斯消元与秩是主线：有解看增广矩阵秩，齐次解空间维数 = n - r；行列式为零即线性相关。",
-      "count": 5,
+      "count": 3,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6824,7 +7551,7 @@
       "name": "积分",
       "topic": "数学知识卡片",
       "summary": "定积分是分割-求和-取极限，牛顿-莱布尼茨公式连接微分与积分；换元与分部积分是两大基本手法。",
-      "count": 3,
+      "count": 2,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6844,7 +7571,7 @@
       "name": "二叉树",
       "topic": "数据结构与算法",
       "summary": "先中后序与层序遍历是基本功，递归改迭代靠栈和队列；BST、平衡树与红黑树解决有序性与查询效率问题。",
-      "count": 4,
+      "count": 5,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6864,7 +7591,7 @@
       "name": "图与搜索",
       "topic": "数据结构与算法",
       "summary": "BFS 求无权最短路，DFS 适合连通性与拓扑排序，并查集处理动态连通；建图方式（邻接表）决定整体复杂度。",
-      "count": 1,
+      "count": 4,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6894,7 +7621,7 @@
       "name": "排序算法",
       "topic": "数据结构与算法",
       "summary": "快排（分治+分区）、归并（稳定 O(nlogn)）、堆排（原地）三大件；考稳定性、最坏退化与手写实现。",
-      "count": 3,
+      "count": 4,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6914,7 +7641,7 @@
       "name": "链表",
       "topic": "数据结构与算法",
       "summary": "单/双/循环链表与哑结点技巧；高频题是反转、快慢指针找中点判环、K 组反转，边界条件是空表与尾结点。",
-      "count": 2,
+      "count": 3,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6944,7 +7671,7 @@
       "name": "消息可靠性",
       "topic": "消息队列",
       "summary": "三段保证：生产确认（acks/重试）、Broker 持久化与副本、消费手动 ack + 幂等表；死信队列兜底反复失败的消息。",
-      "count": 5,
+      "count": 6,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -6964,7 +7691,7 @@
       "name": "HTTP/HTTPS",
       "topic": "计算机基础",
       "summary": "HTTP1.1 队头阻塞 → 2 多路复用 → 3 QUIC；HTTPS = TLS 握手协商对称密钥 + 证书链校验，混合加密同时保证机密性与完整性。",
-      "count": 32,
+      "count": 9,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -7014,7 +7741,7 @@
       "name": "进程与调度",
       "topic": "计算机基础",
       "summary": "进程是资源分配单位、线程是调度单位；调度算法围绕吞吐与响应权衡，上下文切换成本主要来自缓存与 TLB 失效。",
-      "count": 10,
+      "count": 11,
       "interview": 0,
       "practice": 0,
       "avgScore": null,
@@ -7075,11 +7802,10 @@
     "专栏": 44
   },
   "sectionCounts": {
-    "columns": 44,
-    "learning": 112,
+    "reading": 47,
+    "learning": 117,
     "plans": 1,
     "opportunity": 1,
-    "reading": 8,
     "about": 1,
     "projects": 2
   },

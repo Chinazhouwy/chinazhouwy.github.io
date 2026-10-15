@@ -1,5 +1,5 @@
 ---
-title: "MyBatis 源码深度拆解（六）：#{} 与 ${} 底层解析 &amp; SQL 预编译"
+title: "MyBatis 源码深度拆解（六）：#{} 与 ${} 底层解析 & SQL 预编译"
 date: "2026-07-05"
 domain: "学习"
 area: "Java 后端"
@@ -16,7 +16,7 @@ tags:
   - "源码分析"
 ---
 
-# MyBatis 源码深度拆解（六）：#{} 与 ${} 底层解析 &amp; SQL 预编译
+# MyBatis 源码深度拆解（六）：#{} 与 ${} 底层解析 & SQL 预编译
 
 > 来源：微信公众号（MyBatis 源码深度拆解系列）
 > 链接：[http://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484040&idx=1&sn=99900e58e886497ad1b5cd83b1d8eb3d&chksm=c2b810d7f5cf99c19626001222ba87e9791f079642d707d36cc59789f409675efa6d28514478](http://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484040&idx=1&sn=99900e58e886497ad1b5cd83b1d8eb3d&chksm=c2b810d7f5cf99c19626001222ba87e9791f079642d707d36cc59789f409675efa6d28514478)
@@ -1071,43 +1071,3 @@ CacheKey
 一级缓存何时命中、何时失效
 
 为什么一级缓存是 SqlSession 级别
-
-如果觉得有帮助，欢迎
-
-点赞、在看、转发
-
-支持！
-
-系列持续更新，关注不走丢 
-
-👇
-
-          
-
-            var first_sceen__time = (+new Date());
-            if ("" == 1 && document.getElementById('js_content')) {
-              document.getElementById('js_content').addEventListener("selectstart",function(e){ e.preventDefault(); });
-            }
-          
-
-        
-
-                
-
-       
-       
-        if ("0" == 1) {
-          document.addEventListener("keydown",function(e){
-            if ((e.metaKey || e.ctrlKey) && (e.key === 'c' || e.key === 'C' || e.key === 'x' || e.key === 'X' || e.key === 'a' || e.key === 'A')) {
-              if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') { return; }
-              e.preventDefault();
-            }
-          });
-          document.addEventListener("copy",function(e){
-            var sel = window.getSelection();
-            var content = document.getElementById('js_content');
-            if (sel && sel.rangeCount > 0 && content && content.contains(sel.getRangeAt(0).commonAncestorContainer)) {
-              e.preventDefault();
-            }
-          });
-        }
