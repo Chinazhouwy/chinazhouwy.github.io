@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700;900&display=swap");
 
+@layer studio-important, legacy;
+@layer legacy {
+
 :root {
   --paper: #f4f8ff;
   --paper-deep: #e7eefb;
@@ -14225,3 +14228,5 @@ html[data-theme=nova] .rv-dictionary-source, html[data-theme=nova] .rv-article-s
 .rv-popup .rv-eyebrow { font:13px/1.6 var(--sans); letter-spacing:0; }
 html[data-theme=nova] .rv-selection-query { background:#101727; }
 html[data-theme=nova] .rv-online-lookup { color:#a6c9ff; }
+
+}

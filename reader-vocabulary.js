@@ -123,7 +123,7 @@
   }
   async function dictionary() {
     if (!dictionaryPromise) {
-      dictionaryPromise = fetch("./assets/english-vocabulary/lexicon.json?v=20261015-2")
+      dictionaryPromise = fetch("./assets/english-vocabulary/lexicon.json?v=20261015-3")
         .then((response) => { if (!response.ok) throw new Error("词典加载失败"); return response.json(); })
         .catch((error) => { dictionaryPromise = null; throw error; });
     }

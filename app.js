@@ -63,7 +63,7 @@ restoreGiscusArticleRoute();
 const THEME_STORAGE_KEY = "wy_theme_v2";
 
 function themeName(theme) {
-  return theme === "nova" ? "深空" : "亮色";
+  return theme === "nova" ? "深色" : "浅色";
 }
 
 function giscusTheme(theme) {
@@ -85,7 +85,7 @@ function applyTheme(theme, { persist = false } = {}) {
     toggle.setAttribute("aria-label", `当前为${themeName(currentTheme)}主题，点击切换到${themeName(nextTheme)}主题`);
     toggle.title = `当前：${themeName(currentTheme)}主题；点击切换到${themeName(nextTheme)}主题`;
   }
-  if (themeColor) themeColor.content = isDark ? "#05070f" : "#f4f8ff";
+  if (themeColor) themeColor.content = isDark ? "#152629" : "#f6f8fa";
 
   document.querySelector("iframe.giscus-frame")?.contentWindow?.postMessage(
     { giscus: { setConfig: { theme: giscusTheme(currentTheme) } } },
@@ -875,7 +875,7 @@ function renderContributionMap(articles) {
         </div>
       </div>
       <aside class="knowledge-readout" aria-live="polite">
-        <span>当前日期</span>
+        <span>所选日期</span>
         <p><time data-contribution-date-value>${latestDate}</time><b data-contribution-count>${initialRecords.length} 篇</b></p>
         <div class="contribution-readout-lanes" data-contribution-lanes>${contributionLaneMarkup(initialRecords)}</div>
         <div class="contribution-readout-list" data-contribution-list>${contributionArticleMarkup(initialRecords)}</div>
@@ -937,7 +937,7 @@ function renderGithubPulse(profile) {
   return `
     <section class="nova-panel nova-panel--github reveal">
       <header class="nova-panel-heading">
-        <div><span>02 / GITHUB PULSE</span><h2>GitHub 最近在做什么</h2></div>
+        <div><span>代码近况</span><h2>GitHub 近况</h2></div>
         <a href="${escapeHtml(profile.profileUrl)}" target="_blank" rel="noreferrer">打开 GitHub ${iconArrow()}</a>
       </header>
       <div class="github-pulse">
@@ -1000,43 +1000,35 @@ function renderOverview() {
   ui.app.innerHTML = `
     <section class="nova-home">
       <header class="nova-masthead reveal">
-        <div class="nova-system-line">
-          <span>WY / NEBULA ARCHIVE</span>
-          <span>LIVE SIGNALS · 2026</span>
-        </div>
-
-        <div class="nova-hero">
-          <div class="nova-hero-copy">
-            <p class="nova-coordinate">ORBITAL LOG / 001 · CONTINUOUS NOTES</p>
-            <h1><span>星云</span><em>档案</em></h1>
-            <p class="nova-deck">把项目、源码、阅读与每一次练习，标记成一条可以回望的轨道。每一篇记录，都是一颗被点亮的星体。</p>
-            <div class="nova-actions">
-              <a href="#/timeline">进入时间轨道 ${iconArrow()}</a>
-              <a href="#/learning">浏览知识星域</a>
+        <div class="studio-home-hero">
+          <div>
+            <p class="studio-home-kicker">个人知识库</p>
+            <h1>星云档案</h1>
+            <p class="studio-intro">项目中的思考，源码里的线索，阅读时留下的问题。<br>把分散的记录，连成自己的知识脉络。</p>
+            <div class="studio-home-actions">
+              <a href="#/timeline">沿时间回看 ${iconArrow()}</a>
+              <a href="#/learning">浏览学习笔记</a>
             </div>
           </div>
-
-          <div class="nova-orbit-visual" aria-hidden="true">
-            <div class="nova-orbit nova-orbit--one"><i></i><i></i></div>
-            <div class="nova-orbit nova-orbit--two"><i></i><i></i><i></i></div>
-            <div class="nova-orbit nova-orbit--three"><i></i><i></i></div>
-            <div class="nova-orbit-core"><span>WY</span><small>ORIGIN</small></div>
-            <p class="nova-orbit-quote">人间尚有春风在，<br />何妨从头再少年。</p>
-          </div>
+          <nav class="studio-bookshelf" aria-label="从书架进入内容">
+            <a class="studio-book studio-book--english" href="${articleHref(ENGLISH_COLLECTION_PATH)}" data-reading-badge="off"><strong lang="en">English<br>Reads</strong><span>${englishReadings().length} 篇短文</span></a>
+            <a class="studio-book studio-book--code" href="#/learning"><strong>源码研读</strong><span>学习与思考</span></a>
+            <a class="studio-book studio-book--practice" href="#/projects"><strong>项目实践</strong><span>持续构建</span></a>
+          </nav>
         </div>
 
         <dl class="nova-stats" aria-label="公开知识库概览">
-          <div><dt>SIGNALS / 公开记录</dt><dd>${publicArticles.length}</dd></div>
-          <div><dt>FIELDS / 知识域</dt><dd>${activeLanes.size}</dd></div>
-          <div><dt>SPAN / 日跨度</dt><dd>${dateSpan}</dd></div>
-          <div><dt>ORBITS / 长期项目</dt><dd>${state.projects.length}</dd></div>
+          <div><dt>公开记录</dt><dd>${publicArticles.length}</dd></div>
+          <div><dt>知识域</dt><dd>${activeLanes.size}</dd></div>
+          <div><dt>记录跨度 / 天</dt><dd>${dateSpan}</dd></div>
+          <div><dt>长期项目</dt><dd>${state.projects.length}</dd></div>
         </dl>
       </header>
 
       <div class="nova-dashboard">
         <section class="nova-panel nova-panel--map reveal delay-1">
           <header class="nova-panel-heading">
-            <div><span>01 / CONTRIBUTION GRID</span><h2>公开文章贡献图</h2></div>
+            <div><span>公开写作</span><h2>公开文章贡献图</h2></div>
             <p>每格 = 1 天 · 颜色越深 = 当天公开文章越多</p>
           </header>
           <div class="nova-panel-body">${renderContributionMap(mapArticles)}</div>
@@ -1046,7 +1038,7 @@ function renderOverview() {
 
         <aside class="nova-panel nova-panel--now reveal delay-1">
           <header class="nova-panel-heading">
-            <div><span>03 / LIVE SIGNAL</span><h2>最新信号</h2></div>
+            <div><span>最近更新</span><h2>最近更新</h2></div>
             <a href="${featuredArticle ? articleHref(featuredArticle.path) : "#/timeline"}">打开 ${iconArrow()}</a>
           </header>
           <div class="nova-now-layout">
@@ -1075,7 +1067,7 @@ function renderOverview() {
 
         <section class="nova-panel nova-panel--orbits reveal">
           <header class="nova-panel-heading">
-            <div><span>04 / ACTIVE ORBITS</span><h2>正在推进的轨道</h2></div>
+            <div><span>项目</span><h2>持续推进的项目</h2></div>
             <a href="#/projects">全部项目 ${iconArrow()}</a>
           </header>
           <div class="nova-orbit-list">
@@ -1101,7 +1093,7 @@ function renderOverview() {
 
         <section class="nova-panel nova-panel--signals reveal">
           <header class="nova-panel-heading">
-            <div><span>05 / SIGNAL STREAM</span><h2>最近信号</h2></div>
+            <div><span>笔记</span><h2>最近的笔记</h2></div>
             <a href="#/timeline">完整时光轴 ${iconArrow()}</a>
           </header>
           <div class="nova-signals-layout">
@@ -1140,7 +1132,7 @@ function renderOverview() {
 
         <section class="nova-panel nova-panel--references reveal">
           <header class="nova-panel-heading">
-            <div><span>06 / REFERENCES</span><h2>阅读与参考</h2></div>
+            <div><span>阅读</span><h2>阅读与参考</h2></div>
             <a href="#/reading">进入阅读 ${iconArrow()}</a>
           </header>
           <div class="nova-reference-strip">
@@ -1163,7 +1155,7 @@ function renderOverview() {
       </div>
 
       <footer class="nova-closing reveal">
-        <span>END / CURRENT SIGNAL</span>
+        <span>END / CURRENT RECORD</span>
         <p>索引会随记录更新，贡献图也会随之改变。</p>
         <a href="#/timeline">继续查看全部记录 ${iconArrow()}</a>
       </footer>
@@ -2348,13 +2340,13 @@ function renderColumns() {
   ui.app.innerHTML = `
     <section class="columns-overview">
       <header class="columns-heading">
-        <p class="mono-label">COLUMNS</p>
+        <p class="mono-label">专栏</p>
         <h1>专栏</h1>
         <p>选择一个主题，慢慢读下去。<span>${columnCount} 个专栏</span></p>
       </header>
       ${collection ? `
         <a class="collection-card" data-reading-badge="off" href="${articleHref(ENGLISH_COLLECTION_PATH)}">
-          <div><span class="collection-eyebrow">ENGLISH / READING COLLECTION</span><h2>English Reads</h2>
+          <div><span class="collection-eyebrow">英文阅读专栏</span><h2>English Reads</h2>
             <p>从科技与教育，到社会、环境与日常生活。<br>以一篇短文，打开一个话题。</p>
             <span class="collection-topics">Technology · Society · Environment · Life</span>
           </div>
@@ -2370,6 +2362,7 @@ function renderColumns() {
 }
 
 function renderEnglishReads() {
+  updateActiveNav("columns");
   const articles = englishReadings();
   const topics = [...new Set(articles.flatMap(englishTopics))].sort();
   const years = [...new Set(articles.map((article) => article.path.slice(ENGLISH_PASSAGE_PREFIX.length, ENGLISH_PASSAGE_PREFIX.length + 4)))].sort().reverse();
@@ -2386,7 +2379,7 @@ function renderEnglishReads() {
     <section class="english-collection">
       <a class="collection-back" href="#/columns">← 全部专栏</a>
       <header class="english-collection-heading">
-        <div><p class="mono-label">A COLLECTION OF SHORT READINGS</p><h1 lang="en">English Reads</h1>
+        <div><p class="mono-label">短篇英文阅读</p><h1 lang="en">English Reads</h1>
           <p lang="en" class="english-collection-lede">Ideas for a changing world.</p>
           <p class="english-collection-description">科技、社会、教育与生活，在短篇阅读中发现新的视角。</p></div>
         <span class="collection-total">${articles.length} <small>篇文章</small></span>
@@ -2415,9 +2408,9 @@ function renderEnglishReads() {
     document.getElementById("english-result-count").textContent = `${matching.length} 篇文章${matching.length !== articles.length ? ` / 共 ${articles.length} 篇` : ""}`;
     document.getElementById("english-reading-list").innerHTML = matching.length ? matching.map((article) => `
       <a class="english-reading-card" data-reading-badge="off" href="${articleHref(article.path)}">
-        <span class="english-card-topics">${englishTopics(article).slice(0, 2).map(escapeHtml).join(" / ")}</span>
+        <div class="english-card-meta"><span class="english-card-topics">${englishTopics(article).slice(0, 2).map(escapeHtml).join(" / ")}</span><span class="english-card-year">${article.path.slice(ENGLISH_PASSAGE_PREFIX.length, ENGLISH_PASSAGE_PREFIX.length + 4)}</span></div>
         <h2 lang="en">${escapeHtml(article.title)}</h2><p>${escapeHtml(article.summary || "")}</p>
-        <span class="english-card-open">Read article <span aria-hidden="true">↗</span></span>
+        <span class="english-card-open">开始阅读 <span aria-hidden="true">↗</span></span>
       </a>`).join("") : '<p class="english-empty">没有找到匹配的文章，试试其他关键词或重置筛选。</p>';
     if (persist) {
       const next = new URLSearchParams();
@@ -2604,7 +2597,7 @@ async function renderArticle(rawPath, requestedSection = "") {
       <section class="reader${isEnglishReading ? " english-reader" : ""}">
         <aside class="reader-rail">
           <a class="back-link" href="${backHref}">← 返回${backLabel}</a>
-          <p class="mono-label">ON THIS ORBIT</p>
+          <p class="mono-label">文章目录</p>
           <nav id="article-toc"></nav>
           <small class="reader-rail-hint">TOC / ${fetchPath.split("/").pop() || "ARTICLE"}</small>
         </aside>
@@ -2612,7 +2605,7 @@ async function renderArticle(rawPath, requestedSection = "") {
           <div class="reading-progress" aria-hidden="true"><span id="reading-progress-bar"></span></div>
           <header class="reader-context">
             <a class="back-link reader-context-back" href="${backHref}">← ${backLabel}</a>
-            <span><i></i>READING SIGNAL</span>
+            <span><i></i>文章正文</span>
           </header>
           <header class="reader-header">
             <p class="mono-label">${escapeHtml(headerTrail.join(" / ") || "文章")}</p>
@@ -2651,6 +2644,7 @@ async function renderArticle(rawPath, requestedSection = "") {
         </main>
       </section>
     `;
+    updateActiveNav(isEnglishReading || fetchPath === ENGLISH_COLLECTION_PATH ? "columns" : backSection);
     const articleBody = document.getElementById("article-body");
     if (isEnglishReading) window.ReaderVocabulary?.mountReader(articleBody, { path: fetchPath, title: displayTitle });
     void highlightCodeBlocks(articleBody);
@@ -2715,6 +2709,11 @@ function updateActiveNav(view) {
 async function renderRoute() {
   window.ReaderVocabulary?.detach();
   const route = parseRoute();
+  if (route.view !== "search") {
+    if (document.activeElement === ui.search) ui.search.blur();
+    ui.search.value = "";
+  }
+  document.body.dataset.view = route.view;
   updateActiveNav(route.view);
   document.title = "WY · 星云档案 / Nebula Archive";
   if (route.view === "article") {
@@ -2758,7 +2757,7 @@ async function renderRoute() {
 
 }
 
-const BUILD_VERSION = "20261015-2";
+const BUILD_VERSION = "20261015-3";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy, githubProfile] = await Promise.all([
@@ -2812,6 +2811,7 @@ document.addEventListener("click", (event) => {
     document.querySelectorAll(".nav-more[open], .mobile-menu[open]").forEach((menu) => {
       menu.removeAttribute("open");
     });
+    if (event.target.closest(".mobile-search-entry")) ui.search.focus();
   }
 });
 
