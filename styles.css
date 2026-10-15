@@ -14217,3 +14217,11 @@ html[data-theme=nova] .rv-dictionary-source, html[data-theme=nova] .rv-article-s
 .rv-button { white-space:nowrap; }
 .rv-lookup-form input { flex:1 1 auto; width:0; }
 .rv-lookup-form .rv-button { flex:0 0 auto; }
+
+/* A selected phrase keeps the native text selection until explicitly queried. */
+.rv-selection-tools { position:fixed; z-index:1499; font:14px/1.4 var(--sans); }
+.rv-selection-query { background:#fffefb; color:var(--ink); border-color:#8da5c7; box-shadow:0 3px 12px rgba(16,30,58,.12); }
+.rv-online-lookup { display:inline-block; color:#35639f; font:13px/1.6 var(--sans); margin:0 0 6px; text-decoration:underline; text-underline-offset:3px; }
+.rv-popup .rv-eyebrow { font:13px/1.6 var(--sans); letter-spacing:0; }
+html[data-theme=nova] .rv-selection-query { background:#101727; }
+html[data-theme=nova] .rv-online-lookup { color:#a6c9ff; }

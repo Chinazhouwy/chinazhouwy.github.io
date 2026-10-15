@@ -15,15 +15,22 @@
     const word = clip(value, 100).trim().toLowerCase().replace(/’/g, "'").replace(/[‐‑–]/g, "-").replace(/^[^a-z]+|[^a-z.]+$/g, "").replace(/\.$/, "");
     return word.length <= 64 && WORD.test(word) ? word : "";
   }
+  function normalizeTerm(value) {
+    if (typeof value !== "string" || value.length > 200 || /[0-9_<>{}:\/]/.test(value)) return "";
+    const term = value.trim().toLowerCase().replace(/’/g, "'").replace(/[‐‑–]/g, "-")
+      .replace(/^[“”"'‘’([{]+|[“”"'‘’).,;:!?\]}]+$/g, "").trim().replace(/\s+/g, " ");
+    const parts = term.split(" ");
+    return term.length <= 160 && parts.length <= 12 && parts.every(part => part.length <= 64 && WORD.test(part)) ? term : "";
+  }
   function safePath(value) {
     return typeof value === "string" && /^content\/columns\/english-reads\/[a-z0-9-]+\.md$/.test(value) ? value : "";
   }
   function cleanEntry(value) {
     if (!value || typeof value !== "object") return null;
-    const word = normalizeWord(value.word);
+    const word = normalizeTerm(value.word);
     if (!word) return null;
     return {
-      word, lemma: normalizeWord(value.lemma) || word,
+      word, lemma: normalizeTerm(value.lemma) || word,
       phonetic: clip(value.phonetic, 200), meaning: clip(value.meaning, 3000),
       sentence: clip(value.sentence, 1500), articleTitle: clip(value.articleTitle, 300), path: safePath(value.path),
       createdAt: Number.isFinite(value.createdAt) && value.createdAt > 0 ? value.createdAt : Date.now()
@@ -35,7 +42,7 @@
       const entry = cleanEntry(candidate);
       if (entry && !map.has(entry.word)) map.set(entry.word, entry);
     }
-    if (map.size > MAX_WORDS) throw new Error(`最多保存 ${MAX_WORDS} 个单词，请先导出备份并整理。`);
+    if (map.size > MAX_WORDS) throw new Error(`最多保存 ${MAX_WORDS} 个词条，请先导出备份并整理。`);
     return [...map.values()];
   }
   function parseImport(text) {
@@ -43,7 +50,7 @@
     let value;
     try { value = JSON.parse(text); } catch { throw new Error("文件不是有效的 JSON 生词本。"); }
     if (!value || value.schemaVersion !== 1 || !Array.isArray(value.words) || value.words.length > MAX_WORDS) throw new Error("生词本格式或版本不支持。");
-    if (value.words.some((entry) => !cleanEntry(entry))) throw new Error("生词本含有无效单词，未导入，请检查文件。");
+    if (value.words.some((entry) => !cleanEntry(entry))) throw new Error("生词本含有无效词条，未导入，请检查文件。");
     return mergeEntries([], value.words);
   }
   function createStore(storage) {
@@ -64,14 +71,14 @@
     return {
       entries: () => words.map((entry) => ({ ...entry })),
       warning: () => warning,
-      has: (word) => words.some((entry) => entry.word === normalizeWord(word)),
+      has: (word) => words.some((entry) => entry.word === normalizeTerm(word)),
       add: (entry) => save(mergeEntries(words, [entry])),
-      remove: (word) => save(words.filter((entry) => entry.word !== normalizeWord(word))),
+      remove: (word) => save(words.filter((entry) => entry.word !== normalizeTerm(word))),
       import: (text) => save(mergeEntries(words, parseImport(text))),
       export: () => JSON.stringify({ schemaVersion: 1, exportedAt: new Date().toISOString(), words }, null, 2)
     };
   }
-  if (typeof document === "undefined") return { normalizeWord, safePath, cleanEntry, mergeEntries, parseImport, createStore, STORAGE_KEY };
+  if (typeof document === "undefined") return { normalizeWord, normalizeTerm, safePath, cleanEntry, mergeEntries, parseImport, createStore, STORAGE_KEY };
 
   let store;
   function getStore() {
@@ -82,7 +89,8 @@
     }
     return store;
   }
-  let dictionaryPromise, popup, dialog, selected, anchor, lookupId = 0, cleanupReader;
+  let dictionaryPromise, popup, dialog, selected, anchor, anchorRect, selectionTools, lookupId = 0, cleanupReader;
+  function hideSelectionTools() { selectionTools?.remove(); selectionTools = null; }
   function element(tag, className, text) {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -97,7 +105,7 @@
     document.querySelectorAll(".rv-book-trigger").forEach((node) => { node.textContent = `生词本（${getStore().entries().length}）`; });
   }
   function closePopup(restoreFocus = false) {
-    lookupId++;
+    lookupId++; anchorRect = null;
     popup?.remove(); popup = null;
     selected?.classList.remove("rv-word-selected"); selected = null;
     if (restoreFocus && anchor?.isConnected) {
@@ -108,14 +116,14 @@
   function placePopup() {
     if (!popup || !anchor) return;
     if (window.innerWidth <= 600) { popup.style.left = ""; popup.style.top = ""; return; }
-    const rect = anchor.getBoundingClientRect();
+    const rect = anchorRect || anchor.getBoundingClientRect();
     const box = popup.getBoundingClientRect();
     popup.style.left = `${Math.max(12, Math.min(rect.left, window.innerWidth - box.width - 12))}px`;
     popup.style.top = `${Math.max(12, Math.min(rect.bottom + 10, window.innerHeight - box.height - 12))}px`;
   }
   async function dictionary() {
     if (!dictionaryPromise) {
-      dictionaryPromise = fetch("./assets/english-vocabulary/lexicon.json?v=20261015-1")
+      dictionaryPromise = fetch("./assets/english-vocabulary/lexicon.json?v=20261015-2")
         .then((response) => { if (!response.ok) throw new Error("词典加载失败"); return response.json(); })
         .catch((error) => { dictionaryPromise = null; throw error; });
     }
@@ -130,27 +138,27 @@
     const start = Math.max(0, wordIndex - 300);
     return { path: article.path, articleTitle: article.title, sentence: text.slice(start, start + 1000) };
   }
-  function openLookup(word, target, context = {}) {
-    closePopup(); anchor = target;
-    if (target.classList.contains("rv-word")) { selected = target; selected.classList.add("rv-word-selected"); }
-    popup = element("section", "rv-popup"); popup.setAttribute("role", "dialog"); popup.setAttribute("aria-label", "单词释义");
+  function openLookup(word, target, context = {}, rect = null) {
+    closePopup(); hideSelectionTools(); anchor = target; anchorRect = rect;
+    if (!word.includes(" ") && target.classList.contains("rv-word")) { selected = target; selected.classList.add("rv-word-selected"); }
+    popup = element("section", "rv-popup"); popup.setAttribute("role", "dialog"); popup.setAttribute("aria-label", "单词与词组释义");
     const head = element("div", "rv-popup-head");
-    head.append(element("span", "rv-eyebrow", "WORD LOOKUP"), button("关闭 ×", () => closePopup(true), "rv-close"));
+    head.append(element("span", "rv-eyebrow", "词语查询"), button("关闭 ×", () => closePopup(true), "rv-close"));
     const form = element("form", "rv-lookup-form");
-    const input = element("input"); input.type = "search"; input.value = word; input.placeholder = "输入英文单词"; input.setAttribute("aria-label", "要查询的英文单词"); input.maxLength = 64; input.autocomplete = "off";
+    const input = element("input"); input.type = "search"; input.value = word; input.placeholder = "输入单词或词组"; input.setAttribute("aria-label", "要查询的单词或词组"); input.maxLength = 160; input.autocomplete = "off";
     const submit = element("button", "rv-button", "查词"); submit.type = "submit";
     form.append(input, submit);
     const result = element("div", "rv-result"); result.setAttribute("aria-live", "polite");
     popup.append(head, form, result); document.body.append(popup);
     form.addEventListener("submit", (event) => { event.preventDefault(); void lookup(input.value, result, {}); });
-    if (word) void lookup(word, result, context); else result.append(element("p", "rv-muted", "输入单词，或点击文章中的英文单词。"));
+    if (word) void lookup(word, result, context); else result.append(element("p", "rv-muted", "点击单词或划选词组查询，也可在这里输入。"));
     placePopup();
     if (!word) input.focus();
   }
   async function lookup(raw, result, context) {
-    const word = normalizeWord(raw), id = ++lookupId;
+    const word = normalizeTerm(raw), id = ++lookupId;
     result.replaceChildren();
-    if (!word) { result.append(element("p", "rv-muted", "请输入一个英文单词。")); placePopup(); return; }
+    if (!word) { result.append(element("p", "rv-muted", "请输入英文单词或不超过12词、160字符的词组。")); placePopup(); return; }
     result.append(element("p", "rv-muted", "正在查词…"));
     let entry, failed = false;
     try { const data = await dictionary(); entry = Object.hasOwn(data.entries, word) ? data.entries[word] : null; }
@@ -160,8 +168,12 @@
     const title = element("h3", "rv-word-title", word); title.lang = "en"; result.append(title);
     if (entry?.phonetic) result.append(element("p", "rv-phonetic", `/${entry.phonetic}/`));
     if (entry?.lemma && entry.lemma !== word) result.append(element("p", "rv-muted", `原形：${entry.lemma}`));
-    result.append(element("p", "rv-meaning", entry?.meaning || (failed ? "词典暂时无法加载，可重试。仍可先收藏单词。" : "词典暂未收录此词，可先收藏，稍后补查。")));
+    result.append(element("p", "rv-meaning", entry?.meaning || (failed ? "词典暂时无法加载，可重试。仍可先收藏词条。" : "词典暂未收录此词语，可先收藏，或前往有道查释义。")));
     if (failed) result.append(button("重试加载词典", () => void lookup(word, result, context)));
+    const online = element("a", "rv-online-lookup", "到有道查释义 ↗");
+    online.href = `https://www.youdao.com/result?word=${encodeURIComponent(word)}&lang=en`;
+    online.target = "_blank"; online.rel = "noopener noreferrer";
+    result.append(online);
     const actions = element("div", "rv-popup-actions");
     const save = button(getStore().has(word) ? "已收藏" : "＋ 加入生词本", () => {
       try {
@@ -184,7 +196,7 @@
     heading.append(title, element("p", "rv-muted", "保存在此设备的当前浏览器中，可导出备份；不自动跨设备同步。"));
     header.append(heading, button("关闭 ×", () => dialog.close(), "rv-close"));
     const tools = element("div", "rv-book-tools");
-    const search = element("input"); search.type = "search"; search.placeholder = "搜索单词或释义"; search.setAttribute("aria-label", "搜索生词本");
+    const search = element("input"); search.type = "search"; search.placeholder = "搜索单词、词组或释义"; search.setAttribute("aria-label", "搜索生词本");
     const file = element("input"); file.type = "file"; file.accept = ".json,application/json"; file.hidden = true;
     const status = element("p", "rv-notice", getStore().warning()); status.setAttribute("role", "status");
     tools.append(search, button("导出备份", () => {
@@ -197,8 +209,8 @@
     const draw = () => {
       const query = search.value.trim().toLowerCase(); const all = getStore().entries();
       const words = all.filter((entry) => `${entry.word} ${entry.meaning}`.toLowerCase().includes(query)).reverse();
-      count.textContent = `显示 ${words.length} / 共 ${all.length} 个单词`; list.replaceChildren();
-      if (!words.length) list.append(element("p", "rv-book-empty", all.length ? "没有匹配的单词。" : "还没有收藏。打开一篇英文文章，点词后加入生词本。"));
+      count.textContent = `显示 ${words.length} / 共 ${all.length} 个词条`; list.replaceChildren();
+      if (!words.length) list.append(element("p", "rv-book-empty", all.length ? "没有匹配的单词。" : "还没有收藏。打开英文文章，点单词或划选词组后加入生词本。"));
       for (const entry of words) {
         const row = element("article", "rv-book-entry"); const top = element("div", "rv-entry-top");
         const label = element("h3", "", entry.word); label.lang = "en";
@@ -216,7 +228,7 @@
       const selectedFile = file.files[0]; if (!selectedFile) return;
       try {
         if (selectedFile.size > 32 * 1024 * 1024) throw new Error("文件超过 32 MB，无法导入。");
-        const saved = getStore().import(await selectedFile.text()); status.textContent = saved.warning || `导入完成，共 ${saved.count} 个单词；重复单词已合并。`; draw(); notifyCounts();
+        const saved = getStore().import(await selectedFile.text()); status.textContent = saved.warning || `导入完成，共 ${saved.count} 个词条；重复词条已合并。`; draw(); notifyCounts();
       } catch (error) { status.textContent = error.message; }
       file.value = "";
     });
@@ -234,7 +246,7 @@
     body.dataset.vocabularyMounted = "true";
     const toolbar = element("div", "rv-toolbar");
     const manual = button("手动查词", () => openLookup("", manual), "rv-button rv-lookup-trigger");
-    toolbar.append(element("span", "rv-hint", "点词查释义 · 收藏保留原文语境"), manual, bookButton()); body.before(toolbar);
+    toolbar.append(element("span", "rv-hint", "点单词 / 划选词组 · 收藏保留原文语境"), manual, bookButton()); body.before(toolbar);
     const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, { acceptNode(node) {
       return node.parentElement.closest("a, pre, code, button, script, style, .rv-word") || !/[A-Za-z]/.test(node.textContent) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
     } });
@@ -253,13 +265,42 @@
       if (!target || !body.contains(target) || window.getSelection()?.toString().trim()) return;
       openLookup(target.dataset.word, target, contextFor(target, article));
     };
-    body.addEventListener("click", click); cleanupReader = () => body.removeEventListener("click", click);
+    let frame = 0;
+    const updateSelection = () => {
+      frame = 0; hideSelectionTools();
+      const selection = window.getSelection();
+      if (popup || !selection || selection.isCollapsed || selection.rangeCount !== 1) return;
+      const range = selection.getRangeAt(0);
+      if (!body.contains(range.startContainer) || !body.contains(range.endContainer)) return;
+      const term = normalizeTerm(selection.toString());
+      if (!term || !term.includes(" ")) return;
+      const rect = range.getBoundingClientRect();
+      if (!rect.width || rect.bottom < 0 || rect.top > innerHeight) return;
+      const startNode = range.startContainer.nodeType === Node.ELEMENT_NODE ? range.startContainer : range.startContainer.parentElement;
+      if (startNode.closest("a, pre, code, button")) return;
+      const context = contextFor(startNode.closest(".rv-word") || startNode, article);
+      const snapshot = { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom };
+      selectionTools = element("div", "rv-selection-tools");
+      const query = button("查词组", () => openLookup(term, startNode, context, snapshot), "rv-button rv-selection-query");
+      query.setAttribute("aria-label", "查询所选词组");
+      query.addEventListener("pointerdown", event => event.preventDefault());
+      selectionTools.append(query); document.body.append(selectionTools);
+      const box = selectionTools.getBoundingClientRect();
+      selectionTools.style.left = `${Math.max(12, Math.min(rect.right - box.width, innerWidth - box.width - 12))}px`;
+      selectionTools.style.top = `${Math.max(12, rect.top - box.height - 8 < 12 ? Math.min(rect.bottom + 8, innerHeight - box.height - 90) : rect.top - box.height - 8)}px`;
+    };
+    const selectionChanged = () => { if (!frame) frame = requestAnimationFrame(updateSelection); };
+    body.addEventListener("click", click); document.addEventListener("selectionchange", selectionChanged);
+    cleanupReader = () => {
+      body.removeEventListener("click", click); document.removeEventListener("selectionchange", selectionChanged);
+      if (frame) cancelAnimationFrame(frame); hideSelectionTools();
+    };
   }
-  function detach() { closePopup(); cleanupReader?.(); cleanupReader = null; if (dialog?.open) dialog.close(); }
-  document.addEventListener("pointerdown", (event) => { if (popup && !popup.contains(event.target) && !event.target.closest(".rv-word, .rv-lookup-trigger")) closePopup(); });
-  document.addEventListener("keydown", (event) => { if (event.key === "Escape" && popup) { closePopup(true); event.preventDefault(); } });
+  function detach() { hideSelectionTools(); closePopup(); cleanupReader?.(); cleanupReader = null; if (dialog?.open) dialog.close(); }
+  document.addEventListener("pointerdown", (event) => { if (popup && !popup.contains(event.target) && !event.target.closest(".rv-word, .rv-lookup-trigger, .rv-selection-tools")) closePopup(); });
+  document.addEventListener("keydown", (event) => { if (event.key === "Escape") { hideSelectionTools(); if (popup) { closePopup(true); event.preventDefault(); } } });
   window.addEventListener("storage", (event) => { if (event.key === STORAGE_KEY) { store = null; notifyCounts(); } });
-  window.addEventListener("resize", placePopup);
-  window.addEventListener("scroll", () => { if (popup && window.innerWidth > 600) closePopup(); }, { passive: true });
+  window.addEventListener("resize", () => { hideSelectionTools(); placePopup(); });
+  window.addEventListener("scroll", () => { hideSelectionTools(); if (popup && window.innerWidth > 600) closePopup(); }, { passive: true });
   return { mountReader, mountCollection, detach };
 });
