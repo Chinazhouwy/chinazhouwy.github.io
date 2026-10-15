@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-14T00:00:00+08:00",
+  "generatedAt": "2026-10-15T00:00:00+08:00",
   "articles": [
     {
       "title": "English Reads",
@@ -7123,7 +7123,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-10-14",
+      "date": "2026-10-15",
       "count": 0,
       "averageScore": null
     },
@@ -7132,11 +7132,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-10-01",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-10-02",
         "count": 0,
@@ -7199,6 +7194,11 @@
       },
       {
         "date": "2026-10-14",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-10-15",
         "count": 0,
         "averageScore": null
       }

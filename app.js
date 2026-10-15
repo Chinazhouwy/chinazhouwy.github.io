@@ -2435,6 +2435,7 @@ function renderEnglishReads() {
     queryInput.value = ""; topicInput.value = ""; yearInput.value = ""; update(true);
   });
   update();
+  window.ReaderVocabulary?.mountCollection(ui.app.querySelector(".english-collection"));
   document.title = "English Reads · WY";
 }
 
@@ -2651,6 +2652,7 @@ async function renderArticle(rawPath, requestedSection = "") {
       </section>
     `;
     const articleBody = document.getElementById("article-body");
+    if (isEnglishReading) window.ReaderVocabulary?.mountReader(articleBody, { path: fetchPath, title: displayTitle });
     void highlightCodeBlocks(articleBody);
     const toc = createToc(articleBody, articleRoute);
     const desktopToc = document.getElementById("article-toc");
@@ -2711,6 +2713,7 @@ function updateActiveNav(view) {
 }
 
 async function renderRoute() {
+  window.ReaderVocabulary?.detach();
   const route = parseRoute();
   updateActiveNav(route.view);
   document.title = "WY · 星云档案 / Nebula Archive";
@@ -2755,7 +2758,7 @@ async function renderRoute() {
 
 }
 
-const BUILD_VERSION = "20261014-2";
+const BUILD_VERSION = "20261015-1";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy, githubProfile] = await Promise.all([
