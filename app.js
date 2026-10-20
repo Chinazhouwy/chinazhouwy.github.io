@@ -2223,6 +2223,21 @@ function bindReadingProgress() {
   window.addEventListener("scroll", updateReadingProgress, { passive: true });
 }
 
+// Hash routes do not provide a document directory for Markdown image URLs.
+function resolveArticleImageUrl(src, articlePath, baseUrl) {
+  if (!src || /^(?:[a-z][a-z0-9+.-]*:|\/|#)/i.test(src)) return src;
+  return new URL(src, new URL(articlePath, baseUrl)).href;
+}
+
+function resolveArticleImages(html, articlePath) {
+  const template = document.createElement("template");
+  template.innerHTML = html;
+  template.content.querySelectorAll("img[src]").forEach((image) => {
+    image.setAttribute("src", resolveArticleImageUrl(image.getAttribute("src"), articlePath, document.baseURI));
+  });
+  return template.innerHTML;
+}
+
 async function renderArticle(rawPath, requestedSection = "") {
   // Resolve aliases
   const resolvedPath = state.aliases[rawPath] || rawPath;
@@ -2258,7 +2273,7 @@ async function renderArticle(rawPath, requestedSection = "") {
     const backLabel = isEnglishReading ? "English Reads" : SECTION_LABELS[backSection] || "学习";
     const backHref = isEnglishReading ? articleHref(ENGLISH_COLLECTION_PATH) : `#/${backSection}`;
     const displayTitle = article?.title || fetchPath.split("/").pop() || "文章详情";
-    const rendered = stripDuplicateLeadingTitle(sanitized, displayTitle);
+    const rendered = resolveArticleImages(stripDuplicateLeadingTitle(sanitized, displayTitle), fetchPath);
     const headerTrail = uniqueTextParts([
       backLabel,
       article?.topic,
@@ -2435,7 +2450,7 @@ async function renderRoute() {
 
 }
 
-const BUILD_VERSION = "20261016-1";
+const BUILD_VERSION = "20261020-1";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy, githubProfile] = await Promise.all([

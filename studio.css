@@ -248,8 +248,8 @@ html[data-theme="nova"] .english-card-topics { color:#bad4ce; }
 .english-card-open { width:100%; margin-top:auto; color:var(--green); font:13px/1.5 var(--sans); }
 /* The reading surface is a continuous page; controls live in its margin. */
 .reader { display:grid; grid-template-columns:175px minmax(0,1fr); gap:36px; max-width:1120px; margin:auto; padding:0; }
-.reader-main { min-width:0; max-width:780px; margin:0 auto; padding:0; border:0; background:none; box-shadow:none; }
-.reader-rail { position:sticky; top:30px; align-self:start; padding:12px 0; border:0; background:none; }
+.reader-main { grid-column:2; grid-row:1; width:100%; min-width:0; max-width:780px; margin:0 auto; padding:0; border:0; background:none; box-shadow:none; }
+.reader-rail { grid-column:1; grid-row:1; min-width:0; max-height:calc(100dvh - 60px); overflow-y:auto; position:sticky; top:30px; align-self:start; padding:12px 0; border:0; background:none; }
 .reader-rail nav a { border:0; border-left:2px solid var(--line); border-radius:0; color:var(--muted); font:12px/1.7 var(--sans); padding:6px 12px; background:none; }
 .reader-rail nav a:hover { color:var(--green); border-left-color:var(--green); background:none; }
 .reader-rail-hint { display:none; }
