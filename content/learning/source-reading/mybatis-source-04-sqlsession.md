@@ -35,7 +35,7 @@ published_at: "2026-06-21 11:55:00 +08:00"
 
 <p>先看一段最熟悉的代码：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">// 1. 构建 SqlSessionFactory
 SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(inputStream);
@@ -65,7 +65,7 @@ session.close();</code></pre>
 
 <h3><strong>2.1 从 builder.build() 说起</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// SqlSessionFactoryBuilder
 public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
@@ -86,7 +86,7 @@ public SqlSessionFactory build(Configuration config) {
 
 <h3><strong>2.2 DefaultSqlSessionFactory 的结构</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// DefaultSqlSessionFactory
 public class DefaultSqlSessionFactory implements SqlSessionFactory {
@@ -129,7 +129,7 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
 
 <p><code>@MapperScan</code> 注解通过 <code>@Import</code> 导入了 <code>MapperScannerRegistrar</code></p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
@@ -141,7 +141,7 @@ public @interface MapperScan {
 
 <p><code>MapperScannerRegistrar</code> 实现了 <code>ImportBeanDefinitionRegistrar</code> 接口，Spring 启动时会调用其 <code>registerBeanDefinitions</code> 方法</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">@Override
 public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
@@ -184,7 +184,7 @@ private void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
 
 <p>Spring 在 <code>refresh()</code> 容器的 <code>invokeBeanDefinitionRegistryPostProcessors</code> 阶段，会回调 <code>postProcessBeanDefinitionRegistry</code> 方法：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-kotlin">public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
     // 1. 处理占位符（如 ${basePackage}）
@@ -218,7 +218,7 @@ private void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
 
 <p><code>ClassPathMapperScanner</code> 继承自 Spring 的 <code>ClassPathBeanDefinitionScanner</code>，重写了 <code>doScan</code> 方法：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">public class ClassPathMapperScanner extends ClassPathBeanDefinitionScanner {
     private Class&lt;? extends MapperFactoryBean&gt; mapperFactoryBeanClass = MapperFactoryBean.class;
@@ -267,7 +267,7 @@ private void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
 
 <p><code>MapperFactoryBean</code> 实现了 <code>FactoryBean</code> 接口，Spring 实例化时会调用 <code>getObject()</code> 方法获取真正的 Mapper 代理对象：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">public class MapperFactoryBean&lt;T&gt; extends SqlSessionDaoSupport implements FactoryBean&lt;T&gt; {
     private Class&lt;T&gt; mapperInterface;
@@ -284,7 +284,7 @@ private void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
 
 <p><code>getSqlSession().getMapper()</code>的调用链最终进入 MyBatis 核心：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-javascript">SqlSessionTemplate.getMapper()
     → Configuration.getMapper()
@@ -296,7 +296,7 @@ private void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
 
 <h3><strong>3.6 完整调用链总览</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-cs">启动类 @MapperScan("com.example.mapper")
     ↓
@@ -329,7 +329,7 @@ Spring 容器注入 MapperProxy 代理对象</code></pre>
 
 <h3><strong>4.1 核心字段</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-php">public class DefaultSqlSession implements SqlSession {
     private final Configuration configuration;  // 全局配置
@@ -345,7 +345,7 @@ Spring 容器注入 MapperProxy 代理对象</code></pre>
 
 <p>以 <code>selectOne</code> 为例：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// DefaultSqlSession
 @Override
@@ -388,7 +388,7 @@ public &lt;E&gt; List&lt;E&gt; selectList(String statement, Object parameter, Ro
 
 <p>以 <code>insert</code> / <code>update</code> / <code>delete</code> 为例，它们都走 <code>update</code> 方法：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// DefaultSqlSession
 @Override
@@ -416,7 +416,7 @@ public int update(String statement, Object parameter) {
 
 <h3><strong>4.4 事务管理：commit / rollback / close</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// DefaultSqlSession
 @Override
@@ -489,7 +489,7 @@ private boolean isCommitOrRollbackRequired(boolean force) {
 
 <h3><strong>5.2 StatementHandler：执行 SQL 时创建</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">// SimpleExecutor.doQuery
 public &lt;E&gt; List&lt;E&gt; doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds,
@@ -503,7 +503,7 @@ public &lt;E&gt; List&lt;E&gt; doQuery(MappedStatement ms, Object parameter, Row
     }
 }</code></pre>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// Configuration
 public StatementHandler newStatementHandler(Executor executor, MappedStatement ms, Object parameter,
@@ -517,7 +517,7 @@ public StatementHandler newStatementHandler(Executor executor, MappedStatement m
 
 <h3><strong>5.3 ParameterHandler 和 ResultSetHandler：在 StatementHandler 创建时初始化</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-cs">// RoutingStatementHandler 构造方法
 public RoutingStatementHandler(Executor executor, MappedStatement ms, Object parameter,
@@ -540,7 +540,7 @@ public RoutingStatementHandler(Executor executor, MappedStatement ms, Object par
 
 <p>而这些具体的 StatementHandler 的父类 <code>BaseStatementHandler</code> 在构造时会创建 ParameterHandler 和 ResultSetHandler</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-kotlin">// BaseStatementHandler 构造方法
 protected BaseStatementHandler(Executor executor, MappedStatement ms, Object parameter,
@@ -559,7 +559,7 @@ protected BaseStatementHandler(Executor executor, MappedStatement ms, Object par
 
 <p>一级缓存是 SqlSession 级别的，在 Executor 中实现。回顾 <code>BaseExecutor</code>：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// BaseExecutor
 public abstract class BaseExecutor implements Executor {

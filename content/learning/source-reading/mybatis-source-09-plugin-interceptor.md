@@ -49,7 +49,7 @@ published_at: "2026-08-03 20:48:00 +08:00"
 
 <p>在 <code>mybatis-config.xml</code> 中：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-xml">&lt;plugins&gt;
     &lt;plugin interceptor="com.example.MyPlugin"&gt;
@@ -60,7 +60,7 @@ published_at: "2026-08-03 20:48:00 +08:00"
 
 <h3><strong>3.2 解析与注册：</strong><code><strong>XMLConfigBuilder.pluginsElement</strong></code></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">private void pluginsElement(XNode context) throws Exception {
     if (context != null) {
@@ -77,7 +77,7 @@ published_at: "2026-08-03 20:48:00 +08:00"
 
 <h3><strong>3.3</strong><code><strong>Configuration</strong></code><strong>存储拦截器</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">public class Configuration {
     protected final InterceptorChain interceptorChain = new InterceptorChain();
@@ -101,7 +101,7 @@ published_at: "2026-08-03 20:48:00 +08:00"
 
 <p><code>Configuration.newExecutor</code> 方法中：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">public Executor newExecutor(Transaction transaction, ExecutorType executorType) {
     // ... 创建 SimpleExecutor/ReuseExecutor/BatchExecutor
@@ -115,7 +115,7 @@ published_at: "2026-08-03 20:48:00 +08:00"
 
 <p><code>Configuration.newStatementHandler</code> 方法中：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">public StatementHandler newStatementHandler(Executor executor, MappedStatement ms,
         Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
@@ -127,7 +127,7 @@ published_at: "2026-08-03 20:48:00 +08:00"
 
 <p><code>Configuration.newParameterHandler</code>：</p>
 
-<ul><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">public ParameterHandler newParameterHandler(MappedStatement ms, Object parameter, BoundSql boundSql) {
     ParameterHandler parameterHandler = new DefaultParameterHandler(ms, parameter, boundSql);
@@ -138,7 +138,7 @@ published_at: "2026-08-03 20:48:00 +08:00"
 
 <p><code>Configuration.newResultSetHandler</code>：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">public ResultSetHandler newResultSetHandler(Executor executor, MappedStatement ms,
         RowBounds rowBounds, ParameterHandler parameterHandler, ResultHandler resultHandler, BoundSql boundSql) {
@@ -148,7 +148,7 @@ published_at: "2026-08-03 20:48:00 +08:00"
 
 <p><code><strong>InterceptorChain.pluginAll</strong></code><strong>实现</strong>：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">public Object pluginAll(Object target) {
     for (Interceptor interceptor : interceptors) {
@@ -163,7 +163,7 @@ published_at: "2026-08-03 20:48:00 +08:00"
 
 <p><code>Plugin</code> 类实现了 <code>InvocationHandler</code>，是 MyBatis 提供的便利代理工厂。</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">public class Plugin implements InvocationHandler {
     private final Object target;
@@ -208,7 +208,7 @@ published_at: "2026-08-03 20:48:00 +08:00"
 
 <p>自定义插件需要指定拦截的目标和方法签名：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-perl">@Intercepts({
     @Signature(
@@ -227,7 +227,7 @@ public class MyPlugin implements Interceptor {
 
 <h3><strong>5.2 </strong><code><strong>Invocation</strong></code><strong> 类</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-cpp">public class Invocation {
     private final Object target;
@@ -248,7 +248,7 @@ public class MyPlugin implements Interceptor {
 
 <p>以下代码来自开源的 PageHelper 分页插件，展示了真实插件如何处理分页逻辑，包括参数个数判断、异步 count、缓存 key 处理等细节。</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">@Intercepts(
     @Signature(type = Executor.class, method = "query",

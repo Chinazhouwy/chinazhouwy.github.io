@@ -98,7 +98,7 @@ published_at: "2026-05-30 15:59:00 +08:00"
 
 <p>我们以一个最简单的查询为例，代码通常是这样写的：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">// 1. 加载配置文件
 InputStream in = Resources.getResourceAsStream("mybatis-config.xml");
@@ -115,7 +115,7 @@ session.close();</code></pre>
 
 <p>mapper.java</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">public interface UserMapper {
     @Select("SELECT * FROM user WHERE id = #{id}")
@@ -130,7 +130,7 @@ session.close();</code></pre>
 
 <p>mybatis-config.xml</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
 &lt;!DOCTYPE configuration
@@ -169,7 +169,7 @@ session.close();</code></pre>
 
 <p>jdbc.properties</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-ini"># MySQL 8.x 驱动配置
 jdbc.driver=com.mysql.cj.jdbc.Driver
@@ -179,7 +179,7 @@ jdbc.password=123456</code></pre>
 
 <p>部分pom.xml</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-xml"> &lt;!-- MyBatis 核心依赖 --&gt;
         &lt;dependency&gt;
@@ -198,7 +198,7 @@ jdbc.password=123456</code></pre>
 
 <p>入口：<code>SqlSessionFactoryBuilder.build(inputStream)</code></p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// SqlSessionFactoryBuilder 部分源码
 public SqlSessionFactory build(InputStream inputStream) {
@@ -229,7 +229,7 @@ public SqlSessionFactory build(InputStream inputStream, String environment, Prop
 
 <p>入口：<code>factory.openSession()</code></p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">// DefaultSqlSessionFactory 部分源码  没有百分百还原哈
 @Override
@@ -263,7 +263,7 @@ private SqlSession openSessionFromDataSource(ExecutorType execType, TransactionI
 
 <p>入口：<code>session.getMapper(UserMapper.class)</code></p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// DefaultSqlSession 部分源码
 @Override
@@ -313,7 +313,7 @@ protected T newInstance(MapperProxy&lt;T&gt; mapperProxy) {
 
 <p>由于 <code>mapper</code> 是代理对象，调用任何方法都会进入 <code>MapperProxy.invoke()</code>：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-perl">// MapperProxy.invoke 核心逻辑（简化版）
 @Override
@@ -328,7 +328,7 @@ public Object invoke(Object proxy, Method method, Object[] args) throws Throwabl
 
 <p>最终会调用到<code>SqlSession</code>的<code>selectOne</code>/<code>selectList</code>等：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// DefaultSqlSession 部分源码
 @Override
@@ -352,7 +352,7 @@ private &lt;E&gt; List&lt;E&gt; selectList(String statement, Object parameter, R
 
 <p><code>Executor.query()</code>是核心：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">// CachingExecutor 部分源码
 @Override
@@ -396,7 +396,7 @@ private &lt;E&gt; List&lt;E&gt; queryFromDatabase(MappedStatement ms, Object par
 
 <p><code>doQuery</code>最终会调用<code>SimpleExecutor</code>：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">// SimpleExecutor 部分源码
 @Override
@@ -436,7 +436,7 @@ private Statement prepareStatement(StatementHandler handler, Log statementLog) t
 
 <h2><strong>四、总结：一条 SQL 的完整旅程</strong></h2>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-markdown">1. 加载 mybatis-config.xml → 生成 Configuration（全局配置）
 2. SqlSessionFactoryBuilder.build() → 创建 DefaultSqlSessionFactory

@@ -35,7 +35,7 @@ published_at: "2026-06-04 18:30:00 +08:00"
 
 <p>先看一段最简单的启动代码：</p>
 
-<ul><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">String resource = "mybatis-config.xml";
 InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -50,7 +50,7 @@ SqlSessionFactory sqlSessionFactory =
 
 <p><code>SqlSessionFactoryBuilder.build(inputStream)</code> 最终会调用到：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// SqlSessionFactoryBuilder
 public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
@@ -67,7 +67,7 @@ public SqlSessionFactory build(InputStream inputStream, String environment, Prop
 
 <h2><strong>三、parse() 方法：解析总控</strong></h2>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-cs">// XMLConfigBuilder
 public Configuration parse() {
@@ -82,7 +82,7 @@ public Configuration parse() {
 
 <p><code>parser.evalNode("/configuration")</code> 返回一个 <code>XNode</code> 对象，它封装了 XML 节点以及一些 XPath 操作。<br/>然后进入 <code>parseConfiguration(XNode root)</code>：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">private void parseConfiguration(XNode root) {
     try {
@@ -120,7 +120,7 @@ public Configuration parse() {
 
 <p>在逐步解析之前，我们先看一眼 <code>Configuration</code> 这个类里到底装着什么（字段非常多，捡重点的）：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">public class Configuration {
     // 环境（数据源、事务工厂）
@@ -155,7 +155,7 @@ public Configuration parse() {
 
 <h3><strong>5.1 </strong><code><strong>&lt;properties&gt;</strong></code><strong>：外部化配置</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">private void propertiesElement(XNode context) throws Exception {
     if (context != null) {
@@ -188,7 +188,7 @@ public Configuration parse() {
 
 <h3><strong>5.2 </strong><code><strong>&lt;settings&gt;</strong></code><strong>：全局配置</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">private Properties settingsAsProperties(XNode context) {
     if (context == null) return new Properties();
@@ -205,7 +205,7 @@ public Configuration parse() {
 
 <p>解析后得到的 Properties 暂存，然后调用<code>settingsElement(Properties)</code>挨个设置到<code>Configuration</code>：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">private void settingsElement(Properties props) {
     configuration.setAutoMappingBehavior(AutoMappingBehavior.valueOf(props.getProperty("autoMappingBehavior", "PARTIAL")));
@@ -217,7 +217,7 @@ public Configuration parse() {
 
 <h3><strong>5.3</strong><code><strong>&lt;typeAliases&gt;</strong></code><strong>：别名注册</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">private void typeAliasesElement(XNode context) {
     if (context == null) {
@@ -248,7 +248,7 @@ public Configuration parse() {
 
 <h3><strong>5.4 </strong><code><strong>&lt;environments&gt;</strong></code><strong>：环境配置</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">private void environmentsElement(XNode context) throws Exception {
     if (context == null) {
@@ -279,7 +279,7 @@ public Configuration parse() {
 
 <h3><strong>5.5 </strong><code><strong>&lt;mappers&gt;</strong></code><strong>：映射器注册（最关键）</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">private void mappersElement(XNode context) throws Exception {
     if (context == null) {

@@ -31,7 +31,7 @@ published_at: "2026-07-05 17:13:00 +08:00"
 
 <p>在 MyBatis 的 Mapper 文件或注解中，我们经常这样写：</p>
 
-<ul><li></li><li></li></ul>
+
 
 <pre><code class="language-powershell">SELECT * FROM user WHERE id = #{id}
 SELECT * FROM user WHERE name like '%${keyword}%'</code></pre>
@@ -54,7 +54,7 @@ SELECT * FROM user WHERE name like '%${keyword}%'</code></pre>
 
 <p>当执行查询时，<code>Executor</code> 需要获取 <code>BoundSql</code>：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// MappedStatement
 public BoundSql getBoundSql(Object parameterObject) {
@@ -71,7 +71,7 @@ public BoundSql getBoundSql(Object parameterObject) {
 
 <h3><strong>3.2 </strong><code><strong>DynamicSqlSource.getBoundSql</strong></code></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">// DynamicSqlSource
 public BoundSql getBoundSql(Object parameterObject) {
@@ -102,7 +102,7 @@ public BoundSql getBoundSql(Object parameterObject) {
 
 <h3><strong>4.1 </strong><code><strong>SqlSourceBuilder.parse</strong></code><strong> 方法</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// SqlSourceBuilder
 public SqlSource parse(String originalSql, Class&lt;?&gt; parameterType, Map&lt;String, Object&gt; additionalParameters) {
@@ -124,7 +124,7 @@ public SqlSource parse(String originalSql, Class&lt;?&gt; parameterType, Map&lt;
 
 <h3><strong>4.2 </strong><code><strong>ParameterMappingTokenHandler.handleToken</strong></code></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// ParameterMappingTokenHandler   将实际内容简单整合了下  看源码时注意下
 public String handleToken(String content) {
@@ -143,7 +143,7 @@ public String handleToken(String content) {
 
 <h3><strong>4.3</strong><code><strong>GenericTokenParser</strong></code><strong>的解析逻辑</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">public String parse(String text) {
     if (text == null || text.isEmpty()) return "";
@@ -203,7 +203,7 @@ public String handleToken(String content) {
 
 <ul><li><strong>转义支持</strong>：<code>\#{...}</code>会被解析为文本<code>#{...}</code>，而非占位符。这允许在 SQL 中输出<code>#{}</code>字面量。</li><li><strong>性能优化</strong>：使用<code>char[]</code>和手动偏移，避免重复创建子串。</li><li><strong>鲁棒性</strong>：处理闭合标记缺失、嵌套转义等情况。</li></ul>
 
-<ul><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-javascript">// 示例：输入 SQL 中包含转义占位符
 String sql = "SELECT * FROM user WHERE name = '\\#{value}' AND id = #{id}";
@@ -219,7 +219,7 @@ String sql = "SELECT * FROM user WHERE name = '\\#{value}' AND id = #{id}";
 
 <p>在 <code>DynamicSqlSource</code> 解析动态 SQL 时，会使用 <code>TextSqlNode</code> 处理文本节点，其中就包含 <code>${}</code> 的解析：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// TextSqlNode
 public boolean apply(DynamicContext context) {
@@ -231,7 +231,7 @@ public boolean apply(DynamicContext context) {
 
 <p><code>BindingTokenParser.handleToken</code>的实现：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// BindingTokenParser
 @Override
@@ -264,7 +264,7 @@ public String handleToken(String content) {
 
 <h3><strong>6.1 预编译：</strong><code><strong>StatementHandler.prepare</strong></code></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">public abstract class BaseStatementHandler implements StatementHandler {
     @Override
@@ -293,7 +293,7 @@ public String handleToken(String content) {
 
 <h3><strong>6.2 参数设置：</strong><code><strong>ParameterHandler.setParameters</strong></code></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">// DefaultParameterHandler
 public void setParameters(PreparedStatement ps) {
@@ -321,7 +321,7 @@ public void setParameters(PreparedStatement ps) {
 
 <table><caption></caption><tbody><tr><td><p>维度</p></td><td><p><code>#{}</code></p></td><td><p><code>${}</code></p></td></tr><tr><td><p>处理时机</p></td><td><p>SQL 解析阶段（<code>SqlSourceBuilder</code>）</p></td><td><p>动态 SQL 解析阶段（<code>TextSqlNode</code>）</p></td></tr><tr><td><p>处理方式</p></td><td><p>替换为 <code>?</code>，收集 <code>ParameterMapping</code></p></td><td><p>直接拼接参数值的字符串表示</p></td></tr><tr><td><p>预编译</p></td><td><p>是（<code>PreparedStatement</code>）</p></td><td><p>否（普通 <code>Statement</code>，或拼接后再预编译）</p></td></tr><tr><td><p>SQL 注入风险</p></td><td><p><strong>无</strong>（参数值与 SQL 结构分离）</p></td><td><p><strong>有</strong>（参数值改变 SQL 结构）</p></td></tr><tr><td><p>适用场景</p></td><td><p>几乎所有参数传递</p></td><td><p>表名、列名、ORDER BY 字段等无法使用占位符的地方</p></td></tr><tr><td><p>缓存影响</p></td><td><p>相同的 SQL 模板可缓存（参数不同不影响）</p></td><td><p>SQL 字符串直接变化，不易命中缓存</p></td></tr></tbody></table>
 
-<h2><br/><p><strong>SQL 注入示例</strong>：</p><ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul><pre><code class="language-powershell">-- 使用 ${}
+<h2><br/><p><strong>SQL 注入示例</strong>：</p><pre><code class="language-powershell">-- 使用 ${}
 SELECT * FROM user WHERE name = '${name}'
 -- 如果 name 传入 ' OR '1'='1，SQL 变为：
 SELECT * FROM user WHERE name = '' OR '1'='1'   -- 永远为真，返回所有用户
@@ -335,7 +335,7 @@ SELECT * FROM user WHERE name = ?
 
 <p>在 MyBatis 源码中，如果错误使用 <code>${}</code>，会导致 SQL 注入。例如在 Mapper XML 中：</p>
 
-<ul><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-sql">&lt;select id="findUser" resultType="User"&gt;
     SELECT * FROM user WHERE name = '${name}'
@@ -343,7 +343,7 @@ SELECT * FROM user WHERE name = ?
 
 <p>当<code>name = "xxx' OR '1'='1"</code>时，最终生成的 SQL 为：</p>
 
-<ul><li></li></ul>
+
 
 <pre><code class="language-sql">SELECT * FROM user WHERE name = 'xxx' OR '1'='1'</code></pre>
 

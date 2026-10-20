@@ -41,13 +41,13 @@ published_at: "2026-06-14 21:24:00 +08:00"
 
 <p>我们通常这样获取 Mapper：</p>
 
-<ul><li></li></ul>
+
 
 <pre><code class="language-cs">UserMapper mapper = session.getMapper(UserMapper.class);</code></pre>
 
 <p>这个 <code>session</code> 实际是 <code>DefaultSqlSession</code>，我们跟进去：</p>
 
-<ul><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">@Override
 public &lt;T&gt; T getMapper(Class&lt;T&gt; type) {
@@ -56,7 +56,7 @@ public &lt;T&gt; T getMapper(Class&lt;T&gt; type) {
 
 <p>继续：</p>
 
-<ul><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// Configuration
 public &lt;T&gt; T getMapper(Class&lt;T&gt; type, SqlSession sqlSession) {
@@ -67,7 +67,7 @@ public &lt;T&gt; T getMapper(Class&lt;T&gt; type, SqlSession sqlSession) {
 
 <h3><strong>2.2 </strong><code><strong>MapperRegistry.getMapper()</strong></code></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">public &lt;T&gt; T getMapper(Class&lt;T&gt; type, SqlSession sqlSession) {
     // 从 knownMappers 中获取该接口对应的 MapperProxyFactory
@@ -89,7 +89,7 @@ public &lt;T&gt; T getMapper(Class&lt;T&gt; type, SqlSession sqlSession) {
 
 <h3><strong>2.3 </strong><code><strong>MapperProxyFactory.newInstance()</strong></code></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">public T newInstance(SqlSession sqlSession) {
     // 创建 MapperProxy，它实现了 InvocationHandler
@@ -116,7 +116,7 @@ protected T newInstance(MapperProxy&lt;T&gt; mapperProxy) {
 
 <h3><strong>3.1 </strong><code><strong>MapperProxy.invoke()</strong></code></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-perl">@Override
 public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
@@ -142,7 +142,7 @@ public Object invoke(Object proxy, Method method, Object[] args) throws Throwabl
 
 <p>每次方法调用时，<code>methodCache</code> 缓存的是 <code>MapperMethodInvoker</code>，而 <code>MapperMethod</code> 只是 <code>PlainMethodInvoker</code> 的一个成员变量。</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-perl">private MapperMethodInvoker cachedInvoker(Method method) throws Throwable {
     try {
@@ -172,7 +172,7 @@ public Object invoke(Object proxy, Method method, Object[] args) throws Throwabl
 
 <p><code>MapperMethod</code> 中有两个核心字段：</p>
 
-<ul><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-perl">public class MapperMethod {
     private final SqlCommand command;   // 封装 SQL 的类型(SELECT/INSERT/UPDATE/DELETE)和 MappedStatement 的 id
@@ -185,7 +185,7 @@ public Object invoke(Object proxy, Method method, Object[] args) throws Throwabl
 
 <p>最终会调用mapperMethod.execute(sqlSession, args)：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-cs">public Object execute(SqlSession sqlSession, Object[] args) {
     Object result;
@@ -239,7 +239,7 @@ public Object invoke(Object proxy, Method method, Object[] args) throws Throwabl
 
 <p><code>@MapperScan</code> 注解通过 <code>@Import</code> 导入了 <code>MapperScannerRegistrar</code>：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
@@ -252,7 +252,7 @@ public @interface MapperScan {
 
 <p><code>MapperScannerRegistrar</code> 实现了 <code>ImportBeanDefinitionRegistrar</code> 接口，Spring 启动时会调用其 <code>registerBeanDefinitions</code> 方法：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">@Override
 public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
@@ -295,7 +295,7 @@ private void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
 
 <p>Spring 在 <code>refresh()</code> 容器的 <code>invokeBeanDefinitionRegistryPostProcessors</code> 阶段，会回调 <code>postProcessBeanDefinitionRegistry</code> 方法</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-kotlin">public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
     // 1. 处理占位符（如 ${basePackage}）
@@ -329,7 +329,7 @@ private void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
 
 <p><code>ClassPathMapperScanner</code> 继承自 Spring 的 <code>ClassPathBeanDefinitionScanner</code>，重写了 <code>doScan</code> 方法：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// ClassPathMapperScanner (mybatis-spring 3.0.3)
 public class ClassPathMapperScanner extends ClassPathBeanDefinitionScanner {
@@ -379,7 +379,7 @@ public class ClassPathMapperScanner extends ClassPathBeanDefinitionScanner {
 
 <p><code>MapperFactoryBean</code> 实现了 <code>FactoryBean</code> 接口，Spring 实例化时会调用 <code>getObject()</code> 方法获取真正的 Mapper 代理对象：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">// MapperFactoryBean (mybatis-spring 3.0.3)
 public class MapperFactoryBean&lt;T&gt; extends SqlSessionDaoSupport implements FactoryBean&lt;T&gt; {
@@ -398,7 +398,7 @@ public class MapperFactoryBean&lt;T&gt; extends SqlSessionDaoSupport implements 
 
 <p><code>getSqlSession().getMapper()</code>的调用链最终进入 MyBatis 核心：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-javascript">SqlSessionTemplate.getMapper()
     → Configuration.getMapper()
@@ -410,7 +410,7 @@ public class MapperFactoryBean&lt;T&gt; extends SqlSessionDaoSupport implements 
 
 <h3><strong>4.7 完整调用链总览</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-cs">启动类 @MapperScan("com.example.mapper")
     ↓

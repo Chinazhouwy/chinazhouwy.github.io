@@ -49,7 +49,7 @@ published_at: "2026-07-27 19:54:00 +08:00"
 
 <p>在 <code>mybatis-config.xml</code> 中：</p>
 
-<ul><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-xml">&lt;settings&gt;
     &lt;!-- 默认 true，若设为 false，所有二级缓存失效 --&gt;
@@ -60,7 +60,7 @@ published_at: "2026-07-27 19:54:00 +08:00"
 
 <p>在 Mapper XML 文件中添加 <code>&lt;cache&gt;</code> 标签：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-xml">&lt;mapper namespace="com.example.mapper.UserMapper"&gt;
     &lt;!-- 开启二级缓存 --&gt;
@@ -78,7 +78,7 @@ published_at: "2026-07-27 19:54:00 +08:00"
 
 <ul><li><code>useCache</code>：默认<code>true</code>，设为<code>false</code>时该查询不使用二级缓存。</li><li><code>flushCache</code>：对于 <code>&lt;select&gt;</code> 默认 <code>false</code>，对于 <code>&lt;insert/update/delete&gt;</code> 默认 <code>true</code>。</li></ul>
 
-<ul><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-bash">&lt;select id="selectUser" resultType="User" useCache="true" flushCache="false"&gt;
     SELECT * FROM user WHERE id = #{id}
@@ -94,7 +94,7 @@ published_at: "2026-07-27 19:54:00 +08:00"
 
 <h3><strong>4.1 装饰器构造</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-cs">// CachingExecutor
 public class CachingExecutor implements Executor {
@@ -109,7 +109,7 @@ public class CachingExecutor implements Executor {
 
 <h3><strong>4.2</strong><code><strong>query</strong></code><strong>方法</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">@Override
 public &lt;E&gt; List&lt;E&gt; query(MappedStatement ms, Object parameterObject, RowBounds rowBounds,
@@ -137,7 +137,7 @@ public &lt;E&gt; List&lt;E&gt; query(MappedStatement ms, Object parameterObject,
 
 <h3><strong>4.3 </strong><code><strong>update</strong></code><strong> 方法</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">@Override
 public int update(MappedStatement ms, Object parameterObject) throws SQLException {
@@ -149,7 +149,7 @@ public int update(MappedStatement ms, Object parameterObject) throws SQLExceptio
 
 <h3><strong>4.4 </strong><code><strong>commit</strong></code><strong> 和 </strong><code><strong>rollback</strong></code><strong> 方法</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-cs">@Override
 public void commit(boolean required) throws SQLException {
@@ -173,7 +173,7 @@ public void rollback(boolean required) throws SQLException {
 
 <h3><strong>5.1 </strong><code><strong>TransactionalCacheManager</strong></code></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">public class TransactionalCacheManager {
     private final Map&lt;Cache, TransactionalCache&gt; transactionalCaches = new HashMap&lt;&gt;();
@@ -201,7 +201,7 @@ public void rollback(boolean required) throws SQLException {
 
 <h3><strong>5.2</strong><code><strong>TransactionalCache</strong></code><strong>核心逻辑</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">public class TransactionalCache implements Cache {
     private final Cache delegate;                       // 真正的缓存对象（如 PerpetualCache）
@@ -267,7 +267,7 @@ public void rollback(boolean required) throws SQLException {
 
 <p>一次带二级缓存的查询完整调用链：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-cs">CachingExecutor.query
     ↓
@@ -299,7 +299,7 @@ tcm.putObject(cache, key, list) → 存入事务缓存
 
 <p><code>CachingExecutor.flushCacheIfRequired</code> 方法：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">private void flushCacheIfRequired(MappedStatement ms) {
     Cache cache = ms.getCache();
@@ -310,7 +310,7 @@ tcm.putObject(cache, key, list) → 存入事务缓存
 
 <p><code>TransactionalCacheManager.clear</code>→<code>TransactionalCache.clear</code>：</p>
 
-<ul><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-cs">public void clear() {
     clearOnCommit = true;

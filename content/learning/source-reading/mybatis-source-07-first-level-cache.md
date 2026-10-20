@@ -49,7 +49,7 @@ published_at: "2026-07-18 09:22:00 +08:00"
 
 <p><code>PerpetualCache</code> 是 <code>BaseExecutor</code> 中一级缓存的实际存储类：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// org.apache.ibatis.cache.impl.PerpetualCache
 public class PerpetualCache implements Cache {
@@ -84,7 +84,7 @@ public class PerpetualCache implements Cache {
 
 <p>在<code>BaseExecutor</code>中：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">public abstract class BaseExecutor implements Executor {
     protected PerpetualCache localCache;
@@ -109,7 +109,7 @@ public class PerpetualCache implements Cache {
 
 <p>在 <code>BaseExecutor.createCacheKey</code> 中：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">@Override
 public CacheKey createCacheKey(MappedStatement ms, Object parameterObject, RowBounds rowBounds, BoundSql boundSql) {
@@ -160,7 +160,7 @@ public CacheKey createCacheKey(MappedStatement ms, Object parameterObject, RowBo
 
 <h3><strong>4.2</strong><code><strong>CacheKey</strong></code><strong>内部结构</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-cs">public class CacheKey implements Cloneable, Serializable {
     private static final int DEFAULT_MULTIPLYER = 37;
@@ -197,7 +197,7 @@ public CacheKey createCacheKey(MappedStatement ms, Object parameterObject, RowBo
 
 <h3><strong>5.1 </strong><code><strong>BaseExecutor.query</strong></code><strong> 中的缓存逻辑</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">@Override
   public &lt;E&gt; List&lt;E&gt; query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler,
@@ -243,7 +243,7 @@ public CacheKey createCacheKey(MappedStatement ms, Object parameterObject, RowBo
 
 <h3><strong>5.2 从数据库查询并写入缓存</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// BaseExecutor
 private &lt;E&gt; List&lt;E&gt; queryFromDatabase(MappedStatement ms, Object parameter, RowBounds rowBounds,
@@ -271,7 +271,7 @@ private &lt;E&gt; List&lt;E&gt; queryFromDatabase(MappedStatement ms, Object par
 
 <p>当缓存命中时，除了直接返回结果，还需要处理存储过程的 OUT 参数：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// BaseExecutor
 private void handleLocallyCachedOutputParameters(MappedStatement ms, CacheKey key, Object parameter, BoundSql boundSql) {
@@ -289,7 +289,7 @@ private void handleLocallyCachedOutputParameters(MappedStatement ms, CacheKey ke
 
 <h3><strong>6.1 执行 </strong><code><strong>INSERT</strong></code><strong> / </strong><code><strong>UPDATE</strong></code><strong> / </strong><code><strong>DELETE</strong></code></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// BaseExecutor
 @Override
@@ -306,14 +306,14 @@ public int update(MappedStatement ms, Object parameter) {
 
 <h3><strong>6.2 手动清空</strong></h3>
 
-<ul><li></li><li></li></ul>
+
 
 <pre><code class="language-cs">// SqlSession 接口方法
 void clearCache();</code></pre>
 
 <p>在<code>DefaultSqlSession</code>中：</p>
 
-<ul><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">@Override
 public void clearCache() {
@@ -324,13 +324,13 @@ public void clearCache() {
 
 <p>在 <code>mybatis-config.xml</code> 中配置：</p>
 
-<ul><li></li></ul>
+
 
 <pre><code class="language-xml">&lt;setting name="localCacheScope" value="STATEMENT"/&gt;</code></pre>
 
 <p>默认是<code>SESSION</code>（整个会话共享）。当设置为<code>STATEMENT</code>时，每次查询结束后会清空一级缓存：</p>
 
-<ul><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-javascript">// BaseExecutor.query 方法最后
 if (configuration.getLocalCacheScope() == LocalCacheScope.STATEMENT) {
@@ -341,7 +341,7 @@ if (configuration.getLocalCacheScope() == LocalCacheScope.STATEMENT) {
 
 <p>在 <code>&lt;select&gt;</code> 标签中设置 <code>flushCache="true"</code>，表示执行该查询前先清空一级缓存（和二级缓存）：<br/></p>
 
-<ul><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-bash">&lt;select id="selectUser" resultType="User" flushCache="true"&gt;
     SELECT * FROM user WHERE id = #{id}
@@ -349,7 +349,7 @@ if (configuration.getLocalCacheScope() == LocalCacheScope.STATEMENT) {
 
 <p>这时在<code>BaseExecutor.query</code>开头就会清空缓存：</p>
 
-<ul><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-text">if (queryStack == 0 &amp;&amp; ms.isFlushCacheRequired()) {
     clearLocalCache();
@@ -377,7 +377,7 @@ if (configuration.getLocalCacheScope() == LocalCacheScope.STATEMENT) {
 
 <p>回顾第 5 篇中 <code>CachingExecutor</code> 的装饰模式：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-cs">// CachingExecutor.query
 Cache cache = ms.getCache();

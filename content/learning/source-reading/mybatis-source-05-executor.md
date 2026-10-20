@@ -45,7 +45,7 @@ published_at: "2026-06-28 20:19:00 +08:00"
 
 <p>回顾第 4 篇提到的 <code>Configuration.newExecutor()</code>：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// Configuration
 public Executor newExecutor(Transaction transaction, ExecutorType executorType) {
@@ -83,7 +83,7 @@ public Executor newExecutor(Transaction transaction, ExecutorType executorType) 
 
 <h3><strong>4.1 一级缓存结构</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">public abstract class BaseExecutor implements Executor {
     protected PerpetualCache localCache;  // 一级缓存
@@ -100,7 +100,7 @@ public Executor newExecutor(Transaction transaction, ExecutorType executorType) 
 
 <h3><strong>4.2 查询方法（带一级缓存）</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// BaseExecutor
 @Override
@@ -149,7 +149,7 @@ private &lt;E&gt; List&lt;E&gt; queryFromDatabase(...) {
 
 <h3><strong>4.3 更新方法（清空缓存）</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// BaseExecutor
 @Override
@@ -163,7 +163,7 @@ public int update(MappedStatement ms, Object parameter) {
 
 <h3><strong>4.4 事务与连接管理</strong></h3>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">// BaseExecutor
 @Override
@@ -237,7 +237,7 @@ public void rollback(boolean required) throws SQLException {
 
 <p>每次执行 SQL 都创建新的 <code>Statement</code>，用完后立即关闭。</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">// SimpleExecutor
 @Override
@@ -272,7 +272,7 @@ private Statement prepareStatement(StatementHandler handler, Log statementLog) {
 
 <p>复用 <code>Statement</code>，避免重复预编译。内部维护一个 <code>Map&lt;String, Statement&gt;</code>，key 是 SQL 字符串。</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">public class ReuseExecutor extends BaseExecutor {
     // 核心缓存：SQL 字符串 -&gt; Statement 对象
@@ -311,7 +311,7 @@ private Statement prepareStatement(StatementHandler handler, Log statementLog) {
 
 <h3><strong>1. Statement 缓存的 Key 是</strong><strong>SQL 字符串</strong></h3>
 
-<ul><li></li></ul>
+
 
 <pre><code class="language-javascript">String sql = boundSql.getSql();</code></pre>
 
@@ -321,7 +321,7 @@ private Statement prepareStatement(StatementHandler handler, Log statementLog) {
 
 <h3><strong>2. 复用时需要重新设置参数</strong></h3>
 
-<ul><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-javascript">stmt = getStatement(sql);           // 复用旧的 Statement
 applyTransactionTimeout(stmt);      // 刷新超时设置
@@ -341,7 +341,7 @@ handler.parameterize(stmt);         // 重新设置参数（重要！）</code><
 
 <p>批量执行，将多条 SQL 累积到一批，一次性发送给数据库。</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">public class BatchExecutor extends BaseExecutor {
     public static final int BATCH_UPDATE_RETURN_VALUE = Integer.MIN_VALUE + 1002;
@@ -454,7 +454,7 @@ handler.parameterize(stmt);         // 重新设置参数（重要！）</code><
 
 <p>二级缓存是 Mapper 级别，跨多个 SqlSession 共享。<code>CachingExecutor</code> 通过<strong>装饰器模式</strong>包装基础执行器，在不修改原有逻辑的情况下增强缓存能力。</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">public class CachingExecutor implements Executor {
     private final Executor delegate;                     // 被装饰的执行器
@@ -545,7 +545,7 @@ handler.parameterize(stmt);         // 重新设置参数（重要！）</code><
 
 <p>在 <code>openSessionFromDataSource</code> 中：</p>
 
-<ul><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-java">// DefaultSqlSessionFactory
 Transaction tx = transactionFactory.newTransaction(environment.getDataSource(), level, autoCommit);
@@ -559,7 +559,7 @@ Executor executor = configuration.newExecutor(tx, executorType);</code></pre>
 
 <p><code>Executor</code> 并不立即获取连接，而是在第一次执行 SQL（<code>prepareStatement</code>）时才从 <code>transaction</code> 中获取：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-typescript">// BaseExecutor
 protected Connection getConnection(Log statementLog) {
@@ -570,7 +570,7 @@ protected Connection getConnection(Log statementLog) {
 
 <p><code>JdbcTransaction.getConnection()</code>实现：</p>
 
-<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
 
 <pre><code class="language-cs">// JdbcTransaction
 public Connection getConnection() {
