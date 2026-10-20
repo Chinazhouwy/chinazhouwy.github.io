@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2016-02-the-prairie-bird-at-a-crossroads.md",
+  "title": "The Prairie Bird at a Crossroads",
+  "paragraphs": [
+    {
+      "english": "Biologists estimate that as many as 2 million lesser prairie chickens — a kind of bird living on stretching grasslands — once lent red to the often grey landscape of the midwestern and southwestern United States. But just some 22,000 birds remain today, occupying about 16% of the species’ historic range.",
+      "chinese": "生物学家估计，小草原松鸡——一种生活在辽阔草原上的鸟——曾经多达二百万只，为美国中西部和西南部常常灰暗的风景增添一抹红色。然而，如今只剩大约二万二千只，栖息范围仅相当于这一物种历史分布范围的百分之十六。"
+    },
+    {
+      "english": "The crash was a major reason the U.S. Fish and Wildlife Service (USFWS) decided to formally list the bird as threatened. “The lesser prairie chicken is in a desperate situation,” said USFWS Director Daniel Ashe. Some environmentalists, however, were disappointed. They had pushed the agency to designate the bird as “endangered,” a status that gives federal officials greater regulatory power to crack down on threats. But Ashe and others argued that the “threatened” tag gave the federal government flexibility to try out new, potentially less confrontational conservation approaches. In particular, they called for forging closer collaborations with western state governments, which are often uneasy with federal action, and with the private landowners who control an estimated 95% of the prairie chicken’s habitat.",
+      "chinese": "数量骤减，是美国鱼类及野生动物管理局决定正式将这种鸟列为受威胁物种的主要原因。该局局长丹尼尔·阿什说：“小草原松鸡的处境十分危急。”不过，一些环保人士对此感到失望。他们此前一直推动该机构将其认定为“濒危物种”，因为这一地位能够赋予联邦官员更大的监管权力，以遏制各种威胁。但阿什等人认为，“受威胁”这一认定能让联邦政府灵活地尝试新的、可能较少引发对抗的保护办法。他们尤其呼吁加强与西部各州政府及私人土地所有者的合作：州政府常对联邦行动心存疑虑，而私人地主掌握着估计百分之九十五的小草原松鸡栖息地。"
+    },
+    {
+      "english": "Under the plan, for example, the agency said it would not prosecute landowners or businesses that unintentionally kill, harm, or disturb the bird, as long as they had signed a range-wide management plan to restore prairie chicken habitat. Negotiated by USFWS and the states, the plan requires individuals and businesses that damage habitat as part of their operations to pay into a fund to replace every acre destroyed with 2 new acres of suitable habitat. The fund will also be used to compensate landowners who set aside habitat. USFWS also set an interim goal of restoring prairie chicken populations to an annual average of 67,000 birds over the next 10 years. And it gives the Western Association of Fish and Wildlife Agencies (WAFWA), a coalition of state agencies, the job of monitoring progress. Overall, the idea is to let “states remain in the driver’s seat for managing the species,” Ashe said.",
+      "chinese": "例如，管理局表示，根据这一方案，只要土地所有者或企业已签署覆盖整个分布区、旨在恢复小草原松鸡栖息地的管理计划，就不会因其无意中杀死、伤害或惊扰这种鸟而起诉他们。该计划由管理局与各州协商制定，要求在经营过程中损坏栖息地的个人和企业向一项基金缴费，以每破坏一英亩、补建两英亩适宜栖息地的方式予以补偿。这笔基金还将用于补偿专门划地保护栖息地的土地所有者。管理局还设立了一个阶段性目标：在未来十年中，将小草原松鸡的数量恢复到年均六万七千只。方案并将监督进展的任务交给西部鱼类及野生动物机构协会——一个由各州相关机构组成的联盟。阿什说，总体思路就是让“各州在管理这一物种时继续掌握主导权”。"
+    },
+    {
+      "english": "Not everyone buys the win-win rhetoric. Some Congress members are trying to block the plan, and at least a dozen industry groups, four states, and three environmental groups are challenging it in federal court. Not surprisingly, industry groups and states generally argue it goes too far; environmentalists say it doesn’t go far enough. “The federal government is giving responsibility for managing the bird to the same industries that are pushing it to extinction,” says biologist Jay Lininger.",
+      "chinese": "并不是所有人都相信这套双赢的说辞。一些国会议员试图阻止该计划，至少十二个行业组织、四个州和三个环保团体正在联邦法院对它提出挑战。不出所料，行业组织和州政府通常认为方案管得太多，环保人士则说它做得远远不够。生物学家杰伊·利宁格说：“联邦政府正把管理这种鸟的责任，交给那些正在把它推向灭绝的行业。”"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "In particular, they called for forging closer collaborations with western state governments, which are often uneasy with federal action, and with the private landowners who control an estimated 95% of the prairie chicken’s habitat.",
+      "mainClause": "They called for forging closer collaborations.",
+      "structure": "with western state governments 与 with the private landowners 并列；which 引导非限制性定语从句修饰州政府；who 引导限制性定语从句修饰私人地主。",
+      "translation": "他们尤其呼吁加强与西部州政府及私人土地所有者的合作；前者常对联邦行动心存疑虑，后者控制着估计百分之九十五的栖息地。",
+      "tip": "两个定语从句各修饰自己的合作对象，and 连接的是两个 with 短语。"
+    },
+    {
+      "sentence": "Negotiated by USFWS and the states, the plan requires individuals and businesses that damage habitat as part of their operations to pay into a fund to replace every acre destroyed with 2 new acres of suitable habitat.",
+      "mainClause": "The plan requires individuals and businesses to pay into a fund.",
+      "structure": "句首过去分词短语说明 plan 的制定背景；that 从句修饰 individuals and businesses；第一个 to 表示 require 的宾语补足语，第二个 to 表示基金用途；destroyed 后置修饰 acre。",
+      "translation": "这项由管理局和各州协商制定的计划，要求经营中破坏栖息地的个人和企业向基金缴费，用每两英亩新的适宜栖息地补偿每一英亩遭破坏的栖息地。",
+      "tip": "识别 require somebody to do，将夹在宾语后的定语从句暂时括起。"
+    }
+  ]
+}

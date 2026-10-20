@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2016-04-a-new-map-to-success.md",
+  "title": "A New Map to Success",
+  "paragraphs": [
+    {
+      "english": "Against a backdrop of drastic changes in economy and population structure, younger Americans are drawing a new 21st-century road map to success, a latest poll has found.",
+      "chinese": "一项最新民调发现，面对经济与人口结构的剧烈变化，美国年轻一代正在绘制一张通向成功的二十一世纪新路线图。"
+    },
+    {
+      "english": "Across generational lines, Americans continue to prize many of the same traditional milestones of a successful life, including getting married, having children, owning a home, and retiring in their sixties. But while young and old mostly agree on what constitutes the finish line of a fulfilling life, they offer strikingly different paths for reaching it.",
+      "chinese": "无论属于哪一代，美国人仍然珍视许多相同的传统成功标志，包括结婚、生子、拥有住房，以及在六十多岁退休。不过，虽然年轻人与年长者对于圆满人生的终点是什么大体一致，他们为到达这个终点提出的路线，却有着显著差异。"
+    },
+    {
+      "english": "Young people who are still getting started in life were more likely than older adults to prioritize personal fulfillment in their work, to believe they will advance their careers most by regularly changing jobs, to favor communities with more public services and a faster pace of life, to agree that couples should be financially secure before getting married or having children, and to maintain that children are best served by two parents working outside the home, the survey found.",
+      "chinese": "调查发现，相比年长者，那些刚起步的年轻人更倾向于把工作中的自我实现放在首位，认为经常换工作最有助于事业发展，喜欢公共服务更多、生活节奏更快的社区，赞同伴侣应该先获得经济保障再结婚生子，也更认同父母双方都在外工作最有利于孩子。"
+    },
+    {
+      "english": "From career to community and family, these contrasts suggest that in the aftermath of the searing Great Recession, those just starting out in life are defining priorities and expectations that will increasingly spread through virtually all aspects of American life, from consumer preferences to housing patterns to politics.",
+      "chinese": "从职业到社区与家庭，这些差异表明，在痛苦的大衰退之后，刚踏入社会的人正重新确定自己的优先事项和期望。这些取向将日益渗透到美国生活的几乎各个方面，从消费偏好、居住模式一直到政治。"
+    },
+    {
+      "english": "Young and old converge on one key point: Overwhelming majorities of both groups said they believe it is harder for young people today to get started in life than it was for earlier generations. While younger people are somewhat more optimistic than their elders about the prospects for those starting out today, big majorities in both groups believe those “just getting started in life” face a tougher climb than earlier generations in reaching such signpost achievements as securing a good-paying job, starting a family, managing debt, and finding affordable housing.",
+      "chinese": "年轻人与年长者在一个关键点上意见一致：两组中绝大多数人都表示，他们相信，如今年轻人起步比前几代人更难。尽管年轻人对当下初入社会者的前景，比长辈略微乐观一些，但两组中大多数人都认为，“刚刚起步”的人在实现若干人生标志性成就时，比前几代人要攀登更陡的坡——例如找到高薪工作、组建家庭、管理债务，以及找到负担得起的住房。"
+    },
+    {
+      "english": "Pete Schneider considers the climb tougher today. Schneider, a 27-year-old auto technician from the Chicago suburbs, says he struggled to find a job after graduating from college. Even now that he is working steadily, he said, “I can’t afford to pay my monthly mortgage payments on my own, so I have to rent rooms out to people to make that happen.” Looking back, he is struck that his parents could provide a comfortable life for their children even though neither had completed college when he was young. “I still grew up in an upper middle-class home with parents who didn’t have college degrees,” Schneider said. “I don’t think people are capable of that anymore.”",
+      "chinese": "皮特·施奈德认为，如今这段攀登更艰难。来自芝加哥郊区、二十七岁的汽车技师施奈德说，大学毕业后，他费了很大力气才找到工作。他说，即使现在工作已经稳定，“我也没法独自负担每月的房贷，因此不得不把房间租给别人，才能还上贷款”。回头看，他惊讶于自己小时候父母都没有完成大学学业，却仍能为孩子提供舒适生活。施奈德说：“父母没有大学文凭，我却依然在一个中上阶层家庭长大。我不认为如今的人还做得到。”"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Young people who are still getting started in life were more likely than older adults to prioritize personal fulfillment in their work, to believe they will advance their careers most by regularly changing jobs, to favor communities with more public services and a faster pace of life, to agree that couples should be financially secure before getting married or having children, and to maintain that children are best served by two parents working outside the home, the survey found.",
+      "mainClause": "The survey found young people were more likely than older adults to do several things.",
+      "structure": "the survey found 是后置报道语；who 从句限定 young people；be more likely to 后接 prioritize、believe、favor、agree、maintain 五个并列不定式，其中 believe、agree、maintain 各带宾语从句。",
+      "translation": "调查发现，相较年长者，刚起步的年轻人更重视工作的自我实现，更认同换工作促进职业发展，喜欢公共服务多且节奏快的社区，主张先有经济保障再成家生子，并认为父母双方外出工作对孩子更好。",
+      "tip": "长串 to do 全部受 more likely than older adults 统领，不要误读成不同主语的句子。"
+    },
+    {
+      "sentence": "Looking back, he is struck that his parents could provide a comfortable life for their children even though neither had completed college when he was young.",
+      "mainClause": "He is struck that his parents could provide a comfortable life for their children.",
+      "structure": "Looking back 是时间背景；that 从句说明令他惊讶的事实；even though 引导让步状语从句；when he was young 限定父母当时的教育状况；neither 指父母双方都没有。",
+      "translation": "回首过去，他惊讶地发现，尽管自己小时候父母都没有完成大学学业，他们仍能为孩子提供舒适生活。",
+      "tip": "neither 是否定“两人中的任何一个”，此处应译为父母“都没有”。"
+    }
+  ]
+}

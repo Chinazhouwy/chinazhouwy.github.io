@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2020-03-madrid-s-clean-air-experiment.md",
+  "title": "Madrid's Clean-Air Experiment",
+  "paragraphs": [
+    {
+      "english": "Madrid was hailed as a public health beacon last November when it rolled out ambitious restrictions on the most polluting cars. Seven months and one election day later, a new conservative city council suspended enforcement of the clean air zone, a first step toward its possible demise.",
+      "chinese": "去年十一月，马德里对污染最严重的汽车推出力度很大的限制措施，被誉为公共卫生的灯塔。七个月和一次选举之后，新上任的保守派市议会暂停执行清洁空气区的规定，这可能是该区域走向终结的第一步。"
+    },
+    {
+      "english": "Mayor Jose Luis Martinez-Almeida made opposition to the zone a centrepiece of his election campaign, despite its success in improving air quality. A judge has now overruled the city’s decision to stop levying fines, ordering them reinstated. But with legal battles ahead, the zone’s future looks uncertain at best.",
+      "chinese": "尽管该区域在改善空气质量方面取得了成功，市长何塞·路易斯·马丁内斯-阿尔梅达仍把反对它作为竞选活动的核心议题。如今，一位法官已推翻市政府停止罚款的决定，命令恢复罚款。但接下来还有法律争端，清洁空气区的前景充其量也只能说是不确定。"
+    },
+    {
+      "english": "Among other weaknesses, the measures cities must employ when left to tackle dirty air on their own are politically contentious, and therefore vulnerable. That’s because they inevitably put the costs of cleaning the air on to individual drivers—who must pay fees or buy better vehicles—rather than on to the car manufacturers whose cheating is the real cause of our toxic pollution.",
+      "chinese": "这些措施除了其他弱点之外，还面临一个问题：当城市只能独自治理污浊空气时，不得不采取的办法在政治上存在争议，因此容易受挫。这是因为，它们不可避免地把净化空气的费用转嫁给个人驾驶者——他们必须缴费或购买更好的汽车——而不是交给汽车制造商，尽管制造商的作弊才是有毒污染的真正根源。"
+    },
+    {
+      "english": "It’s not hard to imagine a similar reversal happening in London. The new ultra-low emission zone (Ulez) is likely to be a big issue in next year's mayoral election. And if Sadiq khan wins and extends it to the North and South Circular roads in 2021 as he intends, it is sure to spark intense opposition from the far larger number of motorists who will then be affected.",
+      "chinese": "不难想象，伦敦也可能出现类似的政策逆转。新设立的超低排放区，很可能成为明年市长选举的一项重要议题。如果萨迪克·汗获胜，并按计划于二〇二一年把区域扩展到南北环线道路，就必然激起更大规模的强烈反对，因为届时受影响的驾驶者会多得多。"
+    },
+    {
+      "english": "It's not that measures such as London’s Ulez are useless. Far from it. Local officials are using the levers that are available to them to safeguard residents’ health in the face of a serious threat. The zones do deliver some improvements to air quality, and the science tells us that means real health benefits — fewer heart attacks, strokes and premature births, less cancer, dementia and asthma. Fewer untimely deaths.",
+      "chinese": "这并不是说，伦敦超低排放区之类的措施毫无用处。远非如此。面对严重威胁，地方官员正在运用手中可用的手段，保护居民健康。这些区域确实改善了一些空气质量，科学研究告诉我们，这会带来真实的健康收益：心脏病发作、中风和早产减少，癌症、失智症与哮喘也更少，过早死亡的人数随之降低。"
+    },
+    {
+      "english": "But mayors and councilors can only do so much about a problem that is far bigger than any one city or town. They are acting because national governments — Britain’s and others across Europe—have failed to do so.",
+      "chinese": "但对于一个远远超出任何单个城镇范围的问题，市长和议员能做的终究有限。他们采取行动，是因为英国以及欧洲其他国家的中央政府未能这样做。"
+    },
+    {
+      "english": "Restrictions that keep highly polluting cars out of certain areas — city centres, “school streets”, even individual roads — are a response to the absence of a larger effort to properly enforce existing regulations and require auto companies to bring their vehicles into compliance. Wales has introduced special low speed limits to minimise pollution. We're doing everything but insist that manufacturers clean up their cars.",
+      "chinese": "限制高污染汽车进入市中心、“学校街道”，乃至个别道路等特定区域，是在缺乏更大范围行动的情况下作出的应对：本应有更有力的行动，切实执行现有法规，要求汽车企业让车辆达标。威尔士还出台了特别的低速限行规定，以尽量减少污染。除了坚持要求制造商把汽车本身的污染治理好，我们几乎什么办法都在尝试。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "That’s because they inevitably put the costs of cleaning the air on to individual drivers—who must pay fees or buy better vehicles—rather than on to the car manufacturers whose cheating is the real cause of our toxic pollution.",
+      "mainClause": "They put the costs on to individual drivers rather than on to car manufacturers.",
+      "structure": "because 从句说明前句原因；who 从句修饰 individual drivers，破折号作插入解释；rather than 对照费用承担者；whose 从句修饰 car manufacturers，whose cheating 为其主语。",
+      "translation": "因为这些措施必然把净化空气的成本转给必须缴费或购置更好车辆的个人驾驶者，而不是那些以作弊造成有毒污染的汽车制造商。",
+      "tip": "rather than 比较的是两种成本承担主体，不是两种减排手段。"
+    },
+    {
+      "sentence": "And if Sadiq khan wins and extends it to the North and South Circular roads in 2021 as he intends, it is sure to spark intense opposition from the far larger number of motorists who will then be affected.",
+      "mainClause": "If Sadiq khan wins and extends it, it is sure to spark intense opposition.",
+      "structure": "if 条件从句中 wins 与 extends 并列；as he intends 为方式补充；主句 it 指区域扩展这件事；who 从句修饰 motorists；then 指扩展实施之后。",
+      "translation": "如果萨迪克·汗获胜，并按其计划于二〇二一年扩区至南北环线，就一定会遭到更大量受影响驾驶者的强烈反对。",
+      "tip": "两个 it 的着眼点略不同：extends it 的 it 是区域，主句 it 概括扩区这一举措。"
+    }
+  ]
+}

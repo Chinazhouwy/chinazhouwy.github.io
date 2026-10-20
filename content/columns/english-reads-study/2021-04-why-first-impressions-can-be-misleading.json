@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2021-04-why-first-impressions-can-be-misleading.md",
+  "title": "Why First Impressions Can Be Misleading",
+  "paragraphs": [
+    {
+      "english": "We're fairly good at judging people based on first impressions, thin slices of experience ranging from a glimpse of a photo to five-minute interaction, and deliberation can be not only extraneous but intrusive. In one study of the ability she called “thin slicing,” the late psychologist Nalini Ambady asked participants to watch silent 10-second video clips of professors and to rate the instructor’s overall effectiveness. Their ratings correlated strongly with students’ end-of-semester ratings. Another set of participants had to count backward from 1,000 by nines as they watched the clips, occupying their conscious working memory. Their ratings were just as accurate, demonstrating the intuitive nature of the social processing.",
+      "chinese": "我们很擅长根据第一印象判断一个人。这些印象来自很薄的一层经验，可能只是瞥见一张照片，也可能是五分钟的接触；反复思量不仅可能多余，甚至会造成干扰。已故心理学家纳利尼·安巴迪把这种能力称为“薄片判断”。在一项研究中，她让参与者观看教授的10秒无声视频片段，再评价教师的整体教学效果。他们的评分与学生在学期末给出的评分高度相关。另一组参与者则须一边看视频，一边从1000开始每次减9倒数，以此占用他们有意识运作的工作记忆。他们的评分同样准确，表明这种社会信息加工具有直觉性。"
+    },
+    {
+      "english": "Critically, another group was asked to spend a minute writing down reasons for their judgment, before giving the rating. Accuracy dropped dramatically. Ambady suspected that deliberation focused them on vivid but misleading cues, such as certain gestures or utterances, rather than letting the complex interplay of subtle signals form a holistic impression. She found similar interference when participants watched 15-second clips of pairs of people and judged whether they were strangers, friends, or dating partners.",
+      "chinese": "关键在于，还有一组参与者被要求先花一分钟写下判断理由，然后再评分。他们判断的准确度大幅下降。安巴迪猜测，深思让他们把注意力集中在鲜明却具有误导性的线索上，例如某些手势或话语，而没有让细微信号之间复杂的相互作用形成整体印象。她还发现，当参与者观看两个人相处的15秒片段，并判断他们是陌生人、朋友还是恋人时，也出现了类似的干扰。"
+    },
+    {
+      "english": "Other research shows we're better at detecting deception from thin slices when we rely on intuition instead of reflection. “It’s as if you’re driving a stick shift,” says Judith Hall, a psychologist at Northeastern University, “and if you start thinking about it too much, you can’t remember what you’re doing. But if you go on automatic pilot, you’re fine. Much of our social life is like that.”",
+      "chinese": "其他研究表明，在利用短暂接触识别谎言时，依赖直觉而非反复思考会让我们做得更好。美国东北大学心理学家朱迪思·霍尔说：“这就像你开手动挡汽车一样，如果想得太多，反而会忘记自己在做什么。但只要进入自动操作状态，就没问题。我们的许多社交活动也是如此。”"
+    },
+    {
+      "english": "Thinking too much can also harm our ability to form preferences. College students’ ratings of strawberry jams and college courses aligned better with experts’ opinions when the students weren’t asked to analyze their rationale. And people made car-buying decisions that were both objectively better and more personally satisfying when asked to focus on their feelings rather than on details, but only if the decision was complex— when they had a lot of information to process.",
+      "chinese": "想得太多还可能损害我们形成偏好的能力。在没有被要求分析理由时，大学生对草莓果酱和大学课程的评分，与专家意见更加一致。当人们被要求关注自己的感受而不是细节时，做出的购车决策既在客观上更好，也更让自己满意；不过，这只发生在决策复杂、需要处理大量信息的情况下。"
+    },
+    {
+      "english": "Intuition’s special powers are unleashed only in certain circumstances. In one study, participants completed a battery of eight tasks, including four that tapped reflective thinking (discerning rules, comprehending vocabulary) and four that tapped intuition and creativity (generating new products or figures of speech). Then they rated the degree to which they had used intuition (“gut feelings,” “hunches,” “my heart”). Use of their gut hurt their performance on the first four tasks, as expected, and helped them on the rest. Sometimes the heart is smarter than the head.",
+      "chinese": "直觉的特殊能力只会在特定情境下发挥作用。在一项研究中，参与者完成了八项任务，其中四项考查理性思考，例如辨别规则、理解词汇，另外四项考查直觉与创造力，例如设计新产品或想出修辞表达。随后，他们评估自己在多大程度上使用了直觉，也就是“直感”“预感”或“听从内心”。正如预料的那样，依赖直觉损害了前四项任务的表现，却改善了其余任务的表现。有时，内心比头脑更聪明。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Ambady suspected that deliberation focused them on vivid but misleading cues, such as certain gestures or utterances, rather than letting the complex interplay of subtle signals form a holistic impression.",
+      "mainClause": "Ambady suspected that deliberation focused them on ... cues.",
+      "structure": "that引导suspected的宾语从句；such as举例说明cues；rather than比较两种处理方式；letting后是let ... form结构，interplay为form的逻辑主语。",
+      "translation": "安巴迪猜测，深思让他们把注意力集中在鲜明却具有误导性的线索上，例如某些手势或话语，而没有让细微信号之间复杂的相互作用形成整体印象。",
+      "tip": "rather than之后解释被替代的整体加工过程；vivid不等于可靠，要同时读到misleading。"
+    },
+    {
+      "sentence": "And people made car-buying decisions that were both objectively better and more personally satisfying when asked to focus on their feelings rather than on details, but only if the decision was complex— when they had a lot of information to process.",
+      "mainClause": "people made car-buying decisions.",
+      "structure": "that从句修饰decisions，both ... and ...并列两个评价；when asked省略they were；but only if为结论增加必要条件，破折号后when解释何为复杂。",
+      "translation": "当人们被要求关注自己的感受而不是细节时，做出的购车决策既在客观上更好，也更让自己满意；不过，这只发生在决策复杂、需要处理大量信息的情况下。",
+      "tip": "only if限定适用情境，不能把结论扩大成“所有买车决策都应该靠直觉”。"
+    }
+  ]
+}

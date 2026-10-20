@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2018-02-the-price-of-the-energy-transition.md",
+  "title": "The Price of the Energy Transition",
+  "paragraphs": [
+    {
+      "english": "While fossil fuels — coal, oil, gas — still generate roughly 85 percent of the world’s energy supply, it’s clearer than ever that the future belongs to renewable sources such as wind and solar. The move to renewables is picking up momentum around the world: They now account for more than half of new power sources going on line.",
+      "chinese": "虽然煤、石油和天然气等化石燃料仍提供全球约百分之八十五的能源，但未来属于风能和太阳能等可再生能源，这一点比以往任何时候都更清楚。世界各地转向可再生能源的势头正不断增强：新投产的发电能源中，它们所占的份额已超过一半。"
+    },
+    {
+      "english": "Some growth stems from a commitment by governments and farsighted businesses to fund cleaner energy sources. But increasingly the story is about the plummeting prices of renewables, especially wind and solar. The cost of solar panels has dropped by 80 percent and the cost of wind turbines by close to one-third in the past eight years.",
+      "chinese": "部分增长来自各国政府和有远见的企业对资助清洁能源的承诺。但可再生能源，尤其是风能和太阳能，价格暴跌，正越来越成为增长的主要原因。过去八年，太阳能电池板的成本下降了百分之八十，风力涡轮机的成本下降了近三分之一。"
+    },
+    {
+      "english": "In many parts of the world renewable energy is already a principal energy source. In Scotland, for example, wind turbines provide enough electricity to power 95 percent of homes. While the rest of the world takes the lead, notably China and Europe, the United States is also seeing a remarkable shift. In March, for the first time, wind and solar power accounted for more than 10 percent of the power generated in the US, reported the US Energy Information Administration.",
+      "chinese": "在世界许多地区，可再生能源已经是一种主要能源。例如，在苏格兰，风力涡轮机提供的电力足以供百分之九十五的家庭使用。虽然其他地区、尤其是中国和欧洲处于领先位置，美国也正发生显著转变。美国能源信息署报告称，三月份，风能和太阳能发电首次占到美国总发电量的百分之十以上。"
+    },
+    {
+      "english": "President Trump has underlined fossil fuels — especially coal — as the path to economic growth. In a recent speech in Iowa, he dismissed wind power as an unreliable energy source. But that message did not play well with many in Iowa, where wind turbines dot the fields and provide 36 percent of the state’s electricity generation — and where tech giants like Microsoft are being attracted by the availability of clean energy to power their data centers.",
+      "chinese": "特朗普总统强调，化石燃料，尤其是煤炭，才是推动经济增长的道路。他最近在艾奥瓦州的一次演讲中，贬斥风能是一种不可靠的能源。但这番话并没有获得该州许多人的认同。在艾奥瓦，田野中遍布风力涡轮机，它们提供全州百分之三十六的发电量；而微软等科技巨头也正被当地可用于给数据中心供电的清洁能源吸引。"
+    },
+    {
+      "english": "The question “what happens when the wind doesn’t blow or the sun doesn’t shine?” has provided a quick put-down for skeptics. But a boost in the storage capacity of batteries is making their ability to keep power flowing around the clock more likely.",
+      "chinese": "“风不吹、太阳不照的时候怎么办？”这个问题，曾让怀疑者能够轻易驳倒可再生能源的主张。不过，电池储能容量的提升，正使它们更有可能全天候持续供电。"
+    },
+    {
+      "english": "The advance is driven in part by vehicle manufacturers, who are placing big bets on battery-powered electric vehicles. Although electric cars are still a rarity on roads now, this massive investment could change the picture rapidly in coming years.",
+      "chinese": "这一进展的部分推动力来自汽车制造商，它们正在电池驱动的电动汽车上押下重注。虽然如今道路上的电动车仍不多见，但这笔巨额投资可能在未来几年迅速改变局面。"
+    },
+    {
+      "english": "While there’s a long way to go, the trend lines for renewables are spiking. The pace of change in energy sources appears to be speeding up — perhaps just in time to have a meaningful effect in slowing climate change. What Washington does — or doesn’t do — to promote alternative energy may mean less and less at a time of a global shift in thought.",
+      "chinese": "尽管还有很长的路要走，可再生能源的发展曲线正急剧上扬。能源转型的速度似乎正在加快，或许恰好还能来得及为减缓气候变化发挥实质作用。在全球观念转变之际，华盛顿为推广替代能源做了什么，或没做什么，可能将变得越来越不重要。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "But that message did not play well with many in Iowa, where wind turbines dot the fields and provide 36 percent of the state’s electricity generation — and where tech giants like Microsoft are being attracted by the availability of clean energy to power their data centers.",
+      "mainClause": "That message did not play well with many in Iowa.",
+      "structure": "两个 where 非限制性定语从句并列修饰 Iowa；第一个从句中 dot 与 provide 并列；第二个从句为被动语态 are being attracted；to power ... 表示清洁能源的用途。",
+      "translation": "但这番话并未让艾奥瓦州的许多人买账；当地风机遍布田野，提供全州百分之三十六的发电量，清洁能源还能为数据中心供电，因而吸引着微软等科技巨头。",
+      "tip": "两个 where 都回指同一地点，分别说明当地居民不认同这番话的背景。"
+    },
+    {
+      "sentence": "What Washington does — or doesn’t do — to promote alternative energy may mean less and less at a time of a global shift in thought.",
+      "mainClause": "What Washington does or doesn’t do may mean less and less.",
+      "structure": "What 引导主语从句，并在从句中作 does 的宾语；to promote ... 为目的；破折号补充否定的另一种情况；at a time of ... 交代背景。",
+      "translation": "在全球观念转变之际，华盛顿为了推广替代能源做或不做什么，可能会越来越无关紧要。",
+      "tip": "What 从句整体作主语，Washington 借指美国联邦政府。"
+    }
+  ]
+}

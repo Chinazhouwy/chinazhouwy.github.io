@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2024-01-measuring-the-digital-economy.md",
+  "title": "Measuring the Digital Economy",
+  "paragraphs": [
+    {
+      "english": "In her new book Cogs and Monsters: What Economics Is, and What It Should Be, Diane Coyle, an economist at Cambridge University, argues that the digital economy requires new ways of thinking about progress. “Whatever we mean by the economy growing, by things getting better, the gains will have to be more evenly shared than in the recent past,” she writes. “An economy of tech millionaires or billionaires and gig workers, with middle-income jobs undercut by automation, will not be politically sustainable.”",
+      "chinese": "剑桥大学经济学家黛安娜·科伊尔在新书《齿轮与怪兽：经济学是什么，又应当是什么》中提出，数字经济要求我们用新的方式思考进步。她写道：“无论我们所说的经济增长、生活改善意味着什么，其收益都必须比过去一段时期分配得更加均衡。如果一个经济体由科技行业的百万富翁或亿万富翁与零工劳动者构成，而中等收入岗位被自动化削弱，那么它在政治上将难以持续。”"
+    },
+    {
+      "english": "Improving living standards and increasing prosperity for more people will require greater use of digital technologies to boost productivity in various sectors, including health care and construction, says Coyle. But people can’t be expected to embrace the changes if they’re not seeing the benefits — if they’re just seeing good jobs being destroyed.",
+      "chinese": "科伊尔说，要提高更多人的生活水平，让更多人富裕起来，就需要更广泛地使用数字技术，提高医疗、建筑等各个行业的生产率。但如果人们看不到好处，只看到好工作不断被毁掉，就不能指望他们拥抱这些变化。"
+    },
+    {
+      "english": "In a recent interview, Coyle said she fears that tech’s inequality problem could be a roadblock to deploying AI. “We’re talking about disruption,” she says. “These are transformative technologies that change the ways we spend our time every day, that change business models that succeed.” To make such “tremendous changes,” she adds, you need social buy-in.",
+      "chinese": "在最近的一次采访中，科伊尔表示，她担心技术带来的不平等问题可能成为部署人工智能的障碍。她说：“我们谈的是颠覆性变化。这些技术会改变我们每天使用时间的方式，也会改变什么样的商业模式能够成功。”她补充道，要实现这样“巨大的变化”，就需要社会的支持和认同。"
+    },
+    {
+      "english": "Instead, says Coyle, resentment is simmering among many as the benefits are perceived to go to elites in a handful of prosperous cities.",
+      "chinese": "科伊尔说，现实却是，许多人觉得收益都流向了少数繁荣城市里的精英，因此不满情绪正在暗中积聚。"
+    },
+    {
+      "english": "According to the Brookings Institution, a short list of eight American cities that included San Francisco, San Jose, Boston, and Seattle had roughly 38% of all tech jobs by 2019. New Al technologies are particularly concentrated: Brookings’s Mark Muro and Sifan Liu estimate that just 15 cities account for two-thirds of the AI assets and capabilities in the United States.",
+      "chinese": "布鲁金斯学会指出，截至2019年，包括旧金山、圣何塞、波士顿和西雅图在内的仅仅八座美国城市，就拥有约38%的科技岗位。新兴人工智能技术的分布尤其集中：该学会的马克·穆罗和刘思帆估计，仅15座城市就占据了美国三分之二的人工智能资产和能力。"
+    },
+    {
+      "english": "The dominance of a few cities in the invention and commercialization of AI means that geographical disparities in wealth will continue to soar. Not only will this foster political and social unrest, but it could, as Coyle suggests, hold back the sorts of AI technologies needed for regional economies to grow.",
+      "chinese": "少数城市在人工智能的发明和商业化方面占据主导，意味着不同地区的财富差距将继续急剧扩大。这不仅会引发政治和社会动荡，还可能如科伊尔所说，阻碍那些地区经济增长所需要的人工智能技术的发展。"
+    },
+    {
+      "english": "Part of the solution could lie in somehow loosening the stranglehold that Big Tech has on defining the AI agenda. That will likely take increased federal funding for research independent of the tech giants.",
+      "chinese": "解决办法的一部分，可能在于设法削弱大型科技公司对人工智能议程设定的牢牢控制。这很可能需要增加联邦资金，支持独立于科技巨头的研究。"
+    },
+    {
+      "english": "A more immediate response is to broaden our digital imaginations to conceive of AI technologies that don’t simply replace jobs but expand opportunities in the sectors that different parts of the country care most about, like health care, education, and manufacturing.",
+      "chinese": "一种更直接的应对方式，是拓宽我们对数字技术的想象：设想一些人工智能技术，让它们不只是替代工作，而是在全国不同地区最关心的领域，例如医疗、教育和制造业中，扩大机会。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Not only will this foster political and social unrest, but it could, as Coyle suggests, hold back the sorts of AI technologies needed for regional economies to grow.",
+      "mainClause": "this will foster ... unrest, but it could hold back ... technologies.",
+      "structure": "Not only置于句首使will提前形成部分倒装；but后语序正常；as Coyle suggests为插入说明；needed过去分词修饰technologies，for regional economies to grow说明所需用途。",
+      "translation": "这不仅会引发政治和社会动荡，还可能如科伊尔所说，阻碍那些地区经济增长所需要的人工智能技术的发展。",
+      "tip": "先把倒装还原为this will foster，再把插入语暂时拿掉，两项并列后果就清楚了。"
+    },
+    {
+      "sentence": "A more immediate response is to broaden our digital imaginations to conceive of AI technologies that don’t simply replace jobs but expand opportunities in the sectors that different parts of the country care most about, like health care, education, and manufacturing.",
+      "mainClause": "A more immediate response is to broaden our digital imaginations.",
+      "structure": "to broaden作表语，to conceive of说明目的；第一个that从句修饰AI technologies，其中not ... but ...并列替代岗位与扩大机会；第二个that从句修饰sectors。",
+      "translation": "一种更直接的应对方式，是拓宽我们对数字技术的想象：设想一些人工智能技术，让它们不只是替代工作，而是在全国不同地区最关心的领域，例如医疗、教育和制造业中，扩大机会。",
+      "tip": "两层that分别限定技术和行业；care about是“关心”，不应把about与后面的like连读。"
+    }
+  ]
+}

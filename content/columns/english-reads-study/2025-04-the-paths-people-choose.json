@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2025-04-the-paths-people-choose.md",
+  "title": "The Paths People Choose",
+  "paragraphs": [
+    {
+      "english": "Navigating beyond the organised pavements and parks of our urban spaces, desire paths are the unofficial footprints of a community, revealing the unspoken preferences, shared shortcuts and collective choices of humans. Often appearing as trodden dirt tracks through otherwise neat green spaces, these routes of collective disobedience cut corners, bisect lawns and cross hills, representing the natural capability of people (and animals) to go from point A to point B most effectively.",
+      "chinese": "在人们不再沿着城市空间中规划好的步道和公园道路行走时，就会出现“需求小径”：它们是一个社区未经正式规划的足迹，展现出人们未曾言明的偏好、共享的捷径和集体选择。这些由集体“不服从”形成的路线，往往是整齐绿地中踩出来的土路；它们抄近道、横穿草坪、翻过山坡，体现了人类和动物以最高效率从A点到达B点的自然能力。"
+    },
+    {
+      "english": "Urban planners interpret desire paths as more than just convenient shortcuts; they offer valuable insights into the dynamics between planning and behaviour. Ohio State University allowed its students to navigate the Oval, a lawn in the centre of campus, freely, then proceeded to pave the desire paths, creating a web of effective routes students had established.",
+      "chinese": "城市规划师认为，需求小径不只是方便的捷径；它们还为理解规划与行为之间的互动提供了宝贵线索。俄亥俄州立大学曾让学生在校园中央一片名为Oval的草坪上自由行走，随后再将学生踩出的需求小径铺设为正式道路，从而形成一张由学生自己开辟的高效路线网络。"
+    },
+    {
+      "english": "Yet, reluctance persists among other planners to integrate desire paths into formal plans, citing concerns about safety, environmental impact, or primarily, aesthetics. A Reddit webpage devoted to the phenomenon, boasting nearly 50,000 members, showcases images of local desire paths adorned with signs instructing pedestrians to adhere to designated walkways, underscoring the rebellious nature inherent in these human-made tracks. This clash highlights an ongoing struggle between the organic, user-driven evolution of public spaces and the desire for a visually curated and controlled urban environment.",
+      "chinese": "然而，其他一些规划师仍不愿把需求小径纳入正式规划，理由是担心安全、环境影响，或者更主要的，美观问题。Reddit上一个专门讨论这一现象、拥有近五万名成员的页面，展示了各地需求小径的照片；有些小径旁立着告示，要求行人沿指定步道行走，凸显了这些人为踩出的小路固有的叛逆意味。这种冲突显示出一种持续的拉扯：一边是公共空间在使用者推动下自然演变，另一边则是人们希望打造一个视觉上精心安排、受到控制的城市环境。"
+    },
+    {
+      "english": "The Wickquasgeck Trail is an example of a historical desire path, created by Native Americans to cross the forests of Manhattan and move between settlements quickly. This trail, when Dutch colonists arrived, was widened and made into one of the main trade roads across the island, known at the time as de Heere Straat, or Gentlemen’s Street. Following the British assumption of control in New York, the street was renamed Broadway. Notably, Broadway stands out as one of the few areas in NYC that defies the grid-based system applied to the rest of the city, cutting a diagonal across parts of the city.",
+      "chinese": "威克夸斯格克小径是一条历史上的需求小径，由美洲原住民开辟，便于穿越曼哈顿的森林，并在定居点之间快速通行。荷兰殖民者到来后，这条小径被拓宽，成为贯穿全岛的主要贸易道路之一，当时名为de Heere Straat，即“绅士街”。英国取得纽约控制权后，它又被改名为百老汇。值得注意的是，百老汇是纽约市少数不遵循其他城区方格路网的地方之一，它以一条对角线斜穿部分城区。"
+    },
+    {
+      "english": "In online spaces, desire paths have sparked a fascination that can approach obsession, with the Reddit page serving as a hub. Contributors offer a wide array of stories, from littleknown new shortcuts to long-established alternate routes.",
+      "chinese": "在网络空间中，需求小径引发了近乎痴迷的兴趣，Reddit页面成了聚集中心。参与者分享各种故事，从鲜为人知的新捷径，到使用已久的替代路线，不一而足。"
+    },
+    {
+      "english": "Animal desire paths, such as ducks forging trails through frozen ponds or dogs carving direct routes in gardens, highlight the adaptability of these trails in both human and animal experiences. As desire paths criss-cross through both physical and virtual landscapes, they stand as a proof of the collective insistence on forging unconventional routes and embracing the spirit of communal choice.",
+      "chinese": "动物也会形成需求小径，例如鸭子穿过冰冻池塘留下路线，或狗在庭院里踩出直达路径，这凸显了此类小径在人类和动物生活中的适应性。当需求小径交错穿行于现实和虚拟空间时，它们证明，人们会集体坚持开辟非传统的路线，并认同共同选择的精神。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Ohio State University allowed its students to navigate the Oval, a lawn in the centre of campus, freely, then proceeded to pave the desire paths, creating a web of effective routes students had established.",
+      "mainClause": "Ohio State University allowed its students to navigate ... then proceeded to pave ...",
+      "structure": "a lawn ...为the Oval的同位语；allowed ... to navigate与proceeded to pave构成先后动作；creating分词短语表结果；students had established省略关系代词，修饰routes。",
+      "translation": "俄亥俄州立大学曾让学生在校园中央一片名为Oval的草坪上自由行走，随后再将学生踩出的需求小径铺设为正式道路，从而形成一张由学生自己开辟的高效路线网络。",
+      "tip": "抓住先自由通行、后铺设道路的时间顺序，理解规划如何顺应实际使用。"
+    },
+    {
+      "sentence": "A Reddit webpage devoted to the phenomenon, boasting nearly 50,000 members, showcases images of local desire paths adorned with signs instructing pedestrians to adhere to designated walkways, underscoring the rebellious nature inherent in these human-made tracks.",
+      "mainClause": "A Reddit webpage ... showcases images ...",
+      "structure": "devoted过去分词短语修饰webpage；boasting补充页面成员数；adorned修饰paths，instructing修饰signs；underscoring说明展示这些照片所凸显的意味，inherent修饰nature。",
+      "translation": "Reddit上一个专门讨论这一现象、拥有近五万名成员的页面，展示了各地需求小径的照片；有些小径旁立着告示，要求行人沿指定步道行走，凸显了这些人为踩出的小路固有的叛逆意味。",
+      "tip": "按“页面—图片—小径—告示—行人”逐层拆分，尤其不要把instructing误接到小径本身。"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2023-03-what-the-internet-changes-about-memory.md",
+  "title": "What the Internet Changes About Memory",
+  "paragraphs": [
+    {
+      "english": "The Internet may be changing merely what we remember, not our capacity to do so, suggests Columbia University psychology professor Betsy Sparrow. In 2011, Sparrow led a study in which participants were asked to record 40 factoids in a computer (“an ostrich’s eye is bigger than its brain,” for example). Half of the participants were told the information would be erased, while the other half were told it would be saved. Guess what? The latter group made no effort to recall the information when quizzed on it later, because they knew they could find it on their computers. In the same study, a group was asked to remember both the information and the folders it was stored in. They didn’t remember the information, but they remembered how to find the folders. In other words, human memory is not deteriorating but “adapting to new communications technology,” Sparrow says.",
+      "chinese": "哥伦比亚大学心理学教授贝齐·斯帕罗提出，互联网可能改变的仅仅是我们记住的内容，而不是我们的记忆能力。2011年，斯帕罗主持了一项研究，要求参与者在电脑上记录40条小知识，例如“鸵鸟的眼睛比脑子还大”。一半参与者被告知这些信息会被删除，另一半则被告知信息会被保存。结果怎么样？后一组在之后接受提问时，根本没费力去回忆信息，因为他们知道可以在电脑里找到。同一研究还要求一组参与者同时记住信息及其存放的文件夹。他们没有记住信息，却记得怎样找到文件夹。斯帕罗说，换言之，人类记忆不是在衰退，而是在“适应新的通信技术”。"
+    },
+    {
+      "english": "In a very practical way, the Internet is becoming an external hard drive for our memories, a process known as “cognitive offloading.” Traditionally, this role was fulfilled by data banks, libraries, and other humans. Your father may never remember birthdays because your mother does, for instance. Some worry that this is having a destructive effect on society, but Sparrow sees an upside. Perhaps, she suggests, the trend will change our approach to learning from a focus on individual facts and memorization to an emphasis on more conceptual thinking — something that is not available on the Internet. “I personally have never seen all that much intellectual value in memorizing things,” Sparrow says, adding that we haven’t lost our ability to do it.",
+      "chinese": "在实际生活中，互联网正在成为记忆的外置硬盘，这个过程称为“认知卸载”。传统上，数据库、图书馆和其他人承担着这一角色。例如，你的父亲可能从来不记生日，因为母亲会记得。有些人担心这会给社会带来破坏性影响，但斯帕罗看到了积极的一面。她提出，也许这种趋势会改变我们的学习方式：从关注零散事实和死记硬背，转向更加注重概念性思考，而后者是在互联网上无法直接获得的。斯帕罗说：“就我个人而言，我从来不觉得记住东西本身有多大的智识价值。”她补充说，我们并没有丧失记忆能力。"
+    },
+    {
+      "english": "Still other experts say it’s too soon to understand how the Internet affects our brains. There is no experimental evidence showing that it interferes with our ability to focus, for instance, wrote psychologists Christopher Chabris and Daniel J. Simons. And surfing the web exercised the brain more than reading did among computer-savvy older adults in a 2008 study involving 24 participants at the Semel Institute for Neuroscience and Human Behavior at the University of California, Los Angeles.",
+      "chinese": "另一些专家则说，现在要弄清互联网如何影响大脑，还为时过早。例如，心理学家克里斯托弗·查布里斯和丹尼尔·西蒙斯写道，没有实验证据显示互联网会干扰我们的专注能力。2008年，加州大学洛杉矶分校塞梅尔神经科学与人类行为研究所开展的一项研究纳入了24名参与者，结果发现，对熟悉电脑操作的老年人而言，上网比阅读更能锻炼大脑。"
+    },
+    {
+      "english": "“There may be costs associated with our increased reliance on the Internet, but I’d have to imagine that overall the benefits are going to outweigh those costs,” observes psychology professor Benjamin Storm. “It seems pretty clear that memory is changing, but is it changing for the better? At this point, we don’t know.”",
+      "chinese": "心理学教授本杰明·斯托姆指出：“我们对互联网日益依赖，可能伴随一些代价，但我倾向于认为，总体上好处会超过这些代价。记忆正在变化，这一点似乎相当明确，但它是在向更好的方向变化吗？目前我们还不知道。”"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "The Internet may be changing merely what we remember, not our capacity to do so, suggests Columbia University psychology professor Betsy Sparrow.",
+      "mainClause": "The Internet may be changing merely what we remember, not our capacity to do so.",
+      "structure": "what引导名词性从句，作changing的宾语；not后与前面的宾语对照；to do so回指remember；suggests ...为后置报道语。",
+      "translation": "哥伦比亚大学心理学教授贝齐·斯帕罗提出，互联网可能改变的仅仅是我们记住的内容，而不是我们的记忆能力。",
+      "tip": "关键区别是记忆内容what与记忆能力capacity；may保留了推测语气。"
+    },
+    {
+      "sentence": "And surfing the web exercised the brain more than reading did among computer-savvy older adults in a 2008 study involving 24 participants at the Semel Institute for Neuroscience and Human Behavior at the University of California, Los Angeles.",
+      "mainClause": "surfing the web exercised the brain more than reading did.",
+      "structure": "surfing the web为动名词主语；than从句中did替代exercised；among限定人群；involving现在分词修饰study；末尾at短语交代研究机构。",
+      "translation": "2008年，加州大学洛杉矶分校塞梅尔神经科学与人类行为研究所一项纳入24名参与者的研究发现，对熟悉电脑操作的老年人而言，上网比阅读更能锻炼大脑。",
+      "tip": "比较结果有明确样本人群，不能据此推论上网对所有年龄和所有认知任务都更好。"
+    }
+  ]
+}

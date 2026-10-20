@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2018-04-making-space-for-deep-work.md",
+  "title": "Making Space for Deep Work",
+  "paragraphs": [
+    {
+      "english": "To combat the trap of putting a premium on being busy, Cal Newport, author of Deep Work: Rules for Focused Success in a Distracted World, recommends building a habit of “deep work” - the ability to focus without distraction.",
+      "chinese": "为了摆脱把忙碌看得过重的陷阱，《深度工作：如何在分心的世界中专注成功》的作者卡尔·纽波特建议，养成“深度工作”的习惯，也就是不受干扰地专注的能力。"
+    },
+    {
+      "english": "There are a number of approaches to mastering the art of deep work - be it lengthy retreats dedicated to a specific task; developing a daily ritual; or taking a “journalistic” approach to seizing moments of deep work when you can throughout the day. Whichever approach, the key is to determine your length of focus time and stick to it.",
+      "chinese": "掌握深度工作这门艺术有许多途径：可以长时间闭关，专门完成一项任务；也可以形成每日固定的仪式；或者采用“记者式”的办法，尽可能抓住一天中适合深度工作的片刻。不论用哪种方式，关键都是确定自己的专注时长，并坚持下来。"
+    },
+    {
+      "english": "Newport also recommends “deep scheduling” to combat constant interruptions and get more done in less time. “At any given point, I should have deep work scheduled for roughly the next month. Once on the calendar, I protect this time like I would a doctor’s appointment or important meeting”, he writes.",
+      "chinese": "纽波特还推荐“深度排程”，以应对不断的打扰，在更短的时间里完成更多工作。他写道：“在任何时候，我都应该已经把大约未来一个月的深度工作安排好。一旦记入日程，我就会像保护看医生或重要会议的时间那样，守住这段时间。”"
+    },
+    {
+      "english": "Another approach to getting more done in less time is to rethink how you prioritise your day - in particular how we craft our to-do lists. Tim Harford, author of Messy: The Power of Disorder to Transform Our Lives, points to a study in the early 1980s that divided undergraduates into two groups: some were advised to set out monthly goals and study activities; others were told to plan activities and goals in much more detail, day by day.",
+      "chinese": "另一个提高效率的办法，是重新考虑如何安排一天中的优先顺序，尤其是如何制定待办清单。《混乱：无序改变生活的力量》的作者蒂姆·哈福德，提到二十世纪八十年代初的一项研究。研究把大学生分成两组：一组被建议列出每月目标和学习活动，另一组则被要求按天制定详细得多的活动与目标计划。"
+    },
+    {
+      "english": "While the researchers assumed that the well-structured daily plans would be most effective when it came to the execution of tasks, they were wrong: the detailed daily plans demotivated students. Harford argues that inevitable distractions often render the daily to-do list ineffective, while leaving room for improvisation in such a list can reap the best results.",
+      "chinese": "研究者原以为，结构清楚的每日计划在执行任务时最有效，但他们错了：详细的每日计划反而削弱了学生的动力。哈福德认为，不可避免的干扰往往会让每日待办清单失效，而在清单里给即兴调整留出空间，才能收获最好的结果。"
+    },
+    {
+      "english": "In order to make the most of our focus and energy, we also need to embrace downtime, or as Newport suggests, “be lazy”.",
+      "chinese": "为了充分利用自己的专注力和精力，我们还需要接受闲暇，或用纽波特的话说，“懒一点”。"
+    },
+    {
+      "english": "“Idleness is not just a vacation, an indulgence or a vice; it is as indispensable to the brain as vitamin D is to the body...[idleness] is, paradoxically, necessary to getting any work done,” he argues.",
+      "chinese": "他认为：“闲着不仅仅是度假、放纵或一种恶习；它对大脑的不可或缺，就像维生素 D 对身体一样……看似矛盾的是，闲着对于完成任何工作都是必要的。”"
+    },
+    {
+      "english": "Srini Pillay, an assistant professor of psychiatry at Harvard Medical School, believes this counterintuitive link between downtime and productivity may be due to the way our brains operate. When our brains switch between being focused and unfocused on a task, they tend to be more efficient.",
+      "chinese": "哈佛医学院精神病学助理教授斯里尼·皮莱认为，闲暇与生产力之间这种有悖直觉的联系，可能源于我们大脑的运作方式。当大脑在对一项任务保持专注与不专注之间切换时，效率往往会更高。"
+    },
+    {
+      "english": "“What people don’t realise is that in order to complete these tasks they need to use both the focus and unfocus circuits in their brain,” says Pillay.",
+      "chinese": "皮莱说：“人们没有意识到的是，为了完成这些任务，他们既需要使用大脑中的专注回路，也需要使用非专注回路。”"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Tim Harford, author of Messy: The Power of Disorder to Transform Our Lives, points to a study in the early 1980s that divided undergraduates into two groups: some were advised to set out monthly goals and study activities; others were told to plan activities and goals in much more detail, day by day.",
+      "mainClause": "Tim Harford points to a study.",
+      "structure": "author of ... 是同位语；that 从句修饰 study；冒号后展开两组的不同安排，some 与 others 对照；两组均用被动语态。",
+      "translation": "《混乱》的作者蒂姆·哈福德提到八十年代初的一项研究：大学生分成两组，一组列每月目标和学习活动，另一组逐日详细规划活动与目标。",
+      "tip": "标题再长也只是身份说明；研究的设计在冒号后展开。"
+    },
+    {
+      "sentence": "While the researchers assumed that the well-structured daily plans would be most effective when it came to the execution of tasks, they were wrong: the detailed daily plans demotivated students.",
+      "mainClause": "The researchers were wrong.",
+      "structure": "While 引导让步从句；assumed 后 that 为宾语从句；when it came to ... 表示“谈到执行任务时”；冒号后说明研究者错在哪里。",
+      "translation": "尽管研究者认为，结构清晰的每日计划在执行任务时最有效，但他们错了：详细的每日计划削弱了学生的动力。",
+      "tip": "while 在这里表示“尽管”，不是两个事件同时发生。"
+    }
+  ]
+}

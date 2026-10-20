@@ -1,5 +1,5 @@
 ---
-title: "The Case Against Excessive CEO Pay"
+title: "Why CEO Pay Is So High"
 date: "2026-10-14"
 importedAt: "2026-10-14"
 domain: "专栏"
@@ -15,7 +15,7 @@ summary: "高管薪酬增长引发公平与治理争议，企业如何制定薪�
 tags: ["English Reading", "Business", "Work"]
 ---
 
-# The Case Against Excessive CEO Pay
+# Why CEO Pay Is So High
 
 It is true that CEO pay has gone up—top ones may make 300 times the pay of typical workers on average, and since the mid-1970s, CEO pay for large publicly traded American corporations has, by varying estimates, gone up by about 500%. The typical CEO of a top American corporation now makes about $18.9 million a year.
 

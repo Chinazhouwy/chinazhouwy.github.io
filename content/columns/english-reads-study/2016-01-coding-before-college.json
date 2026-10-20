@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2016-01-coding-before-college.md",
+  "title": "Coding Before College",
+  "paragraphs": [
+    {
+      "english": "It’s true that high-school coding classes aren’t essential for learning computer science in college. Students without experience can catch up after a few introductory courses, said Tom Cortina, the assistant dean at Carnegie Mellon’s School of Computer Science.",
+      "chinese": "确实，高中编程课并不是在大学学习计算机科学的必要条件。卡内基梅隆大学计算机科学学院副院长汤姆·科尔蒂纳说，没有相关经验的学生，上过几门入门课后也能赶上。"
+    },
+    {
+      "english": "However, Cortina said, early exposure is beneficial. When younger kids learn computer science, they learn that it’s not just a confusing, endless string of letters and numbers — but a tool to build apps, or create artwork, or test hypotheses. It’s not as hard for them to transform their thought processes as it is for older students. Breaking down problems into bite-sized chunks and using code to solve them becomes normal. Giving more children this training could increase the number of people interested in the field and help fill the jobs gap, Cortina said.",
+      "chinese": "不过，科尔蒂纳说，早点接触这门学科是有益的。年纪较小的孩子学习计算机科学时，会认识到它不只是一串令人困惑、无穷无尽的字母和数字，而是一种可以用来开发应用、创作艺术品或检验假设的工具。与年龄较大的学生相比，他们改变思维方式没有那么困难。把问题拆成容易处理的小块，再用代码解决，会成为一种习惯。科尔蒂纳说，让更多孩子接受这种训练，可以增加对这一领域感兴趣的人数，并有助于填补就业岗位的缺口。"
+    },
+    {
+      "english": "Students also benefit from learning something about coding before they get to college, where introductory computer-science classes are packed to the brim, which can drive the less-experienced or -determined students away.",
+      "chinese": "学生在上大学前了解一些编程知识，也能从中受益。大学里的计算机科学入门课往往人满为患，这可能会让经验较少或决心不够坚定的学生望而却步。"
+    },
+    {
+      "english": "The Flatiron School, where people pay to learn programming, started as one of the many coding bootcamps that’s become popular for adults looking for a career change. The high-schoolers get the same curriculum, but “we try to gear lessons toward things they’re interested in,” said Victoria Friedman, an instructor. For instance, one of the apps the students are developing suggests movies based on your mood.",
+      "chinese": "弗拉特艾恩学校是一所收费教授编程的学校，最初与当时不断涌现的许多编程训练营一样，面向希望转行的成年人。高中生学习的是同样的课程，但教师维多利亚·弗里德曼说：“我们努力让课程贴近他们感兴趣的东西。”例如，学生正在开发的一款应用，可以根据使用者的心情推荐电影。"
+    },
+    {
+      "english": "The students in the Flatiron class probably won’t drop out of high school and build the next Facebook. Programming languages have a quick turnover, so the “Ruby on Rails” language they learned may not even be relevant by the time they enter the job market. But the skills they learn — how to think logically through a problem and organize the results — apply to any coding language, said Deborah Seehorn, an education consultant for the state of North Carolina.",
+      "chinese": "弗拉特艾恩班上的这些学生大概不会从高中辍学，创办下一个脸书。编程语言更新换代很快，因此等他们进入就业市场时，现在学的“Ruby on Rails”可能都已经不再适用。不过，北卡罗来纳州教育顾问黛博拉·西霍恩说，他们学到的技能——如何有条理地思考问题并组织结果——适用于任何编程语言。"
+    },
+    {
+      "english": "Indeed, the Flatiron students might not go into IT at all. But creating a future army of coders is not the sole purpose of the classes. These kids are going to be surrounded by computers — in their pockets, in their offices, in their homes — for the rest of their lives. The younger they learn how computers think, how to coax the machine into producing what they want — the earlier they learn that they have the power to do that — the better.",
+      "chinese": "事实上，弗拉特艾恩的学生可能根本不会进入信息技术行业。但培养未来大批程序员，并不是这些课程的唯一目的。这些孩子今后的一生都会被计算机包围：口袋里、办公室里、家中都离不开它。越早让他们理解计算机如何思考、怎样引导机器产出自己想要的结果，越早让他们认识到自己有能力做到这些，就越好。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Students also benefit from learning something about coding before they get to college, where introductory computer-science classes are packed to the brim, which can drive the less-experienced or -determined students away.",
+      "mainClause": "Students also benefit from learning something about coding.",
+      "structure": "before 引导时间状语从句；where 引导非限制性定语从句，修饰 college；which 指前面入门课人满为患这一情况，说明其后果。",
+      "translation": "学生在上大学之前了解一些编程知识也有益处；大学的计算机科学入门课人满为患，可能让经验不足或决心不够坚定的学生退却。",
+      "tip": "先抓 benefit from，再分清 where 修饰地点、which 概括前述情况。"
+    },
+    {
+      "sentence": "The younger they learn how computers think, how to coax the machine into producing what they want — the earlier they learn that they have the power to do that — the better.",
+      "mainClause": "The younger/earlier they learn ..., the better.",
+      "structure": "the + 比较级 ..., the + 比较级 ... 表示“越……越……”；how computers think 与 how to coax ... 为 learn 的并列宾语；what they want 为 producing 的宾语；破折号内补充解释。",
+      "translation": "他们越早学会理解计算机的思维、引导机器产生所需结果，越早知道自己有能力做到这些，就越好。",
+      "tip": "破折号中的内容仍属于“越早学习”的条件，不是新的结论。"
+    }
+  ]
+}

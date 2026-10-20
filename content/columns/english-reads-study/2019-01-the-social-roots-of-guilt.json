@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2019-01-the-social-roots-of-guilt.md",
+  "title": "The Social Roots of Guilt",
+  "paragraphs": [
+    {
+      "english": "Unlike so-called basic emotions such as sadness, fear, and anger, guilt emerges a little later, in conjunction with a child’s growing grasp of social and moral norms. Children aren’t born knowing how to say “I’m sorry”; rather, they learn over time that such statements appease parents and friends — and their own consciences. This is why researchers generally regard so-called moral guilt, in the right amount, to be a good thing.",
+      "chinese": "与悲伤、恐惧、愤怒等所谓的基本情绪不同，内疚出现得稍晚，与儿童逐渐理解社会和道德规范相伴而来。孩子并不是天生就知道怎样说“对不起”；相反，他们逐渐明白，这类话能安抚父母、朋友，以及自己的良心。这就是为什么研究者通常认为，适度的所谓道德内疚是一件好事。"
+    },
+    {
+      "english": "In the popular imagination, of course, guilt still gets a bad rap. It is deeply uncomfortable — it’s the emotional equivalent of wearing a jacket weighted with stones. Yet this understanding is outdated. “There has been a kind of revival or a rethinking about what guilt is and what role guilt can serve,” says Amrisha Vaish, a psychology researcher at the University of Virginia, adding that this revival is part of a larger recognition that emotions aren’t binary — feelings that may be advantageous in one context may be harmful in another. Jealousy and anger, for example, may have evolved to alert us to important inequalities. Too much happiness can be destructive.",
+      "chinese": "当然，在大众观念中，内疚仍背负着坏名声。它令人十分不舒服，在情绪上的感受，就像穿了一件装满石头的夹克。然而，这种理解已经过时。弗吉尼亚大学心理学研究者阿姆里沙·韦什说：“人们重新关注，或重新思考内疚是什么，以及它能发挥什么作用。”她补充说，这种重新关注，是人们更广泛地认识到情绪并非非好即坏的一部分：在一种情境中有益的感受，换到另一种情境中可能有害。例如，嫉妒和愤怒可能是在进化中形成的，用来提醒我们注意重要的不平等；过多的快乐也可能带来破坏。"
+    },
+    {
+      "english": "And guilt, by prompting us to think more deeply about our goodness, can encourage humans to make up for errors and fix relationships. Guilt, in other words, can help hold a cooperative species together. It is a kind of social glue.",
+      "chinese": "内疚促使我们更深入地思考自己的善良品行，从而能鼓励人类弥补错误、修复关系。换句话说，内疚能够帮助一个依赖合作的物种维系团结，是一种社会黏合剂。"
+    },
+    {
+      "english": "Viewed in this light, guilt is an opportunity. Work by Tina Malti, a psychology professor at the University of Toronto, suggests that guilt may compensate for an emotional deficiency. In a number of studies, Malti and others have shown that guilt and sympathy may represent different pathways to cooperation and sharing. Some kids who are low in sympathy may make up for that shortfall by experiencing more guilt, which can rein in their nastier impulses. And vice versa: High sympathy can substitute for low guilt.",
+      "chinese": "这样看来，内疚也是一种机会。多伦多大学心理学教授蒂娜·马尔蒂的研究表明，内疚可能弥补某种情感上的不足。在多项研究中，马尔蒂等人发现，内疚和同情可能是通向合作与分享的不同途径。一些同情心较弱的孩子，可能通过体验更多内疚来弥补这一不足，而内疚能约束他们较恶劣的冲动。反过来也一样：较强的同情心可以弥补内疚感不足。"
+    },
+    {
+      "english": "In a 2014 study, for example, Malti looked at 244 children. Using caregiver assessments and the children’s self-observations, she rated each child’s overall sympathy level and his or her tendency to feel negative emotions after moral transgressions. Then the kids were handed chocolate coins, and given a chance to share them with an anonymous child. For the low-sympathy kids, how much they shared appeared to turn on how inclined they were to feel guilty. The guilt-prone ones shared more, even though they hadn’t magically become more sympathetic to the other child’s deprivation.",
+      "chinese": "例如，在二〇一四年的一项研究中，马尔蒂考察了二百四十四名儿童。她利用照料者的评估和孩子的自我观察，为每个孩子的总体同情心水平，以及违反道德规范后产生负面情绪的倾向评分。随后，孩子们拿到了巧克力金币，并有机会与一个不具名的孩子分享。对于同情心较弱的孩子，他们分享多少，似乎取决于有多容易感到内疚。那些更容易内疚的孩子分享得更多，尽管他们对另一个孩子一无所获的处境，并没有突然产生更多同情。"
+    },
+    {
+      "english": "“That’s good news, ” Malti says. “We can be prosocial because we caused harm and we feel regret.”",
+      "chinese": "“这是好消息，”马尔蒂说，“我们可能因为伤害了别人、感到后悔，而表现出亲社会行为。”"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Some kids who are low in sympathy may make up for that shortfall by experiencing more guilt, which can rein in their nastier impulses.",
+      "mainClause": "Some kids may make up for that shortfall.",
+      "structure": "who 引导定语从句修饰 kids；by experiencing ... 表示补偿方式；which 引导非限制性定语从句，指内疚感及其约束作用；that shortfall 回指同情心不足。",
+      "translation": "一些同情心较弱的孩子，可以通过感到更多内疚来弥补不足，而内疚有助于约束他们更恶劣的冲动。",
+      "tip": "make up for 是弥补，rein in 是约束；两者分别对应同情心不足与冲动行为。"
+    },
+    {
+      "sentence": "For the low-sympathy kids, how much they shared appeared to turn on how inclined they were to feel guilty.",
+      "mainClause": "How much they shared appeared to turn on how inclined they were to feel guilty.",
+      "structure": "句首 For ... 限定人群；how much they shared 是主语从句；turn on 在此意为取决于，其后 how inclined ... 为宾语从句；be inclined to 表示有某种倾向。",
+      "translation": "对于同情心较弱的孩子，他们分享多少，似乎取决于他们有多容易感到内疚。",
+      "tip": "此处 turn on 不是打开开关；前后两个 how 从句分别表示分享程度与内疚倾向。"
+    }
+  ]
+}

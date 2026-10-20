@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2019-03-who-will-pick-america-s-food.md",
+  "title": "Who Will Pick America's Food?",
+  "paragraphs": [
+    {
+      "english": "American farmers have been complaining of labor shortages for several years. The complaints are unlikely to stop without an overhaul of immigration rules for farm workers.",
+      "chinese": "美国农民抱怨劳动力短缺已经有好几年。如果不全面改革针对农业劳工的移民规则，这些抱怨不太可能停止。"
+    },
+    {
+      "english": "Congress has obstructed efforts to create a more straightforward visa for agricultural workers that would let foreign workers stay longer in the U.S. and change jobs within the industry. If this doesn’t change, American businesses, communities, and consumers will be the losers.",
+      "chinese": "国会阻挠了设立一种更简便的农业工人签证的努力。这种签证本可让外国劳工在美国停留更久，并在农业行业内部换工作。如果这种局面不改变，美国企业、社区和消费者都会成为受损的一方。"
+    },
+    {
+      "english": "Perhaps half of U.S. farm laborers are undocumented immigrants. As fewer such workers enter the country, the characteristics of the agricultural workforce are changing. Today’s farm laborers, while still predominantly born in Mexico, are more likely to be settled rather than migrating and more likely to be married than single. They’re also aging. At the start of this century, about one-third of crop workers were over the age of 35. Now more than half are. And picking crops is hard on older bodies. One oft-debated cure for this labor shortage remains as implausible as it’s been all along: Native U.S. workers won’t be returning to the farm.",
+      "chinese": "美国农场劳工中，可能有一半是无合法身份的移民。随着进入美国的这类劳工减少，农业劳动力的特征也在变化。如今的农场劳工虽然仍大多出生于墨西哥，但他们更可能已经定居，而非四处流动，也更可能已婚，而不是单身。他们还在老去。本世纪初，约三分之一的种植业工人超过三十五岁，如今则超过一半。采收农作物对年长者的身体是很大的负担。一个经常被讨论的解决办法，仍和以往一样不切实际：美国本土劳工并不会重新回到农场。"
+    },
+    {
+      "english": "Mechanization isn’t the answer, either — not yet, at least. Production of corn, cotton, rice, soybeans, and wheat has been largely mechanized, but many high-value, labor-intensive crops, such as strawberries, need labor. Even dairy farms, where robots do a small share of milking, have a long way to go before they’re automated.",
+      "chinese": "机械化也不是答案，至少目前还不是。玉米、棉花、水稻、大豆和小麦的生产已大体实现机械化，但草莓等许多价值高、劳动密集的作物仍需要人工。即使奶牛场已有机器人承担少量挤奶工作，距离全面自动化也还有很长的路。"
+    },
+    {
+      "english": "As a result, farms have grown increasingly reliant on temporary guest workers using the H-2A visa to fill the gaps in the workforce. Starting around 2012, requests for the visas rose sharply; from 2011 to 2016 the number of visas issued more than doubled.",
+      "chinese": "因此，农场日益依赖持 H-2A 签证的临时外籍劳工，填补劳动力缺口。大约从二〇一二年开始，这类签证的申请急剧增加；从二〇一一年到二〇一六年，签发数量增加了一倍以上。"
+    },
+    {
+      "english": "The H-2A visa has no numerical cap, unlike the H-2B visa for nonagricultural work, which is limited to 66,000 a year. Even so, employers complain they aren’t given all the workers they need. The process is cumbersome, expensive, and unreliable. One survey found that bureaucratic delays led the average H-2A worker to arrive on the job 22 days late. The shortage is compounded by federal immigration raids, which remove some workers and drive others underground.",
+      "chinese": "H-2A 签证没有数量上限，而用于非农业工作的 H-2B 签证每年限额六万六千个。即便如此，雇主仍抱怨无法得到所需的全部工人。申请过程繁琐、昂贵而且不可靠。一项调查发现，官僚程序的延误使 H-2A 劳工平均晚到岗二十二天。联邦移民突查又使短缺加剧：一些工人被带走，另一些则转入隐蔽状态。"
+    },
+    {
+      "english": "In a 2012 survey, 71 percent of tree-fruit growers and almost 80 percent of raisin and berry growers said they were short of labor. Some western farmers have responded by moving operations to Mexico. From 1998 to 2000, 14.5 percent of the fruit Americans consumed was imported. Little more than a decade later, the share of imports was 25.8 percent.",
+      "chinese": "二〇一二年的一项调查中，百分之七十一的果树种植者，以及近百分之八十的葡萄干和浆果生产者，都表示缺少劳动力。部分西部农民因此把业务转移到了墨西哥。一九九八年至二〇〇〇年，美国人消费的水果中有百分之十四点五来自进口。十多年后，进口所占比例已达百分之二十五点八。"
+    },
+    {
+      "english": "In effect, the U.S. can import food or it can import the workers who pick it.",
+      "chinese": "实际上，美国可以选择进口食物，也可以选择引进采收食物的工人。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Congress has obstructed efforts to create a more straightforward visa for agricultural workers that would let foreign workers stay longer in the U.S. and change jobs within the industry.",
+      "mainClause": "Congress has obstructed efforts to create a more straightforward visa.",
+      "structure": "to create ... 修饰 efforts；that 从句修饰 visa，而不是 workers；let 后接 stay 和 change 两个并列省略 to 的不定式，表示签证允许的两件事。",
+      "translation": "国会阻挠了创设一种更简便的农业劳工签证的努力；这种签证本可允许外籍工人在美国停留更久，并在行业内换工作。",
+      "tip": "判断 that 的先行词要看意义：是签证赋予许可，不是农业工人赋予许可。"
+    },
+    {
+      "sentence": "The shortage is compounded by federal immigration raids, which remove some workers and drive others underground.",
+      "mainClause": "The shortage is compounded by federal immigration raids.",
+      "structure": "主句为被动语态；which 引导非限制性定语从句，修饰 raids；remove 与 drive 为并列谓语；some 与 others 分别指不同劳工。",
+      "translation": "联邦移民突查使劳动力短缺雪上加霜：突查带走一些工人，也迫使另一些人转入隐蔽状态。",
+      "tip": "compound 在这里是加剧；underground 表示逃避公开活动的状态，不是字面地下。"
+    }
+  ]
+}

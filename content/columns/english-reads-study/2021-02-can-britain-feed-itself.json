@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2021-02-can-britain-feed-itself.md",
+  "title": "Can Britain Feed Itself?",
+  "paragraphs": [
+    {
+      "english": "With the global population predicted to hit close to 10 billion by 2050, and forecasts that agricultural production in some regions will need to nearly double to keep pace, food security is increasingly making headlines. In the UK, it has become a big talking point recently too, for a rather particular reason: Brexit.",
+      "chinese": "据预测，到2050年全球人口将接近100亿；另有预测指出，一些地区的农业产量需要接近翻番才能跟上人口增长。粮食安全因此越来越频繁地成为新闻焦点。近来它在英国也成了热门话题，而原因颇为特殊：英国脱欧。"
+    },
+    {
+      "english": "Brexit is seen by some as an opportunity to reverse a recent trend towards the UK ; importing food. The country produces only about 60 per cent of the food it eats, down from almost three-quarters in the late 1980s. A move back to self-sufficiency, the argument goes, would boost the farming industry, political sovereignty and even the nation’s health. Sounds great—but how feasible is this vision?",
+      "chinese": "一些人把脱欧视为扭转英国近年来粮食进口趋势的机会。英国本土生产的食物仅占其消费量的约60%，而20世纪80年代末，这一比例接近四分之三。按照这种观点，重新走向自给自足，会促进农业发展，增强政治自主权，甚至改善国民健康。听起来很好——但这个设想究竟有多大可行性？"
+    },
+    {
+      "english": "According to a report on UK food production from the University of Leeds, UK, 85 per cent of the country’s total land area is associated with meat and dairy production. That supplies 80 per cent of what is consumed, so even covering the whole country in livestock farms wouldn’t allow us to cover all our meat and dairy needs.",
+      "chinese": "根据英国利兹大学一份关于英国食品生产的报告，全国土地总面积的85%与肉类和乳制品生产有关。这样的生产规模只能供应国内消费量的80%，因此即使把全国都变成畜牧场，也无法满足我们对肉类和乳制品的全部需求。"
+    },
+    {
+      "english": "There are many caveats to those figures, but they are still grave. To become much more self-sufficient, the UK would need to drastically reduce its consumption of animal foods, and probably also farm more intensively—meaning fewer green fields and more factory-style production.",
+      "chinese": "这些数字需要附带很多限定条件来看，但它们仍然令人忧虑。如果要大幅提高自给自足程度，英国就需要大幅减少动物性食品的消费，而且很可能还得提高农业集约化程度——这意味着绿地更少，工厂式生产更多。"
+    },
+    {
+      "english": "But switching to a mainly plant-based diet wouldn’t help. There is a good reason why the UK is dominated by animal husbandry: most of its terrain doesn’t have the right soil or climate to grow crops on a commercial basis. Just 25 per cent of the country’s land is suitable for crop-growing, most of which is already occupied by arable fields. Even if we converted all the suitable land to fields of fruit and veg—which would involve taking out all the nature reserves and removing thousands of people from their homes—we would achieve only a 30 per cent boost in crop production.",
+      "chinese": "但改成以植物性食物为主的饮食，也解决不了问题。英国以畜牧业为主是有充分理由的：大部分地区的土壤或气候都不适合商业化种植农作物。全国只有25%的土地适合种植，其中大部分已经被耕地占用。即使把所有合适的土地都改成果蔬种植地——这将涉及取消所有自然保护区，并让成千上万的人迁离家园——农作物产量也只能提高30%。"
+    },
+    {
+      "english": "Just 23 per cent of the fruit and vegetables consumed in the UK are currently home-grown, so even with the most extreme measures we could meet only 30 per cent of our fresh produce needs. That is before we look for the space to grow the grains, sugars, seeds and oils that provide us with the vast bulk of our current calorie intake.",
+      "chinese": "目前，英国消费的水果和蔬菜中，只有23%是本土种植的，所以即使采取最极端的措施，我们也只能满足新鲜农产品需求的30%。而这还没有考虑到，我们还要寻找土地来种植谷物、糖料、种子类作物和油料作物，它们提供了我们目前摄入热量的绝大部分。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "With the global population predicted to hit close to 10 billion by 2050, and forecasts that agricultural production in some regions will need to nearly double to keep pace, food security is increasingly making headlines.",
+      "mainClause": "food security is increasingly making headlines.",
+      "structure": "句首with结构交代背景，population与predicted为被动关系；forecasts后that从句说明预测内容；to keep pace说明农业产量翻番的目的。",
+      "translation": "据预测，到2050年全球人口将接近100亿，一些地区的农业产量需要接近翻番才能跟上人口增长，粮食安全因此越来越频繁地成为新闻焦点。",
+      "tip": "先跳过逗号前的背景，抓住food security这个主语，再回看两项人口与产量预测。"
+    },
+    {
+      "sentence": "Even if we converted all the suitable land to fields of fruit and veg—which would involve taking out all the nature reserves and removing thousands of people from their homes—we would achieve only a 30 per cent boost in crop production.",
+      "mainClause": "we would achieve only a 30 per cent boost.",
+      "structure": "Even if引导假设性的让步条件；破折号内which从句补充说明改造全部适用土地的代价；taking out与removing并列作involve的宾语。",
+      "translation": "即使把所有合适的土地都改成果蔬种植地——这将涉及取消所有自然保护区，并让成千上万的人迁离家园——农作物产量也只能提高30%。",
+      "tip": "only限定最终增产幅度，破折号只是补充代价，不是主句。"
+    }
+  ]
+}

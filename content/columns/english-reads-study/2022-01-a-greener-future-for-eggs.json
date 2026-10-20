@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2022-01-a-greener-future-for-eggs.md",
+  "title": "A Greener Future for Eggs",
+  "paragraphs": [
+    {
+      "english": "On a recent sunny day, 13,000 chickens roam over Larry Brown’s 40 windswept acres in Shiner, Texas. Some rest in the shade of a parked car. Others drink water with the cows. This all seems random, but it's by design, part of what the $ 6.1 billion U.S. egg industry bets will be its next big thing: climate-friendly eggs.",
+      "chinese": "最近一个阳光明媚的日子里，在得克萨斯州希纳市，1.3万只鸡在拉里·布朗那片迎风的40英亩土地上四处走动。有的在停放的汽车阴影下休息，有的与牛一起喝水。一切看似随意，其实都是有意安排的，属于美国这个规模达61亿美元的鸡蛋行业所押注的下一个大趋势：气候友好型鸡蛋。"
+    },
+    {
+      "english": "These eggs, which are making their debut now on shelves for as much as $ 8 a dozen, are still labeled organic and animal-friendly, but they’re also from birds that live on farms using regenerative agriculture—special techniques to cultivate rich soils that can trap greenhouse gases. Such eggs could be marketed as helping to fight climate change.",
+      "chinese": "这类鸡蛋如今刚刚上架，每打售价最高达8美元，依然贴着有机和善待动物的标签，但还多了一项特点：产蛋的鸡生活在采用再生农业的农场里。再生农业运用特殊技术培育肥沃土壤，使其能够吸存温室气体。这样的鸡蛋可以打着有助于应对气候变化的旗号销售。"
+    },
+    {
+      "english": "“l’m excited about our progress,” says Brown, who harvests eggs for Denverbased Nest Fresh Eggs and is adding more cover crops that draw worms and crickets for the chickens to eat. The birds’ waste then fertilizes fields. Such improvements “allow our hens to forage for higher-quality natural feed that will be good for the land, the hens, and the eggs that we supply to our customers.”",
+      "chinese": "布朗说：“我为我们取得的进展感到兴奋。”他为总部位于丹佛的Nest Fresh Eggs公司生产鸡蛋，并正在增加覆盖作物的种植，以吸引蚯蚓和蟋蟀供鸡食用。鸡的粪便又能为田地施肥。他说，这些改进“让我们的母鸡能够觅食更优质的天然饲料，这对土地、母鸡以及我们供应给顾客的鸡蛋都有好处”。"
+    },
+    {
+      "english": "The egg industry’s push is the first major test of whether animal products from regenerative farms can become the next premium offering. In barely more than a decade, organic eggs went from being dismissed as a niche product in natural foods stores to being sold at Walmart. More recently there were similar doubts about probiotics and plant-based meats, but both have exploded into major supermarket categories. If the sustainable-egg rollout is successful, it could open the floodgates for regenerative beef, broccoli, and beyond.",
+      "chinese": "鸡蛋行业的这轮推广，是检验再生农业农场的动物产品能否成为下一种高端商品的首次重大尝试。仅仅十多年间，有机鸡蛋就从天然食品店里不被看好的小众产品，变成了沃尔玛也出售的商品。近来，益生菌和植物肉也曾遭遇类似质疑，但两者都迅速发展为超市里的重要商品类别。如果可持续鸡蛋的上市推广成功，就可能为再生农业牛肉、西兰花乃至更多产品打开市场大门。"
+    },
+    {
+      "english": "Regenerative products could be a hard sell, because the concept is tough to define quickly, says Julie Stanton, associate professor of agricultural economics at Pennsylvania State University Brandywine. Such farming also brings minimal, if any, improvement to the food products (though some producers say their eggs have more protein).",
+      "chinese": "宾夕法尼亚州立大学布兰迪万校区农业经济学副教授朱莉·斯坦顿说，再生农业产品可能不容易卖出去，因为这个概念很难迅速解释清楚。此外，这种耕作方式即使能改善食品本身，幅度也很小，尽管一些生产者说自家的鸡蛋蛋白质含量更高。"
+    },
+    {
+      "english": "The industry is betting that the same consumers paying more for premium attributes such as free-range, non-GMO, and pasture-raised eggs will embrace sustainability. Surveys show that younger generations are more concerned about climate change, and some of the success of plant-based meat can be chalked up to shoppers wanting to signal their desire to protect the environment. Young adults “really care about the planet,” says John Brunnquell, president of Egg Innovations. “They are absolutely altering the food chain beyond what I think even they understand what they’re doing.”",
+      "chinese": "行业押注的是：那些愿意为散养、非转基因和牧场放养等高端特征多付钱购买鸡蛋的消费者，也会接受可持续理念。调查显示，年轻一代更加关注气候变化；植物肉的部分成功，也可以归因于消费者希望借购物表达保护环境的意愿。Egg Innovations总裁约翰·布伦奎尔说，年轻人“确实关心地球”。“他们正在实实在在地改变食物链，影响之大，我想甚至连他们自己都未必意识得到。”"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "These eggs, which are making their debut now on shelves for as much as $ 8 a dozen, are still labeled organic and animal-friendly, but they’re also from birds that live on farms using regenerative agriculture—special techniques to cultivate rich soils that can trap greenhouse gases.",
+      "mainClause": "These eggs are still labeled organic and animal-friendly, but they’re also from birds ...",
+      "structure": "which从句补充鸡蛋上市及售价；that live修饰birds，using修饰farms；破折号后解释regenerative agriculture，最后that can trap修饰soils。",
+      "translation": "这类鸡蛋如今刚刚上架，每打售价最高达8美元，依然贴着有机和善待动物的标签，但还来自采用再生农业的农场里的鸡；再生农业运用特殊技术培育能够吸存温室气体的肥沃土壤。",
+      "tip": "按“鸡蛋—鸡—农场—土壤”逐层追踪修饰对象，就不会把吸存气体误解成鸡蛋的作用。"
+    },
+    {
+      "sentence": "The industry is betting that the same consumers paying more for premium attributes such as free-range, non-GMO, and pasture-raised eggs will embrace sustainability.",
+      "mainClause": "The industry is betting that ... consumers ... will embrace sustainability.",
+      "structure": "that引导宾语从句；paying more现在分词短语修饰consumers，such as列举他们愿意多付钱的产品特征。",
+      "translation": "行业押注的是：那些愿意为散养、非转基因和牧场放养等高端特征多付钱购买鸡蛋的消费者，也会接受可持续理念。",
+      "tip": "宾语从句的主干是consumers will embrace；paying不是该从句的谓语。"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2026-daily-01-ai-and-critical-thinking.md",
+  "title": "AI Eases Our Mental Load at the Expense of Critical Thinking",
+  "paragraphs": [
+    {
+      "english": "This page is a reading guide to an article by The Open Minds Foundation, published in Psychology Today on 30 October 2024. Follow the original-article link below to read the publisher's full text.",
+      "chinese": "本页是对一篇文章的阅读导读。该文由 The Open Minds Foundation 撰写，于2024年10月30日发表于 Psychology Today。请通过下方的原刊链接阅读出版方全文。"
+    },
+    {
+      "english": "As you read, keep two questions separate: how much effort does finding an answer require, and how carefully does the reader examine it? An easier task and a deeper understanding are different goals. Look for the comparison made in the student study, then identify the limits that the article acknowledges.",
+      "chinese": "阅读时，请把两个问题分开：找到答案需要付出多少努力？读者会多么仔细地审视这个答案？让任务更省力和让理解更深入，是不同的目标。先找出学生实验比较了什么，再辨认文章承认了哪些研究局限。"
+    },
+    {
+      "english": "Here is an editor-written practice sentence, rather than a quotation from the original article: Although a tool can make information easier to obtain, a learner who accepts its answer without checking other sources may miss the reasoning that makes the answer useful.",
+      "chinese": "下面是编辑自拟的练习句，并非原文引句：尽管工具可以让获取信息变得更容易，但如果学习者不核查其他来源就接受它给出的答案，就可能忽略让答案有用的推理过程。"
+    },
+    {
+      "english": "Consider three questions after reading the original: What does the study directly compare? Which limitations affect how widely its findings can be applied? Where does the writer move from reporting research to making a broader argument? Keep your answers tied to evidence rather than assuming that every claim has the same level of support.",
+      "chinese": "读完原文后，请思考三个问题：这项研究直接比较了什么？哪些局限会影响结论的适用范围？作者在哪里从介绍研究转向了更广泛的论述？回答时要紧扣证据，而不要默认每一个说法都获得了同等程度的支持。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Although a tool can make information easier to obtain, a learner who accepts its answer without checking other sources may miss the reasoning that makes the answer useful.",
+      "mainClause": "a learner may miss the reasoning（学习者可能忽略推理过程）",
+      "structure": "Although ... obtain：让步状语从句，承认工具可以降低获取信息的难度。\nwho accepts ... sources：修饰 a learner 的定语从句；without checking 表示没有进行的核查行为。\nthat makes ... useful：修饰 the reasoning 的定语从句，说明推理的作用。",
+      "translation": "尽管工具能让信息更易获取，但不核查其他来源就接受答案的学习者，可能忽略了让答案有用的推理过程。",
+      "tip": "这是本页编辑自拟句。先读 a learner may miss the reasoning，再把两层定语分别还原到 learner 和 reasoning 后面；although 不是主句开头。"
+    }
+  ]
+}

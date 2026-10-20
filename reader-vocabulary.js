@@ -290,7 +290,7 @@
     const manual = button("手动查词", () => openLookup("", manual), "rv-button rv-lookup-trigger");
     toolbar.append(element("span", "rv-hint", "点单词 / 划选词组 · 收藏保留原文语境"), manual, bookButton()); body.before(toolbar); void getCloud().sync();
     const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, { acceptNode(node) {
-      return node.parentElement.closest("a, pre, code, button, script, style, .rv-word") || !/[A-Za-z]/.test(node.textContent) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+      return node.parentElement.closest("a, pre, code, button, script, style, .rv-word, .reader-study-aux, [data-reader-study-aux]") || !/[A-Za-z]/.test(node.textContent) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
     } });
     const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
     for (const node of nodes) {
@@ -319,7 +319,8 @@
       const rect = range.getBoundingClientRect();
       if (!rect.width || rect.bottom < 0 || rect.top > innerHeight) return;
       const startNode = range.startContainer.nodeType === Node.ELEMENT_NODE ? range.startContainer : range.startContainer.parentElement;
-      if (startNode.closest("a, pre, code, button")) return;
+      const endNode = range.endContainer.nodeType === Node.ELEMENT_NODE ? range.endContainer : range.endContainer.parentElement;
+      if (startNode.closest("a, pre, code, button, .reader-study-aux, [data-reader-study-aux]") || endNode.closest("a, pre, code, button, .reader-study-aux, [data-reader-study-aux]")) return;
       const context = contextFor(startNode.closest(".rv-word") || startNode, article);
       const snapshot = { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom };
       selectionTools = element("div", "rv-selection-tools");

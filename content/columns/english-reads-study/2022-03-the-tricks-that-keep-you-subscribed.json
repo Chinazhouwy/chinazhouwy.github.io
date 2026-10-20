@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2022-03-the-tricks-that-keep-you-subscribed.md",
+  "title": "The Tricks That Keep You Subscribed",
+  "paragraphs": [
+    {
+      "english": "We have all encountered them, in both our personal and professional lives. Think about the times you felt tricked or frustrated by a membership or subscription that had a seamless sign-up process but was later difficult to cancel. Something that should be simple and transparent can be complicated, intentionally or unintentionally, in ways that impair consumer choice. These are examples of dark patterns.",
+      "chinese": "无论在个人生活还是工作中，我们都遇到过这样的情况。想一想，有些会员或订阅服务的注册过程顺畅无阻，后来却很难取消，让你觉得受骗或感到沮丧。本该简单透明的事情，可能被有意或无意地弄得复杂，进而损害消费者的选择权。这些就是暗黑模式的例子。"
+    },
+    {
+      "english": "First coined in 2010 by user experience expert Harry Brignull, “‘ dark patterns” is a catch-all term for practices that manipulate user interfaces to influence the decisionmaking ability of users. Brignull identifies 12 types of common dark patterns, ranging from misdirection and hidden costs to “roach motel,” where a user experience seems easy and intuitive at the start, but turns difficult when the user tries to get out.",
+      "chinese": "“暗黑模式”一词由用户体验专家哈里·布里格纳尔于2010年首次提出，是对一类做法的统称：通过操纵用户界面来影响用户的决策能力。布里格纳尔归纳出12种常见暗黑模式，从误导、隐性费用，到所谓“蟑螂旅馆”模式：用户体验起初看起来简单直观，但用户一旦想退出，就会变得困难重重。"
+    },
+    {
+      "english": "In a 2019 study of 53,000 product pages and 11,000 websites, researchers found that about one in 10 employs these design practices. Though widely prevalent, the concept o f dark patterns is still not well understood. Business and nonprofit leaders should be aware of dark patterns and try to avoid the gray areas they engender.",
+      "chinese": "2019年的一项研究考察了5.3万个产品页面和1.1万个网站，研究人员发现，约十分之一采用了这些设计手法。尽管暗黑模式普遍存在，人们对这一概念的理解仍不充分。企业和非营利组织的负责人应当了解暗黑模式，并尽量避开它们造成的灰色地带。"
+    },
+    {
+      "english": "Where is the line between ethical, persuasive design and dark patterns? Businesses should engage in conversations with IT, compliance, risk, and legal teams to review their privacy policy, and include in the discussion the customer/user experience designers and coders responsible for the company’s user interface, as well as the marketers and advertisers responsible for sign-ups, checkout baskets, pricing, and promotions. Any or all these teams can play a role in creating or avoiding “digital deception.”",
+      "chinese": "符合伦理、具有说服力的设计与暗黑模式之间，界限究竟在哪里？企业应与信息技术、合规、风险和法律团队展开沟通，审查自身的隐私政策，并让负责公司用户界面的客户或用户体验设计师和程序员，以及负责注册、购物车、定价和促销的营销和广告人员，一同参与讨论。这些团队中的任何一个，乃至所有团队，都可能在制造或避免“数字欺骗”方面发挥作用。"
+    },
+    {
+      "english": "Lawmakers and regulators are slowly starting to address the ambiguity around dark patterns, most recently at the state level. In March, the California Attorney General announced the approval of additional regulations under the California Consumer Privacy Act (CCPA) that “ensure that consumers will not be confused or misled when seeking to exercise their data privacy rights.” The regulations aim to ban dark patterns—this means prohibiting companies from using u confusing language or unnecessary steps such as forcing them to click through multiple screens or listen to reasons why they shouldn’t opt out.”",
+      "chinese": "立法者和监管者正逐渐开始处理暗黑模式周围的模糊地带，最近的行动主要发生在州一级。3月份，加利福尼亚州总检察长宣布，已批准依据《加州消费者隐私法》制定的补充规定，以“确保消费者在寻求行使其数据隐私权时，不会受到混淆或误导”。这些规定旨在禁止暗黑模式，也就是不允许企业使用令人困惑的语言，或设置不必要的步骤，例如强迫用户逐页点击多个页面，或者听取劝说他们不要退出的理由。"
+    },
+    {
+      "english": "As more states consider promulgating additional regulations, there is a need for greater accountability from within the business community. Dark patterns also can be addressed on a self-regulatory basis, but only if organizations hold themselves accountable, not just to legal requirements but also to industry best practices and standards.",
+      "chinese": "随着更多州考虑颁布补充规定，商界自身也需要承担更多责任。暗黑模式同样可以通过行业自律来处理，但前提是，组织必须约束自身，不仅满足法律要求，也遵循行业最佳实践和标准。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Something that should be simple and transparent can be complicated, intentionally or unintentionally, in ways that impair consumer choice.",
+      "mainClause": "Something ... can be complicated ... in ways ...",
+      "structure": "第一个that从句修饰Something；intentionally or unintentionally为插入状语；第二个that从句修饰ways，说明造成的损害。",
+      "translation": "本该简单透明的事情，可能被有意或无意地弄得复杂，进而损害消费者的选择权。",
+      "tip": "complicated在这里可作被动理解；两处that分别修饰不同名词。"
+    },
+    {
+      "sentence": "Dark patterns also can be addressed on a self-regulatory basis, but only if organizations hold themselves accountable, not just to legal requirements but also to industry best practices and standards.",
+      "mainClause": "Dark patterns also can be addressed ...",
+      "structure": "but only if引出实现自律治理的必要条件；hold themselves accountable表示要求自身负责；not just ... but also ...并列两套应遵循的规范。",
+      "translation": "暗黑模式同样可以通过行业自律来处理，但前提是，组织必须约束自身，不仅满足法律要求，也遵循行业最佳实践和标准。",
+      "tip": "only if强调必要条件；不能只读前半句，就认为自律必然足够。"
+    }
+  ]
+}

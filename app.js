@@ -984,11 +984,12 @@ function renderCollection(id) {
 }
 function seriesNavigation(article) {
   if(!article)return "";
-  const groups=article.path.startsWith(ENGLISH_PASSAGE_PREFIX)?[{id:"english",title:"English Reads",ordered:true,articles:englishReadings()}]:ContentOrganization.collectionFor(article.path,state.articles);
+  const readingCollection=englishReadingCollection(article);
+  const groups=article.path.startsWith(ENGLISH_PASSAGE_PREFIX)?[{id:"english",title:`English Reads · ${englishCollectionLabel(readingCollection)}`,ordered:true,articles:englishReadings(readingCollection)}]:ContentOrganization.collectionFor(article.path,state.articles);
   if(!groups.length)return "";
   return groups.map(c=>{
     const i=c.articles.findIndex(a=>a.path===article.path),previous=c.articles[i-1],next=c.articles[i+1];
-    const href=c.id==="english"?articleHref(ENGLISH_COLLECTION_PATH):`#/collection/${c.id}`;
+    const href=c.id==="english"?`${articleHref(ENGLISH_COLLECTION_PATH)}?collection=${readingCollection}`:`#/collection/${c.id}`;
     return `<nav class="series-navigation" aria-label="${escapeHtml(c.title)}续读"><header><a href="${href}">${escapeHtml(c.title)} · 查看目录</a><span>${i+1} / ${c.articles.length}</span></header>${c.ordered!==false?`<div>${previous?`<a href="${articleHref(previous.path)}"><small>上一篇</small><strong>${escapeHtml(previous.title)}</strong></a>`:"<span></span>"}${next?`<a href="${articleHref(next.path)}"><small>下一篇</small><strong>${escapeHtml(next.title)}</strong></a>`:`<a href="${href}"><small>已到本系列最后一篇</small><strong>返回目录，选择其他内容</strong></a>`}</div>`:""}</nav>`;
   }).join("");
 }
@@ -2014,10 +2015,26 @@ function renderOpportunity() {
 const ENGLISH_COLLECTION_PATH = "content/columns/english-reads.md";
 const ENGLISH_PASSAGE_PREFIX = "content/columns/english-reads/";
 
-function englishReadings() {
+function englishReadingCollection(article) {
+  return article?.readingCollection === "daily" ? "daily" : "archive";
+}
+
+function englishCollectionLabel(collection) {
+  return collection === "daily" ? "每日精选" : "文章典藏";
+}
+
+function englishReadingYear(article) {
+  return englishReadingCollection(article) === "daily"
+    ? String(article.sourcePublishedAt || article.date || "").slice(0, 4)
+    : article.path.slice(ENGLISH_PASSAGE_PREFIX.length).match(/^\d{4}/)?.[0] || "";
+}
+
+function englishReadings(collection = "") {
   return state.articles
-    .filter((article) => article.path?.startsWith(ENGLISH_PASSAGE_PREFIX) && article.visibility === "public")
+    .filter((article) => article.path?.startsWith(ENGLISH_PASSAGE_PREFIX) && article.visibility === "public" && (!collection || englishReadingCollection(article) === collection))
     .sort((a, b) => {
+      if (englishReadingCollection(a) !== englishReadingCollection(b)) return englishReadingCollection(a) === "daily" ? -1 : 1;
+      if (englishReadingCollection(a) === "daily") return String(b.date || "").localeCompare(String(a.date || "")) || a.path.localeCompare(b.path);
       const editionA = a.path.slice(ENGLISH_PASSAGE_PREFIX.length, ENGLISH_PASSAGE_PREFIX.length + 4);
       const editionB = b.path.slice(ENGLISH_PASSAGE_PREFIX.length, ENGLISH_PASSAGE_PREFIX.length + 4);
       return editionB.localeCompare(editionA) || a.path.localeCompare(b.path);
@@ -2037,11 +2054,14 @@ function renderColumns() {
 
 function renderEnglishReads() {
   updateActiveNav("reading");
-  const articles = englishReadings();
+  const allArticles = englishReadings();
   const topics = ContentOrganization.ENGLISH_TOPICS.map(t=>t.label);
-  const years = [...new Set(articles.map((article) => article.path.slice(ENGLISH_PASSAGE_PREFIX.length, ENGLISH_PASSAGE_PREFIX.length + 4)))].sort().reverse();
   const params = parseRoute().params || new URLSearchParams();
   const previous = state.englishReadingFilters || {};
+  const requestedCollection = params.get("collection") ?? previous.collection ?? "archive";
+  const collection = requestedCollection === "daily" ? "daily" : "archive";
+  const articles = englishReadings(collection);
+  const years = [...new Set(articles.map(englishReadingYear).filter(Boolean))].sort().reverse();
   const filters = {
     query: params.get("q") ?? previous.query ?? "",
     topic: params.get("topic") ?? previous.topic ?? "",
@@ -2056,12 +2076,16 @@ function renderEnglishReads() {
         <div><p class="mono-label">短篇英文阅读</p><h1 lang="en">English Reads</h1>
           <p lang="en" class="english-collection-lede">Ideas for a changing world.</p>
           <p class="english-collection-description">科技、社会、教育与生活，在短篇阅读中发现新的视角。</p></div>
-        <span class="collection-total">${articles.length} <small>篇文章</small></span>
+        <span class="collection-total">${allArticles.length} <small>篇文章</small></span>
       </header>
+      <nav class="english-collection-tabs" aria-label="英文阅读分组">
+        ${["archive", "daily"].map(group => `<button type="button" data-english-collection="${group}" aria-pressed="${group === collection}">${englishCollectionLabel(group)} <small>${englishReadings(group).length}</small></button>`).join("")}
+      </nav>
+      <p class="english-collection-group-note">${collection === "daily" ? "精选外刊与阅读导读，保留原刊入口；按收录日期持续更新。" : "按主题与收录来源年份选读。译文和长难句解析可在文章页按需展开。"}</p>
       <form class="english-filters" role="search" aria-label="筛选英文文章">
         <label class="english-search"><span>搜索文章</span><input id="english-query" type="search" value="${escapeHtml(filters.query)}" placeholder="搜索标题、主题或关键词" autocomplete="off"></label>
         <label><span>主题</span><select id="english-topic"><option value="">全部主题</option>${topics.map((topic) => `<option value="${escapeHtml(topic)}"${topic === filters.topic ? " selected" : ""}>${escapeHtml(topic)}</option>`).join("")}</select></label>
-        <label><span>收录来源年份</span><select id="english-year"><option value="">全部年份</option>${years.map((year) => `<option value="${year}"${year === filters.year ? " selected" : ""}>${year}</option>`).join("")}</select></label>
+        <label><span>${collection === "daily" ? "原文发布年份" : "收录来源年份"}</span><select id="english-year"><option value="">全部年份</option>${years.map((year) => `<option value="${year}"${year === filters.year ? " selected" : ""}>${year}</option>`).join("")}</select></label>
         <button id="english-reset" type="button">重置</button>
       </form>
       <div class="english-results-heading"><p id="english-result-count" role="status" aria-live="polite"></p><span>选择标题，开始阅读</span></div>
@@ -2076,24 +2100,36 @@ function renderEnglishReads() {
     const year = yearInput.value;
     const matching = articles.filter((article) => {
       const text = `${article.title} ${article.summary || ""} ${englishTopics(article).join(" ")}`.toLowerCase();
-      return (!query || text.includes(query)) && (!topic || ContentOrganization.englishTopic(article)?.label === topic) && (!year || article.path.startsWith(ENGLISH_PASSAGE_PREFIX + year + "-"));
+      return (!query || text.includes(query)) && (!topic || ContentOrganization.englishTopic(article)?.label === topic) && (!year || englishReadingYear(article) === year);
     });
-    state.englishReadingFilters = { query: queryInput.value, topic, year };
+    state.englishReadingFilters = { query: queryInput.value, topic, year, collection };
     document.getElementById("english-result-count").textContent = `${matching.length} 篇文章${matching.length !== articles.length ? ` / 共 ${articles.length} 篇` : ""}`;
     document.getElementById("english-reading-list").innerHTML = matching.length ? matching.map((article) => `
       <a class="english-reading-card" data-reading-badge="off" href="${articleHref(article.path)}">
-        <div class="english-card-meta"><span class="english-card-topics">${englishTopics(article).slice(0, 2).map(escapeHtml).join(" / ")}</span><span class="english-card-year">${article.path.slice(ENGLISH_PASSAGE_PREFIX.length, ENGLISH_PASSAGE_PREFIX.length + 4)}</span></div>
+        <div class="english-card-meta"><span class="english-card-topics">${englishTopics(article).slice(0, 2).map(escapeHtml).join(" / ")}</span><span class="english-card-year">${escapeHtml(englishReadingYear(article))}</span></div>
         <h2 lang="en">${escapeHtml(article.title)}</h2><p>${escapeHtml(article.summary || "")}</p>
+        ${article.readingFormat === "guide" ? '<span class="english-card-format">阅读导读 · 含原刊入口</span>' : ""}
         <span class="english-card-open">开始阅读 <span aria-hidden="true">↗</span></span>
       </a>`).join("") : '<p class="english-empty">没有找到匹配的文章，试试其他关键词或重置筛选。</p>';
     if (persist) {
       const next = new URLSearchParams();
+      if (collection === "daily") next.set("collection", "daily");
       if (queryInput.value.trim()) next.set("q", queryInput.value.trim());
       if (topic) next.set("topic", topic);
       if (year) next.set("year", year);
       history.replaceState(null, "", articleHref(ENGLISH_COLLECTION_PATH) + (next.size ? `?${next}` : ""));
     }
   };
+  document.querySelectorAll("[data-english-collection]").forEach(button => button.addEventListener("click", () => {
+    const nextCollection = button.dataset.englishCollection;
+    state.englishReadingFilters = { query: queryInput.value, topic: topicInput.value, year: "", collection: nextCollection };
+    const next = new URLSearchParams();
+    if (nextCollection === "daily") next.set("collection", "daily");
+    if (queryInput.value.trim()) next.set("q", queryInput.value.trim());
+    if (topicInput.value) next.set("topic", topicInput.value);
+    history.replaceState(null, "", articleHref(ENGLISH_COLLECTION_PATH) + (next.size ? `?${next}` : ""));
+    renderEnglishReads();
+  }));
   document.querySelector(".english-filters").addEventListener("submit", (event) => event.preventDefault());
   queryInput.addEventListener("input", () => update(true));
   topicInput.addEventListener("change", () => update(true));
@@ -2239,6 +2275,7 @@ function resolveArticleImages(html, articlePath) {
 }
 
 async function renderArticle(rawPath, requestedSection = "") {
+  const renderGeneration = state.articleRenderGeneration || 0;
   // Resolve aliases
   const resolvedPath = state.aliases[rawPath] || rawPath;
 
@@ -2266,16 +2303,19 @@ async function renderArticle(rawPath, requestedSection = "") {
     const raw = await response.text();
     const content = raw.startsWith("---") ? raw.replace(/^---\n[\s\S]*?\n---\n?/, "") : raw;
     await markdownLibraries;
+    // A previous request must never replace the page selected by a newer route.
+    if (renderGeneration !== (state.articleRenderGeneration || 0)) return;
     const sanitized = window.DOMPurify.sanitize(window.marked.parse(content));
 
     const backSection = article ? getArticleSection(article) : "learning";
     const isEnglishReading = fetchPath.startsWith(ENGLISH_PASSAGE_PREFIX);
     const backLabel = isEnglishReading ? "English Reads" : SECTION_LABELS[backSection] || "学习";
-    const backHref = isEnglishReading ? articleHref(ENGLISH_COLLECTION_PATH) : `#/${backSection}`;
+    const backHref = isEnglishReading ? `${articleHref(ENGLISH_COLLECTION_PATH)}?collection=${englishReadingCollection(article)}` : `#/${backSection}`;
     const displayTitle = article?.title || fetchPath.split("/").pop() || "文章详情";
     const rendered = resolveArticleImages(stripDuplicateLeadingTitle(sanitized, displayTitle), fetchPath);
     const headerTrail = uniqueTextParts([
       backLabel,
+      ...(isEnglishReading ? [englishCollectionLabel(englishReadingCollection(article))] : []),
       article?.topic,
       article?.module,
       article?.area,
@@ -2337,7 +2377,11 @@ async function renderArticle(rawPath, requestedSection = "") {
     `;
     updateActiveNav(isEnglishReading || fetchPath === ENGLISH_COLLECTION_PATH ? "reading" : backSection);
     const articleBody = document.getElementById("article-body");
-    if (isEnglishReading) window.ReaderVocabulary?.mountReader(articleBody, { path: fetchPath, title: displayTitle });
+    if (isEnglishReading) {
+      await window.ReaderStudy?.mountReader(articleBody, { path: fetchPath, version: BUILD_VERSION });
+      if (!articleBody.isConnected) return;
+      window.ReaderVocabulary?.mountReader(articleBody, { path: fetchPath, title: displayTitle });
+    }
     void highlightCodeBlocks(articleBody);
     const toc = createToc(articleBody, articleRoute);
     const desktopToc = document.getElementById("article-toc");
@@ -2366,6 +2410,7 @@ async function renderArticle(rawPath, requestedSection = "") {
       });
     }
   } catch (error) {
+    if (renderGeneration !== (state.articleRenderGeneration || 0)) return;
     renderError("文章加载失败", `${error.message}。请检查文件权限或稍后重试。`, true);
   }
 }
@@ -2399,7 +2444,9 @@ function updateActiveNav(view) {
 }
 
 async function renderRoute() {
+  state.articleRenderGeneration = (state.articleRenderGeneration || 0) + 1;
   window.ReaderVocabulary?.detach();
+  window.ReaderStudy?.detach();
   const route = parseRoute();
   if (route.view !== "search") {
     if (document.activeElement === ui.search) ui.search.blur();
@@ -2450,7 +2497,7 @@ async function renderRoute() {
 
 }
 
-const BUILD_VERSION = "20261020-3";
+const BUILD_VERSION = "20261020-4";
 
 async function loadSite() {
   const [response, quickLinks, thirdPartyLinks, learningTaxonomy, githubProfile] = await Promise.all([

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2024-03-the-difficult-conversation-about-older-drivers.md",
+  "title": "The Difficult Conversation About Older Drivers",
+  "paragraphs": [
+    {
+      "english": "One of the biggest challenges in keeping unsafe aging drivers off the road is convincing them that it’s time to turn over the keys. “It’s a complete life-changer” when someone stops — or is forced to stop — driving, said former risk manager Anne M. Menke.",
+      "chinese": "要让驾驶已不安全的老年人不再上路，最大的挑战之一就是让他们相信，是时候交出车钥匙了。前风险管理人员安妮·门克说，当一个人停止驾驶，或被迫不再开车时，“整个人生都会改变”。"
+    },
+    {
+      "english": "“The American Medical Association advises physicians that in situations where clear evidence of substantial driving impairment implies a strong threat to patient and public safety, and where the physician’s advice to discontinue driving privileges is ignored, it is desirable and ethical to notify the Department of Motor Vehicles,” Menke wrote. “Some states require physicians to report, others allow but do not mandate reports, while a few consider a report a breach of confidentiality. There could be liability and penalties if a physician does not act in accordance with state laws on reporting and confidentiality,” she counseled.",
+      "chinese": "门克写道：“美国医学会建议医生：如果有明确证据表明，严重的驾驶能力受损对患者和公众安全构成重大威胁，而且患者不理会医生关于停止驾驶的建议，那么向机动车辆管理部门通报，是值得提倡且符合伦理的。”她提醒道：“有些州要求医生报告，有些州允许报告但不强制，还有少数州认为报告违反了保密义务。如果医生没有遵守州法律中有关报告和保密的规定，可能要承担责任并受到处罚。”"
+    },
+    {
+      "english": "Part of the problem in keeping older drivers safe is that the difficulties are addressed piecemeal by different professions with different focuses, including gerontologists, highway administration officials, automotive engineers and others, said gerontologist Elizabeth Dugan. “There’s not a National Institute of Older Driver Studies,” she said. “We need better evidence on what makes drivers unsafe” and what can help, said Dugan.",
+      "chinese": "老年学专家伊丽莎白·杜根说，保障老年驾驶者安全的问题之一在于，不同专业的人士——包括老年学家、公路管理官员、汽车工程师等——关注重点各不相同，只能零散地应对这些困难。她说：“并没有一个全国老年驾驶者研究所。”杜根表示：“我们需要更好的证据，弄清什么会让驾驶者变得不安全”，以及什么能够提供帮助。"
+    },
+    {
+      "english": "One thing that does seem to work is requiring drivers to report in person for license renewal. Mandatory in-person renewal was associated with a 31 percent reduction in fatal crashes involving drivers 85 or older, according to one study. Passing vision tests also produced a similar decline in fatal crashes for those drivers, although there appeared to be no benefit from combining the two.",
+      "chinese": "一项看起来确实有效的措施，是要求驾驶者亲自到场更新驾照。一项研究发现，强制本人到场换证，与85岁及以上驾驶者涉及的致命事故减少31%相关。对这些驾驶者而言，通过视力测试也带来了类似程度的致命事故下降；不过，将这两种措施结合起来，似乎没有额外好处。"
+    },
+    {
+      "english": "Many older drivers don’t see eye doctors or can’t afford to. Primary care providers have their hands full and may not be able to follow through with patients who have trouble driving because they can’t turn their heads or remember where they are going — or have gotten shorter and haven’t changed their seat settings sufficiently to reach car pedals easily.",
+      "chinese": "许多老年驾驶者不去看眼科医生，或无力承担费用。基层医疗人员已经忙得不可开交，可能无法继续跟进那些开车有困难的患者：他们可能转不了头，记不住要去哪里，或因身高变矮却没有充分调整座椅，而无法轻松踩到汽车踏板。"
+    },
+    {
+      "english": "As long as there are other cars on the roads, self-driving cars won’t solve the problems of crashes, said Dugan. Avoiding dangers posed by all those human drivers would require too many algorithms, she said. But we need to do more to improve safety, said Dugan. “If we’re going to have 100-year lives, we need cars that a 90-year-old can drive comfortably.”",
+      "chinese": "杜根说，只要道路上还有其他汽车，自动驾驶汽车就不能解决碰撞事故问题。她说，要避开所有那些人类驾驶者造成的危险，会需要太多算法。不过，杜根表示，我们仍需要做更多工作来改善安全。“如果我们要活到一百岁，就需要让九十岁的人也能舒适驾驶的汽车。”"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Part of the problem in keeping older drivers safe is that the difficulties are addressed piecemeal by different professions with different focuses, including gerontologists, highway administration officials, automotive engineers and others, said gerontologist Elizabeth Dugan.",
+      "mainClause": "Part of the problem ... is that the difficulties are addressed piecemeal ...",
+      "structure": "in keeping ...修饰problem；that从句作表语，采用被动语态；with different focuses修饰professions；including列举专业群体，said ...为后置报道语。",
+      "translation": "老年学专家伊丽莎白·杜根说，保障老年驾驶者安全的问题之一在于，不同专业的人士——包括老年学家、公路管理官员、汽车工程师等——关注重点各不相同，只能零散地应对这些困难。",
+      "tip": "piecemeal强调缺少整体协调，不是说每个专业都没有采取行动。"
+    },
+    {
+      "sentence": "Primary care providers have their hands full and may not be able to follow through with patients who have trouble driving because they can’t turn their heads or remember where they are going — or have gotten shorter and haven’t changed their seat settings sufficiently to reach car pedals easily.",
+      "mainClause": "Primary care providers have their hands full and may not be able to follow through with patients ...",
+      "structure": "have和may not be able to并列；who从句修饰patients，because解释驾驶困难的原因；where为remember的宾语从句；to reach说明座椅调整应达到的效果。",
+      "translation": "基层医疗人员已经忙得不可开交，可能无法继续跟进那些开车有困难的患者：他们可能转不了头，记不住要去哪里，或因身高变矮却没有充分调整座椅，而无法轻松踩到汽车踏板。",
+      "tip": "have their hands full是“忙得不可开交”；把because后的多个原因逐一对应到患者。"
+    }
+  ]
+}

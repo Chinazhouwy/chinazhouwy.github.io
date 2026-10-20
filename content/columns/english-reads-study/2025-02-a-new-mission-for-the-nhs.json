@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2025-02-a-new-mission-for-the-nhs.md",
+  "title": "A New Mission for the NHS",
+  "paragraphs": [
+    {
+      "english": "When it was established, the National Health Service (NHS) was visionary: offering highquality, timely care to meet the dominant needs of the population it served. Nearly 75 years on, with the UK facing very different health challenges, it is clear that the model is out of date.",
+      "chinese": "英国国民医疗服务体系NHS刚建立时，具有远见卓识：它提供优质、及时的医疗服务，以满足服务人口当时最主要的需求。近75年过去，英国面对的健康挑战已经大不相同，显然，这一模式已经过时了。"
+    },
+    {
+      "english": "From life expectancy to cancer and infant mortality rates, we are lagging behind many of our peers. With more than 6.8 million on waitlists, healthcare is becoming increasingly inaccessible for those who cannot opt to pay for private treatment; and the cost of providing healthcare is increasingly squeezing our investment in other public services. As demand for healthcare continues to grow, pressures on the workforce — which is already near breaking point — will only become more acute.",
+      "chinese": "从预期寿命到癌症和婴儿死亡率，我们都落后于许多同类国家。超过680万人在等待治疗，对于无力选择付费私立医疗的人来说，获得医疗服务正变得越来越困难；提供医疗服务的成本，也日益挤压我们在其他公共服务上的投资。随着医疗需求继续增长，医务人员已经接近承受极限，面临的压力只会更加严峻。"
+    },
+    {
+      "english": "Many of the answers to the crisis in health and care are well rehearsed. We need to be much better at reducing and diverting demand on health services, rather than simply managing it. Much more needs to be invested in communities and primary care to reduce our reliance on hospitals. And capacity in social care needs to be greater, to support the growing number of people living with long-term conditions.",
+      "chinese": "卫生与照护危机的许多解决办法，早已被反复讨论。我们需要更有效地减少和分流医疗服务需求，而不是只对需求进行管理。必须向社区和基层医疗投入更多资金，以降低对医院的依赖。社会照护也需要具备更强的服务能力，支持数量不断增长的长期疾病患者。"
+    },
+    {
+      "english": "Yet despite two decades of strategies and a number of major health reforms, we have failed to make meaningful progress on any of these aims. That is why the Reform think tank is launching a new programme of work entitled “Reimagining health”, supported by ten former health ministers. Together, we are calling for a much more open and honest conversation about the future of health in the UK, and an “urgent rethink” of the hospital-centric model we retain.",
+      "chinese": "然而，尽管二十年来制定了各种战略，也进行了若干重大卫生改革，我们在这些目标上却没有取得任何实质性进展。因此，Reform智库正在启动一项名为“重新想象健康”的新工作计划，获得十位前卫生部长的支持。我们共同呼吁，以更加开放、坦诚的方式讨论英国健康事业的未来，并对仍然保留的医院中心模式展开“迫切的重新思考”。"
+    },
+    {
+      "english": "This must begin with the question of how we maximise the health of the nation, rather than “fix” the NHS. It is estimated, for example, that healthcare accounts for only about 20% of health outcomes. Much more important are the places we live, work and socialise — yet there is no clear cross-government strategy for improving these social determinants of health. Worse, when policies like the national obesity strategy are scrapped, taxpayers are left with the hefty price tag of treating the illnesses, like diabetes, that result.",
+      "chinese": "这必须从一个问题开始：我们应如何最大限度地改善全民健康，而不是如何“修补”NHS。例如，有估算认为，医疗服务仅决定约20%的健康结果。更重要的是我们居住、工作和社交的环境，然而，目前并没有明确的跨政府部门战略，去改善这些影响健康的社会决定因素。更糟的是，当国家肥胖防治战略之类的政策被取消时，纳税人就得承担治疗由此产生的糖尿病等疾病的高昂费用。"
+    },
+    {
+      "english": "Reform wants to ask how power and resources should be distributed in our health system. What health functions should remain at the centre, and what should be given to local leaders, often responsible for services that create health, and with a much better understanding of the needs of their populations?",
+      "chinese": "Reform希望追问，权力与资源应当如何在我们的卫生体系中分配。哪些卫生职能应保留在中央，哪些应交给地方负责人？这些负责人往往主管着能够促进健康的服务，而且更加了解当地居民的需求。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "As demand for healthcare continues to grow, pressures on the workforce — which is already near breaking point — will only become more acute.",
+      "mainClause": "pressures on the workforce ... will only become more acute.",
+      "structure": "As引导随着情况变化的状语从句；破折号内which非限制性定语从句修饰workforce，而非pressures；only加强压力继续加重的判断。",
+      "translation": "随着医疗需求继续增长，医务人员已经接近承受极限，面临的压力只会更加严峻。",
+      "tip": "which is中的单数is也提示其先行词是workforce；主句谓语仍是will become。"
+    },
+    {
+      "sentence": "Worse, when policies like the national obesity strategy are scrapped, taxpayers are left with the hefty price tag of treating the illnesses, like diabetes, that result.",
+      "mainClause": "taxpayers are left with the hefty price tag ...",
+      "structure": "when引导条件兼时间背景；of treating说明费用用途；like diabetes为插入举例；that result定语从句修饰illnesses，result在此为动词“由此产生”。",
+      "translation": "更糟的是，当国家肥胖防治战略之类的政策被取消时，纳税人就得承担治疗由此产生的糖尿病等疾病的高昂费用。",
+      "tip": "that result应回接illnesses，不是修饰diabetes或price tag；句子建立预防政策与后续治疗支出的关系。"
+    }
+  ]
+}

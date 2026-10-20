@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2020-04-the-generation-shaping-the-future-of-work.md",
+  "title": "The Generation Shaping the Future of Work",
+  "paragraphs": [
+    {
+      "english": "Now that members of Generation Z are graduating college this spring—the most commonly-accepted definition says this generation was born after 1995, give or take a year—the attention has been rising steadily in recent weeks. Gen Zs are about to hit the streets looking for work in a labor market that’s tighter than it's been in decades. And employers are planning on hiring about 17 percent more new graduates for jobs in the U.S. this year than last, according to a survey conducted by the National Association of Colleges and Employers. Everybody wants to know how the people who will soon inhabit those empty office cubicles will differ from those who came before them.",
+      "chinese": "随着 Z 世代成员在今年春天大学毕业——最普遍的定义是，这一代出生于一九九五年之后，前后可相差一年——近几周来，对他们的关注持续上升。Z 世代即将进入街头求职，而当前劳动力市场正处于数十年来最紧俏的时期。美国大学与雇主协会的一项调查显示，今年雇主计划为美国岗位招聘的应届毕业生，比去年约多百分之十七。所有人都想知道，即将坐进那些空置办公隔间的人，和此前的人会有哪些不同。"
+    },
+    {
+      "english": "If “entitled” is the most common adjective, fairly or not, applied to millennials (those born between 1981 and 1995), the catchwords for Generation Z are practical and cautious. According to the career counselors and experts who study them, Generation Zs are clear-eyed, economic pragmatists. Despite graduating into the best economy in the past 50 years, Gen Zs know what an economic train wreck looks like. They were impressionable kids during the crash of 2008, when many of their parents lost their jobs or their life savings or both. They aren't interested in taking any chances. The booming economy seems to have done little to assuage this underlying generational sense of anxious urgency, especially for those who have college debt. College loan balances in the US. now stand at a record $1.5 trillion, according to the Federal Reserve.",
+      "chinese": "如果说，无论公平与否，“自认为理应受到优待”是最常被用来形容千禧一代——出生于一九八一年至一九九五年之间的人——的说法，那么 Z 世代的关键词就是务实和谨慎。研究他们的职业顾问和专家认为，Z 世代是头脑清醒的经济实用主义者。尽管毕业时面对过去五十年最好的经济环境，他们却知道经济灾难是什么样子。二〇〇八年危机发生时，他们还是容易受影响的孩子，许多人的父母失去了工作、一生的积蓄，或两者尽失。他们不愿冒任何风险。蓬勃的经济似乎并未缓解这一代人内心的焦虑与紧迫感，尤其是那些背着大学贷款的人。美联储数据显示，美国大学贷款余额现已达到创纪录的一点五万亿美元。"
+    },
+    {
+      "english": "One survey from Accenture found that 88 percent of graduating seniors this year chose their major with a job in mind. In a 2019 survey of University of Georgia students, meanwhile, the career office found the most desirable trait in a future employer was the ability to offer secure employment (followed by professional development and training, and then inspiring purpose). Job security or stability was the second most important career goal(work-life balance was number one), followed by a sense of being dedicated to a cause or to feel good about serving the greater good.",
+      "chinese": "埃森哲的一项调查发现，今年毕业的大四学生中，百分之八十八的人选专业时就考虑了就业。与此同时，佐治亚大学就业办公室二〇一九年对本校学生的一项调查发现，他们最希望未来雇主具备的特征，是能够提供有保障的工作，其次是职业发展与培训，再其次是能鼓舞人心的使命。就业保障或稳定性是第二重要的职业目标，排在第一的是工作与生活平衡，其后则是献身某项事业的感受，或因服务更广泛的公共利益而获得满足。"
+    },
+    {
+      "english": "That’s a big change from the previous generation. “Millennials wanted more flexibility in their lives,” notes Tanya Michelsen, Associate Director of YouthSight, a UK-based brand manager that conducts regular 60-day surveys of British youth, in findings that might just as well apply to American youth. “Generation Zs are looking for more certainty and stability, because of the rise of the gig economy. They have troubles seeing a financial future and they are quite risk averse.”",
+      "chinese": "这与前一代有很大不同。英国品牌管理机构 YouthSight 的副总监塔尼娅·米歇尔森指出：“千禧一代想要生活中有更多灵活性。”该机构定期对英国年轻人开展为期六十天的调查，这些发现或许同样适用于美国青年。“因为零工经济兴起，Z 世代在寻求更多确定性和稳定性。他们很难看到一个有保障的财务未来，因此相当厌恶风险。”"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Everybody wants to know how the people who will soon inhabit those empty office cubicles will differ from those who came before them.",
+      "mainClause": "Everybody wants to know how the people will differ from those.",
+      "structure": "how 引导 know 的宾语从句；who will soon inhabit ... 修饰 people；who came before them 修饰 those，those 指先前进入职场的人。",
+      "translation": "每个人都想知道，即将坐进这些空置办公隔间的人，与此前进入职场的人会有怎样的不同。",
+      "tip": "两个 who 从句分别修饰两代人；真正的对比谓语是 will differ from。"
+    },
+    {
+      "sentence": "In a 2019 survey of University of Georgia students, meanwhile, the career office found the most desirable trait in a future employer was the ability to offer secure employment (followed by professional development and training, and then inspiring purpose).",
+      "mainClause": "The career office found the most desirable trait was the ability to offer secure employment.",
+      "structure": "found 后省略 that，引导宾语从句；in a future employer 修饰 trait；to offer ... 修饰 ability；括号中的 followed by ... 补充其余特征的排序。",
+      "translation": "与此同时，佐治亚大学就业办公室在二〇一九年的调查中发现，学生最希望未来雇主能够提供稳定有保障的工作，其次是职业发展与培训，再其次是鼓舞人心的使命。",
+      "tip": "the most desirable trait 是 found 后从句的主语；括号里排列的是后续选择，不是就业保障的组成部分。"
+    }
+  ]
+}

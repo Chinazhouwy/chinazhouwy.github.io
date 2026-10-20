@@ -11,13 +11,21 @@ status: "可阅读"
 priority: "P2"
 energy: "medium"
 visibility: "public"
-summary: "40篇英文阅读，涵盖科技、教育、社会、环境与日常生活；按主题标题选读，保留正文与来源。"
+summary: "文章典藏与每日精选，涵盖科技、教育、社会、环境与日常生活；英文优先阅读，按需展开译文和长难句解析。"
 tags: ["English Reading", "Essays"]
 ---
 
 # English Reads
 
-Forty short readings on technology, society, education, the environment, and everyday life. Choose a headline and start reading.
+Short readings on technology, society, education, the environment, and everyday life. Browse the archive or discover a new selection. Read in English first, then reveal translations and sentence notes when you need them.
+
+## Daily Reads
+
+Fresh selections and reading guides, kept separate from the archive. Each guide links to the original publication and labels its own practice material.
+
+- [AI Eases Our Mental Load at the Expense of Critical Thinking](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-01-ai-and-critical-thinking.md) — Psychology Today · 2024-10-30 · 阅读导读与原刊入口。
+
+## The Archive
 
 ## 2025
 
@@ -57,7 +65,7 @@ Forty short readings on technology, society, education, the environment, and eve
 ## 2020
 
 - [What Rats Know About Social Signals](#/article/content%2Fcolumns%2Fenglish-reads%2F2020-01-what-rats-know-about-social-signals.md) — 对老鼠识别社会线索的实验，为研究动物如何判断同伴、协作或避开风险提供了新观察。
-- [The Case Against Excessive CEO Pay](#/article/content%2Fcolumns%2Fenglish-reads%2F2020-02-the-case-against-excessive-ceo-pay.md) — 高管薪酬增长引发公平与治理争议，企业如何制定薪酬标准会影响员工信任和长期价值。
+- [Why CEO Pay Is So High](#/article/content%2Fcolumns%2Fenglish-reads%2F2020-02-the-case-against-excessive-ceo-pay.md) — 高管薪酬增长引发公平与治理争议，企业如何制定薪酬标准会影响员工信任和长期价值。
 - [Madrid's Clean-Air Experiment](#/article/content%2Fcolumns%2Fenglish-reads%2F2020-03-madrid-s-clean-air-experiment.md) — 马德里的低排放区在公共健康目标与政治争议之间摇摆，凸显城市交通治理的复杂性。
 - [The Generation Shaping the Future of Work](#/article/content%2Fcolumns%2Fenglish-reads%2F2020-04-the-generation-shaping-the-future-of-work.md) — 刚步入职场的 Z 世代面对经济不确定性，对职业、财务安全和风险的态度呈现出鲜明特点。
 

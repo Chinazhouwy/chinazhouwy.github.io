@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2023-02-who-pays-for-america-s-national-parks.md",
+  "title": "Who Pays for America's National Parks?",
+  "paragraphs": [
+    {
+      "english": "It’s easy to dismiss as absurd the federal government’s ideas for plugging the chronic funding gap of our national parks. Can anyone really think it’s a good idea to allow Amazon deliveries to your tent in Yosemite or food trucks to line up under the redwood trees at Sequoia National Park?",
+      "chinese": "联邦政府想出了若干办法，试图填补国家公园长期存在的资金缺口；人们很容易把这些想法视为荒唐而不予理会。真的有人认为，让亚马逊把包裹送到你在优胜美地的帐篷里，或让餐车在红杉国家公园的红杉树下排成一列，是个好主意吗？"
+    },
+    {
+      "english": "But the administration is right about one thing: U.S. national parks are in crisis. Collectively, they have a maintenance backlog of more than $12 billion. Roads, trails, restrooms, visitor centers and other infrastructure are crumbling.",
+      "chinese": "不过，政府有一点说对了：美国国家公园正陷入危机。它们积压的维修项目费用合计超过120亿美元。道路、步道、卫生间、游客中心和其他基础设施都在破败之中。"
+    },
+    {
+      "english": "But privatizing and commercializing the campgrounds would not be the panacea that the Interior Department’s Outdoor Advisory Committee would have us believe. Campgrounds are a tiny portion of the overall infrastructure backlog, and concessionaires in the parks hand over, on average, only about 5% of their revenues to the National Park Service.",
+      "chinese": "但将营地私有化、商业化，并不会像内政部户外事务咨询委员会想让我们相信的那样，成为解决一切问题的灵丹妙药。营地只占整体基础设施积压维修需求的很小一部分，而公园内的特许经营商平均仅将收入的约5%交给国家公园管理局。"
+    },
+    {
+      "english": "Moreover, increased privatization would certainly undercut one of the major reasons why 300 million visitors come to the parks each year: to enjoy nature and get a respite from the commercial drum beat that overwhelms daily life.",
+      "chinese": "此外，进一步私有化肯定会削弱每年三亿游客前来游园的一个主要理由：欣赏自然，并暂时摆脱日常生活中无处不在的商业喧嚣。"
+    },
+    {
+      "english": "The real problem is that the parks have been chronically starved of funding. We conducted a comprehensive survey examining how U.S. residents view their national parks, and we found that Americans place a very high value on them — whether or not they actually visit them. The peer-reviewed economic survey of 700 U.S. taxpayers, conducted by mail and internet, also found that people would be willing to pay a significant amount of money to make sure the parks and their programs are kept intact. Some 81% of respondents said they would be willing to pay additional taxes for the next 10 years to avoid any cuts to the national parks.",
+      "chinese": "真正的问题在于，这些公园长期得不到充足资金。我们开展了一项全面调查，考察美国居民如何看待国家公园，结果发现，无论是否真正到访，美国人都认为它们价值极高。这项经过同行评审的经济调查通过邮件和互联网访问了700名美国纳税人，还发现，人们愿意支付相当多的钱，以确保公园及其项目完整保留。约81%的受访者表示，他们愿意在未来十年缴纳额外税款，以避免国家公园遭到任何削减。"
+    },
+    {
+      "english": "The national parks provide great value to U.S. residents both as places to escape and as symbols of nature. On top of this, they produce value from their extensive educational programs, their positive impact on the climate through carbon sequestration, their contribution to our cultural and artistic life, and of course through tourism. The parks also help keep America’s past alive, working with thousands of local jurisdictions around the country to protect historical sites — including Ellis Island and Gettysburg — and to bring the stories of these places to life.",
+      "chinese": "国家公园既是暂避日常纷扰的去处，也是自然的象征，为美国居民提供了巨大价值。此外，它们还通过广泛的教育项目、固碳对气候的积极影响、对文化艺术生活的贡献，以及当然少不了的旅游业，创造价值。公园还与全国数千个地方行政机构合作，保护包括埃利斯岛和葛底斯堡在内的历史遗址，并生动讲述这些地方的故事，让美国的历史保持鲜活。"
+    },
+    {
+      "english": "The parks do all this on a shoestring. Congress allocates only $3 billion a year to the national park system — an amount that has been flat since 2001 (in inflation-adjusted dollars) with the exception of a onetime boost in 2009 as part of the Obama stimulus package. Meanwhile, the number of annual visitors has increased by more than 50% since 1980, and now stands at 330 million visitors per year.",
+      "chinese": "公园完成这些工作，靠的却是极为有限的经费。国会每年只向国家公园系统拨款30亿美元。按剔除通胀后的金额计算，除2009年奥巴马经济刺激计划中的一次性增加拨款外，这笔资金自2001年以来一直没有增长。与此同时，年度游客数量自1980年以来增长超过50%，如今已达到每年3.3亿人次。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "The peer-reviewed economic survey of 700 U.S. taxpayers, conducted by mail and internet, also found that people would be willing to pay a significant amount of money to make sure the parks and their programs are kept intact.",
+      "mainClause": "The ... survey ... also found that people would be willing to pay ...",
+      "structure": "conducted过去分词短语修饰survey，交代调查方式；that从句为found的宾语；to make sure表示付费目的，其后从句采用被动are kept intact。",
+      "translation": "这项经过同行评审的经济调查通过邮件和互联网访问了700名美国纳税人，还发现，人们愿意支付相当多的钱，以确保公园及其项目完整保留。",
+      "tip": "调查发现的是支付意愿，would be willing不等于已经实际缴纳。"
+    },
+    {
+      "sentence": "Congress allocates only $3 billion a year to the national park system — an amount that has been flat since 2001 (in inflation-adjusted dollars) with the exception of a onetime boost in 2009 as part of the Obama stimulus package.",
+      "mainClause": "Congress allocates only $3 billion a year to the national park system.",
+      "structure": "破折号后an amount为拨款额的同位语；that从句解释该金额长期不变；括号限定为实际购买力口径；with the exception of指出唯一例外。",
+      "translation": "国会每年只向国家公园系统拨款30亿美元；按剔除通胀后的金额计算，除2009年奥巴马经济刺激计划中的一次性增加拨款外，这笔资金自2001年以来一直没有增长。",
+      "tip": "flat指金额保持稳定；必须连同inflation-adjusted和例外年份一起理解。"
+    }
+  ]
+}

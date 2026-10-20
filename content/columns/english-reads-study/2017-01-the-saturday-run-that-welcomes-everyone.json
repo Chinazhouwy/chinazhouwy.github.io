@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2017-01-the-saturday-run-that-welcomes-everyone.md",
+  "title": "The Saturday Run That Welcomes Everyone",
+  "paragraphs": [
+    {
+      "english": "Every Saturday morning, at 9 am, more than 50,000 runners set off to run 5km around their local park. The Parkrun phenomenon began with a dozen friends and has inspired 400 events in the UK and more abroad. Events are free, staffed by thousands of volunteers. Runners range from four years old to grandparents; their times range from Andrew Baddeley’s world record 13 minutes 48 seconds up to an hour.",
+      "chinese": "每周六早上九点，超过五万人从当地公园出发，跑上五公里。Parkrun 最初只是十来个朋友一起跑步，如今已促成英国四百场同类活动，海外也有更多活动开展。活动免费，由数千名志愿者提供服务。跑者从四岁儿童到祖父母辈都有，完赛时间从安德鲁·巴德利创下的十三分四十八秒世界纪录，到一个小时不等。"
+    },
+    {
+      "english": "Parkrun is succeeding where London’s Olympic “legacy” is failing. Ten years ago on Monday, it was announced that the Games of the 30th Olympiad would be in London. Planning documents pledged that the great legacy of the Games would be to lever a nation of sport lovers away from their couches. The population would be fitter, healthier and produce more winners. It has not happened. The number of adults doing weekly sport did rise, by nearly 2 million in the run-up to 2012 — but the general population was growing faster. Worse, the numbers are now falling at an accelerating rate. The opposition claims primary school pupils doing at least two hours of sport a week have nearly halved. Obesity has risen among adults and children. Official retrospections continue as to why London 2012 failed to “inspire a generation.” The success of Parkrun offers answers.",
+      "chinese": "伦敦奥运会留下的“遗产”未能奏效的地方，Parkrun 却成功了。十年前的那个星期一，第三十届奥运会将在伦敦举办的消息正式公布。当时的规划文件承诺，奥运会最重要的遗产，将是把这个热爱体育的国家的人们从沙发上撬起来，让国民体能更好、更健康，也培养出更多优胜者。这并没有实现。到二〇一二年奥运会前，每周参加体育活动的成年人的确增加了近二百万，但总人口增长得更快。更糟的是，如今参与人数正加速下降。反对党声称，每周运动至少两小时的小学生人数已接近减半。成年人和儿童的肥胖问题均有所加重。官方仍在反思，为何二〇一二年伦敦奥运会未能“激励一代人”。Parkrun 的成功给出了答案。"
+    },
+    {
+      "english": "Parkun is not a race but a time trial: Your only competitor is the clock. The ethos welcomes anybody. There is as much joy over a puffed-out first-timer being clapped over the line as there is about top talent shining. The Olympic bidders, by contrast, wanted to get more people doing sport and to produce more elite athletes. The dual aim was mixed up: The stress on success over taking part was intimidating for newcomers.",
+      "chinese": "Parkrun 不是一场相互竞争的比赛，而是一场计时挑战：你唯一的对手是时钟。它的理念是欢迎所有人。一个气喘吁吁的初次参加者在掌声中冲过终点，带来的喜悦并不亚于顶尖选手大放异彩。相比之下，奥运会申办者既想让更多人参与运动，又想培养更多精英运动员。这两个目标被混在了一起；对胜过他人而非重在参与的强调，让新来者望而生畏。"
+    },
+    {
+      "english": "Indeed, there is something a little absurd in the state getting involved in the planning of such a fundamentally “grassroots” concept as community sports associations. If there is a role for government, it should really be getting involved in providing common goods — making sure there is space for playing fields and the money to pave tennis and netball courts, and encouraging the provision of all these activities in schools. But successive governments have presided over selling green spaces, squeezing money from local authorities and declining attention on sport in education. Instead of wordy, worthy strategies, future governments need to do more to provide the conditions for sport to thrive. Or at least not make them worse.",
+      "chinese": "事实上，社区体育协会原本是如此具有基层性质的组织，国家却介入规划，多少有些荒谬。如果政府确有应发挥的作用，那应该是提供公共资源：确保有空间建设运动场，有资金铺设网球场和无挡板篮球场，并鼓励学校开展所有这些活动。然而，历届政府却眼看着绿地被出售，地方财政遭压缩，学校教育对体育的重视也在下降。未来政府需要多做些实事，为体育蓬勃发展创造条件，不能只拿出冗长又冠冕堂皇的战略。至少，也别让条件变得更差。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "There is as much joy over a puffed-out first-timer being clapped over the line as there is about top talent shining.",
+      "mainClause": "There is as much joy over one event as there is about the other.",
+      "structure": "as much ... as ... 构成同等比较；being clapped over the line 描述 first-timer 受到掌声鼓励冲线；top talent shining 是另一种同样令人欣喜的场景。",
+      "translation": "初次参加者气喘吁吁地在掌声中跑过终点，让人感到的喜悦并不亚于顶尖选手展现才华。",
+      "tip": "比较的是两种场景带来的 joy，而不是跑者的速度。"
+    },
+    {
+      "sentence": "If there is a role for government, it should really be getting involved in providing common goods — making sure there is space for playing fields and the money to pave tennis and netball courts, and encouraging the provision of all these activities in schools.",
+      "mainClause": "If there is a role for government, it should be providing common goods.",
+      "structure": "If 引导条件从句；it 指政府应发挥的作用；破折号后的 making sure 与 encouraging 并列，具体解释 providing common goods；there is 后并列 space 与 money。",
+      "translation": "如果政府应发挥什么作用，那就是参与提供公共资源：保证建设运动场的空间及铺设网球场和无挡板篮球场的资金，并鼓励学校开展这些活动。",
+      "tip": "破折号之后是对 common goods 的展开，不是另起一个政府职责。"
+    }
+  ]
+}

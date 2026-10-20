@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2021-01-reskilling-for-a-changing-economy.md",
+  "title": "Reskilling for a Changing Economy",
+  "paragraphs": [
+    {
+      "english": "“Reskilling” is something that sounds like a buzzword but is actually a requirement if we plan to have a future where a lot of would-be workers do not get left behind. We know we are moving into a period where the jobs in demand will change rapidly, as will the requirements of the jobs that remain. Research by the World Economic Forum finds that on average 42 per cent of the “core skills” within job roles will change by 2022. That is a very short timeline.",
+      "chinese": "“技能再培训”听起来像个流行词，但如果我们希望未来不让大量有意就业的人掉队，它实际上就是一项必需的工作。我们知道，我们正进入一个岗位需求将迅速变化的时期，即便仍然存在的岗位，其要求也会同样迅速地改变。世界经济论坛的研究发现，到2022年，各类岗位中的“核心技能”平均有42%会发生变化。这留给我们的时间非常短。"
+    },
+    {
+      "english": "The question of who should pay for reskilling is a thorny one. For individual companies, the temptation is always to let go of workers whose skills are no longer in demand and replace them with those whose skills are. That does not always happen. AT&T is often given as the gold standard of a company who decided to do a massive reskilling program rather than go with a fire-and-hire strategy. Other companies including Amazon and Disney had also pledged to create their own plans. When the skills mismatch is in the broader economy though, the focus usually turns to government to handle. Efforts in Canada and elsewhere have been arguably languid at best, and have given us a situation where we frequently hear of employers begging for workers, even at times and in regions where unemployment is high.",
+      "chinese": "谁来为技能再培训买单，是个棘手的问题。对单个企业来说，它们总会倾向于解雇技能已不再符合需求的员工，再换上技能符合需求的人。但事情并非总是如此。美国电话电报公司AT&T经常被奉为典范：它决定实施大规模的技能再培训计划，而不是采取先解雇再招聘的策略。包括亚马逊和迪士尼在内的其他公司，也承诺制定自己的计划。不过，如果技能错配存在于更广泛的经济领域，人们通常就会把目光转向政府，期待它来处理。加拿大及其他地方在这方面的努力，可以说充其量也只是行动迟缓，结果就是，我们经常听到雇主急切地寻找工人，甚至在失业率很高的时期和地区也如此。"
+    },
+    {
+      "english": "With the pandemic, unemployment is very high indeed. In February, at 3.5 per cent and 5.5 per cent respectively, unemployment rates in Canada and the United States were at generational lows and worker shortages were everywhere. As of May, those rates had spiked up to 13.3 per cent and 13.7 per cent, and although many worker shortages had disappeared, not all had done so. In the medical field, to take an obvious example, the pandemic meant that there were still clear shortages of doctors, nurses and other medical personnel.",
+      "chinese": "疫情之下，失业率的确非常高。2月份，加拿大和美国的失业率分别为3.5%和5.5%，处于数十年来的低位，到处都存在用工短缺。到5月份，这两个数字已飙升至13.3%和13.7%；尽管许多劳动力短缺问题已消失，却并非全部得到解决。以医疗领域这个显而易见的例子来说，疫情意味着医生、护士及其他医务人员仍然明显不足。"
+    },
+    {
+      "english": "Of course, it is not like you can take an unemployed waiter and train him to be a doctor in a few weeks, no matter who pays for it. But even if you cannot close that gap, maybe you can close others, and doing so would be to the benefit of all concerned. That seems to be the case in Sweden: When forced to furlough 90 per cent of their cabin staff, Scandinavian Airlines decided to start up a short retraining program that reskilled the laid-off workers to support hospital staff. The effort was a collective one and involved other companies as well as a Swedish university.",
+      "chinese": "当然，无论由谁付费，你都不可能把一名失业的服务员在几周内培训成医生。但即使无法填补这个缺口，或许仍可以填补其他缺口，而这样做会让所有相关方受益。瑞典的情况似乎就是如此：斯堪的纳维亚航空公司被迫让90%的客舱员工暂时停职后，决定开办一项短期再培训计划，使这些被裁减的员工能够协助医院工作人员。这是一项集体行动，其他企业和一所瑞典大学也参与其中。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "We know we are moving into a period where the jobs in demand will change rapidly, as will the requirements of the jobs that remain.",
+      "mainClause": "We know we are moving into a period.",
+      "structure": "know后是省略that的宾语从句；where引导定语从句修饰period。as will the requirements为倒装，承接“也会迅速变化”；that remain修饰jobs。",
+      "translation": "我们知道，我们正进入一个岗位需求将迅速变化的时期，即便仍然存在的岗位，其要求也会同样迅速地改变。",
+      "tip": "先读出“两样东西都变化”：jobs和requirements；倒装部分省略了前面已出现的change rapidly。"
+    },
+    {
+      "sentence": "Of course, it is not like you can take an unemployed waiter and train him to be a doctor in a few weeks, no matter who pays for it.",
+      "mainClause": "it is not like you can take ... and train ...",
+      "structure": "it is not like后解释不可能出现的情形；take和train并列，to be a doctor补充培训目标；no matter who引导让步状语从句。",
+      "translation": "当然，无论由谁付费，你都不可能把一名失业的服务员在几周内培训成医生。",
+      "tip": "no matter who只表示付费方不影响结论，核心限制是培训时间。"
+    }
+  ]
+}

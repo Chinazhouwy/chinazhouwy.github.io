@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2020-02-the-case-against-excessive-ceo-pay.md",
+  "title": "Why CEO Pay Is So High",
+  "paragraphs": [
+    {
+      "english": "It is true that CEO pay has gone up—top ones may make 300 times the pay of typical workers on average, and since the mid-1970s, CEO pay for large publicly traded American corporations has, by varying estimates, gone up by about 500%. The typical CEO of a top American corporation now makes about $18.9 million a year.",
+      "chinese": "首席执行官的薪酬确实上涨了：顶级首席执行官的收入可能平均达到普通员工的三百倍；根据不同估计，自二十世纪七十年代中期以来，美国大型上市公司的首席执行官薪酬已经上涨约百分之五百。如今，美国顶尖公司一位具有代表性的首席执行官，年收入约一千八百九十万美元。"
+    },
+    {
+      "english": "The best model for understanding the growth of CEO pay is that of limited CEO talent in a world where business opportunities for the top firms are growing rapidly. The efforts of America’ s highest-earning 1% have been one of the more dynamic elements of the global economy. It’s not popular to say. but one reason their pay has gone up so much is that CEOs really have upped their game relative to many other workers in the U.S. economy.",
+      "chinese": "要理解首席执行官薪酬的增长，最好的解释模型是：顶尖企业的商业机会正在迅速增加，而能够胜任的首席执行官人才却有限。美国收入最高的百分之一人口所作的努力，一直是全球经济中较具活力的因素之一。这样说或许并不讨喜，但首席执行官薪酬大幅上涨的一个原因，是相较美国经济中的许多其他劳动者，他们确实提高了自身的能力和表现。"
+    },
+    {
+      "english": "Today’ s CEO, at least for major American firms, must have many mere skills than simply being able to “run the company.” CEOs must have a good sense of financial markets and maybe even how the company should trade in them .They also need better public relations skills than their predecessors, as the costs of even a minor slipup can be significant. Then there’s the fact that large American companies are much more globalized than ever before, with supply chains spread across a larger number of countries. To lead in that system requires knowledge that is fairly mind-boggling. Plus, virtually all major American companies are becoming tech companies, one way or another. Beyond this, major CEOs still have to do all the day-to-day work they have always done.",
+      "chinese": "今天的首席执行官，至少在美国大企业中，所需的技能远不止“管理公司”。他们必须熟悉金融市场，甚至懂得公司应如何在这些市场中交易。他们也需要比前任更高明的公共关系技巧，因为哪怕一次小小的失误，也可能造成很大的损失。此外，美国大公司的全球化程度远高于以往，供应链分布在更多国家。在这样的体系中发挥领导作用，需要掌握的知识多得令人难以想象。而且，几乎所有美国大企业都在以某种方式转型为科技公司。除此之外，大企业的首席执行官仍须完成以往一直承担的所有日常工作。"
+    },
+    {
+      "english": "The common idea that high CEO pay is mainly about ripping people off doesn’t explain history very well. By most measures, corporate governance has become a lot tighter and more rigorous since the 1970s. Yet it is principally during this period of stronger governance that CEO pay has been high and rising. That suggests it is in the broader corporate interest to recruit top candidates for increasingly tough jobs.",
+      "chinese": "有一种常见看法认为，首席执行官的高薪主要是靠剥削别人得来的，但这种看法并不能很好地解释历史。按大多数衡量标准，自二十世纪七十年代以来，公司治理已变得严格、严密得多。然而，首席执行官薪酬居高且不断上涨，主要恰恰发生在治理更严格的这段时期。这表明，为越来越难做的工作招募顶尖人才，符合公司的整体利益。"
+    },
+    {
+      "english": "Furthermore, the highest CEO salaries are paid to outside candidates, not to the cozy insider picks, another sign that high CEO pay is not some kind of depredation at the expense of the rest of the company. And the stock market reacts positively when companies tie CEO pay to, say, stock prices, a sign that those practices build up corporate value not just for the CEO.",
+      "chinese": "此外，最高的首席执行官薪酬支付给的是外部候选人，而不是那些关系亲近、被内部选定的人。这进一步表明，首席执行官的高薪并非以牺牲公司其他部分为代价的某种掠夺。而当企业把首席执行官薪酬与股价等指标挂钩时，股市会作出积极反应，说明这些做法提升的是企业价值，而不只让首席执行官受益。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "The best model for understanding the growth of CEO pay is that of limited CEO talent in a world where business opportunities for the top firms are growing rapidly.",
+      "mainClause": "The best model is that of limited CEO talent.",
+      "structure": "for understanding ... 修饰 model；that 替代 model，避免重复；in a world ... 为背景；where 定语从句修饰 world，说明商业机会迅速增长的情境。",
+      "translation": "理解首席执行官薪酬增长的最佳模型，是在顶尖企业商业机会快速增长的世界中，首席执行官人才供给有限。",
+      "tip": "that of 的 that 是名词替代词，不是引导从句的连词。"
+    },
+    {
+      "sentence": "Furthermore, the highest CEO salaries are paid to outside candidates, not to the cozy insider picks, another sign that high CEO pay is not some kind of depredation at the expense of the rest of the company.",
+      "mainClause": "The highest CEO salaries are paid to outside candidates.",
+      "structure": "not to ... 与 to outside candidates 构成对照；another sign ... 是对前述事实的补充概括；that 从句解释 sign 的内容；at the expense of ... 表示以其他部分受损为代价。",
+      "translation": "此外，最高薪酬支付给外部候选人，而不是关系亲近的内部人选；这再次表明，高薪并非以牺牲公司其他部分为代价的一种掠夺。",
+      "tip": "主句交代薪酬支付给谁，逗号后 another sign 才转向作者据此作出的判断。"
+    }
+  ]
+}

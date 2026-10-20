@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2019-02-forests-carbon-and-climate-policy.md",
+  "title": "Forests, Carbon, and Climate Policy",
+  "paragraphs": [
+    {
+      "english": "Forests give us shade, quiet and one of the harder challenges in the fight against climate change. Even as we humans count on forests to soak up a good share of the carbon dioxide we produce, we are threatening their ability to do so. The climate change we are hastening could one day leave us with forests that emit more carbon than they absorb.",
+      "chinese": "森林带给我们荫凉与宁静，也给应对气候变化带来一道较为棘手的难题。我们人类一边依赖森林吸收自己排放的大量二氧化碳，一边却在威胁森林完成这项任务的能力。我们正在加速的气候变化，或许有一天会让森林排放的碳超过它们吸收的碳。"
+    },
+    {
+      "english": "Thankfully, there is a way out of this trap — but it involves striking a subtle balance. Helping forests flourish as valuable “carbon sinks” long into the future may require reducing their capacity to absorb carbon now. California is leading the way, as it does on so many climate efforts, in figuring out the details.",
+      "chinese": "幸好，有办法走出这个困局，但需要找到微妙的平衡。要让森林在遥远的未来依然繁盛，继续成为重要的“碳汇”，可能反而得暂时降低它们现在的吸碳能力。正如在许多气候行动中一样，加利福尼亚州正率先探索具体的实施办法。"
+    },
+    {
+      "english": "The state’s proposed Forest Carbon Plan aims to double efforts to thin out young trees and clear brush in parts of the forest. This temporarily lowers carbon-carrying capacity. But the remaining trees draw a greater share of the available moisture, so they grow and thrive, restoring the forest’s capacity to pull carbon from the air. Healthy trees are also better able to fend off insects. The landscape is rendered less easily burnable. Even in the event of a fire, fewer trees are consumed.",
+      "chinese": "该州拟议的《森林碳计划》，旨在加倍推进部分林区的幼树间伐与灌木清理。这会暂时降低森林的固碳容量。但余下的树木能获得更多可用水分，因而生长旺盛，恢复森林从空气中吸收碳的能力。健康树木也更能抵御虫害，整个林区则不那么容易燃烧。即使发生火灾，被烧毁的树木也会更少。"
+    },
+    {
+      "english": "The need for such planning is increasingly urgent. Already, since 2010, drought and insects have killed over 100 million trees in California, most of them in 2016 alone, and wildfires have burned hundreds of thousands of acres.",
+      "chinese": "制定这类规划的需要越来越迫切。自二〇一〇年以来，干旱和虫害已导致加州逾一亿棵树死亡，其中大多数仅在二〇一六年就已死去；野火还烧毁了数十万英亩土地。"
+    },
+    {
+      "english": "California plans to treat 35, 000 acres of forest a year by 2020, and 60,000 by 2030 — financed from the proceeds of the state’s emissions-permit auctions. That’s only a small share of the total acreage that could benefit, about half a million acres in all, so it will be vital to prioritize areas at greatest risk of fire or drought.",
+      "chinese": "加州计划，到二〇二〇年每年治理三万五千英亩森林，到二〇三〇年达到六万英亩，资金来自该州排放许可证拍卖的收入。能够从治理中受益的森林总面积约有五十万英亩，上述计划仅覆盖其中一小部分，因此优先治理火灾或干旱风险最高的地区，将至关重要。"
+    },
+    {
+      "english": "The strategy also aims to ensure that carbon in woody material removed from the forests is locked away in the form of solid lumber or burned as biofuel in vehicles that would otherwise run on fossil fuels. New research on transportation biofuels is already under way.",
+      "chinese": "这项战略还希望确保，从森林中清理出来的木材所含的碳，能够以实体木料的形式封存起来，或作为生物燃料在车辆中燃烧，替代这些车辆原本会使用的化石燃料。有关交通运输用生物燃料的新研究已经展开。"
+    },
+    {
+      "english": "State governments are well accustomed to managing forests, but traditionally they’ve focused on wildlife, watersheds and opportunities for recreation. Only recently have they come to see the vital part forests will have to play in storing carbon. California’s plan, which is expected to be finalized by the governor next year, should serve as a model.",
+      "chinese": "各州政府对森林管理十分熟悉，但传统上主要关注野生动物、流域和休闲娱乐机会。直到最近，它们才认识到，森林将在储存碳方面发挥多么重要的作用。预计明年由州长最终敲定的加州方案，应当能够成为一个范例。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "The climate change we are hastening could one day leave us with forests that emit more carbon than they absorb.",
+      "mainClause": "The climate change could one day leave us with forests.",
+      "structure": "we are hastening 是省略 that/which 的定语从句，修饰 climate change；that 从句修饰 forests；more ... than ... 比较森林排碳量与吸碳量。",
+      "translation": "我们正在加速的气候变化，可能有一天会让我们面对排碳多于吸碳的森林。",
+      "tip": "前一个 we 从句说明哪种气候变化，后一个 that 从句说明森林会出现何种变化。"
+    },
+    {
+      "sentence": "The strategy also aims to ensure that carbon in woody material removed from the forests is locked away in the form of solid lumber or burned as biofuel in vehicles that would otherwise run on fossil fuels.",
+      "mainClause": "The strategy aims to ensure that carbon is locked away or burned.",
+      "structure": "ensure 后为 that 宾语从句；removed from the forests 后置修饰 woody material；is locked away 与 burned 为共用 is 的并列被动结构；最后 that 从句修饰 vehicles；otherwise 表示若不使用该生物燃料的情形。",
+      "translation": "这项战略还力求确保，从森林中移除的木质材料里的碳，或以实体木料形式封存，或在原本使用化石燃料的车辆中作为生物燃料燃烧。",
+      "tip": "or 连接的是碳的两种处理方式，不是森林和车辆两种对象。"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2018-03-life-inside-the-platform-economy.md",
+  "title": "Life Inside the Platform Economy",
+  "paragraphs": [
+    {
+      "english": "The power and ambition of the giants of the digital economy is astonishingAmazon has just announced the purchase of the upmarket grocery chain Whole Foods for $ 13.5bn, but two years ago Facebook paid even more than that to acquire the WhatsApp messaging service, which doesn’t have any physical product at all. What WhatsApp offered Facebook was an intricate and finely detailed web of its users’ friendships and social lives.",
+      "chinese": "数字经济巨头的力量和野心令人惊叹。亚马逊刚刚宣布，以一百三十五亿美元收购高端食品连锁超市全食；但两年前，脸书为了收购根本没有任何实体产品的即时通讯服务 WhatsApp，支付了比这更多的钱。WhatsApp 为脸书提供的，是一张由用户友谊和社交生活构成的复杂、精细的关系网。"
+    },
+    {
+      "english": "Facebook promised the European commission then that it would not link phone numbers to Facebook identities, but it broke the promise almost as soon as the deal went through. Even without knowing what was in the messages, the knowledge of who sent them and to whom was enormously revealing and still could be. What political journalist, what party whip, would not want to know the makeup of the WhatsApp groups in which Theresa May’s enemies are currently plotting? It may be that the value of Whole Foods to Amazon is not so much the 460 shops it owns, but the records of which customers have purchased what.",
+      "chinese": "脸书当时向欧盟委员会承诺，不会把电话号码与脸书身份关联起来，但交易几乎一完成，它就违背了这项承诺。即使不知道消息的内容，仅仅知道是谁给谁发了消息，就已经能透露大量信息，今后依然如此。哪位政治记者、哪位政党党鞭，不想知道特雷莎·梅的政敌如今正在哪些 WhatsApp 群组中密谋，以及这些群组由哪些人组成？对亚马逊而言，全食的价值可能并不主要在于它拥有的四百六十家门店，而在于哪些顾客购买了什么商品的记录。"
+    },
+    {
+      "english": "Competition law appears to be the only way to address these imbalances of power. But it is clumsy. For one thing, it is very slow compared to the pace of change within the digital economy. By the time a problem has been addressed and remedied it may have vanished in the marketplace, to be replaced by new abuses of power. But there is a deeper conceptual problem, too. Competition law as presently interpreted deals with financial disadvantage to consumers and this is not obvious when the users of these services don’t pay for them. The users of their services are not their customers. That would be the people who buy advertising from them - and Facebook and Google, the two virtual giants, dominate digital advertising to the disadvantage of all other media and entertainment companies.",
+      "chinese": "竞争法似乎是解决这种权力失衡的唯一办法，但它并不灵活。首先，与数字经济的变化速度相比，它行动得太慢。等到一个问题得到处理和纠正，它可能早已从市场中消失，被新的权力滥用所取代。不过，更深层次的概念问题也存在。按照目前的解释，竞争法处理的是消费者遭受的经济损失，但如果服务使用者并不付费，这种损失就并不明显。使用这些服务的人，不是它们的客户；真正的客户是向它们购买广告的人。而脸书与谷歌这两家虚拟世界巨头主导着数字广告市场，让其他所有媒体和娱乐公司都处于不利地位。"
+    },
+    {
+      "english": "The product they’re selling is data, and we, the users, convert our lives to data for the benefit of the digital giants. Just as some ants farm the bugs called aphids for the honeydew they produce when they feed, so Google farms us for the data that our digital lives yield. Ants keep predatory insects away from where their aphids feed; Gmail keeps the spammers out of our inboxes. It doesn’t feel like a human or democratic relationship, even if both sides benefit.",
+      "chinese": "它们出售的产品是数据，而我们这些用户，把自己的生活转化成数据，让数字巨头从中获益。正如一些蚂蚁饲养蚜虫，是为了获取蚜虫进食时产生的蜜露，谷歌也在“饲养”我们，以获取我们的数字生活产出的数据。蚂蚁会把捕食性昆虫赶离蚜虫进食的地方，Gmail 则把垃圾邮件发送者挡在我们的收件箱之外。即使双方都受益，这也让人感觉不像是一种有人情味或民主的关系。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Competition law as presently interpreted deals with financial disadvantage to consumers and this is not obvious when the users of these services don’t pay for them.",
+      "mainClause": "Competition law deals with financial disadvantage, and this is not obvious.",
+      "structure": "as presently interpreted 相当于 as it is presently interpreted，限定法律的现行解释；and 连接两个分句；when 引导条件或情境从句；this 指消费者受到经济损害这件事。",
+      "translation": "按现行解释，竞争法处理的是消费者的经济损失；但当服务使用者不付费时，这种损失就不明显。",
+      "tip": "不要把 this 理解成法律本身不清楚，而应回指其要处理的经济损失。"
+    },
+    {
+      "sentence": "Just as some ants farm the bugs called aphids for the honeydew they produce when they feed, so Google farms us for the data that our digital lives yield.",
+      "mainClause": "Just as ants farm aphids, so Google farms us.",
+      "structure": "Just as ... so ... 构成类比；called aphids 后置修饰 bugs；they produce 为省略关系代词的定语从句，修饰 honeydew；when they feed 交代蜜露产生时机；that 从句修饰 data。",
+      "translation": "正如有些蚂蚁为了获取蚜虫进食时产生的蜜露而饲养蚜虫，谷歌也为了获取我们的数字生活产出的数据而“饲养”我们。",
+      "tip": "先建立蚂蚁—谷歌、蚜虫—用户、蜜露—数据的对应，再读各层修饰。"
+    }
+  ]
+}

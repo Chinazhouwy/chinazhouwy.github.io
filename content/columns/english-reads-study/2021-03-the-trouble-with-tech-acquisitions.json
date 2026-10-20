@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2021-03-the-trouble-with-tech-acquisitions.md",
+  "title": "The Trouble with Tech Acquisitions",
+  "paragraphs": [
+    {
+      "english": "When Microsoft bought task management app Wunderlist and mobile calendar Sunrise in 2015, it picked two newcomers that were attracting considerable buzz in Silicon Valley. Microsoft’s own Office dominates the market for “ productivity ” software, but the start-ups represented a new wave of technology designed from the ground up for the smartphone world.",
+      "chinese": "2015年，微软买下任务管理应用Wunderlist和手机日历应用Sunrise时，选中的是两家在硅谷引起广泛关注的新秀。微软自己的Office虽然主导着“生产力”软件市场，但这两家初创公司代表着新一波技术：从最初设计起，就完全面向智能手机世界。"
+    },
+    {
+      "english": "Both apps, however, were later scrapped, after Microsoft said it had used their best features in its own products. Their teams of engineers stayed on, making them two of the many “acqui-hires” that the biggest companies have used to feed their great hunger for tech talent.",
+      "chinese": "然而，在微软表示已把这两款应用的最佳功能融入自身产品后，它们后来都被关闭了。工程师团队则留了下来，使这两次交易成为众多“人才收购”案例中的两个；最大的科技公司通过这种方式，满足自己对技术人才的巨大需求。"
+    },
+    {
+      "english": "To Microsoft’s critics, the fates of Wunderlist and Sunrise are examples of a remorseless drive by Big Tech to chew up any innovative companies that lie in their path. “They bought the seedlings and closed them down,” complained Paul Arnold, a partner at San Francisco-based Switch Ventures, putting an end to businesses that might one day turn into competitors. Microsoft declined to comment.",
+      "chinese": "在批评微软的人看来，Wunderlist和Sunrise的命运，体现了大型科技公司如何毫不留情地吞并挡在自己前面的创新企业。旧金山Switch Ventures的合伙人保罗·阿诺德抱怨道：“他们把幼苗买下，然后关掉了。”这样一来，一些有朝一日可能成为竞争对手的企业，就被终结了。微软拒绝置评。"
+    },
+    {
+      "english": "Like other start-up investors, Mr. Arnold’s own business often depends on selling start-ups to larger tech companies, though he admits to mixed feelings about the result: “T think these things are good for me, if I put my selfish hat on. But are they good for the American economy? I don’t know.”",
+      "chinese": "与其他初创企业投资者一样，阿诺德自己的业务也往往依赖于把初创企业出售给更大的科技公司，不过他承认自己对结果心情复杂：“如果只从我的私利出发，我觉得这些事对我有好处。但它们对美国经济有好处吗？我不知道。”"
+    },
+    {
+      "english": "The US Federal Trade Commission says it wants to find the answer to that question. This week, it asked the five most valuable US tech companies for information about their many small acquisitions over the past decade. Although only a research project at this stage, the request has raised the prospect of regulators wading into earlystage tech markets that until now have been beyond their reach.",
+      "chinese": "美国联邦贸易委员会表示，它想找到这个问题的答案。本周，它要求美国市值最高的五家科技公司提供过去十年间大量小规模收购的信息。虽然目前这还只是一个研究项目，但这一要求意味着，监管机构可能会介入早期科技市场；此前，这些市场一直处于其监管触及范围之外。"
+    },
+    {
+      "english": "Given their combined market value of more than $5.5 trillion, rifling through such small deals—many of them much less prominent than Wunderlist and Sunrise—might seem beside the point. Between them, the five biggest tech companies have spent an average of only $3.4 billion a year on sub- $1 billion acquisitions over the past five years—a drop in the ocean compared with their massive financial reserves, and the more than $130 billion of venture capital that was invested in the US last year.",
+      "chinese": "考虑到这五家公司的总市值超过5.5万亿美元，仔细翻查这样的小交易似乎抓错了重点——其中许多交易远不如Wunderlist和Sunrise那样引人注目。过去五年，这五家最大的科技公司每年在金额不足10亿美元的收购上，合计平均仅支出34亿美元。与它们庞大的资金储备，以及去年美国超过1300亿美元的风险投资总额相比，这只是沧海一粟。"
+    },
+    {
+      "english": "However, critics say the big companies use such deals to buy their most threatening potential competitors before their businesses have a chance to gain momentum, in some cases as part of a “buy and kill” tactic to simply close them down.",
+      "chinese": "然而，批评者表示，大公司利用这类交易，在最具威胁的潜在竞争对手尚未积蓄起发展势头之前就将其买下；有时，这属于一种“买下再扼杀”的策略，目的就是直接将其关闭。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Although only a research project at this stage, the request has raised the prospect of regulators wading into earlystage tech markets that until now have been beyond their reach.",
+      "mainClause": "the request has raised the prospect.",
+      "structure": "Although后省略了it is，构成让步；of后regulators wading into ...说明prospect的内容；that引导定语从句修饰markets，their指regulators。",
+      "translation": "虽然目前这还只是一个研究项目，但这一要求意味着，监管机构可能会介入早期科技市场；此前，这些市场一直处于其监管触及范围之外。",
+      "tip": "把prospect理解成“出现……的可能性”，不要把研究要求误读成监管已经正式启动。"
+    },
+    {
+      "sentence": "However, critics say the big companies use such deals to buy their most threatening potential competitors before their businesses have a chance to gain momentum, in some cases as part of a “buy and kill” tactic to simply close them down.",
+      "mainClause": "critics say the big companies use such deals to buy ...",
+      "structure": "say后省略that引出宾语从句；before从句限制收购发生的时机；in some cases补充部分交易的策略目的，to close them down修饰tactic。",
+      "translation": "然而，批评者表示，大公司利用这类交易，在最具威胁的潜在竞争对手尚未积蓄起发展势头之前就将其买下；有时，这属于一种“买下再扼杀”的策略，目的就是直接将其关闭。",
+      "tip": "最外层是critics say，要区分批评者的判断和作者直接断言。"
+    }
+  ]
+}

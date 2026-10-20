@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2024-04-what-health-apps-know-about-you.md",
+  "title": "What Health Apps Know About You",
+  "paragraphs": [
+    {
+      "english": "If you look at the apps on your phone, chances are you have at least one related to your health — and probably several. Whether it is a mental health app, a fitness tracker, a connected health device or something else, many of us are taking advantage of this technology to keep better track of our health in some shape or form. Recent research from the Organization for the Review of Care and Health Applications found that 350,000 health apps were available on the market, 90,000 of which launched in 2020 alone.",
+      "chinese": "看看你手机上的应用，很可能至少有一个与健康有关，甚至可能有好几个。无论是心理健康应用、健身追踪器、联网健康设备，还是其他工具，我们许多人都在以某种方式利用这类技术，更好地跟踪自身健康状况。护理与健康应用审查组织最近的研究发现，市场上有35万个健康应用，其中仅2020年就新推出了9万个。"
+    },
+    {
+      "english": "While these apps have a great deal to offer, it is not always clear how the personal information we input is collected, safeguarded and shared online. Existing health privacy law, such as the Health Insurance Portability and Accountability Act, is primarily focused on the way hospitals, doctors’ offices, clinics and insurance companies store health records online. The health information these apps and health data tracking wearables are collecting typically do not receive the same legal protections.",
+      "chinese": "这些应用虽然能提供很多帮助，但我们输入的个人信息如何在线收集、保护和分享，却并不总是清楚的。《健康保险流通与责任法案》等现行健康隐私法律，主要关注医院、医生诊所、门诊机构和保险公司如何在线存储健康记录。这些应用和健康数据追踪可穿戴设备收集的信息，通常得不到同样的法律保护。"
+    },
+    {
+      "english": "Without additional protections in place, companies may share (and potentially monetize) personal health information in a way consumers may not have authorized or anticipated. In 2021, Flo Health faced a Federal Trade Commission (FTC) investigation. The FTC alleged in a complaint that “despite express privacy claims, the company took control of users’ sensitive fertility data and shared it with third parties.” Flo Health and the FTC settled the matter with a Consent Order requiring the company to get app users’ express affirmative consent before sharing their health information as well as to instruct the third parties to delete the data they had obtained.",
+      "chinese": "如果没有额外保护，企业可能会以消费者未曾授权或预料到的方式，分享个人健康信息，甚至将其变现。2021年，Flo Health接受了美国联邦贸易委员会的调查。该委员会在一份诉状中指称，“尽管作出了明确的隐私承诺，这家公司却控制了用户敏感的生育数据，并将其分享给第三方”。Flo Health与委员会通过一项同意令解决了此事。该同意令要求公司在分享用户健康信息前获得用户明确、主动的同意，并要求其指示第三方删除已经获得的数据。"
+    },
+    {
+      "english": "Section 5 of the FTC Act empowers the FTC to initiate enforcement action against unfair or deceptive acts, meaning the FTC can only act after the fact if a company’s privacy practices are misleading or cause unjustified consumer harm. While the FTC is doing what it can to ensure apps are keeping their promises to consumers around the handling of their sensitive health information, the rate at which these health apps are hitting the market demonstrates just how immense of a challenge this is.",
+      "chinese": "《联邦贸易委员会法》第5条授权委员会针对不公平或欺骗行为采取执法行动，这意味着，只有在企业的隐私做法具有误导性或对消费者造成不合理伤害时，委员会才能事后介入。委员会虽正竭尽所能，确保应用在处理消费者敏感健康信息时信守承诺，但这些健康应用进入市场的速度，足以说明这项挑战有多么巨大。"
+    },
+    {
+      "english": "As to the prospects for federal legislation, commentators suggest that comprehensive federal privacy legislation seems unlikely in the short term. States have begun implementing their own solutions to shore up protections for consumer-generated health data. California has been at the forefront of state privacy efforts with the California Consumer Privacy Act of 2018. Virginia, Colorado and Utah have also recently passed state consumer data privacy legislation.",
+      "chinese": "谈到联邦立法前景，评论人士认为，短期内出台全面的联邦隐私法律似乎不太可能。各州已经开始实施自己的解决方案，加强对消费者生成的健康数据的保护。加利福尼亚州凭借2018年的《加州消费者隐私法》，一直走在州级隐私保护工作的前列。弗吉尼亚州、科罗拉多州和犹他州最近也通过了州级消费者数据隐私法律。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Flo Health and the FTC settled the matter with a Consent Order requiring the company to get app users’ express affirmative consent before sharing their health information as well as to instruct the third parties to delete the data they had obtained.",
+      "mainClause": "Flo Health and the FTC settled the matter with a Consent Order.",
+      "structure": "requiring现在分词修饰Consent Order；require ... to get ... as well as to instruct ...并列两项义务；before sharing限定获取同意的时点；they had obtained修饰data。",
+      "translation": "Flo Health与联邦贸易委员会通过一项同意令解决了此事，要求公司在分享用户健康信息前获得用户明确、主动的同意，并指示第三方删除已经获得的数据。",
+      "tip": "as well as连接get与instruct两个不定式，不是把第二项义务归给用户。"
+    },
+    {
+      "sentence": "While the FTC is doing what it can to ensure apps are keeping their promises to consumers around the handling of their sensitive health information, the rate at which these health apps are hitting the market demonstrates just how immense of a challenge this is.",
+      "mainClause": "the rate ... demonstrates just how immense of a challenge this is.",
+      "structure": "While引导让步从句，what it can作doing的宾语；at which引导定语从句修饰rate；how引导demonstrates的宾语从句，说明挑战程度。",
+      "translation": "联邦贸易委员会虽正竭尽所能，确保应用在处理消费者敏感健康信息时信守承诺，但这些健康应用进入市场的速度，足以说明这项挑战有多么巨大。",
+      "tip": "主句主语是rate而非apps，作者用市场扩张的速度说明监管难度。"
+    }
+  ]
+}

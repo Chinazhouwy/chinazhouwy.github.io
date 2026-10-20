@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2022-04-can-ethics-lessons-change-our-actions.md",
+  "title": "Can Ethics Lessons Change Our Actions?",
+  "paragraphs": [
+    {
+      "english": "Although ethics classes are common around the world, scientists are unsure if their lessons can actually change behavior; evidence either way is weak, relying on contrived laboratory tests or sometimes unreliable self-reports. But a new study published in Cognition found that, in at least one real-world situation, a single ethics lesson may have had lasting effects.",
+      "chinese": "虽然伦理课程在世界各地都很常见，但科学家并不确定，这些课程传授的内容是否真的能改变行为。无论支持还是反对，现有证据都很薄弱，依赖的是人为设计的实验室测试，或者有时并不可靠的自我报告。然而，发表在《认知》期刊上的一项新研究发现，至少在一种现实情境中，单独一堂伦理课可能产生了持续的影响。"
+    },
+    {
+      "english": "The researchers investigated one class session’s impact on eating meat. They chose this particular behavior for three reasons, according to study co-author Eric Schwitzgebel, a philosopher at the University of California, Riverside: students’ attitudes on the topic are variable and unstable, behavior is easily measurable, and ethics literature largely agrees that eating less meat is good because it reduces environmental harm and animal suffering. Half of the students in four large philosophy classes read an article on the ethics of factory-farmed meat, optionally watched an 11-minute video on the topic and joined a 50-minute discussion. The other half focused on charitable giving instead. Then, unknown to the students, the researchers studied their anonymized meal-card purchases for that semester—nearly 14,000 receipts for almost 500 students.",
+      "chinese": "研究人员考察了一堂课对吃肉行为的影响。研究共同作者、加州大学河滨分校哲学家埃里克·施维茨格贝尔表示，他们选择这一行为有三个原因：学生对该话题的态度差异较大且不稳定；行为容易测量；伦理学文献大体一致认为少吃肉有益，因为这样可以减少环境危害和动物痛苦。四个大型哲学班中，一半学生阅读了一篇关于工厂化养殖肉类伦理问题的文章，可以选择观看一段11分钟的相关视频，并参加了50分钟的讨论。另一半学生则关注慈善捐赠。随后，在学生不知情的情况下，研究人员分析了他们该学期匿名化的餐卡消费记录——近500名学生的将近1.4万张消费小票。"
+    },
+    {
+      "english": "Schwitzgebel predicted the intervention would have no effect; he had previously found that ethics professors do not differ from other professors on a range of behaviors, including voting rates, blood donation and returning library books. But among student subjects who discussed meat ethics, meal purchases containing meat decreased from 52 to 45 percent—and this effect held steady for the study’s duration of several weeks. Purchases from the other group remained at 52 percent.",
+      "chinese": "施维茨格贝尔预测，这种干预不会有效；此前他曾发现，在投票率、献血和归还图书馆书籍等一系列行为上，伦理学教授与其他教授并无差异。但在讨论过肉食伦理的学生参与者中，含肉餐食的购买比例从52%降到了45%，而且这一效果在持续数周的研究期间保持稳定。另一组学生的购买比例则仍为52%。"
+    },
+    {
+      "english": "“That’s actually a pretty large effect for a pretty small intervention,” Schwitzgebel says. Psychologist Nina Strohminger at the University of Pennsylvania, who was not involved in the study, says she wants the effect to be real but cannot rule out some unknown confounding variable. And if real, she notes, it might be reversible by another nudge: “Easy come, easy go.”",
+      "chinese": "施维茨格贝尔说：“对于一次这么小的干预而言，这其实是相当大的效果。”未参与研究的宾夕法尼亚大学心理学家妮娜·施特罗明格表示，她希望这一效果是真实的，但无法排除某种未知混杂变量的影响。她还指出，即使效果真实存在，也可能被另一次轻推逆转：“来得容易，去得也快。”"
+    },
+    {
+      "english": "Schwitzgebel suspects the greatest impact came from social influence- classmates or teaching assistants leading the discussions may have shared their own vegetarianism, showing it as achievable or more common. Second, the video may have had an emotional impact. Least rousing, he thinks, was rational argument, although his coauthors say reason might play a bigger role. Now the researchers are probing the specific effects of teaching style, teaching assistants’ eating habits and students’ video exposure. Meanwhile, Schwitzgebel—who had predicted no effect—will be eating his words.",
+      "chinese": "施维茨格贝尔怀疑，最大的影响来自社会因素：参与或带领讨论的同学及助教，可能分享了自己吃素的经历，让人觉得这件事能够做到，或者比想象中普遍。其次，视频可能产生了情感影响。他认为，最不容易激发行动的是理性论证，不过他的合作者认为，理性可能发挥更大作用。现在，研究人员正在探查教学风格、助教饮食习惯和学生观看视频的情况各自会产生什么具体效果。与此同时，曾预测不会有效的施维茨格贝尔，不得不收回自己说过的话了。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Although ethics classes are common around the world, scientists are unsure if their lessons can actually change behavior; evidence either way is weak, relying on contrived laboratory tests or sometimes unreliable self-reports.",
+      "mainClause": "scientists are unsure ...; evidence either way is weak.",
+      "structure": "Although引导让步状语从句；if引出unsure的内容，表示“是否”；分号后是另一个独立分句；relying现在分词说明证据依赖什么。",
+      "translation": "虽然伦理课程在世界各地都很常见，但科学家并不确定其内容是否真的能改变行为；无论支持还是反对，现有证据都很薄弱，依赖的是人为设计的实验室测试，或有时并不可靠的自我报告。",
+      "tip": "either way指能改变或不能改变这两种判断；不是说已有证据明确证明无效。"
+    },
+    {
+      "sentence": "Psychologist Nina Strohminger at the University of Pennsylvania, who was not involved in the study, says she wants the effect to be real but cannot rule out some unknown confounding variable.",
+      "mainClause": "Psychologist Nina Strohminger ... says ...",
+      "structure": "who非限制性定语从句补充研究参与情况；says后省略that；wants和cannot rule out以but连接，表达期待与证据谨慎之间的转折。",
+      "translation": "未参与研究的宾夕法尼亚大学心理学家妮娜·施特罗明格表示，她希望这一效果是真实的，但无法排除某种未知混杂变量的影响。",
+      "tip": "rule out是“排除”；希望结果真实，不等于已经排除了其他解释。"
+    }
+  ]
+}

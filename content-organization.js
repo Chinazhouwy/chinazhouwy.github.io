@@ -94,7 +94,7 @@ function organizeArticle(article){
  if(a.visibility!=="public")return a;
  const path=a.path||"";
  a.title=String(a.title||"").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">");
- if(path.startsWith(ENGLISH_PREFIX)||path===ENGLISH_HUB){ a.section="reading";a.lane="reading";a.contentKind="阅读原文";a.collectionId="english"; }
+ if(path.startsWith(ENGLISH_PREFIX)||path===ENGLISH_HUB){ a.section="reading";a.lane="reading";a.contentKind=a.readingFormat==="guide"?"阅读导读":"阅读原文";a.collectionId="english"; }
  if(path==="content/columns/neo4j-wechat-shortest-path.md"){a.section="learning";a.area="数据与中间件";a.module="图数据库与图算法";}
  if(path==="content/columns/cordis-java-dynamic-architecture.md"){a.section="learning";a.area="工程与架构";a.module="插件与生命周期";}
  if(path==="content/columns/interview-deep-dive.md"){a.section="learning";a.area="Java 后端";}

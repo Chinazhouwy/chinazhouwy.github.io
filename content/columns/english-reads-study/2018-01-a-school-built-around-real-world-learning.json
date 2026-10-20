@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2018-01-a-school-built-around-real-world-learning.md",
+  "title": "A School Built Around Real-World Learning",
+  "paragraphs": [
+    {
+      "english": "It is curious that Stephen Koziatek feels almost as though he has to justify his efforts to give his students a better future.",
+      "chinese": "令人奇怪的是，斯蒂芬·科齐亚特克似乎觉得，为了让学生拥有更美好的未来而努力，自己竟还得解释一番。"
+    },
+    {
+      "english": "Mr. Koziatek is part of something pioneering. He is a teacher at a New Hampshire high school where learning is not something of books and tests and mechanical memorization, but practical. When did it become accepted wisdom that students should be able to name the 13th president of the United States but be utterly overwhelmed by a broken bike chain?",
+      "chinese": "科齐亚特克先生正在参与一项开创性的尝试。他是新罕布什尔州一所高中的教师，在这里，学习并不围着书本、考试和死记硬背打转，而是讲求实践。学生应当能说出美国第十三任总统的名字，却可以面对一根坏掉的自行车链条完全束手无策——这样的观念是从什么时候开始成为公认常识的？"
+    },
+    {
+      "english": "As Koziatek knows, there is learning in just about everything. Nothing is necessarily gained by forcing students to learn geometry at a graffitied desk stuck with generations of discarded chewing gum. They can also learn geometry by assembling a bicycle.",
+      "chinese": "正如科齐亚特克所知道的，几乎任何事物都包含学习的机会。强迫学生坐在涂满乱画、粘着历届学生废口香糖的课桌前学几何，未必就能有所收获。他们也可以通过组装自行车来学几何。"
+    },
+    {
+      "english": "But he’s also found a kind of insidious prejudice. Working with your hands is seen as almost a mark of inferiority. Schools in the family of vocational education “have that stereotype...that it’s for kids who can’t make it academically,” he says.",
+      "chinese": "不过，他也发现了一种隐蔽而有害的偏见。动手劳动几乎被视为低人一等的标志。他说，职业教育类学校“总被套上那种刻板印象……仿佛它们是给学业上不行的孩子准备的”。"
+    },
+    {
+      "english": "On one hand, that viewpoint is a logical product of America’s evolution. Manufacturing is not the economic engine that it once was. The job security that the US economy once offered to high school graduates has largely evaporated. More education is the new principle. We want more for our kids, and rightfully so.",
+      "chinese": "一方面，这种观点是美国社会演变的自然产物。制造业已不再像过去那样充当经济引擎。美国经济一度为高中毕业生提供的就业保障，大多已经消失。“接受更多教育”成为新的信条。我们希望孩子拥有更多机会，这完全合情合理。"
+    },
+    {
+      "english": "But the headlong push into bachelor’s degrees for all — and the subtle devaluing of anything less — misses an important point: That’s not the only thing the American economy needs. Yes, a bachelor’s degree opens more doors. But even now, 54 percent of the jobs in the country are middle-skill jobs, such as construction and high-skill manufacturing. But only 44 percent of workers are adequately trained.",
+      "chinese": "但是，一味推动所有人都拿学士学位，同时不动声色地贬低其他教育选择，却忽略了一个重要事实：美国经济所需要的并不只有这一类人才。是的，学士学位确实能打开更多机会之门。但即使在今天，全国百分之五十四的岗位仍属于中等技能工作，例如建筑和高技能制造业；而接受了充分培训的劳动者只有百分之四十四。"
+    },
+    {
+      "english": "In other words, at a time when the working class has turned the country on its political head, frustrated that the opportunity that once defined America is vanishing, one obvious solution is staring us in the face. There is a gap in working-class jobs, but the workers who need those jobs most aren’t equipped to do them. Koziatek’s Manchester School of Technology High School is trying to fill that gap.",
+      "chinese": "换句话说，在工人阶层因那个曾经定义美国的“机会”正在消失而感到失望、并让国家政治格局发生翻转之时，一个显而易见的解决办法就摆在我们眼前。工人阶层的岗位存在缺口，可最需要这些工作的人，却并不具备胜任它们的技能。科齐亚特克所在的曼彻斯特技术高中，正努力填补这个缺口。"
+    },
+    {
+      "english": "Koziatek’s school is a wake-up call. When education becomes one-size-fits-all, it risks overlooking a nation’s diversity of gifts.",
+      "chinese": "科齐亚特克的学校敲响了警钟。当教育变成一套适用于所有人的统一模式时，就可能忽视一个国家中人们天赋的多样性。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "He is a teacher at a New Hampshire high school where learning is not something of books and tests and mechanical memorization, but practical.",
+      "mainClause": "He is a teacher at a New Hampshire high school.",
+      "structure": "where 引导定语从句修饰 high school；从句用 not ... but ... 对照书本考试式学习与实践式学习；practical 作表语，前后表达形式不完全对称，意思仍明确。",
+      "translation": "他在新罕布什尔州的一所高中任教；在那里，学习并不是书本、考试和机械记忆的事情，而是注重实践。",
+      "tip": "where 说明学校的教学方式，不是描述教师个人的学习习惯。"
+    },
+    {
+      "sentence": "In other words, at a time when the working class has turned the country on its political head, frustrated that the opportunity that once defined America is vanishing, one obvious solution is staring us in the face.",
+      "mainClause": "One obvious solution is staring us in the face.",
+      "structure": "at a time when ... 为时间背景，when 从句修饰 time；frustrated ... 描述 working class 的情绪；其后 that 从句说明失望原因，内层 that once defined America 修饰 opportunity。",
+      "translation": "换句话说，当工人阶层因曾经定义美国的机会正在消失而感到失望、进而翻转国家政治格局之时，一个显而易见的解决办法就在眼前。",
+      "tip": "层层修饰都在交代背景，真正主句从 one obvious solution 才开始。"
+    }
+  ]
+}
