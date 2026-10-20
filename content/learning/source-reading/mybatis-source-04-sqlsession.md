@@ -14,33 +14,30 @@ summary: "面试官：SqlSession 是什么？它和 SqlSessionFactory 是什么�
 tags:
   - "MyBatis"
   - "源码分析"
+source: "微信公众号「狂热大猩猩的技术宅」"
+source_url: "https://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484020&idx=1&sn=9bc9313a8519fc01ce47e9636d9e6d49&chksm=c2b8102bf5cf993d184926d0688326a62f77a47598413fadd5d302db34a93e1da26b9507a035"
+published_at: "2026-06-21 11:55:00 +08:00"
 ---
 
 # MyBatis 源码深度拆解（四）：SqlSession 体系深度拆解
 
-> 来源：微信公众号（MyBatis 源码深度拆解系列）
-> 链接：[http://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484020&idx=1&sn=9bc9313a8519fc01ce47e9636d9e6d49&chksm=c2b8102bf5cf993d184926d0688326a62f77a47598413fadd5d302db34a93e1da26b9507a035](http://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484020&idx=1&sn=9bc9313a8519fc01ce47e9636d9e6d49&chksm=c2b8102bf5cf993d184926d0688326a62f77a47598413fadd5d302db34a93e1da26b9507a035)
-> 类型：📚 参考资料（非面试题/面经）—— MyBatis 源码深度拆解系列
-> 相关：第196题(MyBatis 与 Spring 事务整合)
-> 整理时间：2026-08-03
+> 原作者：狂热大猩猩的技术宅 · 2026年6月21日 11:55
+> [阅读微信原文](https://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484020&idx=1&sn=9bc9313a8519fc01ce47e9636d9e6d49&chksm=c2b8102bf5cf993d184926d0688326a62f77a47598413fadd5d302db34a93e1da26b9507a035)
+> 原文排版恢复版：保留原作者内容与顺序，仅整理网页显示格式。
 
----
+<p>面试官：SqlSession 是什么？它和 SqlSessionFactory 是什么关系？SqlSession 里的四大对象是什么时候创建的？</p>
 
-面试官：SqlSession 是什么？它和 SqlSessionFactory 是什么关系？SqlSession 里的四大对象是什么时候创建的？
+<hr/>
 
-一、回顾与开篇
+<h2><strong>一、回顾与开篇</strong></h2>
 
-前几篇我们走通了整体架构，也看了配置加载和 Mapper 代理。今天我们把目光聚焦到
+<p>前几篇我们走通了整体架构，也看了配置加载和 Mapper 代理。今天我们把目光聚焦到<strong>SqlSession</strong>这个“门面”上。</p>
 
-SqlSession
+<p>先看一段最熟悉的代码：</p>
 
-这个“门面”上。
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-先看一段最熟悉的代码：
-
-
-```
-// 1. 构建 SqlSessionFactory
+<pre><code class="language-java">// 1. 构建 SqlSessionFactory
 SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(inputStream);
 // 2. 打开 SqlSession
 SqlSession session = factory.openSession();
@@ -48,99 +45,29 @@ SqlSession session = factory.openSession();
 UserMapper mapper = session.getMapper(UserMapper.class);
 User user = mapper.selectById(1);
 // 4. 关闭会话
-session.close();
-```
+session.close();</code></pre>
 
+<p>第 2 步和第 4 步就是今天的主角：<strong>SqlSession 的创建与销毁</strong>。</p>
 
-第 2 步和第 4 步就是今天的主角：
+<p><strong>本篇目标</strong>：</p>
 
-SqlSession 的创建与销毁
+<ul><li>搞清楚<code>SqlSessionFactory</code>的构建过程</li><li>深入<code>DefaultSqlSession</code>的核心实现</li><li>理清四大对象（Executor、StatementHandler、ParameterHandler、ResultSetHandler）的初始化时机</li><li>理解一级缓存与 SqlSession 的绑定关系</li></ul>
 
-。
+<p><strong>一句话总结</strong>：</p>
 
-本篇目标
+<ul><li><code>SqlSessionFactory</code>是生产<code>SqlSession</code>的工厂</li><li><code>SqlSession</code>是MyBatis的门面接口，对外提供统一的数据库操作API。具体执行时，<code>SqlSession</code>将操作委托给<code>Executor</code>执行器，由<code>Executor</code>统一调度<code>StatementHandler</code>、<code>ParameterHandler</code>和<code>ResultSetHandler</code>三大组件完成SQL执行与结果映射。</li><li><code>DefaultSqlSession</code> 是 MyBatis 原生提供的默认实现类，也是最常用的实现。除此之外，MyBatis 还提供了 <code>SqlSessionManager</code> 实现。在 Spring 整合环境中，核心实现则是 <code>SqlSessionTemplate</code></li></ul>
 
-：
+<p><br/></p>
 
-搞清楚
+<p>本文主要分析MyBatis原生框架中SqlSession的核心设计与实现。第3章补充说明在Spring整合环境下的额外机制（Mapper扫描、<code>SqlSessionTemplate</code>等），阅读时请注意区分纯MyBatis原生逻辑与Spring整合层逻辑</p>
 
-SqlSessionFactory
+<h2><strong>二、SqlSessionFactory 构建流程</strong></h2>
 
-的构建过程
+<h3><strong>2.1 从 builder.build() 说起</strong></h3>
 
-深入
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-DefaultSqlSession
-
-的核心实现
-
-理清四大对象（Executor、StatementHandler、ParameterHandler、ResultSetHandler）的初始化时机
-
-理解一级缓存与 SqlSession 的绑定关系
-
-一句话总结
-
-：
-
-SqlSessionFactory
-
-是生产
-
-SqlSession
-
-的工厂
-
-SqlSession
-
-是MyBatis的门面接口，对外提供统一的数据库操作API。具体执行时，
-
-SqlSession
-
-将操作委托给
-
-Executor
-
-执行器，由
-
-Executor
-
-统一调度
-
-StatementHandler
-
-、
-
-ParameterHandler
-
-和
-
-ResultSetHandler
-
-三大组件完成SQL执行与结果映射。
-
-DefaultSqlSession
-
- 是 MyBatis 原生提供的默认实现类，也是最常用的实现。除此之外，MyBatis 还提供了 
-
-SqlSessionManager
-
- 实现。在 Spring 整合环境中，核心实现则是 
-
-SqlSessionTemplate
-
-本文主要分析MyBatis原生框架中SqlSession的核心设计与实现。第3章补充说明在Spring整合环境下的额外机制（Mapper扫描、
-
-SqlSessionTemplate
-
-等），阅读时请注意区分纯MyBatis原生逻辑与Spring整合层逻辑
-
-二、SqlSessionFactory 构建流程
-
-2.1 从 builder.build() 说起
-
-
-```
-// SqlSessionFactoryBuilder
+<pre><code class="language-typescript">// SqlSessionFactoryBuilder
 public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
     try {
         XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);
@@ -153,25 +80,15 @@ public SqlSessionFactory build(InputStream inputStream, String environment, Prop
 
 public SqlSessionFactory build(Configuration config) {
     return new DefaultSqlSessionFactory(config);
-}
-```
+}</code></pre>
 
+<p>非常简单：解析完 <code>Configuration</code> 后，直接 <code>new DefaultSqlSessionFactory(config)</code>。</p>
 
-非常简单：解析完 
+<h3><strong>2.2 DefaultSqlSessionFactory 的结构</strong></h3>
 
-Configuration
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
- 后，直接 
-
-new DefaultSqlSessionFactory(config)
-
-。
-
-2.2 DefaultSqlSessionFactory 的结构
-
-
-```
-// DefaultSqlSessionFactory
+<pre><code class="language-typescript">// DefaultSqlSessionFactory
 public class DefaultSqlSessionFactory implements SqlSessionFactory {
     private final Configuration configuration;
 
@@ -196,121 +113,37 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
     }
 
     // ... 其他重载
-}
-```
+}</code></pre>
 
+<h3><strong>关键点</strong>：<code>DefaultSqlSessionFactory</code> 只是 <code>Configuration</code> 的持有者，不保存任何会话状态，所以是<strong>线程安全的</strong>，可以被多个线程共享。</h3>
 
-关键点
+<h2><strong>三、@MapperScan 底层注册流程</strong></h2>
 
-：
+<h3><strong>3.1 整体设计理念：延迟扫描</strong></h3>
 
-DefaultSqlSessionFactory
+<p>在 3.0.x 版本中，<code>@MapperScan</code>的设计理念是<strong>延迟扫描 + 职责分离</strong>：</p>
 
- 只是 
+<table><tbody><tr><td><p>角色</p></td><td><p>实现类</p></td><td><p>核心职责</p></td></tr><tr><td><p><strong>触发者</strong></p></td><td><p><code>@MapperScan 注解</code></p></td><td><p>声明扫描范围，通过<code>@Import</code></p><p>导入 Registrar</p></td></tr><tr><td><p><strong>定义注册者</strong></p></td><td><p><code>MapperScannerRegistrar</code></p></td><td><p>注册<code>MapperScannerConfigurer</code></p><p>的 BeanDefinition</p></td></tr><tr><td><p><strong>扫描执行者</strong></p></td><td><p><code>MapperScannerConfigurer</code></p></td><td><p>实现<code>BeanDefinitionRegistryPostProcessor</code></p><p>，在 Spring 生命周期中触发扫描</p></td></tr><tr><td><p><strong>核心扫描器</strong></p></td><td><p><code>ClassPathMapperScanner</code></p></td><td><p>执行真正的包扫描和 BeanDefinition 转换</p></td></tr></tbody></table>
 
-Configuration
+<h3><strong>3.2 阶段一：MapperScannerRegistrar — 注册扫描器定义</strong></h3>
 
- 的持有者，不保存任何会话状态，所以是
+<p><code>@MapperScan</code> 注解通过 <code>@Import</code> 导入了 <code>MapperScannerRegistrar</code></p>
 
-线程安全的
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-，可以被多个线程共享。
-
-三、@MapperScan 底层注册流程
-
-3.1 整体设计理念：延迟扫描
-
-在 3.0.x 版本中，
-
-@MapperScan
-
-的设计理念是
-
-延迟扫描 + 职责分离
-
-：
-
-角色
-
-实现类
-
-核心职责
-
-触发者
-
-@MapperScan 注解
-
-声明扫描范围，通过
-
-@Import
-
-导入 Registrar
-
-定义注册者
-
-MapperScannerRegistrar
-
-注册
-
-MapperScannerConfigurer
-
-的 BeanDefinition
-
-扫描执行者
-
-MapperScannerConfigurer
-
-实现
-
-BeanDefinitionRegistryPostProcessor
-
-，在 Spring 生命周期中触发扫描
-
-核心扫描器
-
-ClassPathMapperScanner
-
-执行真正的包扫描和 BeanDefinition 转换
-
-3.2 阶段一：MapperScannerRegistrar — 注册扫描器定义
-
-@MapperScan
-
- 注解通过 
-
-@Import
-
- 导入了 
-
-MapperScannerRegistrar
-
-
-```
-@Retention(RetentionPolicy.RUNTIME)
+<pre><code class="language-java">@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Import(MapperScannerRegistrar.class)
 public @interface MapperScan {
     String[] basePackages() default {};
     // ... 其他属性
-}
-```
+}</code></pre>
 
+<p><code>MapperScannerRegistrar</code> 实现了 <code>ImportBeanDefinitionRegistrar</code> 接口，Spring 启动时会调用其 <code>registerBeanDefinitions</code> 方法</p>
 
-MapperScannerRegistrar
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
- 实现了 
-
-ImportBeanDefinitionRegistrar
-
- 接口，Spring 启动时会调用其 
-
-registerBeanDefinitions
-
- 方法
-
-
-```
-@Override
+<pre><code class="language-typescript">@Override
 public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
                                     BeanDefinitionRegistry registry) {
     // 1. 获取 @MapperScan 注解的所有属性
@@ -339,55 +172,21 @@ private void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
 
     // 6. 注册到 Spring 容器，此时扫描尚未执行
     registry.registerBeanDefinition(beanName, builder.getBeanDefinition());
-}
-```
+}</code></pre>
 
+<p><strong>核心要点</strong>：</p>
 
-核心要点
+<ul><li><code>MapperScannerRegistrar</code><strong>只注册 </strong><code><strong>MapperScannerConfigurer</strong></code><strong> 的 BeanDefinition</strong>，不执行扫描</li><li>扫描动作被推迟到 Spring 后续的生命周期中执行</li></ul>
 
-：
+<h3><strong>3.3 阶段二：MapperScannerConfigurer — 触发扫描</strong></h3>
 
-MapperScannerRegistrar
+<p><code>MapperScannerConfigurer</code> 实现了 <code>BeanDefinitionRegistryPostProcessor</code> 接口，这是 Spring 提供的核心扩展点，允许在 Bean 实例化之前修改或新增 BeanDefinition。</p>
 
-只注册 
+<p>Spring 在 <code>refresh()</code> 容器的 <code>invokeBeanDefinitionRegistryPostProcessors</code> 阶段，会回调 <code>postProcessBeanDefinitionRegistry</code> 方法：</p>
 
-MapperScannerConfigurer
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
- 的 BeanDefinition
-
-，不执行扫描
-
-扫描动作被推迟到 Spring 后续的生命周期中执行
-
-3.3 阶段二：MapperScannerConfigurer — 触发扫描
-
-MapperScannerConfigurer
-
- 实现了 
-
-BeanDefinitionRegistryPostProcessor
-
- 接口，这是 Spring 提供的核心扩展点，允许在 Bean 实例化之前修改或新增 BeanDefinition。
-
-Spring 在 
-
-refresh()
-
- 容器的 
-
-invokeBeanDefinitionRegistryPostProcessors
-
- 阶段，会回调 
-
-postProcessBeanDefinitionRegistry
-
- 方法
-
-：
-
-
-```
-public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
+<pre><code class="language-kotlin">public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
     // 1. 处理占位符（如 ${basePackage}）
     if (this.processPropertyPlaceHolders) {
         processPropertyPlaceHolders();
@@ -411,41 +210,23 @@ public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
     // 5. 执行扫描（核心动作）
     scanner.scan(StringUtils.tokenizeToStringArray(this.basePackage,
         ConfigurableApplicationContext.CONFIG_LOCATION_DELIMITERS));
-}
-```
+}</code></pre>
 
+<p><strong>执行时机</strong>：此方法在<strong>容器解析完所有 XML 和注解配置之后、任何 Bean 实例化之前</strong>执行，是 Spring 提供的最后添加 BeanDefinition 的地方</p>
 
-执行时机
+<h3><strong>3.4 阶段三：ClassPathMapperScanner — 扫描与 BeanDefinition 转换</strong></h3>
 
-：此方法在
+<p><code>ClassPathMapperScanner</code> 继承自 Spring 的 <code>ClassPathBeanDefinitionScanner</code>，重写了 <code>doScan</code> 方法：</p>
 
-容器解析完所有 XML 和注解配置之后、任何 Bean 实例化之前
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-执行，是 Spring 提供的最后添加 BeanDefinition 的地方
-
-3.4 阶段三：ClassPathMapperScanner — 扫描与 BeanDefinition 转换
-
-ClassPathMapperScanner
-
- 继承自 Spring 的 
-
-ClassPathBeanDefinitionScanner
-
-，重写了 
-
-doScan
-
- 方法：
-
-
-```
-public class ClassPathMapperScanner extends ClassPathBeanDefinitionScanner {
-    private Class<? extends MapperFactoryBean> mapperFactoryBeanClass = MapperFactoryBean.class;
+<pre><code class="language-typescript">public class ClassPathMapperScanner extends ClassPathBeanDefinitionScanner {
+    private Class&lt;? extends MapperFactoryBean&gt; mapperFactoryBeanClass = MapperFactoryBean.class;
 
     @Override
-    public Set<BeanDefinitionHolder> doScan(String... basePackages) {
+    public Set&lt;BeanDefinitionHolder&gt; doScan(String... basePackages) {
         // 1. 调用父类进行标准组件扫描，得到原始 BeanDefinition（beanClass = 接口本身）
-        Set<BeanDefinitionHolder> beanDefinitions = super.doScan(basePackages);
+        Set&lt;BeanDefinitionHolder&gt; beanDefinitions = super.doScan(basePackages);
 
         if (!beanDefinitions.isEmpty()) {
             // 2. 对扫描到的 BeanDefinition 进行二次处理（关键步骤）
@@ -454,7 +235,7 @@ public class ClassPathMapperScanner extends ClassPathBeanDefinitionScanner {
         return beanDefinitions;
     }
 
-    private void processBeanDefinitions(Set<BeanDefinitionHolder> beanDefinitions) {
+    private void processBeanDefinitions(Set&lt;BeanDefinitionHolder&gt; beanDefinitions) {
         for (BeanDefinitionHolder holder : beanDefinitions) {
             BeanDefinition definition = holder.getBeanDefinition();
 
@@ -474,70 +255,24 @@ public class ClassPathMapperScanner extends ClassPathBeanDefinitionScanner {
             }
         }
     }
-}
-```
+}</code></pre>
 
+<p><strong>关键转换</strong>：</p>
 
-关键转换
+<table><tbody><tr><td><p>转换前</p></td><td><p>转换后</p></td></tr><tr><td><p>beanName =<code>userMapper</code></p></td><td><p>beanName =<code>userMapper</code></p><p>（不变）</p></td></tr><tr><td><p>beanClass =<code>com.example.mapper.UserMapper</code></p><p>（接口）</p></td><td><p>beanClass =<code>MapperFactoryBean</code></p></td></tr><tr><td><p>无构造参数</p></td><td><p>构造参数 =<code>UserMapper.class</code></p></td></tr></tbody></table>
 
-：
+<h3><strong>3.5 阶段四：MapperFactoryBean — 生成代理对象</strong></h3>
 
-转换前
+<p>经过上述转换，Spring 容器中每个 Mapper 接口都对应一个<code>MapperFactoryBean</code>的 BeanDefinition。</p>
 
-转换后
+<p><code>MapperFactoryBean</code> 实现了 <code>FactoryBean</code> 接口，Spring 实例化时会调用 <code>getObject()</code> 方法获取真正的 Mapper 代理对象：</p>
 
-beanName =
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-userMapper
+<pre><code class="language-java">public class MapperFactoryBean&lt;T&gt; extends SqlSessionDaoSupport implements FactoryBean&lt;T&gt; {
+    private Class&lt;T&gt; mapperInterface;
 
-beanName =
-
-userMapper
-
-（不变）
-
-beanClass =
-
-com.example.mapper.UserMapper
-
-（接口）
-
-beanClass =
-
-MapperFactoryBean
-
-无构造参数
-
-构造参数 =
-
-UserMapper.class
-
-3.5 阶段四：MapperFactoryBean — 生成代理对象
-
-经过上述转换，Spring 容器中每个 Mapper 接口都对应一个
-
-MapperFactoryBean
-
-的 BeanDefinition。
-
-MapperFactoryBean
-
- 实现了 
-
-FactoryBean
-
- 接口，Spring 实例化时会调用 
-
-getObject()
-
- 方法获取真正的 Mapper 代理对象：
-
-
-```
-public class MapperFactoryBean<T> extends SqlSessionDaoSupport implements FactoryBean<T> {
-    private Class<T> mapperInterface;
-
-    public MapperFactoryBean(Class<T> mapperInterface) {
+    public MapperFactoryBean(Class&lt;T&gt; mapperInterface) {
         this.mapperInterface = mapperInterface;
     }
     @Override
@@ -545,41 +280,25 @@ public class MapperFactoryBean<T> extends SqlSessionDaoSupport implements Factor
         // 通过 SqlSession 获取 Mapper 代理对象
         return getSqlSession().getMapper(this.mapperInterface);
     }
-}
-```
+}</code></pre>
 
+<p><code>getSqlSession().getMapper()</code>的调用链最终进入 MyBatis 核心：</p>
 
-getSqlSession().getMapper()
+<ul><li></li><li></li><li></li><li></li><li></li></ul>
 
-的调用链最终进入 MyBatis 核心：
-
-
-```
-SqlSessionTemplate.getMapper()
+<pre><code class="language-javascript">SqlSessionTemplate.getMapper()
     → Configuration.getMapper()
         → MapperRegistry.getMapper()
             → MapperProxyFactory.newInstance()
-                → Proxy.newProxyInstance() → 生成 MapperProxy
-```
+                → Proxy.newProxyInstance() → 生成 MapperProxy</code></pre>
 
+<p>最终，Spring 容器中存入的是 <code><strong>MapperProxy</strong></code><strong> 动态代理对象</strong>，这就是为什么我们可以直接用 <code>@Autowired</code> 注入一个接口的原因。</p>
 
-最终，Spring 容器中存入的是 
+<h3><strong>3.6 完整调用链总览</strong></h3>
 
-MapperProxy
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
- 动态代理对象
-
-，这就是为什么我们可以直接用 
-
-@Autowired
-
- 注入一个接口的原因。
-
-3.6 完整调用链总览
-
-
-```
-启动类 @MapperScan("com.example.mapper")
+<pre><code class="language-cs">启动类 @MapperScan("com.example.mapper")
     ↓
 @Import(MapperScannerRegistrar.class)
     ↓
@@ -604,46 +323,38 @@ MapperScannerConfigurer.postProcessBeanDefinitionRegistry()
                 → MapperProxyFactory.newInstance()
                     → JDK 动态代理 → MapperProxy
         ↓
-Spring 容器注入 MapperProxy 代理对象
-```
+Spring 容器注入 MapperProxy 代理对象</code></pre>
 
+<h2><strong>四、DefaultSqlSession 核心源码拆解</strong></h2>
 
-四、DefaultSqlSession 核心源码拆解
+<h3><strong>4.1 核心字段</strong></h3>
 
-4.1 核心字段
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-
-```
-public class DefaultSqlSession implements SqlSession {
+<pre><code class="language-php">public class DefaultSqlSession implements SqlSession {
     private final Configuration configuration;  // 全局配置
     private final Executor executor;            // 执行器
     private final boolean autoCommit;           // 是否自动提交
     private boolean dirty;                      // 是否有数据变更（用于判断是否需要提交/回滚）
-    private List<Cursor<?>> cursors;            // 游标集合，用于 close 时批量关闭
+    private List&lt;Cursor&lt;?&gt;&gt; cursors;            // 游标集合，用于 close 时批量关闭
 
     // ... 其他
-}
-```
+}</code></pre>
 
+<h3><strong>4.2 查询方法链路</strong></h3>
 
-4.2 查询方法链路
+<p>以 <code>selectOne</code> 为例：</p>
 
-以 
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-selectOne
-
- 为例：
-
-
-```
-// DefaultSqlSession
+<pre><code class="language-typescript">// DefaultSqlSession
 @Override
-public <T> T selectOne(String statement, Object parameter) {
+public &lt;T&gt; T selectOne(String statement, Object parameter) {
     // 委托给 selectList，然后取第一个元素
-    List<T> list = this.selectList(statement, parameter);
+    List&lt;T&gt; list = this.selectList(statement, parameter);
     if (list.size() == 1) {
         return list.get(0);
-    } else if (list.size() > 1) {
+    } else if (list.size() &gt; 1) {
         throw new TooManyResultsException("...");
     } else {
         return null;
@@ -651,12 +362,12 @@ public <T> T selectOne(String statement, Object parameter) {
 }
 
 @Override
-public <E> List<E> selectList(String statement, Object parameter) {
+public &lt;E&gt; List&lt;E&gt; selectList(String statement, Object parameter) {
     return this.selectList(statement, parameter, RowBounds.DEFAULT);
 }
 
 @Override
-public <E> List<E> selectList(String statement, Object parameter, RowBounds rowBounds) {
+public &lt;E&gt; List&lt;E&gt; selectList(String statement, Object parameter, RowBounds rowBounds) {
     try {
         // 1. 从 Configuration 中获取 MappedStatement
         MappedStatement ms = configuration.getMappedStatement(statement);
@@ -667,53 +378,19 @@ public <E> List<E> selectList(String statement, Object parameter, RowBounds rowB
     } finally {
         ErrorContext.instance().reset();
     }
-}
-```
+}</code></pre>
 
+<p><strong>关键点</strong>：</p>
 
-关键点
+<ul><li><code>selectOne</code>本质是<code>selectList</code>的包装，取第一个元素</li><li><code>statement</code>参数是 Mapper XML 中的<code>namespace.methodId</code></li><li>参数如果是集合类型，会被包装（避免参数名解析问题）</li></ul>
 
-：
+<h3><strong>4.3 更新方法链路</strong></h3>
 
-selectOne
+<p>以 <code>insert</code> / <code>update</code> / <code>delete</code> 为例，它们都走 <code>update</code> 方法：</p>
 
-本质是
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-selectList
-
-的包装，取第一个元素
-
-statement
-
-参数是 Mapper XML 中的
-
-namespace.methodId
-
-参数如果是集合类型，会被包装（避免参数名解析问题）
-
-4.3 更新方法链路
-
-以 
-
-insert
-
- / 
-
-update
-
- / 
-
-delete
-
- 为例，它们都走 
-
-update
-
- 方法：
-
-
-```
-// DefaultSqlSession
+<pre><code class="language-typescript">// DefaultSqlSession
 @Override
 public int insert(String statement, Object parameter) {
     return update(statement, parameter);
@@ -729,97 +406,19 @@ public int update(String statement, Object parameter) {
     } finally {
         ErrorContext.instance().reset();
     }
-}
-```
+}</code></pre>
 
+<p><strong>关键点</strong>：<code>dirty</code>标志用于标记当前<code>SqlSession</code>是否执行过任何数据变更操作（<code>insert</code>/<code>update</code>/<code>delete</code>），是事务提交判断的核心依据：</p>
 
-关键点
+<ul><li><code>autoCommit = false</code>时，<code>commit()</code>方法会检查<code>isCommitOrRollbackRequired</code>方法，若<code>dirty</code>为<code>true</code>则提交事务并将<code>dirty</code>重置为<code>false</code>；<code>close()</code>方法同理，若<code>dirty</code>为<code>true</code>则回滚事务。</li><li><code>autoCommit = true</code>时，<code>dirty</code>标志不影响提交/回滚，因为数据库事务由JDBC自动提交管理。</li></ul>
 
-：
+<p>需要注意的是，以上是纯MyBatis原生机制。在Spring整合场景下，事务由Spring的<code>PlatformTransactionManager</code>统一管理，不应再手动调用<code>sqlSession.commit()</code>。</p>
 
-dirty
+<h3><strong>4.4 事务管理：commit / rollback / close</strong></h3>
 
-标志用于标记当前
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-SqlSession
-
-是否执行过任何数据变更操作（
-
-insert
-
-/
-
-update
-
-/
-
-delete
-
-），是事务提交判断的核心依据：
-
-autoCommit = false
-
-时，
-
-commit()
-
-方法会检查
-
-isCommitOrRollbackRequired
-
-方法，若
-
-dirty
-
-为
-
-true
-
-则提交事务并将
-
-dirty
-
-重置为
-
-false
-
-；
-
-close()
-
-方法同理，若
-
-dirty
-
-为
-
-true
-
-则回滚事务。
-
-autoCommit = true
-
-时，
-
-dirty
-
-标志不影响提交/回滚，因为数据库事务由JDBC自动提交管理。
-
-需要注意的是，以上是纯MyBatis原生机制。在Spring整合场景下，事务由Spring的
-
-PlatformTransactionManager
-
-统一管理，不应再手动调用
-
-sqlSession.commit()
-
-。
-
-4.4 事务管理：commit / rollback / close
-
-
-```
-// DefaultSqlSession
+<pre><code class="language-typescript">// DefaultSqlSession
 @Override
 public void commit() {
     commit(false);
@@ -875,59 +474,25 @@ public void close() {
 
 // 判断是否需要提交/回滚
 private boolean isCommitOrRollbackRequired(boolean force) {
-    return (!autoCommit && dirty) || force;
-}
-```
+    return (!autoCommit &amp;&amp; dirty) || force;
+}</code></pre>
 
+<p><strong>事务逻辑总结</strong>：</p>
 
-事务逻辑总结
+<table><tbody><tr><td><p>场景</p></td><td><p>autoCommit=false（默认）</p></td><td><p>autoCommit=true</p></td></tr><tr><td><p>执行更新后</p></td><td><p>dirty=true，需要手动 commit</p></td><td><p>自动提交，dirty 变化不影响</p></td></tr><tr><td><p>close() 时</p></td><td><p>如果 dirty=true，自动 rollback</p></td><td><p>直接关闭</p></td></tr><tr><td><p>commit(force)</p></td><td><p>正常提交</p></td><td><p>即使 autoCommit=true 也提交</p></td></tr></tbody></table>
 
-：
+<h2><strong>五、四大对象的初始化时机</strong></h2>
 
-场景
+<h3><strong>5.1 Executor：SqlSession 创建时初始化</strong></h3>
 
-autoCommit=false（默认）
+<p>在<code>openSessionFromDataSource</code>中，通过<code>configuration.newExecutor()</code>创建。</p>
 
-autoCommit=true
+<h3><strong>5.2 StatementHandler：执行 SQL 时创建</strong></h3>
 
-执行更新后
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-dirty=true，需要手动 commit
-
-自动提交，dirty 变化不影响
-
-close() 时
-
-如果 dirty=true，自动 rollback
-
-直接关闭
-
-commit(force)
-
-正常提交
-
-即使 autoCommit=true 也提交
-
-五、四大对象的初始化时机
-
-5.1 Executor：SqlSession 创建时初始化
-
-在
-
-openSessionFromDataSource
-
-中，通过
-
-configuration.newExecutor()
-
-创建。
-
-5.2 StatementHandler：执行 SQL 时创建
-
-
-```
-// SimpleExecutor.doQuery
-public <E> List<E> doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds,
+<pre><code class="language-java">// SimpleExecutor.doQuery
+public &lt;E&gt; List&lt;E&gt; doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds,
                            ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
     Statement stmt = null;
     try {
@@ -936,13 +501,11 @@ public <E> List<E> doQuery(MappedStatement ms, Object parameter, RowBounds rowBo
         StatementHandler handler = configuration.newStatementHandler(wrapper, ms, parameter, rowBounds, resultHandler, boundSql);
         // ...
     }
-}
-```
+}</code></pre>
 
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-
-```
-// Configuration
+<pre><code class="language-typescript">// Configuration
 public StatementHandler newStatementHandler(Executor executor, MappedStatement ms, Object parameter,
                                              RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
     // 创建 RoutingStatementHandler（会根据 SQL 类型路由到对应的 StatementHandler）
@@ -950,15 +513,13 @@ public StatementHandler newStatementHandler(Executor executor, MappedStatement m
     // 插件拦截
     statementHandler = (StatementHandler) interceptorChain.pluginAll(statementHandler);
     return statementHandler;
-}
-```
+}</code></pre>
 
+<h3><strong>5.3 ParameterHandler 和 ResultSetHandler：在 StatementHandler 创建时初始化</strong></h3>
 
-5.3 ParameterHandler 和 ResultSetHandler：在 StatementHandler 创建时初始化
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-
-```
-// RoutingStatementHandler 构造方法
+<pre><code class="language-cs">// RoutingStatementHandler 构造方法
 public RoutingStatementHandler(Executor executor, MappedStatement ms, Object parameter,
                                RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
     // 根据 MappedStatement 的类型，选择具体的 StatementHandler
@@ -975,84 +536,42 @@ public RoutingStatementHandler(Executor executor, MappedStatement ms, Object par
         default:
             throw new RuntimeException("...");
     }
-}
-```
+}</code></pre>
 
+<p>而这些具体的 StatementHandler 的父类 <code>BaseStatementHandler</code> 在构造时会创建 ParameterHandler 和 ResultSetHandler</p>
 
-而这些具体的 StatementHandler 的父类 
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-BaseStatementHandler
-
- 在构造时会创建 ParameterHandler 和 ResultSetHandler
-
-
-```
-// BaseStatementHandler 构造方法
+<pre><code class="language-kotlin">// BaseStatementHandler 构造方法
 protected BaseStatementHandler(Executor executor, MappedStatement ms, Object parameter,
                                RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
     // ...
     this.parameterHandler = configuration.newParameterHandler(ms, parameter, boundSql);
     this.resultSetHandler = configuration.newResultSetHandler(executor, ms, rowBounds, parameterHandler, resultHandler, boundSql);
 }
+</code></pre>
 
-```
+<p><strong>总结</strong>：</p>
 
+<table><tbody><tr><td><p>对象</p></td><td><p>初始化时机</p></td><td><p>创建位置</p></td></tr><tr><td><p>Executor</p></td><td><p>openSession 时</p></td><td><p>Configuration.newExecutor()</p></td></tr><tr><td><p>StatementHandler</p></td><td><p>执行 SQL 时</p></td><td><p>Configuration.newStatementHandler()</p></td></tr><tr><td><p>ParameterHandler</p></td><td><p>创建 StatementHandler 时</p></td><td><p>Configuration.newParameterHandler()</p></td></tr><tr><td><p>ResultSetHandler</p></td><td><p>创建 StatementHandler 时</p></td><td><p>Configuration.newResultSetHandler()</p></td></tr></tbody></table>
 
-总结
+<h2><strong>六、一级缓存与 SqlSession 的绑定</strong></h2>
 
-：
+<p>一级缓存是 SqlSession 级别的，在 Executor 中实现。回顾 <code>BaseExecutor</code>：</p>
 
-对象
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-初始化时机
-
-创建位置
-
-Executor
-
-openSession 时
-
-Configuration.newExecutor()
-
-StatementHandler
-
-执行 SQL 时
-
-Configuration.newStatementHandler()
-
-ParameterHandler
-
-创建 StatementHandler 时
-
-Configuration.newParameterHandler()
-
-ResultSetHandler
-
-创建 StatementHandler 时
-
-Configuration.newResultSetHandler()
-
-六、一级缓存与 SqlSession 的绑定
-
-一级缓存是 SqlSession 级别的，在 Executor 中实现。回顾 
-
-BaseExecutor
-
-：
-
-
-```
-// BaseExecutor
+<pre><code class="language-typescript">// BaseExecutor
 public abstract class BaseExecutor implements Executor {
     protected PerpetualCache localCache;      // 一级缓存
     protected PerpetualCache localOutputParameterCache;
 
     // 查询时先从缓存取
     @Override
-    public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds,
+    public &lt;E&gt; List&lt;E&gt; query(MappedStatement ms, Object parameter, RowBounds rowBounds,
                              ResultHandler resultHandler, CacheKey key, BoundSql boundSql) {
         // 从 localCache 中获取
-        List<E> list = resultHandler == null ? (List<E>) localCache.getObject(key) : null;
+        List&lt;E&gt; list = resultHandler == null ? (List&lt;E&gt;) localCache.getObject(key) : null;
         if (list != null) {
             // 缓存命中
             handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);
@@ -1062,128 +581,54 @@ public abstract class BaseExecutor implements Executor {
         }
         return list;
     }
-}
-```
+}</code></pre>
 
+<p><strong>关键点</strong>：</p>
 
-关键点
+<ul><li>一级缓存的生命周期 = SqlSession 的生命周期</li><li>SqlSession 关闭时，一级缓存随之销毁</li><li>执行 update/insert/delete 会清空一级缓存</li></ul>
 
-：
+<hr/>
 
-一级缓存的生命周期 = SqlSession 的生命周期
+<h2><strong>七、面试高频题</strong></h2>
 
-SqlSession 关闭时，一级缓存随之销毁
+<h3>Q1：SqlSessionFactory 是线程安全的吗？SqlSession 呢？</h3>
 
-执行 update/insert/delete 会清空一级缓存
+<p><strong>A</strong>：</p>
 
-七、面试高频题
+<ul><li><code>SqlSessionFactory</code>是线程安全的，因为它只持有<code>Configuration</code>（不可变），多个线程可以共享同一个工厂。</li><li><code>SqlSession</code>不是线程安全的，每个线程应该有自己的 SqlSession，用完关闭。这也是为什么在 Web 应用中，通常一个请求对应一个 SqlSession。</li></ul>
 
-Q1：SqlSessionFactory 是线程安全的吗？SqlSession 呢？
+<h3>Q2：openSession() 和不带参数的 openSession() 有什么区别？</h3>
 
-A
+<p><strong>A</strong>：</p>
 
-：
+<ul><li><code>openSession()</code>：不自动提交，需要手动 commit。</li><li><code>openSession(true)</code>：自动提交，每次 SQL 执行后自动 commit。</li><li><code>openSession(ExecutorType.BATCH)</code>：批量执行器，适合批量操作。</li></ul>
 
-SqlSessionFactory
+<h3>Q3：Executor 和 StatementHandler 的区别？</h3>
 
-是线程安全的，因为它只持有
+<p><strong>A</strong>：</p>
 
-Configuration
+<ul><li><code>Executor</code>是执行器的顶级接口，负责管理一级缓存、事务、批量操作等<strong>粗粒度</strong>的逻辑。</li><li><code>StatementHandler</code>负责<strong>细粒度</strong>的 JDBC Statement 操作：创建 Statement、设置参数、执行 SQL、处理结果集。</li><li>Executor 内部调用 StatementHandler 完成具体的数据库操作。</li></ul>
 
-（不可变），多个线程可以共享同一个工厂。
+<h3>Q4：DefaultSqlSession 里的 dirty 标志位有什么用？</h3>
 
-SqlSession
+<p><strong>A</strong>：<code>dirty</code>表示自上次 commit/rollback 以来，是否执行过 insert/update/delete 等变更操作。在<code>close()</code>时，如果<code>dirty</code>为 true 且<code>autoCommit</code>为 false，则会自动回滚，防止未提交的变更被意外丢失。</p>
 
-不是线程安全的，每个线程应该有自己的 SqlSession，用完关闭。这也是为什么在 Web 应用中，通常一个请求对应一个 SqlSession。
+<h3>Q5：SqlSession 的 close() 会不会把连接也关了？</h3>
 
-Q2：openSession() 和不带参数的 openSession() 有什么区别？
+<p><strong>A</strong>：会。<code>close()</code>会调用<code>executor.close()</code>，最终关闭数据库连接（连接会归还给连接池）。这也是为什么每次用完 SqlSession 都要 close 的原因。</p>
 
-A
+<hr/>
 
-：
+<h2><strong>八、下篇预告</strong></h2>
 
-openSession()
+<p>第 5 篇我们将深入<strong>Executor 执行器三级架构</strong>，详细拆解：</p>
 
-：不自动提交，需要手动 commit。
+<ul><li>SimpleExecutor、ReuseExecutor、BatchExecutor 的实现差异</li><li>CachingExecutor 如何用装饰器模式包装二级缓存</li><li>执行器的创建与选择逻辑</li></ul>
 
-openSession(true)
+<p>如果觉得有帮助，欢迎<strong>点赞、在看、转发</strong>支持！</p>
 
-：自动提交，每次 SQL 执行后自动 commit。
+<p>系列持续更新，关注不走丢 👇</p>
 
-openSession(ExecutorType.BATCH)
+<br/>
 
-：批量执行器，适合批量操作。
-
-Q3：Executor 和 StatementHandler 的区别？
-
-A
-
-：
-
-Executor
-
-是执行器的顶级接口，负责管理一级缓存、事务、批量操作等
-
-粗粒度
-
-的逻辑。
-
-StatementHandler
-
-负责
-
-细粒度
-
-的 JDBC Statement 操作：创建 Statement、设置参数、执行 SQL、处理结果集。
-
-Executor 内部调用 StatementHandler 完成具体的数据库操作。
-
-Q4：DefaultSqlSession 里的 dirty 标志位有什么用？
-
-A
-
-：
-
-dirty
-
-表示自上次 commit/rollback 以来，是否执行过 insert/update/delete 等变更操作。在
-
-close()
-
-时，如果
-
-dirty
-
-为 true 且
-
-autoCommit
-
-为 false，则会自动回滚，防止未提交的变更被意外丢失。
-
-Q5：SqlSession 的 close() 会不会把连接也关了？
-
-A
-
-：会。
-
-close()
-
-会调用
-
-executor.close()
-
-，最终关闭数据库连接（连接会归还给连接池）。这也是为什么每次用完 SqlSession 都要 close 的原因。
-
-八、下篇预告
-
-第 5 篇我们将深入
-
-Executor 执行器三级架构
-
-，详细拆解：
-
-SimpleExecutor、ReuseExecutor、BatchExecutor 的实现差异
-
-CachingExecutor 如何用装饰器模式包装二级缓存
-
-执行器的创建与选择逻辑
+<p></p>

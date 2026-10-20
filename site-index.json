@@ -4227,6 +4227,7 @@
       "points": [
         "MyBatis 源码",
         "内存管理",
+        "TypeScript",
         "AOP 与代理",
         "设计模式",
         "ThreadLocal"
@@ -4238,9 +4239,9 @@
       "score": null,
       "questionNumber": null,
       "question": "",
-      "sourceTitle": "",
-      "sourceUrl": "",
-      "sourcePublishedAt": "",
+      "sourceTitle": "微信公众号「狂热大猩猩的技术宅」",
+      "sourceUrl": "https://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484061&idx=1&sn=cc54c7165c0d484453f9669e763f466e&chksm=c2b810c2f5cf99d4c10cc9c81689e970e150248bfad0b2caa54614b30d003ba7b91dbc9d2425",
+      "sourcePublishedAt": "2026-08-03 20:48:00 +08:00",
       "contentKind": "知识笔记"
     },
     {
@@ -4581,7 +4582,8 @@
       ],
       "points": [
         "MyBatis 源码",
-        "Spring 事务"
+        "Spring 事务",
+        "TypeScript"
       ],
       "section": "learning",
       "topic": "MyBatis 源码拆解",
@@ -4590,9 +4592,9 @@
       "score": null,
       "questionNumber": null,
       "question": "",
-      "sourceTitle": "",
-      "sourceUrl": "",
-      "sourcePublishedAt": "",
+      "sourceTitle": "微信公众号「狂热大猩猩的技术宅」",
+      "sourceUrl": "https://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484057&idx=1&sn=6a1425b89e56f10244a4174f7bdf5f41&chksm=c2b810c6f5cf99d03ed7738fa8a3a7434d90989cb10fc14989133205aa5dfe524de9278183af",
+      "sourcePublishedAt": "2026-07-27 19:54:00 +08:00",
       "contentKind": "知识笔记"
     },
     {
@@ -4920,6 +4922,7 @@
       ],
       "points": [
         "MyBatis 源码",
+        "TypeScript",
         "HashMap 原理",
         "Spring 事务"
       ],
@@ -4930,9 +4933,9 @@
       "score": null,
       "questionNumber": null,
       "question": "",
-      "sourceTitle": "",
-      "sourceUrl": "",
-      "sourcePublishedAt": "",
+      "sourceTitle": "微信公众号「狂热大猩猩的技术宅」",
+      "sourceUrl": "https://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484052&idx=1&sn=123b03bf750192aea2cfaf8562f4ece9&chksm=c2b810cbf5cf99dddf1c05973aeff277df13bdb46e8efd4b82037a1e359aae9d4f2bea2f2cc2",
+      "sourcePublishedAt": "2026-07-18 09:22:00 +08:00",
       "contentKind": "知识笔记"
     },
     {
@@ -6485,7 +6488,8 @@
         "源码分析"
       ],
       "points": [
-        "MyBatis 源码"
+        "MyBatis 源码",
+        "TypeScript"
       ],
       "section": "learning",
       "topic": "MyBatis 源码拆解",
@@ -6494,9 +6498,9 @@
       "score": null,
       "questionNumber": null,
       "question": "",
-      "sourceTitle": "",
-      "sourceUrl": "",
-      "sourcePublishedAt": "",
+      "sourceTitle": "微信公众号「狂热大猩猩的技术宅」",
+      "sourceUrl": "https://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484040&idx=1&sn=99900e58e886497ad1b5cd83b1d8eb3d&chksm=c2b810d7f5cf99c19626001222ba87e9791f079642d707d36cc59789f409675efa6d28514478",
+      "sourcePublishedAt": "2026-07-05 17:13:00 +08:00",
       "contentKind": "知识笔记"
     },
     {
@@ -6565,6 +6569,7 @@
       "points": [
         "MyBatis 源码",
         "Spring 事务",
+        "TypeScript",
         "集合框架",
         "设计模式"
       ],
@@ -6575,9 +6580,9 @@
       "score": null,
       "questionNumber": null,
       "question": "",
-      "sourceTitle": "",
-      "sourceUrl": "",
-      "sourcePublishedAt": "",
+      "sourceTitle": "微信公众号「狂热大猩猩的技术宅」",
+      "sourceUrl": "https://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484033&idx=1&sn=68c71525ef8f4d881c7da1f4159902ab&chksm=c2b810def5cf99c8fa181d67b4486e6ebceeb89ffdf81e9f429022e6427699726a3dc9185efe",
+      "sourcePublishedAt": "2026-06-28 20:19:00 +08:00",
       "contentKind": "知识笔记"
     },
     {
@@ -6604,7 +6609,8 @@
         "源码分析"
       ],
       "points": [
-        "MyBatis 源码"
+        "MyBatis 源码",
+        "TypeScript"
       ],
       "section": "learning",
       "topic": "MyBatis 源码拆解",
@@ -6613,9 +6619,9 @@
       "score": null,
       "questionNumber": null,
       "question": "",
-      "sourceTitle": "",
-      "sourceUrl": "",
-      "sourcePublishedAt": "",
+      "sourceTitle": "微信公众号「狂热大猩猩的技术宅」",
+      "sourceUrl": "https://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484020&idx=1&sn=9bc9313a8519fc01ce47e9636d9e6d49&chksm=c2b8102bf5cf993d184926d0688326a62f77a47598413fadd5d302db34a93e1da26b9507a035",
+      "sourcePublishedAt": "2026-06-21 11:55:00 +08:00",
       "contentKind": "知识笔记"
     },
     {
@@ -6644,6 +6650,7 @@
       "points": [
         "MyBatis 源码",
         "AOP 与代理",
+        "TypeScript",
         "类加载机制"
       ],
       "section": "learning",
@@ -6653,9 +6660,9 @@
       "score": null,
       "questionNumber": null,
       "question": "",
-      "sourceTitle": "",
-      "sourceUrl": "",
-      "sourcePublishedAt": "",
+      "sourceTitle": "微信公众号「狂热大猩猩的技术宅」",
+      "sourceUrl": "https://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484015&idx=1&sn=36d33b759a3b1515a22aaac91862d1a4&chksm=c2b81030f5cf9926a3848cc3a03aebd6f9c020ca1169754095bab662bddbbbd8658735c83c6f",
+      "sourcePublishedAt": "2026-06-14 21:24:00 +08:00",
       "contentKind": "知识笔记"
     },
     {
@@ -6683,7 +6690,8 @@
       ],
       "points": [
         "MyBatis 源码",
-        "Agent 评测与 Harness"
+        "Agent 评测与 Harness",
+        "TypeScript"
       ],
       "section": "learning",
       "topic": "MyBatis 源码拆解",
@@ -6692,9 +6700,9 @@
       "score": null,
       "questionNumber": null,
       "question": "",
-      "sourceTitle": "",
-      "sourceUrl": "",
-      "sourcePublishedAt": "",
+      "sourceTitle": "微信公众号「狂热大猩猩的技术宅」",
+      "sourceUrl": "https://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484010&idx=1&sn=e247ecb5fd6ecfb56cc377337cdc5c05&chksm=c2b81035f5cf9923c3ea5158c50479c8d2cacbb7ae55a3e8fd1c1da8af150aec6c5cc997aeff",
+      "sourcePublishedAt": "2026-06-04 18:30:00 +08:00",
       "contentKind": "知识笔记"
     },
     {
@@ -6841,7 +6849,8 @@
       ],
       "points": [
         "MyBatis 源码",
-        "AOP 与代理"
+        "AOP 与代理",
+        "TypeScript"
       ],
       "section": "learning",
       "topic": "MyBatis 源码拆解",
@@ -6850,9 +6859,9 @@
       "score": null,
       "questionNumber": null,
       "question": "",
-      "sourceTitle": "",
-      "sourceUrl": "",
-      "sourcePublishedAt": "",
+      "sourceTitle": "微信公众号「狂热大猩猩的技术宅」",
+      "sourceUrl": "https://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484005&idx=1&sn=ff1e94a3958cdc33c3bb2109f12cbf59&chksm=c2b8103af5cf992c240c863424df2fcadd8e76d03d01dec3fe5d59bdaf38cbaefb2b0aaf5df2",
+      "sourcePublishedAt": "2026-05-30 15:59:00 +08:00",
       "contentKind": "知识笔记"
     },
     {
@@ -7351,7 +7360,7 @@
       "name": "TypeScript",
       "topic": "前端",
       "summary": "结构类型系统 + 泛型/联合/字面量类型构成表达力；重点考 keyof/extends/in 的类型体操与类型收窄。",
-      "count": 4,
+      "count": 13,
       "interview": 0,
       "practice": 0,
       "avgScore": null,

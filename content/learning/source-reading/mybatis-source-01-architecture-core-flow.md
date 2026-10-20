@@ -14,160 +14,93 @@ summary: "面试官：说说 MyBatis 的核心执行流程？从 SqlSessionFacto
 tags:
   - "MyBatis"
   - "源码分析"
+source: "微信公众号「狂热大猩猩的技术宅」"
+source_url: "https://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484005&idx=1&sn=ff1e94a3958cdc33c3bb2109f12cbf59&chksm=c2b8103af5cf992c240c863424df2fcadd8e76d03d01dec3fe5d59bdaf38cbaefb2b0aaf5df2"
+published_at: "2026-05-30 15:59:00 +08:00"
 ---
 
 # MyBatis 源码深度拆解（一）：整体架构 & 核心执行全流程
 
-> 来源：微信公众号（MyBatis 源码深度拆解系列）
-> 链接：[http://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484005&idx=1&sn=ff1e94a3958cdc33c3bb2109f12cbf59&chksm=c2b8103af5cf992c240c863424df2fcadd8e76d03d01dec3fe5d59bdaf38cbaefb2b0aaf5df2](http://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484005&idx=1&sn=ff1e94a3958cdc33c3bb2109f12cbf59&chksm=c2b8103af5cf992c240c863424df2fcadd8e76d03d01dec3fe5d59bdaf38cbaefb2b0aaf5df2)
-> 类型：📚 参考资料（非面试题/面经）—— MyBatis 源码深度拆解系列
-> 相关：第196题(MyBatis 与 Spring 事务整合)、第247题(MyBatis 分页拦截器)、第48题(深分页优化)
-> 整理时间：2026-08-03
+> 原作者：狂热大猩猩的技术宅 · 2026年5月30日 15:59
+> [阅读微信原文](https://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484005&idx=1&sn=ff1e94a3958cdc33c3bb2109f12cbf59&chksm=c2b8103af5cf992c240c863424df2fcadd8e76d03d01dec3fe5d59bdaf38cbaefb2b0aaf5df2)
+> 原文排版恢复版：保留原作者内容与顺序，仅整理网页显示格式。
 
----
+<hr/>
 
-面试官：说说 MyBatis 的核心执行流程？从 SqlSessionFactory 构建到结果映射，每一步都发生了什么？
+<p><strong>面试官：说说 MyBatis 的核心执行流程？从 SqlSessionFactory 构建到结果映射，每一步都发生了什么？</strong></p>
 
-写在前面
+<hr/>
 
-这是 MyBatis 源码系列的第 
+<h2><strong>写在前面</strong></h2>
 
-1
+<p>这是 MyBatis 源码系列的第 <strong>1</strong> 篇。在开始逐行啃源码之前，我们必须先建立一张 <strong>“全局地图”</strong>—— 知道 MyBatis 长什么样，核心组件有哪些，一条 SQL 从调用到返回经历了哪些站。（啰嗦一下：最重要的是实践，实践debug走一遍流程基本就能清晰了，比spring清晰太多了）。</p>
 
- 篇。在开始逐行啃源码之前，我们必须先建立一张 
+<p><strong>本篇目标</strong>：</p>
 
-“全局地图”
+<ul><li>掌握 MyBatis 的架构分层</li><li>理清核心组件之间的关系</li><li>完整追踪一条 SQL 的执行主流程</li><li>为后续的源码深挖打好基础</li></ul>
 
-—— 知道 MyBatis 长什么样，核心组件有哪些，一条 SQL 从调用到返回经历了哪些站。（啰嗦一下：最重要的是实践，实践debug走一遍流程基本就能清晰了，比spring清晰太多了）。
+<hr/>
 
-本篇目标
+<h2><strong>一、MyBatis 整体认知</strong></h2>
 
-：
+<h3><strong>1.1 官方定位</strong></h3>
 
-掌握 MyBatis 的架构分层
+<p>MyBatis 是一款优秀的<strong>持久层框架</strong>，支持自定义 SQL、存储过程以及高级映射。</p>
 
-理清核心组件之间的关系
+<p>说人话就是：MyBatis 帮我们解决了 <strong>JDBC 的繁琐问题</strong>（手动注册驱动、创建连接、预编译、设参、取值、异常处理……），同时也把 SQL 的控制权交给开发者。</p>
 
-完整追踪一条 SQL 的执行主流程
+<h3><strong>1.2 架构分层</strong></h3>
 
-为后续的源码深挖打好基础
+<p>MyBatis 整体分为 <strong>四层</strong>：官方说法是三层，去掉配置层即可。</p>
 
-一、MyBatis 整体认知
-
-1.1 官方定位
-
-MyBatis 是一款优秀的
-
-持久层框架
-
-，支持自定义 SQL、存储过程以及高级映射。
-
-说人话就是：MyBatis 帮我们解决了 
-
-JDBC 的繁琐问题
-
-（手动注册驱动、创建连接、预编译、设参、取值、异常处理……），同时也把 SQL 的控制权交给开发者。
-
-1.2 架构分层
-
-MyBatis 整体分为 
-
-四层
-
-：官方说法是三层，去掉配置层即可。
-
-┌─────────────────────────────────────────────┐
-
-│           接口层（SqlSession）                │  ← 程序员直接调用的 API
-
+<pre><code class="language-text">┌─────────────────────────────────────────────┐
+│           接口层（SqlSession）                │  ← 程序员直接调用的 API
 ├─────────────────────────────────────────────┤
-
-│ 
-核心处理层（Executor、StatementHandler 等）│  ← SQL 执行、参数映射、结果映射
-
+│ 核心处理层（Executor、StatementHandler 等）│  ← SQL 执行、参数映射、结果映射
 ├─────────────────────────────────────────────┤
-
-│           配置层（Configuration）             │  ← 配置文件的加载和解析
-
+│           配置层（Configuration）             │  ← 配置文件的加载和解析
 ├─────────────────────────────────────────────┤
+│           存储层（JDBC / 事务）                │  ← 底层数据库交互
+└─────────────────────────────────────────────┘</code></pre>
 
-│           存储层（JDBC / 事务）                │  ← 底层数据库交互
+<p><strong><strong>面试切入点</strong></strong><strong>：MyBatis 的分层设计有什么好处？</strong></p>
 
-└─────────────────────────────────────────────┘
+<ul><li>各层职责单一，可扩展性强（比如插件可以拦截核心处理层的四大对象<strong>Executor、StatementHandler、ParameterHandler、ResultSetHandler</strong>）</li><li>配置层和核心处理层分离，支持多种配置来源（XML、注解、代码配置）</li></ul>
 
-面试切入点
+<h2><strong>二、核心组件关系总览</strong></h2>
 
-：MyBatis 的分层设计有什么好处？
-
-各层职责单一，可扩展性强（比如插件可以拦截核心处理层的四大对象
-
-Executor、StatementHandler、ParameterHandler、ResultSetHandler
-
-）
-
-配置层和核心处理层分离，支持多种配置来源（XML、注解、代码配置）
-
-二、核心组件关系总览
-
-┌───────────────────────────────────────────┐
-
-│                               应用程序                                                                                               │
-
+<pre><code class="language-text">┌───────────────────────────────────────────┐
+│                               应用程序                                                                                               │
 └───────────────────────────────────────────┘
-
-                                      │
-
-                                      ▼
-
+                                      │
+                                      ▼
 ┌───────────────────────────────────────────┐
-
-│  SqlSession (DefaultSqlSession)                                                                                                        │
-
-│    ├── Configuration (全局配置，保存所有解析后的信息)                                                                      │
-
-│    └── Executor (执行器，真正做数据库操作)                                                                                      │
-
-│          ├── StatementHandler (处理 JDBC Statement)                                                                        │
-
-│          ├── ParameterHandler (参数设置)                                                                                            │
-
-│          └── ResultSetHandler (结果集封装)                                                                                          │
-
+│  SqlSession (DefaultSqlSession)                                                                                                        │
+│    ├── Configuration (全局配置，保存所有解析后的信息)                                                                      │
+│    └── Executor (执行器，真正做数据库操作)                                                                                      │
+│          ├── StatementHandler (处理 JDBC Statement)                                                                        │
+│          ├── ParameterHandler (参数设置)                                                                                            │
+│          └── ResultSetHandler (结果集封装)                                                                                          │
 └───────────────────────────────────────────┘
-
-                                      │
-
-                                      ▼
-
+                                      │
+                                      ▼
 ┌───────────────────────────────────────────┐
+│                             Database                             						                      │
+└───────────────────────────────────────────┘</code></pre>
 
-│                             Database                             						                      │
+<p><strong>一句话概括</strong>：</p>
 
-└───────────────────────────────────────────┘
+<ul><li><code>SqlSession</code>是门面，提供增删改查方法</li><li><code>Configuration</code>是配置中心，保存所有映射信息</li><li><code>Executor</code> 是真正的执行者，调用 StatementHandler 等完成 SQL 操作</li></ul>
 
-一句话概括
+<p><br/></p>
 
-：
+<h2><strong>三、完整执行主流程（从配置加载到结果返回）</strong></h2>
 
-SqlSession
+<p>我们以一个最简单的查询为例，代码通常是这样写的：</p>
 
-是门面，提供增删改查方法
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-Configuration
-
-是配置中心，保存所有映射信息
-
-Executor
-
- 是真正的执行者，调用 StatementHandler 等完成 SQL 操作
-
-三、完整执行主流程（从配置加载到结果返回）
-
-我们以一个最简单的查询为例，代码通常是这样写的：
-
-
-```
-// 1. 加载配置文件
+<pre><code class="language-java">// 1. 加载配置文件
 InputStream in = Resources.getResourceAsStream("mybatis-config.xml");
 // 2. 构建 SqlSessionFactory
 SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
@@ -178,15 +111,13 @@ UserMapper mapper = session.getMapper(UserMapper.class);
 // 5. 执行查询
 User user = mapper.selectById(1);
 // 6. 关闭会话
-session.close();
-```
+session.close();</code></pre>
 
+<p>mapper.java</p>
 
-mapper.java
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-
-```
-public interface UserMapper {
+<pre><code class="language-java">public interface UserMapper {
     @Select("SELECT * FROM user WHERE id = #{id}")
     User selectById(@Param("id") int i);
     // User 包含 id  userName password email
@@ -194,92 +125,82 @@ public interface UserMapper {
     void update(User user);
 
     @Select("SELECT * FROM user")
-    List<User> selectAll();
-}
-```
+    List&lt;User&gt; selectAll();
+}</code></pre>
 
+<p>mybatis-config.xml</p>
 
-mybatis-config.xml
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-
-```
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-        "https://mybatis.org/dtd/mybatis-3-config.dtd">
-<configuration>
-    <!-- 1. 外部化配置 -->
-    <properties resource="jdbc.properties"/>
-    <!-- 2. 全局行为设置 -->
-    <settings>
-        <setting name="mapUnderscoreToCamelCase" value="true"/>
-        <setting name="logImpl" value="STDOUT_LOGGING"/>
-        <setting name="lazyLoadingEnabled" value="true"/>
-    </settings>
-    <!-- 3. 别名 -->
-    <typeAliases>
-        <package name="com.example.entity"/>
-    </typeAliases>
-    <!-- 4. 数据库环境 -->
-    <environments default="development">
-        <environment id="development">
-            <transactionManager type="JDBC"/>
-            <dataSource type="POOLED">
-                <property name="driver" value="${jdbc.driver}"/>
-                <property name="url" value="${jdbc.url}"/>
-                <property name="username" value="${jdbc.username}"/>
-                <property name="password" value="${jdbc.password}"/>
-            </dataSource>
-        </environment>
-    </environments>
-    <!-- 5. Mapper 注册 -->
-    <mappers>
-        <package name="com.example.mapper"/>
-    </mappers>
-</configuration>
-```
+        "https://mybatis.org/dtd/mybatis-3-config.dtd"&gt;
+&lt;configuration&gt;
+    &lt;!-- 1. 外部化配置 --&gt;
+    &lt;properties resource="jdbc.properties"/&gt;
+    &lt;!-- 2. 全局行为设置 --&gt;
+    &lt;settings&gt;
+        &lt;setting name="mapUnderscoreToCamelCase" value="true"/&gt;
+        &lt;setting name="logImpl" value="STDOUT_LOGGING"/&gt;
+        &lt;setting name="lazyLoadingEnabled" value="true"/&gt;
+    &lt;/settings&gt;
+    &lt;!-- 3. 别名 --&gt;
+    &lt;typeAliases&gt;
+        &lt;package name="com.example.entity"/&gt;
+    &lt;/typeAliases&gt;
+    &lt;!-- 4. 数据库环境 --&gt;
+    &lt;environments default="development"&gt;
+        &lt;environment id="development"&gt;
+            &lt;transactionManager type="JDBC"/&gt;
+            &lt;dataSource type="POOLED"&gt;
+                &lt;property name="driver" value="${jdbc.driver}"/&gt;
+                &lt;property name="url" value="${jdbc.url}"/&gt;
+                &lt;property name="username" value="${jdbc.username}"/&gt;
+                &lt;property name="password" value="${jdbc.password}"/&gt;
+            &lt;/dataSource&gt;
+        &lt;/environment&gt;
+    &lt;/environments&gt;
+    &lt;!-- 5. Mapper 注册 --&gt;
+    &lt;mappers&gt;
+        &lt;package name="com.example.mapper"/&gt;
+    &lt;/mappers&gt;
+&lt;/configuration&gt;</code></pre>
 
+<p>jdbc.properties</p>
 
-jdbc.properties
+<ul><li></li><li></li><li></li><li></li><li></li></ul>
 
-
-```
-# MySQL 8.x 驱动配置
+<pre><code class="language-ini"># MySQL 8.x 驱动配置
 jdbc.driver=com.mysql.cj.jdbc.Driver
-jdbc.url=jdbc:mysql://localhost:3306/test?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8
+jdbc.url=jdbc:mysql://localhost:3306/test?useSSL=false&amp;serverTimezone=Asia/Shanghai&amp;characterEncoding=utf8
 jdbc.username=root
-jdbc.password=123456
-```
+jdbc.password=123456</code></pre>
 
+<p>部分pom.xml</p>
 
-部分pom.xml
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
+<pre><code class="language-xml"> &lt;!-- MyBatis 核心依赖 --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+            &lt;version&gt;3.5.16&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;!-- MySQL 驱动依赖 --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;8.0.33&lt;/version&gt;
+        &lt;/dependency&gt;</code></pre>
 
-```
- <!-- MyBatis 核心依赖 -->
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>3.5.16</version>
-        </dependency>
-        <!-- MySQL 驱动依赖 -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.33</version>
-        </dependency>
-```
+<h3><strong>3.1 阶段一：配置文件加载 → Configuration</strong></h3>
 
+<p>入口：<code>SqlSessionFactoryBuilder.build(inputStream)</code></p>
 
-3.1 阶段一：配置文件加载 → Configuration
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-入口：
-
-SqlSessionFactoryBuilder.build(inputStream)
-
-
-```
-// SqlSessionFactoryBuilder 部分源码
+<pre><code class="language-typescript">// SqlSessionFactoryBuilder 部分源码
 public SqlSessionFactory build(InputStream inputStream) {
     return build(inputStream, null, null);
 }
@@ -296,75 +217,21 @@ public SqlSessionFactory build(InputStream inputStream, String environment, Prop
     } catch (Exception e) {
         throw ExceptionFactory.wrapException("Error building SqlSession.", e);
     }
-}
-```
+}</code></pre>
 
+<p><strong>关键点</strong>：</p>
 
-关键点
+<ul><li><code>XMLConfigBuilder.parse()</code>会逐标签解析：<code>&lt;properties&gt;</code>、<code>&lt;settings&gt;</code>、<code>&lt;typeAliases&gt;</code>、<code>&lt;environments&gt;</code>、<code>&lt;mappers&gt;</code>等</li><li>解析完成后，所有配置都封装在<code>Configuration</code>对象中，这是 MyBatis 的<strong>全局唯一配置中心</strong></li><li><code>Configuration</code>里核心字段我们后面会逐个拆解，先记住几个：</li></ul>
 
-：
+<ul><ul><li><code>protected Environment environment;</code>数据源和事务工厂</li><li><code>protected Map&lt;String, MappedStatement&gt; mappedStatements;</code>每个 SQL 对应的 MappedStatement</li><li><code>protected Map&lt;String, Cache&gt; caches;</code>二级缓存</li><li><code>protected Map&lt;String, ParameterMap&gt; parameterMaps;</code></li><li><code>protected Map&lt;String, ResultMap&gt; resultMaps;</code></li></ul></ul>
 
-XMLConfigBuilder.parse()
+<h3><strong>3.2 阶段二：打开 SqlSession</strong></h3>
 
-会逐标签解析：
+<p>入口：<code>factory.openSession()</code></p>
 
-<properties>
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-、
-
-<settings>
-
-、
-
-<typeAliases>
-
-、
-
-<environments>
-
-、
-
-<mappers>
-
-等
-
-解析完成后，所有配置都封装在
-
-Configuration
-
-对象中，这是 MyBatis 的
-
-全局唯一配置中心
-
-Configuration
-
-里核心字段我们后面会逐个拆解，先记住几个：
-
-protected Environment environment;
-
-数据源和事务工厂
-
-protected Map<String, MappedStatement> mappedStatements;
-
-每个 SQL 对应的 MappedStatement
-
-protected Map<String, Cache> caches;
-
-二级缓存
-
-protected Map<String, ParameterMap> parameterMaps;
-
-protected Map<String, ResultMap> resultMaps;
-
-3.2 阶段二：打开 SqlSession
-
-入口：
-
-factory.openSession()
-
-
-```
-// DefaultSqlSessionFactory 部分源码  没有百分百还原哈
+<pre><code class="language-java">// DefaultSqlSessionFactory 部分源码  没有百分百还原哈
 @Override
 public SqlSession openSession() {
     return openSessionFromDataSource(configuration.getDefaultExecutorType(), null, false);
@@ -386,71 +253,33 @@ private SqlSession openSessionFromDataSource(ExecutorType execType, TransactionI
         closeTransaction(tx);
         throw ExceptionFactory.wrapException("Error opening session.  Cause: " + e, e);
     }
-}
-```
+}</code></pre>
 
+<p><strong>关键点</strong>：</p>
 
-关键点
+<ul><li>每次<code>openSession</code>都会新建一个<code>SqlSession</code></li><li><code>SqlSession</code>持有<code>Configuration</code>和<code>Executor</code></li><li><code>Executor</code>的类型由配置决定：<code>SIMPLE</code>（默认）、<code>REUSE</code>（复用 Statement）、<code>BATCH</code>（批量执行）</li></ul>
 
-：
+<h3><strong>3.3 阶段三：获取 Mapper 代理对象</strong></h3>
 
-每次
+<p>入口：<code>session.getMapper(UserMapper.class)</code></p>
 
-openSession
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-都会新建一个
-
-SqlSession
-
-SqlSession
-
-持有
-
-Configuration
-
-和
-
-Executor
-
-Executor
-
-的类型由配置决定：
-
-SIMPLE
-
-（默认）、
-
-REUSE
-
-（复用 Statement）、
-
-BATCH
-
-（批量执行）
-
-3.3 阶段三：获取 Mapper 代理对象
-
-入口：
-
-session.getMapper(UserMapper.class)
-
-
-```
-// DefaultSqlSession 部分源码
+<pre><code class="language-typescript">// DefaultSqlSession 部分源码
 @Override
-public <T> T getMapper(Class<T> type) {
+public &lt;T&gt; T getMapper(Class&lt;T&gt; type) {
     return configuration.getMapper(type, this);
 }
 
 // Configuration 部分源码
-public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
+public &lt;T&gt; T getMapper(Class&lt;T&gt; type, SqlSession sqlSession) {
     return mapperRegistry.getMapper(type, sqlSession);
 }
 
 // MapperRegistry 部分源码
-public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
+public &lt;T&gt; T getMapper(Class&lt;T&gt; type, SqlSession sqlSession) {
     // 从 knownMappers 中获取 MapperProxyFactory
-    final MapperProxyFactory<T> mapperProxyFactory = (MapperProxyFactory<T>) knownMappers.get(type);
+    final MapperProxyFactory&lt;T&gt; mapperProxyFactory = (MapperProxyFactory&lt;T&gt;) knownMappers.get(type);
     if (mapperProxyFactory == null) {
         throw new BindingException("Type " + type + " is not known to the MapperRegistry.");
     }
@@ -465,56 +294,28 @@ public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
 // MapperProxyFactory 部分源码
 public T newInstance(SqlSession sqlSession) {
     // MapperProxy 实现了 InvocationHandler
-    final MapperProxy<T> mapperProxy = new MapperProxy<>(sqlSession, mapperInterface, methodCache);
+    final MapperProxy&lt;T&gt; mapperProxy = new MapperProxy&lt;&gt;(sqlSession, mapperInterface, methodCache);
     return newInstance(mapperProxy);
 }
 
-protected T newInstance(MapperProxy<T> mapperProxy) {
+protected T newInstance(MapperProxy&lt;T&gt; mapperProxy) {
     // JDK 动态代理
     return (T) Proxy.newProxyInstance(mapperInterface.getClassLoader(), new Class[] { mapperInterface }, mapperProxy);
-}
-```
+}</code></pre>
 
+<p><strong>关键点</strong>：</p>
 
-关键点
+<ul><li>我们调用 <code>getMapper</code> 返回的是一个基于 JDK 动态代理生成的代理对象，它实现了 UserMapper 接口，所有方法调用都会被 MapperProxy 的 invoke 方法拦截处理</li><li>真正干活的是 <code>MapperProxy</code> 的 <code>invoke</code> 方法，这是 MyBatis 最巧妙的设计之一</li></ul>
 
-：
+<h3><strong>3.4 阶段四：执行 SQL → 结果返回</strong></h3>
 
-我们调用 
+<p>入口：<code>mapper.selectById(1)</code></p>
 
-getMapper
+<p>由于 <code>mapper</code> 是代理对象，调用任何方法都会进入 <code>MapperProxy.invoke()</code>：</p>
 
- 返回的是一个基于 JDK 动态代理生成的代理对象，它实现了 UserMapper 接口，所有方法调用都会被 MapperProxy 的 invoke 方法拦截处理
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-真正干活的是 
-
-MapperProxy
-
- 的 
-
-invoke
-
- 方法，这是 MyBatis 最巧妙的设计之一
-
-3.4 阶段四：执行 SQL → 结果返回
-
-入口：
-
-mapper.selectById(1)
-
-由于 
-
-mapper
-
- 是代理对象，调用任何方法都会进入 
-
-MapperProxy.invoke()
-
-：
-
-
-```
-// MapperProxy.invoke 核心逻辑（简化版）
+<pre><code class="language-perl">// MapperProxy.invoke 核心逻辑（简化版）
 @Override
 public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
     // 如果是 Object 类的方法（toString等）直接执行
@@ -523,33 +324,19 @@ public Object invoke(Object proxy, Method method, Object[] args) throws Throwabl
     }
     // 核心：从缓存或新建 MapperMethod，然后执行
     return cachedInvoker(method).invoke(proxy, method, args, sqlSession);
-}
-```
+}</code></pre>
 
+<p>最终会调用到<code>SqlSession</code>的<code>selectOne</code>/<code>selectList</code>等：</p>
 
-最终会调用到
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-SqlSession
-
-的
-
-selectOne
-
-/
-
-selectList
-
-等：
-
-
-```
-// DefaultSqlSession 部分源码
+<pre><code class="language-typescript">// DefaultSqlSession 部分源码
 @Override
-public <E> List<E> selectList(String statement, Object parameter, RowBounds rowBounds) {
+public &lt;E&gt; List&lt;E&gt; selectList(String statement, Object parameter, RowBounds rowBounds) {
     return selectList(statement, parameter, rowBounds, Executor.NO_RESULT_HANDLER);
 }
 
-private <E> List<E> selectList(String statement, Object parameter, RowBounds rowBounds, ResultHandler handler) {
+private &lt;E&gt; List&lt;E&gt; selectList(String statement, Object parameter, RowBounds rowBounds, ResultHandler handler) {
     try {
         // 1. 从 Configuration 中获取 MappedStatement
       MappedStatement ms = configuration.getMappedStatement(statement);
@@ -561,19 +348,15 @@ private <E> List<E> selectList(String statement, Object parameter, RowBounds row
     } finally {
       ErrorContext.instance().reset();
     }
-  }
-```
+  }</code></pre>
 
+<p><code>Executor.query()</code>是核心：</p>
 
-Executor.query()
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-是核心：
-
-
-```
-// CachingExecutor 部分源码
+<pre><code class="language-java">// CachingExecutor 部分源码
 @Override
-public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler) throws SQLException {
+public &lt;E&gt; List&lt;E&gt; query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler) throws SQLException {
     // 1. 获取 BoundSql（解析 #{} 后的 SQL，带 ? 占位符）
     BoundSql boundSql = ms.getBoundSql(parameter);
     // 2. 生成缓存 Key
@@ -584,9 +367,9 @@ public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBoun
 
 // 实际执行  BaseExecutor 部分源码
 @Override
-public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql) throws SQLException {
+public &lt;E&gt; List&lt;E&gt; query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql) throws SQLException {
     // 1. 一级缓存
-    List<E> list = resultHandler == null ? (List<E>) localCache.getObject(key) : null;
+    List&lt;E&gt; list = resultHandler == null ? (List&lt;E&gt;) localCache.getObject(key) : null;
     if (list != null) {
         // 缓存命中，处理存储过程 OUT 参数
         handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);
@@ -597,9 +380,9 @@ public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBoun
     return list;
 }
 
-private <E> List<E> queryFromDatabase(MappedStatement ms, Object parameter, RowBounds rowBounds,
+private &lt;E&gt; List&lt;E&gt; queryFromDatabase(MappedStatement ms, Object parameter, RowBounds rowBounds,
       ResultHandler resultHandler, CacheKey key, BoundSql boundSql) {
-    List<E> list;
+    List&lt;E&gt; list;
     localCache.putObject(key, EXECUTION_PLACEHOLDER);
     try {
         // 调用 doQuery 真正执行 JDBC
@@ -609,23 +392,15 @@ private <E> List<E> queryFromDatabase(MappedStatement ms, Object parameter, RowB
     }
     localCache.putObject(key, list);
     return list;
-}
-```
+}</code></pre>
 
+<p><code>doQuery</code>最终会调用<code>SimpleExecutor</code>：</p>
 
-doQuery
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-最终会调用
-
-SimpleExecutor
-
-：
-
-
-```
-// SimpleExecutor 部分源码
+<pre><code class="language-java">// SimpleExecutor 部分源码
 @Override
-public <E> List<E> doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
+public &lt;E&gt; List&lt;E&gt; doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
     Statement stmt = null;
     try {
         Configuration configuration = ms.getConfiguration();
@@ -649,19 +424,21 @@ private Statement prepareStatement(StatementHandler handler, Log statementLog) t
     // 设置参数（#{} 占位符被替换成 ? 后，这里设置实际参数值）
     handler.parameterize(stmt);
     return stmt;
-}
-```
+}</code></pre>
 
+<p><br/><code></code></p>
 
-StatementHandler里继续调用ParameterHandler和 ResultSetHandler
+<p><code><code>StatementHandler里继续调用ParameterHandler和 ResultSetHandler</code></code></p>
 
 ，最终用 JDBC 执行 SQL 并返回结果。
 
-四、总结：一条 SQL 的完整旅程
+<p></p>
 
+<h2><strong>四、总结：一条 SQL 的完整旅程</strong></h2>
 
-```
-1. 加载 mybatis-config.xml → 生成 Configuration（全局配置）
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+
+<pre><code class="language-markdown">1. 加载 mybatis-config.xml → 生成 Configuration（全局配置）
 2. SqlSessionFactoryBuilder.build() → 创建 DefaultSqlSessionFactory
 3. factory.openSession() → 创建 SqlSession（持有 Configuration + Executor）
 4. session.getMapper() → JDK 动态代理 → MapperProxy
@@ -673,104 +450,46 @@ StatementHandler里继续调用ParameterHandler和 ResultSetHandler
 10. ParameterHandler 设置参数
 11. 执行 SQL (JDBC)
 12. ResultSetHandler 处理结果集 → 返回 List/对象
-13. 层层返回，最终拿到结果
-```
+13. 层层返回，最终拿到结果</code></pre>
 
+<h2><strong>五、面试高频题（附回答思路）</strong></h2>
 
-五、面试高频题（附回答思路）
+<h3>Q1：MyBatis 的核心组件有哪些？它们是如何协作的？</h3>
 
-Q1：MyBatis 的核心组件有哪些？它们是如何协作的？
+<p><strong>回答思路</strong>：</p>
 
-回答思路
+<ul><li>Configuration：配置中心，保存解析后的所有配置</li><li>SqlSession：对外 API 门面</li><li>Executor：执行器，负责缓存和 SQL 执行调度</li><li>StatementHandler：处理 JDBC Statement</li><li>ParameterHandler：设置参数</li><li>ResultSetHandler：封装结果集</li><li>MapperProxy：接口的动态代理入口</li></ul>
 
-：
+<h3>Q2：MyBatis 为什么可以做到只写接口不写实现类？</h3>
 
-Configuration：配置中心，保存解析后的所有配置
+<p><strong>回答思路</strong>：</p>
 
-SqlSession：对外 API 门面
+<ul><li>MyBatis 使用 JDK 动态代理，在<code>getMapper</code>时返回<code>MapperProxy</code>代理对象</li><li>调用接口方法时，<code>MapperProxy.invoke()</code>拦截并解析方法名、参数</li><li>根据方法名找到对应的<code>MappedStatement</code>，调用<code>SqlSession</code>去执行</li></ul>
 
-Executor：执行器，负责缓存和 SQL 执行调度
+<h3>Q3：MyBatis 和 JDBC 的关系是什么？</h3>
 
-StatementHandler：处理 JDBC Statement
+<p><strong>回答思路</strong>：</p>
 
-ParameterHandler：设置参数
+<ul><li>MyBatis 底层仍然基于 JDBC 操作数据库</li><li>MyBatis 做了封装：自动注册驱动、获取连接、预编译、设参、结果映射、异常处理、资源关闭</li><li>同时提供了动态 SQL、缓存、插件等高级特性</li></ul>
 
-ResultSetHandler：封装结果集
+<hr/>
 
-MapperProxy：接口的动态代理入口
+<h2><strong>六、下篇预告</strong></h2>
 
-Q2：MyBatis 为什么可以做到只写接口不写实现类？
+<p>第 2 篇我们会深入<code>Configuration</code>的创建过程，逐行分析<strong>mybatis-config.xml 的加载和解析</strong>，包括：</p>
 
-回答思路
+<ul><li>properties 加载顺序</li><li>settings 各个配置项的作用</li><li>typeAliases 别名注册</li><li>environments 数据源解析</li><li>mappers 映射文件注册</li></ul>
 
-：
+<p>以及<code>XMLConfigBuilder</code>、<code>XPathParser</code>等源码级的细节。</p>
 
-MyBatis 使用 JDK 动态代理，在
+<hr/>
 
-getMapper
+<p><strong>如果觉得有帮助，欢迎点赞、在看、转发支持！</strong></p>
 
-时返回
+<p>系列持续更新中，关注不走丢 👇</p>
 
-MapperProxy
+<p><br/></p>
 
-代理对象
+<br/>
 
-调用接口方法时，
-
-MapperProxy.invoke()
-
-拦截并解析方法名、参数
-
-根据方法名找到对应的
-
-MappedStatement
-
-，调用
-
-SqlSession
-
-去执行
-
-Q3：MyBatis 和 JDBC 的关系是什么？
-
-回答思路
-
-：
-
-MyBatis 底层仍然基于 JDBC 操作数据库
-
-MyBatis 做了封装：自动注册驱动、获取连接、预编译、设参、结果映射、异常处理、资源关闭
-
-同时提供了动态 SQL、缓存、插件等高级特性
-
-六、下篇预告
-
-第 2 篇我们会深入
-
-Configuration
-
-的创建过程，逐行分析
-
-mybatis-config.xml 的加载和解析
-
-，包括：
-
-properties 加载顺序
-
-settings 各个配置项的作用
-
-typeAliases 别名注册
-
-environments 数据源解析
-
-mappers 映射文件注册
-
-以及
-
-XMLConfigBuilder
-
-、
-
-XPathParser
-
-等源码级的细节。
+<p></p>

@@ -14,134 +14,47 @@ summary: "一、回顾与开篇 前面几篇我们走通了 SQL 执行的全流�
 tags:
   - "MyBatis"
   - "源码分析"
+source: "微信公众号「狂热大猩猩的技术宅」"
+source_url: "https://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484052&idx=1&sn=123b03bf750192aea2cfaf8562f4ece9&chksm=c2b810cbf5cf99dddf1c05973aeff277df13bdb46e8efd4b82037a1e359aae9d4f2bea2f2cc2"
+published_at: "2026-07-18 09:22:00 +08:00"
 ---
 
 # MyBatis 源码深度拆解（七）：一级缓存底层彻底拆解
 
-> 来源：微信公众号（MyBatis 源码深度拆解系列）
-> 链接：[http://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484052&idx=1&sn=123b03bf750192aea2cfaf8562f4ece9&chksm=c2b810cbf5cf99dddf1c05973aeff277df13bdb46e8efd4b82037a1e359aae9d4f2bea2f2cc2](http://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484052&idx=1&sn=123b03bf750192aea2cfaf8562f4ece9&chksm=c2b810cbf5cf99dddf1c05973aeff277df13bdb46e8efd4b82037a1e359aae9d4f2bea2f2cc2)
-> 类型：📚 参考资料（非面试题/面经）—— MyBatis 源码深度拆解系列
-> 相关：第235题(百万行导出)、第48题(深分页优化)
-> 整理时间：2026-08-03
+> 原作者：狂热大猩猩的技术宅 · 2026年7月18日 09:22
+> [阅读微信原文](https://mp.weixin.qq.com/s?__biz=MzkzNDY5MjY1Ng==&mid=2247484052&idx=1&sn=123b03bf750192aea2cfaf8562f4ece9&chksm=c2b810cbf5cf99dddf1c05973aeff277df13bdb46e8efd4b82037a1e359aae9d4f2bea2f2cc2)
+> 原文排版恢复版：保留原作者内容与顺序，仅整理网页显示格式。
 
----
+<h2><strong>一、回顾与开篇</strong></h2>
 
-一、回顾与开篇
+<p>前面几篇我们走通了 SQL 执行的全流程，也看到了<code>Executor</code>的重要性。今天我们把目光聚焦到<strong>一级缓存</strong>—— 这个默认开启、无法关闭（只能调整行为）的缓存机制。</p>
 
-前面几篇我们走通了 SQL 执行的全流程，也看到了
+<p><strong>一级缓存特点</strong>：</p>
 
-Executor
+<ul><li><strong>默认开启</strong>，作用于<code>SqlSession</code>级别</li><li>存储结构是<code>HashMap</code>（<code>PerpetualCache</code>包装）</li><li>当执行<code>INSERT/UPDATE/DELETE</code>时会被清空</li><li>不同<code>SqlSession</code>之间的缓存相互隔离</li></ul>
 
-的重要性。今天我们把目光聚焦到
+<p><strong>本篇目标</strong>：</p>
 
-一级缓存
+<ul><li>拆解一级缓存的存储结构<code>PerpetualCache</code></li><li>深入<code>CacheKey</code>的生成规则（重中之重）</li><li>追踪缓存的命中、写入、清空的全流程</li><li>分析一级缓存失效的典型场景与原理</li></ul>
 
-—— 这个默认开启、无法关闭（只能调整行为）的缓存机制。
+<h2><strong>二、一级缓存整体架构</strong></h2>
 
-一级缓存特点
+<img alt="image.png" src="./mybatis-original-images/mybatis-source-07-first-level-cache-01.png"/>
 
-：
+<p><strong>核心类</strong>：</p>
 
-默认开启
+<ul><li><code>BaseExecutor</code>：维护<code>localCache</code>和<code>localOutputParameterCache</code></li><li><code>PerpetualCache</code>：MyBatis 对<code>HashMap</code>的简单包装，实现了<code>Cache</code>接口</li><li><code>CacheKey</code>：缓存的键，由多个要素组成，确保唯一性</li></ul>
 
-，作用于
+<h2><strong>三、</strong><code><strong>PerpetualCache</strong></code><strong>存储结构</strong></h2>
 
-SqlSession
+<p><code>PerpetualCache</code> 是 <code>BaseExecutor</code> 中一级缓存的实际存储类：</p>
 
-级别
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-存储结构是
-
-HashMap
-
-（
-
-PerpetualCache
-
-包装）
-
-当执行
-
-INSERT/UPDATE/DELETE
-
-时会被清空
-
-不同
-
-SqlSession
-
-之间的缓存相互隔离
-
-本篇目标
-
-：
-
-拆解一级缓存的存储结构
-
-PerpetualCache
-
-深入
-
-CacheKey
-
-的生成规则（重中之重）
-
-追踪缓存的命中、写入、清空的全流程
-
-分析一级缓存失效的典型场景与原理
-
-二、一级缓存整体架构
-
-核心类
-
-：
-
-BaseExecutor
-
-：维护
-
-localCache
-
-和
-
-localOutputParameterCache
-
-PerpetualCache
-
-：MyBatis 对
-
-HashMap
-
-的简单包装，实现了
-
-Cache
-
-接口
-
-CacheKey
-
-：缓存的键，由多个要素组成，确保唯一性
-
-三、
-
-PerpetualCache
-
-存储结构
-
-PerpetualCache
-
- 是 
-
-BaseExecutor
-
- 中一级缓存的实际存储类：
-
-
-```
-// org.apache.ibatis.cache.impl.PerpetualCache
+<pre><code class="language-typescript">// org.apache.ibatis.cache.impl.PerpetualCache
 public class PerpetualCache implements Cache {
     private final String id;
-    private final Map<Object, Object> cache = new HashMap<>();
+    private final Map&lt;Object, Object&gt; cache = new HashMap&lt;&gt;();
 
     public PerpetualCache(String id) {
         this.id = id;
@@ -167,19 +80,13 @@ public class PerpetualCache implements Cache {
         cache.clear();
     }
     // ... 其他方法
-}
-```
+}</code></pre>
 
+<p>在<code>BaseExecutor</code>中：</p>
 
-在
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-BaseExecutor
-
-中：
-
-
-```
-public abstract class BaseExecutor implements Executor {
+<pre><code class="language-java">public abstract class BaseExecutor implements Executor {
     protected PerpetualCache localCache;
     protected PerpetualCache localOutputParameterCache;
 
@@ -188,49 +95,23 @@ public abstract class BaseExecutor implements Executor {
         this.localOutputParameterCache = new PerpetualCache("LocalOutputParameterCache");
         // ...
     }
-}
-```
+}</code></pre>
 
+<p><strong><strong>关键点</strong></strong><strong>：</strong></p>
 
-关键点
+<ul><li><code>localCache</code>：存储普通查询的结果</li><li><code>localOutputParameterCache</code>：存储存储过程调用后的 OUT 参数（与一级缓存逻辑类似）</li><li>底层就是 <code>HashMap</code>，没有大小限制，没有过期时间，因此不适合缓存大量数据</li></ul>
 
-：
+<h2><strong>四、</strong><code><strong>CacheKey</strong></code><strong>的生成规则</strong></h2>
 
-localCache
+<p><code>CacheKey</code>用于唯一标识一次查询的结果。它的生成非常严格，确保不同查询不会误命中。</p>
 
-：存储普通查询的结果
+<h3><strong>4.1 创建入口</strong></h3>
 
-localOutputParameterCache
+<p>在 <code>BaseExecutor.createCacheKey</code> 中：</p>
 
-：存储存储过程调用后的 OUT 参数（与一级缓存逻辑类似）
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-底层就是 
-
-HashMap
-
-，没有大小限制，没有过期时间，因此不适合缓存大量数据
-
-四、
-
-CacheKey
-
-的生成规则
-
-CacheKey
-
-用于唯一标识一次查询的结果。它的生成非常严格，确保不同查询不会误命中。
-
-4.1 创建入口
-
-在 
-
-BaseExecutor.createCacheKey
-
- 中：
-
-
-```
-@Override
+<pre><code class="language-typescript">@Override
 public CacheKey createCacheKey(MappedStatement ms, Object parameterObject, RowBounds rowBounds, BoundSql boundSql) {
     if (closed) {
         throw new ExecutorException("Executor was closed.");
@@ -244,7 +125,7 @@ public CacheKey createCacheKey(MappedStatement ms, Object parameterObject, RowBo
     // 3. SQL 字符串（已替换 #{} 为 ?）
     cacheKey.update(boundSql.getSql());
     // 4. 参数值（按顺序）
-    List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
+    List&lt;ParameterMapping&gt; parameterMappings = boundSql.getParameterMappings();
     TypeHandlerRegistry typeHandlerRegistry = ms.getConfiguration().getTypeHandlerRegistry();
     MetaObject metaObject = null;
     for (ParameterMapping parameterMapping : parameterMappings) {
@@ -253,7 +134,7 @@ public CacheKey createCacheKey(MappedStatement ms, Object parameterObject, RowBo
             Object value;
             String propertyName = parameterMapping.getProperty();
             if (boundSql.hasAdditionalParameter(propertyName)) {
-                // 优先从附加参数中获取（如 <bind> 定义的变量）
+                // 优先从附加参数中获取（如 &lt;bind&gt; 定义的变量）
                 value = boundSql.getAdditionalParameter(propertyName);
             } else if (parameterObject == null) {
                 value = null;
@@ -275,26 +156,20 @@ public CacheKey createCacheKey(MappedStatement ms, Object parameterObject, RowBo
         cacheKey.update(configuration.getEnvironment().getId());
     }
     return cacheKey;
-}
-```
+}</code></pre>
 
+<h3><strong>4.2</strong><code><strong>CacheKey</strong></code><strong>内部结构</strong></h3>
 
-4.2
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-CacheKey
-
-内部结构
-
-
-```
-public class CacheKey implements Cloneable, Serializable {
+<pre><code class="language-cs">public class CacheKey implements Cloneable, Serializable {
     private static final int DEFAULT_MULTIPLYER = 37;
     private static final int DEFAULT_HASHCODE = 17;
     private final int multiplier = DEFAULT_MULTIPLYER;
     private int hashcode = DEFAULT_HASHCODE;
     private long checksum = 0;
     private int count = 0;
-    private List<Object> updateList = new ArrayList<>();
+    private List&lt;Object&gt; updateList = new ArrayList&lt;&gt;();
 
     public void update(Object object) {
         int baseHashCode = object == null ? 1 : ArrayUtil.hashCode(object);
@@ -310,71 +185,37 @@ public class CacheKey implements Cloneable, Serializable {
         // 比较 hashcode、checksum、count 以及 updateList 中的每个元素
         // 只有当所有要素都相等时，才认为两个 CacheKey 相等
     }
-}
-```
+}</code></pre>
 
+<p><strong>总结</strong>：<code>CacheKey</code>的相等性取决于：</p>
 
-总结
+<ul><li><code>ms.getId()</code>（接口全限定名 + 方法名）</li><li><code>RowBounds.offset</code>和<code>RowBounds.limit</code></li><li><code>boundSql.getSql()</code>（带<code>?</code>的 SQL 模板）</li><li><strong>每一个参数的实际值</strong>（按顺序）</li><li>环境 id（若存在）</li></ul>
 
-：
+<p><strong>只要上述任何一个要素不同，缓存就无法命中。</strong></p>
 
-CacheKey
+<h2><strong>五、一级缓存的命中与写入</strong></h2>
 
-的相等性取决于：
+<h3><strong>5.1 </strong><code><strong>BaseExecutor.query</strong></code><strong> 中的缓存逻辑</strong></h3>
 
-ms.getId()
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-（接口全限定名 + 方法名）
-
-RowBounds.offset
-
-和
-
-RowBounds.limit
-
-boundSql.getSql()
-
-（带
-
-?
-
-的 SQL 模板）
-
-每一个参数的实际值
-
-（按顺序）
-
-环境 id（若存在）
-
-只要上述任何一个要素不同，缓存就无法命中。
-
-五、一级缓存的命中与写入
-
-5.1 
-
-BaseExecutor.query
-
- 中的缓存逻辑
-
-
-```
-@Override
-  public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler,
+<pre><code class="language-java">@Override
+  public &lt;E&gt; List&lt;E&gt; query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler,
       CacheKey key, BoundSql boundSql) throws SQLException {
     // 用于记录当前执行的 SQL 资源信息，便于调试和错误报告
     ErrorContext.instance().resource(ms.getResource()).activity("executing a query").object(ms.getId());
     if (closed) {
       throw new ExecutorException("Executor was closed.");
     }
-    // 1. 如果 flushCacheRequired 为 true（如 <select flushCache="true">），清空本地缓存
-    if (queryStack == 0 && ms.isFlushCacheRequired()) {
+    // 1. 如果 flushCacheRequired 为 true（如 &lt;select flushCache="true"&gt;），清空本地缓存
+    if (queryStack == 0 &amp;&amp; ms.isFlushCacheRequired()) {
       clearLocalCache();
     }
-    List<E> list;
+    List&lt;E&gt; list;
     try {
       queryStack++;
       // 2. 尝试从一级缓存获取
-      list = resultHandler == null ? (List<E>) localCache.getObject(key) : null;
+      list = resultHandler == null ? (List&lt;E&gt;) localCache.getObject(key) : null;
       if (list != null) {
         // 缓存命中，处理存储过程的输出参数（如果存在）
         handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);
@@ -398,18 +239,16 @@ BaseExecutor.query
       }
     }
     return list;
-  }
-```
+  }</code></pre>
 
+<h3><strong>5.2 从数据库查询并写入缓存</strong></h3>
 
-5.2 从数据库查询并写入缓存
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-
-```
-// BaseExecutor
-private <E> List<E> queryFromDatabase(MappedStatement ms, Object parameter, RowBounds rowBounds,
+<pre><code class="language-typescript">// BaseExecutor
+private &lt;E&gt; List&lt;E&gt; queryFromDatabase(MappedStatement ms, Object parameter, RowBounds rowBounds,
                                       ResultHandler resultHandler, CacheKey key, BoundSql boundSql) {
-    List<E> list;
+    List&lt;E&gt; list;
     // 先放入占位符，防止并发查询时重复查库（实际是避免递归查询死循环）
     localCache.putObject(key, EXECUTION_PLACEHOLDER);
     try {
@@ -424,29 +263,17 @@ private <E> List<E> queryFromDatabase(MappedStatement ms, Object parameter, RowB
       localOutputParameterCache.putObject(key, parameter);
     }
     return list;
-}
-```
+}</code></pre>
 
+<p><code>EXECUTION_PLACEHOLDER</code>是一个特殊对象（<code>static final Object</code>），用于标记该 key 正在被查询。作用是防止递归调用时（例如 SQL 中又调用同一个 Mapper 方法）导致死循环，如果再次遇到同一个 key 且值为占位符，MyBatis 会抛出<code>ExecutorException</code>。</p>
 
-EXECUTION_PLACEHOLDER
+<h3><strong>5.3 命中缓存后的处理</strong></h3>
 
-是一个特殊对象（
+<p>当缓存命中时，除了直接返回结果，还需要处理存储过程的 OUT 参数：</p>
 
-static final Object
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-），用于标记该 key 正在被查询。作用是防止递归调用时（例如 SQL 中又调用同一个 Mapper 方法）导致死循环，如果再次遇到同一个 key 且值为占位符，MyBatis 会抛出
-
-ExecutorException
-
-。
-
-5.3 命中缓存后的处理
-
-当缓存命中时，除了直接返回结果，还需要处理存储过程的 OUT 参数：
-
-
-```
-// BaseExecutor
+<pre><code class="language-typescript">// BaseExecutor
 private void handleLocallyCachedOutputParameters(MappedStatement ms, CacheKey key, Object parameter, BoundSql boundSql) {
     if (ms.getStatementType() == StatementType.CALLABLE) {
         // 从 localOutputParameterCache 中取出之前缓存的 OUT 参数
@@ -454,33 +281,17 @@ private void handleLocallyCachedOutputParameters(MappedStatement ms, CacheKey ke
         // 将缓存的 OUT 参数值设置回 parameter 对象中
         // 具体实现省略...
     }
-}
-```
+}</code></pre>
 
+<p>因为存储过程执行后，OUT 参数的值会改变，<code>localOutputParameterCache</code> 专门缓存这些 OUT 参数值，确保从缓存命中时也能恢复它们。</p>
 
-因为存储过程执行后，OUT 参数的值会改变，
+<h2><strong>六、一级缓存的清空（失效）场景</strong></h2>
 
-localOutputParameterCache
+<h3><strong>6.1 执行 </strong><code><strong>INSERT</strong></code><strong> / </strong><code><strong>UPDATE</strong></code><strong> / </strong><code><strong>DELETE</strong></code></h3>
 
- 专门缓存这些 OUT 参数值，确保从缓存命中时也能恢复它们。
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-六、一级缓存的清空（失效）场景
-
-6.1 执行 
-
-INSERT
-
- / 
-
-UPDATE
-
- / 
-
-DELETE
-
-
-```
-// BaseExecutor
+<pre><code class="language-typescript">// BaseExecutor
 @Override
 public int update(MappedStatement ms, Object parameter) {
     ErrorContext.instance().resource(ms.getResource()).activity("executing an update").object(ms.getId());
@@ -489,208 +300,86 @@ public int update(MappedStatement ms, Object parameter) {
     }
     clearLocalCache();   // 任何更新操作都会清空一级缓存
     return doUpdate(ms, parameter);
-}
-```
+}</code></pre>
 
+<p><strong>原因</strong>：为了保证缓存数据与数据库一致，只要发生了数据变更，整个<code>SqlSession</code>的一级缓存全部清空。</p>
 
-原因
+<h3><strong>6.2 手动清空</strong></h3>
 
-：为了保证缓存数据与数据库一致，只要发生了数据变更，整个
+<ul><li></li><li></li></ul>
 
-SqlSession
+<pre><code class="language-cs">// SqlSession 接口方法
+void clearCache();</code></pre>
 
-的一级缓存全部清空。
+<p>在<code>DefaultSqlSession</code>中：</p>
 
-6.2 手动清空
+<ul><li></li><li></li><li></li><li></li></ul>
 
-
-```
-// SqlSession 接口方法
-void clearCache();
-```
-
-
-在
-
-DefaultSqlSession
-
-中：
-
-
-```
-@Override
+<pre><code class="language-typescript">@Override
 public void clearCache() {
     executor.clearLocalCache();
-}
-```
+}</code></pre>
 
+<h3><strong>6.3</strong><code><strong>localCacheScope</strong></code><strong>设置为</strong><code><strong>STATEMENT</strong></code></h3>
 
-6.3
+<p>在 <code>mybatis-config.xml</code> 中配置：</p>
 
-localCacheScope
+<ul><li></li></ul>
 
-设置为
+<pre><code class="language-xml">&lt;setting name="localCacheScope" value="STATEMENT"/&gt;</code></pre>
 
-STATEMENT
+<p>默认是<code>SESSION</code>（整个会话共享）。当设置为<code>STATEMENT</code>时，每次查询结束后会清空一级缓存：</p>
 
-在 
+<ul><li></li><li></li><li></li><li></li></ul>
 
-mybatis-config.xml
-
- 中配置：
-
-
-```
-<setting name="localCacheScope" value="STATEMENT"/>
-```
-
-
-默认是
-
-SESSION
-
-（整个会话共享）。当设置为
-
-STATEMENT
-
-时，每次查询结束后会清空一级缓存：
-
-
-```
-// BaseExecutor.query 方法最后
+<pre><code class="language-javascript">// BaseExecutor.query 方法最后
 if (configuration.getLocalCacheScope() == LocalCacheScope.STATEMENT) {
     clearLocalCache();
-}
-```
+}</code></pre>
 
+<h3><strong>6.4</strong><code><strong>flushCache=true</strong></code><strong>的查询</strong></h3>
 
-6.4
+<p>在 <code>&lt;select&gt;</code> 标签中设置 <code>flushCache="true"</code>，表示执行该查询前先清空一级缓存（和二级缓存）：<br/></p>
 
-flushCache=true
+<ul><li></li><li></li><li></li></ul>
 
-的查询
-
-在 
-
-<select>
-
- 标签中设置 
-
-flushCache="true"
-
-，表示执行该查询前先清空一级缓存（和二级缓存）：
-
-
-```
-<select id="selectUser" resultType="User" flushCache="true">
+<pre><code class="language-bash">&lt;select id="selectUser" resultType="User" flushCache="true"&gt;
     SELECT * FROM user WHERE id = #{id}
-</select>
-```
+&lt;/select&gt;</code></pre>
 
+<p>这时在<code>BaseExecutor.query</code>开头就会清空缓存：</p>
 
-这时在
+<ul><li></li><li></li><li></li></ul>
 
-BaseExecutor.query
-
-开头就会清空缓存：
-
-
-```
-if (queryStack == 0 && ms.isFlushCacheRequired()) {
+<pre><code class="language-text">if (queryStack == 0 &amp;&amp; ms.isFlushCacheRequired()) {
     clearLocalCache();
-}
-```
+}</code></pre>
 
+<h3><strong>6.5 关闭</strong><code><strong>SqlSession</strong></code></h3>
 
-6.5 关闭
+<p>当调用<code>sqlSession.close()</code>时，<code>Executor</code>会关闭并释放资源，<code>localCache</code>随之被丢弃（不再可用）。</p>
 
-SqlSession
+<h3><strong>6.6 不同</strong><code><strong>SqlSession</strong></code><strong>之间不共享</strong></h3>
 
-当调用
+<p>一级缓存是 <code>SqlSession</code> 级别的，不同 <code>SqlSession</code> 拥有不同的 <code>Executor</code> 实例，因此各自维护独立的 <code>localCache</code>。这会导致“<strong>缓存与数据库数据不一致</strong>”现象：一个会话修改了数据并提交，另一个会话的一级缓存中仍然是旧数据。</p>
 
-sqlSession.close()
+<h3><strong>6.7 </strong><strong><strong>Spring 整合环境下一级缓存的行为差异</strong></strong></h3>
 
-时，
+<p>在 MyBatis 与 Spring 整合的场景中，默认情况下 Spring 通过<code>SqlSessionTemplate</code>管理 SqlSession，<strong>每次 DAO 方法调用可能会创建新的 SqlSession</strong>，导致一级缓存看似“不生效”，但这并非一级缓存本身失效，而是因为不同调用使用了不同的 SqlSession。</p>
 
-Executor
+<p>要使一级缓存生效，需要<strong>开启 Spring 事务管理</strong>。当方法被 <code>@Transactional</code> 标记时，Spring 会在整个事务范围内复用同一个 SqlSession，此时一级缓存即可正常命中。</p>
 
-会关闭并释放资源，
+<h3><strong>6.8 关于线程安全</strong></h3>
 
-localCache
+<p>一级缓存底层使用 HashMap 实现，<strong>不是线程安全的</strong>。SqlSession 本身也非线程安全，不应在多个线程间共享同一个 SqlSession 实例。在高并发场景下，多个线程共享同一个 SqlSession 会导致缓存数据混乱，建议每个线程维护独立的 SqlSession，或通过 Spring 的事务管理机制确保正确的线程绑定。</p>
 
-随之被丢弃（不再可用）。
+<h2><strong>七、一级缓存与二级缓存的交互顺序</strong></h2>
 
-6.6 不同
+<p>回顾第 5 篇中 <code>CachingExecutor</code> 的装饰模式：</p>
 
-SqlSession
+<ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 
-之间不共享
-
-一级缓存是 
-
-SqlSession
-
- 级别的，不同 
-
-SqlSession
-
- 拥有不同的 
-
-Executor
-
- 实例，因此各自维护独立的 
-
-localCache
-
-。这会导致“
-
-缓存与数据库数据不一致
-
-”现象：一个会话修改了数据并提交，另一个会话的一级缓存中仍然是旧数据。
-
-6.7 
-
-Spring 整合环境下一级缓存的行为差异
-
-在 MyBatis 与 Spring 整合的场景中，默认情况下 Spring 通过
-
-SqlSessionTemplate
-
-管理 SqlSession，
-
-每次 DAO 方法调用可能会创建新的 SqlSession
-
-，导致一级缓存看似“不生效”，但这并非一级缓存本身失效，而是因为不同调用使用了不同的 SqlSession。
-
-要使一级缓存生效，需要
-
-开启 Spring 事务管理
-
-。当方法被 
-
-@Transactional
-
- 标记时，Spring 会在整个事务范围内复用同一个 SqlSession，此时一级缓存即可正常命中。
-
-6.8 关于线程安全
-
-一级缓存底层使用 HashMap 实现，
-
-不是线程安全的
-
-。SqlSession 本身也非线程安全，不应在多个线程间共享同一个 SqlSession 实例。在高并发场景下，多个线程共享同一个 SqlSession 会导致缓存数据混乱，建议每个线程维护独立的 SqlSession，或通过 Spring 的事务管理机制确保正确的线程绑定。
-
-七、一级缓存与二级缓存的交互顺序
-
-回顾第 5 篇中 
-
-CachingExecutor
-
- 的装饰模式：
-
-
-```
-// CachingExecutor.query
+<pre><code class="language-cs">// CachingExecutor.query
 Cache cache = ms.getCache();
 if (cache != null) {
     // 先尝试从二级缓存获取（实际是 TransactionalCache）
@@ -704,224 +393,54 @@ if (cache != null) {
     return list;
 }
 // 没有二级缓存，直接走 BaseExecutor
-return delegate.query(...);
-```
+return delegate.query(...);</code></pre>
 
+<p><strong>因此完整顺序是：</strong></p>
 
-因此完整顺序是：
+<ol><li>CachingExecutor 先检查二级缓存（transactionalCache）是否命中；</li><li>若二级缓存未命中，则调用底层 Executor（如 BaseExecutor）查询一级缓存；</li><li>若一级缓存未命中，则查询数据库，并将结果写入一级缓存；</li><li>返回给 CachingExecutor 后，查询结果会写入事务缓存（TransactionalCache），<strong>只有当 SqlSession 执行 commit 时，事务缓存中的内容才会真正刷新到二级缓存</strong>；若执行 rollback，事务缓存中的内容将被丢弃。</li></ol>
 
-CachingExecutor 先检查二级缓存（transactionalCache）是否命中；
+<h2><strong>八、面试高频题</strong></h2>
 
-若二级缓存未命中，则调用底层 Executor（如 BaseExecutor）查询一级缓存；
+<h3><strong>Q1：一级缓存的 Key 是如何生成的？能举个例子吗？</strong></h3>
 
-若一级缓存未命中，则查询数据库，并将结果写入一级缓存；
+<p><strong>A</strong>：<code>CacheKey</code>由以下要素组成（按顺序）：</p>
 
-返回给 CachingExecutor 后，查询结果会写入事务缓存（TransactionalCache），
+<ul><li><code>MappedStatement.id</code>（如<code>com.example.mapper.UserMapper.selectById</code>）</li><li><code>RowBounds.offset</code>和<code>RowBounds.limit</code></li><li><code>BoundSql.sql</code>（带<code>?</code>的 SQL 模板）</li><li>每个参数的实际值（按<code>ParameterMapping</code>顺序）</li><li>环境 id（可选）</li></ul>
 
-只有当 SqlSession 执行 commit 时，事务缓存中的内容才会真正刷新到二级缓存
+<p>例如，调用<code>userMapper.selectById(1)</code>时：</p>
 
-；若执行 rollback，事务缓存中的内容将被丢弃。
+<ul><li><code>ms.id</code>=<code>"com.example.mapper.UserMapper.selectById"</code></li><li><code>offset</code>= 0,<code>limit</code>=<code>Integer.MAX_VALUE</code></li><li><code>sql</code>=<code>"SELECT * FROM user WHERE id = ?"</code></li><li>参数值 =<code>1</code><br/>最终生成的<code>CacheKey</code>包含这些内容。如果传入<code>id=2</code>，参数值不同，<code>CacheKey</code>就不同，无法命中之前<code>id=1</code>的缓存。</li></ul>
 
-八、面试高频题
+<h3><strong>Q2：一级缓存是否可能产生脏读？为什么？</strong></h3>
 
-Q1：一级缓存的 Key 是如何生成的？能举个例子吗？
+<p><strong>A</strong>：会。因为一级缓存是<code>SqlSession</code>级别的，不跨会话共享。会话 A 查询后缓存了数据，会话 B 修改并提交了数据库，会话 A 再次查询时仍然从自己的缓存中读取，导致读取到已过期的数据。这是 MyBatis 为了性能做出的权衡，如果要求强一致性，可以：</p>
 
-A
+<ul><li>在查询上设置<code>flushCache=true</code></li><li>使用二级缓存并配置合适的刷新策略</li><li>在事务边界内避免长会话</li></ul>
 
-：
+<h3><strong>Q3：一级缓存能关闭吗？</strong></h3>
 
-CacheKey
+<p><strong>A</strong>：不能完全关闭，但可以将<code>localCacheScope</code>设置为<code>STATEMENT</code>，这样每次查询后都会清空缓存，效果上相当于“每次查库”，但<code>localCache</code>对象仍然存在，只是不跨查询共享。如果想彻底禁用缓存逻辑，除非修改源码。</p>
 
-由以下要素组成（按顺序）：
+<p>一级缓存之所以无法关闭，是因为 MyBatis 的级联映射、循环引用避免、嵌套查询加速等核心特性均高度依赖 CacheKey 机制和一级缓存架构，关闭会破坏这些功能的正常运行。</p>
 
-MappedStatement.id
+<h3><strong>Q4：为什么更新操作会清空所有一级缓存，而不是只清空相关的缓存条目？</strong></h3>
 
-（如
+<p><strong>A</strong>：因为 MyBatis 不知道哪些缓存条目会受到当前更新操作的影响（关联表、联合查询等复杂情况下很难精确判断）。为了简化并保证数据一致性，采取了最保守的策略：清空整个<code>SqlSession</code>的一级缓存。这也是 MyBatis 设计上的一处权衡，开发者需要根据业务场景考虑是否使用二级缓存或手动管理缓存。</p>
 
-com.example.mapper.UserMapper.selectById
+<h3><strong>Q5：</strong><code><strong>EXECUTION_PLACEHOLDER</strong></code><strong>的作用是什么？</strong></h3>
 
-）
+<p><strong>A</strong>：它是一个占位对象，在<code>queryFromDatabase</code>中先存入<code>localCache</code>，然后才执行<code>doQuery</code>。如果在<code>doQuery</code>执行过程中（例如动态 SQL 递归调用）再次触发了同一个 key 的查询，会因为<code>localCache.getObject(key)</code>返回<code>EXECUTION_PLACEHOLDER</code>而不是<code>null</code>，从而可以被检测到并抛出异常（<code>ExecutorException</code>），防止无限递归或死循环。</p>
 
-RowBounds.offset
+<h2><strong>九、下篇预告</strong></h2>
 
-和
+<p>第 8 篇我们将深入<strong>二级缓存</strong>，包括：</p>
 
-RowBounds.limit
+<ul><li>二级缓存的开启与配置</li><li><code>CachingExecutor</code>与<code>TransactionalCache</code>的协作细节</li><li>一级缓存与二级缓存的执行顺序</li><li>缓存的刷新时机和事务边界</li></ul>
 
-BoundSql.sql
+<p>如果觉得有帮助，欢迎 <strong>点赞、在看、转发</strong> 支持！</p>
 
-（带
+<p>系列持续更新，关注不走丢 👇</p>
 
-?
+<br/>
 
-的 SQL 模板）
-
-每个参数的实际值（按
-
-ParameterMapping
-
-顺序）
-
-环境 id（可选）
-
-例如，调用
-
-userMapper.selectById(1)
-
-时：
-
-ms.id
-
-=
-
-"com.example.mapper.UserMapper.selectById"
-
-offset
-
-= 0,
-
-limit
-
-=
-
-Integer.MAX_VALUE
-
-sql
-
-=
-
-"SELECT * FROM user WHERE id = ?"
-
-参数值 =
-
-1
-
-最终生成的
-
-CacheKey
-
-包含这些内容。如果传入
-
-id=2
-
-，参数值不同，
-
-CacheKey
-
-就不同，无法命中之前
-
-id=1
-
-的缓存。
-
-Q2：一级缓存是否可能产生脏读？为什么？
-
-A
-
-：会。因为一级缓存是
-
-SqlSession
-
-级别的，不跨会话共享。会话 A 查询后缓存了数据，会话 B 修改并提交了数据库，会话 A 再次查询时仍然从自己的缓存中读取，导致读取到已过期的数据。这是 MyBatis 为了性能做出的权衡，如果要求强一致性，可以：
-
-在查询上设置
-
-flushCache=true
-
-使用二级缓存并配置合适的刷新策略
-
-在事务边界内避免长会话
-
-Q3：一级缓存能关闭吗？
-
-A
-
-：不能完全关闭，但可以将
-
-localCacheScope
-
-设置为
-
-STATEMENT
-
-，这样每次查询后都会清空缓存，效果上相当于“每次查库”，但
-
-localCache
-
-对象仍然存在，只是不跨查询共享。如果想彻底禁用缓存逻辑，除非修改源码。
-
-一级缓存之所以无法关闭，是因为 MyBatis 的级联映射、循环引用避免、嵌套查询加速等核心特性均高度依赖 CacheKey 机制和一级缓存架构，关闭会破坏这些功能的正常运行。
-
-Q4：为什么更新操作会清空所有一级缓存，而不是只清空相关的缓存条目？
-
-A
-
-：因为 MyBatis 不知道哪些缓存条目会受到当前更新操作的影响（关联表、联合查询等复杂情况下很难精确判断）。为了简化并保证数据一致性，采取了最保守的策略：清空整个
-
-SqlSession
-
-的一级缓存。这也是 MyBatis 设计上的一处权衡，开发者需要根据业务场景考虑是否使用二级缓存或手动管理缓存。
-
-Q5：
-
-EXECUTION_PLACEHOLDER
-
-的作用是什么？
-
-A
-
-：它是一个占位对象，在
-
-queryFromDatabase
-
-中先存入
-
-localCache
-
-，然后才执行
-
-doQuery
-
-。如果在
-
-doQuery
-
-执行过程中（例如动态 SQL 递归调用）再次触发了同一个 key 的查询，会因为
-
-localCache.getObject(key)
-
-返回
-
-EXECUTION_PLACEHOLDER
-
-而不是
-
-null
-
-，从而可以被检测到并抛出异常（
-
-ExecutorException
-
-），防止无限递归或死循环。
-
-九、下篇预告
-
-第 8 篇我们将深入
-
-二级缓存
-
-，包括：
-
-二级缓存的开启与配置
-
-CachingExecutor
-
-与
-
-TransactionalCache
-
-的协作细节
-
-一级缓存与二级缓存的执行顺序
-
-缓存的刷新时机和事务边界
+<p></p>
