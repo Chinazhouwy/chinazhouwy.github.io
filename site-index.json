@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T00:00:00+08:00",
+  "generatedAt": "2026-10-21T00:00:00+08:00",
   "articles": [
     {
       "title": "AI Eases Our Mental Load at the Expense of Critical Thinking",
@@ -7980,7 +7980,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-10-20",
+      "date": "2026-10-21",
       "count": 0,
       "averageScore": null
     },
@@ -7989,11 +7989,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-10-07",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-10-08",
         "count": 0,
@@ -8056,6 +8051,11 @@
       },
       {
         "date": "2026-10-20",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-10-21",
         "count": 0,
         "averageScore": null
       }
