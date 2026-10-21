@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2026-daily-1021-time-outdoors-in-nature.md",
+  "title": "Half of UK adults say they spend less than three hours a week outside in nature",
+  "paragraphs": [
+    {
+      "english": "This page is an independently written reading guide to Damian Carrington's article for The Guardian, first published online on 25 May 2026. Follow the original-article link below for the publisher's full text.",
+      "chinese": "本页是对 Damian Carrington 为《卫报》撰写文章的独立阅读导读，原文于2026年5月25日首次在线发布。请通过下方原刊链接阅读出版方全文。"
+    },
+    {
+      "english": "The article opens with a contrast between adults' positive memories of outdoor play and the limited time many now spend in natural settings. As you read, distinguish the poll's reported figures from the article's wider discussion of health and access to green space.",
+      "chinese": "文章开篇将成年人对户外玩耍的美好回忆，与如今许多人在自然环境中度过的有限时间进行对比。阅读时，请区分民调报告的数据，以及文章对健康和绿地可及性的更广泛讨论。"
+    },
+    {
+      "english": "Look at how the piece moves from individual habits to public conditions: parks can offer nearby contact with nature, but access is unequal and local budgets affect their upkeep. Notice which points come from the survey, which are attributed to named sources, and which describe government commitments.",
+      "chinese": "留意文章如何从个人习惯转向公共条件：公园能让人们就近接触自然，但人们获得这类空间的机会并不平等，地方预算也会影响公园的维护。请辨认哪些观点来自调查，哪些归于具名消息来源，哪些是在介绍政府承诺。"
+    },
+    {
+      "english": "Here is an editor-written practice sentence, not a quotation from the original article: Although nearby parks can make outdoor time easier to fit into a busy week, their value depends on whether residents can reach them and whether local services have the resources to maintain them.",
+      "chinese": "下面是编辑自拟的练习句，并非原文引句：尽管附近的公园能让人们更容易在繁忙的一周中安排户外活动，但公园的价值取决于居民能否到达那里，以及地方服务部门是否有资源进行维护。"
+    },
+    {
+      "english": "After reading, consider what the survey can—and cannot—tell us about why people spend less time outdoors. Then ask how childhood memories, access to public green space, and the funding of parks fit into the article's argument.",
+      "chinese": "读完后，请思考这项调查能够——以及不能够——告诉我们人们为何减少户外活动。然后思考童年记忆、公共绿地的可及性和公园经费，如何融入文章的论述。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Although nearby parks can make outdoor time easier to fit into a busy week, their value depends on whether residents can reach them and whether local services have the resources to maintain them.",
+      "mainClause": "their value depends on whether residents can reach them and whether local services have the resources to maintain them",
+      "structure": "Although ... week 是让步状语从句；make + 宾语 + easier to do 表示“使某事更容易做到”。主句主语为 their value，谓语为 depends on。depends on 后由两个并列的 whether 宾语从句说明公园价值所依赖的条件。第二个 whether 从句中，to maintain them 是 resources 的后置不定式修饰语。",
+      "translation": "尽管附近的公园能让人们更容易在繁忙的一周中安排户外活动，但公园的价值取决于居民能否到达那里，以及地方服务部门是否有资源进行维护。",
+      "tip": "这是编辑自拟的练习句。先划出 although 让步部分，再找主句 their value depends on；两个并列的 whether 从句共同补足 depends on 的内容。"
+    }
+  ]
+}
