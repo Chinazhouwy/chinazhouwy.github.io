@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2026-daily-1022-four-day-workweek-rebrand.md",
+  "title": "Bosses don’t like the sound of a ‘four-day workweek’. Maybe it’s time to rebrand it",
+  "paragraphs": [
+    {
+      "english": "This page is an independently written reading guide to Gene Marks's article for The Guardian, first published online on 26 April 2026. Follow the original-article link below for the publisher's full text.",
+      "chinese": "本页是对 Gene Marks 为《卫报》撰写文章的独立阅读导读，原文于2026年4月26日首次在线发布。请通过下方原刊链接阅读出版方全文。"
+    },
+    {
+      "english": "The article considers why some employers resist the idea of reducing the working week while keeping pay unchanged. As you read, separate objections to the label from questions about workload, output, and what employers regard as a fair exchange.",
+      "chinese": "文章探讨了为何一些雇主会抵触缩短工作周但保持薪酬不变的想法。阅读时，请将对这一说法的反感，与有关工作量、产出以及雇主眼中何为公平交换的问题区分开来。"
+    },
+    {
+      "english": "Marks also suggests that flexible schedules and paid time off may already give some workers a shorter week in practice, even when employers do not describe them that way. Notice how the piece moves from workplace attitudes to examples of existing arrangements, and distinguish the writer's opinion from claims about broader trends.",
+      "chinese": "Marks 还提出，即使雇主不这样称呼，灵活排班和带薪休假在实践中也可能已经让一些劳动者拥有更短的工作周。留意文章如何从职场态度转向现有安排的例子，并区分作者的观点与关于更广泛趋势的论断。"
+    },
+    {
+      "english": "Here is an editor-written practice sentence, not a quotation from the original article: Although a shorter schedule may sound costly to an employer, flexible arrangements can be easier to accept when they are linked to completed work and employee benefits.",
+      "chinese": "下面是编辑自拟的练习句，并非原文引句：尽管缩短工时的安排对雇主而言可能听起来成本高昂，但如果它与工作完成情况和员工福利挂钩，灵活安排或许更容易被接受。"
+    },
+    {
+      "english": "After reading, consider whether changing the name of a policy can change how people judge it. Then weigh the article's examples against its argument about productivity, fairness, and the language used to describe working time.",
+      "chinese": "读完后，请思考改变一项政策的名称是否会改变人们对它的评价。然后，将文章举出的例子与其关于生产力、公平以及描述工时所用语言的论点进行比较。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Although a shorter schedule may sound costly to an employer, flexible arrangements can be easier to accept when they are linked to completed work and employee benefits.",
+      "mainClause": "flexible arrangements can be easier to accept",
+      "structure": "Although 引导让步状语从句，主干为 a shorter schedule may sound costly；to an employer 表示对谁而言。主句主干是 flexible arrangements can be easier to accept。when 引导时间/条件状语从句，说明安排在什么情况下更容易被接受；they 指 flexible arrangements，be linked to 表示“与……挂钩”。",
+      "translation": "尽管缩短工时的安排对雇主而言可能听起来成本高昂，但如果它与工作完成情况和员工福利挂钩，灵活安排或许更容易被接受。",
+      "tip": "这是编辑自拟的练习句，并非原文引句。先用 Although 找出让步部分，再找主句主语 flexible arrangements 和谓语 can be；最后辨认 when 从句给出的条件。"
+    }
+  ]
+}
