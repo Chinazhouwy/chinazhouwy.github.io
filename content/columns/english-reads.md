@@ -26,6 +26,7 @@ Fresh selections and reading guides, kept separate from the archive. Each guide 
 - [AI Eases Our Mental Load at the Expense of Critical Thinking](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-01-ai-and-critical-thinking.md) — Psychology Today · 2024-10-30 · 阅读导读与原刊入口。
 - [Half of UK adults say they spend less than three hours a week outside in nature](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1021-time-outdoors-in-nature.md) — The Guardian · 2026-05-25 · 阅读导读与原刊入口。
 - [Bosses don’t like the sound of a ‘four-day workweek’. Maybe it’s time to rebrand it](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1022-four-day-workweek-rebrand.md) — The Guardian · 2026-04-26 · 阅读导读与原刊入口。
+- [The Hater's Guide to Loving Boredom](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1023-haters-guide-boredom.md) — Psychology Today · 2025-06-18 · 阅读导读与原刊入口。
 
 ## The Archive
 
