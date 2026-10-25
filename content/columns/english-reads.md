@@ -23,6 +23,7 @@ Short readings on technology, society, education, the environment, and everyday 
 
 Fresh selections and reading guides, kept separate from the archive. Each guide links to the original publication and labels its own practice material.
 
+- [The Guardian view on the National Year of Reading 2026: time to start a healthy habit for life](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1025-national-year-reading.md) — The Guardian · 2025-12-29 · 阅读导读与原刊入口。
 - [AI Eases Our Mental Load at the Expense of Critical Thinking](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-01-ai-and-critical-thinking.md) — Psychology Today · 2024-10-30 · 阅读导读与原刊入口。
 - [Half of UK adults say they spend less than three hours a week outside in nature](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1021-time-outdoors-in-nature.md) — The Guardian · 2026-05-25 · 阅读导读与原刊入口。
 - [Bosses don’t like the sound of a ‘four-day workweek’. Maybe it’s time to rebrand it](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1022-four-day-workweek-rebrand.md) — The Guardian · 2026-04-26 · 阅读导读与原刊入口。
