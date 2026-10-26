@@ -78,7 +78,7 @@
       <h1>把想不到的公式，<br>变成下一次的突破口。</h1>
       <p class="intro">只记录口述真题训练中明确提出需要保存的不熟公式、关键换元和解题模板。不是整本错题册；每条都对应真实真题，供第二轮定向复习。</p>
       <div class="overview">
-        <div class="metric"><strong id="total">2</strong><span>已记录知识点</span></div>
+        <div class="metric"><strong id="total">3</strong><span>已记录知识点</span></div>
         <div class="metric"><strong id="high">2</strong><span>重点二刷</span></div>
         <div class="metric"><strong id="years">1987</strong><span>目前涉及年份</span></div>
       </div>
@@ -86,10 +86,10 @@
     </section>
     <section class="toolbar" aria-label="筛选知识点">
       <div class="search"><input id="query" type="search" placeholder="搜索：年份、题号、换元、特解、反正切……" aria-label="搜索知识点"></div>
-      <div class="select"><select id="topic" aria-label="知识分类"><option value="all">全部分类</option><option value="积分">积分</option><option value="微分方程">微分方程</option></select></div>
+      <div class="select"><select id="topic" aria-label="知识分类"><option value="all">全部分类</option><option value="积分">积分</option><option value="微分方程">微分方程</option><option value="极限与概念">极限与概念</option></select></div>
       <div class="select"><select id="level" aria-label="复习优先级"><option value="all">全部优先级</option><option value="high">重点二刷</option></select></div>
     </section>
-    <div class="results" id="results" aria-live="polite">当前显示 2 条记录</div>
+    <div class="results" id="results" aria-live="polite">当前显示 3 条记录</div>
     <section id="notes" aria-label="不熟公式记录">
       <article class="note" id="1987-11" data-topic="积分" data-priority="high" data-year="1987" data-search="三角代换 tan 反正切 反正弦 积分 arctan arcsin 1987 第七大题 第11题">
         <div class="note-head">
@@ -145,6 +145,36 @@
           <div class="callout"><strong>碰到“重合”时：</strong>指数类看 \(\alpha\) 是否是特征根；三角类看 \(\alpha\pm i\beta\) 是否为特征根。有重合，特解整体补乘 \(x^k\)。例如本题若右端换成 \(e^{-x}\)，因 \(-1\) 是二重根，就要设 \(y_p=Ax^2e^{-x}\)。</div>
           <div class="warning callout"><strong>回家独立重做：</strong>先不代系数，仅练习观察右端并准确写出特解假设式；分别练多项式、指数、多项式×指数、指数×正余弦及重根重合。</div>
           <div class="footer-note">状态：待定系数法遗忘 · 来源：1987 数学二原卷第八大题（2） · 录入：2026-10-26</div>
+        </div>
+      </article>
+      <article class="note" id="1987-15-concepts" data-topic="极限与概念" data-priority="normal" data-year="1987" data-search="1987 第15题 无穷大 无穷小 无界 极限 正负震荡 绝对值 连续 介值定理 零点">
+        <div class="note-head">
+          <div class="note-meta"><span class="tag">1987 年 · 原卷第九大题（2）</span><span class="tag">口述第 15 题衍生</span><span class="tag">概念辨析</span><span class="tag">极限与概念</span></div>
+          <h2>无界、无穷大量与无穷小量：不要把它们混为一谈</h2>
+          <p class="deck">口述追问：无穷大量能否正负交替？无穷小量是否也使用绝对值定义？连续性为什么会改变结论？</p>
+        </div>
+        <div class="content">
+          <h3>三个概念的严格区别（以 \(x\to+\infty\) 为例）</h3>
+          <div class="table-scroll"><table><thead><tr><th>概念</th><th>准确条件</th><th>重点</th></tr></thead><tbody>
+            <tr><td>函数无界</td><td>\(\forall M>0,\ \exists x:\ |f(x)|>M\)</td><td>只要求<strong>存在一些位置</strong>超过阈值。</td></tr>
+            <tr><td>无穷大量</td><td>\(\forall M>0,\ \exists X>0,\ \forall x>X:\ |f(x)|>M\)</td><td>超过某位置后<strong>每个位置</strong>的绝对值都超过阈值。</td></tr>
+            <tr><td>无穷小量</td><td>\(\forall\varepsilon>0,\ \exists X>0,\ \forall x>X:\ |f(x)|<\varepsilon\)</td><td>最终落入任意窄的零点邻域。</td></tr>
+          </tbody></table></div>
+          <div class="callout">两者都可用绝对值描述：\(\displaystyle f(x)\to0\iff |f(x)|\to0\)；而无穷大量按绝对值趋于无穷大来理解，与“\(f(x)\to+\infty\)”或“\(f(x)\to-\infty\)”并不相同。</div>
+          <h3>真题：\(f(x)=x\sin x\) 为什么无界却不是无穷大量？</h3>
+          <p>\(x\sin x\) 的振幅随 \(|x|\) 增长，因此在整个实数轴上无界；但每当 \(x=n\pi\) 时都有 \(f(n\pi)=0\)，所以它<strong>不可能</strong>在足够靠后的所有位置都满足 \(|f(x)|>1\)。</p>
+          <h3>正负交替也能是无穷大量吗？</h3>
+          <div class="split">
+            <div class="mini"><strong>数列可以</strong><div class="formula">$a_n=(-1)^n n,\qquad |a_n|=n\to\infty$</div><p>数列在离散点之间不要求连续，能正负交替并保持绝对值越来越大。</p></div>
+            <div class="mini"><strong>连续函数在足够远处不可以无限次变号</strong><p>若函数在某个尾区间连续，且 \(|f(x)|\to\infty\)，则最终 \(|f(x)|>1\)。一旦从正值变到负值，介值定理保证中间取到 0，与最终 \(|f(x)|>1\) 矛盾。</p></div>
+          </div>
+          <h3>无穷小可以变号</h3>
+          <div class="formula">$f(x)=\frac{\sin x}{x},\qquad |f(x)|\le\frac1x\to0\quad(x\to+\infty)$</div>
+          <p>它可以不停改变符号或经过 0，因为无穷小要求<strong>越来越接近 0</strong>，不要求远离 0。</p>
+          <h3>倒数关系</h3>
+          <div class="formula">$|f(x)|\to\infty\ \Longrightarrow\ \frac1{f(x)}\to0$</div>
+          <p>反过来，若 \(f(x)\to0\) 且在所讨论的去心邻域中 \(f(x)\ne0\)，则 \(1/f(x)\) 为无穷大量。</p>
+          <div class="footer-note">状态：概念已讨论，待第二轮快速口述核对 · 来源：1987 数学二原卷第九大题（2）延伸 · 录入：2026-10-26</div>
         </div>
       </article>
     </section>
