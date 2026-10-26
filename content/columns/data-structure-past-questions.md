@@ -31,24 +31,24 @@ tags:
 
 | 年份 | 题号（分值） | 主题 | 一句话考点 |
 |---|---|---|---|
-| [2009]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2009-single-linked-list-kth-from-end.md) | 第 41（10 分）、42（15 分） | 最短路径贪心证伪 + 单链表倒数第 k 个结点 | 双指针固定间距，一趟扫描 |
-| [2010]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2010-array-rotate-left.md) | 第 41（10 分）、42（13 分） | 散列表线性探测 + 数组循环左移 | 三次逆置，O(1) 空间 |
-| [2011]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2011-median-of-two-sorted-sequences.md) | 第 41（8 分）、42（15 分） | 邻接矩阵恢复图求关键路径 + 两升序序列中位数 | 折半淘汰，O(log n) |
-| [2012]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2012-linked-list-common-suffix-and-merge-order.md) | 第 41、42 | 六表最优归并 + 两链表共同后缀 | 哈夫曼式贪心、长度对齐 |
-| [2013]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2013-majority-element-and-search-probability.md) | 第 41（13 分）、42（10 分） | 主元素 + 按查找概率重排 | 摩尔投票 + 二次验证 |
-| [2014]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2014-binary-tree-wpl-and-link-state-graph.md) | 第 41（13 分）、42（10 分） | 二叉树 WPL + 链路状态建图跑 Dijkstra | 只算叶结点，depth 往下传 |
-| [2015]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2015-delete-abs-duplicates-in-linked-list.md) | 第 41（15 分）、42（8 分） | 删绝对值重复结点 + 邻接矩阵语义 | 绝对值取标记数组下标 |
-| [2016]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2016-regular-k-ary-tree-and-set-partition.md) | 第 42、43 | 正则 k 叉树结点计数 + 集合划分双目标 | 边数等价关系推导 |
-| [2017]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2017-expression-tree-to-infix.md) | 第 41（15 分）、42（8 分） | 表达式树转中缀 + Prim 选边过程 | 括号只加在分支结点 |
-| [2018]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2018-first-missing-positive-integer.md) | 第 41（13 分）、42（12 分） | 未出现的最小正整数 + 光纤网最经济方案 | 答案必在 [1, n+1] |
-| [2019]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2019-linked-list-reorder-and-growable-queue.md) | 第 41（13 分）、42（10 分） | 链表重排 + 只增不减的队列 | 找中点、逆置、合并三件套 |
-| [2020]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2020-min-triple-distance-and-prefix-code.md) | 第 41（13 分）、42（10 分） | 三元组最小距离 + 前缀编码 | 三指针推最小者 |
-| [2021]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2021-euler-path-and-comparison-count-sort.md) | 第 41（15 分）、42（8 分） | 欧拉路径判定 + 比较计数排序 | 奇度顶点数为 0 或 2 |
-| [2022]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2022-array-stored-binary-search-tree-check.md) | 第 41（13 分）、42（10 分） | 顺序存储判 BST + 取最小的 10 个数 | 中序严格递增；容量 10 的大顶堆 |
-| [2023]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2023-outdegree-exceeds-indegree-and-replacement-selection-sort.md) | 第 41（13 分）、42（10 分） | 出度>入度顶点 + 置换-选择排序 | 行和出度、列和入度；冻结规则 |
-| [2024]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2024-unique-topological-order-and-quadratic-probing.md) | 第 41（13 分）、42（10 分） | 拓扑序列唯一性 + 二次探测散列表 | 每步入度 0 顶点只有一个 |
-| [2025]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2025-range-product-max-and-aoa-network.md) | 第 41（13 分）、42（10 分） | 区间乘积最大值 + AOE 网关键活动 | 后缀最大/最小一起维护 |
-| [2026]](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2026-bst-nearest-to-k-and-stack-permutations.md) | 第 41、42（10 分） | BST 找最接近 k 的点 + 出栈序列四问 | 中序有序；卡特兰数与禁止模式 |
+| [2009](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2009-single-linked-list-kth-from-end.md) | 第 41（10 分）、42（15 分） | 最短路径贪心证伪 + 单链表倒数第 k 个结点 | 双指针固定间距，一趟扫描 |
+| [2010](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2010-array-rotate-left.md) | 第 41（10 分）、42（13 分） | 散列表线性探测 + 数组循环左移 | 三次逆置，O(1) 空间 |
+| [2011](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2011-median-of-two-sorted-sequences.md) | 第 41（8 分）、42（15 分） | 邻接矩阵恢复图求关键路径 + 两升序序列中位数 | 折半淘汰，O(log n) |
+| [2012](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2012-linked-list-common-suffix-and-merge-order.md) | 第 41、42 | 六表最优归并 + 两链表共同后缀 | 哈夫曼式贪心、长度对齐 |
+| [2013](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2013-majority-element-and-search-probability.md) | 第 41（13 分）、42（10 分） | 主元素 + 按查找概率重排 | 摩尔投票 + 二次验证 |
+| [2014](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2014-binary-tree-wpl-and-link-state-graph.md) | 第 41（13 分）、42（10 分） | 二叉树 WPL + 链路状态建图跑 Dijkstra | 只算叶结点，depth 往下传 |
+| [2015](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2015-delete-abs-duplicates-in-linked-list.md) | 第 41（15 分）、42（8 分） | 删绝对值重复结点 + 邻接矩阵语义 | 绝对值取标记数组下标 |
+| [2016](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2016-regular-k-ary-tree-and-set-partition.md) | 第 42、43 | 正则 k 叉树结点计数 + 集合划分双目标 | 边数等价关系推导 |
+| [2017](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2017-expression-tree-to-infix.md) | 第 41（15 分）、42（8 分） | 表达式树转中缀 + Prim 选边过程 | 括号只加在分支结点 |
+| [2018](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2018-first-missing-positive-integer.md) | 第 41（13 分）、42（12 分） | 未出现的最小正整数 + 光纤网最经济方案 | 答案必在 [1, n+1] |
+| [2019](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2019-linked-list-reorder-and-growable-queue.md) | 第 41（13 分）、42（10 分） | 链表重排 + 只增不减的队列 | 找中点、逆置、合并三件套 |
+| [2020](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2020-min-triple-distance-and-prefix-code.md) | 第 41（13 分）、42（10 分） | 三元组最小距离 + 前缀编码 | 三指针推最小者 |
+| [2021](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2021-euler-path-and-comparison-count-sort.md) | 第 41（15 分）、42（8 分） | 欧拉路径判定 + 比较计数排序 | 奇度顶点数为 0 或 2 |
+| [2022](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2022-array-stored-binary-search-tree-check.md) | 第 41（13 分）、42（10 分） | 顺序存储判 BST + 取最小的 10 个数 | 中序严格递增；容量 10 的大顶堆 |
+| [2023](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2023-outdegree-exceeds-indegree-and-replacement-selection-sort.md) | 第 41（13 分）、42（10 分） | 出度>入度顶点 + 置换-选择排序 | 行和出度、列和入度；冻结规则 |
+| [2024](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2024-unique-topological-order-and-quadratic-probing.md) | 第 41（13 分）、42（10 分） | 拓扑序列唯一性 + 二次探测散列表 | 每步入度 0 顶点只有一个 |
+| [2025](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2025-range-product-max-and-aoa-network.md) | 第 41（13 分）、42（10 分） | 区间乘积最大值 + AOE 网关键活动 | 后缀最大/最小一起维护 |
+| [2026](#/article/content%2Fcolumns%2Fdata-structure-past-questions%2F2026-bst-nearest-to-k-and-stack-permutations.md) | 第 41、42（10 分） | BST 找最接近 k 的点 + 出栈序列四问 | 中序有序；卡特兰数与禁止模式 |
 
 ## 按题型找题
 
