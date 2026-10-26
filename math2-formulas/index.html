@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f6f7f5" />
+  <meta name="description" content="考研数学二历年真题口述训练：不熟公式与关键方法的持续复习手册。" />
+  <title>数学二 · 不熟公式本</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+  <style>
+    :root{color-scheme:light;--bg:#f6f7f5;--panel:#fff;--ink:#172c27;--muted:#64766e;--accent:#166b54;--accentsoft:#e8f4ee;--line:#e2e9e3;--warn:#925419;--warnsoft:#fff3e4;--shadow:0 10px 35px rgba(29,49,38,.045)}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.72}
+    a{color:var(--accent)}
+    .wrap{width:min(1100px,calc(100% - 34px));margin:auto}
+    .topbar{padding:18px 0;border-bottom:1px solid var(--line);background:rgba(255,255,255,.75)}
+    .topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:11px;font-size:15px;font-weight:750;letter-spacing:.02em}
+    .logo{display:grid;place-items:center;background:#184e3f;color:white;border-radius:11px;width:38px;height:38px;font-size:22px;font-family:Georgia,serif}
+    .scope{color:var(--muted);font-size:12px}
+    .hero{padding:54px 0 31px}
+    .eyebrow{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.13em}
+    h1{font-size:clamp(34px,5vw,54px);letter-spacing:-.045em;line-height:1.16;margin:10px 0 15px}
+    .intro{font-size:16px;color:var(--muted);max-width:770px;margin:0}
+    .overview{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+    .metric{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 20px;min-width:155px}
+    .metric strong{font-size:22px;display:block;line-height:1.2}
+    .metric span{font-size:12px;color:var(--muted)}
+    .guide{border-left:3px solid var(--accent);padding:11px 15px;margin-top:22px;color:#345749;background:#e9f3ed;border-radius:0 9px 9px 0;font-size:13px}
+    .toolbar{margin:28px 0 18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .search{flex:1;min-width:220px}
+    input,select{width:100%;min-height:44px;background:#fff;border:1px solid #d7e1d8;border-radius:11px;padding:10px 13px;color:var(--ink);font:inherit;font-size:14px;outline:none}
+    input:focus,select:focus{border-color:#2c8e70;box-shadow:0 0 0 3px #d8eee2}
+    .select{max-width:170px}
+    .results{font-size:13px;color:var(--muted);margin:8px 0 18px}
+    .note{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);margin-bottom:18px;overflow:hidden}
+    .note-head{padding:24px 27px 17px;border-bottom:1px solid #edf0ed}
+    .note-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .tag{font-size:11px;font-weight:750;letter-spacing:.03em;background:#f0f3f1;color:#62736b;padding:3px 10px;border-radius:99px}
+    .tag.primary{background:var(--warnsoft);color:var(--warn)}
+    .note h2{font-size:23px;line-height:1.4;letter-spacing:-.025em;margin:13px 0 7px}
+    .deck{margin:0;color:var(--muted);font-size:13px}
+    .content{padding:22px 27px 27px}
+    .content h3{font-size:16px;line-height:1.45;margin:23px 0 9px}
+    .content h3:first-child{margin-top:0}
+    .content p{margin:8px 0}
+    .formula{margin:13px 0;padding:13px 16px;background:#f7faf7;border:1px solid #e8eeea;border-radius:10px;overflow-x:auto;text-align:center;font-size:15px}
+    .katex-display{margin:.55em 0!important}
+    .muted{color:var(--muted)}
+    .emph{font-weight:750;color:var(--accent)}
+    .callout{background:var(--accentsoft);border-radius:11px;padding:12px 15px;margin:16px 0;font-size:14px}
+    .warning{background:var(--warnsoft);color:#855324}
+    ul,ol{padding-left:22px;margin:8px 0}
+    li+li{margin-top:5px}
+    table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+    th,td{text-align:left;border-bottom:1px solid var(--line);padding:12px 10px;vertical-align:top}
+    th{background:#f7faf7;color:#446155}
+    .table-scroll{overflow-x:auto}
+    .split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .mini{padding:13px 15px;background:#f8faf8;border:1px solid var(--line);border-radius:11px}
+    .mini strong{display:block;font-size:13px}
+    .footer-note{border-top:1px dashed var(--line);padding-top:15px;margin-top:20px;color:var(--muted);font-size:12px}
+    .empty{display:none;padding:35px;text-align:center;color:var(--muted)}
+    footer{padding:27px 0 55px;color:var(--muted);font-size:12px}
+    @media(max-width:650px){.hero{padding-top:36px}.note-head{padding:20px}.content{padding:18px 20px}.split{grid-template-columns:1fr}.select{max-width:none;flex:1}.note h2{font-size:20px}.metric{flex:1;min-width:110px}.scope{display:none}.formula{font-size:13px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <header class="topbar"><div class="wrap topbar-inner">
+    <div class="brand"><div class="logo">∑</div><span>数学二 · 不熟公式本</span></div>
+    <span class="scope">1987—2016 真题口述训练 · 持续更新</span>
+  </div></header>
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">FORMULA REVIEW / 数学二</div>
+      <h1>把想不到的公式，<br>变成下一次的突破口。</h1>
+      <p class="intro">只记录口述真题训练中明确提出需要保存的不熟公式、关键换元和解题模板。不是整本错题册；每条都对应真实真题，供第二轮定向复习。</p>
+      <div class="overview">
+        <div class="metric"><strong id="total">2</strong><span>已记录知识点</span></div>
+        <div class="metric"><strong id="high">2</strong><span>重点二刷</span></div>
+        <div class="metric"><strong id="years">1987</strong><span>目前涉及年份</span></div>
+      </div>
+      <div class="guide">维护规则：只追加或修订本页的记录；不为每道题另建文件。题号注明“原卷大题”与“口述流水号”，避免混淆。遇到不熟知识点，由你明确指定是否收录。</div>
+    </section>
+    <section class="toolbar" aria-label="筛选知识点">
+      <div class="search"><input id="query" type="search" placeholder="搜索：年份、题号、换元、特解、反正切……" aria-label="搜索知识点"></div>
+      <div class="select"><select id="topic" aria-label="知识分类"><option value="all">全部分类</option><option value="积分">积分</option><option value="微分方程">微分方程</option></select></div>
+      <div class="select"><select id="level" aria-label="复习优先级"><option value="all">全部优先级</option><option value="high">重点二刷</option></select></div>
+    </section>
+    <div class="results" id="results" aria-live="polite">当前显示 2 条记录</div>
+    <section id="notes" aria-label="不熟公式记录">
+      <article class="note" id="1987-11" data-topic="积分" data-priority="high" data-year="1987" data-search="三角代换 tan 反正切 反正弦 积分 arctan arcsin 1987 第七大题 第11题">
+        <div class="note-head">
+          <div class="note-meta"><span class="tag">1987 年 · 原卷第七大题</span><span class="tag">口述第 11 题</span><span class="tag primary">重点二刷</span><span class="tag">积分</span></div>
+          <h2>三角函数积分：\(t=\tan x\) 与反三角函数积分</h2>
+          <p class="deck">口述表现：分类讨论正确；没有及时想到正切换元；反三角函数积分公式需熟记。</p>
+        </div>
+        <div class="content">
+          <h3>真题原式</h3>
+          <div class="formula">$$I=\int\frac{dx}{a^2\sin^2 x+b^2\cos^2 x},\quad a,b\ge0,\quad a+b>0$$</div>
+          <h3>关键换元</h3>
+          <div class="formula">$$t=\tan x,\quad \sin^2x=\frac{t^2}{1+t^2},\quad\cos^2x=\frac1{1+t^2},\quad dx=\frac{dt}{1+t^2}$$</div>
+          <div class="formula">$$\boxed{\int\frac{dx}{a^2\sin^2x+b^2\cos^2x}=\int\frac{dt}{a^2t^2+b^2}}$$</div>
+          <div class="callout">看到分母只有 \(\sin^2 x\) 与 \(\cos^2 x\) 的组合，先试 <span class="emph">\(t=\tan x\)</span>，比强行凑三角恒等式更直接。</div>
+          <h3>必须分三种情况</h3>
+          <div class="formula">$$\begin{aligned}
+          a=0,b>0:\quad&I=\frac{\tan x}{b^2}+C\\
+          b=0,a>0:\quad&I=-\frac{\cot x}{a^2}+C\\
+          a>0,b>0:\quad&I=\frac1{ab}\arctan\!\left(\frac ab\tan x\right)+C
+          \end{aligned}$$</div>
+          <p class="muted">正切换元及反正切表达式按不跨越 \(\cos x=0\) 的区间使用；全域写法需处理分支常数。</p>
+          <h3>反三角函数常用积分（不要混淆）</h3>
+          <div class="split">
+            <div class="mini"><strong>反正切 arctan</strong><div class="formula">$$\int\frac{du}{u^2+c^2}=\frac1c\arctan\frac uc+C\quad(c>0)$$</div></div>
+            <div class="mini"><strong>反正弦 arcsin</strong><div class="formula">$$\int\frac{du}{\sqrt{c^2-u^2}}=\arcsin\frac uc+C\quad(c>0,\ |u|<c)$$</div></div>
+          </div>
+          <div class="warning callout"><strong>回家独立重做：</strong>三种参数情况各算一遍；重点训练从原式识别 \(\tan x\) 换元，以及分清 arctan / arcsin 两种积分形式。</div>
+          <div class="footer-note">状态：关键换元不熟练 · 来源：1987 数学二原卷第七大题 · 录入：2026-10-26</div>
+        </div>
+      </article>
+      <article class="note" id="1987-13" data-topic="微分方程" data-priority="high" data-year="1987" data-search="非齐次 微分方程 二阶 常系数 待定系数 特解 多项式 指数 三角 正弦 余弦 共振 1987 第八大题 第13题">
+        <div class="note-head">
+          <div class="note-meta"><span class="tag">1987 年 · 原卷第八大题（2）</span><span class="tag">口述第 13 题</span><span class="tag primary">重点二刷</span><span class="tag">微分方程</span></div>
+          <h2>二阶常系数非齐次方程：特解该怎么设？</h2>
+          <p class="deck">口述表现：知道“齐次通解＋非齐次特解”，二重根的形式大致记得；特征根符号错误，待定系数法忘记。</p>
+        </div>
+        <div class="content">
+          <h3>真题原式与齐次通解</h3>
+          <div class="formula">$$y''+2y'+y=xe^x$$</div>
+          <div class="formula">$$r^2+2r+1=(r+1)^2=0\quad\Longrightarrow\quad y_h=(C_1+C_2x)e^{-x}$$</div>
+          <h3>本题设特解</h3>
+          <p>右端 \(xe^x\) 是一次多项式乘指数函数。因 \(\alpha=1\) 不是特征根 \(-1\)，无需再乘 \(x\)。</p>
+          <div class="formula">$$\boxed{y_p=e^x(Ax+B)}$$</div>
+          <div class="formula">$$y_p=\frac{x-1}{4}e^x,\qquad
+            y=(C_1+C_2x)e^{-x}+\frac{x-1}{4}e^x$$</div>
+          <h3>待定系数法速查表</h3>
+          <div class="table-scroll"><table><thead><tr><th>非齐次右端 \(f(x)\)</th><th>特解设法 \(y_p\)</th></tr></thead><tbody>
+            <tr><td>多项式 \(P_m(x)\)</td><td>\(x^k Q_m(x)\)</td></tr>
+            <tr><td>指数 × 多项式 \(e^{\alpha x}P_m(x)\)</td><td>\(x^k e^{\alpha x}Q_m(x)\)</td></tr>
+            <tr><td>指数 × 正弦/余弦 × 多项式<br>\(e^{\alpha x}[P_m(x)\cos\beta x+Q_n(x)\sin\beta x]\)</td><td>\(x^k e^{\alpha x}[R_d(x)\cos\beta x+S_d(x)\sin\beta x]\)，\(d=\max(m,n)\)</td></tr>
+          </tbody></table></div>
+          <p>表中 \(P,Q,R,S\) 都表示相应次数的多项式，待定的是其系数；\(k\) 取对应特征根的重数：没有重根冲突时 \(k=0\)，一次重合 \(k=1\)，二重根 \(k=2\)。纯三角函数是第三类取 \(\alpha=0\)、多项式为常数的特例。</p>
+          <div class="callout"><strong>碰到“重合”时：</strong>指数类看 \(\alpha\) 是否是特征根；三角类看 \(\alpha\pm i\beta\) 是否为特征根。有重合，特解整体补乘 \(x^k\)。例如本题若右端换成 \(e^{-x}\)，因 \(-1\) 是二重根，就要设 \(y_p=Ax^2e^{-x}\)。</div>
+          <div class="warning callout"><strong>回家独立重做：</strong>先不代系数，仅练习观察右端并准确写出特解假设式；分别练多项式、指数、多项式×指数、指数×正余弦及重根重合。</div>
+          <div class="footer-note">状态：待定系数法遗忘 · 来源：1987 数学二原卷第八大题（2） · 录入：2026-10-26</div>
+        </div>
+      </article>
+    </section>
+    <div class="note empty" id="empty">没有找到匹配的记录。试试清除搜索条件。</div>
+  </main>
+  <footer class="wrap">
+    <div>只收录明确提出需要记住的内容 · 本页是可公开访问的静态学习笔记 · 不是实时同步的聊天数据库</div>
+    <div>数据维护：GitHub 中的单一 <code>math2-formulas/index.html</code> 文件；每次更新都可以通过 Git 历史回滚。</div>
+  </footer>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      const notes=[...document.querySelectorAll('.note[data-topic]')];
+      const query=document.getElementById('query'),topic=document.getElementById('topic'),level=document.getElementById('level');
+      document.getElementById('total').textContent=notes.length;
+      document.getElementById('high').textContent=notes.filter(x=>x.dataset.priority==='high').length;
+      document.getElementById('years').textContent=[...new Set(notes.map(x=>x.dataset.year))].sort().join('、');
+      function filter(){
+        const q=query.value.trim().toLocaleLowerCase();
+        let n=0;
+        notes.forEach(note=>{
+          const text=(note.textContent+' '+note.dataset.search).toLocaleLowerCase();
+          const ok=(!q||text.includes(q))&&(topic.value==='all'||note.dataset.topic===topic.value)&&(level.value==='all'||note.dataset.priority===level.value);
+          note.hidden=!ok;if(ok)n++;
+        });
+        document.getElementById('results').textContent='当前显示 '+n+' / '+notes.length+' 条记录';
+        document.getElementById('empty').style.display=n===0?'block':'none';
+      }
+      [query,topic,level].forEach(el=>el.addEventListener('input',filter));
+      filter();
+      function typeset(){
+        if(typeof renderMathInElement==='function'){
+          renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false,strict:'ignore'});
+        }else{setTimeout(typeset,400);}
+      }
+      let attempts=0;
+      function tryTypeset(){
+        if(typeof renderMathInElement==='function')typeset();
+        else if(++attempts<15)setTimeout(tryTypeset,450);
+      }
+      tryTypeset();
+    });
+  </script>
+</body>
+</html>
