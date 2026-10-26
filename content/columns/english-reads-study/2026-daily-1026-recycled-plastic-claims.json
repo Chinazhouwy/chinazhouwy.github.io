@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2026-daily-1026-recycled-plastic-claims.md",
+  "title": "Europe’s supermarket shelves packed with ‘misleading’ claims about recycled plastic packaging",
+  "paragraphs": [
+    {
+      "english": "This page is an independently written reading guide to a Guardian investigation by Stefano Valentino, first published online on 27 January 2026. Follow the original-article link below for the publisher’s full text.",
+      "chinese": "本页是为《卫报》记者斯特凡诺·瓦伦蒂诺的一篇调查报道独立撰写的阅读导读，该报道于2026年1月27日首次在线发布。请通过下方原文链接阅读出版方提供的全文。"
+    },
+    {
+      "english": "The investigation examines plastic packaging marketed as sustainable in Europe. It reports that some packaging described as recycled or climate-friendly may contain only a small share of material recovered from waste, while most of its feedstock remains fossil-based. The article asks whether the labels consumers see reflect the physical contents of the products.",
+      "chinese": "这篇调查考察了欧洲市场上被宣传为可持续的塑料包装。报道指出，一些被描述为可回收或气候友好的包装，所含的废弃物回收材料比例可能很低，而其大部分原料仍来自化石燃料。文章追问，消费者看到的标签是否如实反映了产品的实际成分。"
+    },
+    {
+      "english": "It explains how chemical recycling by pyrolysis turns plastic waste into an oil that can be used as feedstock. According to the article, this oil is mixed with virgin petroleum-derived material before it enters plastic production. The guide’s central distinction is between a process that receives recycled input and a finished package that physically contains recycled material.",
+      "chinese": "文章解释了热解这一化学回收方式如何将塑料废弃物转化为可用作原料的油。据报道，这种油在进入塑料生产之前，会与来自石油的原生材料混合。本导读着重区分两件事：生产流程中加入了回收原料，以及最终包装的物理成分中确实含有回收材料。"
+    },
+    {
+      "english": "The article also describes “mass-balance” accounting, in which recycled input can be allocated on paper to selected output batches. It questions whether this accounting allows a product to be marketed as fully recycled even when its physical contents do not match that claim. A separate “avoided emissions” calculation is discussed as another way reported climate benefits can depend on accounting choices.",
+      "chinese": "文章还介绍了“质量平衡”核算：在这种方法中，回收投入可以在账面上分配给选定的产出批次。文章质疑，这种核算是否会使产品即使实际成分与宣传不符，也能被宣传为完全由回收材料制成。报道还讨论了另一种“避免排放”算法，指出所报告的气候效益也可能取决于核算方式的选择。"
+    },
+    {
+      "english": "The investigation reports criticism from environmental experts and raises concerns about the independence of some reviews. It also notes that companies named in the report did not provide full life-cycle assessments or respond to questions. These points are presented as the article’s reporting and attributed claims, not as an independent verification by this guide.",
+      "chinese": "这篇调查报道了环境领域专家的批评，并对部分评估的独立性提出疑问。文章还指出，报道中提到的企业没有提供完整的生命周期评估，也没有回应相关问题。这些内容属于原文的报道及其归属明确的说法，并非本导读独立核实所得的结论。"
+    },
+    {
+      "english": "Here is an editor-written practice sentence, not a quotation from the original article: A recycling label can sound convincing even when the accounting method says more about allocated credits than about the material in the package.",
+      "chinese": "以下是编辑撰写的练习句，并非原文引句：即使核算方法反映的更多是分配的回收额度，而非包装中的实际材料，回收标签听起来仍可能很有说服力。"
+    },
+    {
+      "english": "As you read, distinguish physical composition from accounting attribution. Track how the article moves from the recycling process to certification and emissions calculations, and notice which claims are attributed to companies, researchers, or campaigners.",
+      "chinese": "阅读时，请区分实际物质成分与账面归属。留意文章如何从回收流程谈到认证和排放计算，并注意哪些说法分别归属于企业、研究人员或环保倡议者。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "A recycling label can sound convincing even when the accounting method says more about allocated credits than about the material in the package.",
+      "mainClause": "主句：A recycling label can sound convincing；主语是 A recycling label，谓语是 can sound，主语补足语是 convincing。",
+      "structure": "even when 引导让步意味的时间/条件状语从句。when 从句中 the accounting method 是主语，says 的宾语为 more；than 后省略了与前文平行的 says more，比较的是核算方法对分配额度与包装实际材料所说明的信息多少。",
+      "translation": "即使核算方法反映的更多是分配的回收额度，而非包装中的实际材料，回收标签听起来仍可能很有说服力。",
+      "tip": "先抓住 sound + adjective（听起来……）这一主干，再识别 even when 引出的让步背景。more about A than about B 表示“更多说明A，而不是B”；本句为编辑自拟练习句，并非原刊引文。"
+    }
+  ]
+}
