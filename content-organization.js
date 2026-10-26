@@ -75,6 +75,33 @@ const COLLECTIONS=[
     "paths": [
       "content/columns/interview-deep-dive.md"
     ]
+  },
+  {
+    "id": "data-structure-past-questions",
+    "title": "数据结构综合应用题年表（2009–2026）",
+    "description": "按年份逐年收齐每年综合卷的数据结构算法题：题意、考点、思路、参考代码与复杂度。",
+    "area": "计算机基础",
+    "paths": [
+      "content/columns/data-structure-past-questions.md",
+      "content/columns/data-structure-past-questions/2009-single-linked-list-kth-from-end.md",
+      "content/columns/data-structure-past-questions/2010-array-rotate-left.md",
+      "content/columns/data-structure-past-questions/2011-median-of-two-sorted-sequences.md",
+      "content/columns/data-structure-past-questions/2012-linked-list-common-suffix-and-merge-order.md",
+      "content/columns/data-structure-past-questions/2013-majority-element-and-search-probability.md",
+      "content/columns/data-structure-past-questions/2014-binary-tree-wpl-and-link-state-graph.md",
+      "content/columns/data-structure-past-questions/2015-delete-abs-duplicates-in-linked-list.md",
+      "content/columns/data-structure-past-questions/2016-regular-k-ary-tree-and-set-partition.md",
+      "content/columns/data-structure-past-questions/2017-expression-tree-to-infix.md",
+      "content/columns/data-structure-past-questions/2018-first-missing-positive-integer.md",
+      "content/columns/data-structure-past-questions/2019-linked-list-reorder-and-growable-queue.md",
+      "content/columns/data-structure-past-questions/2020-min-triple-distance-and-prefix-code.md",
+      "content/columns/data-structure-past-questions/2021-euler-path-and-comparison-count-sort.md",
+      "content/columns/data-structure-past-questions/2022-array-stored-binary-search-tree-check.md",
+      "content/columns/data-structure-past-questions/2023-outdegree-exceeds-indegree-and-replacement-selection-sort.md",
+      "content/columns/data-structure-past-questions/2024-unique-topological-order-and-quadratic-probing.md",
+      "content/columns/data-structure-past-questions/2025-range-product-max-and-aoa-network.md",
+      "content/columns/data-structure-past-questions/2026-bst-nearest-to-k-and-stack-permutations.md"
+    ]
   }
 ];
 const ENGLISH_TOPICS=[
