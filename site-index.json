@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T00:00:00+08:00",
+  "generatedAt": "2026-10-28T00:00:00+08:00",
   "articles": [
     {
       "title": "Forget the AI job apocalypse. AI’s real threat is worker control and surveillance",
@@ -9057,7 +9057,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-10-27",
+      "date": "2026-10-28",
       "count": 0,
       "averageScore": null
     },
@@ -9066,11 +9066,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-10-14",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-10-15",
         "count": 0,
@@ -9133,6 +9128,11 @@
       },
       {
         "date": "2026-10-27",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-10-28",
         "count": 0,
         "averageScore": null
       }
