@@ -23,6 +23,8 @@ Short readings on technology, society, education, the environment, and everyday 
 
 Fresh selections and reading guides, kept separate from the archive. Each guide links to the original publication and labels its own practice material.
 
+- [How mental exhaustion changes the choices you make](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1028-mental-exhaustion-decisions.md) — Scientific American · 2026-07-28 · 阅读导读与原刊入口。
+
 - [Forget the AI job apocalypse. AI’s real threat is worker control and surveillance](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1027-ai-worker-surveillance.md) — The Guardian · 2026-05-11 · 阅读导读与原刊入口。
 
 - [Europe’s supermarket shelves packed with ‘misleading’ claims about recycled plastic packaging](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1026-recycled-plastic-claims.md) — The Guardian · 2026-01-27 · 阅读导读与原刊入口。
