@@ -2,52 +2,6 @@
   "generatedAt": "2026-10-28T00:00:00+08:00",
   "articles": [
     {
-      "title": "从意图识别到多工作流：一次 Java 工程师的 Agent 架构复盘",
-      "path": "content/learning/ai-agent/2026-10-28-agent-intent-workflow-engineering-interview-review.md",
-      "url": "content/learning/ai-agent/2026-10-28-agent-intent-workflow-engineering-interview-review.md",
-      "date": "2026-10-28",
-      "createdAt": "2026-10-28",
-      "practicedAt": "",
-      "publishedAt": "2026-10-28",
-      "importedAt": "2026-10-28",
-      "domain": "学习",
-      "area": "AI Agent",
-      "lane": "agent",
-      "module": "Agent 工程与源码",
-      "project": "",
-      "type": "复盘",
-      "status": "持续验证",
-      "priority": "P0",
-      "energy": "medium",
-      "visibility": "public",
-      "summary": "真实项目经验与个人工程推演分离：意图误路由、多意图工作流、State 合并、RAG/MCP/BGE 汇总、超时、幂等、Checkpoint、Trace 与端到端评测。",
-      "tags": [
-        "AI Agent",
-        "LangGraph",
-        "RAG",
-        "工作流",
-        "Java并发",
-        "面试复盘",
-        "工程实践"
-      ],
-      "points": [
-        "Agent 架构模式",
-        "LangChain/LangGraph",
-        "Agent 评测与 Harness"
-      ],
-      "section": "learning",
-      "topic": "Agent 工程与源码",
-      "company": "",
-      "round": "",
-      "score": null,
-      "questionNumber": null,
-      "question": "",
-      "sourceTitle": "个人技术面试讨论与官方文档",
-      "sourceUrl": "",
-      "sourcePublishedAt": "",
-      "contentKind": "实践记录"
-    },
-    {
       "title": "How mental exhaustion changes the choices you make",
       "path": "content/columns/english-reads/2026-daily-1028-mental-exhaustion-decisions.md",
       "url": "content/columns/english-reads/2026-daily-1028-mental-exhaustion-decisions.md",
@@ -9091,7 +9045,7 @@
   "domains": {
     "任务": 0,
     "项目": 2,
-    "学习": 113,
+    "学习": 112,
     "机会": 2,
     "阅读": 8,
     "专栏": 72
@@ -9099,7 +9053,7 @@
   "sectionCounts": {
     "reading": 56,
     "columns": 19,
-    "learning": 118,
+    "learning": 117,
     "plans": 1,
     "opportunity": 1,
     "about": 1,
