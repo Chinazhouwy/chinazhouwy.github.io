@@ -59,6 +59,8 @@ const COLLECTIONS=[
     "area": "AI Agent",
     "ordered": false,
     "paths": [
+      "content/learning/ai-agent/2026-10-29-agent-runtime-security-interview-review.md",
+      "content/learning/ai-agent/2026-10-28-agent-intent-workflow-interview-review.md",
       "content/learning/ai-agent/2026-10-02-langgraph-memory.md",
       "content/learning/ai-agent/2026-09-07-agent-harness-evolution.md",
       "content/learning/ai-agent/2026-08-31-hermes-agent-official-docs-study-extension-map.md",
