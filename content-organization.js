@@ -67,6 +67,16 @@ const COLLECTIONS=[
     ]
   },
   {
+    "id": "java-threadpool-worker-condition",
+    "title": "Java 线程池：从执行流程到阻塞唤醒",
+    "description": "先看线程池扩容与拒绝，再沿 Worker、BlockingQueue 和 Condition 深入源码，并连接 408 生产者—消费者。",
+    "area": "Java 后端",
+    "paths": [
+      "content/learning/java/2026-08-29-thread-pool-queue-full-rejection-policies.md",
+      "content/learning/java/2026-10-30-threadpool-worker-blockingqueue-condition-interview-review.md"
+    ]
+  },
+  {
     "id": "interview-deep-dive",
     "title": "面试深挖",
     "description": "围绕具体提问组织的长篇手册，按文内目录查阅。",
