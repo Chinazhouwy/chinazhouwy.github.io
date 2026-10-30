@@ -23,6 +23,8 @@ Short readings on technology, society, education, the environment, and everyday 
 
 Fresh selections and reading guides, kept separate from the archive. Each guide links to the original publication and labels its own practice material.
 
+- [People who know more about AI art find it less ethical](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1030-ai-art-ethics.md) — Scientific American · 2026-03-06 · 阅读导读与原刊入口。
+
 - [‘Close to zero impact’: US study casts doubt on effect of phone ban in schools](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1029-school-phone-bans.md) — The Guardian · 2026-05-05 · 阅读导读与原刊入口。
 
 - [How mental exhaustion changes the choices you make](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1028-mental-exhaustion-decisions.md) — Scientific American · 2026-07-28 · 阅读导读与原刊入口。

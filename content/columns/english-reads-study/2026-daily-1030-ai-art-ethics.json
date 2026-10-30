@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2026-daily-1030-ai-art-ethics.md",
+  "title": "People who know more about AI art find it less ethical",
+  "paragraphs": [
+    {
+      "english": "This page is an independently written reading guide to an essay by Ionela Bara in Scientific American, first published online on 6 March 2026. Follow the original-article link below for the publisher’s full text.",
+      "chinese": "本页是为《科学美国人》作者 Ionela Bara 的一篇实验随笔独立撰写的阅读导读。该文于2026年3月6日首次在线发布。请通过下方原文链接阅读出版方提供的全文。"
+    },
+    {
+      "english": "The essay opens in an auction room. In early 2025 Christie’s in New York sold a collection of works made entirely by artificial intelligence — surreal portraits, photorealistic images, cartoon-style pieces — and the sale brought in more than $700,000, above the estimates set beforehand. The event was a first for a major auction house, and it also drew a protest: more than 6,000 artists objected that the models behind the pictures had been trained on copyrighted work without the consent of its creators. Christie’s framed the sale as a demonstration of human agency in the age of AI; the critics saw an industry commercialising labour it had never paid for.",
+      "chinese": "文章从一场拍卖会写起。2025年初，纽约佳士得拍卖了一批完全由人工智能生成的作品——超现实肖像、照片级写实的图像、卡通风格的创作——成交额超过70万美元，高于事先估价。这是大型拍卖行的首次此类专场，同时也引来抗议：六千多名艺术家提出反对，认为这些图像背后的模型是在未经创作者同意的情况下、用受版权保护的作品训练出来的。佳士得把这场拍卖说成是“AI 时代人类能动性”的展示；批评者则看到一个行业把从未付酬的创作劳动拿去变现。"
+    },
+    {
+      "english": "That argument is only the loudest version of a wider unease. A report published in November 2025 found that more than half of the British novelists it surveyed thought AI could end their careers, and many believed their books had already been used to train large language models. Audiences are less settled than the headlines suggest: surveys cited in the essay indicate that many people accept AI as a tool for working artists while resisting it as a substitute for them.",
+      "chinese": "这种争论只是一种更广泛不安中最响亮的版本。2025年11月发布的一份报告发现，其调查的英国小说家中超过一半认为 AI 可能终结自己的职业生涯，许多人相信自己的作品早已被用于训练大语言模型。公众的态度比新闻标题所呈现的更复杂：文章引用的调查显示，许多人接受 AI 作为在职艺术家的工具，却抗拒它取代艺术家本人。"
+    },
+    {
+      "english": "The author, a researcher in neuroaesthetics, starts from a narrower question. Rather than asking whether AI art is good, she asks what changes when a viewer understands how the picture was produced — the datasets, the training process, the prompts. Her hunch is that unease is not a fixed dislike of machine-made images but something that grows with knowledge, and that this difference helps explain the mixed findings in earlier studies.",
+      "chinese": "作者是研究神经美学的学者，她从一个更窄的问题入手。她不去追问 AI 艺术好不好，而是追问：当观看者理解了图像是怎样产生的——数据集、训练过程、提示词——判断会发生什么变化。她的猜想是，这种不安并非对机器制品一成不变的反感，而是随了解程度而增长的东西；而这一差别有助于解释此前研究中的混杂结果。"
+    },
+    {
+      "english": "Those studies had already shown that people rate AI images lower than human ones on creativity, value and emotional depth. What had not been separated was the role of understanding. If dislike tracks ignorance, the story is about unfamiliarity; if it tracks knowledge, the story is about ethics. Telling those two apart is the point of the experiments that follow.",
+      "chinese": "那些研究已经表明，人们在创造力、价值和情感深度上给 AI 图像的评分低于人类作品。尚未被分离出来的，是“理解”所起的作用。如果不喜欢源自不了解，那故事讲的是陌生感；如果不喜欢源自了解，那故事讲的是伦理。把这二者区分开，正是随后各项实验的目的。"
+    },
+    {
+      "english": "The first experiment worked with a hundred participants and a deliberately narrow visual world. Twenty landscapes and twenty portraits were generated with DALL-E 3 from prompts modelled on the Impressionist painting of Joaquín Sorolla, with instructions detailed enough to keep the output close to his manner. Half of the participants saw the images cold. The other half read a short explanation of how such a system is trained on a large body of art and text and then produces new pictures from new descriptions.",
+      "chinese": "第一项实验有一百名参与者，视觉材料被刻意收窄。研究者用 DALL-E 3 生成二十幅风景和二十幅肖像，提示词仿照西班牙画家华金·索罗亚的印象派画风，指令详细到足以让产出贴近他的笔法。一半参与者事先毫无背景信息，直接看画；另一半则读到一段简短说明，讲清这类系统如何先在大规模的艺术与文本资料上训练，再依据新的描述生成新的图像。"
+    },
+    {
+      "english": "The explanation changed the moral judgement and nothing else. Participants who understood the mechanism rated the same images as less acceptable to make, to profit from or to present as conventional art, and the effect was strongest where money and artistic reputation were at stake. Their aesthetic ratings, however, barely moved. Knowing how the images were made made people think harder about fairness, not about beauty.",
+      "chinese": "这段说明改变了道德判断，也只改变了道德判断。理解机制的参与者对同样这些图像的接受度更低——不论是制作它们、靠它们获利，还是把它们当作常规艺术来呈现——而在涉及金钱与艺术声誉时，效应最强。但他们的审美评分几乎没有变化。知道图像如何制成，让人更认真地思考公平，而不是美丑。"
+    },
+    {
+      "english": "A second experiment tested whether praise could buy back that lost legitimacy. Participants were told that some of the works had been exhibited, sold or well received. For people who had learned how the images were produced, the news did not restore moral acceptability, which runs against the usual finding that expert approval and visible success make a thing seem better. Reputation, in this case, did not work as a substitute for consent.",
+      "chinese": "第二项实验检验的是赞誉能否把这些作品失去的正当性买回来。参与者被告知，其中一些作品已经展出、售出或广受好评。对于已经了解图像如何生成的人，这些消息并没有恢复其道德可接受度，这与“专家认可和可见的成功会让人把事物看得更好”的常见发现相反。在这个案例里，声誉无法替代同意。"
+    },
+    {
+      "english": "The third experiment looked for a reflex rather than a reasoned view. Using a speeded categorisation task, participants matched AI-made and human-made Impressionist paintings with words such as good or bad, responding as fast as they could across many trials. This group was given no explanation of how the technology works, standing in for an ordinary viewer. No strong automatic preference for either kind of image appeared, which suggests that the resistance documented earlier is learned rather than instinctive.",
+      "chinese": "第三项实验寻找的是反射，而不是经过思考的看法。研究者采用限时归类任务，让参与者把 AI 生成与人类创作的印象派画作同“好”“坏”一类词配对，在大量试次中尽可能快地反应。这一组没有获得任何技术说明，代表普通观看者。结果显示，人们对两类图像都没有表现出明显的自动偏好，这意味着此前记录到的抵触是习得的，而非本能的。"
+    },
+    {
+      "english": "The practical conclusion is about disclosure rather than prohibition. If moral discomfort grows with understanding, then explaining the machinery — to audiences, gallerists, collectors and regulators — is likely to shape what the art world accepts. Artists who use these tools can help by saying which models, data and prompts they used and where their own decisions entered the process. Being open may invite criticism, but it also gives viewers something firmer to judge.",
+      "chinese": "实践层面的结论指向披露，而不是禁止。如果道德上的不适随理解而增长，那么向观众、画廊、藏家和监管者解释这套机器的运作，很可能塑造艺术界最终接受什么。使用这类工具的艺术家可以有所贡献：说明自己用了哪些模型、数据和提示词，以及自己的判断在何处介入。公开可能招来批评，但也给了观看者更实在的判断依据。"
+    },
+    {
+      "english": "Here is an editor-written practice sentence, not a quotation from the original article: A viewer who is told how an image was made does not necessarily like it less, but is far more likely to ask who did the work that the image was built on and whether they agreed to it.",
+      "chinese": "以下是编辑撰写的练习句，并非原文引句：被告知图像如何制作的观看者未必就更不喜欢它，但会远远更可能追问：这张图所依托的作品是谁做的，以及他们是否同意。"
+    },
+    {
+      "english": "As you read, watch how the essay keeps three kinds of claim apart: what earlier studies had found, what these three experiments actually measured, and what the author thinks the results should mean for museums, artists and policy. Notice the verbs of degree — “less acceptable”, “barely moved”, “no strong automatic preference” — since the argument depends on the size of each effect, and remember that this is a researcher writing about her own work, which is a useful place to practise reading evidence and interpretation as separate things.",
+      "chinese": "阅读时请留意文章如何把三类主张分开：此前研究发现了什么、这三项实验实际测量了什么、以及作者认为这些结果对博物馆、艺术家和政策应当意味着什么。注意那些表示程度的说法——“接受度更低”“几乎没有变化”“没有明显的自动偏好”——因为论证依赖的正是每个效应的大小；同时记住这是一位研究者写自己的研究，正好用来练习把证据与解释分开阅读。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Participants who understood the mechanism rated the same images as less acceptable to make, to profit from or to present as conventional art, and the effect was strongest where money and artistic reputation were at stake.",
+      "mainClause": "主句为 Participants rated the same images as less acceptable，主语 participants（带 who 定语从句），谓语 rated，宾语 the same images，as less acceptable 作宾语补足语；and 之后是并列分句 the effect was strongest...。",
+      "structure": "who understood the mechanism 是修饰 participants 的定语从句；to make, to profit from or to present as conventional art 是三个并列的不定式短语，说明在哪些方面“不可接受”；where money and artistic reputation were at stake 是地点／情境状语从句，此处 where 相当于“在……情形下”。",
+      "translation": "理解机制的参与者对同样这些图像的接受度更低——不论是制作它们、靠它们获利，还是把它们当作常规艺术来呈现——而在涉及金钱与艺术声誉时，效应最强。",
+      "tip": "rate A as B 是“把 A 评价为 B”，as 后面是评价结果，不是比较；at stake 意为“处在风险之中、利害攸关”，不要译成“在赌桌上”。三个 to 不定式共用前面的 less acceptable，读时可先只抓 to make 一层。"
+    },
+    {
+      "sentence": "No strong automatic preference for either kind of image appeared, which suggests that the resistance documented earlier is learned rather than instinctive.",
+      "mainClause": "主句为 No strong automatic preference appeared，主语是 preference（带 for either kind of image 定语），谓语 appeared；which 引导非限制性定语从句，指代前面整个主句内容。",
+      "structure": "for either kind of image 是修饰 preference 的介词短语，either 表示“两者中的任一”，与否定词连用形成“两类都没有”的全面否定；which suggests that... 中 that 从句作 suggests 的宾语；documented earlier 是过去分词短语后置修饰 the resistance；is learned rather than instinctive 是 A rather than B 的对照结构。",
+      "translation": "结果显示，人们对两类图像都没有表现出明显的自动偏好，这意味着此前记录到的抵触是习得的，而非本能的。",
+      "tip": "注意否定词 no 与 either 的搭配：No ... for either kind 等于“两类都不”，而不是“两类都不完全”。rather than 后面接的是被否定的那一项，本句否定的是 instinctive（本能的），肯定的是 learned（习得的）。"
+    },
+    {
+      "sentence": "A viewer who is told how an image was made does not necessarily like it less, but is far more likely to ask who did the work that the image was built on and whether they agreed to it.",
+      "mainClause": "主句由 but 连接两个谓语：A viewer does not necessarily like it less 与 (A viewer) is far more likely to ask...，共同主语是 a viewer。",
+      "structure": "who is told how an image was made 是修饰 a viewer 的定语从句，其中 how an image was made 作 told 的宾语从句；is far more likely to ask 后接两个并列宾语从句：who did the work... 与 whether they agreed to it；that the image was built on 是修饰 the work 的定语从句，介词 on 留在句末。",
+      "translation": "被告知图像如何制作的观看者未必就更不喜欢它，但会远远更可能追问：这张图所依托的作品是谁做的，以及他们是否同意。",
+      "tip": "本句为编辑自拟练习句，不是原刊引文。not necessarily 意为“未必”，是部分否定，不能读成“一定不”；built on 的介词 on 被留到从句末尾（介词悬空），理解时要把 on 还原到 the work 之前。"
+    }
+  ]
+}
