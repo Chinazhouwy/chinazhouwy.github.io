@@ -1,91 +1,160 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#f6f7fb">
-<title>复盘台 · 技术面试与考研训练档案</title>
-<meta name="description" content="逐次、逐题记录技术面试、模拟口述与考研错题。保留证据等级、原始回答、误区和下一步复测。">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Java/AI Agent 实战面试与考研 408、数学二、政治训练档案；逐题检索、证据分级、错题追踪及供 ZCode 读取的 JSON。">
+<meta name="theme-color" content="#0b1428">
+<title>训练轨迹 | 面试 × 考研</title>
 <style>
-:root{--bg:#f6f7fb;--paper:#fff;--fg:#192638;--muted:#677486;--line:#e7eaf0;--blue:#2458e8;--light:#eef3ff;--shadow:0 16px 45px rgba(28,39,64,.055)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft Yahei",sans-serif;background:var(--bg);color:var(--fg);line-height:1.65}
-a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cursor:pointer}
-.wrap{max-width:1240px;margin:auto;padding:0 24px}.top{background:#ffffffea;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:15}
-.top-in{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px}.logo{font-weight:800;letter-spacing:.02em;white-space:nowrap}.logo span{color:var(--blue)}.topnav{display:flex;gap:20px;color:var(--muted);font-size:13px}.topnav a:hover{color:var(--blue)}
-.hero{background:linear-gradient(125deg,#101e3e,#233f79 65%,#476ec4);color:#fff;padding:50px 0 48px}.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:11px;color:#a7bced;font-weight:700;margin-bottom:12px}.hero h1{font-size:clamp(28px,4.6vw,49px);letter-spacing:-.025em;margin:0 0 12px;line-height:1.23}.hero p{max-width:790px;color:#dbe5ff;margin:0;line-height:1.9;font-size:14px}
-.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:10px;font-weight:650;font-size:13px;border:1px solid #dde4ef;background:#fff;color:var(--fg);gap:8px}.btn.primary{background:#fff;color:#173b9b;border-color:#fff}.btn.ghost{background:transparent;color:#fff;border-color:#7188b5}.btn:hover{filter:brightness(.97)}
-.meta{color:#dbe5ff;font-size:12px;margin-top:20px}.main{padding-top:26px;padding-bottom:80px}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:25px}.stat,.panel,.record,.focus{background:var(--paper);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow)}.stat{padding:19px 20px}.stat b{font-size:28px;line-height:1.2;display:block;letter-spacing:-.02em}.stat small{font-size:12px;color:var(--muted)}.stat em{font-size:11px;font-style:normal;color:var(--muted)}
-.section-h{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:35px 0 13px}.section-h h2{font-size:21px;margin:0}.section-h p{font-size:12px;color:var(--muted);margin:0}
-.layout{display:grid;grid-template-columns:265px minmax(0,1fr);gap:18px;align-items:start}
-.panel{padding:19px}.side{position:sticky;top:82px}.side h3{font-size:13px;margin:0 0 12px}.sessionbtn{display:block;width:100%;text-align:left;background:transparent;border:0;border-radius:10px;padding:10px 10px;margin:2px 0;color:var(--fg)}.sessionbtn:hover,.sessionbtn.active{background:var(--light);color:#204aad}.sessionbtn strong{font-size:12px;font-weight:650;display:block}.sessionbtn small{color:var(--muted);font-size:11px;display:block}.footnote{color:var(--muted);font-size:11px;line-height:1.8;margin-top:15px}
-.toolbar{display:grid;grid-template-columns:minmax(170px,1fr) 170px 150px;gap:9px;margin-bottom:12px}
-.toolbar input,.toolbar select{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:#fff;color:var(--fg);font-size:13px;outline:none;min-height:43px}
-.toolbar input:focus,.toolbar select:focus{border-color:#96b2f9;box-shadow:0 0 0 3px #edf2ff}
-.resultsmeta{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;margin:10px 1px 13px}
-.record{padding:18px 20px;margin-bottom:11px;transition:border-color .15s}.record:hover{border-color:#c7d6ff}
-.record-head{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-bottom:10px}
-.tag{display:inline-flex;align-items:center;background:#f0f2f7;color:#59677b;border-radius:6px;padding:3px 7px;font-size:10px;line-height:1.45;font-weight:650}
-.tag.a{background:#e7f4ee;color:#127753}.tag.b{background:#fff1d8;color:#956209}.tag.c{background:#fce9ed;color:#b53754}.tag.p{background:#e9efff;color:#345abe}
-.record h3{font-size:16px;line-height:1.55;margin:0 0 8px;overflow-wrap:anywhere}.record .sub{color:var(--muted);font-size:11px}.expand{background:none;border:0;padding:7px 0 2px;color:#2955c5;font-weight:700;font-size:12px}
-.record details summary{list-style:none;cursor:pointer;color:#2458e8;font-size:12px;font-weight:700;padding-top:8px}.record details summary::-webkit-details-marker{display:none}.record details summary:after{content:'  · 展开问答与纠错'}.record details[open] summary:after{content:'  · 收起详情'}
-.pairs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}.pair{border:1px solid #edf0f5;border-radius:10px;padding:12px 14px;min-height:76px}.pair.wide{grid-column:1/-1}.pair strong{display:block;font-size:11px;color:#728099;margin-bottom:5px}.pair p{margin:0;font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}.pair.good{background:#f4faf7}.pair.bad{background:#fff8f7}.pair.todo{background:#f3f6ff}.pair.empty{background:#f9fafc;color:#9aa4b2}
-.timeline{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.focus{padding:17px 19px}.focus small{color:var(--muted);font-size:11px}.focus h3{font-size:14px;margin:5px 0}.focus p{font-size:12px;color:#627084;margin:0}.notice{padding:16px 18px;border:1px solid #dfddeb;background:#faf8ff;border-radius:12px;font-size:12px;color:#5e6070;line-height:1.85;margin:18px 0}.emptyline{text-align:center;padding:48px;color:var(--muted);font-size:13px}.footer{border-top:1px solid var(--line);color:var(--muted);font-size:12px;padding:28px 0;margin-top:40px}
-.skeleton{padding:35px;background:#fff;border:1px solid var(--line);border-radius:15px;color:var(--muted)}code{font-size:11px;background:#eef0f6;padding:2px 5px;border-radius:4px;overflow-wrap:anywhere}
-@media(max-width:950px){.layout{grid-template-columns:1fr}.side{position:static}.sessions{display:grid;grid-template-columns:repeat(2,1fr);gap:3px}.toolbar{grid-template-columns:minmax(140px,1fr) 145px 125px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:640px){.wrap{padding:0 14px}.topnav{gap:9px;font-size:11px}.top-in{min-height:57px}.hero{padding:37px 0}.stats{gap:8px}.stat{padding:14px}.stat b{font-size:24px}.section-h{align-items:start;display:block}.toolbar{grid-template-columns:1fr 1fr}.toolbar input{grid-column:1/-1}.record{padding:15px}.pairs,.timeline{grid-template-columns:1fr}.pair.wide{grid-column:auto}.sessionbtn{padding:9px 7px}.hero p{font-size:13px}}
+:root{font-family:Inter,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:#19263e;background:#f5f7fb;font-synthesis:none}
+*{box-sizing:border-box}body{margin:0;line-height:1.6}a{color:inherit}button,input,select{font:inherit}button{cursor:pointer}
+.hero{background:linear-gradient(135deg,#09152b 0%,#112c47 62%,#214d62 100%);color:#fff;padding:22px max(20px,calc((100% - 1160px)/2)) 60px}
+.top{display:flex;gap:16px;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.02em;text-decoration:none}
+.logo{width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,#80c6db,#c7eadb);color:#153d51;display:grid;place-items:center;font-size:19px}
+.toplink{font-size:13px;color:#c6dcea;text-decoration:none;border:1px solid #4c627c;border-radius:999px;padding:7px 14px}
+.eyebrow{color:#a4dfdd;letter-spacing:.16em;font-size:11px;font-weight:750;margin-top:56px;text-transform:uppercase}
+h1{font-size:clamp(32px,5vw,54px);line-height:1.16;letter-spacing:-.05em;margin:14px 0}
+.hero p{color:#cad8e7;max-width:725px;font-size:15px;margin:0}
+.stats{display:flex;gap:34px;margin-top:32px;flex-wrap:wrap}
+.stat-num{font-size:29px;font-weight:780;letter-spacing:-.04em;line-height:1.1}
+.stat-label{font-size:12px;color:#b6c8d9;margin-top:5px}
+.shell{max-width:1160px;margin:-22px auto 0;padding:0 18px 70px;position:relative}
+.nav{display:flex;align-items:center;gap:7px;overflow-x:auto;background:#fff;border:1px solid #e1e7f0;box-shadow:0 9px 28px #17254014;border-radius:16px;padding:8px;position:sticky;top:8px;z-index:10;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}.nav button{white-space:nowrap;border:0;background:transparent;padding:10px 16px;border-radius:10px;color:#65758a;font-weight:650;font-size:13px}
+.nav button.active{background:#0e3248;color:#fff}
+.panel{margin-top:26px}.panel[hidden]{display:none!important}
+.section-top{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:18px}
+h2{font-size:23px;letter-spacing:-.025em;margin:0}h3{font-size:16px;line-height:1.45;margin:0}
+.muted{color:#6d7f93;font-size:13px}.small{font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.card{background:#fff;border:1px solid #e1e7ee;border-radius:17px;padding:21px;min-width:0}
+.card p{font-size:13px;margin:10px 0 0;color:#596c80}
+.callout{border-left:3px solid #4b9b9a;background:#ebf6f6;padding:14px 17px;border-radius:7px;color:#275357;font-size:13px;margin-bottom:20px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pill{display:inline-flex;align-items:center;border-radius:999px;background:#e8edf2;color:#58697a;padding:3px 9px;font-size:11px;font-weight:700}
+.pill.red{background:#ffeded;color:#a74447}.pill.green{background:#e4f5ed;color:#28755a}.pill.blue{background:#e5f1fb;color:#2c6799}.pill.amber{background:#fff2db;color:#976122}
+.list{display:grid;gap:12px}
+.item{background:#fff;border:1px solid #e2e8ef;border-radius:15px;padding:17px 19px}
+.item .meta{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-bottom:9px}
+.item h3{font-size:15px}.item p{margin:7px 0 0;font-size:13px;color:#53667a}
+.item details{margin-top:12px;border-top:1px solid #ecf0f5;padding-top:10px}
+.item summary{color:#296f84;cursor:pointer;font-size:13px;font-weight:650}
+.detail{font-size:13px;color:#41536b;display:grid;gap:9px;margin-top:11px}
+.detail strong{color:#162b3f}.field{background:#f6f9fc;border-radius:9px;padding:11px 13px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.filters input{flex:1;min-width:180px}
+.filters input,.filters select{border:1px solid #d8e1e9;background:white;border-radius:11px;padding:11px 12px;min-height:42px;color:#213c52}
+.btn{border:0;background:#17495e;color:white;padding:11px 16px;border-radius:10px;font-weight:700;font-size:13px}
+.btn.secondary{background:#eef4f8;color:#24536b}
+.columns{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.spaced{display:flex;flex-direction:column;gap:12px}
+.count{font-size:13px;color:#698093}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;overflow-wrap:anywhere}
+pre{background:#0e2236;color:#c7e0ed;border-radius:14px;padding:18px;white-space:pre-wrap;word-break:break-word;font-size:12px;line-height:1.75}
+.footer{text-align:center;color:#8593a5;font-size:12px;padding-top:40px}
+.empty{text-align:center;padding:36px;color:#8291a1;background:white;border-radius:14px}
+a.link{color:#17677c;text-decoration:none;font-weight:650;overflow-wrap:anywhere}
+@media(max-width:760px){.hero{padding:20px 20px 50px}.eyebrow{margin-top:38px}.shell{padding:0 12px 50px}.grid,.columns{grid-template-columns:1fr}.stats{gap:22px}.card{padding:18px}.item{padding:15px}.nav button{padding:9px 12px}.section-top{align-items:start;flex-direction:column}}
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap top-in"><a class="logo" href="./">复盘<span>台.</span> <small style="color:#8d98ac;font-weight:400">WY / Learning Ledger</small></a><nav class="topnav"><a href="#records">逐题档案</a><a href="#sessions">训练场次</a><a href="https://zhouwy.top/">返回主站</a></nav></div></header>
-<section class="hero"><div class="wrap"><div class="eyebrow">INTERVIEW × EXAM · EVIDENCE FIRST</div><h1>把每一次回答<br>变成下一次进步。</h1><p>技术面试、AI Agent 模拟口述、考研 408 / 数学二 / 政治 / 英语二的持续训练档案。每个问题独立记录：来源、原有回答、理解正确之处、关键错误、下一步复测。未拿到完整转写的题目绝不编造答案。</p><div class="hero-actions"><a href="#records" class="btn primary">查看逐题记录 ↗</a><a class="btn ghost" href="./records.json" target="_blank" rel="noopener">机器可读 JSON</a><button id="refresh" class="btn ghost" type="button">刷新最新记录 ↻</button></div><div class="meta" id="updated">数据载入中…</div></div></section>
-<main class="wrap main">
-<div class="stats" id="stats"><div class="skeleton">读取数据中…</div></div>
-<div class="notice"><b>证据原则：</b>“题库中的问题”不代表你亲自答过；“待补原文”不代表答错；“口述缺少某一点”不意味着生产系统没有实现它。外部面经与本人真实面试严格分开。此网页在公开仓库发布，已尽量剔除个人隐私和企业内部细节。</div>
-<div class="section-h" id="records"><h2>逐题档案</h2><p>筛选场次、学习领域和复习状态；点击题目展开问答、纠错、待办</p></div>
-<div class="layout"><aside class="panel side"><h3>训练场次</h3><div class="sessions" id="sessionList"><div class="skeleton">载入中…</div></div><div class="footnote">每条记录有稳定 ID，后续只增补和校正，不覆盖旧日结论。网站每分钟检查一次更新。</div></aside>
-<section style="min-width:0"><div class="toolbar"><input type="search" id="search" placeholder="搜索题号、关键词、回答、错因…" aria-label="搜索记录"><select id="domain"><option value="">全部领域</option><option value="面试">面试题库（含外部）</option><option value="模拟面试">模拟面试</option><option value="考研">考研训练</option></select><select id="status"><option value="">全部状态</option><option>需二刷</option><option>部分掌握</option><option>正确</option><option>未作答</option><option>待补原文</option><option>待复测</option><option>未验证</option><option>已掌握</option></select></div><div class="resultsmeta"><span id="count">统计中…</span><a href="./records.json" target="_blank" rel="noopener" style="color:#3157ba">查看数据源 ↗</a></div><div id="recordList"><div class="skeleton">正在加载训练记录…</div></div></section></div>
-<div class="section-h" id="sessions"><h2>按时间回看</h2><p>每一场的归档范围与证据完整程度</p></div><div class="timeline" id="timeline"></div>
-<div class="section-h"><h2>给 ZCode 的数据接口</h2></div>
-<div class="panel"><div style="font-size:13px">读取地址：<a href="./records.json" style="color:#2458e8">./records.json</a>。每个问题有唯一 <code>id</code>，日期 <code>date</code>，来源 <code>origin</code>，初答归纳 <code>answer</code>，理解正确处 <code>correct</code>，错因 <code>error</code>，待办 <code>todo</code>，掌握状态 <code>status</code>。<br>页面只读取公开 JSON，不在浏览器保存私密 Token；由 ZCode 或 ChatGPT 在授权的 GitHub 工作流中追加记录并提交。GitHub Pages 发布后刷新网页即可看到新结果。</div></div>
-<footer class="footer">复盘台 · 证据优先，允许纠错，不把推断写成经历。<span id="stamp"></span></footer>
+<header class="hero">
+  <div class="top"><a class="brand" href="/"><span class="logo">轨</span><span>观澜 · 训练轨迹</span></a><a class="toplink" href="/">返回主站</a></div>
+  <div class="eyebrow">Evidence-based learning log · 2026</div>
+  <h1>每一次回答，<br>都有迹可循。</h1>
+  <p>Java / AI Agent 真实面试复盘与考研训练档案。保留问题出处、原始回答的可核实程度、理解正确的部分、首个关键错误以及下一次练习。</p>
+  <div class="stats"><div><div id="n-q" class="stat-num">—</div><div class="stat-label">归档面试问题</div></div><div><div id="n-r" class="stat-num">—</div><div class="stat-label">已分析练习 / 复盘</div></div><div><div id="n-w" class="stat-num">—</div><div class="stat-label">能力缺口</div></div><div><div id="n-t" class="stat-num">—</div><div class="stat-label">待完成训练</div></div></div>
+</header>
+<main class="shell">
+<nav class="nav" aria-label="训练网站栏目">
+<button class="active" data-tab="overview">总览</button>
+<button data-tab="questions">面试题库</button>
+<button data-tab="reviews">逐题问答</button>
+<button data-tab="sessions">训练时间线</button>
+<button data-tab="knowledge">优势与弱点</button>
+<button data-tab="todos">训练待办</button>
+<button data-tab="api">ZCode 数据接口</button>
+</nav>
+<section class="panel" id="overview"><div class="section-top"><div><h2>进度总览</h2><div class="muted" id="last-updated"></div></div><span class="pill blue">可持续追加</span></div><div class="callout">证据规则：面试现场转写、事后回忆、第三方面经和模拟训练分别标注；无法还原原话的位置保留空缺，不自动编造答案、评分或经历。</div><div class="grid" id="overview-cards"></div><h2 style="margin:28px 0 16px">最近训练</h2><div class="list" id="recent-sessions"></div></section>
+<section class="panel" id="questions" hidden><div class="section-top"><div><h2>面试题库</h2><div class="muted">真实经历与外部题库严格分开，未作答不等于做错</div></div><span class="count" id="q-count"></span></div><div class="filters"><input id="q-search" type="search" placeholder="按题号 / 关键词 / 来源搜索"><select id="q-domain"><option value="">全部领域</option></select><select id="q-source"><option value="">全部来源</option><option value="self_recollection">本人回忆</option><option value="transcript_paraphrase">转写归纳</option><option value="transcript_semantic">转写语义清理</option><option value="third_party">外部面经</option></select></div><div class="list" id="question-list"></div></section>
+<section class="panel" id="reviews" hidden><div class="section-top"><div><h2>逐题问答与批改</h2><div class="muted">基于可恢复的聊天记录与既有复盘材料，不是全量逐字转录</div></div><span class="count" id="r-count"></span></div><div class="filters"><input id="r-search" type="search" placeholder="搜索题干、错误、正确理解、待办"><select id="r-domain"><option value="">所有科目</option></select></div><div class="list" id="review-list"></div></section>
+<section class="panel" id="sessions" hidden><div class="section-top"><div><h2>训练时间线</h2><div class="muted">真实面试后复盘、口述模拟和考研练题的时间轴</div></div></div><div class="list" id="session-list"></div></section>
+<section class="panel" id="knowledge" hidden><div class="section-top"><div><h2>优势与知识缺口</h2><div class="muted">只根据已观察到的答题证据判断，不凭印象给自己贴标签</div></div></div><div class="columns"><div><h3 style="margin:0 0 13px">表现较好 / 有基础</h3><div class="spaced" id="strength-list"></div></div><div><h3 style="margin:0 0 13px">薄弱点 / 未验证</h3><div class="spaced" id="weak-list"></div></div></div></section>
+<section class="panel" id="todos" hidden><div class="section-top"><div><h2>下一轮训练</h2><div class="muted">按优先级推进：P0 优先服务真实面试和明确错题</div></div></div><div class="list" id="todo-list"></div></section>
+<section class="panel" id="api" hidden><div class="section-top"><div><h2>供 ZCode 读取的数据源</h2><div class="muted">静态 JSON，GitHub 更新后由网页自动读取最新数据</div></div></div><div class="card"><h3>机器可读数据（JSON）</h3><p>包含 questions、reviews、sessions、strengths、weaknesses、todos 与来源类型。直接访问以下地址，无需爬取界面 DOM：</p><p><a class="link" id="json-url" href="./data.json" target="_blank" rel="noopener">data.json</a></p><button class="btn" id="copy-url">复制数据地址</button></div><div class="card" style="margin-top:15px"><h3>给 ZCode 的读取指令</h3><pre id="agent-prompt">读取当前目录 data.json。区分 source_type：真实转写语义清理、本人口述回忆、外部面经、模拟记录。优先分析 reviews 中的 mistake/strength/todo，不得把 question 的 answered:false 认定为作答错误。为下一次模拟面试选一条 P0 薄弱点，一次只问一道题；用户回答后先指出第一个关键错误，不提前透露答案。如更新归档，追加唯一 ID，保留旧数据，不要臆造未提供的原话。对公开数据脱敏。</pre><button class="btn secondary" id="copy-prompt">复制 ZCode 指令</button></div></section>
+<div class="footer">训练记录是持续修正的证据档案，不是简历宣传稿。公开内容不含内部客户资料、薪酬或个人隐私。 · <span id="footer-date"></span></div>
 </main>
 <script>
-let DB=null,selection="",lastSignature="";
-const el=id=>document.getElementById(id),safe=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const badgeStatus=s=>s==="正确"||s==="已掌握"?"a":s==="需二刷"||s==="待补原文"?"c":s==="部分掌握"?"b":"";
-const shortDate=d=>String(d||"");
-function build(){
- if(!DB)return;
- const all=DB.records||[];const ss=DB.sessions||[];const count=st=>all.filter(r=>r.status===st).length;
- el("stats").innerHTML=[
- ["记录题目",all.length,"只代表档案条目，并非答题完成量"],
- ["面试题库（含外部）",all.filter(r=>r.domain==="面试").length,"真实面试归纳与外部素材严格区分"],
- ["模拟面试",all.filter(r=>r.domain==="模拟面试").length,"目前能识别出的单题/主题"],
- ["需要回访",count("需二刷")+count("部分掌握"),"已发现的复习缺口"]
- ].map(x=>'<div class="stat"><b>'+x[1]+'</b><small>'+x[0]+'</small><br><em>'+x[2]+'</em></div>').join("");
- el("sessionList").innerHTML='<button class="sessionbtn '+(!selection?"active":"")+'" data-sess=""><strong>全部记录</strong><small>所有日期 · '+all.length+' 条</small></button>'+ss.map(s=>'<button class="sessionbtn '+(selection===s.name?"active":"")+'" data-sess="'+safe(s.name)+'"><strong>'+safe(s.name)+'</strong><small>'+safe(s.date)+' · '+all.filter(r=>r.session===s.name).length+' 条</small></button>').join("");
- el("timeline").innerHTML=ss.map(s=>'<div class="focus"><small>'+safe(s.date)+'　·　'+safe(s.type)+'</small><h3>'+safe(s.name)+'</h3><p>'+safe(s.detail)+'</p></div>').join("");
- el("sessionList").querySelectorAll("button").forEach(b=>b.onclick=()=>{selection=b.dataset.sess||"";build();render();el("records").scrollIntoView({block:"start"})});
- el("updated").textContent="数据版本： "+(DB.lastUpdated||"未标明")+" · "+all.length+" 条逐题档案 · 刷新间隔约 60 秒";
- el("stamp").textContent=" · 最近数据更新 "+(DB.lastUpdated||"未知");
- render();
+(function(){
+"use strict";
+var db=null;
+function esc(x){return String(x==null?"":x).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function e(x){return document.getElementById(x)}
+function p(text,kind){return '<span class="pill'+(kind?' '+kind:'')+'">'+esc(text)+'</span>'}
+function field(k,v){return '<div class="field"><strong>'+esc(k)+'</strong><div>'+esc(v||"尚未记录")+'</div></div>'}
+function meta(items){return '<div class="meta">'+items.filter(Boolean).join('')+'</div>'}
+function item(inner){return '<article class="item">'+inner+'</article>'}
+function answerType(x){return {answer_choice:"选项记录",paraphrase_from_review:"复盘归纳",paraphrase_from_user_turn:"对话归纳",self_recollection:"本人事后回忆",reasoning_paraphrase:"思路概述",user_self_report:"本人自述",question_discussion:"知识点讨论",topic_discussion:"主题讨论",aggregate_summary:"阶段汇总",study_plan:"学习计划"}[x]||"复盘归纳"}
+function scoreType(x){return /做错|关键错误|未通过/.test(x)?"red":/较好|正确/.test(x)?"green":/未测|待核实/.test(x)?"blue":"amber"}
+function sourceName(x){return {self_recollection:"本人事后回忆",transcript_paraphrase:"转写归纳",transcript_semantic:"转写语义清理",third_party:"第三方面经"}[x]||x}
+function reviewMarkup(r){
+ return item(meta([p(r.id,"blue"),p(r.category),p(r.outcome,scoreType(r.outcome)),p(r.date)])
+ +'<h3>'+esc(r.question)+'</h3><p>回答形式：'+esc(answerType(r.answer_type))+(r.score?' · 初评：'+esc(r.score):'')+'</p>'
+ +'<div class="detail">'+field("回答 / 讨论记录",r.answer)+field("理解正确的部分",r.strength)+field("首个关键问题 / 知识缺口",r.mistake)+field("下一步行动",r.todo)+'</div>'
+ +'<p class="small">证据来源：'+esc(r.evidence)+' · 状态：'+esc(r.status)+'</p>');
+}
+function renderQuestions(){
+ var t=e("q-search").value.trim().toLowerCase(),d=e("q-domain").value,s=e("q-source").value,rs=new Map(db.reviews.map(function(r){return [r.id,r]}));
+ var arr=db.questions.filter(function(q){return (!d||q.domain===d)&&(!s||q.source_type===s)&&(!t||[q.id,q.question,q.origin,q.domain].join(' ').toLowerCase().includes(t))});
+ e("q-count").textContent=arr.length+" / "+db.questions.length+" 题";
+ e("question-list").innerHTML=arr.length?arr.map(function(q){var r=rs.get(q.id);
+ return item(meta([p(q.id,"blue"),p(q.domain),p(sourceName(q.source_type)),p(q.status,q.answered?"amber":"")])
+  +'<h3>'+esc(q.question)+'</h3><details><summary>展开出处与作答情况</summary><div class="detail">'+field("出处",q.origin)+field("原始作答",r?r.answer:"目前没有可核对的用户原始回答，不作为错题。")+(r?field("知识问题",r.mistake)+field("待办",r.todo):"")+'</div></details>');
+ }).join(""):'<div class="empty">没有匹配的问题。</div>';
+}
+function renderReviews(){
+ var t=e("r-search").value.trim().toLowerCase(),d=e("r-domain").value;
+ var arr=db.reviews.filter(function(r){return (!d||r.category===d)&&(!t||[r.id,r.question,r.answer,r.strength,r.mistake,r.todo].join(' ').toLowerCase().includes(t))});
+ e("r-count").textContent=arr.length+" / "+db.reviews.length+" 条";
+ e("review-list").innerHTML=arr.length?arr.map(reviewMarkup).join(""):'<div class="empty">没有匹配的记录。</div>';
 }
 function render(){
- if(!DB)return;
- const q=el("search").value.trim().toLowerCase(),d=el("domain").value,s=el("status").value;
- const arr=(DB.records||[]).filter(r=>(!selection||r.session===selection)&&(!d||r.domain===d)&&(!s||r.status===s)&&(!q||[r.id,r.question,r.answer,r.correct,r.error,r.todo,r.topic,r.session,r.origin].join(" ").toLowerCase().includes(q)));
- el("count").textContent="符合条件 "+arr.length+" 条 / 总计 "+DB.records.length+" 条";
- el("recordList").innerHTML=arr.length?arr.map(r=>'<article class="record" id="q-'+safe(r.id)+'"><div class="record-head"><span class="tag p">'+safe(r.id)+'</span><span class="tag">'+safe(r.domain)+'</span><span class="tag">'+safe(r.topic)+'</span><span class="tag '+badgeStatus(r.status)+'">'+safe(r.status)+'</span><span class="tag">'+safe(r.priority||"")+'</span></div><h3>'+safe(r.question)+'</h3><div class="sub">'+safe(r.date)+'　 ·　'+safe(r.session)+'　 ·　来源：'+safe(r.origin)+'</div><details><summary>详细记录</summary><div class="pairs"><div class="pair wide '+(r.answer?"":"empty")+'"><strong>用户原答 / 已存归纳</strong><p>'+safe(r.answer||"暂无可核实的原始回答；不补写、不推断已掌握。")+'</p></div><div class="pair good"><strong>正确或值得保留的理解</strong><p>'+safe(r.correct||"未有充分依据评价，请通过下次口述确认。")+'</p></div><div class="pair bad"><strong>漏洞 / 错误 / 尚待验证</strong><p>'+safe(r.error||"尚无可靠纠错记录；未验证不等于错误。")+'</p></div><div class="pair wide todo"><strong>下一步动作 / 二刷要求</strong><p>'+safe(r.todo||"完成一次先答后评的口述，并补充可验证答案。")+'</p></div><div class="pair wide"><strong>资料可信度</strong><p>'+safe(r.evidence||r.origin)+'</p></div></div></details></article>').join(""):'<div class="emptyline">没有匹配的记录，试试移除筛选条件。</div>';
- if(location.hash.startsWith("#q-")){const t=document.getElementById(location.hash.slice(1));if(t){t.querySelector("details").open=true;}}
+ e("n-q").textContent=db.questions.length;e("n-r").textContent=db.reviews.length;e("n-w").textContent=db.weaknesses.length;e("n-t").textContent=db.todos.length;
+ e("last-updated").textContent="截至 "+db.updated_at+" · 事实、回忆与模拟已区分";
+ e("footer-date").textContent=db.updated_at;
+ var domainList=[...new Set(db.questions.map(function(q){return q.domain}))].sort();
+ e("q-domain").innerHTML='<option value="">全部领域</option>'+domainList.map(function(x){return '<option>'+esc(x)+'</option>'}).join('');
+ var reviewDomain=[...new Set(db.reviews.map(function(r){return r.category}))].sort();
+ e("r-domain").innerHTML='<option value="">所有科目</option>'+reviewDomain.map(function(x){return '<option>'+esc(x)+'</option>'}).join('');
+ e("overview-cards").innerHTML=[
+ {title:"最需要复测的错误",value:db.reviews.filter(function(r){return /做错|关键错误|部分正确/.test(r.outcome)}).length+" 条",text:"先复测已观察到的问题，不用把所有外部面经刷完。"},
+ {title:"真实与模拟分开",value:db.questions.filter(function(q){return q.source_type!=="third_party"}).length+" 题",text:"用户自己的现场回忆、转写归纳与语义整理；绝不冒充逐字稿。"},
+ {title:"可供机器读取",value:"JSON v"+db.schema_version,text:"ZCode 可以直接下载数据，按唯一 ID 追加而不是覆盖。"}
+ ].map(function(x){return '<article class="card"><div class="muted">'+esc(x.title)+'</div><div class="stat-num" style="margin-top:9px;color:#143f55">'+esc(x.value)+'</div><p>'+esc(x.text)+'</p></article>'}).join('');
+ e("recent-sessions").innerHTML=db.sessions.slice(0,4).map(function(s){return item(meta([p(s.date,"blue"),p(s.mode)])+'<h3>'+esc(s.title)+'</h3><p>'+esc(s.summary)+'</p><p class="small">关联题目：'+esc(s.records.join(' · '))+'</p>')}).join('');
+ e("session-list").innerHTML=db.sessions.map(function(s){var rs=db.reviews.filter(function(r){return s.records.includes(r.id)});
+ return item(meta([p(s.date,"blue"),p(s.mode)])+'<h3>'+esc(s.title)+'</h3><p>'+esc(s.summary)+'</p><details><summary>展开本次训练问答（'+rs.length+' 条）</summary><div class="spaced" style="margin-top:12px">'+rs.map(function(r){return '<div class="field"><strong>'+esc(r.id+" · "+r.question)+'</strong><p>'+esc(r.answer)+'</p><p><b>问题：</b>'+esc(r.mistake)+'</p><p><b>行动：</b>'+esc(r.todo)+'</p></div>'}).join('')+'</div></details>')}).join('');
+ e("strength-list").innerHTML=db.strengths.map(function(s){return item(meta([p("已观察到的基础","green"),p(s.evidence)])+'<h3>'+esc(s.topic)+'</h3><p>'+esc(s.detail)+'</p>')}).join('');
+ e("weak-list").innerHTML=db.weaknesses.map(function(w){return item(meta([p(w.severity,w.severity==="P0"?"red":"amber"),p(w.evidence.join(" · "))])+'<h3>'+esc(w.topic)+'</h3><p>'+esc(w.todo)+'</p>')}).join('');
+ e("todo-list").innerHTML=db.todos.map(function(t){return item(meta([p(t.priority,t.priority==="P0"?"red":"amber"),p(t.id,"blue")])+'<h3>'+esc(t.title)+'</h3><p>关联证据：'+esc(t.links.join(" · "))+'</p>')}).join('');
+ e("json-url").textContent=new URL("data.json",location.href).href;
+ e("json-url").href=new URL("data.json",location.href).href;
+ renderQuestions();renderReviews();
 }
-for(const id of ["search","domain","status"])el(id).addEventListener(id==="search"?"input":"change",render);
-async function load(force=false){
- try{const res=await fetch("./records.json?cache="+Date.now(),{cache:"no-store"});if(!res.ok)throw new Error("HTTP "+res.status);
- const text=await res.text();if(text===lastSignature&&!force)return;
- const d=JSON.parse(text);if(!Array.isArray(d.records)||!Array.isArray(d.sessions))throw new Error("数据格式不正确");
- DB=d;lastSignature=text;build();if(force)el("updated").textContent+=" · 刚刚已检查最新版本";
- }catch(e){if(!DB)el("recordList").innerHTML='<div class="skeleton">读取档案失败：'+safe(e.message)+'。请刷新页面，或使用上面的 JSON 链接直接读取。</div>';else el("updated").textContent="上次读取成功，最新同步失败："+e.message;}
-}
-el("refresh").addEventListener("click",()=>load(true));load();setInterval(()=>{if(!document.hidden)load()},60000);
+document.querySelectorAll(".nav button").forEach(function(b){b.addEventListener("click",function(){
+ document.querySelectorAll(".nav button").forEach(function(x){x.classList.toggle("active",x===b)});
+ document.querySelectorAll(".panel").forEach(function(x){x.hidden=x.id!==b.dataset.tab});
+ if(location.hash!=="#"+b.dataset.tab)history.replaceState(null,"","#"+b.dataset.tab);
+})});
+["q-search","q-domain","q-source"].forEach(function(id){e(id).addEventListener(id==="q-search"?"input":"change",renderQuestions)});
+["r-search","r-domain"].forEach(function(id){e(id).addEventListener(id==="r-search"?"input":"change",renderReviews)});
+function copy(v,btn){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(v).then(function(){btn.textContent="已复制"}).catch(function(){window.prompt("请复制",v)})}else window.prompt("请复制",v)}
+e("copy-url").addEventListener("click",function(){copy(new URL("data.json",location.href).href,this)});
+e("copy-prompt").addEventListener("click",function(){copy(e("agent-prompt").textContent,this)});
+fetch("./data.json?ts=20261031",{cache:"no-store"}).then(function(r){if(!r.ok)throw Error("HTTP "+r.status);return r.json()}).then(function(x){db=x;render();var tab=location.hash.substring(1);var btn=document.querySelector('.nav button[data-tab="'+tab+'"]');if(btn)btn.click()}).catch(function(err){e("overview-cards").innerHTML='<div class="card">加载数据失败：'+esc(err.message)+'。请尝试刷新或打开 JSON 链接。</div>'});
+})();
 </script>
-</body></html>
+</body>
+</html>
