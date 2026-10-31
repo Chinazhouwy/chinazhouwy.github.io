@@ -23,6 +23,8 @@ Short readings on technology, society, education, the environment, and everyday 
 
 Fresh selections and reading guides, kept separate from the archive. Each guide links to the original publication and labels its own practice material.
 
+- [Bored of Climate Change](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1031-bored-of-climate-change.md) — Psychology Today · 2024-07-18 · 阅读导读与原刊入口。
+
 - [People who know more about AI art find it less ethical](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1030-ai-art-ethics.md) — Scientific American · 2026-03-06 · 阅读导读与原刊入口。
 
 - [‘Close to zero impact’: US study casts doubt on effect of phone ban in schools](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1029-school-phone-bans.md) — The Guardian · 2026-05-05 · 阅读导读与原刊入口。

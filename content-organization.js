@@ -59,23 +59,11 @@ const COLLECTIONS=[
     "area": "AI Agent",
     "ordered": false,
     "paths": [
-      "content/learning/ai-agent/2026-10-29-agent-runtime-security-interview-review.md",
-      "content/learning/ai-agent/2026-10-28-agent-intent-workflow-interview-review.md",
       "content/learning/ai-agent/2026-10-02-langgraph-memory.md",
       "content/learning/ai-agent/2026-09-07-agent-harness-evolution.md",
       "content/learning/ai-agent/2026-08-31-hermes-agent-official-docs-study-extension-map.md",
       "content/learning/ai-agent/claude-code-grep-vs-rag-code-retrieval.md",
       "content/learning/ai-agent/rag-hybrid-search-meilisearch.md"
-    ]
-  },
-  {
-    "id": "java-threadpool-worker-condition",
-    "title": "Java 线程池：从执行流程到阻塞唤醒",
-    "description": "先看线程池扩容与拒绝，再沿 Worker、BlockingQueue 和 Condition 深入源码，并连接 408 生产者—消费者。",
-    "area": "Java 后端",
-    "paths": [
-      "content/learning/java/2026-08-29-thread-pool-queue-full-rejection-policies.md",
-      "content/learning/java/2026-10-30-threadpool-worker-blockingqueue-condition-interview-review.md"
     ]
   },
   {
