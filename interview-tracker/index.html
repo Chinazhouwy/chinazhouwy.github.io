@@ -43,7 +43,7 @@ a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cur
 <div class="notice"><b>证据原则：</b>“题库中的问题”不代表你亲自答过；“待补原文”不代表答错；“口述缺少某一点”不意味着生产系统没有实现它。外部面经与本人真实面试严格分开。此网页在公开仓库发布，已尽量剔除个人隐私和企业内部细节。</div>
 <div class="section-h" id="records"><h2>逐题档案</h2><p>筛选场次、学习领域和复习状态；点击题目展开问答、纠错、待办</p></div>
 <div class="layout"><aside class="panel side"><h3>训练场次</h3><div class="sessions" id="sessionList"><div class="skeleton">载入中…</div></div><div class="footnote">每条记录有稳定 ID，后续只增补和校正，不覆盖旧日结论。网站每分钟检查一次更新。</div></aside>
-<section style="min-width:0"><div class="toolbar"><input type="search" id="search" placeholder="搜索题号、关键词、回答、错因…" aria-label="搜索记录"><select id="domain"><option value="">全部领域</option><option value="面试">真实面试题库</option><option value="模拟面试">模拟面试</option><option value="考研">考研训练</option></select><select id="status"><option value="">全部状态</option><option>需二刷</option><option>部分掌握</option><option>正确</option><option>未作答</option><option>待补原文</option><option>待复测</option><option>未验证</option><option>已掌握</option></select></div><div class="resultsmeta"><span id="count">统计中…</span><a href="./records.json" target="_blank" rel="noopener" style="color:#3157ba">查看数据源 ↗</a></div><div id="recordList"><div class="skeleton">正在加载训练记录…</div></div></section></div>
+<section style="min-width:0"><div class="toolbar"><input type="search" id="search" placeholder="搜索题号、关键词、回答、错因…" aria-label="搜索记录"><select id="domain"><option value="">全部领域</option><option value="面试">面试题库（含外部）</option><option value="模拟面试">模拟面试</option><option value="考研">考研训练</option></select><select id="status"><option value="">全部状态</option><option>需二刷</option><option>部分掌握</option><option>正确</option><option>未作答</option><option>待补原文</option><option>待复测</option><option>未验证</option><option>已掌握</option></select></div><div class="resultsmeta"><span id="count">统计中…</span><a href="./records.json" target="_blank" rel="noopener" style="color:#3157ba">查看数据源 ↗</a></div><div id="recordList"><div class="skeleton">正在加载训练记录…</div></div></section></div>
 <div class="section-h" id="sessions"><h2>按时间回看</h2><p>每一场的归档范围与证据完整程度</p></div><div class="timeline" id="timeline"></div>
 <div class="section-h"><h2>给 ZCode 的数据接口</h2></div>
 <div class="panel"><div style="font-size:13px">读取地址：<a href="./records.json" style="color:#2458e8">./records.json</a>。每个问题有唯一 <code>id</code>，日期 <code>date</code>，来源 <code>origin</code>，初答归纳 <code>answer</code>，理解正确处 <code>correct</code>，错因 <code>error</code>，待办 <code>todo</code>，掌握状态 <code>status</code>。<br>页面只读取公开 JSON，不在浏览器保存私密 Token；由 ZCode 或 ChatGPT 在授权的 GitHub 工作流中追加记录并提交。GitHub Pages 发布后刷新网页即可看到新结果。</div></div>
@@ -59,7 +59,7 @@ function build(){
  const all=DB.records||[];const ss=DB.sessions||[];const count=st=>all.filter(r=>r.status===st).length;
  el("stats").innerHTML=[
  ["记录题目",all.length,"只代表档案条目，并非答题完成量"],
- ["真实面试题库",all.filter(r=>r.domain==="面试").length,"部分来源为事后回忆、外部面经"],
+ ["面试题库（含外部）",all.filter(r=>r.domain==="面试").length,"真实面试归纳与外部素材严格区分"],
  ["模拟面试",all.filter(r=>r.domain==="模拟面试").length,"目前能识别出的单题/主题"],
  ["需要回访",count("需二刷")+count("部分掌握"),"已发现的复习缺口"]
  ].map(x=>'<div class="stat"><b>'+x[1]+'</b><small>'+x[0]+'</small><br><em>'+x[2]+'</em></div>').join("");
