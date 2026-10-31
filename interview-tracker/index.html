@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f6f7fb">
+<title>复盘台 · 技术面试与考研训练档案</title>
+<meta name="description" content="逐次、逐题记录技术面试、模拟口述与考研错题。保留证据等级、原始回答、误区和下一步复测。">
+<style>
+:root{--bg:#f6f7fb;--paper:#fff;--fg:#192638;--muted:#677486;--line:#e7eaf0;--blue:#2458e8;--light:#eef3ff;--shadow:0 16px 45px rgba(28,39,64,.055)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft Yahei",sans-serif;background:var(--bg);color:var(--fg);line-height:1.65}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cursor:pointer}
+.wrap{max-width:1240px;margin:auto;padding:0 24px}.top{background:#ffffffea;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:15}
+.top-in{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px}.logo{font-weight:800;letter-spacing:.02em;white-space:nowrap}.logo span{color:var(--blue)}.topnav{display:flex;gap:20px;color:var(--muted);font-size:13px}.topnav a:hover{color:var(--blue)}
+.hero{background:linear-gradient(125deg,#101e3e,#233f79 65%,#476ec4);color:#fff;padding:50px 0 48px}.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:11px;color:#a7bced;font-weight:700;margin-bottom:12px}.hero h1{font-size:clamp(28px,4.6vw,49px);letter-spacing:-.025em;margin:0 0 12px;line-height:1.23}.hero p{max-width:790px;color:#dbe5ff;margin:0;line-height:1.9;font-size:14px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:10px;font-weight:650;font-size:13px;border:1px solid #dde4ef;background:#fff;color:var(--fg);gap:8px}.btn.primary{background:#fff;color:#173b9b;border-color:#fff}.btn.ghost{background:transparent;color:#fff;border-color:#7188b5}.btn:hover{filter:brightness(.97)}
+.meta{color:#dbe5ff;font-size:12px;margin-top:20px}.main{padding-top:26px;padding-bottom:80px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:25px}.stat,.panel,.record,.focus{background:var(--paper);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow)}.stat{padding:19px 20px}.stat b{font-size:28px;line-height:1.2;display:block;letter-spacing:-.02em}.stat small{font-size:12px;color:var(--muted)}.stat em{font-size:11px;font-style:normal;color:var(--muted)}
+.section-h{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:35px 0 13px}.section-h h2{font-size:21px;margin:0}.section-h p{font-size:12px;color:var(--muted);margin:0}
+.layout{display:grid;grid-template-columns:265px minmax(0,1fr);gap:18px;align-items:start}
+.panel{padding:19px}.side{position:sticky;top:82px}.side h3{font-size:13px;margin:0 0 12px}.sessionbtn{display:block;width:100%;text-align:left;background:transparent;border:0;border-radius:10px;padding:10px 10px;margin:2px 0;color:var(--fg)}.sessionbtn:hover,.sessionbtn.active{background:var(--light);color:#204aad}.sessionbtn strong{font-size:12px;font-weight:650;display:block}.sessionbtn small{color:var(--muted);font-size:11px;display:block}.footnote{color:var(--muted);font-size:11px;line-height:1.8;margin-top:15px}
+.toolbar{display:grid;grid-template-columns:minmax(170px,1fr) 170px 150px;gap:9px;margin-bottom:12px}
+.toolbar input,.toolbar select{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:#fff;color:var(--fg);font-size:13px;outline:none;min-height:43px}
+.toolbar input:focus,.toolbar select:focus{border-color:#96b2f9;box-shadow:0 0 0 3px #edf2ff}
+.resultsmeta{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;margin:10px 1px 13px}
+.record{padding:18px 20px;margin-bottom:11px;transition:border-color .15s}.record:hover{border-color:#c7d6ff}
+.record-head{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-bottom:10px}
+.tag{display:inline-flex;align-items:center;background:#f0f2f7;color:#59677b;border-radius:6px;padding:3px 7px;font-size:10px;line-height:1.45;font-weight:650}
+.tag.a{background:#e7f4ee;color:#127753}.tag.b{background:#fff1d8;color:#956209}.tag.c{background:#fce9ed;color:#b53754}.tag.p{background:#e9efff;color:#345abe}
+.record h3{font-size:16px;line-height:1.55;margin:0 0 8px;overflow-wrap:anywhere}.record .sub{color:var(--muted);font-size:11px}.expand{background:none;border:0;padding:7px 0 2px;color:#2955c5;font-weight:700;font-size:12px}
+.record details summary{list-style:none;cursor:pointer;color:#2458e8;font-size:12px;font-weight:700;padding-top:8px}.record details summary::-webkit-details-marker{display:none}.record details summary:after{content:'  · 展开问答与纠错'}.record details[open] summary:after{content:'  · 收起详情'}
+.pairs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}.pair{border:1px solid #edf0f5;border-radius:10px;padding:12px 14px;min-height:76px}.pair.wide{grid-column:1/-1}.pair strong{display:block;font-size:11px;color:#728099;margin-bottom:5px}.pair p{margin:0;font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}.pair.good{background:#f4faf7}.pair.bad{background:#fff8f7}.pair.todo{background:#f3f6ff}.pair.empty{background:#f9fafc;color:#9aa4b2}
+.timeline{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.focus{padding:17px 19px}.focus small{color:var(--muted);font-size:11px}.focus h3{font-size:14px;margin:5px 0}.focus p{font-size:12px;color:#627084;margin:0}.notice{padding:16px 18px;border:1px solid #dfddeb;background:#faf8ff;border-radius:12px;font-size:12px;color:#5e6070;line-height:1.85;margin:18px 0}.emptyline{text-align:center;padding:48px;color:var(--muted);font-size:13px}.footer{border-top:1px solid var(--line);color:var(--muted);font-size:12px;padding:28px 0;margin-top:40px}
+.skeleton{padding:35px;background:#fff;border:1px solid var(--line);border-radius:15px;color:var(--muted)}code{font-size:11px;background:#eef0f6;padding:2px 5px;border-radius:4px;overflow-wrap:anywhere}
+@media(max-width:950px){.layout{grid-template-columns:1fr}.side{position:static}.sessions{display:grid;grid-template-columns:repeat(2,1fr);gap:3px}.toolbar{grid-template-columns:minmax(140px,1fr) 145px 125px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.wrap{padding:0 14px}.topnav{gap:9px;font-size:11px}.top-in{min-height:57px}.hero{padding:37px 0}.stats{gap:8px}.stat{padding:14px}.stat b{font-size:24px}.section-h{align-items:start;display:block}.toolbar{grid-template-columns:1fr 1fr}.toolbar input{grid-column:1/-1}.record{padding:15px}.pairs,.timeline{grid-template-columns:1fr}.pair.wide{grid-column:auto}.sessionbtn{padding:9px 7px}.hero p{font-size:13px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap top-in"><a class="logo" href="./">复盘<span>台.</span> <small style="color:#8d98ac;font-weight:400">WY / Learning Ledger</small></a><nav class="topnav"><a href="#records">逐题档案</a><a href="#sessions">训练场次</a><a href="https://zhouwy.top/">返回主站</a></nav></div></header>
+<section class="hero"><div class="wrap"><div class="eyebrow">INTERVIEW × EXAM · EVIDENCE FIRST</div><h1>把每一次回答<br>变成下一次进步。</h1><p>技术面试、AI Agent 模拟口述、考研 408 / 数学二 / 政治 / 英语二的持续训练档案。每个问题独立记录：来源、原有回答、理解正确之处、关键错误、下一步复测。未拿到完整转写的题目绝不编造答案。</p><div class="hero-actions"><a href="#records" class="btn primary">查看逐题记录 ↗</a><a class="btn ghost" href="./records.json" target="_blank" rel="noopener">机器可读 JSON</a><button id="refresh" class="btn ghost" type="button">刷新最新记录 ↻</button></div><div class="meta" id="updated">数据载入中…</div></div></section>
+<main class="wrap main">
+<div class="stats" id="stats"><div class="skeleton">读取数据中…</div></div>
+<div class="notice"><b>证据原则：</b>“题库中的问题”不代表你亲自答过；“待补原文”不代表答错；“口述缺少某一点”不意味着生产系统没有实现它。外部面经与本人真实面试严格分开。此网页在公开仓库发布，已尽量剔除个人隐私和企业内部细节。</div>
+<div class="section-h" id="records"><h2>逐题档案</h2><p>筛选场次、学习领域和复习状态；点击题目展开问答、纠错、待办</p></div>
+<div class="layout"><aside class="panel side"><h3>训练场次</h3><div class="sessions" id="sessionList"><div class="skeleton">载入中…</div></div><div class="footnote">每条记录有稳定 ID，后续只增补和校正，不覆盖旧日结论。网站每分钟检查一次更新。</div></aside>
+<section style="min-width:0"><div class="toolbar"><input type="search" id="search" placeholder="搜索题号、关键词、回答、错因…" aria-label="搜索记录"><select id="domain"><option value="">全部领域</option><option value="面试">真实面试题库</option><option value="模拟面试">模拟面试</option><option value="考研">考研训练</option></select><select id="status"><option value="">全部状态</option><option>需二刷</option><option>部分掌握</option><option>正确</option><option>未作答</option><option>待补原文</option><option>待复测</option><option>未验证</option><option>已掌握</option></select></div><div class="resultsmeta"><span id="count">统计中…</span><a href="./records.json" target="_blank" rel="noopener" style="color:#3157ba">查看数据源 ↗</a></div><div id="recordList"><div class="skeleton">正在加载训练记录…</div></div></section></div>
+<div class="section-h" id="sessions"><h2>按时间回看</h2><p>每一场的归档范围与证据完整程度</p></div><div class="timeline" id="timeline"></div>
+<div class="section-h"><h2>给 ZCode 的数据接口</h2></div>
+<div class="panel"><div style="font-size:13px">读取地址：<a href="./records.json" style="color:#2458e8">./records.json</a>。每个问题有唯一 <code>id</code>，日期 <code>date</code>，来源 <code>origin</code>，初答归纳 <code>answer</code>，理解正确处 <code>correct</code>，错因 <code>error</code>，待办 <code>todo</code>，掌握状态 <code>status</code>。<br>页面只读取公开 JSON，不在浏览器保存私密 Token；由 ZCode 或 ChatGPT 在授权的 GitHub 工作流中追加记录并提交。GitHub Pages 发布后刷新网页即可看到新结果。</div></div>
+<footer class="footer">复盘台 · 证据优先，允许纠错，不把推断写成经历。<span id="stamp"></span></footer>
+</main>
+<script>
+let DB=null,selection="",lastSignature="";
+const el=id=>document.getElementById(id),safe=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const badgeStatus=s=>s==="正确"||s==="已掌握"?"a":s==="需二刷"||s==="待补原文"?"c":s==="部分掌握"?"b":"";
+const shortDate=d=>String(d||"");
+function build(){
+ if(!DB)return;
+ const all=DB.records||[];const ss=DB.sessions||[];const count=st=>all.filter(r=>r.status===st).length;
+ el("stats").innerHTML=[
+ ["记录题目",all.length,"只代表档案条目，并非答题完成量"],
+ ["真实面试题库",all.filter(r=>r.domain==="面试").length,"部分来源为事后回忆、外部面经"],
+ ["模拟面试",all.filter(r=>r.domain==="模拟面试").length,"目前能识别出的单题/主题"],
+ ["需要回访",count("需二刷")+count("部分掌握"),"已发现的复习缺口"]
+ ].map(x=>'<div class="stat"><b>'+x[1]+'</b><small>'+x[0]+'</small><br><em>'+x[2]+'</em></div>').join("");
+ el("sessionList").innerHTML='<button class="sessionbtn '+(!selection?"active":"")+'" data-sess=""><strong>全部记录</strong><small>所有日期 · '+all.length+' 条</small></button>'+ss.map(s=>'<button class="sessionbtn '+(selection===s.name?"active":"")+'" data-sess="'+safe(s.name)+'"><strong>'+safe(s.name)+'</strong><small>'+safe(s.date)+' · '+all.filter(r=>r.session===s.name).length+' 条</small></button>').join("");
+ el("timeline").innerHTML=ss.map(s=>'<div class="focus"><small>'+safe(s.date)+'　·　'+safe(s.type)+'</small><h3>'+safe(s.name)+'</h3><p>'+safe(s.detail)+'</p></div>').join("");
+ el("sessionList").querySelectorAll("button").forEach(b=>b.onclick=()=>{selection=b.dataset.sess||"";build();render();el("records").scrollIntoView({block:"start"})});
+ el("updated").textContent="数据版本： "+(DB.lastUpdated||"未标明")+" · "+all.length+" 条逐题档案 · 刷新间隔约 60 秒";
+ el("stamp").textContent=" · 最近数据更新 "+(DB.lastUpdated||"未知");
+ render();
+}
+function render(){
+ if(!DB)return;
+ const q=el("search").value.trim().toLowerCase(),d=el("domain").value,s=el("status").value;
+ const arr=(DB.records||[]).filter(r=>(!selection||r.session===selection)&&(!d||r.domain===d)&&(!s||r.status===s)&&(!q||[r.id,r.question,r.answer,r.correct,r.error,r.todo,r.topic,r.session,r.origin].join(" ").toLowerCase().includes(q)));
+ el("count").textContent="符合条件 "+arr.length+" 条 / 总计 "+DB.records.length+" 条";
+ el("recordList").innerHTML=arr.length?arr.map(r=>'<article class="record" id="q-'+safe(r.id)+'"><div class="record-head"><span class="tag p">'+safe(r.id)+'</span><span class="tag">'+safe(r.domain)+'</span><span class="tag">'+safe(r.topic)+'</span><span class="tag '+badgeStatus(r.status)+'">'+safe(r.status)+'</span><span class="tag">'+safe(r.priority||"")+'</span></div><h3>'+safe(r.question)+'</h3><div class="sub">'+safe(r.date)+'　 ·　'+safe(r.session)+'　 ·　来源：'+safe(r.origin)+'</div><details><summary>详细记录</summary><div class="pairs"><div class="pair wide '+(r.answer?"":"empty")+'"><strong>用户原答 / 已存归纳</strong><p>'+safe(r.answer||"暂无可核实的原始回答；不补写、不推断已掌握。")+'</p></div><div class="pair good"><strong>正确或值得保留的理解</strong><p>'+safe(r.correct||"未有充分依据评价，请通过下次口述确认。")+'</p></div><div class="pair bad"><strong>漏洞 / 错误 / 尚待验证</strong><p>'+safe(r.error||"尚无可靠纠错记录；未验证不等于错误。")+'</p></div><div class="pair wide todo"><strong>下一步动作 / 二刷要求</strong><p>'+safe(r.todo||"完成一次先答后评的口述，并补充可验证答案。")+'</p></div><div class="pair wide"><strong>资料可信度</strong><p>'+safe(r.evidence||r.origin)+'</p></div></div></details></article>').join(""):'<div class="emptyline">没有匹配的记录，试试移除筛选条件。</div>';
+ if(location.hash.startsWith("#q-")){const t=document.getElementById(location.hash.slice(1));if(t){t.querySelector("details").open=true;}}
+}
+for(const id of ["search","domain","status"])el(id).addEventListener(id==="search"?"input":"change",render);
+async function load(force=false){
+ try{const res=await fetch("./records.json?cache="+Date.now(),{cache:"no-store"});if(!res.ok)throw new Error("HTTP "+res.status);
+ const text=await res.text();if(text===lastSignature&&!force)return;
+ const d=JSON.parse(text);if(!Array.isArray(d.records)||!Array.isArray(d.sessions))throw new Error("数据格式不正确");
+ DB=d;lastSignature=text;build();if(force)el("updated").textContent+=" · 刚刚已检查最新版本";
+ }catch(e){if(!DB)el("recordList").innerHTML='<div class="skeleton">读取档案失败：'+safe(e.message)+'。请刷新页面，或使用上面的 JSON 链接直接读取。</div>';else el("updated").textContent="上次读取成功，最新同步失败："+e.message;}
+}
+el("refresh").addEventListener("click",()=>load(true));load();setInterval(()=>{if(!document.hidden)load()},60000);
+</script>
+</body></html>
