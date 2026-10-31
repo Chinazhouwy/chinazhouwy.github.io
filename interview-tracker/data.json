@@ -1,0 +1,1719 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-10-31",
+  "title": "面试与考研训练档案",
+  "policy": {
+    "public": true,
+    "privacy": "不含个人身份、薪酬、真实客户、内部代码与面试官信息",
+    "record_types": [
+      "transcript_semantic:转写语义清理",
+      "transcript_paraphrase:转写归纳",
+      "self_recollection:本人事后回忆",
+      "third_party:外部面经",
+      "simulation:模拟训练"
+    ],
+    "disclaimer": "非逐字稿的记录不得当作真实原话；没有逐题作答时不能推断正确或错误。"
+  },
+  "questions": [
+    {
+      "id": "JT-01",
+      "domain": "AI Agent",
+      "question": "Agent 的意图识别是怎么做的？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-02",
+      "domain": "AI Agent",
+      "question": "如果用户意图识别不到，怎么处理？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-03",
+      "domain": "AI Agent",
+      "question": "如果意图识别置信度比较低，怎么处理？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-04",
+      "domain": "AI Agent",
+      "question": "意图识别为什么用小模型，而不是直接用大模型？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-05",
+      "domain": "AI Agent",
+      "question": "意图识别具体用了什么模型？大概多大参数量？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-06",
+      "domain": "AI Agent",
+      "question": "主模型用的是什么模型？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-07",
+      "domain": "AI Agent",
+      "question": "怎么保证大模型回答不胡说？（同段口述还提到了 ZSET 滑动窗口中 Key、Value、Score 的设计；原稿有粘连）",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-08",
+      "domain": "AI Agent",
+      "question": "RAG 检索出来的知识和最终回答，怎么判断是否一致？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-09",
+      "domain": "AI Agent",
+      "question": "是否可以再用一个小模型，对回答和知识库内容做一致性校验？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-10",
+      "domain": "Java与系统",
+      "question": "红黑树的左旋、右旋是怎么回事？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-11",
+      "domain": "Java与系统",
+      "question": "HashMap 为什么容量通常设计成 2 的 n 次方？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-12",
+      "domain": "Java与系统",
+      "question": "HashMap 扩容以后，元素的新位置是怎么确定的？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-13",
+      "domain": "Java与系统",
+      "question": "线程池的核心线程数一般怎么配置？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-14",
+      "domain": "Java与系统",
+      "question": "最大线程数一般怎么配置？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-15",
+      "domain": "Java与系统",
+      "question": "线程池参数可以直接按照 CPU 核数套公式吗？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-16",
+      "domain": "Java与系统",
+      "question": "核心线程空闲以后会不会被回收？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-17",
+      "domain": "Java与系统",
+      "question": "keepAliveTime 对哪些线程生效？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-18",
+      "domain": "Java与系统",
+      "question": "核心线程能不能设置成超时回收？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-19",
+      "domain": "Java与系统",
+      "question": "Java 常见垃圾回收器有哪些？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-20",
+      "domain": "项目与表达",
+      "question": "项目里使用的是什么 GC？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-21",
+      "domain": "Java与系统",
+      "question": "G1 和 CMS 有什么区别？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-22",
+      "domain": "Java与系统",
+      "question": "G1 的 Region 是什么？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-23",
+      "domain": "Java与系统",
+      "question": "G1 里面年轻代、老年代是怎么划分的？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-24",
+      "domain": "Java与系统",
+      "question": "G1 怎么处理大对象？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-25",
+      "domain": "Java与系统",
+      "question": "CMS 为什么容易产生内存碎片？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-26",
+      "domain": "Java与系统",
+      "question": "G1 相比 CMS 有什么优势？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-27",
+      "domain": "数据库与中间件",
+      "question": "Redis 分布式锁怎么实现？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-28",
+      "domain": "数据库与中间件",
+      "question": "Redis 分布式锁怎么释放？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-29",
+      "domain": "数据库与中间件",
+      "question": "Redis 分布式锁如何避免误删其他线程/客户端的锁？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-30",
+      "domain": "数据库与中间件",
+      "question": "Redis 主从复制是怎么做的？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-31",
+      "domain": "数据库与中间件",
+      "question": "Redis 主节点和从节点之间怎么同步数据？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-32",
+      "domain": "数据库与中间件",
+      "question": "Redis 主节点挂了以后，怎么选择新的主节点？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-33",
+      "domain": "数据库与中间件",
+      "question": "Redis 集群模式下，一个 key 的数据到底存在哪个节点？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-34",
+      "domain": "数据库与中间件",
+      "question": "Redis Cluster 是怎么决定 key 对应哪个节点的？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-35",
+      "domain": "数据库与中间件",
+      "question": "Redis 集群中主从节点之间是什么关系？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-36",
+      "domain": "数据库与中间件",
+      "question": "ZooKeeper 分布式锁怎么实现？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-37",
+      "domain": "数据库与中间件",
+      "question": "ZooKeeper 为什么适合做分布式锁？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-38",
+      "domain": "数据库与中间件",
+      "question": "ZooKeeper 的临时节点、顺序节点在分布式锁里分别有什么作用？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-39",
+      "domain": "数据库与中间件",
+      "question": "ZooKeeper 的 Leader、Follower 是怎么同步数据的？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-40",
+      "domain": "数据库与中间件",
+      "question": "ZooKeeper 写请求是怎么完成同步和确认的？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-41",
+      "domain": "数据库与中间件",
+      "question": "ZooKeeper 各个节点上是否都有完整数据？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "JT-42",
+      "domain": "数据库与中间件",
+      "question": "ZooKeeper 主节点挂掉以后怎么选新的 Leader？",
+      "origin": "极兔｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-01",
+      "domain": "Java与系统",
+      "question": "请介绍过去负责的系统，以及它解决了什么问题。",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-02",
+      "domain": "项目与表达",
+      "question": "销售过程中客户流失在哪一步，系统怎么发现与处理？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-03",
+      "domain": "项目与表达",
+      "question": "B2C 分享链怎么识别潜在购买意愿并触达销售？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-04",
+      "domain": "项目与表达",
+      "question": "一个销售项目是什么？项目负责人、主攻手、群主、业务员分别做什么？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-05",
+      "domain": "项目与表达",
+      "question": "团队分润规则如何设计？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-06",
+      "domain": "Java与系统",
+      "question": "平时技术方案设计主要考虑哪些方面？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-07",
+      "domain": "Java与系统",
+      "question": "新保、续保、统括客户让商机接口越来越复杂，怎么改进？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-08",
+      "domain": "AI Agent",
+      "question": "机构和上下级角色的数据权限如何设计？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-09",
+      "domain": "Java与系统",
+      "question": "需求评审除扩展性之外，为什么还要考虑用户体验？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-10",
+      "domain": "Java与系统",
+      "question": "Java 的 Error、Exception 与受检异常有什么关系？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-11",
+      "domain": "项目与表达",
+      "question": "为什么不推荐用异常控制正常业务流程？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-12",
+      "domain": "Java与系统",
+      "question": "JDK 8 HashMap 为什么树化，扩容时有哪些变化？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-13",
+      "domain": "Java与系统",
+      "question": "synchronized 修饰实例方法、静态方法分别锁谁？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-14",
+      "domain": "Java与系统",
+      "question": "线程池数量怎么设置？为什么不一定是 CPU 核数减一？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-15",
+      "domain": "Java与系统",
+      "question": "遇到 OOM、CPU 高或 Full GC 怎么排查？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-16",
+      "domain": "数据库与中间件",
+      "question": "一条 SQL 从客户端到返回结果如何执行？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-17",
+      "domain": "数据库与中间件",
+      "question": "平时看执行计划优化 SQL，重点看什么？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-18",
+      "domain": "数据库与中间件",
+      "question": "Oracle 迁移 OceanBase 遇到什么问题？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-19",
+      "domain": "数据库与中间件",
+      "question": "Redis 缓存穿透、击穿、雪崩分别怎么处理？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-20",
+      "domain": "AI Agent",
+      "question": "AI 使用 SSE 时，断线重连如何恢复内容？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-21",
+      "domain": "AI Agent",
+      "question": "用户点 Stop，怎样让后端和上游模型真正停止？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-22",
+      "domain": "AI Agent",
+      "question": "AI 答案回测、BGE 评估和反馈自进化怎么做？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-23",
+      "domain": "Java与系统",
+      "question": "怎么保证代码质量，设计模式如何使用？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-24",
+      "domain": "Java与系统",
+      "question": "工作多年有没有形成自己的方法论？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "ST-25",
+      "domain": "项目与表达",
+      "question": "对方的渠道销售平台与你的经历有什么交集？",
+      "origin": "申通｜转写后二次归纳",
+      "source_type": "transcript_paraphrase",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O26-01",
+      "domain": "Java与系统",
+      "question": "订单商品价格被并发修改时如何避免旧值覆盖新值？",
+      "origin": "10月26日｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": true,
+      "status": "待补现场原文"
+    },
+    {
+      "id": "O26-02",
+      "domain": "Java与系统",
+      "question": "POS机设备上报/同步任务如何多线程调度，状态如何记录？",
+      "origin": "10月26日｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": true,
+      "status": "待二刷"
+    },
+    {
+      "id": "O26-03",
+      "domain": "Java与系统",
+      "question": "长时间不返回的任务怎么判断假死？怎么设计超时、补偿与重试？",
+      "origin": "10月26日｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O26-04",
+      "domain": "Java与系统",
+      "question": "多个文件合并如何流式处理？Java append 与 streaming merge 的区别？",
+      "origin": "10月26日｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": true,
+      "status": "待二刷"
+    },
+    {
+      "id": "O26-05",
+      "domain": "AI Agent",
+      "question": "测试 Agent 如何设计？怎么让它验证输出而不是只生成测试？",
+      "origin": "10月26日｜本人事后回忆",
+      "source_type": "self_recollection",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-01",
+      "domain": "AI Agent",
+      "question": "介绍自己负责过的 AI Agent 项目，以及自己的实际职责边界",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-02",
+      "domain": "AI Agent",
+      "question": "Chat API 的 Message 有哪些 Role？各自含义是什么？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": true,
+      "status": "未通过"
+    },
+    {
+      "id": "O27-1-03",
+      "domain": "AI Agent",
+      "question": "做意图识别时，System 与 User 消息应该分别放什么？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-04",
+      "domain": "AI Agent",
+      "question": "你们究竟使用什么 Agent 框架？如何判断底层是 LangGraph？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-05",
+      "domain": "AI Agent",
+      "question": "意图识别以后，整个 Agent 还经历哪些处理层？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-06",
+      "domain": "AI Agent",
+      "question": "你们的执行模式是 Plan-Execute 吗？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": true,
+      "status": "待二刷"
+    },
+    {
+      "id": "O27-1-07",
+      "domain": "AI Agent",
+      "question": "每一个意图节点是否能自行选择多个 Tool？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-08",
+      "domain": "AI Agent",
+      "question": "模型返回 JSON 结构如何约束？不按格式返回怎么办？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-09",
+      "domain": "项目与表达",
+      "question": "你最熟悉的业务项目是什么？介绍核心业务流程",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-10",
+      "domain": "项目与表达",
+      "question": "B2B、B2C、外部代理人三类业务之间究竟有哪些区别？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-11",
+      "domain": "数据库与中间件",
+      "question": "从移动端/PC 到 Nginx、应用和数据库，画出系统请求链路",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-12",
+      "domain": "Java与系统",
+      "question": "有统一网关吗？鉴权授权在哪一层实现？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-13",
+      "domain": "Java与系统",
+      "question": "微服务还是单体？为什么从五个应用合并为一个应用？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-14",
+      "domain": "数据库与中间件",
+      "question": "这个应用跟哪些外部系统对接？业务数据如何在投保、核保、支付、承保间流转？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-15",
+      "domain": "数据库与中间件",
+      "question": "承保成功后，状态是实时响应还是通过 MQ 通知？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-16",
+      "domain": "项目与表达",
+      "question": "业务交易量、保单量到底有多大？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-17",
+      "domain": "Java与系统",
+      "question": "讲几个你真正排查的生产故障",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-18",
+      "domain": "数据库与中间件",
+      "question": "PDF SDK 的静态字体缓存并发清空，为什么会乱码？最终如何解决？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-19",
+      "domain": "AI Agent",
+      "question": "Fastjson2 在 Linux 某环境先正常、后 JSON 解析异常，如何定位到 JIT？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-20",
+      "domain": "AI Agent",
+      "question": "承保成功→更新业务表→发送消息，怎么保证数据库和 MQ 一致？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-21",
+      "domain": "AI Agent",
+      "question": "RocketMQ 半事务消息具体怎么工作？与中间表区别是什么？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-22",
+      "domain": "Java与系统",
+      "question": "有没有使用 SDD/Spec 驱动开发？效果如何？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-23",
+      "domain": "AI Agent",
+      "question": "如何把个人的 AI 编程能力沉淀为团队统一能力？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-24",
+      "domain": "Java与系统",
+      "question": "你还会哪些语言？Python/前端能做到什么程度？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-25",
+      "domain": "Java与系统",
+      "question": "你为何想离开保险相关行业？未来希望做什么？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-1-26",
+      "domain": "Java与系统",
+      "question": "对岗位有什么要问的？薪资和面试进展？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-2-01",
+      "domain": "项目与表达",
+      "question": "你在哪一年毕业、此前工作经历大概怎样？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-2-02",
+      "domain": "项目与表达",
+      "question": "以前最多带多少人？后续团队缩小到多少？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-2-03",
+      "domain": "项目与表达",
+      "question": "从平安离职是否已签协议？预计什么时候离开？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-2-04",
+      "domain": "AI Agent",
+      "question": "你做过哪些 AI 项目？你开发的是业务逻辑还是底层框架？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-2-05",
+      "domain": "AI Agent",
+      "question": "平时使用什么 AI 编程工具？具体开发过程是什么？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-2-06",
+      "domain": "项目与表达",
+      "question": "公司是否考核单元测试？35%覆盖率如何统计？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-2-07",
+      "domain": "项目与表达",
+      "question": "测试代码如何纳入项目，在哪个流水线阶段执行？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-2-08",
+      "domain": "项目与表达",
+      "question": "你真正熟悉哪些保险业务？是否做过核心理赔？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-2-09",
+      "domain": "数据库与中间件",
+      "question": "C端分享后，如何走核保、支付、回调和承保？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-2-10",
+      "domain": "项目与表达",
+      "question": "你今后想走技术方向，还是业务/管理方向？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-2-11",
+      "domain": "项目与表达",
+      "question": "现在还在带后端团队吗？当年为什么不继续带了？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "O27-2-12",
+      "domain": "数据库与中间件",
+      "question": "了解我们医疗保险、互联网医院和药企创新支付业务吗？",
+      "origin": "10月27日｜转写语义清理",
+      "source_type": "transcript_semantic",
+      "answered": false,
+      "status": "未录入逐字回答"
+    },
+    {
+      "id": "XHS1028-01",
+      "question": "自我介绍",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P1"
+    },
+    {
+      "id": "XHS1028-02",
+      "question": "简历上写的大数据量测试时有没有遇到 JVM 层面的问题？",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P1"
+    },
+    {
+      "id": "XHS1028-03",
+      "question": "你们用的 JDK 几？用的 ZGC 是吧，讲一下 ZGC 的流程",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P2"
+    },
+    {
+      "id": "XHS1028-04",
+      "question": "checkpoint 容错机制是怎么工作的？",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "待定"
+    },
+    {
+      "id": "XHS1028-05",
+      "question": "触发时机以及 metadata 大小是怎么确定的？",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "待定"
+    },
+    {
+      "id": "XHS1028-06",
+      "question": "简历上方案二和方案一有什么区别，怎么定位瓶颈并迭代？",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P1"
+    },
+    {
+      "id": "XHS1028-07",
+      "question": "为什么能从 O(N) 降到 O(1)？",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "待定"
+    },
+    {
+      "id": "XHS1028-08",
+      "question": "你怎么说服上游配合你做改造的？",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P1"
+    },
+    {
+      "id": "XHS1028-09",
+      "question": "你的 count if 退化检测怎么做的？",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "待定"
+    },
+    {
+      "id": "XHS1028-10",
+      "question": "你的项目能不能检测到未加索引的全表扫描？",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P1"
+    },
+    {
+      "id": "XHS1028-11",
+      "question": "怎么做慢查询定位和优化？",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P0"
+    },
+    {
+      "id": "XHS1028-12",
+      "question": "说一个你解决的印象最深的 bug",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P0"
+    },
+    {
+      "id": "XHS1028-13",
+      "question": "什么时候分库，什么时候分表？",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P1"
+    },
+    {
+      "id": "XHS1028-14",
+      "question": "你怎么做自定义线程池，参数怎么设置的？",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P0"
+    },
+    {
+      "id": "XHS1028-15",
+      "question": "简历上两个项目为什么选择两个不同的缓存同步机制？",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P1"
+    },
+    {
+      "id": "XHS1028-16",
+      "question": "异步双写失败怎么解决？",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P0"
+    },
+    {
+      "id": "XHS1028-17",
+      "question": "为什么要引入 Caffeine？",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P1"
+    },
+    {
+      "id": "XHS1028-18",
+      "question": "讲一下 Redis 分布式锁 + Lua 脚本这一块",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P0"
+    },
+    {
+      "id": "XHS1028-19",
+      "question": "RAG 检索怎么做的？",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P0"
+    },
+    {
+      "id": "XHS1028-20",
+      "question": "怎么提高召回率？",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P0"
+    },
+    {
+      "id": "XHS1028-21",
+      "question": "怎么做的打分？",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P0"
+    },
+    {
+      "id": "XHS1028-22",
+      "question": "手撕：快速排序",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P2"
+    },
+    {
+      "id": "XHS1028-23",
+      "question": "反问",
+      "domain": "外部面经",
+      "origin": "2026-10-28｜第三方面经截图",
+      "source_type": "third_party",
+      "answered": false,
+      "status": "外部题库·未作答",
+      "priority": "P1"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "SIM1028-01",
+      "date": "2026-10-28",
+      "category": "AI Agent",
+      "question": "从用户请求到回复，介绍业务 Agent 的技术架构和执行链路",
+      "answer": "请求→大模型识别预定义意图→分类路由→脚本或工具、向量检索→整理返回。复盘时一度提到前两名意图分数比较，随后纠正为优化设想，并非实际生产逻辑。",
+      "answer_type": "paraphrase_from_review",
+      "outcome": "部分正确",
+      "score": "5.5~6/10（口述完整度）",
+      "strength": "主要执行路径描述基本清楚；能主动区分生产事实与改进设想。",
+      "mistake": "曾混入未上线的置信度分差判断；入口鉴权、异常超时、输出校验、可观测性未充分说明（不代表系统不存在）。",
+      "todo": "3分钟重新介绍真实链路；写一份仅基于实际实现的架构图，并解释未知意图/工具失败。",
+      "evidence": "既有2026-10-28模拟面试记录",
+      "status": "待复测"
+    },
+    {
+      "id": "O27-1-02",
+      "date": "2026-10-27",
+      "category": "AI Agent",
+      "question": "Chat API Message 有哪些 Role？assistant 与 tool 的区别？",
+      "answer": "能联想到 system、user，面试后反思也想起 assistant/tool，但当场缺乏把握，没有完整解释。",
+      "answer_type": "paraphrase_from_review",
+      "outcome": "关键错误",
+      "strength": "理解 system 是高优先级指令、user 是本轮输入的基本区别。",
+      "mistake": "未明确 assistant 表示模型消息，tool 表示工具执行结果；工具定义不是一种消息 Role。",
+      "todo": "手写一次 Assistant tool_calls → Tool result → Assistant final 的消息数组并口述。",
+      "evidence": "2026-10-27现场转写与后续用户补充",
+      "status": "未通过"
+    },
+    {
+      "id": "O27-1-06",
+      "date": "2026-10-27",
+      "category": "AI Agent",
+      "question": "静态意图路由是 Plan-Execute 吗？",
+      "answer": "介绍预设意图和流程节点，未证明存在动态 Planner。",
+      "answer_type": "paraphrase_from_review",
+      "outcome": "待核实",
+      "strength": "能够描述实际意图路由与固定工作流。",
+      "mistake": "预设 Workflow 与运行时动态计划容易混称。",
+      "todo": "写 Workflow、ReAct、Plan-Execute 三者最小执行示例。",
+      "evidence": "2026-10-27转写整理",
+      "status": "待二刷"
+    },
+    {
+      "id": "O26-01",
+      "date": "2026-10-26",
+      "category": "数据库与中间件",
+      "question": "价格并发修改如何避免旧值覆盖新值？",
+      "answer": "用户事后回忆：当时提到了数据库条件更新、乐观锁和更新前旧值比对。",
+      "answer_type": "self_recollection",
+      "outcome": "部分理解",
+      "strength": "抓到了乐观锁与条件更新这一关键机制。",
+      "mistake": "缺少冲突失败处理、版本号/条件更新返回行数、业务重试边界的完整演示。",
+      "todo": "Java + SQL 更新影响行数与并发冲突测试。",
+      "evidence": "2026-10-26本人复盘",
+      "status": "待补现场原文"
+    },
+    {
+      "id": "O26-02",
+      "date": "2026-10-26",
+      "category": "Java与系统",
+      "question": "POS 设备同步任务如何多线程调度和管理状态？",
+      "answer": "用户事后回忆：设计任务表、中间状态，配合多线程执行。",
+      "answer_type": "self_recollection",
+      "outcome": "部分理解",
+      "strength": "认识到需要状态落库，支持异步任务推进。",
+      "mistake": "超时任务认领、状态转移原子性、重复调度与幂等仍需补充。",
+      "todo": "实现任务表状态机 + 超时扫描 + 多实例重复执行测试。",
+      "evidence": "2026-10-26本人复盘",
+      "status": "待二刷"
+    },
+    {
+      "id": "O26-04",
+      "date": "2026-10-26",
+      "category": "Java与系统",
+      "question": "流式合并多个文件与普通 append 有什么区别？",
+      "answer": "提出逐文件 append 或写入输出流的思路，继续追问实现区别。",
+      "answer_type": "paraphrase_from_user_turn",
+      "outcome": "部分理解",
+      "strength": "意识到无需一次性读入所有文件，可顺序拼接。",
+      "mistake": "尚未明确分块传输的峰值内存、输出句柄、文件边界、失败恢复。",
+      "todo": "手写 BufferedInputStream.transferTo/分块复制，测大文件内存。",
+      "evidence": "2026-10-26用户聊天内容",
+      "status": "待二刷"
+    },
+    {
+      "id": "EX408-2025-27",
+      "date": "2026-10-20",
+      "category": "考研408",
+      "question": "2025年408第27题：页式虚拟存储管理中最少页框数与指令寻址的关系",
+      "answer": "一刷最终选 D；后确认参考答案为 C。",
+      "answer_type": "answer_choice",
+      "outcome": "做错",
+      "strength": "已主动标记为冷门难点，准备二刷。",
+      "mistake": "最少页框数由一次指令执行可能涉及的页面决定；曾混淆地址空间/代码段。",
+      "todo": "不提示答案复做原题；列出取指、操作数、寻址方式可能涉及的页。",
+      "evidence": "2025年408一对一真题训练",
+      "status": "必二刷"
+    },
+    {
+      "id": "EX408-2025-26",
+      "date": "2026-10-20",
+      "category": "考研408",
+      "question": "2025年408第26题：LRU 页面置换序列",
+      "answer": "理解 LRU 思路，但模拟淘汰顺序出现差错。",
+      "answer_type": "reasoning_paraphrase",
+      "outcome": "部分正确",
+      "strength": "算法总体原理掌握。",
+      "mistake": "逐步置换时页面最近使用顺序记录错误。",
+      "todo": "不看解析，手工列每轮页框和淘汰页。",
+      "evidence": "2025年408一对一真题训练",
+      "status": "待二刷"
+    },
+    {
+      "id": "EX408-2022-15",
+      "date": "2026-10-28",
+      "category": "考研408",
+      "question": "2022年408第15题：虚实页映射与页内偏移拼接",
+      "answer": "理解虚页号查询页框和存在位判断，但页表行索引处进制转换出错。",
+      "answer_type": "reasoning_paraphrase",
+      "outcome": "做错",
+      "strength": "虚拟地址分段、页框与页内偏移拼接方向正确。",
+      "mistake": "页表索引混淆十进制与十六进制，选错条目。",
+      "todo": "独立重做页号转换、表项查找与物理地址拼接。",
+      "evidence": "2022年408训练复盘",
+      "status": "待二刷"
+    },
+    {
+      "id": "EX408-2022-21",
+      "date": "2026-10-28",
+      "category": "考研408",
+      "question": "2022年408第21题：程序中断与 DMA",
+      "answer": "选择 C，批改为 D。",
+      "answer_type": "answer_choice",
+      "outcome": "做错",
+      "strength": "主动讨论了 DMA 控制器与设备交互。",
+      "mistake": "混淆了数据搬运主体以及何时通过中断通知 CPU。",
+      "todo": "画 CPU、DMA 控制器、内存、设备的数据与控制线。",
+      "evidence": "2022年408训练复盘",
+      "status": "待二刷"
+    },
+    {
+      "id": "EX408-2024-IO",
+      "date": "2026-10-20",
+      "category": "考研408",
+      "question": "中断响应、保存断点、保存寄存器、屏蔽字及 DMA",
+      "answer": "用户口述对中断向量、硬件自动保存与软件处理的分工有犹豫。",
+      "answer_type": "reasoning_paraphrase",
+      "outcome": "概念模糊",
+      "strength": "意识到中断响应和中断处理是两个阶段。",
+      "mistake": "硬件完成的中断隐指令与软件中断服务程序工作边界混淆。",
+      "todo": "区分关中断/断点保护/引出中断与现场保护/屏蔽字设置。",
+      "evidence": "2024年408复盘对话",
+      "status": "待二刷"
+    },
+    {
+      "id": "EX408-2023",
+      "date": "2026-10-27",
+      "category": "考研408",
+      "question": "2023年408选择题阶段复盘",
+      "answer": "既有复盘口径：A 10题、B 13题、C 2题、D 14题，另1题待核对（分类口径以原复盘定义为准）。",
+      "answer_type": "aggregate_summary",
+      "outcome": "整体薄弱",
+      "strength": "已开始建立按题号与状态分层的错题管理。",
+      "mistake": "需优先核对第13、14、19、22、26、28、31、34、35、36、38题。",
+      "todo": "逐项重做，优先第22题中断与 DMA。",
+      "evidence": "2026-10-27阶段复盘",
+      "status": "批量二刷"
+    },
+    {
+      "id": "EXMATH-2026-LA",
+      "date": "2026-09-26",
+      "category": "考研数学二",
+      "question": "2026年数学二最后线性代数大题",
+      "answer": "用户反馈最后一题做对；属于自述，未在此档案复核完整演算。",
+      "answer_type": "user_self_report",
+      "outcome": "表现较好（自述）",
+      "strength": "能够独立推进压轴线代题，已有一定恢复。",
+      "mistake": "未存完整过程，不能据此断言线代全部掌握。",
+      "todo": "隔几天用闭卷复述步骤并复核。",
+      "evidence": "2026年数学二对话",
+      "status": "待验证"
+    },
+    {
+      "id": "EXMATH-2025-LA",
+      "date": "2026-10-22",
+      "category": "考研数学二",
+      "question": "相似、合同、矩阵等价、特征值及重数",
+      "answer": "主动询问充分必要关系、几何/代数重数与快速判别。",
+      "answer_type": "question_discussion",
+      "outcome": "概念待巩固",
+      "strength": "能主动发现判定条件的逻辑混淆。",
+      "mistake": "相似与合同的定义及其相互关系尚未形成稳定辨别。",
+      "todo": "自行画充分必要关系图，并做反例判断。",
+      "evidence": "2025年数学二讨论",
+      "status": "待二刷"
+    },
+    {
+      "id": "EXMATH-2025-INT",
+      "date": "2026-10-22",
+      "category": "考研数学二",
+      "question": "反常积分与 p 积分，发散项相减能否收敛",
+      "answer": "提出单独积分可能发散，追问两个发散量相减的问题。",
+      "answer_type": "question_discussion",
+      "outcome": "概念待巩固",
+      "strength": "意识到不能直接对发散项做普通代数运算。",
+      "mistake": "收敛性比较与整体被积函数处理还需训练。",
+      "todo": "先合并被积函数再判断，练比较判别与渐近等价。",
+      "evidence": "2025年数学二讨论",
+      "status": "待二刷"
+    },
+    {
+      "id": "EXMATH-2026-VEC",
+      "date": "2026-09-26",
+      "category": "考研数学二",
+      "question": "向量线性无关、矩阵秩、特征向量关系",
+      "answer": "追问 a≠b 能否推出 rank(a-b)≥1，以及不同特征值向量的线性无关性。",
+      "answer_type": "question_discussion",
+      "outcome": "概念待巩固",
+      "strength": "能围绕条件与结论主动寻找反例。",
+      "mistake": "需区分向量、矩阵及线性无关的对象和量词。",
+      "todo": "列3组反例/正例；训练秩与向量组独立性。",
+      "evidence": "2026年数学二对话",
+      "status": "待二刷"
+    },
+    {
+      "id": "EXMATH-OLD-VOLUME",
+      "date": "2026-10-20",
+      "category": "考研数学二",
+      "question": "早年真题旋转体体积：圆柱、曲线区域及内外半径",
+      "answer": "用户先尝试拆成圆柱与曲线部分，质疑为何使用面积差。",
+      "answer_type": "reasoning_paraphrase",
+      "outcome": "部分理解",
+      "strength": "能识别旋转体体积分解与 dx 切片。",
+      "mistake": "需要清晰区分外圆盘与内孔的截面面积差。",
+      "todo": "画横截面，写 π(R²-r²)dx 再积分。",
+      "evidence": "1987—2016早年真题训练对话",
+      "status": "待二刷"
+    },
+    {
+      "id": "EX-POL-2026",
+      "date": "2026-10-31",
+      "category": "考研政治",
+      "question": "毛泽东各时期著作、土地革命、大革命、历次党的重要会议",
+      "answer": "近日本人主动提问并梳理知识框架，暂无可核对的闭卷作答记录。",
+      "answer_type": "topic_discussion",
+      "outcome": "未测验",
+      "strength": "明确了史纲及毛中特需要梳理的主要脉络。",
+      "mistake": "没有证据表明已能独立匹配著作、会议、时期与意义。",
+      "todo": "按大革命/土地革命/抗战/解放/建国分期闭卷口述。",
+      "evidence": "2026-10-31政治复习讨论",
+      "status": "未测试"
+    },
+    {
+      "id": "EX-ENG-2026",
+      "date": "2026-10-31",
+      "category": "考研英语二",
+      "question": "阅读、长难句、词汇与历年英语二真题",
+      "answer": "已知以背词和阅读训练为主，缺少逐题作答原文。",
+      "answer_type": "study_plan",
+      "outcome": "未测验",
+      "strength": "建立了词汇与阅读的日常训练计划。",
+      "mistake": "没有足够证据评估阅读正确率、作文或翻译。",
+      "todo": "补充一篇阅读真题及逐题解析记录。",
+      "evidence": "既有备考计划",
+      "status": "未测试"
+    }
+  ],
+  "strengths": [
+    {
+      "topic": "Agent业务主链路",
+      "detail": "能够描述预定义意图→工作流→工具/RAG→返回的总体路径；后续主动纠正未上线功能的归属。",
+      "evidence": "SIM1028-01"
+    },
+    {
+      "topic": "SQL乐观锁",
+      "detail": "价格修改讨论中提到了条件更新和旧值比对，方向合理；失败分支还未验证。",
+      "evidence": "O26-01"
+    },
+    {
+      "topic": "异步任务状态",
+      "detail": "能够想到用任务表和中间状态承载多线程任务。",
+      "evidence": "O26-02"
+    },
+    {
+      "topic": "408 LRU算法",
+      "detail": "理解基本淘汰原理，但逐步模拟仍会错。",
+      "evidence": "EX408-2025-26"
+    },
+    {
+      "topic": "数学二线代",
+      "detail": "用户自述2026最后线代大题做对，需复核后再升级为已验证掌握。",
+      "evidence": "EXMATH-2026-LA"
+    }
+  ],
+  "weaknesses": [
+    {
+      "topic": "模型消息协议与工具生命周期",
+      "severity": "P0",
+      "evidence": [
+        "O27-1-02"
+      ],
+      "todo": "能独立写出 system/user/assistant(tool_calls)/tool/assistant 消息序列"
+    },
+    {
+      "topic": "Agent生产事实与优化建议混用",
+      "severity": "P0",
+      "evidence": [
+        "SIM1028-01"
+      ],
+      "todo": "清晰区别已实现、参与过、尚在设计"
+    },
+    {
+      "topic": "Workflow 与动态 Planner 区别",
+      "severity": "P0",
+      "evidence": [
+        "O27-1-06"
+      ],
+      "todo": "用反例区分预设流程与动态规划"
+    },
+    {
+      "topic": "异步一致性与失败边界",
+      "severity": "P0",
+      "evidence": [
+        "O26-01",
+        "O26-02",
+        "O27-1-20",
+        "O27-1-21"
+      ],
+      "todo": "幂等、Outbox/事务消息、超时重试的故障演练"
+    },
+    {
+      "topic": "408分页/LRU/DMA",
+      "severity": "P0",
+      "evidence": [
+        "EX408-2025-27",
+        "EX408-2025-26",
+        "EX408-2022-15",
+        "EX408-2022-21"
+      ],
+      "todo": "无提示完成题目并复述处理步骤"
+    },
+    {
+      "topic": "数学二基础概念稳定性",
+      "severity": "P1",
+      "evidence": [
+        "EXMATH-2025-LA",
+        "EXMATH-2025-INT",
+        "EXMATH-2026-VEC"
+      ],
+      "todo": "做相似合同反例、反常积分、秩与向量组证明"
+    },
+    {
+      "topic": "政治闭卷回忆",
+      "severity": "P1",
+      "evidence": [
+        "EX-POL-2026"
+      ],
+      "todo": "毛著/会议/时期配对检查"
+    }
+  ],
+  "todos": [
+    {
+      "id": "TODO-01",
+      "priority": "P0",
+      "title": "重新口述 assistant/tool 消息区别并写 Java API demo",
+      "links": [
+        "O27-1-02"
+      ]
+    },
+    {
+      "id": "TODO-02",
+      "priority": "P0",
+      "title": "2025年408第27题闭卷重做；解释最少页框",
+      "links": [
+        "EX408-2025-27"
+      ]
+    },
+    {
+      "id": "TODO-03",
+      "priority": "P0",
+      "title": "2022年408页表题与 DMA/I-O 中断重做",
+      "links": [
+        "EX408-2022-15",
+        "EX408-2022-21"
+      ]
+    },
+    {
+      "id": "TODO-04",
+      "priority": "P0",
+      "title": "Agent路线图中区分生产现状与优化设计",
+      "links": [
+        "SIM1028-01"
+      ]
+    },
+    {
+      "id": "TODO-05",
+      "priority": "P0",
+      "title": "数据库条件更新、Outbox、RocketMQ事务消息的故障测试",
+      "links": [
+        "O26-01",
+        "O27-1-20",
+        "O27-1-21"
+      ]
+    },
+    {
+      "id": "TODO-06",
+      "priority": "P1",
+      "title": "数学二相似/合同、反常积分与向量线性相关复习",
+      "links": [
+        "EXMATH-2025-LA",
+        "EXMATH-2025-INT",
+        "EXMATH-2026-VEC"
+      ]
+    },
+    {
+      "id": "TODO-07",
+      "priority": "P1",
+      "title": "政治毛著与党的重要会议闭卷配对",
+      "links": [
+        "EX-POL-2026"
+      ]
+    },
+    {
+      "id": "TODO-08",
+      "priority": "P1",
+      "title": "流式文件合并、POS异步状态机最小 Java Demo",
+      "links": [
+        "O26-02",
+        "O26-04"
+      ]
+    }
+  ],
+  "sessions": [
+    {
+      "id": "2026-10-28-agent-01",
+      "date": "2026-10-28",
+      "title": "企康 Agent 执行链路模拟",
+      "mode": "模拟面试",
+      "records": [
+        "SIM1028-01"
+      ],
+      "summary": "路线基本清晰；纠正了虚构置信度路由的归因；下次练异常路径。"
+    },
+    {
+      "id": "2026-10-27-role",
+      "date": "2026-10-27",
+      "title": "AI Message Role 复盘",
+      "mode": "真实面试后的模拟复盘",
+      "records": [
+        "O27-1-02",
+        "O27-1-06"
+      ],
+      "summary": "系统性区分消息 Role 与工具定义，补 Workflow 与 Planner。"
+    },
+    {
+      "id": "2026-10-26-systems",
+      "date": "2026-10-26",
+      "title": "价格并发、POS、文件合并复盘",
+      "mode": "真实面试回忆",
+      "records": [
+        "O26-01",
+        "O26-02",
+        "O26-04"
+      ],
+      "summary": "方向部分正确，但完整故障模型和代码验证尚不足。"
+    },
+    {
+      "id": "2026-10-20-408",
+      "date": "2026-10-20",
+      "title": "408 2025选择题阶段复盘",
+      "mode": "考研口述",
+      "records": [
+        "EX408-2025-26",
+        "EX408-2025-27"
+      ],
+      "summary": "LRU模拟错误，最少页框题选错；均待二刷。"
+    }
+  ]
+}
