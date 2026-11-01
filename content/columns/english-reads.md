@@ -23,6 +23,8 @@ Short readings on technology, society, education, the environment, and everyday 
 
 Fresh selections and reading guides, kept separate from the archive. Each guide links to the original publication and labels its own practice material.
 
+- [How to build kids’ ‘cognitive endurance’ in an age of distraction](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1101-cognitive-endurance.md) — Scientific American · 2026-06-10 · 阅读导读与原刊入口。
+
 - [Bored of Climate Change](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1031-bored-of-climate-change.md) — Psychology Today · 2024-07-18 · 阅读导读与原刊入口。
 
 - [People who know more about AI art find it less ethical](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1030-ai-art-ethics.md) — Scientific American · 2026-03-06 · 阅读导读与原刊入口。
