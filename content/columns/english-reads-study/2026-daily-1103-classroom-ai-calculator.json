@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2026-daily-1103-classroom-ai-calculator.md",
+  "title": "AI Can Transform the Classroom Just Like the Calculator",
+  "paragraphs": [
+    {
+      "english": "This page is an independently written reading guide to an opinion and analysis article published by Scientific American on 17 April 2024. The authors are Michael M. Crow, Nicole K. Mayberry, Ted Mitchell and Derrick Anderson, all of them working in university leadership and education policy. The magazine labels the piece as argument rather than reporting, and the original is linked at the foot of this page.",
+      "chinese": "本页是为《科学美国人》2024 年 4 月 17 日发表的一篇观点与分析文章独立撰写的阅读导读。作者是 Michael M. Crow、Nicole K. Mayberry、Ted Mitchell 和 Derrick Anderson，四人都从事大学管理与教育政策工作。杂志把这篇标注为论证而非报道，原文见本页页尾链接。"
+    },
+    {
+      "english": "The article opens on a dispute that anyone near a campus will recognise. ChatGPT and similar tools spread through classrooms faster than institutions could write rules for them, and the argument that followed was heated. On one side stood professors and teachers worried about the future of postsecondary learning and about traditional disciplines, the humanities above all, with headlines announcing the end of the English major.",
+      "chinese": "文章从一个任何在大学附近待过的人都熟悉的争论写起。ChatGPT 一类工具在课堂里扩散的速度，远快于学校为其订立规则的速度，随之而来的争论相当激烈。一边是担心本科与研究生教学前途、担心传统学科（尤其是人文学科）处境的教授与教师，报端标题则在宣告“英语专业的终结”。"
+    },
+    {
+      "english": "The authors do not deny that the worry is real, but they begin with a fact that cuts against panic: roughly a third of teachers from kindergarten to high school already report using AI in the classroom, according to a survey the piece cites. Whatever is decided in committee rooms, the technology is in use. Many colleagues in higher education policy, science policy and university design criticise or dismiss generative AI; these four authors take the opposite view and say so plainly.",
+      "chinese": "作者并不否认这种担心是真的，但他们先摆出一个不利于恐慌的事实：根据文中引用的一项调查，从幼儿园到高中，已有大约三分之一的教师报告在课堂上使用 AI。无论委员会会议室里怎么定，这项技术已经在被使用。高等教育政策、科学政策与大学设计领域的许多同行批评甚至否定生成式 AI；这四位作者持相反看法，并且说得直白。"
+    },
+    {
+      "english": "Their optimism has a shape worth noticing, because it is not the optimism of enthusiasts. They expect AI to follow the pattern of earlier technologies that widened access to learning and improved success. They also insist that AI is not the hero of the story: students and instructors remain the heroes of human learning, with or without the tool. That sentence is doing quiet work, and it is the concession that keeps the rest of the argument credible.",
+      "chinese": "他们的乐观有其形状，值得留意，因为那不是技术爱好者的乐观。他们预计 AI 会重复早先那些扩大学习机会、提升学业成效的技术的路子。他们同时坚持 AI 不是故事里的英雄：无论有没有这件工具，学生和教师仍然是人类学习的主角。这句话在悄悄发挥作用，正是这层让步让后面的论证站得住。"
+    },
+    {
+      "english": "The historical claim comes next. From the printing press to online mathematics courses, technologies that improve access to good teaching have been dismissed by critics and sceptics, and most reliably by the people who hold the reins in the classroom. The pattern is offered as a general law of institutions: insiders defend the existing arrangement, and the defence is often sincere.",
+      "chinese": "接下来是历史论断。从印刷机到在线数学课，凡是能改善优质教学获取途径的技术，都被批评者和怀疑者否定过，而且最稳定地否定它们的，是那些在课堂上握着缰绳的人。这个模式被当作一条关于机构的普遍规律提出：内部人捍卫既有安排，而这种捍卫往往是真诚的。"
+    },
+    {
+      "english": "Then comes the case the title promises. In the mid-1970s, Mathematics Teacher magazine surveyed its readers, mainly teachers and mathematicians, and found that 72 per cent of respondents opposed equipping seventh graders with calculators. Science News reported the result in 1975. The timing matters: handheld calculators were only then becoming cheap enough for some schools to consider one device per student.",
+      "chinese": "然后是标题承诺的那个案例。1970 年代中期，《数学教师》杂志调查了它的读者——主要是教师和数学家——发现 72% 的受访者反对给七年级学生配计算器。《科学新闻》在 1975 年报道了这一结果。时间点很关键：手持计算器正是那时才便宜到让部分学校可以考虑人手一台。"
+    },
+    {
+      "english": "The objection was not stupid. Educators feared that dependence on a machine would erode students' mathematical skills, and one professor quoted at the time asked what pupils would do when the battery ran out. Read that question in 2024 and it sounds quaint; read it as a statement about fragile competence and it sounds like a question being asked today about writing.",
+      "chinese": "反对并不愚蠢。教育者担心依赖机器会侵蚀学生的数学能力，当时被引用的一位教授问：电池没电了，学生怎么办。把这个问题放到 2024 年读，它显得古旧；但若把它读成一句关于能力脆弱性的判断，它听起来就像今天有人就写作提出的问题。"
+    },
+    {
+      "english": "The authors draw the parallel explicitly. They point to a College Board article that looked back on what it called the great calculator panic of the 1980s and 1990s, and they set beside it the current warnings that students who can ask a machine for an essay may never learn to write one, or to answer a prompt on their own. The scenario of a crashed server, in which nobody can compose a paragraph, is the battery question in new clothes.",
+      "chinese": "作者明确画出这条平行线。他们提到大学理事会的一篇文章，那篇文章回顾了它所谓的 1980 与 1990 年代“计算器大恐慌”，并把它与当下的警告并置：能向机器要一篇作文的学生，也许永远学不会自己写，也学不会独立回应一个题目。服务器宕机、谁都无法写出一个段落的假设场景，不过是换了衣服的“电池问题”。"
+    },
+    {
+      "english": "Having set up the analogy, the authors turn on the terms of the debate. Arguments about essay integrity, they say, are narrow, and so are predictions of falling learning quality, because both measure the new tool against the assignment as it happens to be set today. The wider question is how curriculum, instruction and assessment might change together, which is what happened the last time a calculating device entered the room.",
+      "chinese": "搭好类比之后，作者转向争论的用词。他们说，关于论文诚信的争论是狭窄的，关于学习质量下降的预测也一样狭窄，因为两者都拿新工具去比照当下恰好这样布置的作业。更宽的问题是课程、教学与评价如何一起改变——上一次一件计算装置进入教室时，发生的正是这件事。"
+    },
+    {
+      "english": "The middle of the piece is a short history lesson. Calculators did not kill mathematics education; the subject's scope widened, and the arrival of the device pushed teachers and academics to rethink what mathematics could be taught at all. Today's high school students use, and understand, graphing calculators and computers better than undergraduate engineers in university laboratories could a generation earlier. The authors describe the present mathematics classroom as more dynamic, inclusive and creative than the one that preceded cheap computing, and they clearly enjoy making the comparison.",
+      "chinese": "文章的中段是一小堂历史课。计算器没有杀死数学教育；这门学科的范围反而拓宽了，装置的出现推动教师和学者重新思考数学究竟可以教什么。今天的高中生使用并理解图形计算器和计算机，比上一代大学生在实验室里做得还好。作者把当下的数学课堂描述得比廉价计算普及之前更有活力、更包容、更有创造性，而且显然很享受这个比较。"
+    },
+    {
+      "english": "The same broadening is then promised for writing and the humanities. Because generative AI can adapt to an individual's pace and preferred way of learning, the authors argue, it can offer customised support and make reading and writing more accessible to students with learning disabilities or with difficulties in traditional writing. The claim is plausible and, in the article, unsupported by evidence; it is offered as a possibility rather than a result.",
+      "chinese": "同样的拓宽随后被许诺给写作与人文学科。作者主张，因为生成式 AI 能适应个人的节奏和偏好的学习方式，它可以提供定制化支持，让有学习障碍或在传统写作方式上有困难的学生更容易进入阅读与写作。这个说法听来合理，但在文中没有证据支撑；它是作为可能性提出的，不是作为结果。"
+    },
+    {
+      "english": "From there the piece moves to assessment, which is where the argument becomes concrete. If calculators once forced schools to reconsider what a mathematics examination should test, generative AI may force a reconsideration of the college essay as the summit of learning. The authors want assignments designed on the assumption that AI will be present, so that the work values creativity, critical thinking and efficient study rather than the reproduction of finished prose.",
+      "chinese": "此后文章转向评价，论证在这里变得具体。如果说计算器当年迫使学校重新考虑数学考试该考什么，生成式 AI 也许会迫使人们重新考虑把大学论文当作学习的顶峰。作者希望作业在设计时就假定 AI 在场，使作业重视创造力、批判性思维与高效学习，而不是复制成稿的文字。"
+    },
+    {
+      "english": "One paragraph extends this to admissions. The admissions essay is known to perpetuate bias, and the authors ask what would happen if AI allowed universities to reconceive the tools by which applicants demonstrate aptitude, or to match students more accurately to the institution that would support them. These are questions rather than proposals, and the article is content to leave them open.",
+      "chinese": "有一段把这一点延伸到招生。众所周知，招生文书会延续偏见，作者于是追问：如果 AI 让大学得以重新构思申请人展示才智的工具，或更准确地把学生匹配到能支持他的学校，会怎么样。这些是问题而非方案，文章也乐于让它们悬着。"
+    },
+    {
+      "english": "The conclusion is a call to embrace rather than resist. History, the authors say, teaches that technologies which broaden and democratise learning are worth taking up, and the real difficulty is not change itself but using these tools to build curricula that serve every learner. Generative AI, on this account, is less a problem to be solved than an ally in making education universal.",
+      "chinese": "结论是呼吁接纳而非抵抗。作者说，历史教导我们，拓宽并民主化学习的技术值得采用，真正的困难不是变化本身，而是用这些工具去建设服务每一位学习者的课程。按这个说法，生成式 AI 与其说是待解的问题，不如说是让教育变得普及的盟友。"
+    },
+    {
+      "english": "It is worth being clear about what the piece does and does not establish. The calculator history is an analogy, not a study of AI and learning, and every prediction about the humanities is stated in the conditional. The one hard number in the article, the 72 per cent of 1975, measures the mood of a profession, not the effect of a technology. The argument is best read as a case for designing assignments deliberately, made by four people who would rather shape the change than police it.",
+      "chinese": "值得说清楚这篇文章立起了什么、没有立起什么。计算器的历史是类比，不是关于 AI 与学习的研究，而关于人文学科的每一条预测都以条件句的形式出现。文中唯一一个硬数字——1975 年的 72%——衡量的是一个职业的情绪，而不是一项技术的效果。这篇文章最好被读成一份主张：作业应当有意识地重新设计；提出它的是四位宁愿塑造变化、而不愿管束变化的人。"
+    },
+    {
+      "english": "Here is an editor-written practice sentence, not a quotation from the original article: Had the schools of the 1970s treated the calculator as an intruder to be excluded from the examination hall, the mathematics curriculum might have kept its old boundaries while the skills employers actually needed moved on without it.",
+      "chinese": "下面是一句编辑自拟的练习句，并非原文引用：如果 1970 年代的学校把计算器当作要挡在考场之外的闯入者，数学课程也许会守住旧的边界，而雇主真正需要的技能则会在没有它的情况下继续向前。"
+    },
+    {
+      "english": "As you read, watch the machinery of the analogy, since it carries the whole argument: a claim, a historical parallel, a restatement of the present objection in the old words, and then a proposal. Note how often the authors hedge — \"could\", \"may\", \"promises\" — and how rarely they cite findings, because an opinion piece earns its authority from the plausibility of the parallel rather than from data. Ask of each sentence whether it reports something or argues something; the two are mixed here on purpose.",
+      "chinese": "阅读时请留意类比这套装置，因为整篇论证都靠它承载：先是一个主张，再是一段历史平行，然后用旧词重述当下的反对意见，最后是一个提案。注意作者多常用“could”“may”“promises”这类留有余地的说法，又多罕见地引用研究结果——观点文章的说服力来自类比的合理性，而不是数据。对每一句都问一句：它在报告事实，还是在提出主张；这里两者是有意混在一起的。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "Read that question in 2024 and it sounds quaint; read it as a statement about fragile competence and it sounds like a question being asked today about writing.",
+      "mainClause": "由分号连接的两个并列句，各自都是“祈使句 + and + 陈述句”结构：Read that question... and it sounds quaint；read it as a statement... and it sounds like a question...。",
+      "structure": "祈使句加 and 在这里相当于 if 条件句，表示“如果……就会……”；第二个 read 后接 it as a statement about fragile competence，是 read sth as sth 的搭配；being asked today about writing 是现在分词短语后置修饰 a question。",
+      "translation": "把这个问题放到 2024 年读，它显得古旧；若把它读成一句关于能力脆弱性的判断，它听起来就像今天有人就写作提出的问题。",
+      "tip": "“祈使句 + and + 陈述句”是英语议论文里很紧凑的条件表达，等于“If you..., it will...”。quaint 指“古旧得有点可爱”，带轻微贬义，翻译时可作“古旧”。注意 sounds 后接形容词 quaint 而不是副词，因为 sound 是系动词。"
+    },
+    {
+      "sentence": "Because generative AI can adapt to an individual's pace and preferred way of learning, the authors argue, it can offer customised support and make reading and writing more accessible to students with learning disabilities or with difficulties in traditional writing.",
+      "mainClause": "主句为 it can offer customised support and make reading and writing more accessible to students...；the authors argue 是插入语，说明这是转述作者主张。",
+      "structure": "Because 引导原因状语从句；主句有两个并列谓语 offer 和 make，其中 make 后接宾语加形容词补语（make sth more accessible）；with learning disabilities 与 with difficulties in traditional writing 是两个 with 短语，后置修饰 students。",
+      "translation": "作者主张，因为生成式 AI 能适应个人的节奏和偏好的学习方式，它可以提供定制化支持，并让有学习障碍或在传统写作方式上有困难的学生更容易进入阅读与写作。",
+      "tip": "make X more accessible to Y 意为“使 Y 更容易获得 X”，不要理解成“让 X 更容易接近 Y”。插入语 the authors argue 提示整句是他人主张；本文随后还会指出，这一主张在原文中没有数据支撑，阅读时应当分清“转述的论点”和“已被证实的事实”。"
+    },
+    {
+      "sentence": "Had the schools of the 1970s treated the calculator as an intruder to be excluded from the examination hall, the mathematics curriculum might have kept its old boundaries while the skills employers actually needed moved on without it.",
+      "mainClause": "主句为 the mathematics curriculum might have kept its old boundaries；从句 Had the schools... 是省略 if 的虚拟条件句。",
+      "structure": "Had + 主语 + 过去分词 = If ... had done 的倒装形式，表示与过去事实相反的假设；to be excluded from the examination hall 是不定式被动，作 intruder 的后置定语；while 引导对比状语从句，moved on without it 中的 it 指 the mathematics curriculum。",
+      "translation": "如果 1970 年代的学校把计算器当作要挡在考场之外的闯入者，数学课程也许会守住旧的边界，而雇主真正需要的技能则会在没有它的情况下继续向前。",
+      "tip": "这句是本站编辑自拟的练习句，不是原文引用，只用于练习结构。虚拟条件句省略 if 后把 had 提前，是正式书面语的常见写法；might have kept 表示“本来可能会保住”，与后面的 moved on 形成对照，读懂这层反事实假设，就能看出作者为何主张主动改造课程而不是把新工具挡在门外。"
+    }
+  ]
+}
