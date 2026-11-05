@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2026-daily-1105-cancer-conference-takeaways.md",
+  "title": "Removing ‘invisibility cloaks’ and safely skipping chemo: new weapons in war on cancer shared at US conference",
+  "paragraphs": [
+    {
+      "english": "This page is an independently written reading guide to a science report published by The Guardian on 6 June 2026 and bylined to Andrew Gregory. The original article is linked at the foot of the page. What follows is a guide to what the report says and to the way a conference story is built, written for readers who want to take the English slowly; it is not a translation of the piece.",
+      "chinese": "本页是为《卫报》2026 年 6 月 6 日发表的一篇科学报道独立撰写的阅读导读，署名 Andrew Gregory。原文链接见本页页尾。以下是就这篇报道讲了什么、以及一篇会议报道是如何搭建起来的所写的导读，面向希望慢慢读英文的读者；它不是原文的翻译。"
+    },
+    {
+      "english": "The occasion was the annual meeting of the American Society of Clinical Oncology, known as Asco, in Chicago. The article establishes the scale in its second sentence: 40,000 health professionals, more than 200 sessions, 2,700 poster presentations, and a theme about turning laboratory findings into treatment that reaches patients. Even a reader who has never followed oncology will recognise the shape of the event, because large medical meetings work the same way everywhere: a handful of results are announced to a hall, and the rest of the field spends the following year arguing about them.",
+      "chinese": "事情的场合是美国临床肿瘤学会年会，简称 Asco，在芝加哥举行。文章在第二句就交代了规模：四万名医疗卫生专业人士、两百多场分会、2700 份海报展示，以及一个关于把实验室发现转化为能真正惠及患者的治疗的主题。即使从未关注过肿瘤学的读者也能认出这种活动的形状，因为大型医学会议在任何地方都是同一种运作方式：少数几项结果在大厅里被宣布，其余同行则在此后一年里争论它们。"
+    },
+    {
+      "english": "The report is organised as five takeaways, and that structure deserves attention before any single number in it. A round-up is an editorial decision. Someone chose these five findings out of the thousands presented, and the order in which they appear is a judgement about importance rather than a measurement of it. The most quotable result of the week is not automatically the one that will still matter in five years.",
+      "chinese": "报道按五条要点组织，而在看其中任何一个数字之前，这个结构本身就值得注意。综述是一种编辑决定：有人从成千上万项展示中挑出了这五项，它们出现的顺序是对重要性的判断，而不是对重要性的测量。一周里最容易被引用的一项结果，并不自动等于五年后依然要紧的那一项。"
+    },
+    {
+      "english": "The first takeaway is about immunotherapy, the family of drugs that recruits a patient's own immune system against a tumour. These drugs transformed cancer medicine over the past decade, but they fail in many patients, and one reason is that cancer cells can conceal themselves from the immune response. The report describes an experimental tablet, GRWD5769, that removes that concealment — the article's own metaphor is an invisibility cloak — so that an existing immunotherapy drug, cemiplimab, can find the tumour and destroy it.",
+      "chinese": "第一条要点关于免疫疗法，也就是调动患者自身免疫系统对抗肿瘤的那一类药物。过去十年里这些药物改变了肿瘤医学，但在许多患者身上失效，原因之一是癌细胞能够把自己对免疫反应隐藏起来。报道介绍了一种实验性片剂 GRWD5769，它能去掉这层隐藏——文章自己的比喻是“隐身斗篷”——从而让一种已有的免疫治疗药物 cemiplimab 找到肿瘤并将其摧毁。"
+    },
+    {
+      "english": "The evidence sits in one dense paragraph, and it is worth slowing down for. In a trial conducted in the UK, France, Spain and Australia, 83 patients took the tablet together with cemiplimab. All of them had already failed earlier treatment, and in most cases immunotherapy had either never worked or had stopped working. Tumours shrank in 26 of the 83 patients, whose cancers were cervical, bladder, liver, bowel, lung or head and neck. Of those 26, 15 shrank by at least 30 per cent. The study was led from the Christie NHS foundation trust in Manchester.",
+      "chinese": "证据集中在一个信息密集的段落里，值得放慢速度读。在一项横跨英国、法国、西班牙和澳大利亚的试验中，83 名患者同时服用该片剂与 cemiplimab。他们此前全都对先前的治疗无效，且多数人的免疫治疗要么从未起效，要么已经失效。83 人中有 26 人的肿瘤缩小，涉及宫颈癌、膀胱癌、肝癌、肠癌、肺癌以及头颈癌。这 26 人中，有 15 人的肿瘤缩小至少 30%。该研究由曼彻斯特的克里斯蒂 NHS 基金会信托主导。"
+    },
+    {
+      "english": "Professor Fiona Thistlethwaite, the trial's principal investigator, called the result impressive for a drug that is simply swallowed, and then added the qualification that nearly every conference report carries: it is early, and further studies are needed. Two other experimental drugs occupy the same section — ivonescimab, which with chemotherapy extended survival in lung cancer by about 15 per cent, and ozekibart, which in bowel cancer shrank some tumours and stopped others from progressing.",
+      "chinese": "该试验的主要研究者 Fiona Thistlethwaite 教授称，对一种只需吞服的药来说这个结果令人印象深刻，随后又补上了几乎每篇会议报道都会有的限定：现在还早，需要更多研究。同一部分还提到另外两种实验性药物——ivonescimab 与化疗联用在肺癌中把生存期延长了约 15%；ozekibart 在肠癌中使部分患者的肿瘤缩小，并使另一些患者的病情停止进展。"
+    },
+    {
+      "english": "The second takeaway produced the only standing ovation the article mentions. Daraxonrasib, a daily pill, doubled survival time in pancreatic cancer, the common cancer with the worst prognosis. In a trial of 500 patients whose disease had already spread, those who took the pill lived for 13.2 months on average, against 6.6 to 6.7 months for those on chemotherapy, and reported fewer side effects. The trial was led by the Dana-Farber Cancer Institute in Boston.",
+      "chinese": "第二条要点带来了文章中唯一一次全场起立鼓掌。日服片剂 daraxonrasib 把胰腺癌的生存时间翻了一倍，而胰腺癌是预后最差的常见癌症。在一项 500 名患者的试验中，这些患者的病灶均已扩散，服该药者平均存活 13.2 个月，而接受化疗者为 6.6 至 6.7 个月，且副作用更少。该试验由波士顿的丹娜—法伯癌症研究所主导。"
+    },
+    {
+      "english": "Two sentences follow the numbers, and reading them together is the real lesson of the section. An oncologist who was not involved in the study described the results as landscape-changing and said she wept when she first saw them. A charity welcomed the same results and then objected that access to trials for pancreatic cancer patients remains appallingly low. Both statements are true at once: a drug that doubles survival changes nothing for a patient who is never offered it.",
+      "chinese": "数字之后跟着两句话，把这两句放在一起读，才是这一节真正的功课。一位未参与该研究的肿瘤学家称结果“改变了格局”，并说她第一次看到数据时哭了。一家慈善机构对同一批结果表示欢迎，随后指出胰腺癌患者获得试验机会的比例仍然“低得惊人”。两句话同时成立：一种把生存期翻倍的药，对一位从未被提供过它的患者毫无意义。"
+    },
+    {
+      "english": "A third drug in that section works differently. Mezigdomide, added to existing treatment for multiple myeloma, more than doubled the time patients lived without their disease getting worse. It attaches itself to a protein in the body and then behaves like a magnet, drawing in the proteins that the cancer cells depend on and marking them for destruction; with those proteins gone, the immune system is also freer to attack what remains.",
+      "chinese": "同一部分里的第三种药机制不同。mezigdomide 加入多发性骨髓瘤的既有治疗方案后，使患者在病情不恶化的前提下存活的时间增加了一倍以上。它附着在体内某种蛋白上，随后像磁铁一样把癌细胞赖以生存的蛋白吸过来并标记其降解；这些蛋白被清除后，免疫系统也更有余力攻击残余的癌细胞。"
+    },
+    {
+      "english": "The third takeaway runs in the opposite direction, and it is easy to miss because it is not about a new weapon. Millions of women with breast cancer may be able to skip chemotherapy. The Optima trial, led by University College London, followed 4,000 patients with newly diagnosed breast cancer in the UK, Norway, Sweden, Australia, New Zealand and Thailand. Women whose tumours scored low on a genomic test could be treated with hormone therapy alone. One participant told the paper that being able to avoid chemotherapy felt like Christmas, and that nine years on she is well.",
+      "chinese": "第三条要点朝相反的方向走，而且很容易被忽略，因为它讲的不是新武器。数百万乳腺癌女性也许可以不做化疗。由伦敦大学学院主导的 Optima 试验跟踪了英国、挪威、瑞典、澳大利亚、新西兰和泰国的 4,000 名新确诊乳腺癌患者。基因检测得分低的女性可以只用激素治疗。一位参与者对报纸说，能够避免化疗让她感觉“像过圣诞节”，九年过去她依然健康。"
+    },
+    {
+      "english": "De-escalation appears twice. In bladder cancer, researchers led by the Institute of Cancer Research in London added the immunotherapy drug durvalumab to chemotherapy and radiotherapy and found that it cut the risk of the disease returning while sparing patients surgery. A treatment that is not given can be as much a result as a treatment that is, though it rarely earns the same headline.",
+      "chinese": "“降级治疗”出现了两次。在膀胱癌中，由伦敦癌症研究所领衔的研究者把免疫药物 durvalumab 加入化疗与放疗，发现它降低了疾病复发的风险，同时让患者免于手术。一种不被给予的治疗，其意义可以等同于一种被给予的治疗，尽管它很少获得同样的标题。"
+    },
+    {
+      "english": "The fourth takeaway is the negative one, and for a reader learning to handle science news it may be the most valuable. Galleri, a blood test designed to detect more than 50 kinds of cancer, was evaluated in 142,000 NHS patients. The question was whether adding it to standard screening would move diagnoses to earlier, more treatable stages. It did not meet that primary endpoint. The article records the verdict of one delegate without softening it: the trial flopped, clear and simple.",
+      "chinese": "第四条要点是否定性的那一条，而对正在学习处理科学新闻的读者来说，它可能最有价值。Galleri 是一种设计用于检测 50 多种癌症的血液检测，在 14.2 万名 NHS 患者中接受了评估。问题在于把它加入常规筛查能否把诊断推到更早、更可治的阶段。它没有达到这一主要终点。文章毫不软化地记下了一位参会者的评价：这项试验失败了，清楚而简单。"
+    },
+    {
+      "english": "The rest of that section is arithmetic on a large scale. Cancer incidence is projected to rise by 21 per cent, from 165 cases per 100,000 people in 2025 to 200 per 100,000 in 2050. Annual diagnoses worldwide, now about 20 million, could reach 35.3 million by mid-century, which works out at 100,000 a day. Against that demand the report sets a projected shortage of 100 million health workers. One of its authors frames the cause without alarm: cancer is fundamentally a disease of ageing, and longer lives are an achievement that health systems have not yet paid for.",
+      "chinese": "这一节剩下的部分是大尺度的算术。癌症发病率预计上升 21%，从 2025 年每十万人 165 例升至 2050 年每十万人 200 例。全球每年确诊人数目前约两千万，到本世纪中叶可能超过 3530 万，相当于每天十万人确诊。对照这样的需求，报告给出了 1 亿卫生人力的预计缺口。报告作者之一不带惊慌地解释了成因：癌症从根本上是一种衰老的疾病，更长的寿命是一项成就，而卫生系统还没有为此付账。"
+    },
+    {
+      "english": "The fifth takeaway concerns lifestyle, and it contains the figure most likely to be misread. Cases of early-onset cancer, in people under 50, rose from 1.82 million in 1990 to 3.26 million in 2019, an increase of nearly 80 per cent, while deaths in the same group rose by 27 per cent. Those two percentages measure different things and are easily collapsed into one in casual retelling — the first counts diagnoses, the second counts deaths, and the distance between them is partly a story about better detection.",
+      "chinese": "第五条要点关于生活方式，其中包含最容易被误读的数字。50 岁以下人群的早发性癌症病例从 1990 年的 182 万升至 2019 年的 326 万，增幅接近 80%，而同一人群的死亡人数上升了 27%。这两个百分比衡量的是不同的东西，在随口转述中却常被合并成一个——前者数的是确诊，后者数的是死亡，两者之间的落差有一部分是关于检测变好的故事。"
+    },
+    {
+      "english": "Within that section sit two studies of sleep. Together they analysed data on 18 million American adults aged 18 to 50 and found that poor sleep patterns were associated with higher rates of early-onset bowel, breast, uterine and ovarian cancer; in some cases, under-50s with insomnia were three times as likely to be diagnosed within five years. The verb matters. The studies report an association, not a mechanism, and the report is careful to say that researchers are still trying to explain the rise.",
+      "chinese": "这一节里有两项关于睡眠的研究。它们合计分析了 1,800 万名 18 至 50 岁美国成年人的数据，发现睡眠模式不佳与更高的早发性肠癌、乳腺癌、子宫癌和卵巢癌发病率相关；在某些情况下，有失眠的 50 岁以下人群在五年内被确诊的可能性是三倍。动词很重要。这些研究报告的是相关性，而不是机制，报道也谨慎地说明研究者仍在设法解释这一上升趋势。"
+    },
+    {
+      "english": "The section closes on something gentler. Up to 95 per cent of cancer survivors experience disturbed sleep or insomnia at some point during or after treatment, and more than half report mood disturbance, anxiety or fatigue. A trial presented at the same meeting found that regular gentle hatha and restorative yoga eased those symptoms without medication — a modest claim, stated modestly, which is how most good evidence arrives.",
+      "chinese": "这一节以一种更温和的内容收尾。多达 95% 的癌症幸存者在治疗期间或之后的某个阶段经历过睡眠障碍或失眠，超过一半的人报告情绪困扰、焦虑或疲乏。同一会议上发表的一项试验发现，规律的温和哈他瑜伽与修复瑜伽可以在不用药的情况下缓解这些症状——一个不大的结论，被不大地陈述出来，而这正是大多数可靠证据到来的方式。"
+    },
+    {
+      "english": "Read as a lesson in handling such a story, the piece suggests three habits. Keep relative and absolute figures apart: doubling survival from 6.6 months is not the same as curing anyone, and 80 per cent more cases is not 80 per cent more deaths. Distinguish conference abstracts from published, peer-reviewed trials, because the first is a claim being tested in public. And watch the verbs — associated with, may be fuelling, could reach — since they mark exactly how far the evidence is being stretched.",
+      "chinese": "作为处理这类报道的一课，这篇文章提示了三个习惯。把相对数字与绝对数字分开：把生存期从 6.6 个月翻倍并不等于治愈了任何人，病例增加 80% 也不等于死亡增加 80%。区分会议摘要与已发表、经同行评议的试验，因为前者是一个正在公开接受检验的主张。还要留意动词——与……相关、可能助推、可能达到——它们标出的正是证据被拉伸了多远。"
+    },
+    {
+      "english": "Here is an editor-written practice sentence, not a quotation from the original article: Had the trial's primary endpoint been met, the argument for adding a blood test to national screening would have rested on earlier diagnoses rather than on the promise of them, and the delegates who left Chicago disappointed would have had a different story to tell their hospitals.",
+      "chinese": "下面是一句编者自拟的练习句，并非原文引用：假如该试验达到了主要终点，那么把一种血液检测加入全国筛查的理由就会建立在更早的诊断之上，而不是建立在更早诊断的承诺之上，而那些失望离开芝加哥的参会者，回去对医院讲述的也会是另一个故事。"
+    },
+    {
+      "english": "None of this makes the week in Chicago a turning point. It makes it a snapshot of a field moving on several fronts at once — new ways to expose tumours, a new willingness to leave treatments out, and a widening gap between what medicine can offer and how many people will need it. The article's own structure carries that tension: four sections of progress, one of arithmetic, and a closing reminder that sleep, yoga and the timing of a diagnosis belong to the same argument.",
+      "chinese": "这一切并没有让芝加哥的那一周成为一个转折点。它让人看到的是一门学科同时在几条战线上推进的快照——让肿瘤暴露出来的新方法、把某些治疗省掉的新意愿，以及医学能提供的东西与需要它的人数之间不断扩大的缺口。文章自身的结构承载着这种张力：四节讲进展，一节讲算术，最后一节提醒人们，睡眠、瑜伽与确诊的时机属于同一个论证。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "It attaches itself to a protein in the body and then behaves like a magnet, drawing in the proteins that the cancer cells depend on and marking them for destruction; with those proteins gone, the immune system is also freer to attack what remains.",
+      "mainClause": "It attaches itself to a protein in the body and then behaves like a magnet —— 主语 It（指前文的 mezigdomide），并列谓语 attaches ... and behaves ...，介词短语 to a protein in the body 与 like a magnet 分别作状语。",
+      "structure": "drawing in ... and marking ... 是现在分词短语作伴随状语，具体说明 behaves like a magnet 的表现；其中 that the cancer cells depend on 是定语从句修饰 the proteins（介词 on 留在句末）；分号后 with those proteins gone 是“with + 名词 + 过去分词”的复合结构，表示原因或条件，主句为 the immune system is also freer to attack what remains，what remains 是宾语从句。",
+      "translation": "它附着在体内某种蛋白上，随后像磁铁一样把癌细胞赖以生存的蛋白吸过来并标记其降解；这些蛋白被清除后，免疫系统也更有余力攻击残余的癌细胞。",
+      "tip": "读长句先找分号：分号前是“怎么做”，分号后是“结果”。再确认 drawing 的逻辑主语仍是 It（药），而不是 magnet——分词短语紧跟名词时最容易被误挂到最近的名词上。"
+    },
+    {
+      "sentence": "Together they analysed data on 18 million American adults aged 18 to 50 and found that poor sleep patterns were associated with higher rates of early-onset bowel, breast, uterine and ovarian cancer; in some cases, under-50s with insomnia were three times as likely to be diagnosed within five years.",
+      "mainClause": "they analysed data ... and found that ... —— 主语 they（两项研究），并列谓语 analysed 与 found，that 引导宾语从句作 found 的宾语。",
+      "structure": "aged 18 to 50 是过去分词短语后置修饰 adults；宾语从句内部为被动结构 were associated with，主语是 poor sleep patterns；分号后 in some cases 作状语，主干 under-50s ... were three times as likely to be diagnosed，three times 修饰比较级 as likely，within five years 限定时间。",
+      "translation": "它们合计分析了 1,800 万名 18 至 50 岁美国成年人的数据，发现睡眠模式不佳与更高的早发性肠癌、乳腺癌、子宫癌和卵巢癌发病率相关；在某些情况下，有失眠的 50 岁以下人群在五年内被确诊的可能性是三倍。",
+      "tip": "注意 were associated with 是被动语态而非因果断言，它只说两者同时出现；比较结构 three times as likely ... as 在这里省略了后半句的比较对象（同龄睡眠正常者），是新闻英语常见的压缩写法。"
+    },
+    {
+      "sentence": "Here is an editor-written practice sentence, not a quotation from the original article: Had the trial's primary endpoint been met, the argument for adding a blood test to national screening would have rested on earlier diagnoses rather than on the promise of them, and the delegates who left Chicago disappointed would have had a different story to tell their hospitals.",
+      "mainClause": "两个并列主句：the argument for adding a blood test to national screening would have rested on earlier diagnoses rather than on the promise of them，以及 the delegates ... would have had a different story to tell their hospitals。",
+      "structure": "句首 Had the trial's primary endpoint been met 是省略 if 的虚拟条件倒装（等于 If the trial's primary endpoint had been met），与后面的 would have rested / would have had 构成对过去的虚拟；for adding a blood test to national screening 是介词短语修饰 the argument；who left Chicago disappointed 是定语从句修饰 the delegates；rather than on the promise of them 与 on earlier diagnoses 平行对比。",
+      "translation": "假如该试验达到了主要终点，那么把一种血液检测加入全国筛查的理由就会建立在更早的诊断之上，而不是建立在更早诊断的承诺之上，而那些失望离开芝加哥的参会者，回去对医院讲述的也会是另一个故事。",
+      "tip": "这是编者自拟的练习句，不是原文引用，用来练虚拟语气倒装与平行结构。识别 Had ... been 开头的句子时，先把它还原成 If ... had been，再看主句的 would have done。"
+    }
+  ]
+}

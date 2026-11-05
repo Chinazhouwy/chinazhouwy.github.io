@@ -1,6 +1,49 @@
 {
-  "generatedAt": "2026-11-04T00:00:00+08:00",
+  "generatedAt": "2026-11-05T00:00:00+08:00",
   "articles": [
+    {
+      "title": "Removing ‘invisibility cloaks’ and safely skipping chemo: new weapons in war on cancer shared at US conference",
+      "path": "content/columns/english-reads/2026-daily-1105-cancer-conference-takeaways.md",
+      "url": "content/columns/english-reads/2026-daily-1105-cancer-conference-takeaways.md",
+      "date": "2026-11-05",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "2026-11-05",
+      "domain": "专栏",
+      "area": "English Reads",
+      "module": "English Reads",
+      "project": "",
+      "type": "文章",
+      "status": "可阅读",
+      "priority": "P2",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "《卫报》2026 年 6 月 6 日科学版报道：芝加哥美国临床肿瘤学会年会上的五项要点——让免疫疗法重新“看见”肿瘤的新药、把胰腺癌生存期翻倍的日服片剂、让部分乳腺癌患者安全跳过化疗的基因检测、未达主要终点的多癌血液筛查，以及睡眠与早发性癌症的关联；文末附本站独立撰写的阅读导读与自拟练习句。",
+      "tags": [
+        "English Reading",
+        "Health",
+        "Cancer Research",
+        "Medicine",
+        "Science"
+      ],
+      "points": [],
+      "section": "reading",
+      "topic": "English Reads",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": "",
+      "sourceTitle": "The Guardian",
+      "sourceUrl": "https://www.theguardian.com/science/2026/jun/06/new-weapons-war-on-cancer-asco-conference-takeaways",
+      "sourcePublishedAt": "2026-06-06",
+      "readingCollection": "daily",
+      "readingFormat": "guide",
+      "lane": "reading",
+      "contentKind": "阅读导读",
+      "collectionId": "english"
+    },
     {
       "title": "The Hidden Cost of Calling Workers Back to the Office",
       "path": "content/columns/english-reads/2026-daily-1104-return-to-office-wellbeing.md",
@@ -9348,10 +9391,10 @@
     "学习": 112,
     "机会": 2,
     "阅读": 8,
-    "专栏": 79
+    "专栏": 80
   },
   "sectionCounts": {
-    "reading": 63,
+    "reading": 64,
     "columns": 19,
     "learning": 117,
     "plans": 1,
@@ -9399,7 +9442,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-11-04",
+      "date": "2026-11-05",
       "count": 0,
       "averageScore": null
     },
@@ -9408,11 +9451,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-10-22",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-10-23",
         "count": 0,
@@ -9475,6 +9513,11 @@
       },
       {
         "date": "2026-11-04",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-11-05",
         "count": 0,
         "averageScore": null
       }
