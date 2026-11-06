@@ -1,6 +1,49 @@
 {
-  "generatedAt": "2026-11-05T00:00:00+08:00",
+  "generatedAt": "2026-11-06T00:00:00+08:00",
   "articles": [
+    {
+      "title": "Greener front gardens could help combat air pollution and summer heat",
+      "path": "content/columns/english-reads/2026-daily-1106-front-gardens-cleaner-air.md",
+      "url": "content/columns/english-reads/2026-daily-1106-front-gardens-cleaner-air.md",
+      "date": "2026-11-06",
+      "createdAt": "",
+      "practicedAt": "",
+      "publishedAt": "",
+      "importedAt": "2026-11-06",
+      "domain": "专栏",
+      "area": "English Reads",
+      "module": "English Reads",
+      "project": "",
+      "type": "文章",
+      "status": "可阅读",
+      "priority": "P2",
+      "energy": "medium",
+      "visibility": "public",
+      "summary": "《卫报》2026 年 10 月 30 日环境版报道：伦敦两处街区、八座临街花园的一年期实测发现，绿篱与植被茂密的花园颗粒物污染最低，表现最好的一座比硬化地面的花园低至多 80%，草坪花园也保持低位；铺装花园夏季温度最高，可比植被茂盛的花园高出至多 6C；研究者呼吁在停车、无障碍与养护需求之间给出指引与激励。文末附本站独立撰写的阅读导读与自拟练习句。",
+      "tags": [
+        "English Reading",
+        "Environment",
+        "Cities",
+        "Air Pollution",
+        "Urban Heat"
+      ],
+      "points": [],
+      "section": "reading",
+      "topic": "English Reads",
+      "company": "",
+      "round": "",
+      "score": null,
+      "questionNumber": null,
+      "question": "",
+      "sourceTitle": "The Guardian",
+      "sourceUrl": "https://www.theguardian.com/environment/2026/oct/30/greener-front-gardens-air-pollution-summer-heat",
+      "sourcePublishedAt": "2026-10-30",
+      "readingCollection": "daily",
+      "readingFormat": "guide",
+      "lane": "reading",
+      "contentKind": "阅读导读",
+      "collectionId": "english"
+    },
     {
       "title": "Removing ‘invisibility cloaks’ and safely skipping chemo: new weapons in war on cancer shared at US conference",
       "path": "content/columns/english-reads/2026-daily-1105-cancer-conference-takeaways.md",
@@ -9391,10 +9434,10 @@
     "学习": 112,
     "机会": 2,
     "阅读": 8,
-    "专栏": 80
+    "专栏": 81
   },
   "sectionCounts": {
-    "reading": 64,
+    "reading": 65,
     "columns": 19,
     "learning": 117,
     "plans": 1,
@@ -9442,7 +9485,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-11-05",
+      "date": "2026-11-06",
       "count": 0,
       "averageScore": null
     },
@@ -9451,11 +9494,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-10-23",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-10-24",
         "count": 0,
@@ -9518,6 +9556,11 @@
       },
       {
         "date": "2026-11-05",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-11-06",
         "count": 0,
         "averageScore": null
       }
