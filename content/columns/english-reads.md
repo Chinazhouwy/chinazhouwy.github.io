@@ -23,6 +23,8 @@ Short readings on technology, society, education, the environment, and everyday 
 
 Fresh selections and reading guides, kept separate from the archive. Each guide links to the original publication and labels its own practice material.
 
+- [The Guardian view on social science research: embracing uncertainty](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1107-social-science-uncertainty.md) — The Guardian · 2026-04-15 · 阅读导读与原刊入口。
+
 - [Greener front gardens could help combat air pollution and summer heat](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1106-front-gardens-cleaner-air.md) — The Guardian · 2026-10-30 · 阅读导读与原刊入口。
 
 - [Removing ‘invisibility cloaks’ and safely skipping chemo: new weapons in war on cancer shared at US conference](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1105-cancer-conference-takeaways.md) — The Guardian · 2026-06-06 · 阅读导读与原刊入口。

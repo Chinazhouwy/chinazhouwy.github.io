@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2026-daily-1107-social-science-uncertainty.md",
+  "title": "The Guardian view on social science research: embracing uncertainty",
+  "paragraphs": [
+    {
+      "english": "This page is an independently written reading guide to an editorial published by The Guardian on 15 April 2026. The paper labels the piece “Editorial” and names no individual author, so the byline belongs to the newspaper's editorial board rather than to a single journalist. The original article is linked at the foot of the page. What follows is a guide to the argument and to the way it handles numbers, written for readers who want to take the English slowly; it is not a translation of the piece.",
+      "chinese": "本页是为《卫报》2026 年 4 月 15 日发表的一篇社论独立撰写的阅读导读。该报把这篇标为“社论”（Editorial），未署个人作者，因此署名属于报社社论委员会，而不是某位记者。原文链接见本页页尾。以下是就这篇文章的论点、以及它如何处理数字所写的导读，面向希望慢慢读英文的读者；它不是原文的翻译。"
+    },
+    {
+      "english": "The editorial opens with a figure that sounds like an alarm. A new set of studies, it says, suggests that as many as half of all results published in reputable social science journals cannot be replicated by independent analysis. Two words in that sentence are doing most of the work. “As many as” marks an upper bound rather than a typical case, and “replicated” has a technical meaning that the piece goes on to define. A reader who skips both will carry away a stronger claim than the evidence supports.",
+      "chinese": "社论以一个听起来像警报的数字开头。文章说，一组新研究显示，发表在有声誉的社会科学期刊上的结果，多达一半无法被独立分析复现。这句话里有两个词承担了大部分工作。“as many as”（多达）标出的是上限而非典型情况，而“replicated”（复现）有一个术语含义，文章随后才给出定义。跳过这两处的读者，带走的结论会比证据支持的更强。"
+    },
+    {
+      "english": "The problem, the editorial is careful to say, is neither new nor confined to one discipline. It has been running for years across many research fields, most visibly in the social sciences and psychology, with concerns also raised in parts of biomedical research. The framing matters: this is presented as a standing feature of how research is done and checked, not as a scandal that arrived with a particular paper or a particular laboratory.",
+      "chinese": "社论谨慎地指出，这个问题既不新，也不限于某一个学科。它已经在许多研究领域存在多年，最明显地出现在社会科学和心理学，生物医学研究的某些部分也有人提出担忧。这个框定很重要：文章把它呈现为研究如何开展与核查的一种长期特征，而不是随着某篇论文或某个实验室出现的丑闻。"
+    },
+    {
+      "english": "The evidence behind the opening number comes from a seven-year project with an unwieldy name — Systematizing Confidence in Open Research and Evidence, shortened to Score. It has published three studies covering 3,900 social science papers. Its findings include a pattern worth remembering: newer papers, and papers in journals that require extensive sharing of the underlying data, were more likely to be reproduced. That is a claim about conditions rather than about virtue — transparency and recency travel together with reproducibility.",
+      "chinese": "支撑开头那个数字的证据，来自一个名字拗口的七年期项目——Systematizing Confidence in Open Research and Evidence，简称 Score。它已发表三项研究，覆盖 3,900 篇社会科学论文。其发现中有一个值得记住的模式：较新的论文，以及发表在要求广泛共享底层数据的期刊上的论文，更有可能被再现。这是关于条件的判断，而不是关于品德的判断——透明与新颖，同可再现性是走在一起的。"
+    },
+    {
+      "english": "Medicine gets a paragraph of its own, and it complicates the picture in a useful way. Clinical research has its own constraints: patient caseloads differ, samples are limited, and a trial in one hospital system is not the same object as a trial in another. In practice, the editorial suggests, medical research can resemble the social sciences more closely than it resembles laboratory physics. The practical conclusion is modest and sensible: policymakers should be cautious about claims that lack a wide and robust base of evidence.",
+      "chinese": "医学单独占了一段，并以一种有用的方式让图景变复杂。临床研究有自己的限制：各处的病人数量不同，样本有限，一个医疗系统里的试验与另一个系统里的试验并不是同一个对象。社论认为，在实践中，医学研究可能更接近社会科学，而不是接近实验室里的物理学。由此得出的实际结论温和而合理：政策制定者对缺乏广泛而坚实证据基础的论断应保持谨慎。"
+    },
+    {
+      "english": "Then comes the distinction on which the whole argument rests. Reproducibility asks whether results can be recreated from the same data and the same methods. Replication asks whether a finding holds when new data are gathered in different contexts. The two failures mean different things. A reanalysis that cannot recover a published number points to an error or an undisclosed choice; a replication that fails may be describing a world that has changed, or a boundary the first study never tested.",
+      "chinese": "接下来是整篇论证所依赖的区分。可再现性（reproducibility）问的是：能否用同样的数据和同样的方法重新得出结果。可复制性（replication）问的是：当在不同的情境中采集新数据时，这一发现是否仍然成立。两种失败意味着不同的东西。重做分析却复原不出已发表的数字，指向的是错误或未披露的选择；复制失败则可能是在描述一个已经变化的世界，或第一个研究从未检验过的边界。"
+    },
+    {
+      "english": "Science, the editorial notes, rarely produces exactly identical outcomes, and working out why is part of how knowledge accumulates. The trouble is political. Uncertainty of this ordinary kind is easily converted into denial, and normal scientific caution gets recast as evidence of failure. The editorial points to a White House executive order from May 2025 that emphasised a “reproducibility crisis” in science, and reads it as a call for doubt and inaction rather than for better research.",
+      "chinese": "社论指出，科学很少产生完全相同的结果，而弄清楚原因，正是知识积累的一部分。麻烦在于政治。这种寻常的不确定性很容易被转换成否认，正常的科学审慎被改写成失败的证据。社论举出 2025 年 5 月白宫的一项行政令，它强调科学中的“可再现性危机”；文章把这道命令读作对怀疑与不作为的号召，而不是对更好研究的号召。"
+    },
+    {
+      "english": "If verification matters, why is there so little of it? The answer is structural and unglamorous. Large-scale verification projects such as Score are few and far between, because most academic researchers would rather spend their time on work that is more likely to advance their careers. Checking someone else's result is expensive, slow and hard to publish; the incentive runs the other way.",
+      "chinese": "如果核查如此重要，为什么做得这么少？答案在结构上，而且并不光鲜。像 Score 这样的大规模核查项目少而又少，因为大多数学术研究者宁愿把时间花在更有可能推进自己职业生涯的工作上。核查别人的结果昂贵、缓慢，而且难以发表；激励指向的是相反的方向。"
+    },
+    {
+      "english": "The numbers sharpen the point. Score reanalysed existing data and, in separate work, replicated studies from scratch across more than 100 papers. Around 49 per cent still failed to replicate the original result — a figure close enough to half to keep the opening claim honest, and hedged by the same “around”. The asymmetry is the lesson: reanalysing data is relatively straightforward, while carrying out an identical experiment is not, especially where outcomes depend on complex human systems. The editorial adds a caution about artificial intelligence: it may help decide what to test, but it cannot reduce the cost or the time of duplicating a piece of research.",
+      "chinese": "数字让这一点更清楚。Score 重析了现有数据，并在另一项工作中从零复制了 100 多篇论文的研究。仍有约 49% 未能复制出原来的结果——这个数字接近一半，足以让开头的说法站得住，也同样被“约”字限定。不对称才是要点：重析数据相对直接，而做一次完全相同的实验则不然，尤其当结果取决于复杂的人类系统时。社论还就人工智能补了一句提醒：它可能有助于决定检验什么，但无法降低复制一项研究所需的成本与时间。"
+    },
+    {
+      "english": "Having built the case, the editorial refuses the easy ending. Not every failed replication signals a crisis. Some findings do not matter much; replication studies can themselves be flawed. Results that do not replicate consistently should be weighed against a wider evidence base when policy is being guided, rather than treated as a verdict on a whole field.",
+      "chinese": "论证建好之后，社论拒绝了一个省事的结尾。并非每一次复制失败都意味着危机。有些发现本来就不太重要；复制研究本身也可能有缺陷。那些无法稳定复现的结果，在指导政策时应与更广泛的证据基础一起权衡，而不是被当作对整个领域的判决。"
+    },
+    {
+      "english": "The sentence at the centre of the piece is a definitional one: treating non-replication as disqualification confuses uncertainty with ignorance. The two are not the same, and the confusion has consequences. If every uncertain finding is discarded, the decision-maker is left not with better evidence but with no evidence at all, and paralysis arrives dressed as rigour.",
+      "chinese": "全文中心的那句话是一个定义性的句子：把“未能复制”当作取消资格，是把不确定与无知混为一谈。两者并不相同，而混淆是有后果的。如果每一个不确定的发现都被丢弃，决策者得到的不是更好的证据，而是根本没有证据，瘫痪就这样披着严谨的外衣到来。"
+    },
+    {
+      "english": "The remedy the editorial proposes is procedural rather than heroic. Greater transparency makes outright fraud more difficult and allows errors to be identified, and some major funders already require it — the UK Economic and Social Research Council is named. The editorial's view is that the practice should be universal, which is a modest demand with an immodest price, since it asks institutions to publish the material that makes them checkable.",
+      "chinese": "社论提出的补救办法是程序性的，而不是英雄式的。更高的透明度让彻底的造假更难，也让错误可以被识别出来，一些主要资助方已经这样要求——文中点名了英国经济与社会研究理事会。社论认为这一做法应当普及；这是一个谦逊的要求，代价却不小，因为它要求机构公开那些让别人得以核查自己的材料。"
+    },
+    {
+      "english": "There is also a camp that is unbothered, arguing that research ultimately autocorrects. The editorial grants the point and then qualifies it. The long-term solution — shifting incentives so that existing results get tested — would indeed increase confidence, but it requires restructuring research culture and funding, and for now it remains largely notional. The studies are presented as both a warning and an argument for that change.",
+      "chinese": "还有一派人不以为意，认为研究“最终会自我纠正”。社论承认这一点，随即加以限定。长期方案——改变激励，让既有结果得到检验——确实会提升信心，但它需要重构研究文化与资助方式，而目前这在很大程度上仍停留在设想层面。这些研究既被当作警告，也被当作支持这一改变的理由。"
+    },
+    {
+      "english": "For a reader working on English, the piece is a short lesson in quantification. Watch “as many as”, “around”, “more likely” and “largely”: each one adjusts the strength of the claim it sits in, and each one is the part of a sentence a hurried reader drops. Watch, too, how the editorial uses the same root in three forms — reproduce, replicate, reanalyse — with three different meanings, which is exactly the sort of vocabulary cluster worth owning.",
+      "chinese": "对正在练英文的读者，这篇文章是一堂简短的量化表达课。留意“as many as”“around”“more likely”“largely”：每一个都在调整所在句子的力度，而每一个都是匆忙的读者会丢掉的部分。也要留意社论如何用同一个词根的三种形式——reproduce、replicate、reanalyse——表达三种不同意思；这类词族正是值得收入自己词库的东西。"
+    },
+    {
+      "english": "Notice as well how much of the argument is carried by nominalisation. “Verification”, “transparency”, “replication” and “disqualification” are actions turned into nouns, which lets the writer stack them into subjects and keep the sentences compact. English opinion writing does this constantly; unpacking a noun back into a verb — to verify, to disclose, to disqualify — is often the fastest way to see what a dense sentence is actually claiming.",
+      "chinese": "同样值得留意的是，这篇论证有多少是靠名词化承担的。“Verification”“transparency”“replication”“disqualification”都是把动作变成名词，于是作者可以把它们堆成主语，让句子保持紧凑。英文评论写作经常这样做；把一个名词拆回动词——to verify、to disclose、to disqualify——往往是看清一个密集句子究竟在主张什么的最快办法。"
+    },
+    {
+      "english": "Here is an editor-written practice sentence, not a quotation from the original article: Had the funders required data sharing a decade earlier, the replication studies published this month would have had more to work with, and the researchers who spent years checking old results might have been paid for that work instead of fitting it around it.",
+      "chinese": "下面是一句编者自拟的练习句，不是原文引用：假如资助方在十年前就要求共享数据，本月发表的这些复制研究就会有更多材料可用；而那些花数年核查旧结果的研究者，或许会因为这项工作而得到报酬，而不是只能在别的工作之外挤出时间来做。"
+    },
+    {
+      "english": "It is worth being explicit about what the editorial does not do. It names no individual paper, offers no estimate of how much irreproducible research costs, and does not claim that fraud is widespread; its target is the machinery of checking and the incentives around it. Nor does it deny that some published findings are simply wrong. The argument is narrower and more useful: a field that measures its own uncertainty is in better health than one that hides it, and a reader who keeps the qualifiers can tell the difference between a crisis and a working science.",
+      "chinese": "值得明确的是这篇社论没有做什么。它没有点名任何一篇论文，没有估算不可复现的研究造成多少损失，也没有声称造假普遍存在；它针对的是核查的机制以及围绕机制的激励。它同样没有否认有些已发表的结果就是错的。它的论证更窄，也更有用：一个能度量自身不确定性的领域，比一个把不确定性藏起来的领域更健康；而保留那些限定词的读者，能分辨一场危机和一门运转中的科学。"
+    },
+    {
+      "english": "The editorial ends by calling social science a powerful tool for understanding the world, and by locating trust in acknowledgement rather than repudiation. That is a short sentence with a long reach. The same habit serves anyone reading a study, a news report about a study, or a politician quoting one: find the claim, find its scope, and ask what would have to be true for it to fail.",
+      "chinese": "社论最后把社会科学称为理解世界的有力工具，并把信任安放在承认不确定、而不是否认不确定之上。这是一个很短却走得很远的句子。同样的习惯对任何读研究、读关于研究的报道、或读引用研究的政治人物的人都适用：找到主张，找到它的适用范围，再问一句——要让它不成立，需要什么为真。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "A reader who skips both will carry away a stronger claim than the evidence supports.",
+      "mainClause": "主语 A reader，谓语 will carry away，宾语 a stronger claim；who skips both 是修饰 reader 的定语从句。",
+      "structure": "than the evidence supports 是比较状语从句，与前面的比较级 stronger 呼应；句子用“读者会带走什么”来代替“这个说法被夸大”，把评价放在读者身上。",
+      "translation": "两处都跳过的读者，带走的结论会比证据支持的更强。",
+      "tip": "carry away 本义是“带走”，这里指读完记住、形成印象。比较结构 stronger ... than the evidence supports 中，than 后面不是完整比较对象，而是“证据所能支持的（程度）”，理解时要补出被省略的部分。"
+    },
+    {
+      "sentence": "If every uncertain finding is discarded, the decision-maker is left not with better evidence but with no evidence at all, and paralysis arrives dressed as rigour.",
+      "mainClause": "主句为 the decision-maker is left not with better evidence but with no evidence at all 与 paralysis arrives dressed as rigour 两个并列分句。",
+      "structure": "If every uncertain finding is discarded 是条件状语从句；not ... but ... 构成对照，否定一端、肯定另一端；dressed as rigour 是过去分词短语作 arrives 的方式状语，把“瘫痪”拟人化。",
+      "translation": "如果每一个不确定的发现都被丢弃，决策者得到的不是更好的证据，而是根本没有证据；瘫痪就这样披着严谨的外衣到来。",
+      "tip": "not with A but with B 的重心在 but 之后，翻译时要把“根本没有证据”放在后面。dressed as rigour 不能直译成“穿着严谨”，它的意思是“以严谨的样子出现”，这类分词短语在英文评论中是常见的比喻压缩。"
+    },
+    {
+      "sentence": "Had the funders required data sharing a decade earlier, the replication studies published this month would have had more to work with, and the researchers who spent years checking old results might have been paid for that work instead of fitting it around it.",
+      "mainClause": "两个并列主句：the replication studies ... would have had more to work with；the researchers ... might have been paid for that work。",
+      "structure": "句首 Had the funders required ... 是省略 if 的虚拟条件倒装（等于 If the funders had required ...），与后面的 would have had / might have been paid 构成对过去的虚拟；published this month 是过去分词短语后置修饰 studies；who spent years checking old results 是定语从句修饰 the researchers；instead of fitting it around it 为介词短语作对比状语。",
+      "translation": "假如资助方在十年前就要求共享数据，本月发表的这些复制研究就会有更多材料可用；而那些花数年核查旧结果的研究者，或许会因为这项工作而得到报酬，而不是只能在别的工作之外挤出时间来做。",
+      "tip": "这是编者自拟的练习句，不是原文引用，用来练省略 if 的虚拟倒装和嵌套定语从句。看到 Had + 主语 + 过去分词开头，先还原成 If ... had ...；句末两个 it 指代不同：fitting it（核查工作）around it（别的工作），要靠上下文分辨。"
+    }
+  ]
+}
