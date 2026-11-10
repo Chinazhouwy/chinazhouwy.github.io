@@ -23,6 +23,8 @@ Short readings on technology, society, education, the environment, and everyday 
 
 Fresh selections and reading guides, kept separate from the archive. Each guide links to the original publication and labels its own practice material.
 
+- [New towns are back – but this time they must be more walkable](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1110-new-towns-walkable.md) — The Conversation · 2026-05-21 · 阅读导读与原刊入口。
+
 - [Your brain may be doing its most important work when you think you’re doing nothing](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1109-brain-work-at-rest.md) — The Conversation · 2026-09-11 · 阅读导读与原刊入口。
 
 - [Are schools a great equalizer? They help kids catch up, but wealthier children still pull ahead](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1108-schools-great-equalizer.md) — The Conversation · 2026-11-04 · 阅读导读与原刊入口。
