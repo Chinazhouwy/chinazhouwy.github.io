@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "path": "content/columns/english-reads/2026-daily-1111-ai-layoffs-productivity.md",
+  "title": "Layoffs tied to AI hurt worker productivity – and the reason may surprise managers",
+  "paragraphs": [
+    {
+      "english": "This page is an independently written reading guide to an article published by The Conversation on 12 August 2026. Its author is Mark Ma, Professor of Business Administration and Ben L. Fryrear Faculty Fellow at the University of Pittsburgh. The original is linked at the foot of the page. What follows traces the argument in order and explains the evidence it rests on; it is not a translation, and the wording is our own.",
+      "chinese": "本页是为《The Conversation》2026 年 8 月 12 日发表的一篇文章独立撰写的阅读导读。作者 Mark Ma 是匹兹堡大学工商管理教授，并任 Ben L. Fryrear 教席学者。原文链接见页尾。以下按顺序梳理文章论证，并解释它依据的证据；这不是原文翻译，文字由本站自己撰写。"
+    },
+    {
+      "english": "The article opens with a paradox rather than with a definition. Companies are putting more money into artificial intelligence than ever before, yet they are not seeing the productivity gains they expected from it. The gap between spending and result is the puzzle the piece sets out to explain.",
+      "chinese": "文章以一个悖论开头，而不是先下定义。企业正在向人工智能投入比以往更多的资金，却没有看到它们所期待的生产率提升。投入与结果之间的落差，就是全文要解释的谜题。"
+    },
+    {
+      "english": "The first move is to show that the puzzle is real and not a matter of perception. The author cites a study attributed to the Atlanta Federal Reserve in which about 90% of executives said AI had not yet raised productivity at their own companies. He also notes competing explanations for the productivity growth that has been observed since 2021 — remote work among them, and downsizing in sectors such as technology — which suggests the improvement may not be an AI effect at all.",
+      "chinese": "第一步是证明这个谜题真实存在，而不是观感问题。作者引用一项归于亚特兰大联邦储备银行的研究：约 90% 的高管表示，人工智能尚未提升自己公司的生产率。他也列出对 2021 年以来生产率增长的其他解释——其中包括远程办公，以及科技等行业裁员瘦身——这暗示改善或许根本不是人工智能带来的。"
+    },
+    {
+      "english": "Only then does he offer his own explanation. AI-driven layoffs, and the job insecurity that comes with them, are destroying the conditions under which AI could actually make workers more efficient. The mechanism he emphasises is sentiment: how employees feel about the technology turns out to be one of the strongest predictors of how productive a firm becomes when it uses that technology.",
+      "chinese": "到此他才给出自己的解释。由人工智能驱动的裁员，以及随之而来的职业不安全感，正在摧毁人工智能真正提高劳动者效率所需的条件。他强调的机制是情绪：员工对这项技术的感受，原来是一家公司在使用该技术后能否提高生产率的最强预测指标之一。"
+    },
+    {
+      "english": "The practical conclusion is stated early and repeated at the end. Cutting staff in the name of AI investment is self-defeating, because it cancels out part of the gain the investment was supposed to produce. Managers and investors, the author argues, should treat that as a warning rather than as a cost of doing business.",
+      "chinese": "实务结论在开头就已给出，并在结尾重复。以人工智能投资之名裁减员工是自我拆台的，因为它抵消了这项投资本应带来的部分收益。作者认为，管理者和投资者应把这看作警告，而不是做生意的正常成本。"
+    },
+    {
+      "english": "The evidence behind the claim is a large-scale pattern study rather than an experiment. The author and his colleagues analysed millions of employee satisfaction reviews, thousands of reports of corporate financial performance, and hundreds of AI investment and layoff announcements made by US public companies over the previous five years.",
+      "chinese": "支撑这一判断的证据，是一项大规模的模式研究，而不是实验。作者与同事分析了数百万条员工满意度评价、数千份企业财务业绩报告，以及过去五年间美国上市公司发布的数百项人工智能投资公告与裁员公告。"
+    },
+    {
+      "english": "The first result is a correlation. As the number of AI investment announcements rises, so does the number of announcements of job cuts attributed to AI. Two series of corporate statements move together across the sample.",
+      "chinese": "第一个结果是一种相关性。人工智能投资公告的数量上升时，被归因于人工智能的裁员公告数量也上升。两组企业声明在整个样本中同向变动。"
+    },
+    {
+      "english": "The author is careful to say why he thinks the correlation is not an accident. It reflects a strategy in which reducing the workforce is treated as part of the AI programme itself, not as an unrelated economy measure that happens to coincide with it.",
+      "chinese": "作者谨慎地说明了他为何认为这种相关性并非偶然。它反映的是一种把缩减人力当作人工智能计划本身一部分的战略，而不是恰好同时发生的、与此无关的节约措施。"
+    },
+    {
+      "english": "The logic behind that strategy is financial and short-term. Managers of listed companies are judged on whether a new investment improves profitability and the share price soon enough to matter. After a large AI investment, the pressure is to show a return quickly.",
+      "chinese": "这一战略背后的逻辑是财务性的、短期性的。上市公司的管理者要接受评判：一项新投资能否在足够快的时间内提升盈利能力和股价。在投入大笔人工智能资金之后，压力就在于尽快显示出回报。"
+    },
+    {
+      "english": "Headcount is the fastest lever available. If AI is assumed to make each employee more efficient, the same work can be done by fewer people, and cutting labour costs produces the expected saving almost immediately. Some of the companies studied went further and cut jobs before spending on AI, in order to free up the capital for it.",
+      "chinese": "人力是最快的杠杆。如果假定人工智能能让每个员工更有效率，同样的工作就能由更少的人完成，而削减人力成本几乎立刻产生预期中的节省。被研究的部分公司走得更远：先裁掉员工，再花钱投入人工智能，以便腾出资本。"
+    },
+    {
+      "english": "Markets, however, did not reward the move. When the researchers looked at share price reactions to these layoff announcements, the average return was close to zero. That is consistent with the author's earlier work, in which announcements of AI investment did not reliably lift a company's share price either.",
+      "chinese": "然而市场并没有奖励这一举动。研究者观察这些裁员公告后的股价反应，发现平均回报接近于零。这与作者早先的研究一致：那时人工智能投资公告同样没有稳定地抬升公司股价。"
+    },
+    {
+      "english": "There are exceptions. A few firms, among them the financial technology company Block, saw their shares rise on news that they would reduce staff because of AI. But across the sample, the reaction was negative or close to zero for more than half of the events.",
+      "chinese": "也有例外。少数公司——其中包括金融科技公司 Block——在传出将因人工智能而裁减员工的消息后股价上涨。但在整个样本中，超过一半的事件里，市场反应为负或接近于零。"
+    },
+    {
+      "english": "That muted response is the clue the article follows. If the market barely reacts to a decision presented as efficiency-enhancing, the decision probably carries costs that do not appear in the announcement. The rest of the piece is an account of those costs.",
+      "chinese": "这种平淡的反应正是文章接着追查的线索。如果市场对一项被描述为提升效率的决定几乎无动于衷，那么这项决定很可能带着公告里看不到的成本。文章的其余部分就在说明这些成本。"
+    },
+    {
+      "english": "The main hidden cost is fear. Employees are placed in a double bind: they are expected to adopt AI in their daily work in order to be more efficient, while the same technology is presented as a reason why their jobs may disappear.",
+      "chinese": "主要的隐性成本是恐惧。员工被置于两难之中：一方面，他们被要求在日常工作中采用人工智能以提高效率；另一方面，同一项技术又被说成他们可能失业的理由。"
+    },
+    {
+      "english": "To measure how workers respond, the researchers analysed AI-related comments in employee reviews on Glassdoor and compared their tone with the tone of reviews overall. The AI-related comments were markedly more negative.",
+      "chinese": "为了衡量员工如何回应，研究者分析了 Glassdoor 员工评价中与人工智能有关的评论，并把它们的语气与整体评价的语气作了比较。与人工智能相关的评论明显更为负面。"
+    },
+    {
+      "english": "The consequence is measured as an association, and the wording matters. The author reports a strong link between employee sentiment toward AI and firm productivity, calculated from the employers' financial information, and reads it as evidence that hostility to AI lowers productivity and offsets potential gains. Because the design is observational, the direction of cause and effect is argued rather than demonstrated.",
+      "chinese": "其后果是以“关联”的方式测量的，这里的措辞很重要。作者报告：员工对人工智能的态度与公司生产率之间存在强关联，后者依据雇主的财务信息计算；他据此认为，员工对人工智能的抵触会降低生产率，抵消潜在收益。由于研究设计是观察性的，因果方向是被论证出来的，而不是被证明的。"
+    },
+    {
+      "english": "The reviews also say what is driving the hostility. Alongside fear of losing a job to AI, employees cited a lack of proper training, few chances to upgrade their skills, weak corporate leadership on AI, and doubt about whether the tools improve productivity at all. Of these, comments about job security were the most critical by a wide margin.",
+      "chinese": "这些评价也说明了敌意从何而来。除了害怕工作被人工智能取代，员工还提到缺乏适当培训、很少有机会提升技能、公司在人工智能上领导不力，以及怀疑这些工具究竟能否提高生产率。其中，关于职业安全感的评论最为严厉，且差距很大。"
+    },
+    {
+      "english": "The author then tests the mechanism directly. When a company announced layoffs because of AI, sentiment toward AI fell sharply. Employees appear to resist the technology partly because they have watched colleagues lose their jobs to it or expect to be next; the article supports this with a Reuters/Ipsos poll in which half of Americans said they feared AI could put someone in their household out of work.",
+      "chinese": "接着作者直接检验这一机制。当一家公司宣布因人工智能而裁员时，员工对人工智能的态度急剧转差。员工似乎部分因为目睹同事因此失业、或担心下一个是自己而抵制这项技术；文章用一项路透社/益普索民调作为支持：半数美国人担心人工智能会让家中某人失去工作。"
+    },
+    {
+      "english": "Management sounds different. Analysing the tone of AI-related discussion in about 10,000 earnings-call transcripts, the researchers found it consistently optimistic — and found no significant relationship between that optimism and later productivity.",
+      "chinese": "管理层的声音则不同。研究者分析了约一万份财报电话会议记录中与人工智能有关的讨论语气，发现其始终乐观——同时发现这种乐观与后来的生产率之间没有显著关系。"
+    },
+    {
+      "english": "Hence the article's ranking of the two. What employees feel about AI matters more for extracting value from it than what executives say about it. The prescription follows: firms should make workers feel that AI is working with them, and should share the gains by investing in skills and widening opportunity instead of cutting staff. The author's image for the alternative is an “AI hunger game” that spreads fear where engagement is needed.",
+      "chinese": "于是文章给两者排了序。要让人工智能产生价值，员工对它的感受比高管对它的说法更重要。建议随之而来：公司应让员工感到人工智能是在与他们协作，并通过投资技能、扩大机会来分享收益，而不是裁员。作者给另一种做法起的名字是“人工智能饥饿游戏”：它散布恐惧，而企业需要的恰恰是投入。"
+    },
+    {
+      "english": "For a reader of English, the piece is a useful example of how a data-driven argument is assembled. It sets up a paradox, supplies a mechanism, tests the mechanism on a second body of evidence, and then states a policy conclusion. Notice, too, how carefully the causal language is graded: correlation, association, predictor, in our view. Those words mark how much the evidence can carry, and a reader who ignores them will overstate the finding.",
+      "chinese": "对英语读者来说，这篇文章是观察数据型论证如何搭建的好例子。它先设一个悖论，给出一个机制，再用另一组证据检验该机制，最后提出政策结论。也请注意因果语言的等级划分：相关性、关联、预测指标、在我们看来。这些词标明了证据能承受到哪一步；忽略它们的读者会夸大结论。"
+    },
+    {
+      "english": "The vocabulary is mostly the language of management and statistics: productivity, headcount, labour costs, sentiment, layoffs, correlation, observational data, return on investment. Several of them are ordinary words doing technical work — headcount means the number of employees, and sentiment means measured tone rather than a private mood.",
+      "chinese": "文中的词汇主要来自管理与统计：生产率、员工人数、人力成本、情绪、裁员、相关性、观察数据、投资回报。其中几个是普通词承担技术含义——headcount 指员工人数，sentiment 指的是被测量出来的语调，而不是私下的心情。"
+    },
+    {
+      "english": "Here is an editor-written practice sentence, not a quotation from the original article: A company that announces record spending on artificial intelligence and simultaneous redundancies is asking its remaining staff to trust the very tool it has just used against their colleagues, and that contradiction is expensive in ways the announcement does not show.",
+      "chinese": "下面是一句编辑自拟的练习句，不是原文引用：一家公司一边宣布在人工智能上创纪录的投入，一边宣布裁员，就等于要求留下的员工信任那件刚刚被用来对付他们同事的工具，而这种矛盾所带来的代价，是公告里看不到的。"
+    },
+    {
+      "english": "That sentence is also a fair summary of the author's position. He is not arguing that AI fails to raise productivity in principle, nor that no firm should ever reduce its workforce. He is arguing that the way the technology is introduced — and specifically whether employees experience it as a threat — determines how much of its promised value a company can actually collect.",
+      "chinese": "这句话也相当准确地概括了作者的立场。他并不是在主张人工智能在原则上无法提高生产率，也不是说任何公司都不该缩减人力。他主张的是：这项技术被引入的方式——特别是员工是否把它体验为威胁——决定了一家公司究竟能拿到多少它承诺的价值。"
+    }
+  ],
+  "sentenceNotes": [
+    {
+      "sentence": "The mechanism he emphasises is sentiment: how employees feel about the technology turns out to be one of the strongest predictors of how productive a firm becomes when it uses that technology.",
+      "mainClause": "The mechanism ... is sentiment（主语 The mechanism，系动词 is，表语 sentiment）。",
+      "structure": "冒号后的 how employees feel about the technology 是主语从句，作 sentiment 的解释；turns out to be 后接 one of the strongest predictors，再由 of how productive a firm becomes 修饰 predictors；when it uses that technology 是时间状语从句。",
+      "translation": "他强调的机制是情绪：员工对这项技术的感受，原来是一家公司在使用该技术后生产率高低的最强预测指标之一。",
+      "tip": "注意 turns out to be 表示“结果发现”，不是“证明”；predictor of 后面接的是被预测的对象，别把 how productive a firm becomes 误读成条件。"
+    },
+    {
+      "sentence": "Because the design is observational, the direction of cause and effect is argued rather than demonstrated.",
+      "mainClause": "the direction of cause and effect is argued（主系表结构，is argued 为被动）。",
+      "structure": "Because the design is observational 是原因状语从句；rather than demonstrated 与 argued 并列，省略了 is，构成 is argued rather than (is) demonstrated。",
+      "translation": "由于研究设计是观察性的，因果方向是被论证出来的，而不是被证明的。",
+      "tip": "argued rather than demonstrated 是学术写作中常见的降级表达：作者承认证据强度有限。阅读题若问作者态度，这类措辞往往就是答案所在。"
+    },
+    {
+      "sentence": "He is not arguing that AI fails to raise productivity in principle, nor that no firm should ever reduce its workforce.",
+      "mainClause": "He is not arguing ... nor (is he arguing) ...（否定并列谓语）。",
+      "structure": "两个 that 从句并列作 arguing 的宾语；nor 后接倒装结构并省略重复的 he is arguing，形成 not ... nor ... 的全否定框架。",
+      "translation": "他并不是在主张人工智能在原则上无法提高生产率，也不是说任何公司都不该缩减人力。",
+      "tip": "not ... nor ... 用来同时排除两种误读，通常出现在作者要收窄自己主张的地方；读到它，说明前文的结论比看上去更有限定条件。"
+    }
+  ]
+}
