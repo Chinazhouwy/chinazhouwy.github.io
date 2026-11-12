@@ -23,6 +23,8 @@ Short readings on technology, society, education, the environment, and everyday 
 
 Fresh selections and reading guides, kept separate from the archive. Each guide links to the original publication and labels its own practice material.
 
+- [Why your brain has to work harder in an open-plan office than private offices: study](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1112-open-plan-office-brain.md) — The Conversation · 2026-02-15 · 阅读导读与原刊入口。
+
 - [Layoffs tied to AI hurt worker productivity – and the reason may surprise managers](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1111-ai-layoffs-productivity.md) — The Conversation · 2026-08-12 · 阅读导读与原刊入口。
 
 - [New towns are back – but this time they must be more walkable](#/article/content%2Fcolumns%2Fenglish-reads%2F2026-daily-1110-new-towns-walkable.md) — The Conversation · 2026-05-21 · 阅读导读与原刊入口。
