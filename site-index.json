@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12T00:00:00+08:00",
+  "generatedAt": "2026-11-14T00:00:00+08:00",
   "articles": [
     {
       "title": "Why your brain has to work harder in an open-plan office than private offices: study",
@@ -9741,7 +9741,7 @@
   ],
   "dashboard": {
     "today": {
-      "date": "2026-11-12",
+      "date": "2026-11-14",
       "count": 0,
       "averageScore": null
     },
@@ -9750,16 +9750,6 @@
     "averageScore": null,
     "streakDays": 0,
     "daily": [
-      {
-        "date": "2026-10-30",
-        "count": 0,
-        "averageScore": null
-      },
-      {
-        "date": "2026-10-31",
-        "count": 0,
-        "averageScore": null
-      },
       {
         "date": "2026-11-01",
         "count": 0,
@@ -9817,6 +9807,16 @@
       },
       {
         "date": "2026-11-12",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-11-13",
+        "count": 0,
+        "averageScore": null
+      },
+      {
+        "date": "2026-11-14",
         "count": 0,
         "averageScore": null
       }
